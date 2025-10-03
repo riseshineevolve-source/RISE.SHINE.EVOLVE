@@ -29,7 +29,7 @@
         }
 
         .main-text {
-            font-size: clamp(3rem, 8vw, 8rem);
+            font-size: clamp(1.8rem, 4.5vw, 3.5rem);
             font-weight: 900;
             letter-spacing: 0.2em;
             background: linear-gradient(45deg, #c9b037, #daa520, #e6e6e6, #c9b037, #daa520);
@@ -78,7 +78,7 @@
         .sparkle:nth-child(6) { top: 30%; left: 30%; animation-delay: 0.8s; }
 
         .subtitle {
-            font-size: clamp(1rem, 2.5vw, 1.5rem);
+            font-size: clamp(0.7rem, 1.5vw, 0.9rem);
             background: linear-gradient(45deg, #8a2be2, #9932cc, #ba55d3, #8a2be2);
             background-size: 300% 300%;
             -webkit-background-clip: text;
@@ -90,6 +90,27 @@
             font-family: 'Orbitron', monospace;
             text-shadow: 0 0 20px rgba(138, 43, 226, 0.6);
             animation: fadeInUp 2s ease-out, purpleShimmer 3s ease-in-out infinite;
+            text-align: right;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: 0;
+            padding-right: 2rem;
+        }
+
+        .category {
+            font-size: clamp(0.9rem, 1.8vw, 1.2rem);
+            background: linear-gradient(45deg, #ff69b4, #ff1493, #ff6fa8, #ff69b4);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-top: 0.5rem;
+            letter-spacing: 0.2em;
+            font-weight: 600;
+            font-family: 'Playfair Display', serif;
+            text-shadow: 0 0 15px rgba(255, 105, 180, 0.4);
+            animation: fadeInUp 2s ease-out 0.3s both, pinkShimmer 4s ease-in-out infinite;
+            opacity: 0.9;
         }
 
         @keyframes shimmer {
@@ -145,6 +166,28 @@
             50% { 
                 background-position: 100% 50%;
                 text-shadow: 0 0 30px rgba(138, 43, 226, 0.9), 0 0 50px rgba(186, 85, 211, 0.5);
+            }
+        }
+
+        @keyframes goldShimmer {
+            0%, 100% { 
+                background-position: 0% 50%;
+                text-shadow: 0 0 15px rgba(201, 176, 55, 0.4);
+            }
+            50% { 
+                background-position: 100% 50%;
+                text-shadow: 0 0 25px rgba(201, 176, 55, 0.7), 0 0 40px rgba(255, 215, 0, 0.4);
+            }
+        }
+
+        @keyframes pinkShimmer {
+            0%, 100% { 
+                background-position: 0% 50%;
+                text-shadow: 0 0 15px rgba(255, 105, 180, 0.4);
+            }
+            50% { 
+                background-position: 100% 50%;
+                text-shadow: 0 0 25px rgba(255, 105, 180, 0.7), 0 0 40px rgba(255, 20, 147, 0.4);
             }
         }
 
@@ -228,7 +271,7 @@
         }
 
         .intro-text {
-            font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+            font-size: clamp(1rem, 2vw, 1.4rem);
             font-family: 'Playfair Display', serif;
             font-weight: 600;
             color: #ffffff;
@@ -252,7 +295,7 @@
         }
 
         .intro-motto {
-            font-size: clamp(1.3rem, 2.8vw, 2rem);
+            font-size: clamp(1rem, 2vw, 1.4rem);
             font-family: 'Orbitron', monospace;
             font-weight: 700;
             color: #ffffff;
@@ -263,39 +306,30 @@
         }
 
         .project-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 215, 0, 0.2);
-            border-radius: 20px;
-            padding: 2rem;
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 2.5rem;
             margin-bottom: 2rem;
             position: relative;
             overflow: hidden;
             animation: fadeInUp 2s ease-out;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
         }
 
         .project-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(255, 215, 0, 0.5);
-            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.2);
+            transform: translateY(-8px);
+            border-color: rgba(201, 176, 55, 0.3);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            background: rgba(255, 255, 255, 0.04);
         }
 
         .project-card.clickable:hover .click-indicator {
             opacity: 1;
             transform: translateX(0);
-        }
-
-        .project-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.1), transparent);
-            animation: cardShine 8s ease-in-out infinite;
         }
 
         .project-name {
@@ -383,11 +417,7 @@
             50% { background-position: 100% 50%; }
         }
 
-        @keyframes cardShine {
-            0% { left: -100%; }
-            50% { left: 100%; }
-            100% { left: 100%; }
-        }
+
 
         .brilliance-glow {
             background: linear-gradient(45deg, #ffd700, #ffed4e, #fff700, #ffd700);
@@ -489,8 +519,40 @@
         .project-icon {
             display: flex;
             justify-content: center;
-            margin-bottom: 1.5rem;
-            filter: drop-shadow(0 0 10px rgba(201, 176, 55, 0.3));
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .project-icon::before {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #c9b037, #daa520, #b8860b);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+            box-shadow: 0 8px 25px rgba(201, 176, 55, 0.3);
+        }
+
+        .project-icon svg {
+            z-index: 1;
+            position: relative;
+        }
+
+        .project-icon svg * {
+            stroke: #8a2be2 !important;
+            fill: #8a2be2 !important;
+        }
+
+        .project-icon svg rect[fill="none"] {
+            fill: none !important;
+        }
+
+        .project-icon svg rect[fill*="rgba"] {
+            fill: rgba(138, 43, 226, 0.1) !important;
         }
 
         .feature-grid {
@@ -655,6 +717,127 @@
             font-weight: 700;
             text-shadow: 0 0 10px rgba(162, 155, 254, 0.3);
         }
+
+        .center-showcase {
+            min-height: 300px;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 2px dashed rgba(201, 176, 55, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .showcase-placeholder {
+            text-align: center;
+            opacity: 0.8;
+        }
+
+        .activities-summary {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            margin: 3rem 0;
+            flex-wrap: wrap;
+        }
+
+        .summary-card {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            flex: 1;
+            max-width: 250px;
+            min-width: 200px;
+        }
+
+        .summary-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(201, 176, 55, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .summary-icon {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .summary-icon::before {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #c9b037, #daa520, #b8860b);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+            box-shadow: 0 6px 20px rgba(201, 176, 55, 0.3);
+        }
+
+        .summary-icon svg * {
+            stroke: #8a2be2 !important;
+            fill: #8a2be2 !important;
+        }
+
+        .summary-icon svg rect[fill="none"] {
+            fill: none !important;
+        }
+
+        .summary-icon svg rect[fill*="rgba"] {
+            fill: rgba(138, 43, 226, 0.1) !important;
+        }
+
+        .summary-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, #8a2be2, #ba55d3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 0 0 0.8rem 0;
+            letter-spacing: 0.05em;
+            text-align: center;
+        }
+
+        .summary-description {
+            color: #ffffff;
+            opacity: 0.9;
+            line-height: 1.5;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            font-family: 'Playfair Display', serif;
+            font-weight: 400;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .activities-summary {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .summary-card {
+                max-width: 100%;
+                width: 100%;
+            }
+            
+            .center-showcase {
+                min-height: 250px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -667,18 +850,19 @@
         <div class="sparkle"></div>
         
         <h1 class="main-text">RISE.SHINE.EVOLVE</h1>
+        <p class="category">Empowering Education</p>
         <p class="subtitle">J.R.Zee</p>
         
         <div class="intro-section" id="main-intro" style="margin: 3rem auto 2rem auto; max-width: 600px;">
-            <p class="intro-text">You were born to <span class="highlight-rise">RISE</span>.</p>
-            <p class="intro-text">Your inner potential gives you the power to <span class="highlight-shine">SHINE</span>.</p>
-            <p class="intro-text">When you embrace that power, you're ready to <span class="highlight-evolve">EVOLVE</span>.</p>
+            <p class="intro-text">Join us on a journey where every child can <span class="highlight-rise">RISE</span>,</p>
+            <p class="intro-text">every family can <span class="highlight-shine">SHINE</span>,</p>
+            <p class="intro-text">and every person can <span class="highlight-evolve">EVOLVE</span>.</p>
         </div>
         
         <div class="intro-section" id="kids-intro" style="margin: 3rem auto 2rem auto; max-width: 600px; display: none;">
-            <p class="intro-text">Every child has the courage to <span class="highlight-rise">RISE</span>.</p>
-            <p class="intro-text">Curiosity and wonder help the child <span class="highlight-shine">SHINE</span>.</p>
-            <p class="intro-text">Through play and learning, a child can <span class="highlight-evolve">EVOLVE</span>.</p>
+            <p class="intro-text">Watch your child <span class="highlight-rise">RISE</span> to new adventures!</p>
+            <p class="intro-text">See their natural curiosity <span class="highlight-shine">SHINE</span> bright!</p>
+            <p class="intro-text">Together, you'll <span class="highlight-evolve">EVOLVE</span> into an unstoppable team!</p>
         </div>
         
         <div class="intro-section" id="teenagers-intro" style="margin: 3rem auto 2rem auto; max-width: 600px; display: none;">
@@ -718,9 +902,9 @@
             <!-- MAIN Section -->
             <div id="main-section" class="section-content active">
                 <div class="intro-section">
-                    <p class="intro-text">Join us on a journey where every child can <span class="highlight-rise">RISE</span>,</p>
-                    <p class="intro-text">every family can <span class="highlight-shine">SHINE</span>,</p>
-                    <p class="intro-text">and every person can <span class="highlight-evolve">EVOLVE</span>.</p>
+                    <p class="intro-text">You were born to <span class="highlight-rise">RISE</span>.</p>
+                    <p class="intro-text">Your inner potential gives you the power to <span class="highlight-shine">SHINE</span>.</p>
+                    <p class="intro-text">When you embrace that power, you're ready to <span class="highlight-evolve">EVOLVE</span>.</p>
                 </div>
             </div>
 
@@ -730,108 +914,82 @@
                     <p class="intro-description">Give Your Child the Power to Shine!<br>Our materials offer a unique toolkit for young minds.<br>We help your child master new skills, build confidence<br>and discover their unique talents, setting them on a path to <span class="brilliance-glow">brilliance</span>.</p>
                 </div>
                 
-                <div class="scratch-notes-section">
-                    <div class="scratch-note">
-                        <div class="note-header">📚 The Rise.Shine.Evolve KIDS</div>
-                        <p>is a collection of educational materials designed to spark <span class="highlight-joy">joy</span> and <span class="highlight-curiosity">curiosity</span> in kids.</p>
+
+                
+                <div class="center-showcase">
+                    <div class="showcase-placeholder">
+                        <h3 style="color: #c9b037; font-family: 'Orbitron', monospace; font-size: 1.5rem; margin-bottom: 1rem;">Book Showcase</h3>
+                        <p style="color: #ff69b4; font-family: 'Orbitron', monospace; font-size: 1.2rem; font-weight: 700; text-align: center; margin: 1.5rem 0; background: linear-gradient(45deg, #ff69b4, #ff1493, #ff6fa8, #ff69b4); background-size: 300% 300%; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; animation: pinkShimmer 3s ease-in-out infinite; text-shadow: 0 0 15px rgba(255, 105, 180, 0.4);">New series</p>
+                        <p style="color: #ffffff; font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 600; text-align: center; margin: 1rem 0;">Meet The Happy-Makers!</p>
+                    </div>
+                </div>
+                
+                <div class="activities-summary">
+                    <div class="summary-card" style="max-width: 180px; padding: 1rem;">
+                        <div class="summary-icon">
+                            <svg width="25" height="25" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="8" y="10" width="44" height="40" rx="3" fill="none" stroke="#c9b037" stroke-width="2.5" opacity="0.9">
+                                    <animate attributeName="opacity" values="0.7;1;0.7" dur="3s" repeatCount="indefinite"/>
+                                </rect>
+                                <rect x="12" y="14" width="36" height="32" rx="2" fill="rgba(138, 43, 226, 0.1)" stroke="#8a2be2" stroke-width="1.5"/>
+                                <line x1="16" y1="20" x2="44" y2="20" stroke="#8a2be2" stroke-width="1.5" opacity="0.8"/>
+                                <line x1="16" y1="25" x2="40" y2="25" stroke="#8a2be2" stroke-width="1.5" opacity="0.7"/>
+                                <line x1="16" y1="30" x2="42" y2="30" stroke="#8a2be2" stroke-width="1.5" opacity="0.6"/>
+                                <line x1="16" y1="35" x2="38" y2="35" stroke="#8a2be2" stroke-width="1.5" opacity="0.5"/>
+                                <circle cx="50" cy="15" r="3" fill="#c9b037">
+                                    <animate attributeName="r" values="2;4;2" dur="2s" repeatCount="indefinite"/>
+                                    <animate attributeName="opacity" values="0.5;1;0.5" dur="2s" repeatCount="indefinite"/>
+                                </circle>
+                            </svg>
+                        </div>
+                        <h4 class="summary-title" style="font-size: 0.95rem;">Stories + Activities</h4>
+                        <p class="summary-description" style="font-size: 0.8rem;">Strengthen family bonds<br>Turn learning into an adventure</p>
                     </div>
                     
-                    <div class="scratch-note">
-                        <div class="note-header">🎯 Our Approach</div>
-                        <p>We use captivating <span class="highlight-stories">stories</span> and fun <span class="highlight-activities">activities</span> to strengthen family bonds and turn learning into an exciting adventure.</p>
+                    <div class="summary-card" style="max-width: 180px; padding: 1rem;">
+                        <div class="summary-icon">
+                            <svg width="25" height="25" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="10" y="15" width="40" height="30" rx="4" fill="none" stroke="#c9b037" stroke-width="2.5" stroke-dasharray="2,2">
+                                    <animate attributeName="stroke-dashoffset" values="0;4" dur="2s" repeatCount="indefinite"/>
+                                </rect>
+                                <rect x="14" y="19" width="32" height="22" rx="2" fill="rgba(138, 43, 226, 0.1)"/>
+                                <circle cx="20" cy="25" r="2" fill="#8a2be2" opacity="0.8"/>
+                                <circle cx="30" cy="25" r="2" fill="#8a2be2" opacity="0.8"/>
+                                <circle cx="40" cy="25" r="2" fill="#8a2be2" opacity="0.8"/>
+                                <rect x="18" y="30" width="24" height="2" fill="#c9b037" opacity="0.7"/>
+                                <rect x="18" y="34" width="20" height="2" fill="#c9b037" opacity="0.6"/>
+                            </svg>
+                        </div>
+                        <h4 class="summary-title" style="font-size: 0.95rem;">Educational Materials</h4>
+                        <p class="summary-description" style="font-size: 0.8rem;">Designed to spark joy and curiosity in kids</p>
                     </div>
                     
-                    <div class="scratch-note">
-                        <div class="note-header">💡 Our Philosophy</div>
-                        <p>We believe that true development comes from being <span class="highlight-active">active</span>, building strong <span class="highlight-relationships">relationships</span>, and a passion for <span class="highlight-discovery">discovery</span>. Our materials promote active learning while introducing key concepts in a natural, fun way.</p>
-                    </div>
-                </div>
-                
-                <div class="project-card clickable" onclick="openStoriesPage()">
-                    <div class="project-icon">
-                        <svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="8" y="10" width="44" height="40" rx="3" fill="none" stroke="#c9b037" stroke-width="2.5" opacity="0.9">
-                                <animate attributeName="opacity" values="0.7;1;0.7" dur="3s" repeatCount="indefinite"/>
-                            </rect>
-                            <rect x="12" y="14" width="36" height="32" rx="2" fill="rgba(138, 43, 226, 0.1)" stroke="#8a2be2" stroke-width="1.5"/>
-                            <line x1="16" y1="20" x2="44" y2="20" stroke="#8a2be2" stroke-width="1.5" opacity="0.8"/>
-                            <line x1="16" y1="25" x2="40" y2="25" stroke="#8a2be2" stroke-width="1.5" opacity="0.7"/>
-                            <line x1="16" y1="30" x2="42" y2="30" stroke="#8a2be2" stroke-width="1.5" opacity="0.6"/>
-                            <line x1="16" y1="35" x2="38" y2="35" stroke="#8a2be2" stroke-width="1.5" opacity="0.5"/>
-                            <circle cx="50" cy="15" r="3" fill="#c9b037">
-                                <animate attributeName="r" values="2;4;2" dur="2s" repeatCount="indefinite"/>
-                                <animate attributeName="opacity" values="0.5;1;0.5" dur="2s" repeatCount="indefinite"/>
-                            </circle>
-                        </svg>
-                    </div>
-                    <h4 class="project-name">Stories + Activities</h4>
-                    <p class="project-description">
-                        Strengthen family bonds<br>
-                        Turn learning into an adventure
-                    </p>
-                    <div class="click-indicator">Click to explore →</div>
-                </div>
-                
-                <div class="project-card">
-                    <div class="project-icon">
-                        <svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="10" y="15" width="40" height="30" rx="4" fill="none" stroke="#c9b037" stroke-width="2.5" stroke-dasharray="2,2">
-                                <animate attributeName="stroke-dashoffset" values="0;4" dur="2s" repeatCount="indefinite"/>
-                            </rect>
-                            <rect x="14" y="19" width="32" height="22" rx="2" fill="rgba(138, 43, 226, 0.1)"/>
-                            <circle cx="20" cy="25" r="2" fill="#8a2be2" opacity="0.8"/>
-                            <circle cx="30" cy="25" r="2" fill="#8a2be2" opacity="0.8"/>
-                            <circle cx="40" cy="25" r="2" fill="#8a2be2" opacity="0.8"/>
-                            <rect x="18" y="30" width="24" height="2" fill="#c9b037" opacity="0.7"/>
-                            <rect x="18" y="34" width="20" height="2" fill="#c9b037" opacity="0.6"/>
-                            <rect x="5" y="20" width="8" height="3" fill="#c9b037" opacity="0.8">
-                                <animateTransform attributeName="transform" type="translateX" values="0;2;0" dur="3s" repeatCount="indefinite"/>
-                            </rect>
-                            <rect x="47" y="35" width="8" height="3" fill="#c9b037" opacity="0.8">
-                                <animateTransform attributeName="transform" type="translateX" values="0;-2;0" dur="3s" repeatCount="indefinite"/>
-                            </rect>
-                        </svg>
-                    </div>
-                    <h4 class="project-name">Educational Materials</h4>
-                    <p class="project-description">
-                        Designed to spark joy and curiosity in kids
-                    </p>
-                    <p class="project-coming-soon">Coming soon.</p>
-                </div>
-                
-                <div class="project-card">
-                    <div class="project-icon">
-                        <svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
-                            <g transform="translate(30,30)">
-                                <circle r="18" fill="none" stroke="#c9b037" stroke-width="2" opacity="0.3">
-                                    <animate attributeName="r" values="16;20;16" dur="4s" repeatCount="indefinite"/>
-                                </circle>
-                                <circle r="12" fill="none" stroke="#8a2be2" stroke-width="1.5" opacity="0.5">
-                                    <animate attributeName="r" values="10;14;10" dur="3s" repeatCount="indefinite"/>
-                                </circle>
-                                <g>
-                                    <animateTransform attributeName="transform" type="rotate" values="0;360" dur="8s" repeatCount="indefinite"/>
-                                    <path d="M0,-10 L3,-7 L0,-4 L-3,-7 Z" fill="#c9b037"/>
-                                    <path d="M10,0 L7,3 L4,0 L7,-3 Z" fill="#c9b037"/>
-                                    <path d="M0,10 L3,7 L0,4 L-3,7 Z" fill="#c9b037"/>
-                                    <path d="M-10,0 L-7,3 L-4,0 L-7,-3 Z" fill="#c9b037"/>
-                                    <path d="M7,-7 L10,-4 L7,-1 L4,-4 Z" fill="#8a2be2" opacity="0.8"/>
-                                    <path d="M7,7 L10,4 L7,1 L4,4 Z" fill="#8a2be2" opacity="0.8"/>
-                                    <path d="M-7,7 L-4,10 L-1,7 L-4,4 Z" fill="#8a2be2" opacity="0.8"/>
-                                    <path d="M-7,-7 L-4,-10 L-1,-7 L-4,-4 Z" fill="#8a2be2" opacity="0.8"/>
+                    <div class="summary-card" style="max-width: 180px; padding: 1rem;">
+                        <div class="summary-icon">
+                            <svg width="25" height="25" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                                <g transform="translate(30,30)">
+                                    <circle r="18" fill="none" stroke="#c9b037" stroke-width="2" opacity="0.3">
+                                        <animate attributeName="r" values="16;20;16" dur="4s" repeatCount="indefinite"/>
+                                    </circle>
+                                    <circle r="12" fill="none" stroke="#8a2be2" stroke-width="1.5" opacity="0.5">
+                                        <animate attributeName="r" values="10;14;10" dur="3s" repeatCount="indefinite"/>
+                                    </circle>
+                                    <g>
+                                        <animateTransform attributeName="transform" type="rotate" values="0;360" dur="8s" repeatCount="indefinite"/>
+                                        <path d="M0,-10 L3,-7 L0,-4 L-3,-7 Z" fill="#c9b037"/>
+                                        <path d="M10,0 L7,3 L4,0 L7,-3 Z" fill="#c9b037"/>
+                                        <path d="M0,10 L3,7 L0,4 L-3,7 Z" fill="#c9b037"/>
+                                        <path d="M-10,0 L-7,3 L-4,0 L-7,-3 Z" fill="#c9b037"/>
+                                    </g>
+                                    <circle r="4" fill="#c9b037" opacity="0.9">
+                                        <animate attributeName="opacity" values="0.7;1;0.7" dur="2s" repeatCount="indefinite"/>
+                                    </circle>
                                 </g>
-                                <circle r="4" fill="#c9b037" opacity="0.9">
-                                    <animate attributeName="opacity" values="0.7;1;0.7" dur="2s" repeatCount="indefinite"/>
-                                </circle>
-                            </g>
-                        </svg>
+                            </svg>
+                        </div>
+                        <h4 class="summary-title" style="font-size: 0.95rem;">Active Learning</h4>
+                        <p class="summary-description" style="font-size: 0.8rem;">Building relationships<br>Passion for discovery</p>
                     </div>
-                    <h4 class="project-name">Active Learning</h4>
-                    <p class="project-description">
-                        Building relationships<br>
-                        Passion for discovery
-                    </p>
-                    <p class="project-coming-soon">Coming soon.</p>
                 </div>
                 
                 <div class="intro-section" style="margin-top: 3rem;">
@@ -842,19 +1000,80 @@
             <!-- TEENAGERS Section -->
             <div id="teenagers-section" class="section-content">
                 <div class="intro-section">
+                    <p style="color: #ffd700; font-family: 'Orbitron', monospace; font-size: 1.2rem; font-weight: 700; text-align: center; margin: 1.5rem 0; background: linear-gradient(45deg, #c9b037, #daa520, #b8860b, #c9b037); background-size: 300% 300%; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; animation: goldShimmer 3s ease-in-out infinite; text-shadow: 0 0 15px rgba(201, 176, 55, 0.4);">Coming soon</p>
                     <p class="intro-description">Specially designed materials for teenagers to build confidence, develop critical thinking skills, and prepare for the exciting journey ahead.</p>
                 </div>
                 
-                <div class="project-card">
-                    <h4 class="project-name">The Rise.Shine.Evolve TEENAGERS Project</h4>
-                    <p class="project-description">
-                        Empowering teenagers with tools for self-discovery, emotional intelligence, and leadership skills that will serve them throughout their lives.
-                    </p>
-                    <p class="project-description">
-                        Our interactive workshops and materials help teens navigate the complexities of adolescence while building a strong foundation for their future.
-                    </p>
-                    <p class="project-coming-soon">Coming soon.</p>
+                <!-- Hidden for now - can be restored later -->
+                <div class="activities-summary" style="margin: 3rem auto; display: none;">
+                    <div class="summary-card" style="max-width: 180px; padding: 1rem;">
+                        <div class="summary-icon">
+                            <svg width="25" height="25" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="8" y="10" width="44" height="40" rx="3" fill="none" stroke="#c9b037" stroke-width="2.5" opacity="0.9">
+                                    <animate attributeName="opacity" values="0.7;1;0.7" dur="3s" repeatCount="indefinite"/>
+                                </rect>
+                                <rect x="12" y="14" width="36" height="32" rx="2" fill="rgba(138, 43, 226, 0.1)" stroke="#8a2be2" stroke-width="1.5"/>
+                                <line x1="16" y1="20" x2="44" y2="20" stroke="#8a2be2" stroke-width="1.5" opacity="0.8"/>
+                                <line x1="16" y1="25" x2="40" y2="25" stroke="#8a2be2" stroke-width="1.5" opacity="0.7"/>
+                                <line x1="16" y1="30" x2="42" y2="30" stroke="#8a2be2" stroke-width="1.5" opacity="0.6"/>
+                                <line x1="16" y1="35" x2="38" y2="35" stroke="#8a2be2" stroke-width="1.5" opacity="0.5"/>
+                                <circle cx="50" cy="15" r="3" fill="#c9b037">
+                                    <animate attributeName="r" values="2;4;2" dur="2s" repeatCount="indefinite"/>
+                                    <animate attributeName="opacity" values="0.5;1;0.5" dur="2s" repeatCount="indefinite"/>
+                                </circle>
+                            </svg>
+                        </div>
+                        <h4 class="summary-title" style="font-size: 0.95rem;">Self-Discovery Tools</h4>
+                        <p class="summary-description" style="font-size: 0.8rem;">Identity exploration<br>Emotional intelligence building</p>
+                    </div>
+                    
+                    <div class="summary-card" style="max-width: 180px; padding: 1rem;">
+                        <div class="summary-icon">
+                            <svg width="25" height="25" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="10" y="15" width="40" height="30" rx="4" fill="none" stroke="#c9b037" stroke-width="2.5" stroke-dasharray="2,2">
+                                    <animate attributeName="stroke-dashoffset" values="0;4" dur="2s" repeatCount="indefinite"/>
+                                </rect>
+                                <rect x="14" y="19" width="32" height="22" rx="2" fill="rgba(138, 43, 226, 0.1)"/>
+                                <circle cx="20" cy="25" r="2" fill="#8a2be2" opacity="0.8"/>
+                                <circle cx="30" cy="25" r="2" fill="#8a2be2" opacity="0.8"/>
+                                <circle cx="40" cy="25" r="2" fill="#8a2be2" opacity="0.8"/>
+                                <rect x="18" y="30" width="24" height="2" fill="#c9b037" opacity="0.7"/>
+                                <rect x="18" y="34" width="20" height="2" fill="#c9b037" opacity="0.6"/>
+                            </svg>
+                        </div>
+                        <h4 class="summary-title" style="font-size: 0.95rem;">Interactive Workshops</h4>
+                        <p class="summary-description" style="font-size: 0.8rem;">Life skills development<br>Future preparation guides</p>
+                    </div>
+                    
+                    <div class="summary-card" style="max-width: 180px; padding: 1rem;">
+                        <div class="summary-icon">
+                            <svg width="25" height="25" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                                <g transform="translate(30,30)">
+                                    <circle r="18" fill="none" stroke="#c9b037" stroke-width="2" opacity="0.3">
+                                        <animate attributeName="r" values="16;20;16" dur="4s" repeatCount="indefinite"/>
+                                    </circle>
+                                    <circle r="12" fill="none" stroke="#8a2be2" stroke-width="1.5" opacity="0.5">
+                                        <animate attributeName="r" values="10;14;10" dur="3s" repeatCount="indefinite"/>
+                                    </circle>
+                                    <g>
+                                        <animateTransform attributeName="transform" type="rotate" values="0;360" dur="8s" repeatCount="indefinite"/>
+                                        <path d="M0,-10 L3,-7 L0,-4 L-3,-7 Z" fill="#c9b037"/>
+                                        <path d="M10,0 L7,3 L4,0 L7,-3 Z" fill="#c9b037"/>
+                                        <path d="M0,10 L3,7 L0,4 L-3,7 Z" fill="#c9b037"/>
+                                        <path d="M-10,0 L-7,3 L-4,0 L-7,-3 Z" fill="#c9b037"/>
+                                    </g>
+                                    <circle r="4" fill="#c9b037" opacity="0.9">
+                                        <animate attributeName="opacity" values="0.7;1;0.7" dur="2s" repeatCount="indefinite"/>
+                                    </circle>
+                                </g>
+                            </svg>
+                        </div>
+                        <h4 class="summary-title" style="font-size: 0.95rem;">Building Confidence</h4>
+                        <p class="summary-description" style="font-size: 0.8rem;">Leadership skills<br>Critical thinking development</p>
+                    </div>
                 </div>
+                
+
                 
                 <div class="intro-section" style="margin-top: 3rem;">
                     <p class="intro-motto">It's time to <span class="highlight-rise">RISE</span>.<span class="highlight-shine">SHINE</span>.<span class="highlight-evolve">EVOLVE</span>.</p>
@@ -864,15 +1083,77 @@
             <!-- ADULTS Section -->
             <div id="adults-section" class="section-content">
                 <div class="intro-section">
+                    <p style="color: #ffd700; font-family: 'Orbitron', monospace; font-size: 1.2rem; font-weight: 700; text-align: center; margin: 1.5rem 0; background: linear-gradient(45deg, #c9b037, #daa520, #b8860b, #c9b037); background-size: 300% 300%; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; animation: goldShimmer 3s ease-in-out infinite; text-shadow: 0 0 15px rgba(201, 176, 55, 0.4);">Coming soon</p>
                     <p class="intro-description">Professional development and personal growth materials designed for adults ready to unlock their next level of potential.</p>
                 </div>
                 
-                <div class="project-card">
-                    <h4 class="project-name">The Rise.Shine.Evolve ADULTS Project</h4>
-                    <p class="project-description">
-                        Unleash your potential and build the life you've always envisioned with our powerful journey for personal and professional growth. Our blend of practical tools and strategies will guide you to <span class="highlight-rise">RISE</span> to every challenge, <span class="highlight-shine">SHINE</span> with your unique brilliance, and <span class="highlight-evolve">EVOLVE</span> into the best version of yourself.
-                    </p>
-                    <p class="project-coming-soon">Your transformation is coming soon.</p>
+                <!-- Hidden for now - can be restored later -->
+                <div class="activities-summary" style="margin: 3rem auto; display: none;">
+                    <div class="summary-card" style="max-width: 180px; padding: 1rem;">
+                        <div class="summary-icon">
+                            <svg width="25" height="25" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="8" y="10" width="44" height="40" rx="3" fill="none" stroke="#c9b037" stroke-width="2.5" opacity="0.9">
+                                    <animate attributeName="opacity" values="0.7;1;0.7" dur="3s" repeatCount="indefinite"/>
+                                </rect>
+                                <rect x="12" y="14" width="36" height="32" rx="2" fill="rgba(138, 43, 226, 0.1)" stroke="#8a2be2" stroke-width="1.5"/>
+                                <line x1="16" y1="20" x2="44" y2="20" stroke="#8a2be2" stroke-width="1.5" opacity="0.8"/>
+                                <line x1="16" y1="25" x2="40" y2="25" stroke="#8a2be2" stroke-width="1.5" opacity="0.7"/>
+                                <line x1="16" y1="30" x2="42" y2="30" stroke="#8a2be2" stroke-width="1.5" opacity="0.6"/>
+                                <line x1="16" y1="35" x2="38" y2="35" stroke="#8a2be2" stroke-width="1.5" opacity="0.5"/>
+                                <circle cx="50" cy="15" r="3" fill="#c9b037">
+                                    <animate attributeName="r" values="2;4;2" dur="2s" repeatCount="indefinite"/>
+                                    <animate attributeName="opacity" values="0.5;1;0.5" dur="2s" repeatCount="indefinite"/>
+                                </circle>
+                            </svg>
+                        </div>
+                        <h4 class="summary-title" style="font-size: 0.95rem;">Professional Growth</h4>
+                        <p class="summary-description" style="font-size: 0.8rem;">Career development tools<br>Leadership skills training</p>
+                    </div>
+                    
+                    <div class="summary-card" style="max-width: 180px; padding: 1rem;">
+                        <div class="summary-icon">
+                            <svg width="25" height="25" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="10" y="15" width="40" height="30" rx="4" fill="none" stroke="#c9b037" stroke-width="2.5" stroke-dasharray="2,2">
+                                    <animate attributeName="stroke-dashoffset" values="0;4" dur="2s" repeatCount="indefinite"/>
+                                </rect>
+                                <rect x="14" y="19" width="32" height="22" rx="2" fill="rgba(138, 43, 226, 0.1)"/>
+                                <circle cx="20" cy="25" r="2" fill="#8a2be2" opacity="0.8"/>
+                                <circle cx="30" cy="25" r="2" fill="#8a2be2" opacity="0.8"/>
+                                <circle cx="40" cy="25" r="2" fill="#8a2be2" opacity="0.8"/>
+                                <rect x="18" y="30" width="24" height="2" fill="#c9b037" opacity="0.7"/>
+                                <rect x="18" y="34" width="20" height="2" fill="#c9b037" opacity="0.6"/>
+                            </svg>
+                        </div>
+                        <h4 class="summary-title" style="font-size: 0.95rem;">Personal Development</h4>
+                        <p class="summary-description" style="font-size: 0.8rem;">Self-improvement strategies<br>Life transformation guides</p>
+                    </div>
+                    
+                    <div class="summary-card" style="max-width: 180px; padding: 1rem;">
+                        <div class="summary-icon">
+                            <svg width="25" height="25" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                                <g transform="translate(30,30)">
+                                    <circle r="18" fill="none" stroke="#c9b037" stroke-width="2" opacity="0.3">
+                                        <animate attributeName="r" values="16;20;16" dur="4s" repeatCount="indefinite"/>
+                                    </circle>
+                                    <circle r="12" fill="none" stroke="#8a2be2" stroke-width="1.5" opacity="0.5">
+                                        <animate attributeName="r" values="10;14;10" dur="3s" repeatCount="indefinite"/>
+                                    </circle>
+                                    <g>
+                                        <animateTransform attributeName="transform" type="rotate" values="0;360" dur="8s" repeatCount="indefinite"/>
+                                        <path d="M0,-10 L3,-7 L0,-4 L-3,-7 Z" fill="#c9b037"/>
+                                        <path d="M10,0 L7,3 L4,0 L7,-3 Z" fill="#c9b037"/>
+                                        <path d="M0,10 L3,7 L0,4 L-3,7 Z" fill="#c9b037"/>
+                                        <path d="M-10,0 L-7,3 L-4,0 L-7,-3 Z" fill="#c9b037"/>
+                                    </g>
+                                    <circle r="4" fill="#c9b037" opacity="0.9">
+                                        <animate attributeName="opacity" values="0.7;1;0.7" dur="2s" repeatCount="indefinite"/>
+                                    </circle>
+                                </g>
+                            </svg>
+                        </div>
+                        <h4 class="summary-title" style="font-size: 0.95rem;">Mindset Mastery</h4>
+                        <p class="summary-description" style="font-size: 0.8rem;">Building resilience<br>Unlocking potential</p>
+                    </div>
                 </div>
                 
                 <div class="intro-section" style="margin-top: 3rem;">
@@ -886,17 +1167,6 @@
                     <p class="intro-description">Access our collection of free educational materials, worksheets, and guides to start your transformation journey today.</p>
                 </div>
                 
-                <div class="project-card">
-                    <h4 class="project-name">Free Educational Resources</h4>
-                    <p class="project-description">
-                        Download our starter pack of educational materials including activity sheets, growth mindset exercises, and family bonding activities.
-                    </p>
-                    <p class="project-description">
-                        Perfect for parents, educators, and anyone looking to begin their journey of personal development and learning.
-                    </p>
-                    <p class="project-coming-soon">Free downloads coming soon.</p>
-                </div>
-                
                 <div class="intro-section" style="margin-top: 3rem;">
                     <p class="intro-motto">It's time to <span class="highlight-rise">RISE</span>.<span class="highlight-shine">SHINE</span>.<span class="highlight-evolve">EVOLVE</span>.</p>
                 </div>
@@ -904,25 +1174,22 @@
 
             <!-- CONTACT Section -->
             <div id="contact-section" class="section-content">
-                <div class="intro-section">
-                    <p class="intro-description">Get in touch with J.R.Zee to learn more about our educational materials and how they can transform your learning journey.</p>
-                </div>
-                
-                <div class="project-card">
+                <div class="project-card" style="text-align: center;">
                     <h4 class="project-name">Get In Touch</h4>
                     <p class="project-description">
-                        We'd love to hear from you! Whether you're a parent, educator, or someone on their own growth journey, we're here to support you.
+                        Get in touch to learn more about our educational materials and how they can transform the learning journey.
                     </p>
-                    <p class="project-description">
-                        Reach out to learn more about our materials, ask questions, or share your own transformation story.
-                    </p>
-                    <div class="project-motto">
-                        <p>Email: j.r.zee.contact@gmail.com</p>
-                        <p>Instagram: <a href="https://www.instagram.com/rise.shine.evolve/" target="_blank" rel="noopener noreferrer" style="color: #c9b037; text-decoration: none; font-weight: 600;">@rise.shine.evolve</a></p>
-                        <p>TikTok: <a href="https://www.tiktok.com/@rise.shine.evolve" target="_blank" rel="noopener noreferrer" style="color: #c9b037; text-decoration: none; font-weight: 600;">@rise.shine.evolve</a></p>
-                        <p>Facebook: <a href="https://www.facebook.com/profile.php?id=" target="_blank" rel="noopener noreferrer" style="color: #c9b037; text-decoration: none; font-weight: 600;">Rise.Shine.Evolve</a></p>
-                        <p>Follow us on social media for daily inspiration</p>
-                        <p>Join our community of learners and growers</p>
+                </div>
+                
+                <div class="project-card" style="text-align: center;">
+                    <h4 class="project-name">Contact Information</h4>
+                    <div style="text-align: center; margin-top: 1.5rem; padding: 1rem; background: rgba(255, 255, 255, 0.02); border-radius: 10px;">
+                        <p style="color: #ffffff; font-family: 'Playfair Display', serif; font-weight: 400; opacity: 0.9; line-height: 1.7; font-size: clamp(0.95rem, 1.5vw, 1.1rem);"><span style="color: #ffffff; font-weight: 500;">Email:</span> <span style="color: #ba55d3; font-weight: 500;">rise.shine.evolve@gmail.com</span></p>
+                        <p style="margin-top: 1.5rem; color: #ffffff; font-family: 'Playfair Display', serif; font-weight: 400; opacity: 0.9; line-height: 1.7; font-size: clamp(0.95rem, 1.5vw, 1.1rem);">Follow us on social media for more inspirations.</p>
+                        <p style="color: #ffffff; font-family: 'Playfair Display', serif; font-weight: 400; opacity: 0.9; line-height: 1.7; font-size: clamp(0.95rem, 1.5vw, 1.1rem);">Join our community of learners and growers.</p>
+                        <p style="color: #ffffff; font-family: 'Playfair Display', serif; font-weight: 400; opacity: 0.9; line-height: 1.7; font-size: clamp(0.95rem, 1.5vw, 1.1rem);">Instagram: <a href="https://www.instagram.com/rise.shine.evolve/" target="_blank" rel="noopener noreferrer" style="color: #ba55d3; text-decoration: none; font-weight: 500;">@rise.shine.evolve</a></p>
+                        <p style="color: #ffffff; font-family: 'Playfair Display', serif; font-weight: 400; opacity: 0.9; line-height: 1.7; font-size: clamp(0.95rem, 1.5vw, 1.1rem);">TikTok: <a href="https://www.tiktok.com/@rise.shine.evolve" target="_blank" rel="noopener noreferrer" style="color: #ba55d3; text-decoration: none; font-weight: 500;">@rise.shine.evolve</a></p>
+                        <p style="color: #ffffff; font-family: 'Playfair Display', serif; font-weight: 400; opacity: 0.9; line-height: 1.7; font-size: clamp(0.95rem, 1.5vw, 1.1rem);">Facebook: <a href="https://www.facebook.com/profile.php?id=" target="_blank" rel="noopener noreferrer" style="color: #ba55d3; text-decoration: none; font-weight: 500;">Rise.Shine.Evolve</a></p>
                     </div>
                 </div>
                 
@@ -933,7 +1200,7 @@
         </div>
         
         <footer style="margin-top: 4rem; padding: 2rem 0; text-align: center; border-top: 1px solid rgba(255, 215, 0, 0.2);">
-            <div style="font-size: 0.7rem; color: rgba(255, 255, 255, 0.6); font-family: 'Orbitron', monospace; line-height: 1.4; max-width: 600px; margin: 0 auto;">
+            <div style="font-size: 0.7rem; color: #8a2be2; font-family: 'Orbitron', monospace; line-height: 1.4; max-width: 600px; margin: 0 auto;">
                 Copyright © 2025 J.R.Zee.<br><br>
                 All rights reserved. All materials are protected by copyright law and may not be reproduced in whole or in part without the express written consent of the author(s).
             </div>
@@ -1032,5 +1299,5 @@
             newWindow.document.close();
         }
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9884d6e85220265d',t:'MTc1OTQxNDgxNi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'988c7e6ef281c419',t:'MTc1OTQ5NTA3OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
