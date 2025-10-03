@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RISE.SHINE.EVOLVE</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Playfair+Display:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            font-family: 'Orbitron', monospace;
+            overflow-x: hidden;
+        }
+
+        .container {
+            text-align: center;
+            position: relative;
+            width: 100%;
+            max-width: 1200px;
+            padding-top: 1rem;
+            margin: 0 auto;
+        }
+
+        .main-text {
+            font-size: clamp(3rem, 8vw, 8rem);
+            font-weight: 900;
+            letter-spacing: 0.2em;
+            background: linear-gradient(45deg, #c9b037, #daa520, #e6e6e6, #c9b037, #daa520);
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 3s ease-in-out infinite, glow 2s ease-in-out infinite alternate;
+            text-shadow: 0 0 30px rgba(201, 176, 55, 0.5);
+            position: relative;
+            z-index: 2;
+        }
+
+        .main-text::before {
+            content: 'RISE.SHINE.EVOLVE';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #ffeaa7);
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: rainbow 4s ease-in-out infinite;
+            z-index: -1;
+            filter: blur(2px);
+            opacity: 0.7;
+        }
+
+        .sparkle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #ffd700;
+            border-radius: 50%;
+            animation: sparkle 2s linear infinite;
+        }
+
+        .sparkle:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; }
+        .sparkle:nth-child(2) { top: 40%; right: 15%; animation-delay: 0.5s; }
+        .sparkle:nth-child(3) { bottom: 30%; left: 20%; animation-delay: 1s; }
+        .sparkle:nth-child(4) { top: 60%; right: 25%; animation-delay: 1.5s; }
+        .sparkle:nth-child(5) { bottom: 20%; right: 10%; animation-delay: 0.3s; }
+        .sparkle:nth-child(6) { top: 30%; left: 30%; animation-delay: 0.8s; }
+
+        .subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.5rem);
+            background: linear-gradient(45deg, #8a2be2, #9932cc, #ba55d3, #8a2be2);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-top: 2rem;
+            letter-spacing: 0.4em;
+            font-weight: 700;
+            font-family: 'Orbitron', monospace;
+            text-shadow: 0 0 20px rgba(138, 43, 226, 0.6);
+            animation: fadeInUp 2s ease-out, purpleShimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        @keyframes glow {
+            0% { 
+                text-shadow: 0 0 20px rgba(201, 176, 55, 0.5),
+                           0 0 40px rgba(201, 176, 55, 0.3),
+                           0 0 60px rgba(201, 176, 55, 0.2);
+            }
+            100% { 
+                text-shadow: 0 0 30px rgba(201, 176, 55, 0.8),
+                           0 0 60px rgba(201, 176, 55, 0.5),
+                           0 0 90px rgba(201, 176, 55, 0.3);
+            }
+        }
+
+        @keyframes rainbow {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        @keyframes sparkle {
+            0%, 100% { 
+                opacity: 0; 
+                transform: scale(0) rotate(0deg);
+            }
+            50% { 
+                opacity: 1; 
+                transform: scale(1) rotate(180deg);
+            }
+        }
+
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                opacity: 0.8;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes purpleShimmer {
+            0%, 100% { 
+                background-position: 0% 50%;
+                text-shadow: 0 0 20px rgba(138, 43, 226, 0.6);
+            }
+            50% { 
+                background-position: 100% 50%;
+                text-shadow: 0 0 30px rgba(138, 43, 226, 0.9), 0 0 50px rgba(186, 85, 211, 0.5);
+            }
+        }
+
+        .navigation {
+            margin: 3rem 0;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .nav-tab {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 25px;
+            padding: 0.8rem 1.5rem;
+            color: #ffffff;
+            font-family: 'Orbitron', monospace;
+            font-weight: 600;
+            font-size: clamp(0.8rem, 1.5vw, 1rem);
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-tab::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .nav-tab:hover::before {
+            left: 100%;
+        }
+
+        .nav-tab:hover {
+            border-color: rgba(255, 215, 0, 0.6);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .nav-tab.active {
+            background: linear-gradient(45deg, rgba(201, 176, 55, 0.2), rgba(218, 165, 32, 0.2));
+            border-color: #c9b037;
+            box-shadow: 0 0 25px rgba(201, 176, 55, 0.4);
+            color: #c9b037;
+            text-shadow: 0 0 10px rgba(201, 176, 55, 0.3);
+        }
+
+        .projects-section {
+            margin-top: 2rem;
+            max-width: 800px;
+            text-align: left;
+        }
+
+        .section-content {
+            display: none;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .section-content.active {
+            display: block;
+        }
+
+        .intro-section {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 215, 0, 0.15);
+        }
+
+        .intro-text {
+            font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            color: #ffffff;
+            margin: 1rem 0;
+            opacity: 0.95;
+            line-height: 1.4;
+            animation: fadeInUp 2s ease-out;
+        }
+
+        .intro-description {
+            font-size: clamp(1rem, 1.8vw, 1.2rem);
+            font-family: 'Playfair Display', serif;
+            font-weight: 400;
+            color: #ffffff;
+            opacity: 0.85;
+            line-height: 1.6;
+            margin: 2rem 0;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .intro-motto {
+            font-size: clamp(1.3rem, 2.8vw, 2rem);
+            font-family: 'Orbitron', monospace;
+            font-weight: 700;
+            color: #ffffff;
+            margin: 2rem 0;
+            letter-spacing: 0.1em;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+            animation: fadeInUp 2s ease-out 0.5s both;
+        }
+
+        .project-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 2s ease-out;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 215, 0, 0.5);
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.2);
+        }
+
+        .project-card.clickable:hover .click-indicator {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.1), transparent);
+            animation: cardShine 8s ease-in-out infinite;
+        }
+
+        .project-name {
+            font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+            font-weight: 700;
+            background: linear-gradient(45deg, #8a2be2, #ba55d3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 0 0 1.5rem 0;
+            letter-spacing: 0.1em;
+        }
+
+        .project-description {
+            color: #ffffff;
+            opacity: 0.9;
+            line-height: 1.7;
+            margin-bottom: 1rem;
+            font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+            font-family: 'Playfair Display', serif;
+            font-weight: 400;
+        }
+
+        .project-motto {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background: rgba(255, 215, 0, 0.1);
+            border-radius: 10px;
+            border-left: 3px solid #ffd700;
+        }
+
+        .project-motto p {
+            margin: 0.5rem 0;
+            color: #ffffff;
+            font-weight: 500;
+            font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+            font-family: 'Playfair Display', serif;
+        }
+
+        .project-coming-soon {
+            color: #ffd700;
+            font-weight: 700;
+            font-style: italic;
+            text-align: center;
+            margin-top: 1.5rem;
+            font-size: clamp(1rem, 1.8vw, 1.1rem);
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+        }
+
+        .highlight-rise {
+            background: linear-gradient(45deg, #ff69b4, #ff1493, #ff6fa8);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+            text-shadow: 0 0 15px rgba(255, 105, 180, 0.4);
+            animation: colorShift 3s ease-in-out infinite;
+        }
+
+        .highlight-shine {
+            background: linear-gradient(45deg, #c9b037, #daa520, #b8860b);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+            text-shadow: 0 0 15px rgba(201, 176, 55, 0.4);
+            animation: colorShift 3s ease-in-out infinite 0.5s;
+        }
+
+        .highlight-evolve {
+            background: linear-gradient(45deg, #8a2be2, #9932cc, #ba55d3);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+            text-shadow: 0 0 15px rgba(138, 43, 226, 0.4);
+            animation: colorShift 3s ease-in-out infinite 1s;
+        }
+
+        @keyframes colorShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        @keyframes cardShine {
+            0% { left: -100%; }
+            50% { left: 100%; }
+            100% { left: 100%; }
+        }
+
+        .brilliance-glow {
+            background: linear-gradient(45deg, #ffd700, #ffed4e, #fff700, #ffd700);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+            position: relative;
+            animation: brillianceShine 2s ease-in-out infinite, brillianceGlow 3s ease-in-out infinite alternate;
+        }
+
+        .brilliance-glow::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, transparent, rgba(255, 215, 0, 0.3), transparent);
+            border-radius: 4px;
+            animation: brillianceSweep 6s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes brillianceShine {
+            0%, 100% { 
+                background-position: 0% 50%;
+            }
+            50% { 
+                background-position: 100% 50%;
+            }
+        }
+
+        @keyframes brillianceGlow {
+            0% { 
+                text-shadow: 0 0 10px rgba(255, 215, 0, 0.5),
+                           0 0 20px rgba(255, 215, 0, 0.3),
+                           0 0 30px rgba(255, 215, 0, 0.2);
+            }
+            100% { 
+                text-shadow: 0 0 20px rgba(255, 215, 0, 0.8),
+                           0 0 40px rgba(255, 215, 0, 0.5),
+                           0 0 60px rgba(255, 215, 0, 0.3);
+            }
+        }
+
+        @keyframes brillianceSweep {
+            0% { transform: translateX(-100%) rotate(45deg); }
+            100% { transform: translateX(300%) rotate(45deg); }
+        }
+
+        .amazon-section {
+            text-align: center;
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background: rgba(201, 176, 55, 0.1);
+            border-radius: 10px;
+        }
+
+        .amazon-text {
+            color: #c9b037;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            font-size: clamp(0.9rem, 1.5vw, 1rem);
+        }
+
+        .amazon-button {
+            background: linear-gradient(45deg, #c9b037, #daa520);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            display: inline-block;
+            box-shadow: 0 4px 15px rgba(201, 176, 55, 0.3);
+            text-decoration: none;
+        }
+
+        .amazon-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(201, 176, 55, 0.5);
+        }
+
+        .click-indicator {
+            position: absolute;
+            bottom: 1rem;
+            right: 1.5rem;
+            color: #c9b037;
+            font-weight: 700;
+            font-size: 0.9rem;
+            opacity: 0;
+            transform: translateX(10px);
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+
+        .project-icon {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            filter: drop-shadow(0 0 10px rgba(201, 176, 55, 0.3));
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin: 1.5rem 0;
+            padding: 1rem;
+            background: rgba(138, 43, 226, 0.05);
+            border-radius: 10px;
+            border: 1px solid rgba(138, 43, 226, 0.2);
+        }
+
+        .feature-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .feature-item:hover {
+            background: rgba(201, 176, 55, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .feature-item span {
+            font-size: 0.8rem;
+            color: #ffffff;
+            font-weight: 600;
+            opacity: 0.9;
+        }
+
+        .scratch-notes-section {
+            margin: 2rem 0;
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .scratch-note {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(15px);
+            border: 2px solid rgba(201, 176, 55, 0.3);
+            border-radius: 15px;
+            padding: 1.5rem;
+            position: relative;
+            transform: rotate(-0.5deg);
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .scratch-note:nth-child(2) {
+            transform: rotate(0.8deg);
+            border-color: rgba(138, 43, 226, 0.4);
+        }
+
+        .scratch-note:nth-child(3) {
+            transform: rotate(-0.3deg);
+            border-color: rgba(255, 105, 180, 0.3);
+        }
+
+        .scratch-note:hover {
+            transform: rotate(0deg) scale(1.02);
+            border-color: rgba(201, 176, 55, 0.6);
+            box-shadow: 0 12px 35px rgba(201, 176, 55, 0.2);
+        }
+
+        .scratch-note::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: 20px;
+            width: 30px;
+            height: 15px;
+            background: linear-gradient(45deg, #c9b037, #daa520);
+            border-radius: 3px;
+            opacity: 0.8;
+            box-shadow: 0 2px 8px rgba(201, 176, 55, 0.3);
+        }
+
+        .note-header {
+            font-size: clamp(1.1rem, 2vw, 1.3rem);
+            font-weight: 700;
+            color: #c9b037;
+            margin-bottom: 1rem;
+            font-family: 'Orbitron', monospace;
+            letter-spacing: 0.05em;
+            text-shadow: 0 0 10px rgba(201, 176, 55, 0.3);
+        }
+
+        .scratch-note p {
+            color: #ffffff;
+            font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+            line-height: 1.6;
+            margin: 0;
+            font-family: 'Playfair Display', serif;
+            font-weight: 400;
+        }
+
+        .highlight-joy {
+            background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+            text-shadow: 0 0 10px rgba(255, 107, 107, 0.3);
+        }
+
+        .highlight-curiosity {
+            background: linear-gradient(45deg, #4ecdc4, #45b7d1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+            text-shadow: 0 0 10px rgba(78, 205, 196, 0.3);
+        }
+
+        .highlight-stories {
+            background: linear-gradient(45deg, #8a2be2, #ba55d3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+            text-shadow: 0 0 10px rgba(138, 43, 226, 0.3);
+        }
+
+        .highlight-activities {
+            background: linear-gradient(45deg, #ffeaa7, #fdcb6e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+            text-shadow: 0 0 10px rgba(255, 234, 167, 0.3);
+        }
+
+        .highlight-active {
+            background: linear-gradient(45deg, #00b894, #00cec9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+            text-shadow: 0 0 10px rgba(0, 184, 148, 0.3);
+        }
+
+        .highlight-relationships {
+            background: linear-gradient(45deg, #e17055, #fd79a8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+            text-shadow: 0 0 10px rgba(225, 112, 85, 0.3);
+        }
+
+        .highlight-discovery {
+            background: linear-gradient(45deg, #a29bfe, #6c5ce7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+            text-shadow: 0 0 10px rgba(162, 155, 254, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="sparkle"></div>
+        <div class="sparkle"></div>
+        <div class="sparkle"></div>
+        <div class="sparkle"></div>
+        <div class="sparkle"></div>
+        <div class="sparkle"></div>
+        
+        <h1 class="main-text">RISE.SHINE.EVOLVE</h1>
+        <p class="subtitle">J.R.Zee</p>
+        
+        <div class="intro-section" id="main-intro" style="margin: 3rem auto 2rem auto; max-width: 600px;">
+            <p class="intro-text">You were born to <span class="highlight-rise">RISE</span>.</p>
+            <p class="intro-text">Your inner potential gives you the power to <span class="highlight-shine">SHINE</span>.</p>
+            <p class="intro-text">When you embrace that power, you're ready to <span class="highlight-evolve">EVOLVE</span>.</p>
+        </div>
+        
+        <div class="intro-section" id="kids-intro" style="margin: 3rem auto 2rem auto; max-width: 600px; display: none;">
+            <p class="intro-text">Every child has the courage to <span class="highlight-rise">RISE</span>.</p>
+            <p class="intro-text">Curiosity and wonder help the child <span class="highlight-shine">SHINE</span>.</p>
+            <p class="intro-text">Through play and learning, a child can <span class="highlight-evolve">EVOLVE</span>.</p>
+        </div>
+        
+        <div class="intro-section" id="teenagers-intro" style="margin: 3rem auto 2rem auto; max-width: 600px; display: none;">
+            <p class="intro-text">Navigate your journey to <span class="highlight-rise">RISE</span> above challenges.</p>
+            <p class="intro-text">Discover your unique way to <span class="highlight-shine">SHINE</span>.</p>
+            <p class="intro-text">Embrace the power within you to <span class="highlight-evolve">EVOLVE</span>.</p>
+        </div>
+        
+        <div class="intro-section" id="adults-intro" style="margin: 3rem auto 2rem auto; max-width: 600px; display: none;">
+            <p class="intro-text">It's never too late to <span class="highlight-rise">RISE</span>.</p>
+            <p class="intro-text">Your experience helps you <span class="highlight-shine">SHINE</span> brighter.</p>
+            <p class="intro-text">Continuous growth means you can always <span class="highlight-evolve">EVOLVE</span>.</p>
+        </div>
+        
+        <div class="intro-section" id="materials-intro" style="margin: 3rem auto 2rem auto; max-width: 600px; display: none;">
+            <p class="intro-text">Free resources to help you <span class="highlight-rise">RISE</span>.</p>
+            <p class="intro-text">Tools that make you <span class="highlight-shine">SHINE</span>.</p>
+            <p class="intro-text">Materials that help you <span class="highlight-evolve">EVOLVE</span>.</p>
+        </div>
+        
+        <div class="intro-section" id="contact-intro" style="margin: 3rem auto 2rem auto; max-width: 600px; display: none;">
+            <p class="intro-text">Ready to <span class="highlight-rise">RISE</span> together?</p>
+            <p class="intro-text">Let's help you <span class="highlight-shine">SHINE</span>.</p>
+            <p class="intro-text">Connect with us and <span class="highlight-evolve">EVOLVE</span>.</p>
+        </div>
+        
+        <nav class="navigation">
+            <button class="nav-tab active" onclick="showSection('main')">MAIN</button>
+            <button class="nav-tab" onclick="showSection('kids')">KIDS</button>
+            <button class="nav-tab" onclick="showSection('teenagers')">TEENAGERS</button>
+            <button class="nav-tab" onclick="showSection('adults')">ADULTS</button>
+            <button class="nav-tab" onclick="showSection('materials')">FREE MATERIALS</button>
+            <button class="nav-tab" onclick="showSection('contact')">CONTACT</button>
+        </nav>
+        
+        <div class="projects-section">
+            <!-- MAIN Section -->
+            <div id="main-section" class="section-content active">
+                <div class="intro-section">
+                    <p class="intro-text">Join us on a journey where every child can <span class="highlight-rise">RISE</span>,</p>
+                    <p class="intro-text">every family can <span class="highlight-shine">SHINE</span>,</p>
+                    <p class="intro-text">and every person can <span class="highlight-evolve">EVOLVE</span>.</p>
+                </div>
+            </div>
+
+            <!-- KIDS Section -->
+            <div id="kids-section" class="section-content">
+                <div class="intro-section">
+                    <p class="intro-description">Give Your Child the Power to Shine!<br>Our materials offer a unique toolkit for young minds.<br>We help your child master new skills, build confidence<br>and discover their unique talents, setting them on a path to <span class="brilliance-glow">brilliance</span>.</p>
+                </div>
+                
+                <div class="scratch-notes-section">
+                    <div class="scratch-note">
+                        <div class="note-header">📚 The Rise.Shine.Evolve KIDS</div>
+                        <p>is a collection of educational materials designed to spark <span class="highlight-joy">joy</span> and <span class="highlight-curiosity">curiosity</span> in kids.</p>
+                    </div>
+                    
+                    <div class="scratch-note">
+                        <div class="note-header">🎯 Our Approach</div>
+                        <p>We use captivating <span class="highlight-stories">stories</span> and fun <span class="highlight-activities">activities</span> to strengthen family bonds and turn learning into an exciting adventure.</p>
+                    </div>
+                    
+                    <div class="scratch-note">
+                        <div class="note-header">💡 Our Philosophy</div>
+                        <p>We believe that true development comes from being <span class="highlight-active">active</span>, building strong <span class="highlight-relationships">relationships</span>, and a passion for <span class="highlight-discovery">discovery</span>. Our materials promote active learning while introducing key concepts in a natural, fun way.</p>
+                    </div>
+                </div>
+                
+                <div class="project-card clickable" onclick="openStoriesPage()">
+                    <div class="project-icon">
+                        <svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="8" y="10" width="44" height="40" rx="3" fill="none" stroke="#c9b037" stroke-width="2.5" opacity="0.9">
+                                <animate attributeName="opacity" values="0.7;1;0.7" dur="3s" repeatCount="indefinite"/>
+                            </rect>
+                            <rect x="12" y="14" width="36" height="32" rx="2" fill="rgba(138, 43, 226, 0.1)" stroke="#8a2be2" stroke-width="1.5"/>
+                            <line x1="16" y1="20" x2="44" y2="20" stroke="#8a2be2" stroke-width="1.5" opacity="0.8"/>
+                            <line x1="16" y1="25" x2="40" y2="25" stroke="#8a2be2" stroke-width="1.5" opacity="0.7"/>
+                            <line x1="16" y1="30" x2="42" y2="30" stroke="#8a2be2" stroke-width="1.5" opacity="0.6"/>
+                            <line x1="16" y1="35" x2="38" y2="35" stroke="#8a2be2" stroke-width="1.5" opacity="0.5"/>
+                            <circle cx="50" cy="15" r="3" fill="#c9b037">
+                                <animate attributeName="r" values="2;4;2" dur="2s" repeatCount="indefinite"/>
+                                <animate attributeName="opacity" values="0.5;1;0.5" dur="2s" repeatCount="indefinite"/>
+                            </circle>
+                        </svg>
+                    </div>
+                    <h4 class="project-name">Stories + Activities</h4>
+                    <p class="project-description">
+                        Strengthen family bonds<br>
+                        Turn learning into an adventure
+                    </p>
+                    <div class="click-indicator">Click to explore →</div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-icon">
+                        <svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="10" y="15" width="40" height="30" rx="4" fill="none" stroke="#c9b037" stroke-width="2.5" stroke-dasharray="2,2">
+                                <animate attributeName="stroke-dashoffset" values="0;4" dur="2s" repeatCount="indefinite"/>
+                            </rect>
+                            <rect x="14" y="19" width="32" height="22" rx="2" fill="rgba(138, 43, 226, 0.1)"/>
+                            <circle cx="20" cy="25" r="2" fill="#8a2be2" opacity="0.8"/>
+                            <circle cx="30" cy="25" r="2" fill="#8a2be2" opacity="0.8"/>
+                            <circle cx="40" cy="25" r="2" fill="#8a2be2" opacity="0.8"/>
+                            <rect x="18" y="30" width="24" height="2" fill="#c9b037" opacity="0.7"/>
+                            <rect x="18" y="34" width="20" height="2" fill="#c9b037" opacity="0.6"/>
+                            <rect x="5" y="20" width="8" height="3" fill="#c9b037" opacity="0.8">
+                                <animateTransform attributeName="transform" type="translateX" values="0;2;0" dur="3s" repeatCount="indefinite"/>
+                            </rect>
+                            <rect x="47" y="35" width="8" height="3" fill="#c9b037" opacity="0.8">
+                                <animateTransform attributeName="transform" type="translateX" values="0;-2;0" dur="3s" repeatCount="indefinite"/>
+                            </rect>
+                        </svg>
+                    </div>
+                    <h4 class="project-name">Educational Materials</h4>
+                    <p class="project-description">
+                        Designed to spark joy and curiosity in kids
+                    </p>
+                    <p class="project-coming-soon">Coming soon.</p>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-icon">
+                        <svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                            <g transform="translate(30,30)">
+                                <circle r="18" fill="none" stroke="#c9b037" stroke-width="2" opacity="0.3">
+                                    <animate attributeName="r" values="16;20;16" dur="4s" repeatCount="indefinite"/>
+                                </circle>
+                                <circle r="12" fill="none" stroke="#8a2be2" stroke-width="1.5" opacity="0.5">
+                                    <animate attributeName="r" values="10;14;10" dur="3s" repeatCount="indefinite"/>
+                                </circle>
+                                <g>
+                                    <animateTransform attributeName="transform" type="rotate" values="0;360" dur="8s" repeatCount="indefinite"/>
+                                    <path d="M0,-10 L3,-7 L0,-4 L-3,-7 Z" fill="#c9b037"/>
+                                    <path d="M10,0 L7,3 L4,0 L7,-3 Z" fill="#c9b037"/>
+                                    <path d="M0,10 L3,7 L0,4 L-3,7 Z" fill="#c9b037"/>
+                                    <path d="M-10,0 L-7,3 L-4,0 L-7,-3 Z" fill="#c9b037"/>
+                                    <path d="M7,-7 L10,-4 L7,-1 L4,-4 Z" fill="#8a2be2" opacity="0.8"/>
+                                    <path d="M7,7 L10,4 L7,1 L4,4 Z" fill="#8a2be2" opacity="0.8"/>
+                                    <path d="M-7,7 L-4,10 L-1,7 L-4,4 Z" fill="#8a2be2" opacity="0.8"/>
+                                    <path d="M-7,-7 L-4,-10 L-1,-7 L-4,-4 Z" fill="#8a2be2" opacity="0.8"/>
+                                </g>
+                                <circle r="4" fill="#c9b037" opacity="0.9">
+                                    <animate attributeName="opacity" values="0.7;1;0.7" dur="2s" repeatCount="indefinite"/>
+                                </circle>
+                            </g>
+                        </svg>
+                    </div>
+                    <h4 class="project-name">Active Learning</h4>
+                    <p class="project-description">
+                        Building relationships<br>
+                        Passion for discovery
+                    </p>
+                    <p class="project-coming-soon">Coming soon.</p>
+                </div>
+                
+                <div class="intro-section" style="margin-top: 3rem;">
+                    <p class="intro-motto">It's time to <span class="highlight-rise">RISE</span>.<span class="highlight-shine">SHINE</span>.<span class="highlight-evolve">EVOLVE</span>.</p>
+                </div>
+            </div>
+
+            <!-- TEENAGERS Section -->
+            <div id="teenagers-section" class="section-content">
+                <div class="intro-section">
+                    <p class="intro-description">Specially designed materials for teenagers to build confidence, develop critical thinking skills, and prepare for the exciting journey ahead.</p>
+                </div>
+                
+                <div class="project-card">
+                    <h4 class="project-name">The Rise.Shine.Evolve TEENAGERS Project</h4>
+                    <p class="project-description">
+                        Empowering teenagers with tools for self-discovery, emotional intelligence, and leadership skills that will serve them throughout their lives.
+                    </p>
+                    <p class="project-description">
+                        Our interactive workshops and materials help teens navigate the complexities of adolescence while building a strong foundation for their future.
+                    </p>
+                    <p class="project-coming-soon">Coming soon.</p>
+                </div>
+                
+                <div class="intro-section" style="margin-top: 3rem;">
+                    <p class="intro-motto">It's time to <span class="highlight-rise">RISE</span>.<span class="highlight-shine">SHINE</span>.<span class="highlight-evolve">EVOLVE</span>.</p>
+                </div>
+            </div>
+
+            <!-- ADULTS Section -->
+            <div id="adults-section" class="section-content">
+                <div class="intro-section">
+                    <p class="intro-description">Professional development and personal growth materials designed for adults ready to unlock their next level of potential.</p>
+                </div>
+                
+                <div class="project-card">
+                    <h4 class="project-name">The Rise.Shine.Evolve ADULTS Project</h4>
+                    <p class="project-description">
+                        Unleash your potential and build the life you've always envisioned with our powerful journey for personal and professional growth. Our blend of practical tools and strategies will guide you to <span class="highlight-rise">RISE</span> to every challenge, <span class="highlight-shine">SHINE</span> with your unique brilliance, and <span class="highlight-evolve">EVOLVE</span> into the best version of yourself.
+                    </p>
+                    <p class="project-coming-soon">Your transformation is coming soon.</p>
+                </div>
+                
+                <div class="intro-section" style="margin-top: 3rem;">
+                    <p class="intro-motto">It's time to <span class="highlight-rise">RISE</span>.<span class="highlight-shine">SHINE</span>.<span class="highlight-evolve">EVOLVE</span>.</p>
+                </div>
+            </div>
+
+            <!-- FREE MATERIALS Section -->
+            <div id="materials-section" class="section-content">
+                <div class="intro-section">
+                    <p class="intro-description">Access our collection of free educational materials, worksheets, and guides to start your transformation journey today.</p>
+                </div>
+                
+                <div class="project-card">
+                    <h4 class="project-name">Free Educational Resources</h4>
+                    <p class="project-description">
+                        Download our starter pack of educational materials including activity sheets, growth mindset exercises, and family bonding activities.
+                    </p>
+                    <p class="project-description">
+                        Perfect for parents, educators, and anyone looking to begin their journey of personal development and learning.
+                    </p>
+                    <p class="project-coming-soon">Free downloads coming soon.</p>
+                </div>
+                
+                <div class="intro-section" style="margin-top: 3rem;">
+                    <p class="intro-motto">It's time to <span class="highlight-rise">RISE</span>.<span class="highlight-shine">SHINE</span>.<span class="highlight-evolve">EVOLVE</span>.</p>
+                </div>
+            </div>
+
+            <!-- CONTACT Section -->
+            <div id="contact-section" class="section-content">
+                <div class="intro-section">
+                    <p class="intro-description">Get in touch with J.R.Zee to learn more about our educational materials and how they can transform your learning journey.</p>
+                </div>
+                
+                <div class="project-card">
+                    <h4 class="project-name">Get In Touch</h4>
+                    <p class="project-description">
+                        We'd love to hear from you! Whether you're a parent, educator, or someone on their own growth journey, we're here to support you.
+                    </p>
+                    <p class="project-description">
+                        Reach out to learn more about our materials, ask questions, or share your own transformation story.
+                    </p>
+                    <div class="project-motto">
+                        <p>Email: j.r.zee.contact@gmail.com</p>
+                        <p>Instagram: <a href="https://www.instagram.com/rise.shine.evolve/" target="_blank" rel="noopener noreferrer" style="color: #c9b037; text-decoration: none; font-weight: 600;">@rise.shine.evolve</a></p>
+                        <p>TikTok: <a href="https://www.tiktok.com/@rise.shine.evolve" target="_blank" rel="noopener noreferrer" style="color: #c9b037; text-decoration: none; font-weight: 600;">@rise.shine.evolve</a></p>
+                        <p>Facebook: <a href="https://www.facebook.com/profile.php?id=" target="_blank" rel="noopener noreferrer" style="color: #c9b037; text-decoration: none; font-weight: 600;">Rise.Shine.Evolve</a></p>
+                        <p>Follow us on social media for daily inspiration</p>
+                        <p>Join our community of learners and growers</p>
+                    </div>
+                </div>
+                
+                <div class="intro-section" style="margin-top: 3rem;">
+                    <p class="intro-motto">It's time to <span class="highlight-rise">RISE</span>.<span class="highlight-shine">SHINE</span>.<span class="highlight-evolve">EVOLVE</span>.</p>
+                </div>
+            </div>
+        </div>
+        
+        <footer style="margin-top: 4rem; padding: 2rem 0; text-align: center; border-top: 1px solid rgba(255, 215, 0, 0.2);">
+            <div style="font-size: 0.7rem; color: rgba(255, 255, 255, 0.6); font-family: 'Orbitron', monospace; line-height: 1.4; max-width: 600px; margin: 0 auto;">
+                Copyright © 2025 J.R.Zee.<br><br>
+                All rights reserved. All materials are protected by copyright law and may not be reproduced in whole or in part without the express written consent of the author(s).
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        function showSection(sectionName) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.section-content');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Remove active class from all tabs
+            const tabs = document.querySelectorAll('.nav-tab');
+            tabs.forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Hide all intro sections above tabs
+            const introSections = ['main-intro', 'kids-intro', 'teenagers-intro', 'adults-intro', 'materials-intro', 'contact-intro'];
+            introSections.forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.style.display = 'none';
+                }
+            });
+
+            // Show appropriate intro section above tabs
+            let introToShow = 'main-intro'; // default for main
+            if (sectionName === 'kids') introToShow = 'kids-intro';
+            else if (sectionName === 'teenagers') introToShow = 'teenagers-intro';
+            else if (sectionName === 'adults') introToShow = 'adults-intro';
+            else if (sectionName === 'materials') introToShow = 'materials-intro';
+            else if (sectionName === 'contact') introToShow = 'contact-intro';
+            
+            const introElement = document.getElementById(introToShow);
+            if (introElement) {
+                introElement.style.display = 'block';
+            }
+
+            // Show selected section
+            const selectedSection = document.getElementById(sectionName + '-section');
+            if (selectedSection) {
+                selectedSection.classList.add('active');
+            }
+
+            // Add active class to clicked tab
+            const clickedTab = event.target;
+            clickedTab.classList.add('active');
+        }
+
+        function openStoriesPage() {
+            const storiesContent = `
+                <!DOCTYPE html>
+                <html lang="pl">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>Stories + Activities - RISE.SHINE.EVOLVE</title>
+                    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Playfair+Display:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+                    <style>
+                        body { box-sizing: border-box; margin: 0; padding: 20px; min-height: 100vh; background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%); font-family: 'Orbitron', monospace; color: white; }
+                        .container { max-width: 800px; margin: 0 auto; text-align: center; }
+                        .title { font-size: 3rem; background: linear-gradient(45deg, #8a2be2, #ba55d3); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 2rem; }
+                        .content { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); border-radius: 20px; padding: 2rem; margin: 2rem 0; }
+                        .highlight { color: #c9b037; font-weight: 700; }
+                    </style>
+                </head>
+                <body>
+                    <div class="container">
+                        <h1 class="title">Stories + Activities</h1>
+                        <div class="content">
+                            <h2>Magical Stories & Family Activities</h2>
+                            <p>Welcome to the enchanting world of The Happy-Makers! Our series combines heartwarming stories with engaging family activities that teach children the power of <span class="highlight">kindness, joy, and making others smile</span>.</p>
+                            
+                            <h3>What You'll Discover:</h3>
+                            <ul style="text-align: left; max-width: 600px; margin: 0 auto;">
+                                <li>Engaging characters who spread happiness wherever they go</li>
+                                <li>Interactive family activities that reinforce positive values</li>
+                                <li>Life lessons about empathy, friendship, and kindness</li>
+                                <li>Creative exercises that bring families together</li>
+                                <li>Tools to help children develop emotional intelligence</li>
+                            </ul>
+                            
+                            <p style="margin-top: 2rem;">Each story is carefully crafted to inspire young minds while providing practical activities that families can enjoy together. Through magical adventures and heartwarming tales, children learn that <span class="highlight">they have the power to make the world a brighter place</span>.</p>
+                        </div>
+                    </div>
+                </body>
+                </html>
+            `;
+            
+            const newWindow = window.open('', '_blank');
+            newWindow.document.write(storiesContent);
+            newWindow.document.close();
+        }
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9884d6e85220265d',t:'MTc1OTQxNDgxNi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
