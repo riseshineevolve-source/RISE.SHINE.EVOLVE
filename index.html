@@ -3,1301 +3,3368 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RISE.SHINE.EVOLVE</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Playfair+Display:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <title>Word Search - Rise Shine Evolve</title>
     <style>
         body {
             box-sizing: border-box;
             margin: 0;
             padding: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #000000;
             min-height: 100vh;
-            background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            font-family: 'Orbitron', monospace;
+            color: #ffb347;
+            position: relative;
             overflow-x: hidden;
         }
 
-        .container {
-            text-align: center;
-            position: relative;
+        /* Animowane tło z błyszczącymi elementami */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 15% 85%, rgba(255, 215, 0, 0.15) 0%, transparent 60%),
+                radial-gradient(circle at 85% 15%, rgba(255, 215, 0, 0.12) 0%, transparent 60%),
+                radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.8) 0%, transparent 70%),
+                radial-gradient(circle at 25% 25%, rgba(255, 215, 0, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(255, 215, 0, 0.10) 0%, transparent 60%),
+                radial-gradient(circle at 40% 20%, rgba(255, 215, 0, 0.06) 0%, transparent 40%),
+                radial-gradient(circle at 80% 60%, rgba(255, 215, 0, 0.04) 0%, transparent 45%);
+            animation: shimmer 40s ease-in-out infinite alternate;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 30% 70%, rgba(255, 215, 0, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 70% 30%, rgba(0, 0, 0, 0.9) 0%, transparent 50%),
+                radial-gradient(circle at 60% 80%, rgba(255, 215, 0, 0.05) 0%, transparent 35%),
+                radial-gradient(circle at 20% 40%, rgba(255, 215, 0, 0.04) 0%, transparent 40%);
+            animation: shimmer 50s ease-in-out infinite alternate;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        @keyframes shimmer {
+            0% { opacity: 0.2; transform: scale(1) rotate(0deg); }
+            50% { opacity: 0.3; transform: scale(1.005) rotate(0.1deg); }
+            100% { opacity: 0.2; transform: scale(1) rotate(0deg); }
+        }
+
+
+
+        @keyframes glow {
+            0%, 100% { 
+                box-shadow: 
+                    0 0 15px rgba(255, 215, 0, 0.15),
+                    0 0 30px rgba(255, 20, 147, 0.08),
+                    inset 0 0 15px rgba(0, 0, 0, 0.8);
+            }
+            50% { 
+                box-shadow: 
+                    0 0 25px rgba(255, 215, 0, 0.25),
+                    0 0 50px rgba(255, 20, 147, 0.12),
+                    0 0 75px rgba(138, 43, 226, 0.06),
+                    inset 0 0 20px rgba(0, 0, 0, 0.9);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.005); }
+        }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 0; transform: scale(0.95) rotate(0deg); }
+            50% { opacity: 0.8; transform: scale(1) rotate(90deg); }
+        }
+
+        @keyframes gentle-blink {
+            0%, 90%, 100% { 
+                opacity: 1;
+                transform: scale(1);
+            }
+            95% { 
+                opacity: 0.7;
+                transform: scale(0.98);
+            }
+        }
+
+        @keyframes elegant-glow {
+            0%, 100% { 
+                box-shadow: 
+                    0 0 12px rgba(255, 215, 0, 0.2),
+                    0 0 24px rgba(255, 215, 0, 0.15),
+                    inset 0 1px 0 rgba(255, 215, 0, 0.08);
+            }
+            50% { 
+                box-shadow: 
+                    0 0 18px rgba(255, 215, 0, 0.3),
+                    0 0 36px rgba(255, 215, 0, 0.2),
+                    0 0 54px rgba(255, 20, 147, 0.08),
+                    inset 0 1px 0 rgba(255, 215, 0, 0.12);
+            }
+        }
+
+        .container {
             max-width: 1200px;
-            padding-top: 1rem;
             margin: 0 auto;
-        }
-
-        .main-text {
-            font-size: clamp(1.8rem, 4.5vw, 3.5rem);
-            font-weight: 900;
-            letter-spacing: 0.2em;
-            background: linear-gradient(45deg, #c9b037, #daa520, #e6e6e6, #c9b037, #daa520);
-            background-size: 400% 400%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: shimmer 3s ease-in-out infinite, glow 2s ease-in-out infinite alternate;
-            text-shadow: 0 0 30px rgba(201, 176, 55, 0.5);
+            background: linear-gradient(135deg, #000000 0%, #1a1a1a 25%, #333333 50%, #ffd700 75%, #000000 100%);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            padding: 40px;
+            box-shadow: 
+                0 20px 60px rgba(0, 0, 0, 0.9),
+                0 0 100px rgba(255, 215, 0, 0.4),
+                inset 0 1px 0 rgba(255, 215, 0, 0.2);
+            border: 2px solid rgba(255, 215, 0, 0.6);
             position: relative;
-            z-index: 2;
+            animation: elegant-glow 24s ease-in-out infinite;
         }
 
-        .main-text::before {
-            content: 'RISE.SHINE.EVOLVE';
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            background: linear-gradient(45deg, #ff1493, #ffd700, #8b008b, #ff69b4, #ff1493);
+            border-radius: 30px;
+            z-index: -1;
+            animation: pulse 50s ease-in-out infinite;
+            opacity: 0.5;
+        }
+
+        .container::after {
+            content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #ffeaa7);
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(255, 215, 0, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 20, 147, 0.05) 0%, transparent 50%);
+            border-radius: 30px;
+            pointer-events: none;
+            animation: shimmer 30s ease-in-out infinite alternate;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, #ffd700, #ff69b4, #ffd700, #ffb6c1, #ffd700);
             background-size: 400% 400%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            animation: rainbow 4s ease-in-out infinite;
-            z-index: -1;
-            filter: blur(2px);
-            opacity: 0.7;
+            margin-bottom: 15px;
+            animation: gold-pink-shimmer 60s ease-in-out infinite;
+            text-shadow: 
+                0 0 40px rgba(255, 215, 0, 0.6),
+                0 0 80px rgba(255, 105, 180, 0.3);
+            letter-spacing: 2px;
         }
 
-        .sparkle {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: #ffd700;
-            border-radius: 50%;
-            animation: sparkle 2s linear infinite;
+        @keyframes gold-pink-shimmer {
+            0%, 100% { background-position: 0% 50%; }
+            20% { background-position: 80% 30%; }
+            40% { background-position: 160% 70%; }
+            60% { background-position: 240% 40%; }
+            80% { background-position: 320% 60%; }
         }
 
-        .sparkle:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; }
-        .sparkle:nth-child(2) { top: 40%; right: 15%; animation-delay: 0.5s; }
-        .sparkle:nth-child(3) { bottom: 30%; left: 20%; animation-delay: 1s; }
-        .sparkle:nth-child(4) { top: 60%; right: 25%; animation-delay: 1.5s; }
-        .sparkle:nth-child(5) { bottom: 20%; right: 10%; animation-delay: 0.3s; }
-        .sparkle:nth-child(6) { top: 30%; left: 30%; animation-delay: 0.8s; }
+        @keyframes shimmer-text {
+            0%, 100% { background-position: 0% 50%; }
+            25% { background-position: 100% 50%; }
+            50% { background-position: 200% 50%; }
+            75% { background-position: 300% 50%; }
+        }
+
+        @keyframes purple-glow-slow {
+            0%, 100% { 
+                border-color: #daa520;
+                box-shadow: 
+                    0 4px 15px rgba(0, 0, 0, 0.6),
+                    0 0 8px rgba(218, 165, 32, 0.3),
+                    0 0 16px rgba(138, 43, 226, 0.2);
+            }
+            25% { 
+                border-color: #ffd700;
+                box-shadow: 
+                    0 4px 15px rgba(0, 0, 0, 0.6),
+                    0 0 10px rgba(255, 215, 0, 0.35),
+                    0 0 20px rgba(147, 112, 219, 0.25);
+            }
+            50% { 
+                border-color: #9370db;
+                box-shadow: 
+                    0 4px 15px rgba(0, 0, 0, 0.6),
+                    0 0 12px rgba(147, 112, 219, 0.4),
+                    0 0 24px rgba(255, 215, 0, 0.3);
+            }
+            75% { 
+                border-color: #b8860b;
+                box-shadow: 
+                    0 4px 15px rgba(0, 0, 0, 0.6),
+                    0 0 10px rgba(184, 134, 11, 0.35),
+                    0 0 20px rgba(138, 43, 226, 0.25);
+            }
+        }
 
         .subtitle {
-            font-size: clamp(0.7rem, 1.5vw, 0.9rem);
-            background: linear-gradient(45deg, #8a2be2, #9932cc, #ba55d3, #8a2be2);
-            background-size: 300% 300%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-top: 2rem;
-            letter-spacing: 0.4em;
-            font-weight: 700;
-            font-family: 'Orbitron', monospace;
-            text-shadow: 0 0 20px rgba(138, 43, 226, 0.6);
-            animation: fadeInUp 2s ease-out, purpleShimmer 3s ease-in-out infinite;
-            text-align: right;
-            max-width: 1200px;
-            margin-left: auto;
-            margin-right: 0;
-            padding-right: 2rem;
+            color: #ffb347;
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+            font-weight: 300;
+            letter-spacing: 1px;
         }
 
-        .category {
-            font-size: clamp(0.9rem, 1.8vw, 1.2rem);
-            background: linear-gradient(45deg, #ff69b4, #ff1493, #ff6fa8, #ff69b4);
-            background-size: 300% 300%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-top: 0.5rem;
-            letter-spacing: 0.2em;
-            font-weight: 600;
-            font-family: 'Playfair Display', serif;
-            text-shadow: 0 0 15px rgba(255, 105, 180, 0.4);
-            animation: fadeInUp 2s ease-out 0.3s both, pinkShimmer 4s ease-in-out infinite;
-            opacity: 0.9;
-        }
-
-        @keyframes shimmer {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
-
-        @keyframes glow {
-            0% { 
-                text-shadow: 0 0 20px rgba(201, 176, 55, 0.5),
-                           0 0 40px rgba(201, 176, 55, 0.3),
-                           0 0 60px rgba(201, 176, 55, 0.2);
-            }
-            100% { 
-                text-shadow: 0 0 30px rgba(201, 176, 55, 0.8),
-                           0 0 60px rgba(201, 176, 55, 0.5),
-                           0 0 90px rgba(201, 176, 55, 0.3);
-            }
-        }
-
-        @keyframes rainbow {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
-
-        @keyframes sparkle {
-            0%, 100% { 
-                opacity: 0; 
-                transform: scale(0) rotate(0deg);
-            }
-            50% { 
-                opacity: 1; 
-                transform: scale(1) rotate(180deg);
-            }
-        }
-
-        @keyframes fadeInUp {
-            0% {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            100% {
-                opacity: 0.8;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes purpleShimmer {
-            0%, 100% { 
-                background-position: 0% 50%;
-                text-shadow: 0 0 20px rgba(138, 43, 226, 0.6);
-            }
-            50% { 
-                background-position: 100% 50%;
-                text-shadow: 0 0 30px rgba(138, 43, 226, 0.9), 0 0 50px rgba(186, 85, 211, 0.5);
-            }
-        }
-
-        @keyframes goldShimmer {
-            0%, 100% { 
-                background-position: 0% 50%;
-                text-shadow: 0 0 15px rgba(201, 176, 55, 0.4);
-            }
-            50% { 
-                background-position: 100% 50%;
-                text-shadow: 0 0 25px rgba(201, 176, 55, 0.7), 0 0 40px rgba(255, 215, 0, 0.4);
-            }
-        }
-
-        @keyframes pinkShimmer {
-            0%, 100% { 
-                background-position: 0% 50%;
-                text-shadow: 0 0 15px rgba(255, 105, 180, 0.4);
-            }
-            50% { 
-                background-position: 100% 50%;
-                text-shadow: 0 0 25px rgba(255, 105, 180, 0.7), 0 0 40px rgba(255, 20, 147, 0.4);
-            }
-        }
-
-        .navigation {
-            margin: 3rem 0;
+        .mode-selector {
             display: flex;
             justify-content: center;
-            flex-wrap: wrap;
-            gap: 1rem;
+            gap: 20px;
+            margin-bottom: 30px;
         }
 
-        .nav-tab {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 215, 0, 0.3);
-            border-radius: 25px;
-            padding: 0.8rem 1.5rem;
-            color: #ffffff;
-            font-family: 'Orbitron', monospace;
-            font-weight: 600;
-            font-size: clamp(0.8rem, 1.5vw, 1rem);
-            letter-spacing: 0.1em;
+        .mode-btn {
+            padding: 18px 36px;
+            border: 3px solid #6a0dad;
+            border-radius: 30px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.4s ease;
+            background: linear-gradient(135deg, #d8a7ca, #e6a8d5, #f4c2c2);
+            color: #2d1b69;
             position: relative;
             overflow: hidden;
+            box-shadow: 
+                0 8px 25px rgba(0, 0, 0, 0.4),
+                0 0 15px rgba(106, 13, 173, 0.5),
+                0 0 30px rgba(106, 13, 173, 0.3);
+            animation: warm-pink-purple-shimmer-slow 18s ease-in-out infinite;
         }
 
-        .nav-tab::before {
+        .mode-btn::before {
             content: '';
             position: absolute;
             top: 0;
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.2), transparent);
-            transition: left 0.5s ease;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(255, 215, 0, 0.1), 
+                rgba(255, 20, 147, 0.05), 
+                transparent);
+            transition: left 1.2s ease;
         }
 
-        .nav-tab:hover::before {
+        .mode-btn:hover::before {
             left: 100%;
         }
 
-        .nav-tab:hover {
-            border-color: rgba(255, 215, 0, 0.6);
-            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+        .mode-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 
+                0 15px 40px rgba(0, 0, 0, 0.5),
+                0 0 35px rgba(106, 13, 173, 0.9),
+                0 0 70px rgba(106, 13, 173, 0.4);
+            border-color: #6a0dad;
+        }
+
+        .mode-btn.active {
+            background: linear-gradient(45deg, #ffd700, #ffb347, #ffd700);
+            background-size: 200% 200%;
+            color: #2d1b69;
+            border-color: #9370db;
+            box-shadow: 
+                0 0 25px rgba(255, 215, 0, 0.9),
+                0 0 50px rgba(147, 112, 219, 0.7),
+                0 0 75px rgba(255, 215, 0, 0.5);
+            animation: gold-orange-shimmer 6s ease-in-out infinite, active-pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes gold-purple-shimmer-slow {
+            0%, 100% { 
+                box-shadow: 
+                    0 8px 25px rgba(0, 0, 0, 0.4),
+                    0 0 20px rgba(255, 215, 0, 0.6),
+                    0 0 40px rgba(147, 112, 219, 0.2);
+                border-color: #ffd700;
+            }
+            50% { 
+                box-shadow: 
+                    0 8px 25px rgba(0, 0, 0, 0.4),
+                    0 0 25px rgba(255, 215, 0, 0.8),
+                    0 0 50px rgba(147, 112, 219, 0.3);
+                border-color: #9370db;
+            }
+        }
+
+        @keyframes purple-shimmer-slow {
+            0%, 100% { 
+                box-shadow: 
+                    0 8px 25px rgba(0, 0, 0, 0.4),
+                    0 0 15px rgba(138, 43, 226, 0.5),
+                    0 0 30px rgba(138, 43, 226, 0.3);
+                border-color: #8a2be2;
+            }
+            50% { 
+                box-shadow: 
+                    0 8px 25px rgba(0, 0, 0, 0.4),
+                    0 0 20px rgba(138, 43, 226, 0.7),
+                    0 0 40px rgba(138, 43, 226, 0.4);
+                border-color: #9370db;
+            }
+        }
+
+        @keyframes warm-pink-purple-shimmer-slow {
+            0%, 100% { 
+                box-shadow: 
+                    0 8px 25px rgba(0, 0, 0, 0.4),
+                    0 0 15px rgba(230, 168, 213, 0.5),
+                    0 0 30px rgba(230, 168, 213, 0.3);
+                border-color: #e6a8d5;
+            }
+            50% { 
+                box-shadow: 
+                    0 8px 25px rgba(0, 0, 0, 0.4),
+                    0 0 20px rgba(244, 194, 194, 0.7),
+                    0 0 40px rgba(244, 194, 194, 0.4);
+                border-color: #f4c2c2;
+            }
+        }
+
+        @keyframes dark-purple-shimmer-slow {
+            0%, 100% { 
+                box-shadow: 
+                    0 8px 25px rgba(0, 0, 0, 0.4),
+                    0 0 10px rgba(75, 0, 130, 0.3),
+                    0 0 20px rgba(75, 0, 130, 0.1);
+                border-color: #4b0082;
+            }
+            50% { 
+                box-shadow: 
+                    0 8px 25px rgba(0, 0, 0, 0.4),
+                    0 0 15px rgba(75, 0, 130, 0.4),
+                    0 0 30px rgba(75, 0, 130, 0.2);
+                border-color: #6a0dad;
+            }
+        }
+
+        @keyframes gold-black-shimmer {
+            0%, 100% { 
+                background-position: 0% 50%;
+                box-shadow: 
+                    0 0 25px rgba(255, 215, 0, 0.9),
+                    0 0 50px rgba(147, 112, 219, 0.7),
+                    0 0 75px rgba(255, 215, 0, 0.5);
+            }
+            50% { 
+                background-position: 100% 50%;
+                box-shadow: 
+                    0 0 30px rgba(255, 215, 0, 1.0),
+                    0 0 60px rgba(147, 112, 219, 0.8),
+                    0 0 90px rgba(255, 215, 0, 0.6);
+            }
+        }
+
+        @keyframes gold-orange-shimmer {
+            0%, 100% { 
+                background-position: 0% 50%;
+                box-shadow: 
+                    0 0 25px rgba(255, 215, 0, 0.9),
+                    0 0 50px rgba(147, 112, 219, 0.7),
+                    0 0 75px rgba(255, 215, 0, 0.5);
+            }
+            50% { 
+                background-position: 100% 50%;
+                box-shadow: 
+                    0 0 30px rgba(255, 179, 71, 1.0),
+                    0 0 60px rgba(147, 112, 219, 0.8),
+                    0 0 90px rgba(255, 215, 0, 0.6);
+            }
+        }
+
+        @keyframes gold-active-shimmer {
+            0%, 100% { 
+                background-position: 0% 50%;
+                box-shadow: 
+                    0 0 30px rgba(255, 215, 0, 1.0),
+                    0 0 60px rgba(255, 179, 71, 0.8),
+                    0 0 90px rgba(255, 215, 0, 0.6);
+            }
+            50% { 
+                background-position: 100% 50%;
+                box-shadow: 
+                    0 0 40px rgba(255, 215, 0, 1.2),
+                    0 0 80px rgba(255, 179, 71, 1.0),
+                    0 0 120px rgba(255, 215, 0, 0.8);
+            }
+        }
+
+        @keyframes active-pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        @keyframes purple-border-glow {
+            0%, 100% { 
+                border-color: #daa520;
+                box-shadow: 
+                    0 2px 4px rgba(0, 0, 0, 0.4),
+                    0 0 8px rgba(218, 165, 32, 0.4),
+                    0 0 16px rgba(147, 112, 219, 0.3),
+                    inset 0 1px 0 rgba(218, 165, 32, 0.2);
+            }
+            25% { 
+                border-color: #ffd700;
+                box-shadow: 
+                    0 2px 4px rgba(0, 0, 0, 0.4),
+                    0 0 10px rgba(255, 215, 0, 0.45),
+                    0 0 20px rgba(138, 43, 226, 0.35),
+                    inset 0 1px 0 rgba(255, 215, 0, 0.25);
+            }
+            50% { 
+                border-color: #9370db;
+                box-shadow: 
+                    0 2px 4px rgba(0, 0, 0, 0.4),
+                    0 0 12px rgba(147, 112, 219, 0.5),
+                    0 0 24px rgba(255, 215, 0, 0.4),
+                    inset 0 1px 0 rgba(147, 112, 219, 0.3);
+            }
+            75% { 
+                border-color: #b8860b;
+                box-shadow: 
+                    0 2px 4px rgba(0, 0, 0, 0.4),
+                    0 0 10px rgba(184, 134, 11, 0.45),
+                    0 0 20px rgba(138, 43, 226, 0.35),
+                    inset 0 1px 0 rgba(184, 134, 11, 0.25);
+            }
+        }
+
+        @keyframes yellow-purple-glow {
+            0%, 100% { 
+                box-shadow: 
+                    0 0 20px rgba(255, 215, 0, 0.6),
+                    0 0 40px rgba(138, 43, 226, 0.4),
+                    0 0 60px rgba(255, 215, 0, 0.3);
+                border-color: #ffd700;
+            }
+            50% { 
+                box-shadow: 
+                    0 0 25px rgba(255, 215, 0, 0.8),
+                    0 0 50px rgba(138, 43, 226, 0.6),
+                    0 0 75px rgba(255, 215, 0, 0.4);
+                border-color: #8a2be2;
+            }
+        }
+
+        @keyframes yellow-purple-gradient {
+            0%, 100% { 
+                background-position: 0% 50%;
+            }
+            25% { 
+                background-position: 50% 0%;
+            }
+            50% { 
+                background-position: 100% 50%;
+            }
+            75% { 
+                background-position: 50% 100%;
+            }
+        }
+
+        .controls {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .words-control {
+            grid-column: 1 / -1;
+        }
+
+        .control-group {
+            background: #000000;
+            padding: 30px;
+            border-radius: 25px;
+            border: 2px solid #6a0dad;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 
+                0 15px 40px rgba(0, 0, 0, 0.7),
+                0 0 15px rgba(106, 13, 173, 1.2),
+                0 0 30px rgba(106, 13, 173, 0.9),
+                0 0 45px rgba(106, 13, 173, 0.6),
+                0 0 60px rgba(106, 13, 173, 0.3);
+            animation: gold-purple-shimmer-slow 20s ease-in-out infinite;
+        }
+
+        .control-group::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #6a0dad, #4b0082, #8b008b, #6a0dad);
+            opacity: 0.4;
+        }
+
+        .control-group::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 10% 10%, rgba(255, 215, 0, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 90% 90%, rgba(255, 20, 147, 0.03) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+
+
+
+
+        .control-group h3 {
+            margin: 0 0 25px 0;
+            color: #ffb347;
+            font-size: 1.4rem;
+            text-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #ffb347;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+            letter-spacing: 0.5px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 18px;
+            border: 3px solid #4b0082;
+            border-radius: 20px;
+            background: #1a1a1a;
+            color: #ffb347;
+            font-size: 16px;
+            box-sizing: border-box;
+            transition: all 0.4s ease;
+            box-shadow: 
+                0 10px 30px rgba(0, 0, 0, 0.4),
+                0 0 15px rgba(75, 0, 130, 0.4),
+                0 0 30px rgba(75, 0, 130, 0.2);
+            animation: dark-purple-shimmer-slow 20s ease-in-out infinite;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #9370db;
+            box-shadow: 
+                0 10px 30px rgba(0, 0, 0, 0.5),
+                0 0 25px rgba(147, 112, 219, 0.8),
+                0 0 50px rgba(147, 112, 219, 0.5);
+            background: #2a2a2a;
             transform: translateY(-2px);
         }
 
-        .nav-tab.active {
-            background: linear-gradient(45deg, rgba(201, 176, 55, 0.2), rgba(218, 165, 32, 0.2));
-            border-color: #c9b037;
-            box-shadow: 0 0 25px rgba(201, 176, 55, 0.4);
-            color: #c9b037;
-            text-shadow: 0 0 10px rgba(201, 176, 55, 0.3);
+        input[type="text"]::placeholder {
+            color: #000000;
         }
 
-        .projects-section {
-            margin-top: 2rem;
-            max-width: 800px;
-            text-align: left;
+        .button-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+            justify-content: center;
         }
 
-        .section-content {
-            display: none;
-            animation: fadeInUp 0.6s ease-out;
-        }
-
-        .section-content.active {
-            display: block;
-        }
-
-        .intro-section {
-            text-align: center;
-            margin-bottom: 3rem;
-            padding: 2rem;
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            border: 1px solid rgba(255, 215, 0, 0.15);
-        }
-
-        .intro-text {
-            font-size: clamp(1rem, 2vw, 1.4rem);
-            font-family: 'Playfair Display', serif;
+        .btn {
+            padding: 14px 28px;
+            border: 2px solid #6a0dad;
+            border-radius: 25px;
+            cursor: pointer;
             font-weight: 600;
-            color: #ffffff;
-            margin: 1rem 0;
-            opacity: 0.95;
-            line-height: 1.4;
-            animation: fadeInUp 2s ease-out;
-        }
-
-        .intro-description {
-            font-size: clamp(1rem, 1.8vw, 1.2rem);
-            font-family: 'Playfair Display', serif;
-            font-weight: 400;
-            color: #ffffff;
-            opacity: 0.85;
-            line-height: 1.6;
-            margin: 2rem 0;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .intro-motto {
-            font-size: clamp(1rem, 2vw, 1.4rem);
-            font-family: 'Orbitron', monospace;
-            font-weight: 700;
-            color: #ffffff;
-            margin: 2rem 0;
-            letter-spacing: 0.1em;
-            text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
-            animation: fadeInUp 2s ease-out 0.5s both;
-        }
-
-        .project-card {
-            background: rgba(255, 255, 255, 0.02);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            padding: 2.5rem;
-            margin-bottom: 2rem;
+            transition: all 0.4s ease;
+            background: linear-gradient(135deg, #d8a7ca, #e6a8d5);
+            color: #2d1b69;
             position: relative;
             overflow: hidden;
-            animation: fadeInUp 2s ease-out;
-            cursor: pointer;
-            transition: all 0.4s ease;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            box-shadow: 
+                0 6px 20px rgba(0, 0, 0, 0.3),
+                0 0 12px rgba(106, 13, 173, 0.4);
         }
 
-        .project-card:hover {
-            transform: translateY(-8px);
-            border-color: rgba(201, 176, 55, 0.3);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
-            background: rgba(255, 255, 255, 0.04);
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.2), rgba(255, 20, 147, 0.1));
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.4s ease, height 0.4s ease;
         }
 
-        .project-card.clickable:hover .click-indicator {
-            opacity: 1;
-            transform: translateX(0);
+        .btn:hover::after {
+            width: 300px;
+            height: 300px;
         }
 
-        .project-name {
-            font-size: clamp(1.2rem, 2.5vw, 1.5rem);
-            font-weight: 700;
-            background: linear-gradient(45deg, #8a2be2, #ba55d3);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin: 0 0 1.5rem 0;
-            letter-spacing: 0.1em;
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 
+                0 12px 35px rgba(0, 0, 0, 0.8),
+                0 0 25px rgba(106, 13, 173, 0.6);
+            border-color: #6a0dad;
         }
 
-        .project-description {
+        .btn.active {
+            background: linear-gradient(45deg, #ffd700, #ffb347, #ffd700);
+            background-size: 200% 200%;
+            color: #000000;
+            border-color: #ffd700;
+            box-shadow: 
+                0 0 30px rgba(255, 215, 0, 1.0),
+                0 0 60px rgba(255, 179, 71, 0.8),
+                0 0 90px rgba(255, 215, 0, 0.6);
+            animation: gold-active-shimmer 2s ease-in-out infinite, active-pulse 2s ease-in-out infinite;
+            transform: scale(1.05);
+            font-weight: 800;
+        }
+
+        .btn-primary {
+            background: #000000;
+            color: #ffb347;
+            font-size: 20px;
+            padding: 22px 44px;
+            border: 3px solid #4b0082;
+            box-shadow: 
+                0 10px 30px rgba(0, 0, 0, 0.7),
+                0 0 20px rgba(255, 215, 0, 0.6),
+                0 0 40px rgba(147, 112, 219, 0.3);
+            animation: gold-purple-shimmer-slow 20s ease-in-out infinite;
+        }
+
+        .btn-primary:hover {
+            background: #1a1a1a;
+            transform: translateY(-4px);
+            box-shadow: 
+                0 15px 40px rgba(0, 0, 0, 0.8),
+                0 0 35px rgba(255, 215, 0, 0.9),
+                0 0 70px rgba(147, 112, 219, 0.4);
+            border-color: #9370db;
+        }
+
+        .btn-secondary {
+            background: #000000;
             color: #ffffff;
-            opacity: 0.9;
-            line-height: 1.7;
-            margin-bottom: 1rem;
-            font-size: clamp(0.95rem, 1.5vw, 1.1rem);
-            font-family: 'Playfair Display', serif;
-            font-weight: 400;
-        }
-
-        .project-motto {
-            margin-top: 1.5rem;
-            padding: 1rem;
-            background: rgba(255, 215, 0, 0.1);
-            border-radius: 10px;
-            border-left: 3px solid #ffd700;
-        }
-
-        .project-motto p {
-            margin: 0.5rem 0;
-            color: #ffffff;
-            font-weight: 500;
-            font-size: clamp(0.95rem, 1.5vw, 1.1rem);
-            font-family: 'Playfair Display', serif;
-        }
-
-        .project-coming-soon {
-            color: #ffd700;
+            border: 3px solid #8a2be2;
+            box-shadow: 
+                0 0 25px rgba(138, 43, 226, 0.9),
+                0 0 50px rgba(138, 43, 226, 0.7),
+                0 0 75px rgba(138, 43, 226, 0.5);
+            animation: purple-shimmer-slow 6s ease-in-out infinite;
             font-weight: 700;
-            font-style: italic;
+        }
+        
+        .btn-secondary:hover {
+            background: #1a1a1a;
+            border-color: #9370db;
+            box-shadow: 
+                0 12px 35px rgba(0, 0, 0, 0.6),
+                0 0 35px rgba(147, 112, 219, 0.9),
+                0 0 70px rgba(138, 43, 226, 0.6);
+            transform: translateY(-3px);
+        }
+
+        .generate-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 30px 0;
+            width: 100%;
             text-align: center;
-            margin-top: 1.5rem;
-            font-size: clamp(1rem, 1.8vw, 1.1rem);
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
         }
 
-        .highlight-rise {
-            background: linear-gradient(45deg, #ff69b4, #ff1493, #ff6fa8);
-            background-size: 200% 200%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-weight: 700;
-            text-shadow: 0 0 15px rgba(255, 105, 180, 0.4);
-            animation: colorShift 3s ease-in-out infinite;
+        .game-area {
+            display: grid;
+            grid-template-columns: 1fr 200px;
+            gap: 20px;
+            align-items: flex-start;
         }
 
-        .highlight-shine {
-            background: linear-gradient(45deg, #c9b037, #daa520, #b8860b);
-            background-size: 200% 200%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-weight: 700;
-            text-shadow: 0 0 15px rgba(201, 176, 55, 0.4);
-            animation: colorShift 3s ease-in-out infinite 0.5s;
+        .puzzle-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
         }
 
-        .highlight-evolve {
-            background: linear-gradient(45deg, #8a2be2, #9932cc, #ba55d3);
-            background-size: 200% 200%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-weight: 700;
-            text-shadow: 0 0 15px rgba(138, 43, 226, 0.4);
-            animation: colorShift 3s ease-in-out infinite 1s;
-        }
-
-        @keyframes colorShift {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
-
-
-
-        .brilliance-glow {
-            background: linear-gradient(45deg, #ffd700, #ffed4e, #fff700, #ffd700);
-            background-size: 300% 300%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-weight: 700;
+        .word-search {
+            display: grid;
+            gap: clamp(1px, 0.15vw, 2px);
+            padding: clamp(15px, 1.5vw, 25px);
+            background: #000000;
+            border-radius: 25px;
+            border: 3px solid #4b0082;
+            box-shadow: 
+                0 0 60px rgba(255, 215, 0, 0.8),
+                0 0 120px rgba(75, 0, 130, 0.6),
+                inset 0 0 40px rgba(255, 215, 0, 0.2);
             position: relative;
-            animation: brillianceShine 2s ease-in-out infinite, brillianceGlow 3s ease-in-out infinite alternate;
+            width: 100%;
+            max-width: min(60vw, 500px);
+            max-height: min(60vh, 500px);
+            overflow: hidden;
+            margin: 0 auto;
+            aspect-ratio: 1;
+            justify-content: center;
+            align-content: center;
         }
 
-        .brilliance-glow::before {
+        .word-search::before {
             content: '';
             position: absolute;
             top: -2px;
             left: -2px;
             right: -2px;
             bottom: -2px;
-            background: linear-gradient(45deg, transparent, rgba(255, 215, 0, 0.3), transparent);
-            border-radius: 4px;
-            animation: brillianceSweep 6s linear infinite;
+            background: linear-gradient(45deg, #2d1b69, #ffd700, #4b0082, #2d1b69);
+            border-radius: 25px;
             z-index: -1;
+            opacity: 0.3;
         }
 
-        @keyframes brillianceShine {
+        .cell {
+            width: 100%;
+            height: 100%;
+            min-width: 15px;
+            min-height: 15px;
+            max-width: 35px;
+            max-height: 35px;
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #ffffff;
+            color: #8a2be2;
+            font-weight: 900;
+            font-size: clamp(10px, 1.2vw, 16px);
+            border-radius: clamp(2px, 0.2vw, 4px);
+            cursor: pointer;
+            transition: none;
+            user-select: none;
+            border: 1px solid #cccccc;
+            position: relative;
+            box-shadow: none;
+            text-shadow: none;
+        }
+
+        .cell:hover {
+            background: #f0f0f0;
+            color: #6a0dad;
+            border-color: #8a2be2;
+            box-shadow: 0 0 5px rgba(138, 43, 226, 0.3);
+        }
+
+        .cell.found {
+            background: linear-gradient(45deg, #ff69b4, #ffd700) !important;
+            color: #000000 !important;
+            border: 2px solid #ff69b4 !important;
+            box-shadow: 
+                0 0 20px rgba(255, 105, 180, 0.6),
+                0 0 40px rgba(255, 215, 0, 0.4) !important;
+            animation: found-sparkle 2s ease-in-out;
+            transform: scale(1.02);
+            font-weight: 900;
+        }
+
+        .cell.highlighted {
+            background: linear-gradient(45deg, #ff69b4, #ffd700) !important;
+            color: #000000 !important;
+            border: 2px solid #ff69b4 !important;
+            box-shadow: 
+                0 0 15px rgba(255, 105, 180, 0.6),
+                0 0 25px rgba(255, 215, 0, 0.4) !important;
+            animation: pink-yellow-pulse 0.5s ease-in-out infinite;
+            transform: scale(1.05);
+            font-weight: 900;
+            z-index: 10;
+            position: relative;
+        }
+
+        .cell.word-preview {
+            background: #8a2be2 !important;
+            color: #ffffff !important;
+            border: 3px solid #ff69b4 !important;
+            box-shadow: 
+                0 0 20px rgba(138, 43, 226, 0.8),
+                0 0 40px rgba(255, 105, 180, 0.6) !important;
+            transform: scale(1.05);
+            animation: purple-preview-glow 1.5s ease-in-out infinite;
+        }
+
+        @keyframes purple-preview-glow {
             0%, 100% { 
-                background-position: 0% 50%;
+                box-shadow: 
+                    0 0 20px rgba(138, 43, 226, 0.8),
+                    0 0 40px rgba(255, 105, 180, 0.6);
             }
             50% { 
-                background-position: 100% 50%;
+                box-shadow: 
+                    0 0 30px rgba(138, 43, 226, 1.0),
+                    0 0 60px rgba(255, 105, 180, 0.8);
             }
         }
 
-        @keyframes brillianceGlow {
-            0% { 
-                text-shadow: 0 0 10px rgba(255, 215, 0, 0.5),
-                           0 0 20px rgba(255, 215, 0, 0.3),
-                           0 0 30px rgba(255, 215, 0, 0.2);
-            }
-            100% { 
-                text-shadow: 0 0 20px rgba(255, 215, 0, 0.8),
-                           0 0 40px rgba(255, 215, 0, 0.5),
-                           0 0 60px rgba(255, 215, 0, 0.3);
-            }
+        .sidebar {
+            min-width: 180px;
+            max-width: 200px;
+            background: #000000;
+            padding: 15px;
+            border-radius: 20px;
+            border: 2px solid #6a0dad;
+            position: relative;
+            box-shadow: 
+                0 15px 40px rgba(0, 0, 0, 0.7),
+                0 0 15px rgba(106, 13, 173, 1.2),
+                0 0 30px rgba(106, 13, 173, 0.9),
+                0 0 45px rgba(106, 13, 173, 0.6),
+                0 0 60px rgba(106, 13, 173, 0.3);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-left: auto;
+            margin-right: 20px;
         }
 
-        @keyframes brillianceSweep {
-            0% { transform: translateX(-100%) rotate(45deg); }
-            100% { transform: translateX(300%) rotate(45deg); }
-        }
-
-        .amazon-section {
-            text-align: center;
-            margin-top: 1.5rem;
-            padding: 1rem;
-            background: rgba(201, 176, 55, 0.1);
-            border-radius: 10px;
-        }
-
-        .amazon-text {
-            color: #c9b037;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            font-size: clamp(0.9rem, 1.5vw, 1rem);
-        }
-
-        .amazon-button {
-            background: linear-gradient(45deg, #c9b037, #daa520);
-            color: white;
-            padding: 0.8rem 1.5rem;
-            border-radius: 25px;
-            font-weight: 700;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-            display: inline-block;
-            box-shadow: 0 4px 15px rgba(201, 176, 55, 0.3);
-            text-decoration: none;
-        }
-
-        .amazon-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(201, 176, 55, 0.5);
-        }
-
-        .click-indicator {
+        .sidebar::before {
+            content: '';
             position: absolute;
-            bottom: 1rem;
-            right: 1.5rem;
-            color: #c9b037;
-            font-weight: 700;
-            font-size: 0.9rem;
-            opacity: 0;
-            transform: translateX(10px);
-            transition: all 0.3s ease;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #6a0dad, #4b0082, #8b008b, #6a0dad);
+            border-radius: 25px;
+            z-index: -1;
+            opacity: 0.2;
+        }
+
+        .sidebar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(255, 215, 0, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 20, 147, 0.03) 0%, transparent 50%);
+            border-radius: 25px;
             pointer-events: none;
         }
 
-        .project-icon {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 2rem;
-            position: relative;
+        .word-list {
+            margin-bottom: 0;
         }
 
-        .project-icon::before {
+        .word-list h3 {
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .word-item {
+            padding: 8px 12px;
+            margin: 6px 0;
+            background: #000000;
+            border-radius: 10px;
+            border: 2px solid #6a0dad;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 0.8rem;
+            box-shadow: 
+                0 4px 15px rgba(0, 0, 0, 0.5),
+                0 0 8px rgba(106, 13, 173, 0.8),
+                0 0 16px rgba(106, 13, 173, 0.5),
+                0 0 24px rgba(106, 13, 173, 0.3);
+        }
+
+        .word-item::before {
             content: '';
             position: absolute;
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, #c9b037, #daa520, #b8860b);
-            border-radius: 50%;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: -1;
-            box-shadow: 0 8px 25px rgba(201, 176, 55, 0.3);
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(106, 13, 173, 0.1), 
+                rgba(75, 0, 130, 0.05), 
+                transparent);
+            opacity: 0;
+            transition: opacity 0.4s ease;
         }
 
-        .project-icon svg {
-            z-index: 1;
-            position: relative;
+        .word-item:hover::before {
+            opacity: 1;
         }
 
-        .project-icon svg * {
-            stroke: #8a2be2 !important;
-            fill: #8a2be2 !important;
+        .word-item:hover {
+            transform: translateX(5px);
+            border-left-color: #ff1493;
+            box-shadow: 
+                0 6px 20px rgba(0, 0, 0, 0.7),
+                0 0 20px rgba(255, 20, 147, 0.5),
+                0 0 35px rgba(139, 0, 139, 0.3);
         }
 
-        .project-icon svg rect[fill="none"] {
-            fill: none !important;
+        .word-item.found {
+            background: linear-gradient(45deg, #ffd700, #b8860b);
+            color: #0c0c0c;
+            text-decoration: line-through;
+            border-left-color: #6c5ce7;
+            animation: sparkle 2.5s ease-in-out;
+            box-shadow: 
+                0 0 20px rgba(255, 215, 0, 0.5),
+                0 0 40px rgba(108, 92, 231, 0.2);
         }
 
-        .project-icon svg rect[fill*="rgba"] {
-            fill: rgba(138, 43, 226, 0.1) !important;
+        .stats {
+            text-align: center;
+            padding: 10px;
+            background: #000000;
+            border-radius: 12px;
+            margin-bottom: 0;
+            border: 2px solid #6a0dad;
+            box-shadow: 
+                0 8px 25px rgba(0, 0, 0, 0.6),
+                0 0 8px rgba(106, 13, 173, 0.8),
+                0 0 16px rgba(106, 13, 173, 0.5),
+                0 0 24px rgba(106, 13, 173, 0.3);
         }
 
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1rem;
-            margin: 1.5rem 0;
-            padding: 1rem;
-            background: rgba(138, 43, 226, 0.05);
-            border-radius: 10px;
-            border: 1px solid rgba(138, 43, 226, 0.2);
+        .mode-print .game-area {
+            display: none !important;
         }
 
-        .feature-item {
+        .stats h3 {
+            color: #ff69b4;
+            margin-bottom: 8px;
+            text-shadow: 0 0 15px rgba(255, 105, 180, 0.5);
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+
+        .stats p {
+            color: #e6e6e6;
+            margin: 3px 0;
+            font-weight: 500;
+            font-size: 0.75rem;
+        }
+
+        .error {
+            color: #ff6b6b;
+            background: rgba(255, 107, 107, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border-left: 4px solid #ff6b6b;
+            animation: pulse 2s ease-in-out 2;
+            box-shadow: 
+                0 8px 25px rgba(0, 0, 0, 0.5),
+                0 0 20px rgba(255, 107, 107, 0.2);
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+        }
+
+        .success {
+            color: #ffb347;
+            background: rgba(255, 215, 0, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border-left: 4px solid #ffd700;
+            animation: sparkle 2s ease-in-out;
+            box-shadow: 
+                0 8px 25px rgba(0, 0, 0, 0.5),
+                0 0 20px rgba(255, 215, 0, 0.3);
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+            text-align: center;
+        }
+
+        /* Wersja do wydrukowania */
+        .print-version {
+            display: none;
+            background: white;
+            color: black;
+            padding: 30px;
+            font-family: Arial, sans-serif;
+            max-width: 100%;
+        }
+
+        .print-version h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+            color: black;
+        }
+
+        .print-version .print-content {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .print-version .print-puzzle-section {
+            flex: 1;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 0.5rem;
-            padding: 0.8rem;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 8px;
-            transition: all 0.3s ease;
         }
 
-        .feature-item:hover {
-            background: rgba(201, 176, 55, 0.1);
-            transform: translateY(-2px);
+        .print-version .print-info-section {
+            min-width: 250px;
+            max-width: 300px;
         }
 
-        .feature-item span {
-            font-size: 0.8rem;
-            color: #ffffff;
-            font-weight: 600;
-            opacity: 0.9;
+        .print-version .word-search {
+            background: white;
+            border: 2px solid black;
+            box-shadow: none;
+            margin: 0 auto;
         }
 
-        .scratch-notes-section {
-            margin: 2rem 0;
-            display: grid;
-            gap: 1.5rem;
+        .print-version .cell {
+            background: white;
+            color: black;
+            border: 1px solid #ccc;
+            box-shadow: none;
         }
 
-        .scratch-note {
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(15px);
-            border: 2px solid rgba(201, 176, 55, 0.3);
-            border-radius: 15px;
-            padding: 1.5rem;
-            position: relative;
-            transform: rotate(-0.5deg);
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        .print-version .word-list {
+            background: white;
+            border: 2px solid black;
+            padding: 15px;
+            margin-bottom: 20px;
         }
 
-        .scratch-note:nth-child(2) {
-            transform: rotate(0.8deg);
-            border-color: rgba(138, 43, 226, 0.4);
-        }
-
-        .scratch-note:nth-child(3) {
-            transform: rotate(-0.3deg);
-            border-color: rgba(255, 105, 180, 0.3);
-        }
-
-        .scratch-note:hover {
-            transform: rotate(0deg) scale(1.02);
-            border-color: rgba(201, 176, 55, 0.6);
-            box-shadow: 0 12px 35px rgba(201, 176, 55, 0.2);
-        }
-
-        .scratch-note::before {
-            content: '';
-            position: absolute;
-            top: -5px;
-            left: 20px;
-            width: 30px;
-            height: 15px;
-            background: linear-gradient(45deg, #c9b037, #daa520);
-            border-radius: 3px;
-            opacity: 0.8;
-            box-shadow: 0 2px 8px rgba(201, 176, 55, 0.3);
-        }
-
-        .note-header {
-            font-size: clamp(1.1rem, 2vw, 1.3rem);
-            font-weight: 700;
-            color: #c9b037;
-            margin-bottom: 1rem;
-            font-family: 'Orbitron', monospace;
-            letter-spacing: 0.05em;
-            text-shadow: 0 0 10px rgba(201, 176, 55, 0.3);
-        }
-
-        .scratch-note p {
-            color: #ffffff;
-            font-size: clamp(0.95rem, 1.5vw, 1.1rem);
-            line-height: 1.6;
-            margin: 0;
-            font-family: 'Playfair Display', serif;
-            font-weight: 400;
-        }
-
-        .highlight-joy {
-            background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-weight: 700;
-            text-shadow: 0 0 10px rgba(255, 107, 107, 0.3);
-        }
-
-        .highlight-curiosity {
-            background: linear-gradient(45deg, #4ecdc4, #45b7d1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-weight: 700;
-            text-shadow: 0 0 10px rgba(78, 205, 196, 0.3);
-        }
-
-        .highlight-stories {
-            background: linear-gradient(45deg, #8a2be2, #ba55d3);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-weight: 700;
-            text-shadow: 0 0 10px rgba(138, 43, 226, 0.3);
-        }
-
-        .highlight-activities {
-            background: linear-gradient(45deg, #ffeaa7, #fdcb6e);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-weight: 700;
-            text-shadow: 0 0 10px rgba(255, 234, 167, 0.3);
-        }
-
-        .highlight-active {
-            background: linear-gradient(45deg, #00b894, #00cec9);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-weight: 700;
-            text-shadow: 0 0 10px rgba(0, 184, 148, 0.3);
-        }
-
-        .highlight-relationships {
-            background: linear-gradient(45deg, #e17055, #fd79a8);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-weight: 700;
-            text-shadow: 0 0 10px rgba(225, 112, 85, 0.3);
-        }
-
-        .highlight-discovery {
-            background: linear-gradient(45deg, #a29bfe, #6c5ce7);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-weight: 700;
-            text-shadow: 0 0 10px rgba(162, 155, 254, 0.3);
-        }
-
-        .center-showcase {
-            min-height: 300px;
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            border: 2px dashed rgba(201, 176, 55, 0.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 2rem;
-            margin: 2rem 0;
-        }
-
-        .showcase-placeholder {
+        .print-version .word-list h3 {
+            margin-top: 0;
+            margin-bottom: 15px;
             text-align: center;
-            opacity: 0.8;
+            font-size: 1.3rem;
         }
 
-        .activities-summary {
-            display: flex;
-            gap: 2rem;
-            justify-content: center;
-            margin: 3rem 0;
-            flex-wrap: wrap;
+        .print-version .print-details {
+            background: white;
+            border: 2px solid black;
+            padding: 15px;
         }
 
-        .summary-card {
-            background: rgba(255, 255, 255, 0.02);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            padding: 1.5rem;
-            position: relative;
+        .print-version .print-details h3 {
+            margin-top: 0;
+            margin-bottom: 15px;
+            text-align: center;
+            font-size: 1.3rem;
+        }
+
+        /* Tabela słów do zaznaczania */
+        .word-checklist {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .word-checklist th,
+        .word-checklist td {
+            border: 1px solid #333;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .word-checklist th {
+            background-color: #f0f0f0;
+            font-weight: bold;
+        }
+
+        .word-checklist .checkbox-cell {
+            width: 30px;
+            text-align: center;
+        }
+
+        .word-checklist .checkbox {
+            width: 16px;
+            height: 16px;
+            border: 2px solid #333;
+            display: inline-block;
+        }
+
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            
+            .print-version, .print-version * {
+                visibility: visible;
+            }
+            
+            .print-version {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                display: block !important;
+            }
+        }
+
+        /* Animacje zwycięstwa */
+        .celebration-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1000;
             overflow: hidden;
-            transition: all 0.4s ease;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            flex: 1;
-            max-width: 250px;
-            min-width: 200px;
         }
 
-        .summary-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(201, 176, 55, 0.3);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            background: rgba(255, 255, 255, 0.04);
-        }
-
-        .summary-icon {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 1rem;
-            position: relative;
-        }
-
-        .summary-icon::before {
-            content: '';
+        .falling-confetti {
             position: absolute;
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, #c9b037, #daa520, #b8860b);
+            width: 10px;
+            height: 10px;
+            animation: confetti-fall linear infinite;
+        }
+
+        .confetti-square {
+            background: linear-gradient(45deg, #ffd700, #ff69b4, #8b5cf6);
+            box-shadow: 0 0 8px rgba(255, 215, 0, 1.0), 0 0 16px rgba(255, 105, 180, 0.6);
+        }
+
+        .confetti-circle {
+            background: linear-gradient(45deg, #ff69b4, #8b5cf6, #ffd700);
             border-radius: 50%;
+            box-shadow: 0 0 10px rgba(255, 105, 180, 0.9), 0 0 20px rgba(139, 92, 246, 0.5);
+        }
+
+        .confetti-triangle {
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-bottom: 10px solid #8b5cf6;
+            filter: drop-shadow(0 0 6px rgba(139, 92, 246, 1.0)) drop-shadow(0 0 12px rgba(255, 105, 180, 0.4));
+        }
+
+        .confetti-diamond {
+            background: linear-gradient(45deg, #8b5cf6, #ffd700, #ff69b4);
+            transform: rotate(45deg);
+            box-shadow: 0 0 8px rgba(139, 92, 246, 0.8), 0 0 16px rgba(255, 215, 0, 0.6);
+        }
+
+        .confetti-star {
+            color: #ffd700;
+            font-size: 10px;
+            text-shadow: 0 0 6px rgba(255, 215, 0, 1.0), 0 0 12px rgba(255, 215, 0, 0.8), 0 0 18px rgba(255, 105, 180, 0.4);
+        }
+
+        .confetti-heart {
+            color: #ff69b4;
+            font-size: 8px;
+            text-shadow: 0 0 6px rgba(255, 105, 180, 1.0), 0 0 12px rgba(255, 105, 180, 0.8), 0 0 18px rgba(139, 92, 246, 0.4);
+        }
+
+        .confetti-sparkle {
+            color: #8b5cf6;
+            font-size: 9px;
+            text-shadow: 0 0 6px rgba(139, 92, 246, 1.0), 0 0 12px rgba(139, 92, 246, 0.8), 0 0 18px rgba(255, 215, 0, 0.4);
+        }
+
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        .victory-banner {
+            position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            z-index: -1;
-            box-shadow: 0 6px 20px rgba(201, 176, 55, 0.3);
-        }
-
-        .summary-icon svg * {
-            stroke: #8a2be2 !important;
-            fill: #8a2be2 !important;
-        }
-
-        .summary-icon svg rect[fill="none"] {
-            fill: none !important;
-        }
-
-        .summary-icon svg rect[fill*="rgba"] {
-            fill: rgba(138, 43, 226, 0.1) !important;
-        }
-
-        .summary-title {
-            font-size: 1.1rem;
-            font-weight: 700;
-            background: linear-gradient(45deg, #8a2be2, #ba55d3);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin: 0 0 0.8rem 0;
-            letter-spacing: 0.05em;
-            text-align: center;
-        }
-
-        .summary-description {
+            background: linear-gradient(135deg, #1a0b2e 0%, #2d1b69 15%, #4c1d95 30%, #5b21b6 45%, #6d28d9 60%, #7c3aed 75%, #8b5cf6 90%, #9333ea 100%);
+            background-size: 400% 400%;
             color: #ffffff;
-            opacity: 0.9;
-            line-height: 1.5;
-            margin-bottom: 0.5rem;
-            font-size: 0.9rem;
-            font-family: 'Playfair Display', serif;
-            font-weight: 400;
+            padding: 40px 60px;
+            border-radius: 35px;
+            font-size: 2.2rem;
+            font-weight: 900;
             text-align: center;
+            z-index: 1001;
+            animation: victory-gradient-shift 3s ease-in-out infinite, victory-bounce 0.8s ease-out, victory-pulse 2s ease-in-out infinite;
+            box-shadow: 
+                0 0 80px rgba(26, 11, 46, 1.0),
+                0 0 160px rgba(45, 27, 105, 0.8),
+                0 0 240px rgba(76, 29, 149, 0.6),
+                inset 0 0 40px rgba(255, 255, 255, 0.1);
+            border: 6px solid rgba(139, 92, 246, 0.8);
+            letter-spacing: 4px;
+            text-shadow: 
+                0 0 30px rgba(255, 255, 255, 1.0),
+                0 0 60px rgba(139, 92, 246, 0.9),
+                0 4px 8px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+        }
+
+        .victory-banner::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: victory-sweep 4s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        .victory-banner::after {
+            content: '';
+        }
+
+        .victory-banner .victory-stars {
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            right: -15px;
+            bottom: -15px;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .victory-banner .victory-star {
+            position: absolute;
+            color: #ffffff;
+            font-size: 0.8rem;
+            font-weight: 100;
+            text-shadow: 0 0 8px rgba(255, 255, 255, 1.0), 0 0 16px rgba(139, 92, 246, 0.8), 0 0 24px rgba(255, 255, 255, 0.4);
+            animation: victory-star-twinkle 1.5s ease-in-out infinite;
+            opacity: 0.7;
+        }
+
+        .victory-banner .victory-star:nth-child(1) { animation-delay: 0s; }
+        .victory-banner .victory-star:nth-child(2) { animation-delay: 0.3s; }
+        .victory-banner .victory-star:nth-child(3) { animation-delay: 0.6s; }
+        .victory-banner .victory-star:nth-child(4) { animation-delay: 0.9s; }
+        .victory-banner .victory-star:nth-child(5) { animation-delay: 1.2s; }
+        .victory-banner .victory-star:nth-child(6) { animation-delay: 1.5s; }
+        .victory-banner .victory-star:nth-child(7) { animation-delay: 1.8s; }
+        .victory-banner .victory-star:nth-child(8) { animation-delay: 2.1s; }
+
+        @keyframes victory-gradient-shift {
+            0%, 100% { 
+                background-position: 0% 50%;
+                background: linear-gradient(135deg, #1a0b2e 0%, #2d1b69 15%, #4c1d95 30%, #5b21b6 45%, #6d28d9 60%, #7c3aed 75%, #8b5cf6 90%, #9333ea 100%);
+            }
+            25% { 
+                background-position: 100% 25%;
+                background: linear-gradient(135deg, #2d1b69 0%, #4c1d95 15%, #5b21b6 30%, #6d28d9 45%, #7c3aed 60%, #8b5cf6 75%, #9333ea 90%, #a855f7 100%);
+            }
+            50% { 
+                background-position: 200% 50%;
+                background: linear-gradient(135deg, #4c1d95 0%, #5b21b6 15%, #6d28d9 30%, #7c3aed 45%, #8b5cf6 60%, #9333ea 75%, #a855f7 90%, #2d1b69 100%);
+            }
+            75% { 
+                background-position: 300% 75%;
+                background: linear-gradient(135deg, #6d28d9 0%, #7c3aed 15%, #8b5cf6 30%, #9333ea 45%, #a855f7 60%, #1a0b2e 75%, #2d1b69 90%, #4c1d95 100%);
+            }
+        }
+
+        @keyframes victory-bounce {
+            0% { transform: translate(-50%, -50%) scale(0); }
+            50% { transform: translate(-50%, -50%) scale(1.1); }
+            100% { transform: translate(-50%, -50%) scale(1); }
+        }
+
+        @keyframes victory-pulse {
+            0%, 100% { 
+                transform: translate(-50%, -50%) scale(1);
+                box-shadow: 
+                    0 0 80px rgba(76, 29, 149, 0.9),
+                    0 0 160px rgba(91, 33, 182, 0.7),
+                    0 0 240px rgba(109, 40, 217, 0.5),
+                    inset 0 0 40px rgba(255, 255, 255, 0.1);
+            }
+            50% { 
+                transform: translate(-50%, -50%) scale(1.02);
+                box-shadow: 
+                    0 0 100px rgba(76, 29, 149, 1.0),
+                    0 0 200px rgba(91, 33, 182, 0.8),
+                    0 0 300px rgba(109, 40, 217, 0.6),
+                    inset 0 0 60px rgba(255, 255, 255, 0.15);
+            }
+        }
+
+        @keyframes victory-sweep {
+            0% { transform: translateX(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) rotate(45deg); }
+        }
+
+        @keyframes victory-rotate {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(1deg); }
+        }
+
+        @keyframes sparkle-rotate {
+            0%, 100% { transform: rotate(0deg) scale(1); }
+            25% { transform: rotate(90deg) scale(1.3); }
+            50% { transform: rotate(180deg) scale(1.1); }
+            75% { transform: rotate(270deg) scale(1.3); }
+        }
+
+        @keyframes victory-star-twinkle {
+            0%, 100% { 
+                opacity: 0.3; 
+                transform: scale(0.8); 
+                text-shadow: 0 0 4px rgba(255, 255, 255, 0.6), 0 0 8px rgba(139, 92, 246, 0.4);
+            }
+            25% { 
+                opacity: 0.9; 
+                transform: scale(1.2); 
+                text-shadow: 0 0 12px rgba(255, 255, 255, 1.0), 0 0 24px rgba(139, 92, 246, 0.8), 0 0 36px rgba(255, 255, 255, 0.3);
+            }
+            50% { 
+                opacity: 1; 
+                transform: scale(1.4); 
+                text-shadow: 0 0 16px rgba(255, 255, 255, 1.2), 0 0 32px rgba(139, 92, 246, 1.0), 0 0 48px rgba(255, 255, 255, 0.4);
+            }
+            75% { 
+                opacity: 0.7; 
+                transform: scale(1.1); 
+                text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(139, 92, 246, 0.6), 0 0 30px rgba(255, 255, 255, 0.2);
+            }
+        }
+
+        .word-item.found-highlight {
+            background: linear-gradient(45deg, #ffd700, #b8860b);
+            color: #0c0c0c;
+            border-left-color: #6c5ce7;
+            animation: found-word-pulse 2s ease-in-out;
+            box-shadow: 
+                0 0 20px rgba(255, 215, 0, 0.5),
+                0 0 40px rgba(108, 92, 231, 0.2);
+        }
+
+        @keyframes found-word-pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        @keyframes found-word-celebration {
+            0%, 100% { 
+                transform: scale(1);
+                box-shadow: 
+                    0 0 20px rgba(255, 215, 0, 0.5),
+                    0 0 40px rgba(108, 92, 231, 0.2);
+            }
+            25% { 
+                transform: scale(1.05);
+                box-shadow: 
+                    0 0 30px rgba(255, 215, 0, 0.8),
+                    0 0 60px rgba(108, 92, 231, 0.4);
+            }
+            50% { 
+                transform: scale(1.1);
+                box-shadow: 
+                    0 0 40px rgba(255, 215, 0, 1.0),
+                    0 0 80px rgba(108, 92, 231, 0.6);
+            }
+            75% { 
+                transform: scale(1.05);
+                box-shadow: 
+                    0 0 30px rgba(255, 215, 0, 0.8),
+                    0 0 60px rgba(108, 92, 231, 0.4);
+            }
+        }
+
+        @keyframes word-completion-sparkle {
+            0% { 
+                transform: scale(1);
+                box-shadow: 
+                    0 0 20px rgba(255, 105, 180, 0.8),
+                    0 0 40px rgba(255, 215, 0, 0.6);
+            }
+            25% { 
+                transform: scale(1.15);
+                box-shadow: 
+                    0 0 40px rgba(255, 105, 180, 1.0),
+                    0 0 80px rgba(255, 215, 0, 0.8),
+                    0 0 120px rgba(255, 182, 193, 0.4);
+            }
+            50% { 
+                transform: scale(1.2);
+                box-shadow: 
+                    0 0 50px rgba(255, 105, 180, 1.2),
+                    0 0 100px rgba(255, 215, 0, 1.0),
+                    0 0 150px rgba(255, 182, 193, 0.6);
+            }
+            75% { 
+                transform: scale(1.15);
+                box-shadow: 
+                    0 0 40px rgba(255, 105, 180, 1.0),
+                    0 0 80px rgba(255, 215, 0, 0.8),
+                    0 0 120px rgba(255, 182, 193, 0.4);
+            }
+            100% { 
+                transform: scale(1.1);
+                box-shadow: 
+                    0 0 30px rgba(255, 105, 180, 0.9),
+                    0 0 60px rgba(255, 215, 0, 0.7);
+            }
+        }
+
+        .cell.word-highlight {
+            background: linear-gradient(45deg, #ffd700, #b8860b);
+            color: #0c0c0c;
+            animation: word-found-glow 3s ease-in-out;
+            box-shadow: 
+                0 0 30px rgba(255, 215, 0, 0.6),
+                0 0 60px rgba(78, 205, 196, 0.3);
+            border-color: #4ecdc4;
+        }
+
+        .cell.clicked-correct {
+            background: linear-gradient(45deg, #ff69b4, #ffd700) !important;
+            color: #000000 !important;
+            border: 2px solid #ff69b4 !important;
+            box-shadow: 
+                0 0 15px rgba(255, 105, 180, 0.6),
+                0 0 25px rgba(255, 215, 0, 0.4) !important;
+            animation: pink-yellow-pulse 0.5s ease-in-out;
+            transform: scale(1.05);
+            font-weight: 900;
+        }
+
+        .cell.clicked-wrong {
+            background: linear-gradient(45deg, #ff6b6b, #e17055);
+            color: white;
+            border-color: #ff6b6b;
+            box-shadow: 
+                0 0 20px rgba(255, 107, 107, 0.8),
+                0 0 40px rgba(225, 112, 85, 0.4);
+            animation: red-pulse 0.5s ease-in-out;
+        }
+        
+        .cell.wrong-first-letter {
+            background: linear-gradient(45deg, #ff4757, #ff3838) !important;
+            color: white !important;
+            border: 3px solid #ff4757 !important;
+            box-shadow: 
+                0 0 25px rgba(255, 71, 87, 0.9),
+                0 0 50px rgba(255, 56, 56, 0.6) !important;
+            animation: wrong-first-shake 0.6s ease-in-out;
+            transform-origin: center;
+        }
+        
+        @keyframes wrong-first-shake {
+            0%, 100% { transform: translateX(0) scale(1); }
+            10% { transform: translateX(-3px) scale(1.05); }
+            20% { transform: translateX(3px) scale(1.05); }
+            30% { transform: translateX(-3px) scale(1.05); }
+            40% { transform: translateX(3px) scale(1.05); }
+            50% { transform: translateX(-2px) scale(1.02); }
+            60% { transform: translateX(2px) scale(1.02); }
+            70% { transform: translateX(-1px) scale(1.01); }
+            80% { transform: translateX(1px) scale(1.01); }
+            90% { transform: translateX(0) scale(1); }
+        }
+        
+        @keyframes tooltip-bounce {
+            0% { 
+                opacity: 0; 
+                transform: translateX(-50%) translateY(10px) scale(0.8); 
+            }
+            50% { 
+                opacity: 1; 
+                transform: translateX(-50%) translateY(-5px) scale(1.05); 
+            }
+            100% { 
+                opacity: 1; 
+                transform: translateX(-50%) translateY(0) scale(1); 
+            }
+        }
+
+        .cell.word-complete {
+            background: linear-gradient(45deg, #ff1493, #ff69b4) !important;
+            color: white !important;
+            border-color: #ff1493 !important;
+            animation: pink-sparkle 2s ease-in-out;
+            box-shadow: 
+                0 0 30px rgba(255, 20, 147, 0.8),
+                0 0 60px rgba(255, 105, 180, 0.4) !important;
+        }
+
+        .cell.found {
+            background: linear-gradient(45deg, #ff1493, #ff69b4) !important;
+            color: white !important;
+            border-color: #ff1493 !important;
+            box-shadow: 
+                0 0 20px rgba(255, 20, 147, 0.6),
+                0 0 40px rgba(255, 105, 180, 0.3) !important;
+        }
+
+        @keyframes word-found-glow {
+            0%, 100% { 
+                box-shadow: 
+                    0 0 30px rgba(255, 215, 0, 0.6),
+                    0 0 60px rgba(78, 205, 196, 0.3);
+            }
+            50% { 
+                box-shadow: 
+                    0 0 50px rgba(255, 215, 0, 0.9),
+                    0 0 100px rgba(78, 205, 196, 0.5),
+                    0 0 150px rgba(108, 92, 231, 0.3);
+            }
+        }
+
+        @keyframes pink-pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        @keyframes pink-yellow-pulse {
+            0%, 100% { transform: scale(1.05); }
+            50% { transform: scale(1.1); }
+        }
+
+        @keyframes green-pulse {
+            0%, 100% { transform: scale(1.1); }
+            50% { transform: scale(1.2); }
+        }
+
+        @keyframes yellow-pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        @keyframes red-pulse {
+            0%, 100% { transform: scale(1); }
+            25% { transform: scale(1.05); }
+            50% { transform: scale(1.1); }
+            75% { transform: scale(1.05); }
+        }
+
+        @keyframes found-sparkle {
+            0%, 100% { 
+                transform: scale(1.02);
+                box-shadow: 
+                    0 0 20px rgba(255, 105, 180, 0.6),
+                    0 0 40px rgba(255, 215, 0, 0.4);
+            }
+            25% { 
+                transform: scale(1.08);
+                box-shadow: 
+                    0 0 30px rgba(255, 105, 180, 0.8),
+                    0 0 60px rgba(255, 215, 0, 0.6),
+                    0 0 90px rgba(255, 182, 193, 0.3);
+            }
+            50% { 
+                transform: scale(1.05);
+                box-shadow: 
+                    0 0 25px rgba(255, 105, 180, 0.7),
+                    0 0 50px rgba(255, 215, 0, 0.5);
+            }
+            75% { 
+                transform: scale(1.03);
+                box-shadow: 
+                    0 0 22px rgba(255, 105, 180, 0.65),
+                    0 0 45px rgba(255, 215, 0, 0.45);
+            }
+        }
+
+        @keyframes pink-sparkle {
+            0%, 100% { 
+                transform: scale(1);
+                box-shadow: 
+                    0 0 30px rgba(255, 20, 147, 0.8),
+                    0 0 60px rgba(255, 105, 180, 0.4);
+            }
+            25% { 
+                transform: scale(1.15);
+                box-shadow: 
+                    0 0 50px rgba(255, 20, 147, 1),
+                    0 0 100px rgba(255, 105, 180, 0.6),
+                    0 0 150px rgba(255, 182, 193, 0.3);
+            }
+            50% { 
+                transform: scale(1.1);
+                box-shadow: 
+                    0 0 40px rgba(255, 20, 147, 0.9),
+                    0 0 80px rgba(255, 105, 180, 0.5);
+            }
+            75% { 
+                transform: scale(1.05);
+                box-shadow: 
+                    0 0 35px rgba(255, 20, 147, 0.85),
+                    0 0 70px rgba(255, 105, 180, 0.45);
+            }
+        }
+
+        @keyframes green-sparkle {
+            0%, 100% { 
+                transform: scale(1);
+                box-shadow: 
+                    0 0 30px rgba(0, 184, 148, 0.8),
+                    0 0 60px rgba(0, 160, 133, 0.4);
+            }
+            25% { 
+                transform: scale(1.15);
+                box-shadow: 
+                    0 0 50px rgba(0, 184, 148, 1),
+                    0 0 100px rgba(0, 160, 133, 0.6),
+                    0 0 150px rgba(78, 205, 196, 0.3);
+            }
+            50% { 
+                transform: scale(1.1);
+                box-shadow: 
+                    0 0 40px rgba(0, 184, 148, 0.9),
+                    0 0 80px rgba(0, 160, 133, 0.5);
+            }
+            75% { 
+                transform: scale(1.05);
+                box-shadow: 
+                    0 0 35px rgba(0, 184, 148, 0.85),
+                    0 0 70px rgba(0, 160, 133, 0.45);
+            }
         }
 
         @media (max-width: 768px) {
-            .activities-summary {
+            .game-area {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .puzzle-container {
+                order: 1;
+            }
+            
+            .sidebar {
+                order: 2;
+                min-width: 100%;
+                max-width: none;
+            }
+            
+            .controls {
+                grid-template-columns: 1fr;
+            }
+            
+            .mode-selector {
                 flex-direction: column;
                 align-items: center;
             }
             
-            .summary-card {
-                max-width: 100%;
-                width: 100%;
+            .title {
+                font-size: 2rem;
             }
-            
-            .center-showcase {
-                min-height: 250px;
+
+            .victory-banner {
+                font-size: 1.8rem;
+                padding: 20px 40px;
+            }
+
+            .word-search {
+                max-width: 95vw;
+                max-height: 65vh;
+                padding: clamp(8px, 1.5vw, 15px);
+            }
+
+            .cell {
+                width: clamp(18px, 3.5vw, 28px);
+                height: clamp(18px, 3.5vw, 28px);
+                font-size: clamp(10px, 1.8vw, 16px);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .word-search {
+                max-width: 98vw;
+                max-height: 60vh;
+                padding: 8px;
+            }
+
+            .cell {
+                width: clamp(16px, 5vw, 26px);
+                height: clamp(16px, 5vw, 26px);
+                font-size: clamp(9px, 2.5vw, 14px);
+                border-radius: 4px;
+            }
+
+            .container {
+                padding: 20px;
+                margin: 10px;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="sparkle"></div>
-        <div class="sparkle"></div>
-        <div class="sparkle"></div>
-        <div class="sparkle"></div>
-        <div class="sparkle"></div>
-        <div class="sparkle"></div>
-        
-        <h1 class="main-text">RISE.SHINE.EVOLVE</h1>
-        <p class="category">Empowering Education</p>
-        <p class="subtitle">J.R.Zee</p>
-        
-        <div class="intro-section" id="main-intro" style="margin: 3rem auto 2rem auto; max-width: 600px;">
-            <p class="intro-text">Join us on a journey where every child can <span class="highlight-rise">RISE</span>,</p>
-            <p class="intro-text">every family can <span class="highlight-shine">SHINE</span>,</p>
-            <p class="intro-text">and every person can <span class="highlight-evolve">EVOLVE</span>.</p>
+        <div class="header">
+            <h1 class="title">Word Search</h1>
+            <p class="subtitle">Find all hidden words in the magical letter grid</p>
         </div>
-        
-        <div class="intro-section" id="kids-intro" style="margin: 3rem auto 2rem auto; max-width: 600px; display: none;">
-            <p class="intro-text">Watch your child <span class="highlight-rise">RISE</span> to new adventures!</p>
-            <p class="intro-text">See their natural curiosity <span class="highlight-shine">SHINE</span> bright!</p>
-            <p class="intro-text">Together, you'll <span class="highlight-evolve">EVOLVE</span> into an unstoppable team!</p>
+
+        <div class="mode-selector">
+            <button class="mode-btn active" data-mode="online">Online Game</button>
+            <button class="mode-btn" data-mode="print">Print Version</button>
         </div>
-        
-        <div class="intro-section" id="teenagers-intro" style="margin: 3rem auto 2rem auto; max-width: 600px; display: none;">
-            <p class="intro-text">Navigate your journey to <span class="highlight-rise">RISE</span> above challenges.</p>
-            <p class="intro-text">Discover your unique way to <span class="highlight-shine">SHINE</span>.</p>
-            <p class="intro-text">Embrace the power within you to <span class="highlight-evolve">EVOLVE</span>.</p>
-        </div>
-        
-        <div class="intro-section" id="adults-intro" style="margin: 3rem auto 2rem auto; max-width: 600px; display: none;">
-            <p class="intro-text">It's never too late to <span class="highlight-rise">RISE</span>.</p>
-            <p class="intro-text">Your experience helps you <span class="highlight-shine">SHINE</span> brighter.</p>
-            <p class="intro-text">Continuous growth means you can always <span class="highlight-evolve">EVOLVE</span>.</p>
-        </div>
-        
-        <div class="intro-section" id="materials-intro" style="margin: 3rem auto 2rem auto; max-width: 600px; display: none;">
-            <p class="intro-text">Free resources to help you <span class="highlight-rise">RISE</span>.</p>
-            <p class="intro-text">Tools that make you <span class="highlight-shine">SHINE</span>.</p>
-            <p class="intro-text">Materials that help you <span class="highlight-evolve">EVOLVE</span>.</p>
-        </div>
-        
-        <div class="intro-section" id="contact-intro" style="margin: 3rem auto 2rem auto; max-width: 600px; display: none;">
-            <p class="intro-text">Ready to <span class="highlight-rise">RISE</span> together?</p>
-            <p class="intro-text">Let's help you <span class="highlight-shine">SHINE</span>.</p>
-            <p class="intro-text">Connect with us and <span class="highlight-evolve">EVOLVE</span>.</p>
-        </div>
-        
-        <nav class="navigation">
-            <button class="nav-tab active" onclick="showSection('main')">MAIN</button>
-            <button class="nav-tab" onclick="showSection('kids')">KIDS</button>
-            <button class="nav-tab" onclick="showSection('teenagers')">TEENAGERS</button>
-            <button class="nav-tab" onclick="showSection('adults')">ADULTS</button>
-            <button class="nav-tab" onclick="showSection('materials')">FREE MATERIALS</button>
-            <button class="nav-tab" onclick="showSection('contact')">CONTACT</button>
-        </nav>
-        
-        <div class="projects-section">
-            <!-- MAIN Section -->
-            <div id="main-section" class="section-content active">
-                <div class="intro-section">
-                    <p class="intro-text">You were born to <span class="highlight-rise">RISE</span>.</p>
-                    <p class="intro-text">Your inner potential gives you the power to <span class="highlight-shine">SHINE</span>.</p>
-                    <p class="intro-text">When you embrace that power, you're ready to <span class="highlight-evolve">EVOLVE</span>.</p>
+
+        <div class="controls">
+            <div class="control-group words-control">
+                <h3 style="text-align: center;">Words to Search</h3>
+                <div class="input-group">
+                    <label for="words" style="text-align: center;">Select predefined words or enter your own:</label>
+                    <select id="wordPresets" style="width: 100%; padding: 18px; border: 3px solid #6a0dad; border-radius: 20px; background: linear-gradient(135deg, #1a0b2e, #2d1b69, #4c1d95); color: #ffb347; font-size: 16px; font-weight: 600; box-sizing: border-box; transition: all 0.4s ease; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), 0 0 15px rgba(106, 13, 173, 0.8), 0 0 30px rgba(106, 13, 173, 0.5); animation: purple-border-glow 20s ease-in-out infinite; margin-bottom: 15px; cursor: pointer;">
+                        <option value="">Menu</option>
+                        <option value="january february march april may june july august september october november december">Months of a year</option>
+                        <option value="monday tuesday wednesday thursday friday saturday sunday">Days of a Week</option>
+                        <option value="zero one two three four five six seven eight nine ten">Numbers spelling 0-10</option>
+                        <option value="eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen">Numbers spelling 11-19</option>
+                        <option value="twenty thirty forty fifty sixty seventy eighty ninety hundred">Numbers spelling 20,30,40,50,60,70,80,90,100</option>
+                        <option value="custom">My own words search</option>
+                    </select>
+                    <input type="text" id="words" placeholder="e.g. cat dog house car flower" style="background: linear-gradient(135deg, #d8a7ca, #e6a8d5); color: #000000; font-weight: 600; border: 3px solid #e6a8d5; box-shadow: 0 0 20px rgba(230, 168, 213, 0.6), 0 0 40px rgba(216, 167, 202, 0.4);">
+                    <div id="customWordsInfo" style="display: none; margin-top: 10px; padding: 12px; background: rgba(255, 215, 0, 0.1); border: 2px solid #ffd700; border-radius: 15px; color: #ffb347; font-size: 14px; text-align: center; box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);">
+                        💡 You can enter up to 12 words separated by spaces
+                    </div>
                 </div>
             </div>
 
-            <!-- KIDS Section -->
-            <div id="kids-section" class="section-content">
-                <div class="intro-section">
-                    <p class="intro-description">Give Your Child the Power to Shine!<br>Our materials offer a unique toolkit for young minds.<br>We help your child master new skills, build confidence<br>and discover their unique talents, setting them on a path to <span class="brilliance-glow">brilliance</span>.</p>
-                </div>
-                
-
-                
-                <div class="center-showcase">
-                    <div class="showcase-placeholder">
-                        <h3 style="color: #c9b037; font-family: 'Orbitron', monospace; font-size: 1.5rem; margin-bottom: 1rem;">Book Showcase</h3>
-                        <p style="color: #ff69b4; font-family: 'Orbitron', monospace; font-size: 1.2rem; font-weight: 700; text-align: center; margin: 1.5rem 0; background: linear-gradient(45deg, #ff69b4, #ff1493, #ff6fa8, #ff69b4); background-size: 300% 300%; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; animation: pinkShimmer 3s ease-in-out infinite; text-shadow: 0 0 15px rgba(255, 105, 180, 0.4);">New series</p>
-                        <p style="color: #ffffff; font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 600; text-align: center; margin: 1rem 0;">Meet The Happy-Makers!</p>
-                    </div>
-                </div>
-                
-                <div class="activities-summary">
-                    <div class="summary-card" style="max-width: 180px; padding: 1rem;">
-                        <div class="summary-icon">
-                            <svg width="25" height="25" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
-                                <rect x="8" y="10" width="44" height="40" rx="3" fill="none" stroke="#c9b037" stroke-width="2.5" opacity="0.9">
-                                    <animate attributeName="opacity" values="0.7;1;0.7" dur="3s" repeatCount="indefinite"/>
-                                </rect>
-                                <rect x="12" y="14" width="36" height="32" rx="2" fill="rgba(138, 43, 226, 0.1)" stroke="#8a2be2" stroke-width="1.5"/>
-                                <line x1="16" y1="20" x2="44" y2="20" stroke="#8a2be2" stroke-width="1.5" opacity="0.8"/>
-                                <line x1="16" y1="25" x2="40" y2="25" stroke="#8a2be2" stroke-width="1.5" opacity="0.7"/>
-                                <line x1="16" y1="30" x2="42" y2="30" stroke="#8a2be2" stroke-width="1.5" opacity="0.6"/>
-                                <line x1="16" y1="35" x2="38" y2="35" stroke="#8a2be2" stroke-width="1.5" opacity="0.5"/>
-                                <circle cx="50" cy="15" r="3" fill="#c9b037">
-                                    <animate attributeName="r" values="2;4;2" dur="2s" repeatCount="indefinite"/>
-                                    <animate attributeName="opacity" values="0.5;1;0.5" dur="2s" repeatCount="indefinite"/>
-                                </circle>
-                            </svg>
-                        </div>
-                        <h4 class="summary-title" style="font-size: 0.95rem;">Stories + Activities</h4>
-                        <p class="summary-description" style="font-size: 0.8rem;">Strengthen family bonds<br>Turn learning into an adventure</p>
-                    </div>
-                    
-                    <div class="summary-card" style="max-width: 180px; padding: 1rem;">
-                        <div class="summary-icon">
-                            <svg width="25" height="25" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
-                                <rect x="10" y="15" width="40" height="30" rx="4" fill="none" stroke="#c9b037" stroke-width="2.5" stroke-dasharray="2,2">
-                                    <animate attributeName="stroke-dashoffset" values="0;4" dur="2s" repeatCount="indefinite"/>
-                                </rect>
-                                <rect x="14" y="19" width="32" height="22" rx="2" fill="rgba(138, 43, 226, 0.1)"/>
-                                <circle cx="20" cy="25" r="2" fill="#8a2be2" opacity="0.8"/>
-                                <circle cx="30" cy="25" r="2" fill="#8a2be2" opacity="0.8"/>
-                                <circle cx="40" cy="25" r="2" fill="#8a2be2" opacity="0.8"/>
-                                <rect x="18" y="30" width="24" height="2" fill="#c9b037" opacity="0.7"/>
-                                <rect x="18" y="34" width="20" height="2" fill="#c9b037" opacity="0.6"/>
-                            </svg>
-                        </div>
-                        <h4 class="summary-title" style="font-size: 0.95rem;">Educational Materials</h4>
-                        <p class="summary-description" style="font-size: 0.8rem;">Designed to spark joy and curiosity in kids</p>
-                    </div>
-                    
-                    <div class="summary-card" style="max-width: 180px; padding: 1rem;">
-                        <div class="summary-icon">
-                            <svg width="25" height="25" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
-                                <g transform="translate(30,30)">
-                                    <circle r="18" fill="none" stroke="#c9b037" stroke-width="2" opacity="0.3">
-                                        <animate attributeName="r" values="16;20;16" dur="4s" repeatCount="indefinite"/>
-                                    </circle>
-                                    <circle r="12" fill="none" stroke="#8a2be2" stroke-width="1.5" opacity="0.5">
-                                        <animate attributeName="r" values="10;14;10" dur="3s" repeatCount="indefinite"/>
-                                    </circle>
-                                    <g>
-                                        <animateTransform attributeName="transform" type="rotate" values="0;360" dur="8s" repeatCount="indefinite"/>
-                                        <path d="M0,-10 L3,-7 L0,-4 L-3,-7 Z" fill="#c9b037"/>
-                                        <path d="M10,0 L7,3 L4,0 L7,-3 Z" fill="#c9b037"/>
-                                        <path d="M0,10 L3,7 L0,4 L-3,7 Z" fill="#c9b037"/>
-                                        <path d="M-10,0 L-7,3 L-4,0 L-7,-3 Z" fill="#c9b037"/>
-                                    </g>
-                                    <circle r="4" fill="#c9b037" opacity="0.9">
-                                        <animate attributeName="opacity" values="0.7;1;0.7" dur="2s" repeatCount="indefinite"/>
-                                    </circle>
-                                </g>
-                            </svg>
-                        </div>
-                        <h4 class="summary-title" style="font-size: 0.95rem;">Active Learning</h4>
-                        <p class="summary-description" style="font-size: 0.8rem;">Building relationships<br>Passion for discovery</p>
-                    </div>
-                </div>
-                
-                <div class="intro-section" style="margin-top: 3rem;">
-                    <p class="intro-motto">It's time to <span class="highlight-rise">RISE</span>.<span class="highlight-shine">SHINE</span>.<span class="highlight-evolve">EVOLVE</span>.</p>
+            <div class="control-group">
+                <h3 style="text-align: center;">Difficulty Level</h3>
+                <div class="button-group">
+                    <button class="btn active" data-difficulty="easy">Easy</button>
+                    <button class="btn" data-difficulty="medium">Medium</button>
+                    <button class="btn" data-difficulty="hard">Hard</button>
                 </div>
             </div>
 
-            <!-- TEENAGERS Section -->
-            <div id="teenagers-section" class="section-content">
-                <div class="intro-section">
-                    <p style="color: #ffd700; font-family: 'Orbitron', monospace; font-size: 1.2rem; font-weight: 700; text-align: center; margin: 1.5rem 0; background: linear-gradient(45deg, #c9b037, #daa520, #b8860b, #c9b037); background-size: 300% 300%; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; animation: goldShimmer 3s ease-in-out infinite; text-shadow: 0 0 15px rgba(201, 176, 55, 0.4);">Coming soon</p>
-                    <p class="intro-description">Specially designed materials for teenagers to build confidence, develop critical thinking skills, and prepare for the exciting journey ahead.</p>
-                </div>
-                
-                <!-- Hidden for now - can be restored later -->
-                <div class="activities-summary" style="margin: 3rem auto; display: none;">
-                    <div class="summary-card" style="max-width: 180px; padding: 1rem;">
-                        <div class="summary-icon">
-                            <svg width="25" height="25" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
-                                <rect x="8" y="10" width="44" height="40" rx="3" fill="none" stroke="#c9b037" stroke-width="2.5" opacity="0.9">
-                                    <animate attributeName="opacity" values="0.7;1;0.7" dur="3s" repeatCount="indefinite"/>
-                                </rect>
-                                <rect x="12" y="14" width="36" height="32" rx="2" fill="rgba(138, 43, 226, 0.1)" stroke="#8a2be2" stroke-width="1.5"/>
-                                <line x1="16" y1="20" x2="44" y2="20" stroke="#8a2be2" stroke-width="1.5" opacity="0.8"/>
-                                <line x1="16" y1="25" x2="40" y2="25" stroke="#8a2be2" stroke-width="1.5" opacity="0.7"/>
-                                <line x1="16" y1="30" x2="42" y2="30" stroke="#8a2be2" stroke-width="1.5" opacity="0.6"/>
-                                <line x1="16" y1="35" x2="38" y2="35" stroke="#8a2be2" stroke-width="1.5" opacity="0.5"/>
-                                <circle cx="50" cy="15" r="3" fill="#c9b037">
-                                    <animate attributeName="r" values="2;4;2" dur="2s" repeatCount="indefinite"/>
-                                    <animate attributeName="opacity" values="0.5;1;0.5" dur="2s" repeatCount="indefinite"/>
-                                </circle>
-                            </svg>
-                        </div>
-                        <h4 class="summary-title" style="font-size: 0.95rem;">Self-Discovery Tools</h4>
-                        <p class="summary-description" style="font-size: 0.8rem;">Identity exploration<br>Emotional intelligence building</p>
-                    </div>
-                    
-                    <div class="summary-card" style="max-width: 180px; padding: 1rem;">
-                        <div class="summary-icon">
-                            <svg width="25" height="25" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
-                                <rect x="10" y="15" width="40" height="30" rx="4" fill="none" stroke="#c9b037" stroke-width="2.5" stroke-dasharray="2,2">
-                                    <animate attributeName="stroke-dashoffset" values="0;4" dur="2s" repeatCount="indefinite"/>
-                                </rect>
-                                <rect x="14" y="19" width="32" height="22" rx="2" fill="rgba(138, 43, 226, 0.1)"/>
-                                <circle cx="20" cy="25" r="2" fill="#8a2be2" opacity="0.8"/>
-                                <circle cx="30" cy="25" r="2" fill="#8a2be2" opacity="0.8"/>
-                                <circle cx="40" cy="25" r="2" fill="#8a2be2" opacity="0.8"/>
-                                <rect x="18" y="30" width="24" height="2" fill="#c9b037" opacity="0.7"/>
-                                <rect x="18" y="34" width="20" height="2" fill="#c9b037" opacity="0.6"/>
-                            </svg>
-                        </div>
-                        <h4 class="summary-title" style="font-size: 0.95rem;">Interactive Workshops</h4>
-                        <p class="summary-description" style="font-size: 0.8rem;">Life skills development<br>Future preparation guides</p>
-                    </div>
-                    
-                    <div class="summary-card" style="max-width: 180px; padding: 1rem;">
-                        <div class="summary-icon">
-                            <svg width="25" height="25" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
-                                <g transform="translate(30,30)">
-                                    <circle r="18" fill="none" stroke="#c9b037" stroke-width="2" opacity="0.3">
-                                        <animate attributeName="r" values="16;20;16" dur="4s" repeatCount="indefinite"/>
-                                    </circle>
-                                    <circle r="12" fill="none" stroke="#8a2be2" stroke-width="1.5" opacity="0.5">
-                                        <animate attributeName="r" values="10;14;10" dur="3s" repeatCount="indefinite"/>
-                                    </circle>
-                                    <g>
-                                        <animateTransform attributeName="transform" type="rotate" values="0;360" dur="8s" repeatCount="indefinite"/>
-                                        <path d="M0,-10 L3,-7 L0,-4 L-3,-7 Z" fill="#c9b037"/>
-                                        <path d="M10,0 L7,3 L4,0 L7,-3 Z" fill="#c9b037"/>
-                                        <path d="M0,10 L3,7 L0,4 L-3,7 Z" fill="#c9b037"/>
-                                        <path d="M-10,0 L-7,3 L-4,0 L-7,-3 Z" fill="#c9b037"/>
-                                    </g>
-                                    <circle r="4" fill="#c9b037" opacity="0.9">
-                                        <animate attributeName="opacity" values="0.7;1;0.7" dur="2s" repeatCount="indefinite"/>
-                                    </circle>
-                                </g>
-                            </svg>
-                        </div>
-                        <h4 class="summary-title" style="font-size: 0.95rem;">Building Confidence</h4>
-                        <p class="summary-description" style="font-size: 0.8rem;">Leadership skills<br>Critical thinking development</p>
-                    </div>
-                </div>
-                
-
-                
-                <div class="intro-section" style="margin-top: 3rem;">
-                    <p class="intro-motto">It's time to <span class="highlight-rise">RISE</span>.<span class="highlight-shine">SHINE</span>.<span class="highlight-evolve">EVOLVE</span>.</p>
-                </div>
-            </div>
-
-            <!-- ADULTS Section -->
-            <div id="adults-section" class="section-content">
-                <div class="intro-section">
-                    <p style="color: #ffd700; font-family: 'Orbitron', monospace; font-size: 1.2rem; font-weight: 700; text-align: center; margin: 1.5rem 0; background: linear-gradient(45deg, #c9b037, #daa520, #b8860b, #c9b037); background-size: 300% 300%; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; animation: goldShimmer 3s ease-in-out infinite; text-shadow: 0 0 15px rgba(201, 176, 55, 0.4);">Coming soon</p>
-                    <p class="intro-description">Professional development and personal growth materials designed for adults ready to unlock their next level of potential.</p>
-                </div>
-                
-                <!-- Hidden for now - can be restored later -->
-                <div class="activities-summary" style="margin: 3rem auto; display: none;">
-                    <div class="summary-card" style="max-width: 180px; padding: 1rem;">
-                        <div class="summary-icon">
-                            <svg width="25" height="25" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
-                                <rect x="8" y="10" width="44" height="40" rx="3" fill="none" stroke="#c9b037" stroke-width="2.5" opacity="0.9">
-                                    <animate attributeName="opacity" values="0.7;1;0.7" dur="3s" repeatCount="indefinite"/>
-                                </rect>
-                                <rect x="12" y="14" width="36" height="32" rx="2" fill="rgba(138, 43, 226, 0.1)" stroke="#8a2be2" stroke-width="1.5"/>
-                                <line x1="16" y1="20" x2="44" y2="20" stroke="#8a2be2" stroke-width="1.5" opacity="0.8"/>
-                                <line x1="16" y1="25" x2="40" y2="25" stroke="#8a2be2" stroke-width="1.5" opacity="0.7"/>
-                                <line x1="16" y1="30" x2="42" y2="30" stroke="#8a2be2" stroke-width="1.5" opacity="0.6"/>
-                                <line x1="16" y1="35" x2="38" y2="35" stroke="#8a2be2" stroke-width="1.5" opacity="0.5"/>
-                                <circle cx="50" cy="15" r="3" fill="#c9b037">
-                                    <animate attributeName="r" values="2;4;2" dur="2s" repeatCount="indefinite"/>
-                                    <animate attributeName="opacity" values="0.5;1;0.5" dur="2s" repeatCount="indefinite"/>
-                                </circle>
-                            </svg>
-                        </div>
-                        <h4 class="summary-title" style="font-size: 0.95rem;">Professional Growth</h4>
-                        <p class="summary-description" style="font-size: 0.8rem;">Career development tools<br>Leadership skills training</p>
-                    </div>
-                    
-                    <div class="summary-card" style="max-width: 180px; padding: 1rem;">
-                        <div class="summary-icon">
-                            <svg width="25" height="25" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
-                                <rect x="10" y="15" width="40" height="30" rx="4" fill="none" stroke="#c9b037" stroke-width="2.5" stroke-dasharray="2,2">
-                                    <animate attributeName="stroke-dashoffset" values="0;4" dur="2s" repeatCount="indefinite"/>
-                                </rect>
-                                <rect x="14" y="19" width="32" height="22" rx="2" fill="rgba(138, 43, 226, 0.1)"/>
-                                <circle cx="20" cy="25" r="2" fill="#8a2be2" opacity="0.8"/>
-                                <circle cx="30" cy="25" r="2" fill="#8a2be2" opacity="0.8"/>
-                                <circle cx="40" cy="25" r="2" fill="#8a2be2" opacity="0.8"/>
-                                <rect x="18" y="30" width="24" height="2" fill="#c9b037" opacity="0.7"/>
-                                <rect x="18" y="34" width="20" height="2" fill="#c9b037" opacity="0.6"/>
-                            </svg>
-                        </div>
-                        <h4 class="summary-title" style="font-size: 0.95rem;">Personal Development</h4>
-                        <p class="summary-description" style="font-size: 0.8rem;">Self-improvement strategies<br>Life transformation guides</p>
-                    </div>
-                    
-                    <div class="summary-card" style="max-width: 180px; padding: 1rem;">
-                        <div class="summary-icon">
-                            <svg width="25" height="25" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
-                                <g transform="translate(30,30)">
-                                    <circle r="18" fill="none" stroke="#c9b037" stroke-width="2" opacity="0.3">
-                                        <animate attributeName="r" values="16;20;16" dur="4s" repeatCount="indefinite"/>
-                                    </circle>
-                                    <circle r="12" fill="none" stroke="#8a2be2" stroke-width="1.5" opacity="0.5">
-                                        <animate attributeName="r" values="10;14;10" dur="3s" repeatCount="indefinite"/>
-                                    </circle>
-                                    <g>
-                                        <animateTransform attributeName="transform" type="rotate" values="0;360" dur="8s" repeatCount="indefinite"/>
-                                        <path d="M0,-10 L3,-7 L0,-4 L-3,-7 Z" fill="#c9b037"/>
-                                        <path d="M10,0 L7,3 L4,0 L7,-3 Z" fill="#c9b037"/>
-                                        <path d="M0,10 L3,7 L0,4 L-3,7 Z" fill="#c9b037"/>
-                                        <path d="M-10,0 L-7,3 L-4,0 L-7,-3 Z" fill="#c9b037"/>
-                                    </g>
-                                    <circle r="4" fill="#c9b037" opacity="0.9">
-                                        <animate attributeName="opacity" values="0.7;1;0.7" dur="2s" repeatCount="indefinite"/>
-                                    </circle>
-                                </g>
-                            </svg>
-                        </div>
-                        <h4 class="summary-title" style="font-size: 0.95rem;">Mindset Mastery</h4>
-                        <p class="summary-description" style="font-size: 0.8rem;">Building resilience<br>Unlocking potential</p>
-                    </div>
-                </div>
-                
-                <div class="intro-section" style="margin-top: 3rem;">
-                    <p class="intro-motto">It's time to <span class="highlight-rise">RISE</span>.<span class="highlight-shine">SHINE</span>.<span class="highlight-evolve">EVOLVE</span>.</p>
-                </div>
-            </div>
-
-            <!-- FREE MATERIALS Section -->
-            <div id="materials-section" class="section-content">
-                <div class="intro-section">
-                    <p class="intro-description">Access our collection of free educational materials, worksheets, and guides to start your transformation journey today.</p>
-                </div>
-                
-                <div class="intro-section" style="margin-top: 3rem;">
-                    <p class="intro-motto">It's time to <span class="highlight-rise">RISE</span>.<span class="highlight-shine">SHINE</span>.<span class="highlight-evolve">EVOLVE</span>.</p>
-                </div>
-            </div>
-
-            <!-- CONTACT Section -->
-            <div id="contact-section" class="section-content">
-                <div class="project-card" style="text-align: center;">
-                    <h4 class="project-name">Get In Touch</h4>
-                    <p class="project-description">
-                        Get in touch to learn more about our educational materials and how they can transform the learning journey.
-                    </p>
-                </div>
-                
-                <div class="project-card" style="text-align: center;">
-                    <h4 class="project-name">Contact Information</h4>
-                    <div style="text-align: center; margin-top: 1.5rem; padding: 1rem; background: rgba(255, 255, 255, 0.02); border-radius: 10px;">
-                        <p style="color: #ffffff; font-family: 'Playfair Display', serif; font-weight: 400; opacity: 0.9; line-height: 1.7; font-size: clamp(0.95rem, 1.5vw, 1.1rem);"><span style="color: #ffffff; font-weight: 500;">Email:</span> <span style="color: #ba55d3; font-weight: 500;">rise.shine.evolve@gmail.com</span></p>
-                        <p style="margin-top: 1.5rem; color: #ffffff; font-family: 'Playfair Display', serif; font-weight: 400; opacity: 0.9; line-height: 1.7; font-size: clamp(0.95rem, 1.5vw, 1.1rem);">Follow us on social media for more inspirations.</p>
-                        <p style="color: #ffffff; font-family: 'Playfair Display', serif; font-weight: 400; opacity: 0.9; line-height: 1.7; font-size: clamp(0.95rem, 1.5vw, 1.1rem);">Join our community of learners and growers.</p>
-                        <p style="color: #ffffff; font-family: 'Playfair Display', serif; font-weight: 400; opacity: 0.9; line-height: 1.7; font-size: clamp(0.95rem, 1.5vw, 1.1rem);">Instagram: <a href="https://www.instagram.com/rise.shine.evolve/" target="_blank" rel="noopener noreferrer" style="color: #ba55d3; text-decoration: none; font-weight: 500;">@rise.shine.evolve</a></p>
-                        <p style="color: #ffffff; font-family: 'Playfair Display', serif; font-weight: 400; opacity: 0.9; line-height: 1.7; font-size: clamp(0.95rem, 1.5vw, 1.1rem);">TikTok: <a href="https://www.tiktok.com/@rise.shine.evolve" target="_blank" rel="noopener noreferrer" style="color: #ba55d3; text-decoration: none; font-weight: 500;">@rise.shine.evolve</a></p>
-                        <p style="color: #ffffff; font-family: 'Playfair Display', serif; font-weight: 400; opacity: 0.9; line-height: 1.7; font-size: clamp(0.95rem, 1.5vw, 1.1rem);">Facebook: <a href="https://www.facebook.com/profile.php?id=" target="_blank" rel="noopener noreferrer" style="color: #ba55d3; text-decoration: none; font-weight: 500;">Rise.Shine.Evolve</a></p>
-                    </div>
-                </div>
-                
-                <div class="intro-section" style="margin-top: 3rem;">
-                    <p class="intro-motto">It's time to <span class="highlight-rise">RISE</span>.<span class="highlight-shine">SHINE</span>.<span class="highlight-evolve">EVOLVE</span>.</p>
+            <div class="control-group">
+                <h3 style="text-align: center;">Grid Shape</h3>
+                <div class="button-group">
+                    <button class="btn active" data-shape="square">Square</button>
+                    <button class="btn" data-shape="circle">Circle</button>
+                    <button class="btn" data-shape="hexagon">Hexagon</button>
+                    <button class="btn" data-shape="diamond">Diamond</button>
+                    <button class="btn" data-shape="heart">Heart</button>
                 </div>
             </div>
         </div>
+
+        <div class="generate-section">
+            <button class="btn btn-primary" id="generateBtn">Generate Word Search</button>
+        </div>
         
-        <footer style="margin-top: 4rem; padding: 2rem 0; text-align: center; border-top: 1px solid rgba(255, 215, 0, 0.2);">
-            <div style="font-size: 0.7rem; color: #8a2be2; font-family: 'Orbitron', monospace; line-height: 1.4; max-width: 600px; margin: 0 auto;">
-                Copyright © 2025 J.R.Zee.<br><br>
-                All rights reserved. All materials are protected by copyright law and may not be reproduced in whole or in part without the express written consent of the author(s).
+        <div id="errorMessage" style="margin-bottom: 30px; text-align: center; min-height: 20px; display: flex; align-items: center; justify-content: center;"></div>
+
+        <div class="game-area" id="gameArea" style="display: none;">
+            <div class="puzzle-container">
+                <div class="word-search" id="wordSearch"></div>
+                <div style="text-align: center; margin-top: 20px;" id="onlineAnswerButtons">
+                    <button class="btn btn-secondary" id="showAnswersBtn" style="display: none;">Show Answers</button>
+                    <button class="btn btn-secondary" id="hideAnswersBtn" style="display: none;">Hide Answers</button>
+                </div>
+                <div style="display: flex; justify-content: center; gap: 50px; margin-top: 20px; display: none;" id="printButtons">
+                    <button class="btn btn-secondary" id="printBtn">Save Puzzle in PDF</button>
+                    <button class="btn btn-secondary" id="printAnswersBtn">Save Answers in PDF</button>
+                </div>
             </div>
-        </footer>
+            
+            <div class="sidebar">
+                <div class="stats">
+                    <h3>Statistics</h3>
+                    <p>Found: <span id="foundCount">0</span>/<span id="totalCount">0</span></p>
+                    <p>Shape: <span id="currentShape">Square</span></p>
+                </div>
+                
+                <div class="word-list">
+                    <h3 style="text-align: center;">Words to find:</h3>
+                    <div id="wordListContainer"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Wersja do wydrukowania -->
+    <div class="print-version" id="printVersion">
+        <h1>Word Search</h1>
+        <div class="print-content">
+            <div class="print-puzzle-section">
+                <div id="printWordSearch"></div>
+            </div>
+            <div class="print-info-section">
+                <div class="word-list">
+                    <h3>Words to find:</h3>
+                    <div id="printWordList"></div>
+                </div>
+                <div class="print-details">
+                    <h3>Game Details</h3>
+                    <p><strong>Level:</strong> <span id="printDifficulty"></span></p>
+                    <p><strong>Shape:</strong> <span id="printShape"></span></p>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
-        function showSection(sectionName) {
-            // Hide all sections
-            const sections = document.querySelectorAll('.section-content');
-            sections.forEach(section => {
-                section.classList.remove('active');
-            });
-
-            // Remove active class from all tabs
-            const tabs = document.querySelectorAll('.nav-tab');
-            tabs.forEach(tab => {
-                tab.classList.remove('active');
-            });
-
-            // Hide all intro sections above tabs
-            const introSections = ['main-intro', 'kids-intro', 'teenagers-intro', 'adults-intro', 'materials-intro', 'contact-intro'];
-            introSections.forEach(id => {
-                const element = document.getElementById(id);
-                if (element) {
-                    element.style.display = 'none';
-                }
-            });
-
-            // Show appropriate intro section above tabs
-            let introToShow = 'main-intro'; // default for main
-            if (sectionName === 'kids') introToShow = 'kids-intro';
-            else if (sectionName === 'teenagers') introToShow = 'teenagers-intro';
-            else if (sectionName === 'adults') introToShow = 'adults-intro';
-            else if (sectionName === 'materials') introToShow = 'materials-intro';
-            else if (sectionName === 'contact') introToShow = 'contact-intro';
+        class WordSearchGenerator {
+            constructor() {
+                this.grid = [];
+                this.words = [];
+                this.placedWords = [];
+                this.foundWords = new Set();
+                this.difficulty = 'easy';
+                this.shape = 'square';
+                this.gridSize = 15;
+                this.selectedCells = [];
+                this.isSelecting = false;
+                this.mode = 'online';
+                this.clickedCells = [];
+                this.currentWordProgress = {};
+                this.currentFirstLetter = null;
+                
+                // Ustaw domyślnie tryb online
+                document.querySelector('.container').classList.remove('mode-print');
+                
+                this.directions = {
+                    easy: [
+                        [0, 1],   // prawo
+                        [1, 0]    // dół
+                    ],
+                    medium: [
+                        [0, 1],   // prawo
+                        [1, 0],   // dół
+                        [1, 1],   // skos prawo-dół
+                        [-1, 1]   // skos prawo-góra
+                    ],
+                    hard: [
+                        [0, 1],   // prawo
+                        [1, 0],   // dół
+                        [1, 1],   // skos prawo-dół
+                        [-1, 1],  // skos prawo-góra
+                        [0, -1],  // lewo
+                        [-1, 0],  // góra
+                        [-1, -1], // skos lewo-góra
+                        [1, -1]   // skos lewo-dół
+                    ]
+                };
+                
+                this.initEventListeners();
+            }
             
-            const introElement = document.getElementById(introToShow);
-            if (introElement) {
-                introElement.style.display = 'block';
+            initEventListeners() {
+                // Przyciski trybu
+                document.querySelectorAll('[data-mode]').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        document.querySelectorAll('[data-mode]').forEach(b => b.classList.remove('active'));
+                        e.target.classList.add('active');
+                        this.mode = e.target.dataset.mode;
+                        
+                        // Dodaj/usuń klasę dla trybu druku
+                        const container = document.querySelector('.container');
+                        const printButtons = document.getElementById('printButtons');
+                        
+                        if (this.mode === 'print') {
+                            container.classList.add('mode-print');
+                        } else {
+                            container.classList.remove('mode-print');
+                            if (printButtons) printButtons.style.display = 'none';
+                        }
+                    });
+                });
+
+                // Przyciski trudności
+                document.querySelectorAll('[data-difficulty]').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        document.querySelectorAll('[data-difficulty]').forEach(b => b.classList.remove('active'));
+                        e.target.classList.add('active');
+                        this.difficulty = e.target.dataset.difficulty;
+                    });
+                });
+                
+                // Przyciski kształtu
+                document.querySelectorAll('[data-shape]').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        document.querySelectorAll('[data-shape]').forEach(b => b.classList.remove('active'));
+                        e.target.classList.add('active');
+                        this.shape = e.target.dataset.shape;
+                    });
+                });
+                
+                // Przycisk generowania
+                document.getElementById('generateBtn').addEventListener('click', () => {
+                    this.generatePuzzle();
+                });
+                
+                // Obsługa wyboru predefiniowanych słów
+                document.getElementById('wordPresets').addEventListener('change', (e) => {
+                    const wordsInput = document.getElementById('words');
+                    const customWordsInfo = document.getElementById('customWordsInfo');
+                    if (e.target.value && e.target.value !== 'custom') {
+                        wordsInput.value = e.target.value;
+                        wordsInput.style.display = 'none';
+                        customWordsInfo.style.display = 'none';
+                    } else if (e.target.value === 'custom') {
+                        wordsInput.style.display = 'block';
+                        customWordsInfo.style.display = 'block';
+                        wordsInput.value = '';
+                        wordsInput.focus();
+                    } else {
+                        wordsInput.style.display = 'block';
+                        customWordsInfo.style.display = 'none';
+                        wordsInput.value = '';
+                    }
+                });
+                
+                // Przyciski odpowiedzi
+                document.getElementById('showAnswersBtn').addEventListener('click', () => {
+                    this.showAnswers();
+                });
+                
+                document.getElementById('hideAnswersBtn').addEventListener('click', () => {
+                    this.hideAnswers();
+                });
+
+                // Przycisk drukowania
+                document.getElementById('printBtn').addEventListener('click', () => {
+                    this.generatePDF();
+                });
+
+                // Przycisk drukowania z odpowiedziami
+                document.getElementById('printAnswersBtn').addEventListener('click', () => {
+                    this.generatePDF(true);
+                });
+            }
+            
+            generatePuzzle() {
+                const wordsInput = document.getElementById('words').value.trim();
+                const presetSelect = document.getElementById('wordPresets');
+                const errorDiv = document.getElementById('errorMessage');
+                
+                // Sprawdź czy wybrano preset czy wprowadzono własne słowa
+                let finalWordsInput = wordsInput;
+                if (presetSelect.value && presetSelect.value !== 'custom' && presetSelect.value !== '') {
+                    finalWordsInput = presetSelect.value;
+                }
+                
+                if (!finalWordsInput) {
+                    errorDiv.innerHTML = '<div class="error">⚠️ Proszę wybrać słowa z listy lub wprowadzić własne słowa!</div>';
+                    return;
+                }
+                
+                this.words = finalWordsInput.toUpperCase().split(/\s+/).filter(word => word.length > 0);
+                
+                if (this.words.length < 1 || this.words.length > 12) {
+                    errorDiv.innerHTML = '<div class="error">⚠️ Proszę wprowadzić od 1 do 12 słów!</div>';
+                    return;
+                }
+                
+                // Sprawdź długość słów
+                const maxWordLength = Math.max(...this.words.map(word => word.length));
+                if (maxWordLength > 15) {
+                    errorDiv.innerHTML = '<div class="error">⚠️ Słowa nie mogą być dłuższe niż 15 liter!</div>';
+                    return;
+                }
+                
+                errorDiv.innerHTML = '';
+                
+                // Dodaj losowość do generowania - każde wywołanie będzie inne
+                this.randomSeed = Date.now() + Math.random() * 1000000 + performance.now();
+                this.generationId = Math.random().toString(36).substring(2, 15);
+                
+                // Oblicz rozmiar siatki
+                this.calculateGridSize();
+                
+                // Generuj siatkę z wieloma próbami
+                let attempts = 0;
+                let success = false;
+                
+                while (attempts < 20 && !success) {
+                    success = this.createGrid();
+                    attempts++;
+                    if (!success) {
+                        this.gridSize = Math.min(25, this.gridSize + 1);
+                    }
+                }
+                
+                if (!success) {
+                    errorDiv.innerHTML = '<div class="error">⚠️ Nie udało się wygenerować wyszukiwarki. Spróbuj z mniejszą liczbą lub krótszymi słowami.</div>';
+                    return;
+                }
+                
+                this.renderGrid();
+                this.setupWordList();
+                this.foundWords.clear();
+                this.clickedCells = [];
+                this.currentWordProgress = {};
+                this.currentFirstLetter = null;
+                this.updateStats();
+                
+                document.getElementById('gameArea').style.display = 'flex';
+                document.getElementById('showAnswersBtn').style.display = 'inline-block';
+                document.getElementById('hideAnswersBtn').style.display = 'none';
+                
+                // Zawsze pokaż przyciski druku po wygenerowaniu puzzla
+                const printButtons = document.getElementById('printButtons');
+                const onlineAnswerButtons = document.getElementById('onlineAnswerButtons');
+                
+                printButtons.style.display = 'block';
+                
+                if (this.mode === 'print') {
+                    if (onlineAnswerButtons) onlineAnswerButtons.style.display = 'none';
+                } else {
+                    if (onlineAnswerButtons) onlineAnswerButtons.style.display = 'block';
+                }
+                
+                errorDiv.innerHTML = '<div class="success">✅ Word search generated successfully!</div>';
+                setTimeout(() => {
+                    errorDiv.innerHTML = '';
+                }, 3000);
+            }
+            
+            calculateGridSize() {
+                const totalLetters = this.words.reduce((sum, word) => sum + word.length, 0);
+                const wordCount = this.words.length;
+                const maxWordLength = Math.max(...this.words.map(word => word.length));
+                
+                // Mniejszy rozmiar siatki
+                let baseSize = Math.max(maxWordLength + 2, Math.sqrt(totalLetters * 2.5));
+                
+                // Dostosuj do trudności i liczby słów
+                if (this.difficulty === 'easy') {
+                    baseSize = Math.max(baseSize, 8);
+                } else if (this.difficulty === 'medium') {
+                    baseSize = Math.max(baseSize, 10);
+                } else {
+                    baseSize = Math.max(baseSize, 12);
+                }
+                
+                // Dodatkowy rozmiar dla większej liczby słów
+                if (wordCount > 6) {
+                    baseSize += 1;
+                }
+                if (wordCount > 9) {
+                    baseSize += 1;
+                }
+                
+                this.gridSize = Math.min(Math.ceil(baseSize), 15);
+            }
+            
+            createGrid() {
+                this.grid = [];
+                this.placedWords = [];
+                
+                // Inicjalizuj pustą siatkę
+                for (let i = 0; i < this.gridSize; i++) {
+                    this.grid[i] = [];
+                    for (let j = 0; j < this.gridSize; j++) {
+                        this.grid[i][j] = '';
+                    }
+                }
+                
+                // Umieść słowa (sortuj od najdłuższych, ale z dużą losowością)
+                const shuffledWords = [...this.words]
+                    .sort((a, b) => b.length - a.length)
+                    .sort(() => (Math.random() + this.randomSeed * 0.0001) % 1 - 0.5) // Użyj seed dla konsystentnej losowości
+                    .sort(() => Math.random() - 0.5) // Dodatkowa losowość
+                    .sort(() => (this.generationId.charCodeAt(0) + Math.random()) % 1 - 0.5); // Jeszcze więcej losowości
+                
+                for (const word of shuffledWords) {
+                    if (!this.placeWord(word)) {
+                        return false;
+                    }
+                }
+                
+                // Wypełnij puste miejsca losowymi literami
+                this.fillEmptySpaces();
+                
+                return true;
+            }
+            
+            placeWord(word) {
+                const directions = this.directions[this.difficulty];
+                const attempts = 500;
+                
+                // Losowo przemieszaj kierunki dla każdego słowa z wieloma poziomami losowości
+                const shuffledDirections = [...directions]
+                    .sort(() => Math.random() - 0.5)
+                    .sort(() => (this.randomSeed * 0.0001 + Math.random()) % 1 - 0.5)
+                    .sort(() => (word.length + Math.random()) % 1 - 0.5);
+                
+                for (let attempt = 0; attempt < attempts; attempt++) {
+                    // Użyj losowego kierunku z przemieszanej listy
+                    const direction = shuffledDirections[attempt % shuffledDirections.length];
+                    const [dx, dy] = direction;
+                    
+                    // Oblicz maksymalne pozycje startowe
+                    let maxStartRow, maxStartCol;
+                    
+                    if (dx >= 0) {
+                        maxStartRow = this.gridSize - dx * (word.length - 1);
+                    } else {
+                        maxStartRow = this.gridSize + dx * (word.length - 1);
+                    }
+                    
+                    if (dy >= 0) {
+                        maxStartCol = this.gridSize - dy * (word.length - 1);
+                    } else {
+                        maxStartCol = this.gridSize + dy * (word.length - 1);
+                    }
+                    
+                    if (maxStartRow <= 0 || maxStartCol <= 0) continue;
+                    
+                    const minStartRow = dx < 0 ? Math.abs(dx * (word.length - 1)) : 0;
+                    const minStartCol = dy < 0 ? Math.abs(dy * (word.length - 1)) : 0;
+                    
+                    if (minStartRow >= maxStartRow || minStartCol >= maxStartCol) continue;
+                    
+                    // Dodaj wielopoziomową losowość do pozycji startowych
+                    const rowRange = maxStartRow - minStartRow;
+                    const colRange = maxStartCol - minStartCol;
+                    const randomFactor1 = (Math.random() + this.randomSeed * 0.0001 + attempt * 0.01) % 1;
+                    const randomFactor2 = (Math.random() + this.randomSeed * 0.0002 + word.charCodeAt(0) * 0.001) % 1;
+                    const startRow = minStartRow + Math.floor(randomFactor1 * rowRange);
+                    const startCol = minStartCol + Math.floor(randomFactor2 * colRange);
+                    
+                    if (this.canPlaceWord(word, startRow, startCol, dx, dy)) {
+                        this.placeWordAt(word, startRow, startCol, dx, dy);
+                        return true;
+                    }
+                }
+                
+                return false;
+            }
+            
+            canPlaceWord(word, row, col, dx, dy) {
+                // Sprawdź czy słowo mieści się w siatce
+                const endRow = row + (word.length - 1) * dx;
+                const endCol = col + (word.length - 1) * dy;
+                
+                if (endRow < 0 || endRow >= this.gridSize || endCol < 0 || endCol >= this.gridSize) {
+                    return false;
+                }
+                
+                // Sprawdź czy pozycja jest dostępna w danym kształcie
+                for (let i = 0; i < word.length; i++) {
+                    const currentRow = row + i * dx;
+                    const currentCol = col + i * dy;
+                    
+                    if (!this.isValidPosition(currentRow, currentCol)) {
+                        return false;
+                    }
+                    
+                    // Sprawdź czy komórka jest pusta lub zawiera tę samą literę
+                    const currentCell = this.grid[currentRow][currentCol];
+                    if (currentCell !== '' && currentCell !== word[i]) {
+                        return false;
+                    }
+                }
+                
+                // Sprawdź odstępy od innych słów
+                return this.checkWordSpacing(word, row, col, dx, dy);
+            }
+            
+            checkWordSpacing(word, row, col, dx, dy) {
+                // Sprawdź każdą literę słowa
+                for (let i = 0; i < word.length; i++) {
+                    const currentRow = row + i * dx;
+                    const currentCol = col + i * dy;
+                    
+                    // Sprawdź czy komórka jest pusta lub zawiera tę samą literę
+                    const currentCell = this.grid[currentRow][currentCol];
+                    if (currentCell !== '' && currentCell !== word[i]) {
+                        return false;
+                    }
+                    
+                    // Sprawdź odstępy od innych słów (przynajmniej jedna komórka przerwy)
+                    if (!this.checkSpacingAroundLetter(word, i, currentRow, currentCol, row, col, dx, dy)) {
+                        return false;
+                    }
+                }
+                
+                return true;
+            }
+            
+            checkSpacingAroundLetter(word, letterIndex, currentRow, currentCol, wordStartRow, wordStartCol, dx, dy) {
+                const directions = [
+                    [-1, -1], [-1, 0], [-1, 1],
+                    [0, -1],           [0, 1],
+                    [1, -1],  [1, 0],  [1, 1]
+                ];
+                
+                for (const [checkDx, checkDy] of directions) {
+                    const neighborRow = currentRow + checkDx;
+                    const neighborCol = currentCol + checkDy;
+                    
+                    // Sprawdź czy sąsiad jest w granicach siatki
+                    if (neighborRow < 0 || neighborRow >= this.gridSize || 
+                        neighborCol < 0 || neighborCol >= this.gridSize) {
+                        continue;
+                    }
+                    
+                    // Sprawdź czy sąsiad nie jest częścią aktualnie umieszczanego słowa
+                    if (this.isPartOfCurrentWord(word, wordStartRow, wordStartCol, dx, dy, neighborRow, neighborCol)) {
+                        continue;
+                    }
+                    
+                    // Jeśli sąsiad zawiera literę, sprawdź czy to dozwolone przecięcie
+                    const neighborCell = this.grid[neighborRow][neighborCol];
+                    if (neighborCell !== '') {
+                        // Nie pozwalaj na sąsiadowanie z innymi słowami
+                        return false;
+                    }
+                }
+                
+                return true;
+            }
+            
+            isPartOfCurrentWord(word, startRow, startCol, dx, dy, checkRow, checkCol) {
+                for (let i = 0; i < word.length; i++) {
+                    const wordRow = startRow + i * dx;
+                    const wordCol = startCol + i * dy;
+                    
+                    if (wordRow === checkRow && wordCol === checkCol) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+            
+            isAllowedIntersection(word, letterIndex, currentRow, currentCol, neighborRow, neighborCol) {
+                // Pozwól na przecięcie tylko jeśli litery się zgadzają
+                const currentLetter = word[letterIndex];
+                const neighborLetter = this.grid[neighborRow][neighborCol];
+                
+                return currentLetter === neighborLetter;
+            }
+            
+            placeWordAt(word, row, col, dx, dy) {
+                const positions = [];
+                
+                for (let i = 0; i < word.length; i++) {
+                    const currentRow = row + i * dx;
+                    const currentCol = col + i * dy;
+                    this.grid[currentRow][currentCol] = word[i];
+                    positions.push([currentRow, currentCol]);
+                }
+                
+                this.placedWords.push({
+                    word: word,
+                    positions: positions,
+                    direction: [dx, dy]
+                });
+            }
+            
+            isValidPosition(row, col) {
+                if (row < 0 || row >= this.gridSize || col < 0 || col >= this.gridSize) {
+                    return false;
+                }
+                
+                const centerRow = Math.floor(this.gridSize / 2);
+                const centerCol = Math.floor(this.gridSize / 2);
+                const maxRadius = Math.floor(this.gridSize / 2) - 1;
+                
+                switch (this.shape) {
+                    case 'square':
+                        return true;
+                        
+                    case 'circle':
+                        const distance = Math.sqrt(Math.pow(row - centerRow, 2) + Math.pow(col - centerCol, 2));
+                        return distance <= maxRadius;
+                        
+                    case 'hexagon':
+                        const hexX = col - centerCol;
+                        const hexY = row - centerRow;
+                        
+                        // Przekształć współrzędne kartezjańskie na sześciokątne
+                        const q = hexX;
+                        const r = hexY - (hexX - (hexX & 1)) / 2;
+                        const s = -q - r;
+                        
+                        return Math.abs(q) <= maxRadius && 
+                               Math.abs(r) <= maxRadius && 
+                               Math.abs(s) <= maxRadius;
+                        
+                    case 'diamond':
+                        return Math.abs(row - centerRow) + Math.abs(col - centerCol) <= maxRadius;
+                        
+                    case 'heart':
+                        // Normalizuj współrzędne względem centrum
+                        const heartX = (col - centerCol) / maxRadius;
+                        const heartY = -(row - centerRow) / maxRadius;
+                        
+                        // Przeskaluj dla lepszego kształtu serca
+                        const x = heartX * 0.75;
+                        const y = heartY * 0.75;
+                        
+                        // Górna część serca - dwa okręgi tworzące "łuki" z większym wycięciem
+                        const leftHeart = Math.pow(x + 0.35, 2) + Math.pow(y - 0.25, 2) <= 0.18;
+                        const rightHeart = Math.pow(x - 0.35, 2) + Math.pow(y - 0.25, 2) <= 0.18;
+                        
+                        // Środkowa część łącząca górne okręgi - z większym wycięciem na górze
+                        const middleHeart = (Math.abs(x) <= 0.45) && (y >= -0.1) && (y <= 0.4) && 
+                                          !(y >= 0.35 && Math.abs(x) <= 0.15); // wycięcie na górze
+                        
+                        // Dolna część - bardziej spiczasta część serca z ostrzejszym zakończeniem
+                        const bottomHeart = (y >= -0.8) && (y <= 0.1) && 
+                                          (Math.abs(x) <= Math.max(0.01, 0.7 - Math.abs(y + 0.2) * 1.5));
+                        
+                        // Dodatkowe wypełnienie dla gładkiego kształtu - bardziej równomierne boki
+                        const fillArea = (y >= -0.3) && (y <= 0.35) && 
+                                       (Math.abs(x) <= 0.52 - Math.abs(y - 0.1) * 0.25) &&
+                                       !(y >= 0.3 && Math.abs(x) <= 0.12); // wycięcie na górze
+                        
+                        // Dodatkowe wypełnienie boków dla równomierności
+                        const sidesFill = (y >= -0.5) && (y <= 0.2) && 
+                                        (Math.abs(x) <= 0.48 - Math.abs(y) * 0.2);
+                        
+                        return leftHeart || rightHeart || middleHeart || bottomHeart || fillArea || sidesFill;
+                        
+                    default:
+                        return true;
+                }
+            }
+            
+            fillEmptySpaces() {
+                const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                
+                // Utwórz wielokrotnie przemieszaną sekwencję liter dla każdej generacji
+                let shuffledLetters = letters.split('')
+                    .sort(() => Math.random() - 0.5)
+                    .sort(() => (this.randomSeed * 0.0001) % 1 - 0.5)
+                    .sort(() => (this.generationId.charCodeAt(1) + Math.random()) % 1 - 0.5)
+                    .join('');
+                
+                for (let i = 0; i < this.gridSize; i++) {
+                    for (let j = 0; j < this.gridSize; j++) {
+                        if (this.grid[i][j] === '' && this.isValidPosition(i, j)) {
+                            // Użyj kombinacji pozycji, seed i dodatkowej losowości dla unikalnych liter
+                            const complexIndex = (i * this.gridSize + j + Math.floor(this.randomSeed) + 
+                                                Math.floor(Math.random() * 1000) + 
+                                                this.generationId.charCodeAt(i % this.generationId.length)) % shuffledLetters.length;
+                            this.grid[i][j] = shuffledLetters[complexIndex];
+                        }
+                    }
+                }
+            }
+            
+            renderGrid() {
+                const wordSearchDiv = document.getElementById('wordSearch');
+                wordSearchDiv.innerHTML = '';
+                wordSearchDiv.style.gridTemplateColumns = `repeat(${this.gridSize}, 1fr)`;
+                
+                for (let i = 0; i < this.gridSize; i++) {
+                    for (let j = 0; j < this.gridSize; j++) {
+                        const cell = document.createElement('div');
+                        cell.className = 'cell';
+                        cell.dataset.row = i;
+                        cell.dataset.col = j;
+                        
+                        if (this.isValidPosition(i, j)) {
+                            cell.textContent = this.grid[i][j];
+                            if (this.mode === 'online') {
+                                cell.addEventListener('click', (e) => this.handleCellClick(e));
+                                cell.style.cursor = 'pointer';
+                            }
+                        } else {
+                            cell.style.visibility = 'hidden';
+                        }
+                        
+                        wordSearchDiv.appendChild(cell);
+                    }
+                }
+            }
+            
+            handleCellClick(e) {
+                if (this.mode !== 'online') return;
+                
+                const cell = e.target;
+                const row = parseInt(cell.dataset.row);
+                const col = parseInt(cell.dataset.col);
+                const letter = cell.textContent;
+                
+                // Sprawdź czy komórka już została znaleziona
+                if (cell.classList.contains('found')) {
+                    return;
+                }
+                
+                // Jeśli już mamy rozpoczęte słowo, sprawdź czy to kolejna litera
+                if (this.currentWordProgress.word) {
+                    const isNextLetter = this.isNextLetterInWord(row, col, letter);
+                    if (isNextLetter) {
+                        // Dodaj komórkę do aktualnego słowa
+                        this.currentWordProgress.cells.push({row, col, cell});
+                        this.highlightCell(cell);
+                        
+                        // Sprawdź czy słowo zostało ukończone
+                        if (this.currentWordProgress.cells.length === this.currentWordProgress.word.length) {
+                            this.completeWord();
+                        }
+                        return;
+                    } else {
+                        // Niepoprawna litera - resetuj postęp
+                        this.resetWordProgress();
+                    }
+                }
+                
+                // Podświetl komórkę różowo-żółto
+                this.highlightCell(cell);
+                
+                // Sprawdź czy ta litera jest pierwszą literą jakiegoś słowa
+                const wordData = this.isFirstLetterOfWord(row, col, letter);
+                
+                if (wordData) {
+                    // To jest pierwsza litera słowa - rozpocznij śledzenie
+                    this.currentWordProgress = {
+                        word: wordData.word,
+                        wordData: wordData,
+                        cells: [{row, col, cell}],
+                        direction: wordData.direction,
+                        positions: wordData.positions
+                    };
+                } else {
+                    // To nie jest pierwsza litera - usuń podświetlenie po 1 sekundzie
+                    setTimeout(() => {
+                        if (!cell.classList.contains('found')) {
+                            this.removeHighlight(cell);
+                        }
+                    }, 1000);
+                }
+            }
+            
+            highlightCell(cell) {
+                cell.classList.add('highlighted');
+                cell.style.background = 'linear-gradient(45deg, #ff69b4, #ffd700)';
+                cell.style.color = '#000000';
+                cell.style.border = '2px solid #ff69b4';
+                cell.style.boxShadow = '0 0 15px rgba(255, 105, 180, 0.6), 0 0 25px rgba(255, 215, 0, 0.4)';
+                cell.style.fontWeight = '900';
+                cell.style.transform = 'scale(1.05)';
+            }
+            
+            removeHighlight(cell) {
+                cell.classList.remove('highlighted');
+                cell.style.background = '#ffffff';
+                cell.style.color = '#8a2be2';
+                cell.style.border = '1px solid #cccccc';
+                cell.style.boxShadow = '';
+                cell.style.fontWeight = '900';
+                cell.style.transform = '';
+            }
+            
+            isFirstLetterOfWord(row, col, letter) {
+                // Sprawdź czy ta pozycja jest pierwszą literą jakiegoś nieznalezionego słowa
+                for (const wordData of this.placedWords) {
+                    if (this.foundWords.has(wordData.word)) continue;
+                    
+                    const firstPosition = wordData.positions[0];
+                    const lastPosition = wordData.positions[wordData.positions.length - 1];
+                    
+                    // Sprawdź czy to pierwsza pozycja słowa (normalny kierunek)
+                    if (firstPosition[0] === row && firstPosition[1] === col && wordData.word[0] === letter) {
+                        return {
+                            word: wordData.word,
+                            positions: wordData.positions,
+                            direction: wordData.direction,
+                            reversed: false
+                        };
+                    }
+                    
+                    // Sprawdź czy to ostatnia pozycja słowa (odwrotny kierunek)
+                    if (lastPosition[0] === row && lastPosition[1] === col && wordData.word[wordData.word.length - 1] === letter) {
+                        return {
+                            word: wordData.word,
+                            positions: [...wordData.positions].reverse(),
+                            direction: [-wordData.direction[0], -wordData.direction[1]],
+                            reversed: true
+                        };
+                    }
+                }
+                return null;
+            }
+            
+            isNextLetterInWord(row, col, letter) {
+                if (!this.currentWordProgress.word) return false;
+                
+                const nextIndex = this.currentWordProgress.cells.length;
+                if (nextIndex >= this.currentWordProgress.word.length) return false;
+                
+                // Sprawdź czy to następna pozycja w słowie
+                const expectedPosition = this.currentWordProgress.positions[nextIndex];
+                const expectedLetter = this.currentWordProgress.word[nextIndex];
+                
+                return expectedPosition[0] === row && 
+                       expectedPosition[1] === col && 
+                       expectedLetter === letter;
+            }
+            
+            completeWord() {
+                const wordData = this.currentWordProgress.wordData;
+                
+                // Oznacz słowo jako znalezione
+                this.foundWords.add(wordData.word);
+                
+                // Animuj wszystkie komórki słowa
+                this.currentWordProgress.cells.forEach((cellData, index) => {
+                    setTimeout(() => {
+                        cellData.cell.classList.remove('highlighted');
+                        cellData.cell.classList.add('found');
+                        cellData.cell.style.background = 'linear-gradient(45deg, #ff69b4, #ffd700)';
+                        cellData.cell.style.color = '#000000';
+                        cellData.cell.style.border = '2px solid #ff69b4';
+                        cellData.cell.style.boxShadow = '0 0 20px rgba(255, 105, 180, 0.8), 0 0 40px rgba(255, 215, 0, 0.6)';
+                        cellData.cell.style.animation = 'word-completion-sparkle 1.5s ease-in-out';
+                        cellData.cell.style.transform = 'scale(1.1)';
+                        
+                        // Po animacji ustaw jako znalezione
+                        setTimeout(() => {
+                            cellData.cell.style.transform = 'scale(1.02)';
+                            cellData.cell.style.animation = '';
+                        }, 1500);
+                    }, index * 100);
+                });
+                
+                // Skreśl słowo na liście
+                this.highlightFoundWordInList(wordData.word);
+                
+                // Resetuj postęp
+                this.resetWordProgress();
+                
+                // Zaktualizuj statystyki
+                this.updateStats();
+                
+                // Sprawdź czy wszystkie słowa zostały znalezione
+                if (this.foundWords.size === this.words.length) {
+                    setTimeout(() => {
+                        this.showVictoryAnimation();
+                    }, 2000);
+                }
+            }
+            
+            resetWordProgress() {
+                // Usuń podświetlenie z komórek które nie są znalezione
+                if (this.currentWordProgress.cells) {
+                    this.currentWordProgress.cells.forEach(cellData => {
+                        if (!cellData.cell.classList.contains('found')) {
+                            this.removeHighlight(cellData.cell);
+                        }
+                    });
+                }
+                
+                this.currentWordProgress = {};
             }
 
-            // Show selected section
-            const selectedSection = document.getElementById(sectionName + '-section');
-            if (selectedSection) {
-                selectedSection.classList.add('active');
+            startSelection(row, col, cell) {
+                this.isSelecting = true;
+                this.selectedCells = [{row, col, cell}];
+                this.startRow = row;
+                this.startCol = col;
+                
+                // Zastosuj różowo-żółte podświetlenie
+                this.highlightCell(cell);
+            }
+            
+
+            
+            endSelection(endRow, endCol, endCell) {
+                // Znajdź wszystkie komórki między pierwszą a ostatnią
+                const path = this.getPathBetweenCells(this.startRow, this.startCol, endRow, endCol);
+                
+                // Wyczyść poprzednie zaznaczenie
+                this.clearHighlight();
+                this.selectedCells = [];
+                
+                // Zaznacz wszystkie komórki na ścieżce
+                path.forEach(({row, col}) => {
+                    const cell = document.querySelector(`[data-row="${row}"][data-col="${col}"]`);
+                    if (cell && !cell.classList.contains('found')) {
+                        this.selectedCells.push({row, col, cell});
+                        cell.classList.add('highlighted');
+                        cell.style.background = 'linear-gradient(45deg, #ff69b4, #ffd700)';
+                        cell.style.color = '#000000';
+                        cell.style.border = '2px solid #ff69b4';
+                        cell.style.boxShadow = '0 0 15px rgba(255, 105, 180, 0.6), 0 0 25px rgba(255, 215, 0, 0.4)';
+                        cell.style.fontWeight = '900';
+                        cell.style.transform = 'scale(1.05)';
+                    }
+                });
+                
+                // Sprawdź czy wybrane komórki tworzą słowo
+                const selectedWord = this.getSelectedWord();
+                const foundWordData = this.checkForWord(selectedWord);
+                
+                if (foundWordData) {
+                    // Znaleziono słowo!
+                    this.foundWords.add(foundWordData.word);
+                    
+                    // Wyczyść poprzednie podświetlenia
+                    this.selectedCells.forEach(({cell}) => {
+                        cell.classList.remove('highlighted');
+                    });
+                    
+                    // Animuj znalezione słowo
+                    this.animateWordCompletion(foundWordData);
+                    this.highlightFoundWordInList(foundWordData.word);
+                    this.updateStats();
+                    
+                    // Sprawdź czy wszystkie słowa zostały znalezione
+                    if (this.foundWords.size === this.words.length) {
+                        setTimeout(() => {
+                            this.showVictoryAnimation();
+                        }, 2000);
+                    }
+                } else {
+                    // Nie znaleziono słowa - pokaż czerwony efekt błędu i usuń po 1 sekundzie
+                    this.selectedCells.forEach(({cell}) => {
+                        cell.classList.remove('highlighted');
+                        cell.classList.add('clicked-wrong');
+                        cell.style.background = 'linear-gradient(45deg, #ff4757, #ff3838)';
+                        cell.style.color = 'white';
+                        cell.style.border = '3px solid #ff4757';
+                        cell.style.boxShadow = '0 0 25px rgba(255, 71, 87, 0.9), 0 0 50px rgba(255, 56, 56, 0.6)';
+                        cell.style.transform = 'scale(1.05)';
+                    });
+                    
+                    setTimeout(() => {
+                        this.selectedCells.forEach(({cell}) => {
+                            if (!cell.classList.contains('found')) {
+                                cell.classList.remove('clicked-wrong');
+                                // Przywróć domyślny wygląd
+                                cell.style.background = '#ffffff';
+                                cell.style.color = '#8a2be2';
+                                cell.style.border = '1px solid #cccccc';
+                                cell.style.boxShadow = '';
+                                cell.style.fontWeight = '900';
+                                cell.style.transform = '';
+                            }
+                        });
+                    }, 1000);
+                }
+                
+                // Resetuj stan wyboru
+                this.isSelecting = false;
+                this.selectedCells = [];
+            }
+            
+            getPathBetweenCells(startRow, startCol, endRow, endCol) {
+                const path = [];
+                
+                // Oblicz kierunek
+                const deltaRow = endRow - startRow;
+                const deltaCol = endCol - startCol;
+                
+                // Sprawdź czy to jest prawidłowy kierunek (poziomy, pionowy lub skośny)
+                if (deltaRow === 0 && deltaCol === 0) {
+                    // Tylko jedna komórka
+                    path.push({row: startRow, col: startCol});
+                } else if (deltaRow === 0) {
+                    // Poziomo
+                    const step = deltaCol > 0 ? 1 : -1;
+                    for (let col = startCol; col !== endCol + step; col += step) {
+                        path.push({row: startRow, col: col});
+                    }
+                } else if (deltaCol === 0) {
+                    // Pionowo
+                    const step = deltaRow > 0 ? 1 : -1;
+                    for (let row = startRow; row !== endRow + step; row += step) {
+                        path.push({row: row, col: startCol});
+                    }
+                } else if (Math.abs(deltaRow) === Math.abs(deltaCol)) {
+                    // Skośnie
+                    const rowStep = deltaRow > 0 ? 1 : -1;
+                    const colStep = deltaCol > 0 ? 1 : -1;
+                    const steps = Math.abs(deltaRow);
+                    
+                    for (let i = 0; i <= steps; i++) {
+                        path.push({
+                            row: startRow + i * rowStep,
+                            col: startCol + i * colStep
+                        });
+                    }
+                } else {
+                    // Nieprawidłowy kierunek - zwróć tylko pierwszą komórkę
+                    path.push({row: startRow, col: startCol});
+                }
+                
+                return path;
             }
 
-            // Add active class to clicked tab
-            const clickedTab = event.target;
-            clickedTab.classList.add('active');
-        }
+            cancelSelection() {
+                this.isSelecting = false;
+                this.clearHighlight();
+                this.selectedCells = [];
+            }
+            
+            clearHighlight() {
+                document.querySelectorAll('.highlighted').forEach(cell => {
+                    if (!cell.classList.contains('found')) {
+                        cell.classList.remove('highlighted');
+                        // Przywróć domyślny wygląd
+                        cell.style.background = '#ffffff';
+                        cell.style.color = '#8a2be2';
+                        cell.style.border = '1px solid #cccccc';
+                        cell.style.boxShadow = '';
+                        cell.style.fontWeight = '900';
+                        cell.style.transform = '';
+                    }
+                });
+            }
+            
+            getSelectedWord() {
+                return this.selectedCells.map(({row, col}) => this.grid[row][col]).join('');
+            }
+            
+            checkForWord(selectedWord) {
+                // Sprawdź słowo w normalnym kierunku
+                for (const wordData of this.placedWords) {
+                    if (this.foundWords.has(wordData.word)) continue;
+                    
+                    if (wordData.word === selectedWord) {
+                        // Sprawdź czy pozycje się zgadzają
+                        if (this.positionsMatch(wordData.positions, this.selectedCells)) {
+                            return wordData;
+                        }
+                    }
+                    
+                    // Sprawdź słowo w odwrotnym kierunku
+                    const reversedWord = wordData.word.split('').reverse().join('');
+                    if (reversedWord === selectedWord) {
+                        // Sprawdź czy pozycje się zgadzają (w odwrotnej kolejności)
+                        const reversedPositions = [...wordData.positions].reverse();
+                        if (this.positionsMatch(reversedPositions, this.selectedCells)) {
+                            return wordData;
+                        }
+                    }
+                }
+                
+                return null;
+            }
+            
+            positionsMatch(wordPositions, selectedCells) {
+                if (wordPositions.length !== selectedCells.length) return false;
+                
+                for (let i = 0; i < wordPositions.length; i++) {
+                    const [wordRow, wordCol] = wordPositions[i];
+                    const {row: selectedRow, col: selectedCol} = selectedCells[i];
+                    
+                    if (wordRow !== selectedRow || wordCol !== selectedCol) {
+                        return false;
+                    }
+                }
+                
+                return true;
+            }
+            
 
-        function openStoriesPage() {
-            const storiesContent = `
+            
+
+            
+            previewWord(word) {
+                const wordData = this.placedWords.find(w => w.word === word);
+                if (wordData && !this.foundWords.has(word)) {
+                    wordData.positions.forEach(([row, col]) => {
+                        const cell = document.querySelector(`[data-row="${row}"][data-col="${col}"]`);
+                        if (cell && !cell.classList.contains('found')) {
+                            cell.classList.add('word-preview');
+                        }
+                    });
+                }
+            }
+            
+            clearWordPreview() {
+                document.querySelectorAll('.word-preview').forEach(cell => {
+                    cell.classList.remove('word-preview');
+                });
+            }
+            
+            showVictoryAnimation() {
+                // Utwórz overlay dla konfetti
+                const overlay = document.createElement('div');
+                overlay.className = 'celebration-overlay';
+                document.body.appendChild(overlay);
+                
+                // Generuj konfetti - więcej i dłużej
+                for (let i = 0; i < 150; i++) {
+                    setTimeout(() => {
+                        this.createConfetti(overlay);
+                    }, i * 40);
+                }
+                
+                // Dodatkowa fala konfetti po 3 sekundach
+                setTimeout(() => {
+                    for (let i = 0; i < 80; i++) {
+                        setTimeout(() => {
+                            this.createConfetti(overlay);
+                        }, i * 60);
+                    }
+                }, 3000);
+                
+                // Pokaż banner zwycięstwa na wyszukiwance
+                const puzzleContainer = document.querySelector('.puzzle-container');
+                puzzleContainer.style.position = 'relative';
+                
+                const banner = document.createElement('div');
+                banner.className = 'victory-banner';
+                banner.innerHTML = `
+                    <div class="victory-stars">
+                        <span class="victory-star" style="top: 8px; left: 12px;">✦</span>
+                        <span class="victory-star" style="top: 15px; right: 18px;">✧</span>
+                        <span class="victory-star" style="top: 25px; left: 48%;">✦</span>
+                        <span class="victory-star" style="bottom: 30px; left: 22px;">✧</span>
+                        <span class="victory-star" style="bottom: 25px; right: 12px;">✦</span>
+                        <span class="victory-star" style="bottom: 15px; left: 58%;">✧</span>
+                        <span class="victory-star" style="top: 35px; right: 38%;">✦</span>
+                        <span class="victory-star" style="bottom: 40px; right: 42%;">✧</span>
+                        <span class="victory-star" style="top: 12px; left: 75%;">✦</span>
+                        <span class="victory-star" style="top: 40px; left: 8%;">✧</span>
+                        <span class="victory-star" style="bottom: 18px; right: 65%;">✦</span>
+                        <span class="victory-star" style="bottom: 45px; left: 35%;">✧</span>
+                        <span class="victory-star" style="top: 28px; left: 28%;">✦</span>
+                        <span class="victory-star" style="bottom: 32px; right: 28%;">✧</span>
+                        <span class="victory-star" style="top: 18px; right: 55%;">✦</span>
+                    </div>
+                    WELL DONE!
+                `;
+                puzzleContainer.appendChild(banner);
+                
+                // Usuń animacje po 8 sekundach
+                setTimeout(() => {
+                    if (overlay.parentNode) overlay.parentNode.removeChild(overlay);
+                    if (banner.parentNode) banner.parentNode.removeChild(banner);
+                }, 8000);
+            }
+            
+            createConfetti(overlay) {
+                const confetti = document.createElement('div');
+                confetti.className = 'falling-confetti';
+                
+                // Rozszerzona lista typów konfetti z fioletowo-złoto-różowymi kolorami
+                const types = ['square', 'circle', 'triangle', 'diamond', 'star', 'heart', 'sparkle'];
+                const type = types[Math.floor(Math.random() * types.length)];
+                
+                if (type === 'star') {
+                    const stars = ['⭐', '🌟', '✨', '💫'];
+                    confetti.innerHTML = stars[Math.floor(Math.random() * stars.length)];
+                    confetti.classList.add('confetti-star');
+                } else if (type === 'heart') {
+                    const hearts = ['💖', '💜', '💛', '🩷'];
+                    confetti.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
+                    confetti.classList.add('confetti-heart');
+                } else if (type === 'sparkle') {
+                    const sparkles = ['✨', '💫', '🌟', '⭐'];
+                    confetti.innerHTML = sparkles[Math.floor(Math.random() * sparkles.length)];
+                    confetti.classList.add('confetti-sparkle');
+                } else {
+                    confetti.classList.add(`confetti-${type}`);
+                }
+                
+                // Losowa pozycja startowa i właściwości animacji
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.animationDuration = (Math.random() * 4 + 3) + 's';
+                confetti.style.animationDelay = Math.random() * 1 + 's';
+                
+                // Dodaj losowe obroty dla większej różnorodności
+                const randomRotation = Math.random() * 360;
+                confetti.style.transform = `rotate(${randomRotation}deg)`;
+                
+                overlay.appendChild(confetti);
+                
+                // Usuń konfetti po animacji
+                setTimeout(() => {
+                    if (confetti.parentNode) {
+                        confetti.parentNode.removeChild(confetti);
+                    }
+                }, 7000);
+            }
+            
+
+            
+            setupWordList() {
+                const container = document.getElementById('wordListContainer');
+                container.innerHTML = '';
+                
+                this.words.forEach(word => {
+                    const wordDiv = document.createElement('div');
+                    wordDiv.className = 'word-item';
+                    wordDiv.textContent = word;
+                    wordDiv.dataset.word = word;
+                    
+                    // Dodaj podgląd słowa przy najechaniu
+                    wordDiv.addEventListener('mouseenter', () => {
+                        this.previewWord(word);
+                    });
+                    
+                    wordDiv.addEventListener('mouseleave', () => {
+                        this.clearWordPreview();
+                    });
+                    
+                    container.appendChild(wordDiv);
+                });
+            }
+            
+            highlightFoundWordInList(foundWord) {
+                const wordElement = document.querySelector(`[data-word="${foundWord}"]`);
+                if (wordElement) {
+                    wordElement.classList.add('found-highlight');
+                    setTimeout(() => {
+                        wordElement.classList.remove('found-highlight');
+                        wordElement.classList.add('found');
+                        // Dodaj skreślenie z animacją
+                        wordElement.style.textDecoration = 'line-through';
+                        wordElement.style.textDecorationColor = '#6c5ce7';
+                        wordElement.style.textDecorationThickness = '2px';
+                        wordElement.style.animation = 'found-word-celebration 2s ease-in-out';
+                    }, 500);
+                }
+            }
+            
+            animateWordCompletion(wordData) {
+                // Animuj wszystkie komórki słowa
+                wordData.positions.forEach(([row, col], index) => {
+                    const cell = document.querySelector(`[data-row="${row}"][data-col="${col}"]`);
+                    if (cell) {
+                        setTimeout(() => {
+                            cell.classList.add('word-complete');
+                            cell.style.background = 'linear-gradient(45deg, #ff69b4, #ffd700)';
+                            cell.style.color = '#000000';
+                            cell.style.border = '2px solid #ff69b4';
+                            cell.style.boxShadow = '0 0 20px rgba(255, 105, 180, 0.8), 0 0 40px rgba(255, 215, 0, 0.6)';
+                            cell.style.animation = 'word-completion-sparkle 1.5s ease-in-out';
+                            cell.style.transform = 'scale(1.1)';
+                            
+                            // Po animacji ustaw jako znalezione
+                            setTimeout(() => {
+                                cell.classList.remove('word-complete');
+                                cell.classList.add('found');
+                                cell.style.transform = 'scale(1.02)';
+                                cell.style.animation = '';
+                            }, 1500);
+                        }, index * 100); // Opóźnienie dla efektu kaskadowego
+                    }
+                });
+            }
+
+            updateWordList() {
+                this.foundWords.forEach(word => {
+                    const wordElement = document.querySelector(`[data-word="${word}"]`);
+                    if (wordElement && !wordElement.classList.contains('found-highlight')) {
+                        wordElement.classList.add('found');
+                    }
+                });
+            }
+            
+            updateStats() {
+                document.getElementById('foundCount').textContent = this.foundWords.size;
+                document.getElementById('totalCount').textContent = this.words.length;
+                
+                const shapeNames = {
+                    square: 'Square',
+                    circle: 'Circle', 
+                    hexagon: 'Hexagon',
+                    diamond: 'Diamond',
+                    heart: 'Heart'
+                };
+                document.getElementById('currentShape').textContent = shapeNames[this.shape];
+            }
+            
+            showAnswers() {
+                this.placedWords.forEach(wordData => {
+                    wordData.positions.forEach(([row, col]) => {
+                        const cell = document.querySelector(`[data-row="${row}"][data-col="${col}"]`);
+                        if (cell && !cell.classList.contains('word-complete')) {
+                            cell.style.background = 'linear-gradient(45deg, #ffd700, #ff69b4)';
+                            cell.style.color = '#000000';
+                            cell.style.fontWeight = 'bold';
+                            cell.style.boxShadow = '0 0 20px rgba(255, 215, 0, 0.6), 0 0 40px rgba(255, 105, 180, 0.4)';
+                            cell.classList.add('found');
+                        }
+                    });
+                });
+                
+                document.getElementById('showAnswersBtn').style.display = 'none';
+                document.getElementById('hideAnswersBtn').style.display = 'inline-block';
+            }
+            
+            hideAnswers() {
+                document.querySelectorAll('.cell').forEach(cell => {
+                    const row = parseInt(cell.dataset.row);
+                    const col = parseInt(cell.dataset.col);
+                    
+                    // Sprawdź czy komórka należy do słowa które gracz już znalazł
+                    let belongsToFoundWord = false;
+                    
+                    for (const wordData of this.placedWords) {
+                        if (this.foundWords.has(wordData.word)) {
+                            for (const [wordRow, wordCol] of wordData.positions) {
+                                if (wordRow === row && wordCol === col) {
+                                    belongsToFoundWord = true;
+                                    break;
+                                }
+                            }
+                        }
+                        if (belongsToFoundWord) break;
+                    }
+                    
+                    // Jeśli komórka nie należy do znalezionego słowa, przywróć domyślny wygląd
+                    if (!belongsToFoundWord && !cell.classList.contains('word-complete')) {
+                        cell.classList.remove('found');
+                        cell.style.background = '';
+                        cell.style.color = '';
+                        cell.style.fontWeight = '';
+                        cell.style.boxShadow = '';
+                        
+                        // Przywróć domyślne style
+                        cell.style.background = '#ffffff';
+                        cell.style.color = '#8a2be2';
+                        cell.style.fontWeight = '900';
+                        cell.style.border = '1px solid #cccccc';
+                    }
+                });
+                
+                document.getElementById('showAnswersBtn').style.display = 'inline-block';
+                document.getElementById('hideAnswersBtn').style.display = 'none';
+            }
+
+            generatePDF(withAnswers = false) {
+                // Utwórz nowe okno z wersją do PDF
+                const pdfWindow = window.open('', '_blank');
+                const pdfContent = this.createPDFContent(withAnswers);
+                
+                pdfWindow.document.write(pdfContent);
+                pdfWindow.document.close();
+                
+                // Automatycznie otwórz dialog drukowania/zapisu jako PDF
+                pdfWindow.onload = () => {
+                    pdfWindow.print();
+                };
+            }
+
+            createPDFContent(withAnswers = false) {
+                const shapeNames = {
+                    square: 'Square',
+                    circle: 'Circle',
+                    hexagon: 'Hexagon', 
+                    diamond: 'Diamond',
+                    heart: 'Heart'
+                };
+                
+                const difficultyNames = {
+                    easy: 'Easy',
+                    medium: 'Medium', 
+                    hard: 'Hard'
+                };
+
+                let gridHTML = '';
+                for (let i = 0; i < this.gridSize; i++) {
+                    for (let j = 0; j < this.gridSize; j++) {
+                        if (this.isValidPosition(i, j)) {
+                            let cellClass = 'pdf-cell';
+                            let cellContent = this.grid[i][j];
+                            
+                            // Jeśli to wersja z odpowiedziami, podświetl znalezione słowa
+                            if (withAnswers) {
+                                const isPartOfWord = this.placedWords.some(wordData => 
+                                    wordData.positions.some(([row, col]) => row === i && col === j)
+                                );
+                                if (isPartOfWord) {
+                                    cellClass += ' pdf-answer-cell';
+                                }
+                            }
+                            
+                            gridHTML += `<div class="${cellClass}">${cellContent}</div>`;
+                        } else {
+                            gridHTML += `<div class="pdf-cell pdf-empty"></div>`;
+                        }
+                    }
+                }
+
+                let wordListHTML = '';
+                if (withAnswers) {
+                    // Dla wersji z odpowiedziami - zwykła lista
+                    this.words.forEach((word, index) => {
+                        wordListHTML += `<div class="pdf-word-item">${index + 1}. ${word}</div>`;
+                    });
+                } else {
+                    // Dla wersji bez odpowiedzi - tabela z checkboxami
+                    wordListHTML = `
+                        <table class="word-checklist">
+                            <thead>
+                                <tr>
+                                    <th class="checkbox-cell">✓</th>
+                                    <th>Word</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                    `;
+                    this.words.forEach((word, index) => {
+                        wordListHTML += `
+                            <tr>
+                                <td class="checkbox-cell"><span class="checkbox"></span></td>
+                                <td>${word}</td>
+                            </tr>
+                        `;
+                    });
+                    wordListHTML += `
+                            </tbody>
+                        </table>
+                    `;
+                }
+
+                return `
                 <!DOCTYPE html>
-                <html lang="pl">
+                <html>
                 <head>
                     <meta charset="UTF-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <title>Stories + Activities - RISE.SHINE.EVOLVE</title>
-                    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Playfair+Display:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+                    <title>Word Search Puzzle</title>
                     <style>
-                        body { box-sizing: border-box; margin: 0; padding: 20px; min-height: 100vh; background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%); font-family: 'Orbitron', monospace; color: white; }
-                        .container { max-width: 800px; margin: 0 auto; text-align: center; }
-                        .title { font-size: 3rem; background: linear-gradient(45deg, #8a2be2, #ba55d3); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 2rem; }
-                        .content { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); border-radius: 20px; padding: 2rem; margin: 2rem 0; }
-                        .highlight { color: #c9b037; font-weight: 700; }
+                        @page {
+                            size: A4;
+                            margin: 20mm;
+                        }
+                        
+                        body {
+                            font-family: Arial, sans-serif;
+                            margin: 0;
+                            padding: 0;
+                            background: white;
+                            color: black;
+                            line-height: 1.4;
+                        }
+                        
+                        .pdf-container {
+                            max-width: 100%;
+                            margin: 0 auto;
+                        }
+                        
+                        .pdf-title {
+                            text-align: center;
+                            font-size: 28px;
+                            font-weight: bold;
+                            margin-bottom: 20px;
+                            color: #333;
+                        }
+                        
+                        .pdf-content {
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: flex-start;
+                            gap: 30px;
+                        }
+                        
+                        .pdf-puzzle-section {
+                            flex: 1;
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                        }
+                        
+                        .pdf-grid {
+                            display: grid;
+                            grid-template-columns: repeat(${this.gridSize}, 1fr);
+                            gap: 1px;
+                            border: 2px solid #333;
+                            padding: 10px;
+                            background: white;
+                            margin-bottom: 15px;
+                        }
+                        
+                        .pdf-cell {
+                            width: 25px;
+                            height: 25px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            border: 1px solid #ccc;
+                            font-size: 14px;
+                            font-weight: bold;
+                            background: white;
+                            color: #333;
+                        }
+                        
+                        .pdf-empty {
+                            visibility: hidden;
+                        }
+                        
+                        .pdf-answer-cell {
+                            background-color: #ffeb3b !important;
+                            font-weight: bold;
+                        }
+                        
+                        .pdf-info-section {
+                            min-width: 250px;
+                            max-width: 300px;
+                        }
+                        
+                        .pdf-word-list {
+                            border: 2px solid #333;
+                            padding: 15px;
+                            margin-bottom: 20px;
+                            background: white;
+                        }
+                        
+                        .pdf-word-list h3 {
+                            margin: 0 0 15px 0;
+                            text-align: center;
+                            font-size: 18px;
+                            color: #333;
+                        }
+                        
+                        .pdf-word-item {
+                            padding: 6px 10px;
+                            margin: 3px 0;
+                            border: 1px solid #666;
+                            background: #f9f9f9;
+                            border-radius: 3px;
+                            font-weight: 500;
+                        }
+                        
+                        .pdf-details {
+                            border: 2px solid #333;
+                            padding: 15px;
+                            background: white;
+                        }
+                        
+                        .pdf-details h3 {
+                            margin: 0 0 15px 0;
+                            text-align: center;
+                            font-size: 18px;
+                            color: #333;
+                        }
+                        
+                        .pdf-details p {
+                            margin: 8px 0;
+                            font-weight: 500;
+                        }
+                        
+                        .word-checklist {
+                            width: 100%;
+                            border-collapse: collapse;
+                            margin-top: 10px;
+                        }
+                        
+                        .word-checklist th,
+                        .word-checklist td {
+                            border: 1px solid #333;
+                            padding: 8px;
+                            text-align: left;
+                        }
+                        
+                        .word-checklist th {
+                            background-color: #f0f0f0;
+                            font-weight: bold;
+                        }
+                        
+                        .word-checklist .checkbox-cell {
+                            width: 30px;
+                            text-align: center;
+                        }
+                        
+                        .checkbox {
+                            width: 16px;
+                            height: 16px;
+                            border: 2px solid #333;
+                            display: inline-block;
+                        }
+                        
+                        .pdf-instructions {
+                            text-align: center;
+                            margin-top: 15px;
+                            font-size: 12px;
+                            color: #666;
+                        }
                     </style>
                 </head>
                 <body>
-                    <div class="container">
-                        <h1 class="title">Stories + Activities</h1>
-                        <div class="content">
-                            <h2>Magical Stories & Family Activities</h2>
-                            <p>Welcome to the enchanting world of The Happy-Makers! Our series combines heartwarming stories with engaging family activities that teach children the power of <span class="highlight">kindness, joy, and making others smile</span>.</p>
-                            
-                            <h3>What You'll Discover:</h3>
-                            <ul style="text-align: left; max-width: 600px; margin: 0 auto;">
-                                <li>Engaging characters who spread happiness wherever they go</li>
-                                <li>Interactive family activities that reinforce positive values</li>
-                                <li>Life lessons about empathy, friendship, and kindness</li>
-                                <li>Creative exercises that bring families together</li>
-                                <li>Tools to help children develop emotional intelligence</li>
-                            </ul>
-                            
-                            <p style="margin-top: 2rem;">Each story is carefully crafted to inspire young minds while providing practical activities that families can enjoy together. Through magical adventures and heartwarming tales, children learn that <span class="highlight">they have the power to make the world a brighter place</span>.</p>
+                    <div class="pdf-container">
+                        <h1 class="pdf-title">${withAnswers ? 'Word Search - ANSWERS' : 'Word Search Puzzle'}</h1>
+                        <div class="pdf-content">
+                            <div class="pdf-puzzle-section">
+                                <div class="pdf-grid">
+                                    ${gridHTML}
+                                </div>
+                                ${withAnswers ? '' : '<div class="pdf-instructions">Find all the words hidden in the grid above. Words can be horizontal, vertical, or diagonal.</div>'}
+                            </div>
+                            <div class="pdf-info-section">
+                                <div class="pdf-word-list">
+                                    <h3>Words to find:</h3>
+                                    ${wordListHTML}
+                                </div>
+                                <div class="pdf-details">
+                                    <h3>Game Details</h3>
+                                    <p><strong>Level:</strong> ${difficultyNames[this.difficulty]}</p>
+                                    <p><strong>Shape:</strong> ${shapeNames[this.shape]}</p>
+                                    <p><strong>Total Words:</strong> ${this.words.length}</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </body>
                 </html>
-            `;
-            
-            const newWindow = window.open('', '_blank');
-            newWindow.document.write(storiesContent);
-            newWindow.document.close();
+                `;
+            }
         }
+
+        // Inicjalizuj generator po załadowaniu strony
+        document.addEventListener('DOMContentLoaded', () => {
+            new WordSearchGenerator();
+        });
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'988c7e6ef281c419',t:'MTc1OTQ5NTA3OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'98ac691c60d5bfe4',t:'MTc1OTgyOTc0OS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
