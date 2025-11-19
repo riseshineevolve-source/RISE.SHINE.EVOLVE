@@ -174,6 +174,57 @@
             animation: evolveGlow 8s infinite ease-in-out;
         }
 
+        .icon-heading {
+            color: #ffd700;
+            font-weight: bold;
+            margin: 18px 0 8px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .icon-circle {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #8A2BE2, #ffd700);
+            box-shadow: 0 0 12px rgba(138, 43, 226, 0.6), 0 0 18px rgba(255, 215, 0, 0.6);
+        }
+
+        .icon-circle svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .golden-bullets {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 0;
+        }
+
+        .golden-bullets li {
+            position: relative;
+            padding-left: 26px;
+            margin-bottom: 10px;
+            line-height: 1.5;
+            color: #ffffff;
+        }
+
+        .golden-bullets li::before {
+            content: '✶';
+            position: absolute;
+            left: 0;
+            top: 4px;
+            color: #ffd700;
+            text-shadow: 0 0 8px rgba(255, 215, 0, 0.9), 0 0 16px rgba(255, 215, 0, 0.6);
+            font-size: 0.8rem;
+        }
+
         @keyframes riseGlow {
             0%, 100% { 
                 text-shadow: 0 0 20px rgba(255, 20, 147, 0.8), 0 0 30px rgba(255, 20, 147, 0.4), 0 0 45px rgba(255, 20, 147, 0.2);
@@ -1847,7 +1898,6 @@
                     <!-- Description -->
                     <div style="color: #ffffff; font-size: 1.1rem; line-height: 1.7; text-align: center; margin-bottom: 30px; max-width: 850px; margin-left: auto; margin-right: auto;">
                         <p style="margin-bottom: 20px;">
-                            <strong>Unique Family Advent Calendar</strong><br>
                             Create magical December memories with your family!
                         </p>
                         <p style="margin-bottom: 25px;">
@@ -1855,22 +1905,45 @@
                             Each day brings a gentle activity designed to bring your family closer together.
                         </p>
                         <div style="text-align: left; max-width: 650px; margin: 0 auto;">
-                            <p style="color: #ffd700; font-weight: bold; margin: 18px 0 8px 0;">🎄 WHAT IT IS</p>
-                            <ul style="margin-top: 0; padding-left: 20px;">
+                            <p class="icon-heading">
+                                <span class="icon-circle">
+                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M4 5h7c1.66 0 3 1.34 3 3v11c0-1.66-1.34-3-3-3H4V5z" fill="#ffd700" stroke="#8A2BE2" stroke-width="1.5" stroke-linejoin="round"/>
+                                        <path d="M20 5h-7c-1.66 0-3 1.34-3 3v11c0-1.66 1.34-3 3-3h7V5z" fill="#8A2BE2" stroke="#ffd700" stroke-width="1.5" stroke-linejoin="round"/>
+                                    </svg>
+                                </span>
+                                WHAT IT IS
+                            </p>
+                            <ul class="golden-bullets">
                                 <li>A mindful, heartwarming Advent Calendar in book form</li>
                                 <li>24 days of short, meaningful activities</li>
                                 <li>Perfect for busy, beautifully imperfect families</li>
                             </ul>
 
-                            <p style="color: #ffd700; font-weight: bold; margin: 18px 0 8px 0;">🌙 WHAT'S INSIDE</p>
-                            <ul style="margin-top: 0; padding-left: 20px;">
+                            <p class="icon-heading">
+                                <span class="icon-circle" style="background: radial-gradient(circle, #ffd700 0%, #8A2BE2 90%);">
+                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M15 2a7 7 0 0 0 0 14c3.87 0 7-3.13 7-7S18.87 2 15 2Z" fill="#ffd700" stroke="#8A2BE2" stroke-width="1.5"/>
+                                        <path d="M9 22c3.31 0 6-2.69 6-6 0-1.85-.84-3.51-2.17-4.61A5.98 5.98 0 0 1 9 20c-1.85 0-3.51-.84-4.61-2.17A5.98 5.98 0 0 0 9 22Z" fill="#8A2BE2" stroke="#ffd700" stroke-width="1.5"/>
+                                    </svg>
+                                </span>
+                                WHAT'S INSIDE
+                            </p>
+                            <ul class="golden-bullets">
                                 <li>1-Minute Mindfulness — calming practices kids actually enjoy</li>
                                 <li>Fun Sparks — quick, laughter-packed mini games (zero mess!)</li>
                                 <li>Connection Shares — one warm sentence, once a day</li>
                             </ul>
 
-                            <p style="color: #ffd700; font-weight: bold; margin: 18px 0 8px 0;">⭐ WHY FAMILIES LOVE IT</p>
-                            <ul style="margin-top: 0; padding-left: 20px;">
+                            <p class="icon-heading">
+                                <span class="icon-circle" style="background: linear-gradient(135deg, #8A2BE2, #ffd700);">
+                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M12 20s-7-4.35-7-9.5S7.25 3 12 7c4.75-4 7 0.5 7 3.5S12 20 12 20Z" fill="#ffd700" stroke="#8A2BE2" stroke-width="1.5" stroke-linejoin="round"/>
+                                    </svg>
+                                </span>
+                                WHY FAMILIES LOVE IT
+                            </p>
+                            <ul class="golden-bullets">
                                 <li>Only 10 minutes a day</li>
                                 <li>No prep, no supplies, no chaos</li>
                                 <li>Builds routine, emotional regulation and closeness</li>
@@ -1878,8 +1951,18 @@
                                 <li>Makes December feel calmer, cozier and more connected</li>
                             </ul>
 
-                            <p style="color: #ffd700; font-weight: bold; margin: 18px 0 8px 0;">‍ ‍👧‍👦 GUIDED BY THE HAPPY-MAKERS FAMILY</p>
-                            <ul style="margin-top: 0; padding-left: 20px;">
+                            <p class="icon-heading">
+                                <span class="icon-circle" style="background: linear-gradient(135deg, #ffd700, #8A2BE2); padding: 4px;">
+                                    <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <circle cx="16" cy="18" r="6" fill="#ffd700" stroke="#8A2BE2" stroke-width="2"/>
+                                        <circle cx="32" cy="18" r="6" fill="#ffd700" stroke="#8A2BE2" stroke-width="2"/>
+                                        <circle cx="24" cy="28" r="7" fill="#8A2BE2" stroke="#ffd700" stroke-width="2"/>
+                                        <path d="M8 34c0-4 4-7 8-7h16c4 0 8 3 8 7v6H8v-6Z" fill="#ffd700" stroke="#8A2BE2" stroke-width="2" stroke-linejoin="round"/>
+                                    </svg>
+                                </span>
+                                GUIDED BY THE HAPPY-MAKERS FAMILY
+                            </p>
+                            <ul class="golden-bullets">
                                 <li>Nini – pocket-sized joy machine</li>
                                 <li>Alio – certified chaos engineer</li>
                                 <li>Dilo – winter sports ace with perfect hair</li>
@@ -1888,23 +1971,55 @@
                             </ul>
                             <p style="margin-top: 5px;">Their funny, warm notes appear throughout the book.</p>
 
-                            <p style="color: #ffd700; font-weight: bold; margin: 18px 0 8px 0;">💝 A PERFECT FAMILY GIFT</p>
-                            <ul style="margin-top: 0; padding-left: 20px;">
+                            <p class="icon-heading">
+                                <span class="icon-circle" style="background: radial-gradient(circle, #ffd700 0%, #a64bff 80%);">
+                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect x="4" y="9" width="16" height="11" rx="2" fill="#ffd700" stroke="#8A2BE2" stroke-width="1.5"/>
+                                        <path d="M4 12h16" stroke="#8A2BE2" stroke-width="1.5"/>
+                                        <path d="M9 5v10" stroke="#8A2BE2" stroke-width="1.5"/>
+                                        <path d="M15 5v10" stroke="#8A2BE2" stroke-width="1.5"/>
+                                    </svg>
+                                </span>
+                                A PERFECT FAMILY GIFT
+                            </p>
+                            <ul class="golden-bullets">
                                 <li>Works for small and big families</li>
                                 <li>Most Advent calendars give you small surprises.<br>This one gives you small transformations.</li>
                                 <li>A tradition kids will ask for every year</li>
                             </ul>
 
-                            <p style="color: #ffd700; font-weight: bold; margin: 18px 0 8px 0;">🌟 THE MAGIC OF THIS BOOK</p>
-                            <ul style="margin-top: 0; padding-left: 20px;">
+                            <p class="icon-heading">
+                                <span class="icon-circle" style="background: linear-gradient(135deg, #a64bff, #ffd700);">
+                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M12 2v4" stroke="#ffd700" stroke-width="1.5" stroke-linecap="round"/>
+                                        <path d="M12 18v4" stroke="#ffd700" stroke-width="1.5" stroke-linecap="round"/>
+                                        <path d="M4.93 4.93 7.76 7.76" stroke="#ffd700" stroke-width="1.5" stroke-linecap="round"/>
+                                        <path d="M16.24 16.24 19.07 19.07" stroke="#ffd700" stroke-width="1.5" stroke-linecap="round"/>
+                                        <path d="M2 12h4" stroke="#ffd700" stroke-width="1.5" stroke-linecap="round"/>
+                                        <path d="M18 12h4" stroke="#ffd700" stroke-width="1.5" stroke-linecap="round"/>
+                                        <path d="M4.93 19.07 7.76 16.24" stroke="#ffd700" stroke-width="1.5" stroke-linecap="round"/>
+                                        <path d="M16.24 7.76 19.07 4.93" stroke="#ffd700" stroke-width="1.5" stroke-linecap="round"/>
+                                        <circle cx="12" cy="12" r="4" fill="#ffd700" stroke="#8A2BE2" stroke-width="1.5"/>
+                                    </svg>
+                                </span>
+                                THE MAGIC OF THIS BOOK
+                            </p>
+                            <ul class="golden-bullets">
                                 <li>Creates small daily memories</li>
                                 <li>Sparks teamwork, laughter and trust</li>
                                 <li>Gently guides toward calm moments in a busy month</li>
                             </ul>
                         </div>
 
-                        <p style="margin-top: 25px; font-weight: bold; color: #ffd700;">
-                            🎁 If you want a December that feels closer, calmer and full of soft little memories — this is your new favorite holiday tradition.
+                        <p style="margin-top: 25px; font-weight: bold; color: #ffd700; display: flex; align-items: center; justify-content: center; gap: 12px;">
+                            <span class="icon-circle" style="width: 38px; height: 38px; background: linear-gradient(135deg, #ffd700, #8A2BE2);">
+                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <rect x="3" y="8" width="18" height="13" rx="2" fill="#ffd700" stroke="#8A2BE2" stroke-width="1.5"/>
+                                    <path d="M3 12h18" stroke="#8A2BE2" stroke-width="1.5"/>
+                                    <path d="M8 4c1.5 0 2.5 1.2 4 4 1.5-2.8 2.5-4 4-4 1.2 0 2.5 1 2.5 2.5 0 1.8-1.5 3.5-4.5 3.5h-4c-3 0-4.5-1.7-4.5-3.5C5.5 5 6.8 4 8 4Z" fill="#8A2BE2" stroke="#ffd700" stroke-width="1.2"/>
+                                </svg>
+                            </span>
+                            If you want a December that feels closer, calmer and full of soft little memories — this is your new favorite holiday tradition.
                         </p>
                     </div>
                     
