@@ -174,6 +174,54 @@
             animation: evolveGlow 8s infinite ease-in-out;
         }
 
+        .icon-heading {
+            color: #ffd700;
+            font-weight: bold;
+            margin: 18px 0 8px 0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .icon-circle {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #8A2BE2, #ffd700);
+            box-shadow: 0 0 12px rgba(138, 43, 226, 0.6), 0 0 18px rgba(255, 215, 0, 0.6);
+        }
+
+        .icon-circle svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .golden-bullets {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 0;
+        }
+
+        .golden-bullets li {
+            position: relative;
+            padding-left: 26px;
+            margin-bottom: 10px;
+            line-height: 1.5;
+            color: #ffffff;
+        }
+
+        .golden-bullets li::before {
+            content: '✶';
+            position: absolute;
+            left: 0;
+            top: 4px;
+            color: #ffd700;
+            text-shadow: 0 0 8px rgba(255, 215, 0, 0.9), 0 0 16px rgba(255, 215, 0, 0.6);
+            font-size: 0.8rem;
+        }
+
         @keyframes riseGlow {
             0%, 100% { 
                 text-shadow: 0 0 20px rgba(255, 20, 147, 0.8), 0 0 30px rgba(255, 20, 147, 0.4), 0 0 45px rgba(255, 20, 147, 0.2);
@@ -488,22 +536,15 @@
         /* Elegant Christmas Floating Box - Dark Sophisticated Design */
         .elegant-christmas-box {
             position: fixed;
-            top: 15%;
-            right: -280px;
+            top: 14%;
+            right: -240px;
             width: 200px;
-            background: linear-gradient(135deg, 
-                rgba(0, 0, 0, 0.95), 
-                rgba(20, 20, 20, 0.9), 
-                rgba(0, 0, 0, 0.95)
-            );
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.95), rgba(20, 20, 20, 0.9), rgba(0, 0, 0, 0.95));
             border: 2px solid #ffd700;
             border-radius: 20px;
-            padding: 16px;
-            box-shadow: 
-                0 0 40px rgba(255, 215, 0, 0.6), 
-                0 0 80px rgba(255, 215, 0, 0.3), 
-                0 0 120px rgba(255, 215, 0, 0.1),
-                inset 0 0 30px rgba(138, 43, 226, 0.1);
+            padding: 12px;
+            text-align: center;
+            box-shadow: 0 0 40px rgba(255, 215, 0, 0.6), 0 0 80px rgba(255, 215, 0, 0.3), 0 0 120px rgba(255, 215, 0, 0.1), inset 0 0 30px rgba(138, 43, 226, 0.1);
             transform: rotate(2deg);
             z-index: 100;
             cursor: pointer;
@@ -538,14 +579,11 @@
 
         .elegant-main-title {
             font-size: 1rem;
+            font-weight: bold;
             color: #ffd700;
-            line-height: 1.1;
-            margin-bottom: 5px;
-            font-weight: 900;
-            text-shadow: 0 0 20px rgba(255, 215, 0, 1), 0 0 40px rgba(255, 215, 0, 0.6);
-            letter-spacing: 1px;
-            text-align: center;
-            text-transform: uppercase;
+            margin-bottom: 6px;
+            text-shadow: 0 0 25px rgba(255, 215, 0, 1);
+            line-height: 1.3;
         }
 
         .elegant-subtitle {
@@ -554,7 +592,6 @@
             text-shadow: 0 0 15px rgba(138, 43, 226, 0.8);
             margin-bottom: 6px;
             font-weight: bold;
-            font-style: italic;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
@@ -655,14 +692,10 @@
 
         @keyframes slideInFromRight {
             0% {
-                right: -280px;
-                opacity: 0;
-                transform: rotate(-2deg) scale(0.8);
+                right: -240px;
             }
             100% {
-                right: 15px;
-                opacity: 1;
-                transform: rotate(-2deg) scale(1);
+                right: 12px;
             }
         }
 
@@ -704,7 +737,7 @@
                 top: auto;
                 right: auto;
                 width: 90%;
-                max-width: 240px;
+                max-width: 220px;
                 margin: 20px auto;
                 transform: rotate(0deg);
                 animation: elegantBoxGlow 6s ease-in-out infinite, elegantBoxFloat 8s ease-in-out infinite;
@@ -755,34 +788,27 @@
     </div>
    </div><!-- New Elegant Christmas Box - Dark Sophisticated Design -->
    <div class="elegant-christmas-box" onclick="window.open('https://amazon.com', '_blank', 'noopener,noreferrer')">
-    <div class="elegant-box-content"><!-- Christmas Tree Icon - Same as Book Cover -->
-     <svg class="elegant-crown-icon" viewbox="0 0 100 100"><!-- Tree layers - Purple with golden glow --> <polygon points="50,15 35,35 65,35" fill="#8A2BE2" stroke="#ffd700" stroke-width="1" /> <polygon points="50,25 30,45 70,45" fill="#9932CC" stroke="#ffd700" stroke-width="1" /> <polygon points="50,35 25,55 75,55" fill="#8A2BE2" stroke="#ffd700" stroke-width="1" /> <!-- Tree trunk --> <rect x="45" y="55" width="10" height="15" fill="#8B4513" stroke="#ffd700" stroke-width="0.5" /> <!-- Golden star on top --> <polygon points="50,5 52,12 59,12 54,17 56,24 50,20 44,24 46,17 41,12 48,12" fill="#ffd700" stroke="#ffffff" stroke-width="0.5">
-       <animate attributename="fill" values="#ffd700;#ffff00;#ffd700" dur="2s" repeatcount="indefinite" />
-      </polygon> <!-- Sparkling ornaments - Same as book cover --> <circle cx="42" cy="30" r="2" fill="#ffd700" opacity="0.9">
-       <animate attributename="opacity" values="0.9;0.4;0.9" dur="1.5s" repeatcount="indefinite" />
-      </circle> <circle cx="58" cy="32" r="2" fill="#ff69b4" opacity="0.9">
-       <animate attributename="opacity" values="0.4;0.9;0.4" dur="1.8s" repeatcount="indefinite" />
-      </circle> <circle cx="45" cy="42" r="2" fill="#00ffff" opacity="0.9">
-       <animate attributename="opacity" values="0.9;0.4;0.9" dur="2.2s" repeatcount="indefinite" />
-      </circle> <circle cx="55" cy="44" r="2" fill="#ffd700" opacity="0.9">
-       <animate attributename="opacity" values="0.4;0.9;0.4" dur="1.3s" repeatcount="indefinite" />
-      </circle> <circle cx="38" cy="48" r="2" fill="#ff69b4" opacity="0.9">
-       <animate attributename="opacity" values="0.9;0.4;0.9" dur="1.7s" repeatcount="indefinite" />
-      </circle> <circle cx="62" cy="50" r="2" fill="#00ffff" opacity="0.9">
-       <animate attributename="opacity" values="0.4;0.9;0.4" dur="2s" repeatcount="indefinite" />
-      </circle>
+    <div class="elegant-box-content">
+     <svg class="elegant-crown-icon" viewBox="0 0 100 100" role="img" aria-hidden="true">
+      <defs>
+       <linearGradient id="treeGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#8A2BE2" />
+        <stop offset="100%" stop-color="#ffd700" />
+       </linearGradient>
+      </defs>
+      <polygon points="50,15 35,35 40,35 25,55 30,55 15,75 85,75 70,55 75,55 60,35 65,35" fill="url(#treeGradient)" stroke="#8A2BE2" stroke-width="1.5" />
      </svg>
      <div class="elegant-main-title">
       24 Gentle Steps<br>
       to Christmas
      </div>
      <div class="elegant-subtitle">
-      Family Advent Calendar
+      A mindful, heart-warming advent experience for the whole family.
      </div>
-     <div class="elegant-description">
-      Create magical December memories<br>
-      together with your whole family!
-     </div><button class="elegant-amazon-btn" onclick="event.stopPropagation(); window.open('https://amazon.com', '_blank', 'noopener,noreferrer')"> Get on Amazon </button>
+     <button class="elegant-amazon-btn" onclick="event.stopPropagation(); window.open('https://amazon.com', '_blank', 'noopener,noreferrer')">
+      <svg viewBox="0 0 100 100" style="width: 14px; height: 14px; display: inline-block; vertical-align: middle; margin-right: 5px;" aria-hidden="true"></svg>
+      Unwrap it on Amazon
+     </button>
     </div>
    </div>
    <div class="tabs-container">
@@ -1185,131 +1211,47 @@
      </div>
     </div>
     <div id="contact-content" class="tab-content">
-     <div class="kids-tile">
-      <div class="kids-text">
-       Ready to <span class="word-rise">RISE</span>, <span class="word-shine">SHINE</span>, and <span class="word-evolve">EVOLVE</span> together?<br><br>
-        We'd love to hear from you! Whether you have questions, feedback,<br>
-        or just want to share your journey with us.
-      </div>
-     </div><!-- Contact Form -->
-     <div class="kids-tile" style="border: 3px solid #8A2BE2; box-shadow: 0 0 35px rgba(138, 43, 226, 0.7), 0 0 60px rgba(138, 43, 226, 0.4); margin: 30px auto; max-width: 600px;">
-      <div class="kids-text">
-       <h3 style="color: #8A2BE2; font-size: 1.5rem; margin-bottom: 15px; text-shadow: 0 0 20px rgba(138, 43, 226, 0.8);">📧 GET IN TOUCH</h3>
-       <p style="color: #ffffff; font-size: 1rem; margin-bottom: 20px; line-height: 1.4;">Have questions, suggestions, or just want to say hello? We'd love to hear from you!</p>
-       <form id="contact-form" style="display: flex; flex-direction: column; gap: 15px;"><input type="text" id="contact-name" placeholder="Your Name" required style="
-                                    width: 100%;
-                                    padding: 12px 15px;
-                                    border: 2px solid #8A2BE2;
-                                    border-radius: 15px;
-                                    background: rgba(0, 0, 0, 0.7);
-                                    color: #ffffff;
-                                    font-size: 1rem;
-                                    box-shadow: 0 0 15px rgba(138, 43, 226, 0.3);
-                                "> <input type="email" id="contact-email" placeholder="Your Email Address" required style="
-                                    width: 100%;
-                                    padding: 12px 15px;
-                                    border: 2px solid #8A2BE2;
-                                    border-radius: 15px;
-                                    background: rgba(0, 0, 0, 0.7);
-                                    color: #ffffff;
-                                    font-size: 1rem;
-                                    box-shadow: 0 0 15px rgba(138, 43, 226, 0.3);
-                                "> <select id="contact-subject" required style="
-                                    width: 100%;
-                                    padding: 12px 15px;
-                                    border: 2px solid #8A2BE2;
-                                    border-radius: 15px;
-                                    background: rgba(0, 0, 0, 0.7);
-                                    color: #ffffff;
-                                    font-size: 1rem;
-                                    box-shadow: 0 0 15px rgba(138, 43, 226, 0.3);
-                                "> <option value="">Select a topic...</option> <option value="general">General Inquiry</option> <option value="books">Questions about Books</option> <option value="gifts">Free Resources &amp; Gifts</option> <option value="collaboration">Collaboration Opportunities</option> <option value="feedback">Feedback &amp; Suggestions</option> <option value="support">Technical Support</option> </select> <textarea id="contact-message" placeholder="Your Message" rows="5" required style="
-                                    width: 100%;
-                                    padding: 12px 15px;
-                                    border: 2px solid #8A2BE2;
-                                    border-radius: 15px;
-                                    background: rgba(0, 0, 0, 0.7);
-                                    color: #ffffff;
-                                    font-size: 1rem;
-                                    box-shadow: 0 0 15px rgba(138, 43, 226, 0.3);
-                                    resize: vertical;
-                                    font-family: Arial, sans-serif;
-                                "></textarea> <button type="submit" style="
-                                    background: linear-gradient(45deg, #8A2BE2, #9932CC);
-                                    border: 2px solid #ffd700;
-                                    border-radius: 25px;
-                                    padding: 15px 30px;
-                                    color: #ffffff;
-                                    font-size: 1.1rem;
-                                    font-weight: bold;
-                                    cursor: pointer;
-                                    box-shadow: 0 0 20px rgba(138, 43, 226, 0.6);
-                                    transition: all 0.3s ease;
-                                    text-transform: uppercase;
-                                    align-self: center;
-                                " onmouseover="this.style.transform='translateY(-2px) scale(1.05)'; this.style.boxShadow='0 0 30px rgba(138, 43, 226, 0.8)';" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 0 20px rgba(138, 43, 226, 0.6)';"> 📤 Send Message </button>
-       </form>
-       <div id="contact-form-message" style="margin-top: 15px; font-weight: bold; display: none;"></div>
-      </div>
-     </div><!-- Social Media Links -->
-     <div class="kids-tile" style="border: 3px solid #ffd700; box-shadow: 0 0 35px rgba(255, 215, 0, 0.7), 0 0 60px rgba(255, 215, 0, 0.4); margin: 30px auto; max-width: 600px;">
-      <div class="kids-text">
-       <h3 style="color: #ffd700; font-size: 1.5rem; margin-bottom: 15px; text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);">🌟 FOLLOW US</h3>
-       <p style="color: #ffffff; font-size: 1rem; margin-bottom: 20px; line-height: 1.4;">Stay connected and get the latest updates on our social media channels!</p>
-       <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;"><a href="https://facebook.com/riseshineevolve" target="_blank" rel="noopener noreferrer" style="
-                                display: flex;
-                                align-items: center;
-                                gap: 8px;
-                                background: linear-gradient(45deg, #1877f2, #42a5f5);
-                                border: none;
-                                border-radius: 15px;
-                                padding: 12px 20px;
-                                color: #ffffff;
-                                font-size: 1rem;
-                                font-weight: bold;
-                                text-decoration: none;
-                                cursor: pointer;
-                                box-shadow: 0 0 15px rgba(24, 119, 242, 0.4);
-                                transition: all 0.3s ease;
-                            " onmouseover="this.style.transform='translateY(-2px) scale(1.05)'; this.style.boxShadow='0 0 25px rgba(24, 119, 242, 0.6)';" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 0 15px rgba(24, 119, 242, 0.4)';"> 📘 Facebook </a> <a href="https://instagram.com/riseshineevolve" target="_blank" rel="noopener noreferrer" style="
-                                display: flex;
-                                align-items: center;
-                                gap: 8px;
-                                background: linear-gradient(45deg, #e4405f, #fd1d1d, #fcb045);
-                                border: none;
-                                border-radius: 15px;
-                                padding: 12px 20px;
-                                color: #ffffff;
-                                font-size: 1rem;
-                                font-weight: bold;
-                                text-decoration: none;
-                                cursor: pointer;
-                                box-shadow: 0 0 15px rgba(228, 64, 95, 0.4);
-                                transition: all 0.3s ease;
-                            " onmouseover="this.style.transform='translateY(-2px) scale(1.05)'; this.style.boxShadow='0 0 25px rgba(228, 64, 95, 0.6)';" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 0 15px rgba(228, 64, 95, 0.4)';"> 📷 Instagram </a> <a href="https://tiktok.com/@riseshineevolve" target="_blank" rel="noopener noreferrer" style="
-                                display: flex;
-                                align-items: center;
-                                gap: 8px;
-                                background: linear-gradient(45deg, #000000, #ff0050);
-                                border: none;
-                                border-radius: 15px;
-                                padding: 12px 20px;
-                                color: #ffffff;
-                                font-size: 1rem;
-                                font-weight: bold;
-                                text-decoration: none;
-                                cursor: pointer;
-                                box-shadow: 0 0 15px rgba(255, 0, 80, 0.4);
-                                transition: all 0.3s ease;
-                            " onmouseover="this.style.transform='translateY(-2px) scale(1.05)'; this.style.boxShadow='0 0 25px rgba(255, 0, 80, 0.6)';" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 0 15px rgba(255, 0, 80, 0.4)';"> 🎵 TikTok </a>
-       </div>
-      </div>
-     </div>
-     <div class="kids-tile" style="margin-top: 20px;">
-      <div class="kids-text">
-       It is time to <span class="word-rise">RISE</span>.<span class="word-shine">SHINE</span>.<span class="word-evolve">EVOLVE</span>
-      </div>
-     </div>
+    
+        <div class="kids-tile" style="border: 3px solid #ff69b4; box-shadow: 0 0 35px rgba(255, 105, 180, 0.7), 0 0 60px rgba(255, 105, 180, 0.4);">
+            <div class="kids-text">
+                <strong style="color: #ffffff; font-size: 1.1rem;">Email</strong><br>
+                <a href="mailto:rise.shine.evolve@gmail.com" style="color: #ff69b4; text-decoration: none; text-shadow: 0 0 20px rgba(255, 105, 180, 1); font-size: 1rem; font-weight: bold;">rise.shine.evolve@gmail.com</a>
+            </div>
+        </div>
+
+        <div class="kids-tile">
+            <div class="kids-text">
+                <strong>Follow Us</strong><br>
+                Join our community of learners and growers
+            </div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 10px; align-items: center; margin: 20px 0;">
+            
+            <div class="kids-tile" style="width: 150px; padding: 8px 15px;">
+                <div class="kids-text">
+                    <a href="https://www.instagram.com/rise.shine.evolve.learning.hub/" target="_blank" rel="noopener noreferrer" style="color: #ff69b4; text-decoration: none; text-shadow: 0 0 15px rgba(255, 105, 180, 0.8); font-size: 0.9rem;"><strong>Instagram</strong></a>
+                </div>
+            </div>
+            
+            <div class="kids-tile" style="width: 150px; padding: 8px 15px;">
+                <div class="kids-text">
+                    <a href="https://www.tiktok.com/@rise.shine.evolve" target="_blank" rel="noopener noreferrer" style="color: #ff1493; text-decoration: none; text-shadow: 0 0 15px rgba(255, 20, 147, 0.8); font-size: 0.9rem;"><strong>TikTok</strong></a>
+                </div>
+            </div>
+            
+            <div class="kids-tile" style="width: 150px; padding: 8px 15px;">
+                <div class="kids-text">
+                    <a href="https://www.facebook.com/profile.php?viewas=100000686899395&id=61582525115704" target="_blank" rel="noopener noreferrer" style="color: #8A2BE2; text-decoration: none; text-shadow: 0 0 15px rgba(138, 43, 226, 0.8); font-size: 0.9rem;"><strong>Facebook</strong></a>
+                </div>
+            </div>
+
+            <div class="kids-tile" style="padding: 12px 18px; max-width: 400px; width: 100%;">
+                <div class="kids-text">
+                    It is time to <span class="word-rise">RISE</span>.<span class="word-shine">SHINE</span>.<span class="word-evolve">EVOLVE</span>
+                </div>
+            </div>
+        </div>
     </div>
    </div>
   </div><!-- Full Screen Family Gallery -->
@@ -1750,7 +1692,7 @@
         function createSparkles() {
             const sparklesContainer = document.getElementById('sparkles');
             const sparkleCount = 50;
-            
+
             for (let i = 0; i < sparkleCount; i++) {
                 const sparkle = document.createElement('div');
                 sparkle.className = 'sparkle';
@@ -1758,6 +1700,35 @@
                 sparkle.style.top = Math.random() * 100 + '%';
                 sparkle.style.animationDelay = Math.random() * 3 + 's';
                 sparklesContainer.appendChild(sparkle);
+            }
+        }
+
+        // Dynamic info tile copy
+        const infoMessages = {
+            main: `Join us on a journey where every child can <span class="word-rise">RISE</span>,<br>
+                every family can <span class="word-shine">SHINE</span><br>
+                and every person can <span class="word-evolve">EVOLVE</span>.`,
+            kids: `Watch your child <span class="word-rise">RISE</span> to new adventures,<br>
+                see their natural curiosity <span class="word-shine">SHINE</span> bright<br>
+                and together you'll <span class="word-evolve">EVOLVE</span> into an unstoppable team!`,
+            teenagers: `Navigate your journey to <span class="word-rise">RISE</span> above challenges,<br>
+                discover your unique way to <span class="word-shine">SHINE</span><br>
+                and embrace the power within you to <span class="word-evolve">EVOLVE</span>.`,
+            adults: `It's never too late to <span class="word-rise">RISE</span>,<br>
+                your experience helps you <span class="word-shine">SHINE</span> brighter<br>
+                and you can embrace the power within you to <span class="word-evolve">EVOLVE</span>.`,
+            gifts: `Free resources to help you <span class="word-rise">RISE</span>,<br>
+                tools that make you <span class="word-shine">SHINE</span><br>
+                and materials that help you <span class="word-evolve">EVOLVE</span>.`,
+            contact: `Ready to <span class="word-rise">RISE</span> together?<br>
+                Let's help you <span class="word-shine">SHINE</span><br>
+                and connect with us to <span class="word-evolve">EVOLVE</span>.`
+        };
+
+        function updateInfoTile(tabName) {
+            const infoTextElement = document.querySelector('#dynamic-info-tile .info-text');
+            if (infoTextElement) {
+                infoTextElement.innerHTML = infoMessages[tabName] || infoMessages.main;
             }
         }
 
@@ -1789,6 +1760,8 @@
             if (selectedContent) {
                 selectedContent.classList.add('active');
             }
+
+            updateInfoTile(tabName);
         }
 
         // Family Gallery Functions
@@ -1818,10 +1791,14 @@
         function showBookDetailsFullScreen(bookType) {
             // Hide main container and show full-screen book details
             document.querySelector('.container').style.display = 'none';
-            document.getElementById('full-screen-book-details').style.display = 'block';
-            
+            const bookDetailsWrapper = document.getElementById('full-screen-book-details');
+            bookDetailsWrapper.style.display = 'block';
+            bookDetailsWrapper.scrollTop = 0;
+            window.scrollTo(0, 0);
+
             const detailsContent = document.getElementById('full-screen-book-details-content');
-            
+            detailsContent.scrollTop = 0;
+
             if (bookType === 'christmas-book') {
                 detailsContent.innerHTML = `
                     <!-- Brand Name -->
@@ -1830,122 +1807,68 @@
                     </div>
                     
                     <h2 style="color: #ffd700; font-size: 2.5rem; margin-bottom: 15px; text-shadow: 0 0 30px rgba(255, 215, 0, 0.8); text-align: center;">24 GENTLE STEPS TO CHRISTMAS</h2>
-                    <h3 style="color: #8A2BE2; font-size: 1.8rem; margin-bottom: 25px; text-shadow: 0 0 20px rgba(138, 43, 226, 0.8); text-align: center;">Unique Family Advent Calendar</h3>
-                    
-                    <!-- Beautiful Purple Christmas Tree Icon -->
-                    <div style="
-                        text-align: center; 
-                        margin-bottom: 30px;
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                    ">
-                        <div style="
-                            background: radial-gradient(circle, rgba(255, 215, 0, 0.15) 0%, rgba(255, 215, 0, 0.05) 50%, transparent 70%);
-                            border-radius: 50%;
-                            padding: 20px;
-                            box-shadow: 
-                                0 0 30px rgba(255, 215, 0, 0.4),
-                                0 0 60px rgba(255, 215, 0, 0.2),
-                                0 0 90px rgba(255, 215, 0, 0.1);
-                            animation: goldenGlow 4s ease-in-out infinite;
-                        ">
-                            <svg width="100" height="100" viewBox="0 0 100 100" style="
-                                filter: 
-                                    drop-shadow(0 0 20px rgba(138, 43, 226, 0.8))
-                                    drop-shadow(0 0 40px rgba(255, 215, 0, 0.6))
-                                    drop-shadow(0 0 60px rgba(255, 215, 0, 0.3));
-                            ">
-                                <!-- Golden circular frame -->
-                                <circle cx="50" cy="50" r="45" fill="none" stroke="#ffd700" stroke-width="3" opacity="0.8">
-                                    <animate attributeName="opacity" values="0.8;0.5;0.8" dur="3s" repeatCount="indefinite"/>
-                                </circle>
-                                
-                                <!-- Solid purple Christmas tree -->
-                                <polygon points="50,20 38,38 62,38" fill="#8A2BE2"/>
-                                <polygon points="50,30 35,48 65,48" fill="#8A2BE2"/>
-                                <polygon points="50,40 32,58 68,58" fill="#8A2BE2"/>
-                                
-                                <!-- Tree trunk -->
-                                <rect x="46" y="58" width="8" height="12" fill="#8A2BE2"/>
-                                
-                                <!-- Golden star on top -->
-                                <polygon points="50,10 52,16 58,16 54,20 56,26 50,23 44,26 46,20 42,16 48,16" fill="#ffd700">
-                                    <animate attributeName="fill" values="#ffd700;#ffff00;#ffd700" dur="2s" repeatCount="indefinite"/>
-                                </polygon>
-                                
-                                <!-- 6 sparkling ornaments - same as cover -->
-                                <circle cx="44" cy="32" r="2" fill="#ffd700" opacity="0.9">
-                                    <animate attributeName="opacity" values="0.9;0.4;0.9" dur="1.5s" repeatCount="indefinite"/>
-                                </circle>
-                                <circle cx="56" cy="34" r="2" fill="#ff69b4" opacity="0.9">
-                                    <animate attributeName="opacity" values="0.4;0.9;0.4" dur="1.8s" repeatCount="indefinite"/>
-                                </circle>
-                                <circle cx="47" cy="44" r="2" fill="#00ffff" opacity="0.9">
-                                    <animate attributeName="opacity" values="0.9;0.4;0.9" dur="2.2s" repeatCount="indefinite"/>
-                                </circle>
-                                <circle cx="53" cy="46" r="2" fill="#ffd700" opacity="0.9">
-                                    <animate attributeName="opacity" values="0.4;0.9;0.4" dur="1.3s" repeatCount="indefinite"/>
-                                </circle>
-                                <circle cx="40" cy="52" r="2" fill="#ff69b4" opacity="0.9">
-                                    <animate attributeName="opacity" values="0.9;0.4;0.9" dur="1.7s" repeatCount="indefinite"/>
-                                </circle>
-                                <circle cx="60" cy="54" r="2" fill="#00ffff" opacity="0.9">
-                                    <animate attributeName="opacity" values="0.4;0.9;0.4" dur="2s" repeatCount="indefinite"/>
-                                </circle>
-                            </svg>
-                        </div>
-                    </div>
                     
                     <!-- Description -->
-                    <div style="color: #ffffff; font-size: 1.2rem; line-height: 1.6; text-align: center; margin-bottom: 30px; max-width: 800px; margin-left: auto; margin-right: auto;">
-                        <strong>Create magical December memories together with your whole family!</strong><br><br>
-                        
-                        <strong style="color: #ffd700; font-size: 1.3rem;">What's Inside:</strong><br><br>
-                        <div style="text-align: left; max-width: 600px; margin: 0 auto;">
-                            <div style="display: flex; align-items: flex-start; margin: 12px 0;">
-                                <svg width="24" height="24" viewBox="0 0 100 100" style="margin-right: 15px; margin-top: 3px; flex-shrink: 0;">
-                                    <rect x="20" y="30" width="60" height="40" fill="#8A2BE2" rx="5"/>
-                                    <rect x="15" y="25" width="70" height="50" fill="none" stroke="#8A2BE2" stroke-width="3" rx="8"/>
-                                    <rect x="40" y="15" width="20" height="15" fill="#ffd700" rx="2"/>
-                                    <path d="M35,15 Q50,5 65,15" fill="none" stroke="#ffd700" stroke-width="3"/>
-                                    <path d="M30,15 Q50,0 70,15" fill="none" stroke="#ffd700" stroke-width="2"/>
-                                </svg>
-                                <span>24 daily family activities - just 10 minutes each</span>
-                            </div>
-                            <div style="display: flex; align-items: flex-start; margin: 12px 0;">
-                                <svg width="24" height="24" viewBox="0 0 100 100" style="margin-right: 15px; margin-top: 3px; flex-shrink: 0;">
-                                    <rect x="20" y="30" width="60" height="40" fill="#8A2BE2" rx="5"/>
-                                    <rect x="15" y="25" width="70" height="50" fill="none" stroke="#8A2BE2" stroke-width="3" rx="8"/>
-                                    <rect x="40" y="15" width="20" height="15" fill="#ffd700" rx="2"/>
-                                    <path d="M35,15 Q50,5 65,15" fill="none" stroke="#ffd700" stroke-width="3"/>
-                                    <path d="M30,15 Q50,0 70,15" fill="none" stroke="#ffd700" stroke-width="2"/>
-                                </svg>
-                                <span>Mindful moments & family connections</span>
-                            </div>
-                            <div style="display: flex; align-items: flex-start; margin: 12px 0;">
-                                <svg width="24" height="24" viewBox="0 0 100 100" style="margin-right: 15px; margin-top: 3px; flex-shrink: 0;">
-                                    <rect x="20" y="30" width="60" height="40" fill="#8A2BE2" rx="5"/>
-                                    <rect x="15" y="25" width="70" height="50" fill="none" stroke="#8A2BE2" stroke-width="3" rx="8"/>
-                                    <rect x="40" y="15" width="20" height="15" fill="#ffd700" rx="2"/>
-                                    <path d="M35,15 Q50,5 65,15" fill="none" stroke="#ffd700" stroke-width="3"/>
-                                    <path d="M30,15 Q50,0 70,15" fill="none" stroke="#ffd700" stroke-width="2"/>
-                                </svg>
-                                <span>No preparation needed - just open hearts</span>
-                            </div>
-                            <div style="display: flex; align-items: flex-start; margin: 12px 0;">
-                                <svg width="24" height="24" viewBox="0 0 100 100" style="margin-right: 15px; margin-top: 3px; flex-shrink: 0;">
-                                    <rect x="20" y="30" width="60" height="40" fill="#8A2BE2" rx="5"/>
-                                    <rect x="15" y="25" width="70" height="50" fill="none" stroke="#8A2BE2" stroke-width="3" rx="8"/>
-                                    <rect x="40" y="15" width="20" height="15" fill="#ffd700" rx="2"/>
-                                    <path d="M35,15 Q50,5 65,15" fill="none" stroke="#ffd700" stroke-width="3"/>
-                                    <path d="M30,15 Q50,0 70,15" fill="none" stroke="#ffd700" stroke-width="2"/>
-                                </svg>
-                                <span>Perfect for all ages - children and adults together</span>
-                            </div>
-                        </div><br>
-                        
-                        <strong style="color: #ffd700; font-size: 1.3rem;">Transform your December into a gentle journey of togetherness, reflection & the magic of Christmas!</strong>
+                    <div style="color: #ffffff; font-size: 1.1rem; line-height: 1.7; text-align: center; margin-bottom: 30px; max-width: 850px; margin-left: auto; margin-right: auto;">
+                        <p style="margin-bottom: 20px;">
+                            Create magical December memories with your family!
+                        </p>
+                        <p style="margin-bottom: 25px;">
+                            This isn't just another advent calendar - it's a journey of togetherness, mindfulness, and Christmas magic.
+                            Each day brings a gentle activity designed to bring your family closer together.
+                        </p>
+                        <div style="text-align: left; max-width: 650px; margin: 0 auto;">
+                            <p class="icon-heading">WHAT IT IS</p>
+                            <ul class="golden-bullets">
+                                <li>A mindful, heartwarming Advent Calendar in book form</li>
+                                <li>24 days of short, meaningful activities</li>
+                                <li>Perfect for busy, beautifully imperfect families</li>
+                            </ul>
+
+                            <p class="icon-heading">WHAT'S INSIDE</p>
+                            <ul class="golden-bullets">
+                                <li>1-Minute Mindfulness — calming practices kids actually enjoy</li>
+                                <li>Fun Sparks — quick, laughter-packed mini games (zero mess!)</li>
+                                <li>Connection Shares — one warm sentence, once a day</li>
+                            </ul>
+
+                            <p class="icon-heading">WHY FAMILIES LOVE IT</p>
+                            <ul class="golden-bullets">
+                                <li>Only 10 minutes a day</li>
+                                <li>No prep, no supplies, no chaos</li>
+                                <li>Builds routine, emotional regulation and closeness</li>
+                                <li>Loved by kids ages 4–14 (even the "too cool" ones)</li>
+                                <li>Makes December feel calmer, cozier and more connected</li>
+                            </ul>
+
+                            <p class="icon-heading">GUIDED BY THE HAPPY-MAKERS FAMILY</p>
+                            <ul class="golden-bullets">
+                                <li>Nini – pocket-sized joy machine</li>
+                                <li>Alio – certified chaos engineer</li>
+                                <li>Dilo – winter sports ace with perfect hair</li>
+                                <li>Luli – elegant detective of holiday magic</li>
+                                <li>Mimi – stylish heart of the home</li>
+                            </ul>
+                            <p style="margin-top: 5px;">Their funny, warm notes appear throughout the book.</p>
+
+                            <p class="icon-heading">A PERFECT FAMILY GIFT</p>
+                            <ul class="golden-bullets">
+                                <li>Works for small and big families</li>
+                                <li>Most Advent calendars give you small surprises.<br>This one gives you small transformations.</li>
+                                <li>A tradition kids will ask for every year</li>
+                            </ul>
+
+                            <p class="icon-heading">THE MAGIC OF THIS BOOK</p>
+                            <ul class="golden-bullets">
+                                <li>Creates small daily memories</li>
+                                <li>Sparks teamwork, laughter and trust</li>
+                                <li>Gently guides toward calm moments in a busy month</li>
+                            </ul>
+                        </div>
+
+                        <p style="margin-top: 25px; font-weight: bold; color: #ffd700; text-align: center;">
+                            If you want a December that feels closer, calmer and full of soft little memories — this is your new favorite holiday tradition.
+                        </p>
                     </div>
                     
                     <!-- Amazon Button -->
@@ -1956,15 +1879,14 @@
                             border-radius: 25px;
                             padding: 20px 40px;
                             color: #ffffff;
-                            font-size: 1.3rem;
+                            font-size: 1.2rem;
                             font-weight: bold;
                             cursor: pointer;
                             box-shadow: 0 0 30px rgba(138, 43, 226, 0.6);
                             transition: all 0.3s ease;
-                            text-transform: uppercase;
-                            letter-spacing: 1px;
+                            letter-spacing: 0.5px;
                         " onmouseover="this.style.transform='translateY(-3px) scale(1.05)'; this.style.boxShadow='0 0 40px rgba(138, 43, 226, 0.8)';" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 0 30px rgba(138, 43, 226, 0.6)';">
-                            🎄 GET IT ON AMAZON 🎄
+                            Add to cart on Amazon and let the magic begin!
                         </button>
                     </div>
                 `;
@@ -2324,38 +2246,6 @@
             }
         });
 
-        // Contact form functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            const contactForm = document.getElementById('contact-form');
-            if (contactForm) {
-                contactForm.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    
-                    const name = document.getElementById('contact-name').value;
-                    const email = document.getElementById('contact-email').value;
-                    const subject = document.getElementById('contact-subject').value;
-                    const message = document.getElementById('contact-message').value;
-                    const messageDiv = document.getElementById('contact-form-message');
-                    
-                    // Show success message
-                    messageDiv.style.display = 'block';
-                    messageDiv.style.color = '#00ff00';
-                    messageDiv.innerHTML = '✅ Thank you for your message! We\'ll get back to you soon.';
-                    
-                    // Clear form
-                    document.getElementById('contact-name').value = '';
-                    document.getElementById('contact-email').value = '';
-                    document.getElementById('contact-subject').value = '';
-                    document.getElementById('contact-message').value = '';
-                    
-                    // Hide message after 5 seconds
-                    setTimeout(() => {
-                        messageDiv.style.display = 'none';
-                    }, 5000);
-                });
-            }
-        });
-
         // Remove access functionality
         function removeAccess() {
             localStorage.removeItem('giftsAccess');
@@ -2449,6 +2339,7 @@
 
         // Initialize sparkles when page loads
         document.addEventListener('DOMContentLoaded', createSparkles);
+        document.addEventListener('DOMContentLoaded', () => updateInfoTile('main'));
     </script>
  <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'99ffed4b87077057',t:'MTc2MzM4OTgzNi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
