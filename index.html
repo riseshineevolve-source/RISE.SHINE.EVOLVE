@@ -274,6 +274,54 @@
             color: #ffd700;
             font-weight: bold;
             margin: 18px 0 8px 0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .icon-circle {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #8A2BE2, #ffd700);
+            box-shadow: 0 0 12px rgba(138, 43, 226, 0.6), 0 0 18px rgba(255, 215, 0, 0.6);
+        }
+
+        .icon-circle svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .golden-bullets {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 0;
+        }
+
+        .golden-bullets li {
+            position: relative;
+            padding-left: 26px;
+            margin-bottom: 10px;
+            line-height: 1.5;
+            color: #ffffff;
+        }
+
+        .golden-bullets li::before {
+            content: '✶';
+            position: absolute;
+            left: 0;
+            top: 4px;
+            color: #ffd700;
+            text-shadow: 0 0 8px rgba(255, 215, 0, 0.9), 0 0 16px rgba(255, 215, 0, 0.6);
+            font-size: 0.8rem;
+        }
+
+        .icon-heading {
+            color: #ffd700;
+            font-weight: bold;
+            margin: 18px 0 8px 0;
             display: flex;
             align-items: center;
             gap: 10px;
@@ -635,13 +683,13 @@
         /* Elegant Christmas Floating Box - Dark Sophisticated Design */
         .elegant-christmas-box {
             position: fixed;
-            top: 10%;
-            right: -280px;
-            width: 240px;
+            top: 14%;
+            right: -240px;
+            width: 200px;
             background: linear-gradient(135deg, rgba(0, 0, 0, 0.95), rgba(20, 20, 20, 0.9), rgba(0, 0, 0, 0.95));
             border: 2px solid #ffd700;
             border-radius: 20px;
-            padding: 15px;
+            padding: 12px;
             text-align: center;
             box-shadow: 0 0 40px rgba(255, 215, 0, 0.6), 0 0 80px rgba(255, 215, 0, 0.3), 0 0 120px rgba(255, 215, 0, 0.1), inset 0 0 30px rgba(138, 43, 226, 0.1);
             transform: rotate(2deg);
@@ -677,7 +725,7 @@
         }
 
         .elegant-main-title {
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: bold;
             color: #ffd700;
             margin-bottom: 6px;
@@ -691,7 +739,6 @@
             text-shadow: 0 0 15px rgba(138, 43, 226, 0.8);
             margin-bottom: 6px;
             font-weight: bold;
-            font-style: italic;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
@@ -792,10 +839,10 @@
 
         @keyframes slideInFromRight {
             0% {
-                right: -280px;
+                right: -240px;
             }
             100% {
-                right: 20px;
+                right: 12px;
             }
         }
 
@@ -837,7 +884,7 @@
                 top: auto;
                 right: auto;
                 width: 90%;
-                max-width: 240px;
+                max-width: 220px;
                 margin: 20px auto;
                 transform: rotate(0deg);
                 animation: elegantBoxGlow 6s ease-in-out infinite, elegantBoxFloat 8s ease-in-out infinite;
@@ -1346,7 +1393,7 @@
                 </div>
             </div>
 
-            <div class="kids-tile" style="width: 150px; padding: 8px 15px;">
+            <div class="kids-tile" style="padding: 12px 18px; max-width: 400px; width: 100%;">
                 <div class="kids-text">
                     It is time to <span class="word-rise">RISE</span>.<span class="word-shine">SHINE</span>.<span class="word-evolve">EVOLVE</span>
                 </div>
