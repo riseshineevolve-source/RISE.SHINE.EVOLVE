@@ -1750,7 +1750,7 @@
         function createSparkles() {
             const sparklesContainer = document.getElementById('sparkles');
             const sparkleCount = 50;
-            
+
             for (let i = 0; i < sparkleCount; i++) {
                 const sparkle = document.createElement('div');
                 sparkle.className = 'sparkle';
@@ -1758,6 +1758,35 @@
                 sparkle.style.top = Math.random() * 100 + '%';
                 sparkle.style.animationDelay = Math.random() * 3 + 's';
                 sparklesContainer.appendChild(sparkle);
+            }
+        }
+
+        // Dynamic info tile copy
+        const infoMessages = {
+            main: `Join us on a journey where every child can <span class="word-rise">RISE</span>,<br>
+                every family can <span class="word-shine">SHINE</span><br>
+                and every person can <span class="word-evolve">EVOLVE</span>.`,
+            kids: `Watch your child <span class="word-rise">RISE</span> to new adventures,<br>
+                see their natural curiosity <span class="word-shine">SHINE</span> bright<br>
+                and together you'll <span class="word-evolve">EVOLVE</span> into an unstoppable team!`,
+            teenagers: `Navigate your journey to <span class="word-rise">RISE</span> above challenges,<br>
+                discover your unique way to <span class="word-shine">SHINE</span><br>
+                and embrace the power within you to <span class="word-evolve">EVOLVE</span>.`,
+            adults: `It's never too late to <span class="word-rise">RISE</span>,<br>
+                your experience helps you <span class="word-shine">SHINE</span> brighter<br>
+                and you can embrace the power within you to <span class="word-evolve">EVOLVE</span>.`,
+            gifts: `Free resources to help you <span class="word-rise">RISE</span>,<br>
+                tools that make you <span class="word-shine">SHINE</span><br>
+                and materials that help you <span class="word-evolve">EVOLVE</span>.`,
+            contact: `Ready to <span class="word-rise">RISE</span> together?<br>
+                Let's help you <span class="word-shine">SHINE</span><br>
+                and connect with us to <span class="word-evolve">EVOLVE</span>.`
+        };
+
+        function updateInfoTile(tabName) {
+            const infoTextElement = document.querySelector('#dynamic-info-tile .info-text');
+            if (infoTextElement) {
+                infoTextElement.innerHTML = infoMessages[tabName] || infoMessages.main;
             }
         }
 
@@ -1789,6 +1818,8 @@
             if (selectedContent) {
                 selectedContent.classList.add('active');
             }
+
+            updateInfoTile(tabName);
         }
 
         // Family Gallery Functions
@@ -2449,6 +2480,7 @@
 
         // Initialize sparkles when page loads
         document.addEventListener('DOMContentLoaded', createSparkles);
+        document.addEventListener('DOMContentLoaded', () => updateInfoTile('main'));
     </script>
  <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'99ffed4b87077057',t:'MTc2MzM4OTgzNi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
