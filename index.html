@@ -271,6 +271,147 @@
             margin: 0 0 16px 0;
         }
 
+        .character-description-box {
+            background: linear-gradient(135deg, rgba(138, 43, 226, 0.08), rgba(0, 0, 0, 0.85));
+            border: 2px solid #ffd700;
+            border-radius: 16px;
+            padding: 18px 20px;
+            box-shadow: 0 0 28px rgba(255, 215, 0, 0.25);
+        }
+
+        .character-section-heading {
+            color: #ffd700;
+            text-transform: uppercase;
+            font-weight: bold;
+            letter-spacing: 0.8px;
+            margin: 18px 0 10px 0;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+        }
+
+        .character-qualities-box {
+            background: linear-gradient(145deg, rgba(0, 0, 0, 0.95), rgba(20, 20, 20, 0.9));
+            border: 2px solid #8A2BE2;
+            border-radius: 18px;
+            padding: 18px 20px 10px 20px;
+            box-shadow: 0 0 30px rgba(138, 43, 226, 0.4), inset 0 0 20px rgba(138, 43, 226, 0.08);
+        }
+
+        .qualities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+            margin-top: 12px;
+        }
+
+        .quality-chip {
+            background: rgba(255, 255, 255, 0.04);
+            border: 2px solid #ffd700;
+            border-radius: 12px;
+            padding: 10px 12px;
+            color: #ffd700;
+            font-weight: bold;
+            text-align: center;
+            box-shadow: 0 0 18px rgba(255, 215, 0, 0.3);
+            letter-spacing: 0.3px;
+        }
+
+        .icon-heading {
+            color: #ffd700;
+            font-weight: bold;
+            margin: 18px 0 8px 0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .icon-circle {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #8A2BE2, #ffd700);
+            box-shadow: 0 0 12px rgba(138, 43, 226, 0.6), 0 0 18px rgba(255, 215, 0, 0.6);
+        }
+
+        .icon-circle svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .golden-bullets {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 0;
+        }
+
+        .golden-bullets li {
+            position: relative;
+            padding-left: 26px;
+            margin-bottom: 10px;
+            line-height: 1.5;
+            color: #ffffff;
+        }
+
+        .golden-bullets li::before {
+            content: '✶';
+            position: absolute;
+            left: 0;
+            top: 4px;
+            color: #ffd700;
+            text-shadow: 0 0 8px rgba(255, 215, 0, 0.9), 0 0 16px rgba(255, 215, 0, 0.6);
+            font-size: 0.8rem;
+        }
+
+        .character-detail-shell {
+            background: linear-gradient(145deg, rgba(0, 0, 0, 0.95), rgba(20, 20, 20, 0.9));
+            border: 3px solid #8A2BE2;
+            border-radius: 24px;
+            padding: 28px;
+            box-shadow: 0 0 40px rgba(138, 43, 226, 0.6), 0 0 80px rgba(138, 43, 226, 0.25), inset 0 0 25px rgba(255, 215, 0, 0.1);
+        }
+
+        .character-header {
+            display: flex;
+            gap: 22px;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 18px;
+        }
+
+        .character-header img {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #ffd700;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.7);
+        }
+
+        .character-title {
+            color: #ffd700;
+            font-size: 1.4rem;
+            margin: 0;
+            text-shadow: 0 0 25px rgba(255, 215, 0, 0.8);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .character-subtitle {
+            color: #8A2BE2;
+            font-size: 1.1rem;
+            margin: 6px 0 0 0;
+            font-weight: bold;
+            text-shadow: 0 0 16px rgba(138, 43, 226, 0.7);
+        }
+
+        .character-description p {
+            color: #ffffff;
+            line-height: 1.7;
+            margin: 0 0 16px 0;
+        }
+
         .character-section-heading {
             color: #ffd700;
             text-transform: uppercase;
@@ -789,13 +930,13 @@
         /* Elegant Christmas Floating Box - Dark Sophisticated Design */
         .elegant-christmas-box {
             position: fixed;
-            top: 8%;
-            right: -230px;
-            width: 220px;
+            top: 5%;
+            right: -210px;
+            width: 230px;
             background: linear-gradient(135deg, rgba(0, 0, 0, 0.95), rgba(20, 20, 20, 0.9), rgba(0, 0, 0, 0.95));
             border: 2px solid #ffd700;
             border-radius: 20px;
-            padding: 10px 12px;
+            padding: 8px 12px;
             text-align: center;
             box-shadow: 0 0 40px rgba(255, 215, 0, 0.6), 0 0 80px rgba(255, 215, 0, 0.3), 0 0 120px rgba(255, 215, 0, 0.1), inset 0 0 30px rgba(138, 43, 226, 0.1);
             transform: rotate(2deg);
@@ -945,10 +1086,10 @@
 
         @keyframes slideInFromRight {
             0% {
-                right: -230px;
+                right: -210px;
             }
             100% {
-                right: 10px;
+                right: 14px;
             }
         }
 
@@ -1547,7 +1688,7 @@
         width: 12px;
         background: linear-gradient(to right, rgba(0, 0, 0, 0.3), transparent);
         border-radius: 20px 0 0 20px;
-    "></div><!-- Obrazek (zdjęcie profilowe) --> <img src="assets/images/mimi.png" alt="Mimi" style="width: 120px; height: 120px; border-radius: 50%; margin-bottom: 20px; margin-top: 25px; object-fit: cover; border: 3px solid #ff69b4; box-shadow: 0 0 25px rgba(255, 105, 180, 0.6);" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"> <!-- Tytuł i opis -->
+    "></div><!-- Obrazek (zdjęcie profilowe) --> <img src="assets/images/Mimi.png" alt="Mimi" style="width: 120px; height: 120px; border-radius: 50%; margin-bottom: 20px; margin-top: 25px; object-fit: cover; border: 3px solid #ff69b4; box-shadow: 0 0 25px rgba(255, 105, 180, 0.6);" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"> <!-- Tytuł i opis -->
       <h4 style="color: #ff69b4; margin: 0 0 12px 0; font-size: 1.6rem; text-shadow: 0 0 20px rgba(255, 105, 180, 0.8);">Mimi</h4>
       <p style="color: #ffffff; font-size: 1.1rem; margin: 0 0 20px 0; font-weight: bold;">Chaos Queen</p><!-- Przycisk "Learn More" na dole -->
       <div style="
@@ -1590,7 +1731,7 @@
                         width: 12px;
                         background: linear-gradient(to right, rgba(0, 0, 0, 0.3), transparent);
                         border-radius: 20px 0 0 20px;
-                    "></div><img src="assets/images/luli.png" alt="Luli" style="width: 120px; height: 120px; border-radius: 50%; margin-bottom: 20px; margin-top: 25px; object-fit: cover; border: 3px solid #ffd700; box-shadow: 0 0 25px rgba(255, 215, 0, 0.6);" onerror="this.style.display='none';">
+                    "></div><img src="assets/images/Luli.jpg" alt="Luli" style="width: 120px; height: 120px; border-radius: 50%; margin-bottom: 20px; margin-top: 25px; object-fit: cover; border: 3px solid #ffd700; box-shadow: 0 0 25px rgba(255, 215, 0, 0.6);" onerror="this.style.display='none';">
       <h4 style="color: #ffd700; margin: 0 0 12px 0; font-size: 1.6rem; text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);">Luli</h4>
       <p style="color: #ffffff; font-size: 1.1rem; margin: 0 0 20px 0; font-weight: bold;">Creative Glow</p>
       <div style="
@@ -1633,7 +1774,7 @@
                         width: 12px;
                         background: linear-gradient(to right, rgba(0, 0, 0, 0.3), transparent);
                         border-radius: 20px 0 0 20px;
-                    "></div><img src="assets/images/dilo.png" alt="Dilo" style="width: 120px; height: 120px; border-radius: 50%; margin-bottom: 20px; margin-top: 25px; object-fit: cover; border: 3px solid #00bfff; box-shadow: 0 0 25px rgba(0, 191, 255, 0.6);" onerror="this.style.display='none';">
+                    "></div><img src="assets/images/Dilo.png" alt="Dilo" style="width: 120px; height: 120px; border-radius: 50%; margin-bottom: 20px; margin-top: 25px; object-fit: cover; border: 3px solid #00bfff; box-shadow: 0 0 25px rgba(0, 191, 255, 0.6);" onerror="this.style.display='none';">
       <h4 style="color: #00bfff; margin: 0 0 12px 0; font-size: 1.6rem; text-shadow: 0 0 20px rgba(0, 191, 255, 0.8);">Dilo</h4>
       <p style="color: #ffffff; font-size: 1.1rem; margin: 0 0 20px 0; font-weight: bold;">Pixel Striker</p>
       <div style="
@@ -1676,7 +1817,7 @@
                         width: 12px;
                         background: linear-gradient(to right, rgba(0, 0, 0, 0.3), transparent);
                         border-radius: 20px 0 0 20px;
-                    "></div><img src="assets/images/alio.png" alt="Alio" style="width: 120px; height: 120px; border-radius: 50%; margin-bottom: 20px; margin-top: 25px; object-fit: cover; border: 3px solid #32cd32; box-shadow: 0 0 25px rgba(50, 205, 50, 0.6);" onerror="this.style.display='none';">
+                    "></div><img src="assets/images/Alio.jpg" alt="Alio" style="width: 120px; height: 120px; border-radius: 50%; margin-bottom: 20px; margin-top: 25px; object-fit: cover; border: 3px solid #32cd32; box-shadow: 0 0 25px rgba(50, 205, 50, 0.6);" onerror="this.style.display='none';">
       <h4 style="color: #32cd32; margin: 0 0 12px 0; font-size: 1.6rem; text-shadow: 0 0 20px rgba(50, 205, 50, 0.8);">Alio</h4>
       <p style="color: #ffffff; font-size: 1.1rem; margin: 0 0 20px 0; font-weight: bold;">Playful Power</p>
       <div style="
@@ -1719,7 +1860,7 @@
                         width: 12px;
                         background: linear-gradient(to right, rgba(0, 0, 0, 0.3), transparent);
                         border-radius: 20px 0 0 20px;
-                    "></div><img src="assets/images/nini.png" alt="Little Nini" style="width: 120px; height: 120px; border-radius: 50%; margin-bottom: 20px; margin-top: 25px; object-fit: cover; border: 3px solid #ff69b4; box-shadow: 0 0 25px rgba(255, 105, 180, 0.6);" onerror="this.style.display='none';">
+                    "></div><img src="assets/images/Nini.jpg" alt="Little Nini" style="width: 120px; height: 120px; border-radius: 50%; margin-bottom: 20px; margin-top: 25px; object-fit: cover; border: 3px solid #ff69b4; box-shadow: 0 0 25px rgba(255, 105, 180, 0.6);" onerror="this.style.display='none';">
       <h4 style="color: #ff69b4; margin: 0 0 12px 0; font-size: 1.6rem; text-shadow: 0 0 20px rgba(255, 105, 180, 0.8);">Little Nini</h4>
       <p style="color: #ffffff; font-size: 1.1rem; margin: 0 0 20px 0; font-weight: bold;">Joy Spark</p>
       <div style="
@@ -1762,7 +1903,7 @@
                         width: 12px;
                         background: linear-gradient(to right, rgba(0, 0, 0, 0.3), transparent);
                         border-radius: 20px 0 0 20px;
-                    "></div><img src="assets/images/bibi.png" alt="Grandma Bibi" style="width: 120px; height: 120px; border-radius: 50%; margin-bottom: 20px; margin-top: 25px; object-fit: cover; border: 3px solid #9932CC; box-shadow: 0 0 25px rgba(153, 50, 204, 0.6);" onerror="this.style.display='none';">
+                    "></div><img src="assets/images/Grandma Bibi final.png" alt="Grandma Bibi" style="width: 120px; height: 120px; border-radius: 50%; margin-bottom: 20px; margin-top: 25px; object-fit: cover; border: 3px solid #9932CC; box-shadow: 0 0 25px rgba(153, 50, 204, 0.6);" onerror="this.style.display='none';">
       <h4 style="color: #9932CC; margin: 0 0 12px 0; font-size: 1.6rem; text-shadow: 0 0 20px rgba(153, 50, 204, 0.8);">Grandma Bibi</h4>
       <p style="color: #ffffff; font-size: 1.1rem; margin: 0 0 20px 0; font-weight: bold;">Royal Glow</p>
       <div style="
@@ -2062,43 +2203,47 @@
             mimi: {
                 name: 'Mimi',
                 tagline: 'Chaos Queen',
-                image: 'assets/images/mimi.png',
+                image: 'assets/images/Mimi.png',
+                color: '#ff69b4',
                 description: [
-                    'Mimi is the queen of juggling life — meals, schedules, kids, questions, and mysteriously disappearing socks — all at a pace that would exhaust a small army. Peaceful? Not even close. She’s never calm, rarely slow, and always, somehow, impressively effective.',
-                    'As the family’s self-appointed Fashion Police, she guards the family’s sense of style so fiercely you’d think she was protecting a national treasure of personal expression. Chaos is acceptable, but clashing colors? Absolutely not on her watch.',
-                    'Fast-thinking, witty, and armed with a sixth sense for anything out of place, Mimi doesn’t just survive the daily madness — she organizes it, beautifies it, and keeps everyone moving. Warm, unstoppable, and effortlessly in charge, she’s the heart and high-speed engine of the whole crew.'
+                    'Mimi is the queen of juggling life - meals, schedules, kids, questions and mysteriously disappearing socks - all at a pace that would exhaust a small army. Peaceful? Not even close. She’s never calm, rarely slow and always somehow impressively effective.',
+                    'As the family’s self-appointed Fashion Police, she guards the family’s sense of style so fiercely you’d think she was protecting a national treasure of personal expression. Chaos is acceptable but clashing colors? Absolutely not on her watch.',
+                    'Fast-thinking, witty and armed with a sixth sense for anything out of place, Mimi doesn’t just survive the daily madness - she organizes it, beautifies it and keeps everyone moving. Warm, unstoppable and effortlessly in charge, she’s the heart and high-speed engine of the whole crew.'
                 ],
                 qualities: ['Multitask Ninja', 'Lost-Things Finder', 'Time Bender', 'Mood Stabilizer', 'Schedule Juggler']
             },
             luli: {
                 name: 'Luli',
                 tagline: 'Creative Glow',
-                image: 'assets/images/luli.png',
+                image: 'assets/images/Luli.jpg',
+                color: '#ffd700',
                 description: [
                     'Luli is creativity wrapped in elegance, a stylish mastermind with a soft spot for detective stories, mystery plots and any book that promises a clever twist sharp enough to make you gasp.',
-                    'With her sleek long hair, sparkling earrings, and boldly colorful outfits, she has a style that’s impossible to overlook. And don’t let the elegance fool you — she’s strong, sporty, and can outclimb or outrun most boys long before they even realize it’s a competition.',
-                    'When she’s on her aerial silks, she moves with such effortless, fluid confidence that people start wondering if gravity simply treats her better. Calm, confident, effortlessly chic and brilliantly thoughtful — she shines without even trying. Her warm, magnetic spirit doesn’t just lift the vibe — it upgrades the entire atmosphere to premium edition.'
+                    'With her sleek long hair, sparkling earrings and boldly colorful outfits, she has a style that’s impossible to overlook. And don’t let the elegance fool you - she’s strong, sporty and can outclimb or outrun most boys long before they even realize it’s a competition.',
+                    'When she’s on her aerial silks, she moves with such effortless, fluid confidence that people start wondering if gravity simply treats her better. Calm, confident, effortlessly chic and brilliantly thoughtful - she shines without even trying. Her warm, magnetic spirit doesn’t just lift the vibe - it upgrades the entire atmosphere to premium edition.'
                 ],
                 qualities: ['Mystery Brain', 'Style Queen', 'Clue Collector', 'Idea Whisperer', 'Book Diver']
             },
             dilo: {
                 name: 'Dilo',
                 tagline: 'Pixel Striker',
-                image: 'assets/images/dilo.png',
+                image: 'assets/images/Dilo.png',
+                color: '#00bfff',
                 description: [
-                    'Dilo is that rare combo of natural footballer and born gamer — fast feet, fast fingers, and even faster opinions. He scores goals with both feet, beats video-game levels like he’s speedrunning life, and takes on every challenge with a mix of stubborn determination and surprising generosity.',
-                    'Part soccer king, part tech whiz, and part style icon, he’s a powerhouse trio packed into one nine-year-old. His gel-spiked hair stays perfect in any weather (even the kind that defeats umbrellas), and his energy and curiosity brighten everything he joins.',
-                    'With Dilo around, things tend to move a little faster — and get a lot more interesting.'
+                    'Dilo is that rare combo of natural footballer and born gamer - fast feet, fast fingers and even faster opinions. He scores goals with both feet, beats video-game levels like he’s speedrunning life and takes on every challenge with a mix of stubborn determination and surprising generosity.',
+                    'Part soccer king, part tech whiz and part style icon, he’s a powerhouse trio packed into one nine-year-old. His gel-spiked hair stays perfect in any weather (even the kind that defeats umbrellas) and his energy and curiosity brighten everything he joins.',
+                    'With Dilo around, things tend to move a little faster - and get a lot more interesting.'
                 ],
                 qualities: ['Goal Goblin', 'Level Crusher', 'Style General', 'Stubborn Star', 'Treat Dealer']
             },
             alio: {
                 name: 'Alio',
                 tagline: 'Playful Power',
-                image: 'assets/images/alio.png',
+                image: 'assets/images/Alio.jpg',
+                color: '#32cd32',
                 description: [
-                    'Alio operates on 120% pure energy and curiosity, with a dash of friendly mischief. He’s always bouncing, building epic block cities, testing or inventing something absolutely essential (at least in his opinion).',
-                    'He also practices his very serious 12-second Kung Fu routine — usually ending in dramatic poses and uncontrollable giggles. If he’s quiet, it usually means he’s planning something fun… or slightly chaotic.',
+                    'Alio operates on 120% pure energy and curiosity with a dash of friendly mischief. He’s always bouncing, building epic block cities, testing or inventing something absolutely essential (at least in his opinion).',
+                    'He also practices his very serious 12-second Kung Fu routine - usually ending in dramatic poses and uncontrollable giggles. If he’s quiet it usually means he’s planning something fun… or slightly chaotic.',
                     'Life is never boring with Alio around.'
                 ],
                 qualities: ['Jump Expert', 'Chaos Starter', 'Game Inventor', 'Snack Sprinter', 'Fun Rocket']
@@ -2106,21 +2251,23 @@
             nini: {
                 name: 'Nini',
                 tagline: 'Joy Spark',
-                image: 'assets/images/nini.png',
+                image: 'assets/images/Nini.jpg',
+                color: '#ff69b4',
                 description: [
-                    'Nini is a tiny burst of joy who can brighten any room faster than you can say “snack time.” She sings, dances and giggles her way through the day as if the world were her personal stage — she’s clearly the headliner.',
-                    'She is only 4, but she runs the family cuddle economy with impressive authority (and zero negotiation). With her big eyes and even bigger heart, she spreads happiness the way confetti spreads at a birthday party — generously, enthusiastically, and absolutely everywhere.'
+                    'Nini is a tiny burst of joy who can brighten any room faster than you can say “snack time.” She sings, dances and giggles her way through the day as if the world were her personal stage - she’s clearly the headliner.',
+                    'She is only 4 but she runs the family cuddle economy with impressive authority (and zero negotiation). With her big eyes and even bigger heart, she spreads happiness the way confetti spreads at a birthday party - generously, enthusiastically and absolutely everywhere.'
                 ],
                 qualities: ['Hug Machine', 'Giggle Generator', 'Tiny Tornado', 'Dance Button', 'Sunshine Drop']
             },
             bibi: {
                 name: 'Bibi',
                 tagline: 'Royal Glow',
-                image: 'assets/images/bibi.png',
+                image: 'assets/images/Grandma Bibi final.png',
+                color: '#9932CC',
                 description: [
-                    'Bibi is the glamorous whirlwind who treats her age like a minor typo someone should really fix. With her chic short hair, stylish glasses, and love for bold, modern outfits, she turns every sidewalk into a runway — often without even noticing.',
-                    'She’s warm, energetic, and always ready for an adventure: skiing with the grandkids, baking muffins that mysteriously disappear within minutes, or beating everyone at yoga (yes, she absolutely can — and will brag about it with charm).',
-                    'If “cool grandma” had a global ambassador, it would be Bibi — elegant, unstoppable, and glowing with queen-level confidence.'
+                    'Bibi is the glamorous whirlwind who treats her age like a minor typo someone should really fix. With her chic short hair, stylish glasses and love for bold, modern outfits, she turns every sidewalk into a runway - often without even noticing.',
+                    'She’s warm, energetic and always ready for an adventure: skiing with the grandkids, baking muffins that mysteriously disappear within minutes or beating everyone at yoga (yes, she absolutely can - and will brag about it with charm).',
+                    'If “cool grandma” had a global ambassador, it would be Bibi - elegant, unstoppable and glowing with queen-level confidence.'
                 ],
                 qualities: ['Style Empress', 'Energy Icon', 'Adventure Magnet', 'Chic Dynamo', 'Fun Commander']
             }
@@ -2132,19 +2279,18 @@
                     <div class="character-header">
                         <img src="${profile.image}" alt="${profile.name}">
                         <div>
-                            <p class="character-title">THE HAPPY-MAKERS — CHARACTER COLLECTION</p>
-                            <h2 style="color: #ffffff; font-size: 2rem; margin: 8px 0 6px 0; text-shadow: 0 0 22px rgba(138, 43, 226, 0.7);">${profile.name}</h2>
-                            <p class="character-subtitle">${profile.tagline}</p>
+                            <h2 style="color: ${profile.color}; font-size: 2.4rem; margin: 0 0 6px 0; text-shadow: 0 0 22px rgba(255, 215, 0, 0.6); letter-spacing: 1px;">${profile.name}</h2>
+                            <p class="character-subtitle" style="color: ${profile.color};">${profile.tagline}</p>
                         </div>
                     </div>
-                    <div class="character-description">
+                    <div class="character-description character-description-box">
                         ${profile.description.map(p => `<p>${p}</p>`).join('')}
                     </div>
-                    <div>
-                        <p class="character-section-heading">Special Qualities</p>
-                        <ul class="golden-bullets">
-                            ${profile.qualities.map(q => `<li>${q}</li>`).join('')}
-                        </ul>
+                    <div class="character-qualities-box">
+                        <p class="character-section-heading" style="color: ${profile.color};">Special Qualities</p>
+                        <div class="qualities-grid">
+                            ${profile.qualities.map(q => `<div class="quality-chip" style="border-color: ${profile.color}; color: ${profile.color};">${q}</div>`).join('')}
+                        </div>
                     </div>
                 </div>
             `;
@@ -2212,9 +2358,9 @@
 
                             <p class="icon-heading">WHAT'S INSIDE</p>
                             <ul class="golden-bullets">
-                                <li>1-Minute Mindfulness — calming practices kids actually enjoy</li>
-                                <li>Fun Sparks — quick, laughter-packed mini games (zero mess!)</li>
-                                <li>Connection Shares — one warm sentence, once a day</li>
+                                <li>1-Minute Mindfulness - calming practices kids actually enjoy</li>
+                                <li>Fun Sparks - quick, laughter-packed mini games (zero mess!)</li>
+                                <li>Connection Shares - one warm sentence, once a day</li>
                             </ul>
 
                             <p class="icon-heading">WHY FAMILIES LOVE IT</p>
@@ -2252,7 +2398,7 @@
                         </div>
 
                         <p style="margin-top: 25px; font-weight: bold; color: #ffd700; text-align: center;">
-                            If you want a December that feels closer, calmer and full of soft little memories — this is your new favorite holiday tradition.
+                            If you want a December that feels closer, calmer and full of soft little memories - this is your new favorite holiday tradition.
                         </p>
                     </div>
                     
