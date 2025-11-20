@@ -704,6 +704,151 @@
             color: #ffffff;
             line-height: 1.7;
             margin: 0 0 16px 0;
+            text-align: justify;
+        }
+
+        .character-description-box {
+            background: linear-gradient(135deg, rgba(138, 43, 226, 0.08), rgba(0, 0, 0, 0.85));
+            border: 2px solid #ffd700;
+            border-radius: 16px;
+            padding: 18px 20px;
+            box-shadow: 0 0 28px rgba(255, 215, 0, 0.25);
+            margin-bottom: 26px;
+        }
+
+        .character-section-heading {
+            color: #8A2BE2;
+            text-transform: uppercase;
+            font-weight: bold;
+            letter-spacing: 0.8px;
+            margin: 6px 0 14px 0;
+            text-shadow: 0 0 20px rgba(138, 43, 226, 0.6);
+            text-align: center;
+        }
+
+        .character-qualities-box {
+            background: linear-gradient(145deg, rgba(0, 0, 0, 0.95), rgba(20, 20, 20, 0.9));
+            border: 2px solid #8A2BE2;
+            border-radius: 18px;
+            padding: 18px 20px 10px 20px;
+            box-shadow: 0 0 30px rgba(138, 43, 226, 0.4), inset 0 0 20px rgba(138, 43, 226, 0.08);
+            margin-top: 14px;
+        }
+
+        .qualities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+            margin-top: 12px;
+        }
+
+        .quality-chip {
+            background: rgba(255, 255, 255, 0.04);
+            border: 2px solid #ffd700;
+            border-radius: 12px;
+            padding: 10px 12px;
+            color: #ffd700;
+            font-weight: bold;
+            text-align: center;
+            box-shadow: 0 0 18px rgba(255, 215, 0, 0.3);
+            letter-spacing: 0.3px;
+        }
+
+        .icon-heading {
+            color: #ffd700;
+            font-weight: bold;
+            margin: 18px 0 8px 0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .icon-circle {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #8A2BE2, #ffd700);
+            box-shadow: 0 0 12px rgba(138, 43, 226, 0.6), 0 0 18px rgba(255, 215, 0, 0.6);
+        }
+
+        .icon-circle svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .golden-bullets {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 0;
+        }
+
+        .golden-bullets li {
+            position: relative;
+            padding-left: 26px;
+            margin-bottom: 10px;
+            line-height: 1.5;
+            color: #ffffff;
+        }
+
+        .golden-bullets li::before {
+            content: '✶';
+            position: absolute;
+            left: 0;
+            top: 4px;
+            color: #ffd700;
+            text-shadow: 0 0 8px rgba(255, 215, 0, 0.9), 0 0 16px rgba(255, 215, 0, 0.6);
+            font-size: 0.8rem;
+        }
+
+        .character-detail-shell {
+            background: linear-gradient(145deg, rgba(0, 0, 0, 0.95), rgba(20, 20, 20, 0.9));
+            border: 3px solid #8A2BE2;
+            border-radius: 24px;
+            padding: 28px;
+            box-shadow: 0 0 40px rgba(138, 43, 226, 0.6), 0 0 80px rgba(138, 43, 226, 0.25), inset 0 0 25px rgba(255, 215, 0, 0.1);
+        }
+
+        .character-header {
+            display: flex;
+            gap: 22px;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 18px;
+        }
+
+        .character-header img {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #ffd700;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.7);
+        }
+
+        .character-title {
+            color: #ffd700;
+            font-size: 1.4rem;
+            margin: 0;
+            text-shadow: 0 0 25px rgba(255, 215, 0, 0.8);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .character-subtitle {
+            color: #8A2BE2;
+            font-size: 1.1rem;
+            margin: 6px 0 0 0;
+            font-weight: bold;
+            text-shadow: 0 0 16px rgba(138, 43, 226, 0.7);
+        }
+
+        .character-description p {
+            color: #ffffff;
+            line-height: 1.7;
+            margin: 0 0 16px 0;
         }
 
         .character-description-box {
@@ -2123,7 +2268,7 @@
         width: 12px;
         background: linear-gradient(to right, rgba(0, 0, 0, 0.3), transparent);
         border-radius: 20px 0 0 20px;
-    "></div><!-- Obrazek (zdjęcie profilowe) --> <img src="assets/images/Mimi.png" alt="Mimi" style="display: block; width: 120px; height: 120px; border-radius: 50%; margin: 25px auto 20px auto; object-fit: cover; border: 3px solid #ff69b4; box-shadow: 0 0 25px rgba(255, 105, 180, 0.6);" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"> <!-- Tytuł i opis -->
+    "></div><!-- Obrazek (zdjęcie profilowe) --> <img src="" data-character-img="Mimi.png" alt="Mimi" style="display: block; width: 120px; height: 120px; border-radius: 50%; margin: 25px auto 20px auto; object-fit: cover; border: 3px solid #ff69b4; box-shadow: 0 0 25px rgba(255, 105, 180, 0.6);"> <!-- Tytuł i opis -->
       <h4 style="color: #ff69b4; margin: 0 0 12px 0; font-size: 1.6rem; text-shadow: 0 0 20px rgba(255, 105, 180, 0.8);">Mimi</h4>
       <p style="color: #ffffff; font-size: 1.1rem; margin: 0 0 20px 0; font-weight: bold;">Chaos Queen</p><!-- Przycisk "Learn More" na dole -->
       <div style="
@@ -2166,7 +2311,7 @@
                         width: 12px;
                         background: linear-gradient(to right, rgba(0, 0, 0, 0.3), transparent);
                         border-radius: 20px 0 0 20px;
-                    "></div><img src="assets/images/Luli.jpg" alt="Luli" style="display: block; width: 120px; height: 120px; border-radius: 50%; margin: 25px auto 20px auto; object-fit: cover; border: 3px solid #ffd700; box-shadow: 0 0 25px rgba(255, 215, 0, 0.6);" onerror="this.style.display='none';">
+                    "></div><img src="" data-character-img="Luli.jpg" alt="Luli" style="display: block; width: 120px; height: 120px; border-radius: 50%; margin: 25px auto 20px auto; object-fit: cover; border: 3px solid #ffd700; box-shadow: 0 0 25px rgba(255, 215, 0, 0.6);">
       <h4 style="color: #ffd700; margin: 0 0 12px 0; font-size: 1.6rem; text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);">Luli</h4>
       <p style="color: #ffffff; font-size: 1.1rem; margin: 0 0 20px 0; font-weight: bold;">Creative Glow</p>
       <div style="
@@ -2209,7 +2354,7 @@
                         width: 12px;
                         background: linear-gradient(to right, rgba(0, 0, 0, 0.3), transparent);
                         border-radius: 20px 0 0 20px;
-                    "></div><img src="assets/images/Dilo.png" alt="Dilo" style="display: block; width: 120px; height: 120px; border-radius: 50%; margin: 25px auto 20px auto; object-fit: cover; border: 3px solid #00bfff; box-shadow: 0 0 25px rgba(0, 191, 255, 0.6);" onerror="this.style.display='none';">
+                    "></div><img src="" data-character-img="Dilo.png" alt="Dilo" style="display: block; width: 120px; height: 120px; border-radius: 50%; margin: 25px auto 20px auto; object-fit: cover; border: 3px solid #00bfff; box-shadow: 0 0 25px rgba(0, 191, 255, 0.6);">
       <h4 style="color: #00bfff; margin: 0 0 12px 0; font-size: 1.6rem; text-shadow: 0 0 20px rgba(0, 191, 255, 0.8);">Dilo</h4>
       <p style="color: #ffffff; font-size: 1.1rem; margin: 0 0 20px 0; font-weight: bold;">Pixel Striker</p>
       <div style="
@@ -2252,7 +2397,7 @@
                         width: 12px;
                         background: linear-gradient(to right, rgba(0, 0, 0, 0.3), transparent);
                         border-radius: 20px 0 0 20px;
-                    "></div><img src="assets/images/Alio.jpg" alt="Alio" style="display: block; width: 120px; height: 120px; border-radius: 50%; margin: 25px auto 20px auto; object-fit: cover; border: 3px solid #32cd32; box-shadow: 0 0 25px rgba(50, 205, 50, 0.6);" onerror="this.style.display='none';">
+                    "></div><img src="" data-character-img="Alio.jpg" alt="Alio" style="display: block; width: 120px; height: 120px; border-radius: 50%; margin: 25px auto 20px auto; object-fit: cover; border: 3px solid #32cd32; box-shadow: 0 0 25px rgba(50, 205, 50, 0.6);">
       <h4 style="color: #32cd32; margin: 0 0 12px 0; font-size: 1.6rem; text-shadow: 0 0 20px rgba(50, 205, 50, 0.8);">Alio</h4>
       <p style="color: #ffffff; font-size: 1.1rem; margin: 0 0 20px 0; font-weight: bold;">Playful Power</p>
       <div style="
@@ -2295,7 +2440,7 @@
                         width: 12px;
                         background: linear-gradient(to right, rgba(0, 0, 0, 0.3), transparent);
                         border-radius: 20px 0 0 20px;
-                    "></div><img src="assets/images/Nini.jpg" alt="Little Nini" style="display: block; width: 120px; height: 120px; border-radius: 50%; margin: 25px auto 20px auto; object-fit: cover; border: 3px solid #ff69b4; box-shadow: 0 0 25px rgba(255, 105, 180, 0.6);" onerror="this.style.display='none';">
+                    "></div><img src="" data-character-img="Nini.jpg" alt="Little Nini" style="display: block; width: 120px; height: 120px; border-radius: 50%; margin: 25px auto 20px auto; object-fit: cover; border: 3px solid #ff69b4; box-shadow: 0 0 25px rgba(255, 105, 180, 0.6);">
       <h4 style="color: #ff69b4; margin: 0 0 12px 0; font-size: 1.6rem; text-shadow: 0 0 20px rgba(255, 105, 180, 0.8);">Little Nini</h4>
       <p style="color: #ffffff; font-size: 1.1rem; margin: 0 0 20px 0; font-weight: bold;">Joy Spark</p>
       <div style="
@@ -2338,7 +2483,7 @@
                         width: 12px;
                         background: linear-gradient(to right, rgba(0, 0, 0, 0.3), transparent);
                         border-radius: 20px 0 0 20px;
-                    "></div><img src="assets/images/Grandma%20Bibi%20final.png" alt="Grandma Bibi" style="display: block; width: 120px; height: 120px; border-radius: 50%; margin: 25px auto 20px auto; object-fit: cover; border: 3px solid #9932CC; box-shadow: 0 0 25px rgba(153, 50, 204, 0.6);" onerror="this.style.display='none';">
+                    "></div><img src="" data-character-img="Grandma Bibi final.png" alt="Grandma Bibi" style="display: block; width: 120px; height: 120px; border-radius: 50%; margin: 25px auto 20px auto; object-fit: cover; border: 3px solid #9932CC; box-shadow: 0 0 25px rgba(153, 50, 204, 0.6);">
       <h4 style="color: #9932CC; margin: 0 0 12px 0; font-size: 1.6rem; text-shadow: 0 0 20px rgba(153, 50, 204, 0.8);">Grandma Bibi</h4>
       <p style="color: #ffffff; font-size: 1.1rem; margin: 0 0 20px 0; font-weight: bold;">Royal Glow</p>
       <div style="
@@ -2634,13 +2779,36 @@
             bookDetails.forEach(detail => detail.style.display = 'none');
         }
 
-        const imageBase = 'assets/images/';
+        const imageBaseLocal = 'assets/images/';
+        const imageBaseRemote = 'https://raw.githubusercontent.com/riseshineevolve-source/RISE.SHINE.EVOLVE/main/assets/images/';
+
+        function buildImageSources(filename) {
+            const encoded = encodeURIComponent(filename);
+            return {
+                local: `${imageBaseLocal}${filename}`,
+                remote: `${imageBaseRemote}${encoded}`
+            };
+        }
+
+        function applyCharacterPortraits() {
+            const portraits = document.querySelectorAll('[data-character-img]');
+            portraits.forEach(img => {
+                const filename = img.getAttribute('data-character-img');
+                if (!filename) return;
+                const { local, remote } = buildImageSources(filename);
+                img.src = local;
+                img.onerror = () => {
+                    img.onerror = null;
+                    img.src = remote;
+                };
+            });
+        }
 
         const characterProfiles = {
             mimi: {
                 name: 'Mimi',
                 tagline: 'Chaos Queen',
-                image: `${imageBase}${encodeURIComponent('Mimi.png')}`,
+                image: 'Mimi.png',
                 color: '#ff69b4',
                 description: [
                     'Mimi is the queen of juggling life - meals, schedules, kids, questions and mysteriously disappearing socks - all at a pace that would exhaust a small army. Peaceful? Not even close. She’s never calm, rarely slow and always somehow impressively effective.',
@@ -2652,7 +2820,7 @@
             luli: {
                 name: 'Luli',
                 tagline: 'Creative Glow',
-                image: `${imageBase}${encodeURIComponent('Luli.jpg')}`,
+                image: 'Luli.jpg',
                 color: '#ffd700',
                 traitsHeadingColor: '#8A2BE2',
                 description: [
@@ -2665,7 +2833,7 @@
             dilo: {
                 name: 'Dilo',
                 tagline: 'Pixel Striker',
-                image: `${imageBase}${encodeURIComponent('Dilo.png')}`,
+                image: 'Dilo.png',
                 color: '#00bfff',
                 description: [
                     'Dilo is that rare combo of natural footballer and born gamer - fast feet, fast fingers and even faster opinions. He scores goals with both feet, beats video-game levels like he’s speedrunning life and takes on every challenge with a mix of stubborn determination and surprising generosity.',
@@ -2677,7 +2845,7 @@
             alio: {
                 name: 'Alio',
                 tagline: 'Playful Power',
-                image: `${imageBase}${encodeURIComponent('Alio.jpg')}`,
+                image: 'Alio.jpg',
                 color: '#32cd32',
                 description: [
                     'Alio operates on 120% pure energy and curiosity with a dash of friendly mischief. He’s always bouncing, building epic block cities, testing or inventing something absolutely essential (at least in his opinion).',
@@ -2689,7 +2857,7 @@
             nini: {
                 name: 'Nini',
                 tagline: 'Joy Spark',
-                image: `${imageBase}${encodeURIComponent('Nini.jpg')}`,
+                image: 'Nini.jpg',
                 color: '#ff69b4',
                 description: [
                     'Nini is a tiny burst of joy who can brighten any room faster than you can say “snack time.” She sings, dances and giggles her way through the day as if the world were her personal stage - she’s clearly the headliner.',
@@ -2700,7 +2868,7 @@
             bibi: {
                 name: 'Bibi',
                 tagline: 'Royal Glow',
-                image: `${imageBase}${encodeURIComponent('Grandma Bibi final.png')}`,
+                image: 'Grandma Bibi final.png',
                 color: '#9932CC',
                 description: [
                     'Bibi is the glamorous whirlwind who treats her age like a minor typo someone should really fix. With her chic short hair, stylish glasses and love for bold, modern outfits, she turns every sidewalk into a runway - often without even noticing.',
@@ -2712,10 +2880,11 @@
         };
 
         function buildCharacterDetails(profile) {
+            const { local: localImageSrc, remote: remoteImageSrc } = buildImageSources(profile.image);
             return `
                 <div class="character-detail-shell">
                     <div class="character-header">
-                        <img src="${profile.image}" alt="${profile.name}">
+                        <img src="${localImageSrc}" alt="${profile.name}" data-character-img="${profile.image}" onerror="this.onerror=null; this.src='${remoteImageSrc}';">
                         <div>
                             <h2 style="color: ${profile.color}; font-size: 2.4rem; margin: 0 0 6px 0; text-shadow: 0 0 22px rgba(255, 215, 0, 0.6); letter-spacing: 1px;">${profile.name}</h2>
                             <p class="character-subtitle" style="color: ${profile.color};">${profile.tagline}</p>
@@ -3166,6 +3335,8 @@
             document.getElementById('emailModal').style.display = 'none';
             document.body.style.overflow = 'auto';
         }
+        document.addEventListener('DOMContentLoaded', applyCharacterPortraits);
+
         // Email modal submit listener
         document.addEventListener('DOMContentLoaded', function() {
             const submitEmailBtn = document.getElementById('giftsSubmitEmail');
