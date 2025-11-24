@@ -2743,27 +2743,36 @@
 
             giftFallback.style.display = 'none';
             giftFrame.style.display = 'block';
-            giftFrame.src = src;
+            giftFrame.src = 'about:blank';
+            giftFrame.removeAttribute('srcdoc');
             giftOverlay.style.display = 'block';
             document.body.style.overflow = 'hidden';
             window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            fetch(src)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Gift HTML not found');
+                    }
+                    return response.text();
+                })
+                .then(html => {
+                    giftFrame.srcdoc = html;
+                    giftFrame.style.display = 'block';
+                    giftFallback.style.display = 'none';
+                })
+                .catch(() => {
+                    giftFrame.style.display = 'none';
+                    giftFallback.style.display = 'block';
+                });
         }
 
         function closeGiftOverlay() {
             giftOverlay.style.display = 'none';
             giftFrame.src = '';
+            giftFrame.removeAttribute('srcdoc');
             document.body.style.overflow = 'auto';
         }
-
-        giftFrame.addEventListener('load', () => {
-            giftFallback.style.display = 'none';
-            giftFrame.style.display = 'block';
-        });
-
-        giftFrame.addEventListener('error', () => {
-            giftFrame.style.display = 'none';
-            giftFallback.style.display = 'block';
-        });
 
         function openCalmEnergyWheel(event) {
             openGiftOverlay('calmEnergy', event);
