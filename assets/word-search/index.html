@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Happy Makers Word Search</title>
+  <style>
+    :root {
+      --purple: #8A2BE2;
+      --gold: #ffd700;
+      --bg: #0a0a0f;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 30px 12px 50px;
+      background: radial-gradient(circle at 20% 20%, rgba(138,43,226,0.15), transparent 30%),
+                  radial-gradient(circle at 80% 10%, rgba(255,215,0,0.18), transparent 32%),
+                  radial-gradient(circle at 50% 80%, rgba(138,43,226,0.22), transparent 38%),
+                  var(--bg);
+      color: #ffffff;
+      font-family: 'Arial', sans-serif;
+      min-height: 100vh;
+    }
+    .shell {
+      max-width: 1100px;
+      margin: 0 auto;
+      background: linear-gradient(145deg, rgba(0,0,0,0.9), rgba(18,18,28,0.9));
+      border: 3px solid var(--purple);
+      border-radius: 22px;
+      padding: 28px 22px;
+      box-shadow: 0 0 35px rgba(138,43,226,0.55), 0 0 65px rgba(255,215,0,0.25);
+    }
+    h1 {
+      text-align: center;
+      margin: 0 0 8px 0;
+      font-size: 2rem;
+      letter-spacing: 1px;
+      background: linear-gradient(90deg, var(--purple), #9932CC, var(--gold));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 18px rgba(138,43,226,0.65);
+    }
+    .subtitle {
+      text-align: center;
+      margin: 0 0 24px 0;
+      color: var(--gold);
+      font-weight: bold;
+      letter-spacing: 0.3px;
+    }
+    .layout {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 22px;
+      align-items: start;
+    }
+    .grid-shell {
+      background: rgba(0,0,0,0.7);
+      border: 2px solid var(--gold);
+      border-radius: 16px;
+      padding: 16px;
+      box-shadow: inset 0 0 18px rgba(255,215,0,0.25);
+    }
+    .word-grid {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+    }
+    .word-grid td {
+      border: 1px solid rgba(255,215,0,0.35);
+      text-align: center;
+      font-weight: bold;
+      font-size: 1.05rem;
+      padding: 8px 0;
+      color: #ffffff;
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+      user-select: none;
+    }
+    .word-grid td:hover {
+      background: rgba(138,43,226,0.25);
+      box-shadow: 0 0 12px rgba(138,43,226,0.4);
+    }
+    .word-grid td.selected {
+      background: rgba(138,43,226,0.35);
+      box-shadow: 0 0 18px rgba(138,43,226,0.55);
+    }
+    .word-grid td.found {
+      background: rgba(255,215,0,0.2);
+      color: var(--gold);
+      box-shadow: 0 0 18px rgba(255,215,0,0.55);
+    }
+    .panel {
+      background: rgba(0,0,0,0.65);
+      border: 2px solid var(--purple);
+      border-radius: 16px;
+      padding: 16px;
+      box-shadow: inset 0 0 16px rgba(138,43,226,0.25);
+    }
+    .panel h2 {
+      margin: 0 0 12px 0;
+      font-size: 1.1rem;
+      letter-spacing: 0.5px;
+      color: var(--gold);
+      text-transform: uppercase;
+      text-align: center;
+    }
+    .word-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 8px;
+    }
+    .word-chip {
+      padding: 8px 10px;
+      border: 1px solid rgba(255,215,0,0.65);
+      border-radius: 10px;
+      text-align: center;
+      font-weight: bold;
+      color: #ffffff;
+      background: rgba(138,43,226,0.18);
+      box-shadow: 0 0 12px rgba(138,43,226,0.3);
+    }
+    .word-chip.found {
+      color: var(--gold);
+      text-decoration: line-through;
+      background: rgba(255,215,0,0.12);
+      box-shadow: 0 0 15px rgba(255,215,0,0.4);
+    }
+    .instructions {
+      margin-top: 12px;
+      font-size: 0.95rem;
+      color: #dcdcdc;
+      text-align: center;
+    }
+    .status {
+      margin-top: 14px;
+      text-align: center;
+      font-weight: bold;
+      color: var(--gold);
+      min-height: 20px;
+    }
+    @media (max-width: 900px) {
+      .layout { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <h1>The Happy Makers Word Search</h1>
+    <p class="subtitle">Can you spot every name and mantra before Nini calls for cuddles?</p>
+    <div class="layout">
+      <div class="grid-shell">
+        <table class="word-grid" id="wordGrid" aria-label="Word search grid"></table>
+        <div class="instructions">Tap a starting letter, tap the ending letter in a straight line, and see if you found a hidden word.</div>
+        <div class="status" id="status"></div>
+      </div>
+      <div class="panel">
+        <h2>Find These Words</h2>
+        <div class="word-list" id="wordList"></div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const gridSize = 12;
+    const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const words = [
+      'RISE','SHINE','EVOLVE','NINI','ALIO','DILO','LULI','MIMI','BIBI','HAPPY','CHAOS','PUZZLE'
+    ];
+    const placements = [
+      { word: 'RISE', row: 0, col: 0, dir: [0, 1] },
+      { word: 'HAPPY', row: 1, col: 2, dir: [0, 1] },
+      { word: 'SHINE', row: 2, col: 6, dir: [0, 1] },
+      { word: 'EVOLVE', row: 3, col: 0, dir: [0, 1] },
+      { word: 'NINI', row: 4, col: 8, dir: [1, 0] },
+      { word: 'ALIO', row: 5, col: 0, dir: [0, 1] },
+      { word: 'DILO', row: 6, col: 2, dir: [0, 1] },
+      { word: 'LULI', row: 7, col: 4, dir: [0, 1] },
+      { word: 'MIMI', row: 8, col: 0, dir: [0, 1] },
+      { word: 'BIBI', row: 9, col: 6, dir: [0, 1] },
+      { word: 'CHAOS', row: 10, col: 3, dir: [0, 1] },
+      { word: 'PUZZLE', row: 2, col: 11, dir: [1, 0] }
+    ];
+
+    const grid = Array.from({ length: gridSize }, () => Array(gridSize).fill('.'));
+
+    function placeWord({ word, row, col, dir }) {
+      const [dr, dc] = dir;
+      if (row + dr * (word.length - 1) >= gridSize || col + dc * (word.length - 1) >= gridSize || row + dr * (word.length - 1) < 0 || col + dc * (word.length - 1) < 0) {
+        console.warn(`Placement out of bounds for ${word}`);
+        return;
+      }
+      for (let i = 0; i < word.length; i++) {
+        const r = row + dr * i;
+        const c = col + dc * i;
+        const char = word[i];
+        if (grid[r][c] !== '.' && grid[r][c] !== char) {
+          console.warn(`Conflict placing ${word} at ${r},${c}`);
+        }
+        grid[r][c] = char;
+      }
+    }
+
+    placements.forEach(placeWord);
+
+    for (let r = 0; r < gridSize; r++) {
+      for (let c = 0; c < gridSize; c++) {
+        if (grid[r][c] === '.') {
+          grid[r][c] = alphabet[Math.floor(Math.random() * alphabet.length)];
+        }
+      }
+    }
+
+    const foundWords = new Set();
+    let startCell = null;
+
+    function renderGrid() {
+      const table = document.getElementById('wordGrid');
+      table.innerHTML = '';
+      grid.forEach((row, rIdx) => {
+        const tr = document.createElement('tr');
+        row.forEach((letter, cIdx) => {
+          const td = document.createElement('td');
+          td.textContent = letter;
+          td.dataset.row = rIdx;
+          td.dataset.col = cIdx;
+          td.addEventListener('click', handleCellClick);
+          tr.appendChild(td);
+        });
+        table.appendChild(tr);
+      });
+    }
+
+    function renderWords() {
+      const list = document.getElementById('wordList');
+      list.innerHTML = '';
+      words.forEach(word => {
+        const chip = document.createElement('div');
+        chip.className = 'word-chip';
+        chip.textContent = word;
+        chip.id = `word-${word}`;
+        list.appendChild(chip);
+      });
+    }
+
+    function clearSelections() {
+      document.querySelectorAll('.word-grid td.selected').forEach(td => td.classList.remove('selected'));
+      startCell = null;
+    }
+
+    function markFound(pathCells, word) {
+      pathCells.forEach(({ r, c }) => {
+        const cell = document.querySelector(`td[data-row="${r}"][data-col="${c}"]`);
+        if (cell) {
+          cell.classList.add('found');
+          cell.classList.remove('selected');
+        }
+      });
+      foundWords.add(word);
+      const chip = document.getElementById(`word-${word}`);
+      if (chip) {
+        chip.classList.add('found');
+      }
+      const status = document.getElementById('status');
+      status.textContent = foundWords.size === words.length ? 'You found them all! 🎉' : `${foundWords.size}/${words.length} words found`;
+    }
+
+    function buildPath(r1, c1, r2, c2) {
+      const dr = Math.sign(r2 - r1);
+      const dc = Math.sign(c2 - c1);
+      if (dr === 0 && dc === 0) return null;
+      const length = Math.max(Math.abs(r2 - r1), Math.abs(c2 - c1)) + 1;
+      if (Math.abs(r2 - r1) !== 0 && Math.abs(c2 - c1) !== 0 && Math.abs(r2 - r1) !== Math.abs(c2 - c1)) {
+        return null; // not straight line
+      }
+      const cells = [];
+      for (let i = 0; i < length; i++) {
+        cells.push({ r: r1 + dr * i, c: c1 + dc * i });
+      }
+      return cells;
+    }
+
+    function handleCellClick(e) {
+      const cell = e.currentTarget;
+      const r = parseInt(cell.dataset.row, 10);
+      const c = parseInt(cell.dataset.col, 10);
+
+      if (!startCell) {
+        startCell = { r, c };
+        cell.classList.add('selected');
+        return;
+      }
+
+      const path = buildPath(startCell.r, startCell.c, r, c);
+      if (!path) {
+        clearSelections();
+        return;
+      }
+
+      const word = path.map(pos => grid[pos.r][pos.c]).join('');
+      const reversed = word.split('').reverse().join('');
+      const match = words.find(w => w === word || w === reversed);
+
+      if (match && !foundWords.has(match)) {
+        markFound(path, match);
+      }
+      clearSelections();
+    }
+
+    renderGrid();
+    renderWords();
+    document.getElementById('status').textContent = `0/${words.length} words found`;
+  </script>
+</body>
+</html>
