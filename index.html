@@ -1276,9 +1276,53 @@
      <div class="kids-tile" style="border: 3px solid #8A2BE2; box-shadow: 0 0 35px rgba(138, 43, 226, 0.7), 0 0 60px rgba(138, 43, 226, 0.4); margin: 30px auto; max-width: 1200px; padding: 24px 18px;">
       <div class="kids-text" style="margin-bottom: 20px;">
        <h3 style="color: #8A2BE2; font-size: 1.9rem; margin: 0 0 10px 0; text-shadow: 0 0 18px rgba(138, 43, 226, 0.7);">GIFTS LIBRARY</h3>
-       <p style="color: #ffd700; font-size: 1rem; margin: 0;">Explore new resources as they arrive-starting with a festive word search!</p>
+       <p style="color: #ffd700; font-size: 1rem; margin: 0;">Explore new resources as they arrive - starting with the Calm + Energy Wheel, the 1-Minute Challenge, and the Word Search!</p>
       </div>
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; padding: 0 10px;">
+       <div style="background: #000000; border: 3px solid #ffd700; border-radius: 18px; padding: 22px; text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(255, 215, 0, 0.5); position: relative; min-height: 300px; display: flex; flex-direction: column; align-items: center; gap: 12px;">
+        <div style="position: absolute; top: 12px; left: 12px; background: #8A2BE2; color: #ffffff; font-size: 0.7rem; font-weight: bold; padding: 6px 10px; border-radius: 10px; text-transform: uppercase; box-shadow: 0 0 12px rgba(138, 43, 226, 0.6);">Available</div>
+        <div style="width: 86px; height: 86px; margin-top: 8px; border-radius: 50%; border: 3px solid #ffd700; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 20px rgba(255,215,0,0.6);">
+         <svg width="46" height="46" viewbox="0 0 120 120" aria-hidden="true">
+          <defs>
+           <lineargradient id="wheelGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#ffd700" />
+            <stop offset="100%" stop-color="#8A2BE2" />
+           </lineargradient>
+          </defs>
+          <circle cx="60" cy="60" r="44" fill="none" stroke="url(#wheelGradient)" stroke-width="8" />
+          <circle cx="60" cy="60" r="6" fill="#ffd700" />
+          <path d="M60 16 L67 8 L53 8 Z" fill="#ffd700" />
+          <g stroke="#ffd700" stroke-width="4">
+           <line x1="60" y1="16" x2="60" y2="28" />
+           <line x1="94" y1="60" x2="82" y2="60" />
+           <line x1="60" y1="94" x2="60" y2="82" />
+           <line x1="26" y1="60" x2="38" y2="60" />
+          </g>
+         </svg>
+        </div>
+        <h4 style="color: #ffd700; margin: 0; font-size: 1.25rem; text-shadow: 0 0 15px rgba(255, 215, 0, 0.7);">The Happy Makers Calm and Energy Wheel</h4>
+        <p style="color: #ffffff; font-size: 0.95rem; line-height: 1.5; margin: 0 0 6px 0;">Two tiny tools for your family: one to slow down and soften, one to wake up and brighten - spin, stop and let the Happy Makers guide you.</p>
+        <button onclick="openCalmEnergyWheel(event)" style="background: linear-gradient(45deg, #8A2BE2, #9932CC); border: 2px solid #ffd700; border-radius: 14px; color: #ffffff; font-weight: bold; padding: 10px 16px; cursor: pointer; text-transform: uppercase; box-shadow: 0 0 18px rgba(138, 43, 226, 0.6); margin-top: auto;">Launch the Calm + Energy Wheel</button>
+       </div>
+       <div style="background: #000000; border: 3px solid #ffd700; border-radius: 18px; padding: 22px; text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(255, 215, 0, 0.5); position: relative; min-height: 300px; display: flex; flex-direction: column; align-items: center; gap: 12px;">
+        <div style="position: absolute; top: 12px; left: 12px; background: #8A2BE2; color: #ffffff; font-size: 0.7rem; font-weight: bold; padding: 6px 10px; border-radius: 10px; text-transform: uppercase; box-shadow: 0 0 12px rgba(138, 43, 226, 0.6);">Available</div>
+        <div style="width: 86px; height: 86px; margin-top: 8px; border-radius: 50%; border: 3px solid #ffd700; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 20px rgba(255,215,0,0.6);">
+         <svg width="46" height="46" viewbox="0 0 120 120" aria-hidden="true">
+          <defs>
+           <lineargradient id="challengeGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#ffd700" />
+            <stop offset="100%" stop-color="#8A2BE2" />
+           </lineargradient>
+          </defs>
+          <circle cx="60" cy="60" r="46" fill="none" stroke="url(#challengeGlow)" stroke-width="6" />
+          <polygon points="60,18 72,62 60,54 48,62" fill="#8A2BE2" stroke="#ffd700" stroke-width="3" />
+          <circle cx="60" cy="80" r="10" fill="#ffd700" stroke="#8A2BE2" stroke-width="3" />
+         </svg>
+        </div>
+        <h4 style="color: #ffd700; margin: 0; font-size: 1.25rem; text-shadow: 0 0 15px rgba(255, 215, 0, 0.7);">The Happy Makers 1-Minute Challenge</h4>
+        <p style="color: #ffffff; font-size: 0.95rem; line-height: 1.5; margin: 0 0 6px 0;">One click. One tiny mission. One minute of joy, creativity or connection. Powered by your Happy Makers.</p>
+        <button onclick="openOneMinuteChallenge(event)" style="background: linear-gradient(45deg, #8A2BE2, #9932CC); border: 2px solid #ffd700; border-radius: 14px; color: #ffffff; font-weight: bold; padding: 10px 16px; cursor: pointer; text-transform: uppercase; box-shadow: 0 0 18px rgba(138, 43, 226, 0.6); margin-top: auto;">Start the 1-Minute Challenge</button>
+       </div>
        <div style="background: #000000; border: 3px solid #ffd700; border-radius: 18px; padding: 22px; text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(255, 215, 0, 0.5); position: relative; min-height: 280px; display: flex; flex-direction: column; align-items: center; gap: 12px;">
         <div style="position: absolute; top: 12px; left: 12px; background: #8A2BE2; color: #ffffff; font-size: 0.7rem; font-weight: bold; padding: 6px 10px; border-radius: 10px; text-transform: uppercase;">Available</div>
         <div style="width: 86px; height: 86px; margin-top: 8px; border-radius: 50%; border: 3px solid #ffd700; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 20px rgba(255,215,0,0.6);">
@@ -1287,16 +1331,6 @@
         <h4 style="color: #ffd700; margin: 0; font-size: 1.3rem; text-shadow: 0 0 15px rgba(255, 215, 0, 0.7);">Word Search Puzzle</h4>
         <p style="color: #ffffff; font-size: 0.95rem; line-height: 1.5; margin: 0 0 6px 0;">The Happy Makers Challenge: can you find the words before Nini declares cuddle time or faster than Alio creates chaos?</p>
         <button onclick="openWordSearchPuzzle(event)" style="background: linear-gradient(45deg, #8A2BE2, #9932CC); border: 2px solid #ffd700; border-radius: 14px; color: #ffffff; font-weight: bold; padding: 10px 16px; cursor: pointer; text-transform: uppercase; box-shadow: 0 0 18px rgba(138, 43, 226, 0.6);">Start the Happy Search!</button>
-       </div>
-       <div style="background: #000000; border: 3px solid #8A2BE2; border-radius: 18px; padding: 22px; text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(138, 43, 226, 0.4); position: relative; min-height: 260px;">
-        <div style="width: 86px; height: 86px; margin: 10px auto 18px auto; border-radius: 50%; border: 3px solid #8A2BE2; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 18px rgba(138,43,226,0.5);"><svg width="40" height="40" viewbox="0 0 100 100" aria-hidden="true">
-            <rect x="22" y="40" width="56" height="38" rx="6" fill="#8A2BE2" stroke="#ffd700" stroke-width="3"></rect>
-            <rect x="18" y="54" width="64" height="8" fill="#ffd700"></rect>
-            <rect x="46" y="34" width="8" height="50" fill="#ffd700"></rect>
-            <circle cx="50" cy="34" r="8" fill="#ffd700"></circle>
-        </svg></div>
-        <h4 style="color: #8A2BE2; margin: 0 0 12px 0; font-size: 1.3rem; text-shadow: 0 0 15px rgba(138, 43, 226, 0.7);">Gift Coming Soon</h4>
-        <p style="color: #ffffff; font-size: 0.95rem; line-height: 1.5; margin: 0;">A new downloadable surprise is on its way.</p>
        </div>
        <div style="background: #000000; border: 3px solid #8A2BE2; border-radius: 18px; padding: 22px; text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(138, 43, 226, 0.4); position: relative; min-height: 260px;">
         <div style="width: 86px; height: 86px; margin: 10px auto 18px auto; border-radius: 50%; border: 3px solid #8A2BE2; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 18px rgba(138,43,226,0.5);"><svg width="40" height="40" viewbox="0 0 100 100" aria-hidden="true">
@@ -2674,6 +2708,32 @@
                 ">OK</button>
             `;
             document.body.appendChild(messageDiv);
+        }
+
+        // Calm and Energy Wheel launcher
+        function openCalmEnergyWheel(event) {
+            if (event) {
+                event.stopPropagation();
+            }
+
+            const wheelWindow = window.open('assets/calm-energy/index.html', '_blank', 'noopener,noreferrer');
+
+            if (!wheelWindow) {
+                alert('Please allow pop-ups to view the Calm and Energy Wheel.');
+            }
+        }
+
+        // 1-Minute Challenge launcher
+        function openOneMinuteChallenge(event) {
+            if (event) {
+                event.stopPropagation();
+            }
+
+            const challengeWindow = window.open('assets/one-minute/index.html', '_blank', 'noopener,noreferrer');
+
+            if (!challengeWindow) {
+                alert('Please allow pop-ups to view the 1-Minute Challenge.');
+            }
         }
 
         // Word search puzzle launcher
