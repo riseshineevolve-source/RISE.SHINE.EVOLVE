@@ -2677,31 +2677,15 @@
         }
 
         // Word search puzzle launcher
-        async function openWordSearchPuzzle(event) {
+        function openWordSearchPuzzle(event) {
             if (event) {
                 event.stopPropagation();
             }
 
-            const puzzleSource = 'https://raw.githubusercontent.com/riseshineevolve-source/word-search-puzzle/main/index.html';
-            const fallbackSource = 'https://github.com/riseshineevolve-source/word-search-puzzle';
-            const puzzleWindow = window.open('', '_blank');
+            const puzzleWindow = window.open('assets/word-search/index.html', '_blank', 'noopener,noreferrer');
 
             if (!puzzleWindow) {
                 alert('Please allow pop-ups to view the Word Search Puzzle.');
-                return;
-            }
-
-            try {
-                const response = await fetch(puzzleSource, { cache: 'no-cache' });
-                if (!response.ok) {
-                    throw new Error('Puzzle fetch failed');
-                }
-                const html = await response.text();
-                puzzleWindow.document.open();
-                puzzleWindow.document.write(html);
-                puzzleWindow.document.close();
-            } catch (error) {
-                puzzleWindow.location.href = fallbackSource;
             }
         }
 
