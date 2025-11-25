@@ -485,6 +485,139 @@
             text-shadow: 0 0 15px rgba(138, 43, 226, 0.8);
         }
 
+        /* Gift library styles */
+        .gifts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 25px;
+            margin: 30px auto;
+            max-width: 1100px;
+            width: 100%;
+        }
+
+        .gift-card {
+            background: #000000;
+            border: 3px solid #8A2BE2;
+            border-radius: 18px;
+            padding: 22px 18px;
+            box-shadow: 0 0 35px rgba(138, 43, 226, 0.4);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .gift-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.45), 0 0 55px rgba(138, 43, 226, 0.6);
+        }
+
+        .gift-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 3px solid #ffd700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px auto;
+            box-shadow: 0 0 25px rgba(255, 215, 0, 0.5);
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.15) 0%, rgba(0, 0, 0, 0.7) 70%);
+            color: #ffd700;
+            font-size: 2rem;
+        }
+
+        .gift-title {
+            color: #ffd700;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin: 10px 0 8px 0;
+            text-shadow: 0 0 18px rgba(255, 215, 0, 0.7);
+        }
+
+        .gift-description {
+            color: #ffffff;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 18px;
+        }
+
+        .gift-button {
+            display: inline-block;
+            background: linear-gradient(45deg, #8A2BE2, #9932CC);
+            border: 2px solid #ffd700;
+            border-radius: 16px;
+            padding: 12px 18px;
+            color: #ffffff;
+            font-size: 0.95rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(138, 43, 226, 0.6);
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        .gift-button:hover {
+            transform: translateY(-2px) scale(1.03);
+            box-shadow: 0 0 28px rgba(138, 43, 226, 0.8);
+        }
+
+        .gift-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(6px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1200;
+            padding: 30px 20px;
+        }
+
+        .gift-overlay-content {
+            width: 100%;
+            max-width: 1100px;
+            height: 90vh;
+            background: linear-gradient(145deg, rgba(0, 0, 0, 0.95), rgba(18, 18, 28, 0.92));
+            border: 3px solid #8A2BE2;
+            border-radius: 20px;
+            box-shadow: 0 0 45px rgba(138, 43, 226, 0.7), 0 0 85px rgba(255, 215, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gift-overlay iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 17px;
+            background: #000;
+        }
+
+        .gift-overlay-close {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: #000000;
+            border: 2px solid #ffd700;
+            color: #ffd700;
+            border-radius: 50%;
+            width: 38px;
+            height: 38px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.2rem;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.7);
+            transition: all 0.3s ease;
+        }
+
+        .gift-overlay-close:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 28px rgba(255, 215, 0, 0.9);
+        }
+
         /* Elegant Christmas Floating Box - Dark Sophisticated Design */
         .elegant-christmas-box {
             position: fixed;
@@ -1149,6 +1282,38 @@
        It is time to <span class="word-rise">RISE</span>.<span class="word-shine">SHINE</span>.<span class="word-evolve">EVOLVE</span>
       </div>
      </div>
+     <div class="gifts-grid">
+      <div class="gift-card" style="border-color: #8A2BE2; box-shadow: 0 0 35px rgba(138, 43, 226, 0.5);">
+       <div class="gift-icon">🌗</div>
+       <div class="gift-title">Calm &amp; Energy Wheel</div>
+       <div class="gift-description">Two tiny tools for your family: one to slow down and soften, one to wake up and brighten. Spin, stop, and let the Happy Makers guide you.</div><button class="gift-button" onclick="openGift('calm')">Open the Wheel</button>
+      </div>
+      <div class="gift-card" style="border-color: #ff69b4; box-shadow: 0 0 35px rgba(255, 105, 180, 0.5);">
+       <div class="gift-icon">⏱️</div>
+       <div class="gift-title">1-Minute Challenge</div>
+       <div class="gift-description">One click. One tiny mission. One minute of joy, creativity, or connection. Powered by your Happy Makers.</div><button class="gift-button" onclick="openGift('challenge')">Start the Challenge</button>
+      </div>
+      <div class="gift-card" style="border-color: #ffd700; box-shadow: 0 0 35px rgba(255, 215, 0, 0.5);">
+       <div class="gift-icon">🔍</div>
+       <div class="gift-title">Word Search Puzzle</div>
+       <div class="gift-description">The Happy Makers Challenge: can you find the words before Nini declares cuddle time or faster than Alio creates chaos?</div><button class="gift-button" onclick="openGift('wordsearch')">Start the Happy Search!</button>
+      </div>
+      <div class="gift-card">
+       <div class="gift-icon">🎁</div>
+       <div class="gift-title">Coming Soon</div>
+       <div class="gift-description">More magical surprises from the Happy Makers are on the way.</div>
+      </div>
+      <div class="gift-card">
+       <div class="gift-icon">🎁</div>
+       <div class="gift-title">Coming Soon</div>
+       <div class="gift-description">Check back here for fresh gifts crafted for your family.</div>
+      </div>
+      <div class="gift-card">
+       <div class="gift-icon">🎁</div>
+       <div class="gift-title">Coming Soon</div>
+       <div class="gift-description">More resources are brewing to help you rise, shine, and evolve.</div>
+      </div>
+     </div>
     </div>
     <div id="thank-you-content" class="tab-content">
      <div class="kids-tile" style="border: 3px solid #ffd700; box-shadow: 0 0 35px rgba(255, 215, 0, 0.7), 0 0 60px rgba(255, 215, 0, 0.4);">
@@ -1745,6 +1910,12 @@
     </div>
    </div>
   </div>
+  <div id="giftOverlay" class="gift-overlay">
+   <div class="gift-overlay-content">
+    <button class="gift-overlay-close" onclick="closeGiftOverlay()">×</button>
+    <iframe id="giftFrame" title="Gift Viewer"></iframe>
+   </div>
+  </div>
   <script>
         // Create sparkles
         function createSparkles() {
@@ -2089,18 +2260,45 @@
             localStorage.setItem('giftsAccess', 'true');
             hasGiftsAccess = true;
         }
-        // Function to send to Netlify (używane przez formularz GIFTS)
-        function sendToNetlify(firstName, email) {
-            const formData = new FormData();
-            formData.append("form-name", "rse-email-list");
-            formData.append("firstName", firstName);
-            formData.append("email", email);
-            fetch("/", {
-                method: "POST",
-                body: formData
-            }).catch(error => {
-                // Silent error handling for iframe environment
-            });
+        hasGiftsAccess = checkGiftsAccess();
+        const cloudflareEndpoint = (window.CLOUDFLARE_FORM_ENDPOINT || 'https://newsletter.rise-shine-evolve-learning-hub.com/').replace(/\/*$/, '/') ;
+
+        async function sendToCloudflare(payload) {
+            try {
+                const response = await fetch(cloudflareEndpoint, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                return response.ok;
+            } catch (err) {
+                return false;
+            }
+        }
+
+        const giftPages = {
+            calm: 'assets/calm-energy/index.html',
+            challenge: 'assets/one-minute/index.html',
+            wordsearch: 'assets/word-search/index.html'
+        };
+
+        function openGift(key) {
+            const frame = document.getElementById('giftFrame');
+            const overlay = document.getElementById('giftOverlay');
+            const src = giftPages[key];
+            if (frame && overlay && src) {
+                frame.src = src;
+                overlay.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeGiftOverlay() {
+            const frame = document.getElementById('giftFrame');
+            const overlay = document.getElementById('giftOverlay');
+            if (frame) { frame.src = ''; }
+            if (overlay) { overlay.style.display = 'none'; }
+            document.body.style.overflow = 'auto';
         }
         function showThankYouPage() {
             // Hide all tab contents
@@ -2279,7 +2477,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             const submitEmailBtn = document.getElementById('giftsSubmitEmail');
             if (submitEmailBtn) {
-                submitEmailBtn.addEventListener('click', function() {
+                submitEmailBtn.addEventListener('click', async function() {
                     const firstName = document.getElementById('giftsFirstNameInput').value.trim();
                     const email = document.getElementById('giftsEmailInput').value.trim();
                     const gdprCheck = document.getElementById('giftsGdprCheck').checked;
@@ -2306,20 +2504,24 @@
                     // Show loading state
                     submitEmailBtn.textContent = 'Joining...';
                     submitEmailBtn.disabled = true;
-                    // Send data to Netlify
-                    sendToNetlify(firstName, email);
-                    // Simulate processing
-                    setTimeout(() => {
+                    const success = await sendToCloudflare({
+                        type: 'subscribe',
+                        firstName,
+                        email
+                    });
+
+                    if (success) {
                         grantGiftsAccess();
                         closeEmailModal();
-                        showThankYouPage();
-                        // Reset form
+                        accessGifts();
                         document.getElementById('giftsFirstNameInput').value = '';
                         document.getElementById('giftsEmailInput').value = '';
-                    document.getElementById('giftsGdprCheck').checked = false;
-                        submitEmailBtn.textContent = 'Join us';
-                        submitEmailBtn.disabled = false;
-                    }, 2000);
+                        document.getElementById('giftsGdprCheck').checked = false;
+                    } else {
+                        errorMsg.textContent = 'Something went wrong. Please try again in a moment.';
+                    }
+                    submitEmailBtn.textContent = 'Join us';
+                    submitEmailBtn.disabled = false;
                 });
             }
         });
