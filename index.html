@@ -1891,7 +1891,7 @@
   <div id="gift-overlay" style="display: none; position: fixed; inset: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.95); z-index: 10010; overflow: hidden; padding: 0; box-sizing: border-box;">
    <div style="position: relative; width: 100%; height: 100%; max-width: 1200px; margin: 0 auto;">
     <button onclick="closeGiftOverlay()" style="position: absolute; top: 12px; right: 12px; background: linear-gradient(45deg, #8A2BE2, #9932CC); border: 2px solid #ffd700; border-radius: 14px; padding: 10px 18px; color: #ffffff; font-size: 1rem; font-weight: bold; cursor: pointer; box-shadow: 0 0 18px rgba(138, 43, 226, 0.6); z-index: 2;">Close gift ✖</button>
-    <iframe id="gift-frame" title="Gift experience" style="display: block; width: 100%; height: 100%; border: 3px solid #8A2BE2; border-radius: 16px; box-shadow: 0 0 35px rgba(138, 43, 226, 0.6), 0 0 60px rgba(138, 43, 226, 0.3); background: #000;"></iframe>
+    <iframe id="gift-frame" title="Gift experience" style="display: block; width: calc(100% - 24px); height: calc(100% - 24px); margin: 12px auto; border: 3px solid #8A2BE2; border-radius: 16px; box-shadow: 0 0 35px rgba(138, 43, 226, 0.6), 0 0 60px rgba(138, 43, 226, 0.3); background: #000; box-sizing: border-box;"></iframe>
     <div id="gift-fallback" style="display: none; position: absolute; inset: 0; color: #ffffff; text-align: center; padding: 30px 15px; background: linear-gradient(135deg, rgba(138, 43, 226, 0.2), rgba(0, 0, 0, 0.9)); border: 2px solid #ffd700; border-radius: 16px; margin: 0 12px; box-shadow: 0 0 25px rgba(255, 215, 0, 0.4); overflow: auto; align-items: center; justify-content: center; text-align: center;">
      Gift content is unavailable right now. Please try again in a moment.
     </div>
@@ -2057,341 +2057,1771 @@
 
   <!-- Gift templates for on-page overlay -->
   <template id="gift-template-calm-energy">
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The Happy Makers Calm and Energy Wheel</title>
+  <meta charset="UTF-8" />
+  <title>Happy Makers Calm & Energy Wheels</title>
   <style>
     :root {
-      --purple: #8A2BE2;
-      --gold: #ffd700;
-      --bg: #07070c;
-      --card: rgba(0, 0, 0, 0.82);
+      --purple-main: #8A2BE2;
+      --purple-alt: #9932CC;
+      --pink-main: #e13f8a;   /* Vivid rose aligned with frames/headings */
+      --pink-deep: #b12ad0;   /* Saturated berry accent */
+      --pink-bright: #ff8fce; /* Bold blush highlight */
+      --gold: #efd8a0;
+      --bg-deep: #05030d;
+      --text-main: #fdf7ff;
+      --text-muted: #b9b3d9;
+      --radius-xl: 24px;
     }
-    * { box-sizing: border-box; }
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
-      padding: 24px 12px 40px;
-      font-family: 'Arial', sans-serif;
-      background: radial-gradient(circle at 20% 18%, rgba(138, 43, 226, 0.16), transparent 32%),
-                  radial-gradient(circle at 78% 12%, rgba(255, 215, 0, 0.2), transparent 30%),
-                  radial-gradient(circle at 52% 78%, rgba(138, 43, 226, 0.2), transparent 38%),
-                  var(--bg);
-      color: #ffffff;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #1f1133 0%, #05030d 55%, #020006 100%);
+      color: var(--text-main);
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
       min-height: 100vh;
     }
-    .shell {
-      max-width: 1200px;
-      margin: 0 auto;
-      background: linear-gradient(140deg, rgba(0, 0, 0, 0.92), rgba(15, 15, 22, 0.9));
-      border: 3px solid var(--purple);
-      border-radius: 22px;
-      padding: 26px 22px 30px;
-      box-shadow: 0 0 35px rgba(138, 43, 226, 0.55), 0 0 65px rgba(255, 215, 0, 0.26);
+
+    .hm-page {
+      max-width: 1280px;
+      width: 100%;
+      margin: 28px auto 36px;
+      padding: 0 16px;
     }
-    h1 {
-      margin: 0 0 8px 0;
+
+    .hm-page-header {
       text-align: center;
-      font-size: 2.1rem;
-      letter-spacing: 1px;
-      background: linear-gradient(90deg, var(--purple), #9932CC, var(--gold));
+      margin-bottom: 24px;
+    }
+
+    .hm-main-title {
+      font-size: 1.9rem;
+      font-weight: 800;
+      margin: 0 0 6px;
+      background: linear-gradient(45deg, #8A2BE2, #9932CC, #ff69b4, #ffb6c1);
       -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      text-shadow: 0 0 18px rgba(138, 43, 226, 0.65);
+      color: transparent;
     }
-    .subtitle {
+
+    .hm-main-subtitle {
+      font-size: 1.02rem;
+      color: var(--text-muted);
+      max-width: 560px;
+      margin: 0 auto;
       text-align: center;
-      margin: 0 0 22px 0;
-      color: var(--gold);
-      font-weight: bold;
-      letter-spacing: 0.4px;
-    }
-    .intro {
-      text-align: center;
-      margin-bottom: 26px;
-      color: #e8e8e8;
-      line-height: 1.6;
-      font-size: 1rem;
-    }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 22px;
-      align-items: start;
-    }
-    .card {
-      background: var(--card);
-      border: 2px solid var(--gold);
-      border-radius: 18px;
-      padding: 18px 18px 22px;
-      position: relative;
-      box-shadow: 0 0 26px rgba(255, 215, 0, 0.28), 0 0 48px rgba(138, 43, 226, 0.28);
-    }
-    .card h2 {
-      margin: 0 0 6px 0;
-      text-align: center;
-      font-size: 1.35rem;
-      color: var(--gold);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-    .card .hint {
-      text-align: center;
-      color: #cfcfcf;
-      margin: 0 0 14px 0;
-      font-size: 0.95rem;
       line-height: 1.5;
     }
-    .wheel-wrap {
-      position: relative;
-      width: 100%;
+
+    /* Tabs */
+
+    .hm-tabs-wrapper {
       display: flex;
-      align-items: center;
       justify-content: center;
-      margin: 4px 0 14px 0;
+      margin: 22px 0 26px;
     }
-    canvas {
-      width: 280px;
-      height: 280px;
-      max-width: 100%;
-      border-radius: 50%;
-      box-shadow: 0 0 24px rgba(255, 215, 0, 0.25), inset 0 0 12px rgba(0, 0, 0, 0.35);
-      transition: transform 3.4s cubic-bezier(0.2, 0.8, 0.25, 1);
+
+    .hm-tabs {
+      display: inline-flex;
+      border-radius: 999px;
+      padding: 3px;
+      background: rgba(255, 255, 255, 0.05);
+      position: relative;
+      box-shadow: 0 0 35px rgba(138, 43, 226, 0.25),
+                  0 0 55px rgba(255, 105, 180, 0.18);
+      min-width: 280px;
     }
-    .pointer {
+
+    .hm-tab-btn {
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      padding: 8px 20px;
+      font-size: 0.92rem;
+      font-weight: 600;
+      cursor: pointer;
+      border-radius: 999px;
+      position: relative;
+      z-index: 1;
+      transition: color 0.15s ease, transform 0.15s ease;
+      white-space: nowrap;
+      flex: 1;
+      text-align: center;
+    }
+
+    .hm-tab-btn.hm-active {
+      color: #ffffff;
+      transform: translateY(-1px);
+    }
+
+    .hm-tab-indicator {
       position: absolute;
-      top: -12px;
+      top: 3px;
+      bottom: 3px;
+      width: 50%;
+      border-radius: 999px;
+      background: linear-gradient(45deg, #8A2BE2, #9932CC);
+      box-shadow: 0 0 26px rgba(138, 43, 226, 0.6),
+                  0 0 40px rgba(153, 50, 204, 0.4),
+                  inset 0 0 26px rgba(255, 215, 0, 0.2);
+      transition: transform 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+      z-index: 0;
+    }
+
+    .hm-tab-indicator.hm-energy {
+      background: linear-gradient(45deg, var(--pink-main), var(--pink-deep));
+      box-shadow: 0 0 14px rgba(255, 88, 199, 0.38),
+                  0 0 20px rgba(163, 43, 255, 0.28),
+                  inset 0 0 12px rgba(255, 206, 122, 0.18);
+    }
+
+    .hm-panel {
+      display: none;
+    }
+
+    .hm-panel-active {
+      display: block;
+    }
+
+    /* Panel layout */
+
+    .hm-panel-inner {
+      max-width: 1240px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(0, 1.45fr) minmax(0, 0.95fr);
+      gap: 16px;
+      align-items: start;
+    }
+
+    @media (max-width: 860px) {
+      .hm-panel-inner {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    /* Wheel box */
+
+    .hm-wheel-box {
+      border-radius: var(--radius-xl);
+      padding: 14px 14px 16px;
+      background: radial-gradient(circle at top left, rgba(138, 43, 226, 0.18), transparent 55%),
+                  radial-gradient(circle at bottom right, rgba(242, 155, 196, 0.16), transparent 55%),
+                  rgba(5, 3, 20, 0.92);
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      text-align: left;
+      gap: 12px;
+    }
+
+    .hm-wheel-box--calm {
+      background: #000000;
+      border: 3px solid var(--purple-main);
+      box-shadow:
+        0 0 35px rgba(138, 43, 226, 0.7),
+        0 0 60px rgba(138, 43, 226, 0.4);
+    }
+
+    .hm-wheel-box--energy {
+      background:
+        radial-gradient(circle at top left, rgba(255, 88, 199, 0.16), transparent 55%),
+        radial-gradient(circle at bottom right, rgba(163, 43, 255, 0.14), transparent 55%),
+        rgba(5, 3, 20, 0.94);
+      border: 3px solid var(--pink-main);
+      box-shadow:
+        0 0 18px rgba(255, 88, 199, 0.35),
+        0 0 26px rgba(163, 43, 255, 0.22);
+    }
+
+    .hm-wheel-title {
+      font-size: 1.26rem;
+      font-weight: 800;
+      margin: 4px 0 0;
+      text-align: center;
+    }
+
+    /* Gradient titles for calm section */
+    #calm-panel .hm-wheel-title,
+    #calm-panel .hm-info-title,
+    #calm-panel .hm-result-main-title {
+      background: linear-gradient(45deg, #8A2BE2, #ff69b4);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    #energy-panel .hm-wheel-title,
+    #energy-panel .hm-info-title,
+    #energy-panel .hm-result-main-title {
+      background: linear-gradient(45deg, var(--pink-main), var(--pink-deep));
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hm-wheel-subtitle {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      margin: 2px auto 6px;
+      max-width: 700px;
+      text-align: justify;
+      line-height: 1.5;
+    }
+
+    .hm-wheel-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(0, 1fr);
+      gap: 14px;
+      align-items: center;
+    }
+
+    .hm-wheel-visual-stack {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .hm-wheel-info-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    /* Controls (filters) inside wheel box */
+
+    .hm-controls-box {
+      border-radius: 18px;
+      padding: 12px 14px 14px;
+      background: rgba(8, 5, 26, 0.96);
+      border: 2px solid rgba(255, 255, 255, 0.18);
+      margin-bottom: 16px;
+      text-align: center;
+    }
+
+    .hm-wheel-box--calm .hm-controls-box {
+      border-color: rgba(138, 43, 226, 0.5);
+      box-shadow: 0 0 14px rgba(138, 43, 226, 0.25);
+    }
+
+    .hm-wheel-box--energy .hm-controls-box {
+      border-color: rgba(255, 88, 199, 0.65);
+      box-shadow: 0 0 12px rgba(163, 43, 255, 0.25);
+    }
+
+    .hm-controls-label {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+      text-align: center;
+    }
+
+    .hm-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+    }
+
+    .hm-filter-btn {
+      border: 0;
+      padding: 7px 13px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text-muted);
+      font-size: 0.82rem;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .hm-filter-btn span {
+      font-size: 0.84rem;
+    }
+
+    .hm-filter-btn.hm-active {
+      color: #ffffff;
+      box-shadow: 0 0 12px rgba(255, 255, 255, 0.16);
+      transform: translateY(-1px);
+    }
+
+    .hm-filter-btn--calm.hm-active {
+      background: linear-gradient(135deg, #8A2BE2, #9932CC);
+    }
+
+    .hm-filter-btn--energy.hm-active {
+      background: linear-gradient(135deg, var(--pink-main), var(--pink-deep));
+      border: 1px solid rgba(255, 88, 199, 0.7);
+    }
+
+    /* Wheel visual */
+
+    .hm-wheel-visual-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 4px;
+      position: relative;
+      padding-top: 4px;
+    }
+
+    .hm-wheel-pointer {
+      position: absolute;
+      top: -4px;
       left: 50%;
       transform: translateX(-50%);
       width: 0;
       height: 0;
-      border-left: 12px solid transparent;
-      border-right: 12px solid transparent;
-      border-bottom: 16px solid var(--gold);
-      filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.65));
+      border-left: 16px solid transparent;
+      border-right: 16px solid transparent;
+      border-top: 24px solid #ffffff;
+      filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.45));
+      z-index: 3;
     }
-    button.spin {
-      display: block;
-      width: 100%;
-      background: linear-gradient(45deg, var(--purple), #9932CC);
-      color: #ffffff;
-      border: 2px solid var(--gold);
-      border-radius: 14px;
-      padding: 12px 16px;
-      font-size: 1rem;
-      font-weight: bold;
-      cursor: pointer;
-      box-shadow: 0 0 18px rgba(138, 43, 226, 0.55);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    .hm-wheel-pointer::after {
+      content: none;
     }
-    button.spin:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 0 26px rgba(138, 43, 226, 0.75);
+
+    .hm-wheel-visual {
+      width: 188px;
+      height: 188px;
+      border-radius: 50%;
+      border: 6px solid #fdf7ff;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      background:
+        conic-gradient(
+          from -90deg,
+          rgba(190, 150, 255, 0.82) 0deg 60deg,
+          rgba(163, 118, 246, 0.86) 60deg 120deg,
+          rgba(218, 177, 255, 0.86) 120deg 180deg,
+          rgba(146, 93, 228, 0.88) 180deg 240deg,
+          rgba(232, 198, 255, 0.88) 240deg 300deg,
+          rgba(172, 115, 238, 0.86) 300deg 360deg
+        );
     }
-    .result {
-      margin-top: 14px;
-      text-align: center;
-      color: #ffffff;
-      font-weight: bold;
-      min-height: 40px;
-      padding: 10px 12px;
-      border-radius: 12px;
-      background: rgba(138, 43, 226, 0.14);
-      border: 1px solid rgba(255, 215, 0, 0.45);
-      box-shadow: inset 0 0 12px rgba(138, 43, 226, 0.2);
+
+    .hm-wheel-visual--calm {
+      box-shadow:
+        0 0 30px rgba(138, 43, 226, 0.85),
+        0 0 50px rgba(153, 50, 204, 0.6),
+        inset 0 0 24px rgba(15, 10, 40, 0.9);
+      border-color: rgba(255, 255, 255, 0.9);
     }
-    .badge {
+
+    .hm-wheel-visual--energy {
+      box-shadow:
+        0 0 14px rgba(225, 63, 138, 0.36),
+        0 0 20px rgba(177, 42, 208, 0.22),
+        inset 0 0 12px rgba(12, 10, 26, 0.86);
+      border-color: rgba(255, 232, 248, 0.9);
+      background:
+        conic-gradient(
+          from -90deg,
+          rgba(225, 63, 138, 0.95) 0deg 60deg,
+          rgba(177, 42, 208, 0.94) 60deg 120deg,
+          rgba(255, 143, 206, 0.96) 120deg 180deg,
+          rgba(158, 48, 185, 0.92) 180deg 240deg,
+          rgba(237, 104, 174, 0.95) 240deg 300deg,
+          rgba(204, 55, 167, 0.94) 300deg 360deg
+        );
+    }
+
+    .hm-wheel-center-dot {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #fdf7ff;
+      box-shadow: 0 0 12px rgba(255, 255, 255, 0.9);
+      z-index: 3;
+    }
+
+    .hm-wheel-ring {
       position: absolute;
-      top: 12px;
-      right: 12px;
-      background: var(--purple);
+      inset: 12px;
+      border-radius: 50%;
+      border: 2px dashed rgba(255, 255, 255, 0.4);
+      opacity: 0.9;
+      z-index: 1;
+    }
+
+    .hm-wheel-symbols {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+    }
+
+    .hm-wheel-symbol-slot {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      font-size: 1.1rem;
+      opacity: 0.9;
+      transform-origin: center center;
+      transition: font-size 0.15s ease, text-shadow 0.15s ease, opacity 0.15s ease;
+    }
+
+    /* Icon color */
+    .hm-wheel-visual .hm-wheel-symbol-slot {
+      color: var(--gold);
+      filter: grayscale(1) sepia(1) saturate(12) hue-rotate(-6deg) brightness(1.05);
+      text-shadow:
+        0 0 8px rgba(239, 216, 160, 0.68),
+        0 0 14px rgba(138, 43, 226, 0.38);
+    }
+
+    /* 6 positions on wheel, kept upright against wheel rotation */
+
+    .hm-wheel-symbols .hm-wheel-symbol-slot:nth-child(1) {
+      transform: translate(-50%, -50%) rotate(0deg) translate(0, -68px) rotate(calc(-1 * var(--wheel-rotation, 0deg)));
+    }
+    .hm-wheel-symbols .hm-wheel-symbol-slot:nth-child(2) {
+      transform: translate(-50%, -50%) rotate(60deg) translate(0, -68px) rotate(calc(-60deg - var(--wheel-rotation, 0deg)));
+    }
+    .hm-wheel-symbols .hm-wheel-symbol-slot:nth-child(3) {
+      transform: translate(-50%, -50%) rotate(120deg) translate(0, -68px) rotate(calc(-120deg - var(--wheel-rotation, 0deg)));
+    }
+    .hm-wheel-symbols .hm-wheel-symbol-slot:nth-child(4) {
+      transform: translate(-50%, -50%) rotate(180deg) translate(0, -68px) rotate(calc(-180deg - var(--wheel-rotation, 0deg)));
+    }
+    .hm-wheel-symbols .hm-wheel-symbol-slot:nth-child(5) {
+      transform: translate(-50%, -50%) rotate(240deg) translate(0, -68px) rotate(calc(-240deg - var(--wheel-rotation, 0deg)));
+    }
+    .hm-wheel-symbols .hm-wheel-symbol-slot:nth-child(6) {
+      transform: translate(-50%, -50%) rotate(300deg) translate(0, -68px) rotate(calc(-300deg - var(--wheel-rotation, 0deg)));
+    }
+
+    .hm-wheel-symbol-slot.hm-selected {
+      font-size: 1.4rem;
+      text-shadow:
+        0 0 12px rgba(239, 216, 160, 0.96),
+        0 0 18px rgba(239, 216, 160, 0.8);
+      opacity: 1;
+    }
+
+    .hm-wheel-visual {
+      transform: rotate(var(--wheel-rotation, 0deg));
+      transition: transform 0.65s ease-out;
+    }
+
+    .hm-wheel-visual.spinning {
+      animation: hm-spin 0.7s linear infinite;
+    }
+
+    @keyframes hm-spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes hm-spin-counter {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(-360deg); }
+    }
+
+    .hm-spin-btn {
+      border: 0;
+      padding: 10px 22px;
+      border-radius: 999px;
+      font-size: 0.96rem;
+      font-weight: 600;
+      cursor: pointer;
       color: #ffffff;
-      padding: 6px 10px;
-      border-radius: 12px;
-      font-weight: bold;
-      font-size: 0.75rem;
-      letter-spacing: 0.4px;
-      text-transform: uppercase;
-      box-shadow: 0 0 12px rgba(138, 43, 226, 0.55);
+      background: linear-gradient(135deg, #8A2BE2, #9932CC);
+      box-shadow: 0 10px 26px rgba(138, 43, 226, 0.7);
+      transition: transform 0.12s ease, box-shadow 0.12s ease, opacity 0.12s ease;
+      margin-bottom: 6px;
     }
-    .list {
-      margin: 14px 0 6px 0;
-      color: #e8e8e8;
+
+    .hm-spin-btn--energy {
+      background: linear-gradient(135deg, var(--pink-bright), var(--pink-deep));
+      box-shadow: 0 8px 18px rgba(255, 88, 199, 0.4);
+      border: 1px solid rgba(255, 88, 199, 0.68);
+    }
+
+    .hm-spin-btn:active {
+      transform: translateY(1px) scale(0.99);
+      box-shadow: 0 5px 18px rgba(0, 0, 0, 0.5);
+    }
+
+    .hm-wheel-note {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      max-width: 100%;
+      text-align: justify;
       line-height: 1.5;
-      font-size: 0.95rem;
-      background: rgba(0, 0, 0, 0.35);
-      border: 1px solid rgba(255, 215, 0, 0.3);
-      border-radius: 12px;
-      padding: 12px 14px;
     }
-    .list strong { color: var(--gold); }
-    .footer-note {
+
+    /* Right column */
+
+    .hm-text-column {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: stretch;
+      max-width: 440px;
+      margin: -28px auto 0;
+      align-self: flex-start;
+      padding-top: 0;
+    }
+
+    .hm-info-bar {
+      margin: 4px auto 0;
+      border-radius: var(--radius-xl);
+      padding: 8px 10px 10px;
+      background: rgba(10, 7, 29, 0.9);
+      border: 2px solid rgba(255, 215, 0, 0.18);
+      box-shadow:
+        0 0 16px rgba(255, 215, 0, 0.24),
+        inset 0 0 12px rgba(138, 43, 226, 0.12);
+      max-width: 100%;
+    }
+
+    .hm-info-bar--energy {
+      border-color: rgba(255, 88, 199, 0.75);
+      box-shadow:
+        0 0 12px rgba(163, 43, 255, 0.24),
+        inset 0 0 9px rgba(255, 88, 199, 0.18);
+    }
+
+    .hm-info-title {
+      font-size: 0.94rem;
+      font-weight: 700;
+      margin-bottom: 4px;
       text-align: center;
-      color: #dcdcdc;
-      margin-top: 24px;
-      font-size: 0.95rem;
+    }
+
+    .hm-info-text {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+      text-align: justify;
+      margin: 0 auto;
+      max-width: 680px;
+    }
+
+    .hm-result-box {
+      border-radius: var(--radius-xl);
+      padding: 10px 14px 16px;
+      background: transparent;
+      border: none;
+      min-height: 200px;
+      width: 100%;
+    }
+
+    .hm-result-main-title {
+      font-size: 1.32rem;
+      font-weight: 900;
+      margin: 0 0 10px;
+      text-align: center;
+      letter-spacing: 0.01em;
+    }
+
+    .hm-result-card {
+      border-radius: 18px;
+      padding: 14px 14px 16px;
+      background: #000000;
+    }
+
+    .hm-result-card--calm {
+      border: 3px solid var(--purple-main);
+      box-shadow:
+        0 0 35px rgba(138, 43, 226, 0.7),
+        0 0 60px rgba(138, 43, 226, 0.4);
+    }
+
+    .hm-result-card--energy {
+      border: 3px solid var(--pink-main);
+      box-shadow:
+        0 0 18px rgba(255, 88, 199, 0.38),
+        0 0 26px rgba(163, 43, 255, 0.24);
+    }
+
+    .hm-pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 8px;
+      font-size: 0.78rem;
+      justify-content: center;
+    }
+
+    .hm-pill {
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text-muted);
+      text-align: center;
+    }
+
+    .hm-pill-character {
+      background: rgba(255, 182, 193, 0.2);
+      color: #ffd6ea;
+    }
+
+    .hm-result-title {
+      font-size: 1.12rem;
+      font-weight: 800;
+      margin: 0 0 4px;
+      text-align: center;
+      background: linear-gradient(45deg, #8A2BE2, #ff69b4);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hm-result-card--energy .hm-result-title {
+      background: linear-gradient(45deg, #f2b5d6, #e667a3);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hm-result-type {
+      font-size: 0.86rem;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+      text-align: center;
+    }
+
+    .hm-result-instruction {
+      font-size: 0.96rem;
+      color: #e3ddff;
+      margin-bottom: 8px;
+      line-height: 1.6;
+      text-align: justify;
+    }
+
+    .hm-result-comment {
+      font-size: 0.9rem;
+      color: #c5bdf3;
+      font-style: italic;
+      text-align: center;
+      display: grid;
+      gap: 2px;
+    }
+
+    .hm-result-comment-signer {
+      font-weight: 700;
+      color: var(--gold);
+    }
+
+    .hm-result-comment-quote {
+      color: #dcd4ff;
+    }
+
+    .hm-empty,
+    .hm-placeholder {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      text-align: justify;
+      padding: 10px 4px;
       line-height: 1.5;
     }
+
     @media (max-width: 720px) {
-      h1 { font-size: 1.7rem; }
-      .subtitle { font-size: 1rem; }
-      canvas { height: 240px; }
+      .hm-page {
+        margin-top: 20px;
+      }
+      .hm-main-title {
+        font-size: 1.6rem;
+      }
+      .hm-wheel-visual {
+        width: 170px;
+        height: 170px;
+      }
+      .hm-text-column {
+        align-items: stretch;
+      }
+      .hm-result-box {
+        max-width: 100%;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="shell">
-    <h1>The Happy Makers Calm and Energy Wheel</h1>
-    <p class="subtitle">Two tiny tools to soften or brighten any moment</p>
-    <p class="intro">Spin a wheel, pause for a few breaths, and let the Happy Makers offer a quick reset. Calm Wheel slows everything down and brings gentle focus. Energy Wheel boosts momentum when you want to wake up, laugh, and move.</p>
-    <div class="grid">
-      <div class="card" data-wheel="calm">
-        <div class="badge">Calm</div>
-        <h2>Calm Wheel</h2>
-        <p class="hint">Choose a soothing cue to help everyone settle. Breathe, stretch, and soften together.</p>
-        <div class="wheel-wrap">
-          <div class="pointer"></div>
-          <canvas id="calmWheel" width="320" height="320" aria-label="Calm Wheel"></canvas>
-        </div>
-        <button class="spin" data-target="calm">Spin the Calm Wheel</button>
-        <div class="result" id="calmResult">Tap spin to reveal your calming cue.</div>
-        <div class="list">
-          <strong>What's inside:</strong>
-          <div>Quiet breaths, slow stretches, soft focus, whisper voices, and gentle reset prompts inspired by the Happy Makers.</div>
-        </div>
-      </div>
-      <div class="card" data-wheel="energy">
-        <div class="badge">Energy</div>
-        <h2>Energy Wheel</h2>
-        <p class="hint">Pick a playful spark to move, smile, and recharge. Quick bursts keep the fun flowing.</p>
-        <div class="wheel-wrap">
-          <div class="pointer"></div>
-          <canvas id="energyWheel" width="320" height="320" aria-label="Energy Wheel"></canvas>
-        </div>
-        <button class="spin" data-target="energy">Spin the Energy Wheel</button>
-        <div class="result" id="energyResult">Tap spin to reveal your energy boost.</div>
-        <div class="list">
-          <strong>What's inside:</strong>
-          <div>Joy jumps, mini dance breaks, quick challenges, bright breaths, and upbeat actions from the Happy Makers crew.</div>
-        </div>
+  <div class="hm-page">
+    <header class="hm-page-header">
+      <h1 class="hm-main-title">The Happy Makers Calm & Energy Wheels</h1>
+      <p class="hm-main-subtitle">
+        Two tiny tools for your family: one to slow down and soften, one to wake up and brighten - spin, stop and let the Happy Makers guide you.
+      </p>
+    </header>
+
+    <div class="hm-tabs-wrapper">
+      <div class="hm-tabs">
+        <div class="hm-tab-indicator" id="hm-tab-indicator"></div>
+        <button class="hm-tab-btn hm-active" data-panel="calm-panel" id="hm-tab-calm">
+          Calm Wheel
+        </button>
+        <button class="hm-tab-btn" data-panel="energy-panel" id="hm-tab-energy">
+          Energy Wheel
+        </button>
       </div>
     </div>
-    <div class="footer-note">Spin whenever you need a calm pause or a happy spark. Let the wheels decide, then enjoy the moment together.</div>
+
+    <!-- CALM PANEL -->
+    <section class="hm-panel hm-panel-active" id="calm-panel">
+      <div class="hm-panel-inner">
+        <!-- Left: filters + wheel -->
+        <div class="hm-wheel-box hm-wheel-box--calm">
+          <div class="hm-wheel-title">The Happy Makers Calm-Down Wheel</div>
+          <div class="hm-wheel-subtitle">
+            One-click, one-minute reset for the whole family. Use it when everyone needs a small pause, a soft landing or a calmer body and brain. Let the Happy Makers pick one tiny step toward more ease.
+          </div>
+
+          <div class="hm-wheel-layout">
+            <div class="hm-wheel-visual-stack">
+              <div class="hm-wheel-visual-wrapper">
+                <div class="hm-wheel-pointer"></div>
+                <div class="hm-wheel-visual hm-wheel-visual--calm" id="calm-wheel-visual">
+                  <div class="hm-wheel-ring"></div>
+                  <div class="hm-wheel-symbols">
+                    <div class="hm-wheel-symbol-slot" data-character="Luli">🌙</div>
+                    <div class="hm-wheel-symbol-slot" data-character="Dilo">⚽</div>
+                    <div class="hm-wheel-symbol-slot" data-character="Alio">⚡</div>
+                    <div class="hm-wheel-symbol-slot" data-character="Nini">💖</div>
+                    <div class="hm-wheel-symbol-slot" data-character="Mimi">✨</div>
+                    <div class="hm-wheel-symbol-slot" data-character="Bibi">👑</div>
+                  </div>
+                  <div class="hm-wheel-center-dot"></div>
+                </div>
+              </div>
+              <button class="hm-spin-btn" id="calm-spin-btn">
+                🎡 Start spinning
+              </button>
+            </div>
+            <div class="hm-wheel-info-stack">
+              <div class="hm-controls-box">
+                <div class="hm-controls-label">Choose what the wheel can pick from:</div>
+                <div class="hm-controls" id="calm-filters">
+                  <button class="hm-filter-btn hm-filter-btn--calm hm-active" data-filter="all">
+                    <span>All types</span>
+                  </button>
+                  <button class="hm-filter-btn hm-filter-btn--calm" data-filter="1-minute practice">
+                    <span>1-minute</span>
+                  </button>
+                  <button class="hm-filter-btn hm-filter-btn--calm" data-filter="Micro-movement">
+                    <span>Micro-movement</span>
+                  </button>
+                  <button class="hm-filter-btn hm-filter-btn--calm" data-filter="Micro-breath">
+                    <span>Micro-breath</span>
+                  </button>
+                  <button class="hm-filter-btn hm-filter-btn--calm" data-filter="Micro-connection">
+                    <span>Micro-connection</span>
+                  </button>
+                </div>
+              </div>
+              <div class="hm-wheel-note">
+                Click once to spin, click again to stop - the pointer at the top shows your icon and the Happy Makers reveal a calm-down micro-practice to try together.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: tutorial + result -->
+        <div class="hm-text-column">
+          <div class="hm-result-box">
+            <div class="hm-result-main-title">Your Micro-Practice</div>
+            <div id="calm-result">
+              <div class="hm-placeholder">
+                Spin the Calm Wheel and stop it to reveal your next tiny practice.
+              </div>
+            </div>
+          </div>
+          <div class="hm-info-bar">
+            <div class="hm-info-title">How to use the Calm Wheel</div>
+            <div class="hm-info-text">
+              Whenever your family needs a tiny pause - between tasks, after a busy moment or before bedtime - set your filter and click to spin the wheel.
+              When you feel ready, click again to stop it. The pointer at the top of the circle shows which icon your family landed on.
+              The card below will reveal a one-minute practice matched with a Happy Maker and their playful comment. Follow the instruction, stay curious and let the calm slowly spread through the room.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ENERGY PANEL -->
+    <section class="hm-panel" id="energy-panel">
+      <div class="hm-panel-inner">
+        <!-- Left: filters + wheel -->
+        <div class="hm-wheel-box hm-wheel-box--energy">
+          <div class="hm-wheel-title">The Happy Makers Energy Wheel</div>
+          <div class="hm-wheel-subtitle">
+            One-minute boosts for days that feel a little slow. Use it when everyone needs gentle movement, a brighter mood or a quick wake-up spark - without overwhelming anyone.
+          </div>
+
+          <div class="hm-wheel-layout">
+            <div class="hm-wheel-visual-stack">
+              <div class="hm-wheel-visual-wrapper">
+                <div class="hm-wheel-pointer"></div>
+                <div class="hm-wheel-visual hm-wheel-visual--energy" id="energy-wheel-visual">
+                  <div class="hm-wheel-ring"></div>
+                  <div class="hm-wheel-symbols">
+                    <div class="hm-wheel-symbol-slot" data-character="Luli">🌙</div>
+                    <div class="hm-wheel-symbol-slot" data-character="Dilo">⚽</div>
+                    <div class="hm-wheel-symbol-slot" data-character="Alio">⚡</div>
+                    <div class="hm-wheel-symbol-slot" data-character="Nini">💖</div>
+                    <div class="hm-wheel-symbol-slot" data-character="Mimi">✨</div>
+                    <div class="hm-wheel-symbol-slot" data-character="Bibi">👑</div>
+                  </div>
+                  <div class="hm-wheel-center-dot"></div>
+                </div>
+              </div>
+              <button class="hm-spin-btn hm-spin-btn--energy" id="energy-spin-btn">
+                ⚡ Start spinning
+              </button>
+            </div>
+            <div class="hm-wheel-info-stack">
+              <div class="hm-controls-box">
+                <div class="hm-controls-label">Choose what the wheel can pick from:</div>
+                <div class="hm-controls" id="energy-filters">
+                  <button class="hm-filter-btn hm-filter-btn--energy hm-active" data-filter="all">
+                    <span>All types</span>
+                  </button>
+                  <button class="hm-filter-btn hm-filter-btn--energy" data-filter="1-minute practice">
+                    <span>1-minute</span>
+                  </button>
+                  <button class="hm-filter-btn hm-filter-btn--energy" data-filter="Micro-movement">
+                    <span>Micro-movement</span>
+                  </button>
+                  <button class="hm-filter-btn hm-filter-btn--energy" data-filter="Micro-breath">
+                    <span>Micro-breath</span>
+                  </button>
+                  <button class="hm-filter-btn hm-filter-btn--energy" data-filter="Micro-connection">
+                    <span>Micro-connection</span>
+                  </button>
+                </div>
+              </div>
+              <div class="hm-wheel-note">
+                Click once to spin, click again to stop - the pointer at the top shows your icon and the Happy Makers send a playful energy micro-boost straight into your day.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: tutorial + result -->
+        <div class="hm-text-column">
+          <div class="hm-result-box">
+            <div class="hm-result-main-title">Your Micro-Boost</div>
+            <div id="energy-result">
+              <div class="hm-placeholder">
+                Spin the Energy Wheel and stop it to reveal your next tiny boost.
+              </div>
+            </div>
+          </div>
+          <div class="hm-info-bar hm-info-bar--energy">
+            <div class="hm-info-title">How to use the Energy Wheel</div>
+            <div class="hm-info-text">
+              When your family feels low on fuel - sleepy, sluggish or just "meh" - set your filter and spin the Energy Wheel. Once it is moving, click again to stop it and look at the icon beneath the pointer at the top of the circle.
+              The card below will reveal a quick energy boost: a small movement, breath or connection spark designed to wake up bodies, brains and smiles. Use it as a tiny reset button you can press together.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   </div>
+
   <script>
-    const wheels = {
-      calm: {
-        canvas: document.getElementById('calmWheel'),
-        resultEl: document.getElementById('calmResult'),
-        rotation: 0,
-        slices: [
-          'Four-count belly breaths',
-          'Shoulder roll and slow blink',
-          'Stretch arms up, then melt down',
-          'Whisper-count to ten together',
-          'Hand on heart, feel your beat',
-          'Slow neck circle and smile',
-          'Inhale calm, exhale wiggles',
-          'Cozy hug or self-hug',
-          'Trace a small infinity in the air',
-          'Listen for three soft sounds',
-          'Pretend to blow a candle out',
-          'Sit tall, soften face and jaw'
-        ]
+    /* ---------- DATA: CALM PRACTICES ---------- */
+    const calmPractices = [
+      // 1-minute practice
+      {
+        id: 1,
+        category: "1-minute practice",
+        title: "Quiet Detective Minute",
+        instruction: `Sit or stand together and stay completely silent for one minute. Just notice what you feel in your body and what tiny details you can see or hear.`,
+        character: "Luli",
+        comment: `Luli's Note: "One quiet minute = at least three new clues about your own mood."`
       },
-      energy: {
-        canvas: document.getElementById('energyWheel'),
-        resultEl: document.getElementById('energyResult'),
-        rotation: 0,
-        slices: [
-          'Happy hops to ten',
-          'Mini dance party',
-          'Robot walk to the door',
-          'Fast hands, slow feet',
-          'Balance on one leg and switch',
-          'Superhero pose and grin',
-          'Clap a rhythm, repeat it',
-          'Spin once, land like a star',
-          'Jump, freeze, then wiggle',
-          'March with high knees',
-          'Make the silliest face',
-          'Stretch tall, then tiny ball'
-        ]
+      {
+        id: 2,
+        category: "1-minute practice",
+        title: "Window of Calm",
+        instruction: `Look out of the window (or at one spot in the room) and quietly find three things you have never noticed properly before.`,
+        character: "Dilo",
+        comment: `Dilo's Note: "Level up your focus: new details are like hidden Easter eggs for your brain."`
+      },
+      {
+        id: 3,
+        category: "1-minute practice",
+        title: "Head-to-Toe Scan",
+        instruction: `Close your eyes and gently move your attention from the top of your head down to your toes, relaxing each part as you go.`,
+        character: "Mimi",
+        comment: `Mimi's Note: "Upgrade to deluxe mode: release tension like you are uninstalling old apps."`
+      },
+      {
+        id: 4,
+        category: "1-minute practice",
+        title: "Sound Layers Minute",
+        instruction: `Sit still and listen for: 1) sounds close to you, 2) sounds farther away, 3) the quiet space in between.`,
+        character: "Bibi",
+        comment: `Bibi's Note: "Grandma trick: when I listen carefully, my brain stops shouting and starts sipping tea."`
+      },
+      {
+        id: 5,
+        category: "1-minute practice",
+        title: "Gratitude Glow",
+        instruction: `Everyone silently chooses one thing they are grateful for and just holds that feeling gently for one minute.`,
+        character: "Nini",
+        comment: `Nini's Note: "Tiny secret: grateful hearts make the best cuddle spots."`
+      },
+      {
+        id: 6,
+        category: "1-minute practice",
+        title: "Invisible Snow Globe",
+        instruction: `Close your eyes and imagine your thoughts like glitter swirling in a snow globe. Watch them slowly fall and settle.`,
+        character: "Alio",
+        comment: `Alio's Note: "No shaking allowed. Today we are calm snow, not a snow storm."`
+      },
+      {
+        id: 7,
+        category: "1-minute practice",
+        title: "Sip & Pause",
+        instruction: `Take a small sip of water or tea. For one minute, focus only on taste, warmth and the feeling of the cup in your hand.`,
+        character: "Mimi",
+        comment: `Mimi's Note: "Multitasking is cancelled. For sixty seconds, you and your drink are the main event."`
+      },
+      {
+        id: 8,
+        category: "1-minute practice",
+        title: "Supported by the Floor",
+        instruction: `Sit or lie down and feel how the floor, chair or sofa is holding your body. Let yourself sink a tiny bit deeper into that support.`,
+        character: "Luli",
+        comment: `Luli's Note: "Plot twist: the ground has been your quiet bodyguard this whole time."`
+      },
+      {
+        id: 9,
+        category: "1-minute practice",
+        title: "Blink & Rest",
+        instruction: `Soften your gaze or close your eyes. For one minute, give your eyes a break: slow blinking, no screens, just gentle looking.`,
+        character: "Dilo",
+        comment: `Dilo's Note: "Pro tip: even heroes and gamers need an eye cooldown."`
+      },
+      {
+        id: 10,
+        category: "1-minute practice",
+        title: "Inside Weather Check",
+        instruction: `Ask yourself: "If my feelings were weather right now, what would they be?" Just notice the answer without changing it.`,
+        character: "Bibi",
+        comment: `Bibi's Note: "Rain, sun or tiny emotional tornado - all weather is allowed here."`
+      },
+
+      // Micro-movement
+      {
+        id: 11,
+        category: "Micro-movement",
+        title: "Shoulder Cloud Roll",
+        instruction: `Slowly roll your shoulders up, back and down 5-8 times while breathing calmly.`,
+        character: "Mimi",
+        comment: `Mimi's Note: "Goodbye, 'I carry the world on my shoulders' posture."`
+      },
+      {
+        id: 12,
+        category: "Micro-movement",
+        title: "Cat Wake-Up Stretch",
+        instruction: `Reach your arms up as high as you can, then gently to the sides, like a cat doing a luxurious morning stretch.`,
+        character: "Luli",
+        comment: `Luli's Note: "Stretch as if you had nine lives and one minute to enjoy each."`
+      },
+      {
+        id: 13,
+        category: "Micro-movement",
+        title: "Gentle Shake-Out",
+        instruction: `For 10-15 seconds, gently shake your hands, then arms, then legs. Slow and soft, not wild.`,
+        character: "Alio",
+        comment: `Alio's Note: "This is the low-chaos version of my usual energy."`
+      },
+      {
+        id: 14,
+        category: "Micro-movement",
+        title: "Invisible Wall Push",
+        instruction: `Place your palms in front of you and pretend to push a heavy wall away for 5 slow breaths.`,
+        character: "Dilo",
+        comment: `Dilo's Note: "You are not just pushing the wall. You are pushing the stress back into its box."`
+      },
+      {
+        id: 15,
+        category: "Micro-movement",
+        title: "Jelly Face Reset",
+        instruction: `Scrunch up your whole face tight, hold for 3 seconds, then relax completely like jelly. Repeat 3 times.`,
+        character: "Nini",
+        comment: `Nini's Note: "Warning: may cause giggles and slightly ridiculous faces."`
+      },
+      {
+        id: 16,
+        category: "Micro-movement",
+        title: "Tree Trunk Legs",
+        instruction: `Stand with feet firmly on the ground, knees soft. Imagine roots growing from your feet into the earth for 5-8 breaths.`,
+        character: "Bibi",
+        comment: `Bibi's Note: "Strong roots, soft heart - best combo."`
+      },
+      {
+        id: 17,
+        category: "Micro-movement",
+        title: "Neck Rainbow",
+        instruction: `Gently move your head to look right, then left, then slowly down and up - like drawing a slow rainbow with your nose.`,
+        character: "Mimi",
+        comment: `Mimi's Note: "Slow motion only. This is spa mode, not action movie mode."`
+      },
+      {
+        id: 18,
+        category: "Micro-movement",
+        title: "Star & Hug",
+        instruction: `Stretch arms and legs out wide like a star for 3 breaths, then wrap your arms around yourself for a mini self-hug. Repeat twice.`,
+        character: "Nini",
+        comment: `Nini's Note: "Shine big, then hug the star you are."`
+      },
+      {
+        id: 19,
+        category: "Micro-movement",
+        title: "Slow-March Reset",
+        instruction: `March in place very slowly for 20-30 seconds, feeling each foot roll from heel to toes.`,
+        character: "Dilo",
+        comment: `Dilo's Note: "Like walking to a big match... but in super chill mode."`
+      },
+      {
+        id: 20,
+        category: "Micro-movement",
+        title: "Tiny Toes & Fingers Dance",
+        instruction: `Wiggle your toes and fingers gently for 10-20 seconds, paying attention to each little movement.`,
+        character: "Alio",
+        comment: `Alio's Note: "Even tiny body parts like to party a bit."`
+      },
+
+      // Micro-breath
+      {
+        id: 21,
+        category: "Micro-breath",
+        title: "4-6 Calm Breath",
+        instruction: `Inhale through the nose for a count of 4, exhale slowly for a count of 6. Repeat for 5-8 breaths.`,
+        character: "Luli",
+        comment: `Luli's Note: "Longer exhale = secret code for 'Dear nervous system, relax please'."`
+      },
+      {
+        id: 22,
+        category: "Micro-breath",
+        title: "Box Breath",
+        instruction: `Inhale 4 counts, hold 4, exhale 4, hold 4. Repeat 4 rounds.`,
+        character: "Mimi",
+        comment: `Mimi's Note: "Perfect little square of calm - no geometry homework required."`
+      },
+      {
+        id: 23,
+        category: "Micro-breath",
+        title: "Flower & Candle Breath",
+        instruction: `Pretend you smell a flower (inhale through the nose), then gently blow out a candle (soft exhale through the mouth). Repeat 6-8 times.`,
+        character: "Nini",
+        comment: `Nini's Note: "Pretty smell in, cozy candle out. Very serious science, obviously."`
+      },
+      {
+        id: 24,
+        category: "Micro-breath",
+        title: "Shoulder Wave Breath",
+        instruction: `Inhale and lift your shoulders slightly; exhale and let them melt down. Repeat 6-10 times.`,
+        character: "Alio",
+        comment: `Alio's Note: "Mini rollercoaster, maximum calm."`
+      },
+      {
+        id: 25,
+        category: "Micro-breath",
+        title: "Heart Hand Breath",
+        instruction: `Place one hand on your chest and feel it rise and fall with each breath for 30-60 seconds.`,
+        character: "Bibi",
+        comment: `Bibi's Note: "Your heart has been working overtime. This is its tiny coffee break."`
+      },
+      {
+        id: 26,
+        category: "Micro-breath",
+        title: "Color-In, Grey-Out Breath",
+        instruction: `Choose a calm color. Inhale imagining that color filling you; exhale imagining grey stress leaving your body.`,
+        character: "Luli",
+        comment: `Luli's Note: "Paint your insides in your favorite calm."`
+      },
+      {
+        id: 27,
+        category: "Micro-breath",
+        title: "Three Soft Sighs",
+        instruction: `Inhale gently, then exhale with a long soft sigh. Repeat 3 times.`,
+        character: "Mimi",
+        comment: `Mimi's Note: "Designer sighs only - dramatic but kind to your nervous system."`
+      },
+      {
+        id: 28,
+        category: "Micro-breath",
+        title: "Snake Breath",
+        instruction: `Inhale through the nose, then exhale slowly with a long "ssssss" sound. Repeat 4-6 times.`,
+        character: "Dilo",
+        comment: `Dilo's Note: "Welcome to Level Snake: stealthy calm unlocked."`
+      },
+      {
+        id: 29,
+        category: "Micro-breath",
+        title: "Balloon Belly Breath",
+        instruction: `Put your hands on your belly. Inhale to puff it out like a balloon, exhale to let it gently deflate. Repeat 6-8 times.`,
+        character: "Nini",
+        comment: `Nini's Note: "Important rule: balloon belly is cute, not silly."`
+      },
+      {
+        id: 30,
+        category: "Micro-breath",
+        title: "5-4-3-2-1 Breath",
+        instruction: `Inhale to a comfortable count of 5, exhale to 4. Next breath in 4, out 3, then 3-2, 2-1.`,
+        character: "Alio",
+        comment: `Alio's Note: "Countdown, but instead of rockets, we launch calm."`
+      },
+
+      // Micro-connection
+      {
+        id: 31,
+        category: "Micro-connection",
+        title: "Smile & Eyes High-Five",
+        instruction: `Turn to someone, look into their eyes for 3-5 seconds and share a gentle smile.`,
+        character: "Nini",
+        comment: `Nini's Note: "Warning: strong chance of instant warm fuzzies."`
+      },
+      {
+        id: 32,
+        category: "Micro-connection",
+        title: "Hand Squeeze Signal",
+        instruction: `Hold someone's hand and give one slow squeeze that means "I am here with you".`,
+        character: "Mimi",
+        comment: `Mimi's Note: "Zero words. Maximum message."`
+      },
+      {
+        id: 33,
+        category: "Micro-connection",
+        title: "One-Word Compliment Toss",
+        instruction: `Each person says one word they admire about someone else in the room.`,
+        character: "Luli",
+        comment: `Luli's Note: "Like throwing tiny golden stickers on each other's hearts."`
+      },
+      {
+        id: 34,
+        category: "Micro-connection",
+        title: "Back-to-Back Breathing",
+        instruction: `Sit back-to-back and breathe slowly, feeling the other person's back move with each breath.`,
+        character: "Dilo",
+        comment: `Dilo's Note: "Two spines, one shared rhythm. Very advanced teamwork."`
+      },
+      {
+        id: 35,
+        category: "Micro-connection",
+        title: "Thank-You Look",
+        instruction: `Choose one person and give them a soft, grateful look for 3 seconds, thinking of one thing you appreciate about them.`,
+        character: "Bibi",
+        comment: `Bibi's Note: "Grandma tip: a thankful look often says more than a long speech."`
+      },
+      {
+        id: 36,
+        category: "Micro-connection",
+        title: "High-Five of the Moment",
+        instruction: `Give someone a gentle high-five and say: "We made it to this moment".`,
+        character: "Alio",
+        comment: `Alio's Note: "Instant team upgrade: unlocked."`
+      },
+      {
+        id: 37,
+        category: "Micro-connection",
+        title: "Now-Moment Share",
+        instruction: `Each person finishes the sentence: "Right now I like that..." and names something small in this moment.`,
+        character: "Luli",
+        comment: `Luli's Note: "Tiny honest sentence = big clarity boost."`
+      },
+      {
+        id: 38,
+        category: "Micro-connection",
+        title: "Heart Weather Share",
+        instruction: `Go around and let everyone say one "weather word" for their heart (sunny, cloudy, breezy, stormy...). No fixing, just listening.`,
+        character: "Nini",
+        comment: `Nini's Note: "All heart weather is welcome, even emotional drizzle."`
+      },
+      {
+        id: 39,
+        category: "Micro-connection",
+        title: "Hands-In Stack",
+        instruction: `Everyone puts one hand in the middle, stack-style. Take one deep breath together, then gently release.`,
+        character: "Mimi",
+        comment: `Mimi's Note: "Like a team huddle, but softer and without the shouting."`
+      },
+      {
+        id: 40,
+        category: "Micro-connection",
+        title: "Tiny Sorry, Tiny Repair",
+        instruction: `If someone feels ready, they say one short "I'm sorry for..." about something from today. The group responds with a simple "Thank you".`,
+        character: "Bibi",
+        comment: `Bibi's Note: "Small apology, big courage. That is real strength."`
       }
-    };
+    ];
 
-    const segmentColors = ['#8A2BE2', '#9932CC', '#B86BFF', '#6A1BA2'];
+    /* ---------- DATA: ENERGY PRACTICES ---------- */
+    const energyPractices = [
+      // 1-minute practice
+      {
+        id: 1,
+        category: "1-minute practice",
+        title: "Light-Up Minute",
+        instruction: `Stand tall, take one energizing breath and imagine switching on a bright inner light from head to toe.`,
+        character: "Bibi",
+        comment: `Bibi's Note: "Shine, darling. Even lamps need a moment to switch on."`
+      },
+      {
+        id: 2,
+        category: "1-minute practice",
+        title: "Happy Jump Start",
+        instruction: `Do tiny, soft hops in place for about 20 seconds - just enough to wake up your energy without getting exhausted.`,
+        character: "Alio",
+        comment: `Alio's Note: "Mini jumps, maximum zoom."`
+      },
+      {
+        id: 3,
+        category: "1-minute practice",
+        title: "Wake Up My Brain Clap",
+        instruction: `Clap once in front, once behind your back, once above your head. Repeat this pattern three times in a row.`,
+        character: "Mimi",
+        comment: `Mimi's Note: "Brain activated. You are welcome."`
+      },
+      {
+        id: 4,
+        category: "1-minute practice",
+        title: "Rainbow Refresh",
+        instruction: `Picture a rainbow sweeping through your body from head to toes, bringing bright, playful energy as it moves.`,
+        character: "Luli",
+        comment: `Luli's Note: "Color therapy... simplified."`
+      },
+      {
+        id: 5,
+        category: "1-minute practice",
+        title: "Spark Scan",
+        instruction: `Scan your body and find one place that feels sleepy. Imagine sending a tiny burst of light and breath into that spot.`,
+        character: "Dilo",
+        comment: `Dilo's Note: "Internal Wi-Fi: reconnecting..."`
+      },
+      {
+        id: 6,
+        category: "1-minute practice",
+        title: "Energy Wink",
+        instruction: `Wink at someone, exchange a smile and add a tiny celebratory finger snap or wiggle.`,
+        character: "Nini",
+        comment: `Nini's Note: "Warning: may cause giggles."`
+      },
+      {
+        id: 7,
+        category: "1-minute practice",
+        title: "Brain Switch Flip",
+        instruction: `Close your eyes, inhale deeply, open your eyes quickly and say one energizing word out loud.`,
+        character: "Alio",
+        comment: `Alio's Note: "Choose a powerful word... like 'ZOOM!'."`
+      },
+      {
+        id: 8,
+        category: "1-minute practice",
+        title: "Posture Pop-Up",
+        instruction: `Sit or stand up tall like a superhero, shoulders back, chin gently lifted, for 20-30 seconds.`,
+        character: "Mimi",
+        comment: `Mimi's Note: "Instant upgrade: activated."`
+      },
+      {
+        id: 9,
+        category: "1-minute practice",
+        title: "Light-Feet Shuffle",
+        instruction: `Shuffle your feet quickly left-right-left-right for about 10 seconds, keeping your steps light.`,
+        character: "Dilo",
+        comment: `Dilo's Note: "Good footwork. Coach approves."`
+      },
+      {
+        id: 10,
+        category: "1-minute practice",
+        title: "Minute of Boldness",
+        instruction: `For one minute, imagine you are 10% braver. Let that shape your posture, your face or one small choice.`,
+        character: "Luli",
+        comment: `Luli's Note: "Confidence: downloaded."`
+      },
 
-    function drawWheel(ctx, slices) {
-      const { width, height } = ctx.canvas;
-      const radius = Math.min(width, height) / 2 - 6;
-      const centerX = width / 2;
-      const centerY = height / 2;
-      const angle = (Math.PI * 2) / slices.length;
-      ctx.clearRect(0, 0, width, height);
-      slices.forEach((label, index) => {
-        const start = index * angle;
-        const end = start + angle;
-        ctx.beginPath();
-        ctx.moveTo(centerX, centerY);
-        ctx.arc(centerX, centerY, radius, start, end);
-        ctx.closePath();
-        ctx.fillStyle = segmentColors[index % segmentColors.length];
-        ctx.fill();
-        ctx.strokeStyle = '#ffd700';
-        ctx.lineWidth = 2;
-        ctx.stroke();
+      // Micro-movement
+      {
+        id: 11,
+        category: "Micro-movement",
+        title: "Rocket Arms",
+        instruction: `Swing your arms gently back and forth, gradually a bit faster, for about 15 seconds while staying relaxed.`,
+        character: "Alio",
+        comment: `Alio's Note: "This is pre-launch."`
+      },
+      {
+        id: 12,
+        category: "Micro-movement",
+        title: "Wake-Up Twist",
+        instruction: `Turn your upper body slowly left and right while keeping your hips facing forward.`,
+        character: "Bibi",
+        comment: `Bibi's Note: "Twist like you are checking who took the last cookie."`
+      },
+      {
+        id: 13,
+        category: "Micro-movement",
+        title: "Shoulder Pop",
+        instruction: `Lift one shoulder up and let it drop, then the other. Make a gentle rhythm out of it.`,
+        character: "Nini",
+        comment: `Nini's Note: "Shoulders dancing = mood dancing."`
+      },
+      {
+        id: 14,
+        category: "Micro-movement",
+        title: "High-Reach Stretch",
+        instruction: `Reach both arms up to the sky, maybe stand on your tiptoes, then relax your arms down.`,
+        character: "Mimi",
+        comment: `Mimi's Note: "Stretch like your dreams are stored on the top shelf."`
+      },
+      {
+        id: 15,
+        category: "Micro-movement",
+        title: "Happy Core Wiggle",
+        instruction: `Gently wiggle your hips in a small circle or side to side, starting slow and maybe a little faster.`,
+        character: "Alio",
+        comment: `Alio's Note: "This is advanced silliness. Excellent form."`
+      },
+      {
+        id: 16,
+        category: "Micro-movement",
+        title: "Fast Fingers",
+        instruction: `Tap each finger to your thumb quickly on both hands for 10-20 seconds.`,
+        character: "Dilo",
+        comment: `Dilo's Note: "Finger speed training: level unlocked."`
+      },
+      {
+        id: 17,
+        category: "Micro-movement",
+        title: "Power Stomp",
+        instruction: `Do two firm but controlled stomps with your feet to wake your legs up.`,
+        character: "Bibi",
+        comment: `Bibi's Note: "Walk like you mean business."`
+      },
+      {
+        id: 18,
+        category: "Micro-movement",
+        title: "Side-Step Shuffle",
+        instruction: `Step side-to-side in a quick but easy rhythm for about 15 seconds.`,
+        character: "Luli",
+        comment: `Luli's Note: "Left-right-left... beautiful choreography."`
+      },
+      {
+        id: 19,
+        category: "Micro-movement",
+        title: "Sunshine Chest Open",
+        instruction: `Pull your shoulders gently back, open your chest and take one big energizing breath.`,
+        character: "Mimi",
+        comment: `Mimi's Note: "A confident chest is the best accessory."`
+      },
+      {
+        id: 20,
+        category: "Micro-movement",
+        title: "Energy Snap Circle",
+        instruction: `Snap your fingers (or gently tap your fingers) in a circle around your body like you are waking up your space.`,
+        character: "Nini",
+        comment: `Nini's Note: "Snap like you found something exciting!"`
+      },
 
-        ctx.save();
-        ctx.translate(centerX, centerY);
-        ctx.rotate(start + angle / 2);
-        ctx.textAlign = 'right';
-        ctx.fillStyle = '#fff';
-        ctx.font = 'bold 13px Arial';
-        const padding = 12;
-        ctx.fillText(label, radius - padding, 4);
-        ctx.restore();
+      // Micro-breath
+      {
+        id: 21,
+        category: "Micro-breath",
+        title: "Firefly Breath",
+        instruction: `Inhale normally, then exhale in tiny upbeat pulses, like "t-t-t-t-t", as if sending out little sparks of light.`,
+        character: "Nini",
+        comment: `Nini's Note: "Little sparks everywhere!"`
+      },
+      {
+        id: 22,
+        category: "Micro-breath",
+        title: "Energizing Lion Breath",
+        instruction: `Inhale deeply, then exhale with a playful "HAAA" while opening your mouth wide and widening your eyes.`,
+        character: "Alio",
+        comment: `Alio's Note: "Rawr = energy."`
+      },
+      {
+        id: 23,
+        category: "Micro-breath",
+        title: "Power Nose Breath",
+        instruction: `Take short sharp inhales and sharp exhales through your nose 10 times in a row, then rest.`,
+        character: "Dilo",
+        comment: `Dilo's Note: "Fast breath, fast focus."`
+      },
+      {
+        id: 24,
+        category: "Micro-breath",
+        title: "Balloon Boost Breath",
+        instruction: `Inhale and puff your cheeks out, hold for a moment, then blow the air out like a small power burst.`,
+        character: "Bibi",
+        comment: `Bibi's Note: "Graceful? No. Effective? Yes."`
+      },
+      {
+        id: 25,
+        category: "Micro-breath",
+        title: "Color Pop Breath",
+        instruction: `Choose a bright color; inhale imagining it entering your body, exhale imagining that color lighting you up from inside.`,
+        character: "Luli",
+        comment: `Luli's Note: "Internal fireworks... the gentle kind."`
+      },
+      {
+        id: 26,
+        category: "Micro-breath",
+        title: "Sharp 'Yes!' Breath",
+        instruction: `Inhale deeply, exhale while saying a quiet but confident "Yes" and feel it in your body.`,
+        character: "Mimi",
+        comment: `Mimi's Note: "Confidence exhaled."`
+      },
+      {
+        id: 27,
+        category: "Micro-breath",
+        title: "Alert Breath",
+        instruction: `Take one short inhale and a longer, slightly faster exhale. Repeat 6 times, staying relaxed.`,
+        character: "Alio",
+        comment: `Alio's Note: "Like blowing dust off your energy."`
+      },
+      {
+        id: 28,
+        category: "Micro-breath",
+        title: "Warm Hands Breath",
+        instruction: `Rub your hands together quickly while breathing steadily until they feel warm.`,
+        character: "Nini",
+        comment: `Nini's Note: "Magic hands activated."`
+      },
+      {
+        id: 29,
+        category: "Micro-breath",
+        title: "Smile Breath",
+        instruction: `Inhale normally; on the exhale, let a small gentle smile appear on your face.`,
+        character: "Bibi",
+        comment: `Bibi's Note: "Smiling is basically emotional caffeine."`
+      },
+      {
+        id: 30,
+        category: "Micro-breath",
+        title: "Triple Boost Breath",
+        instruction: `Take three quick mini inhales in a row, then one long exhale. Repeat a few times.`,
+        character: "Dilo",
+        comment: `Dilo's Note: "Turbo mode engaged."`
+      },
+
+      // Micro-connection
+      {
+        id: 31,
+        category: "Micro-connection",
+        title: "Power Compliment",
+        instruction: `Give someone one warm, energetic compliment about something they did or how they are.`,
+        character: "Nini",
+        comment: `Nini's Note: "Instant sparkle delivery."`
+      },
+      {
+        id: 32,
+        category: "Micro-connection",
+        title: "3-Second Cheer",
+        instruction: `Cheer loudly and joyfully for someone in the room for exactly three seconds.`,
+        character: "Alio",
+        comment: `Alio's Note: "YES! That is the spirit!"`
+      },
+      {
+        id: 33,
+        category: "Micro-connection",
+        title: "Energy Mirror",
+        instruction: `One person makes a short energetic move; the others copy it like a mirror.`,
+        character: "Mimi",
+        comment: `Mimi's Note: "Copy wisely."`
+      },
+      {
+        id: 34,
+        category: "Micro-connection",
+        title: "High-Five Chain",
+        instruction: `Everyone high-fives everyone else once. Extra points for eye contact and smiles.`,
+        character: "Dilo",
+        comment: `Dilo's Note: "Team energy upgraded."`
+      },
+      {
+        id: 35,
+        category: "Micro-connection",
+        title: "Victory Pose Together",
+        instruction: `Stand tall with feet strong, hands up, superhero style and hold for 5 seconds.`,
+        character: "Luli",
+        comment: `Luli's Note: "Confidence shared multiplies."`
+      },
+      {
+        id: 36,
+        category: "Micro-connection",
+        title: "Synchronized Clap",
+        instruction: `Count "1-2-3" together, then clap at exactly the same time.`,
+        character: "Bibi",
+        comment: `Bibi's Note: "Perfect timing = perfect family jazz."`
+      },
+      {
+        id: 37,
+        category: "Micro-connection",
+        title: "Micro Celebration",
+        instruction: `Make a tiny celebration move or gesture for something you did well today.`,
+        character: "Nini",
+        comment: `Nini's Note: "Mini win = mini dance."`
+      },
+      {
+        id: 38,
+        category: "Micro-connection",
+        title: "Cheer Circle",
+        instruction: `One person says something brave they did today; everyone gives them a short cheer.`,
+        character: "Alio",
+        comment: `Alio's Note: "Applause is fuel."`
+      },
+      {
+        id: 39,
+        category: "Micro-connection",
+        title: "Shared Smile Boost",
+        instruction: `Everyone smiles at the same time for three seconds, then relaxes and notices how it feels.`,
+        character: "Mimi",
+        comment: `Mimi's Note: "Group sparkle: activated."`
+      },
+      {
+        id: 40,
+        category: "Micro-connection",
+        title: "'We Got This' Moment",
+        instruction: `Everyone puts one hand in the middle and says together: "We got this!".`,
+        character: "Dilo",
+        comment: `Dilo's Note: "Energy teamwork: complete."`
+      }
+    ];
+
+    /* ---------- WHEEL LOGIC ---------- */
+
+    function renderPracticeCard(practice, targetElement, theme) {
+      if (!practice) {
+        targetElement.innerHTML =
+          '<div class="hm-empty">No practices found for this filter.</div>';
+        return;
+      }
+
+      const themeClass =
+        theme === "energy" ? "hm-result-card hm-result-card--energy" : "hm-result-card hm-result-card--calm";
+
+      const [speakerRaw, ...quoteParts] = practice.comment.split(":");
+      const speaker = (speakerRaw || "").trim();
+      const quote = quoteParts.join(":").trim();
+
+      targetElement.innerHTML = `
+        <article class="${themeClass}">
+          <div class="hm-pill-row">
+            <div class="hm-pill">${practice.category}</div>
+            <div class="hm-pill hm-pill-character">With ${practice.character}</div>
+          </div>
+          <h2 class="hm-result-title">${practice.title}</h2>
+          <div class="hm-result-type">Family micro-practice</div>
+          <p class="hm-result-instruction">${practice.instruction}</p>
+          <div class="hm-result-comment">
+            <div class="hm-result-comment-signer">${speaker}</div>
+            <div class="hm-result-comment-quote">${quote}</div>
+          </div>
+        </article>
+      `;
+    }
+
+    function clearSelectedIcon(wheelEl) {
+      if (!wheelEl) return;
+      const symbolsContainer = wheelEl.querySelector(".hm-wheel-symbols");
+      if (!symbolsContainer) return;
+      symbolsContainer
+        .querySelectorAll(".hm-wheel-symbol-slot.hm-selected")
+        .forEach(slot => slot.classList.remove("hm-selected"));
+    }
+
+    function highlightIconAtIndex(wheelEl, index = 0) {
+      if (!wheelEl) return;
+      const symbolsContainer = wheelEl.querySelector(".hm-wheel-symbols");
+      if (!symbolsContainer) return;
+      const slots = symbolsContainer.querySelectorAll(".hm-wheel-symbol-slot");
+      if (!slots.length) return;
+
+      const safeIndex = Math.max(0, Math.min(index, slots.length - 1));
+      clearSelectedIcon(wheelEl);
+      slots[safeIndex].classList.add("hm-selected");
+    }
+
+    function setupWheel(options) {
+      const {
+        practices,
+        spinButtonId,
+        resultContainerId,
+        filterContainerId,
+        wheelElementId,
+        theme
+      } = options;
+
+      let currentFilter = "all";
+      let isSpinning = false;
+      const slotCharacters = ["Luli", "Dilo", "Alio", "Nini", "Mimi", "Bibi"];
+
+      const spinBtn = document.getElementById(spinButtonId);
+      const resultEl = document.getElementById(resultContainerId);
+      const filterContainer = document.getElementById(filterContainerId);
+      const filterButtons = filterContainer.querySelectorAll(".hm-filter-btn");
+      const wheelEl = document.getElementById(wheelElementId);
+      let lastPracticeId = null;
+
+      function getFilteredList() {
+        if (currentFilter === "all") return practices;
+        return practices.filter(p => p.category === currentFilter);
+      }
+
+      function spinStopToggle() {
+        if (!isSpinning) {
+          // Start spinning, reset selection
+          isSpinning = true;
+          if (wheelEl) {
+            wheelEl.classList.add("spinning");
+            wheelEl.style.transition = "none";
+            wheelEl.style.setProperty("--wheel-rotation", "0deg");
+            clearSelectedIcon(wheelEl);
+          }
+          resultEl.innerHTML = `<div class="hm-placeholder">${
+            theme === "energy"
+              ? "Wheel spinning... click again to stop and see your next energy boost."
+              : "Wheel spinning... click again to stop and see your next calm-down practice."
+          }</div>`;
+          spinBtn.textContent =
+            theme === "energy" ? "⚡ Stop & reveal" : "🎡 Stop & reveal";
+        } else {
+          // Stop spinning, pick practice and highlight top icon
+          isSpinning = false;
+          if (wheelEl) {
+            wheelEl.classList.remove("spinning");
+          }
+
+          const filteredList = getFilteredList();
+          if (!filteredList.length) {
+            renderPracticeCard(null, resultEl, theme);
+            spinBtn.textContent =
+              theme === "energy" ? "⚡ Start spinning" : "🎡 Start spinning";
+            return;
+          }
+
+          const slotCount = slotCharacters.length || 1;
+          const degreesPerSlot = 360 / slotCount;
+          const slotIndex = Math.floor(Math.random() * slotCount);
+          const characterName = slotCharacters[slotIndex] || slotCharacters[0];
+
+          const characterMatches = filteredList.filter(
+            practice => practice.character === characterName
+          );
+
+          let selectionPool = characterMatches.length
+            ? characterMatches
+            : practices.filter(practice => practice.character === characterName);
+
+          if (!selectionPool.length) {
+            selectionPool = filteredList;
+          }
+
+          if (theme === "energy" && selectionPool.length > 1 && lastPracticeId) {
+            const withoutLast = selectionPool.filter(p => p.id !== lastPracticeId);
+            if (withoutLast.length) selectionPool = withoutLast;
+          }
+
+          const chosenPractice =
+            selectionPool[Math.floor(Math.random() * selectionPool.length)];
+          if (theme === "energy") {
+            lastPracticeId = chosenPractice?.id ?? null;
+          }
+
+          const fullSpins = 3;
+          const finalRotation = -(slotIndex * degreesPerSlot) + fullSpins * 360;
+
+          if (wheelEl) {
+            wheelEl.style.transition = "transform 0.65s ease-out";
+            wheelEl.style.setProperty("--wheel-rotation", `${finalRotation}deg`);
+          }
+
+          highlightIconAtIndex(wheelEl, slotIndex);
+          renderPracticeCard(chosenPractice, resultEl, theme);
+
+          spinBtn.textContent =
+            theme === "energy" ? "⚡ Start spinning" : "🎡 Start spinning";
+        }
+      }
+
+      spinBtn.addEventListener("click", () => {
+        spinStopToggle();
+      });
+
+      filterButtons.forEach(btn => {
+        btn.addEventListener("click", () => {
+          filterButtons.forEach(b => b.classList.remove("hm-active"));
+          btn.classList.add("hm-active");
+          currentFilter = btn.getAttribute("data-filter");
+          clearSelectedIcon(wheelEl);
+
+          if (!isSpinning) {
+            resultEl.innerHTML = `<div class="hm-placeholder">${
+              theme === "energy"
+                ? "Filter updated. Spin the Energy Wheel to see your next boost."
+                : "Filter updated. Spin the Calm Wheel to see your next practice."
+            }</div>`;
+          }
+        });
       });
     }
 
-    function spinWheel(key) {
-      const wheel = wheels[key];
-      if (!wheel || !wheel.canvas) return;
+    setupWheel({
+      practices: calmPractices,
+      spinButtonId: "calm-spin-btn",
+      resultContainerId: "calm-result",
+      filterContainerId: "calm-filters",
+      wheelElementId: "calm-wheel-visual",
+      theme: "calm"
+    });
 
-      const ctx = wheel.canvas.getContext('2d');
-      const slices = wheel.slices;
-      const anglePer = 360 / slices.length;
-      const targetIndex = Math.floor(Math.random() * slices.length);
+    setupWheel({
+      practices: energyPractices,
+      spinButtonId: "energy-spin-btn",
+      resultContainerId: "energy-result",
+      filterContainerId: "energy-filters",
+      wheelElementId: "energy-wheel-visual",
+      theme: "energy"
+    });
 
-      const current = wheel.rotation;
-      const normalizedCurrent = current % 360;
-      const desiredAlignment = -90 - (anglePer / 2 + targetIndex * anglePer);
-      const adjust = desiredAlignment - normalizedCurrent;
-      const finalRotation = current + 720 + adjust; // two extra spins for flair
+    /* ---------- TABS LOGIC ---------- */
 
-      wheel.rotation = finalRotation;
-      wheel.canvas.style.transform = `rotate(${finalRotation}deg)`;
+    const calmTabBtn = document.getElementById("hm-tab-calm");
+    const energyTabBtn = document.getElementById("hm-tab-energy");
+    const calmPanel = document.getElementById("calm-panel");
+    const energyPanel = document.getElementById("energy-panel");
+    const tabIndicator = document.getElementById("hm-tab-indicator");
 
-      wheel.canvas.ontransitionend = () => {
-        wheel.resultEl.textContent = slices[targetIndex];
-      };
+    function activateTab(tab) {
+      if (tab === "calm") {
+        calmTabBtn.classList.add("hm-active");
+        energyTabBtn.classList.remove("hm-active");
+        calmPanel.classList.add("hm-panel-active");
+        energyPanel.classList.remove("hm-panel-active");
+        tabIndicator.classList.remove("hm-energy");
+        tabIndicator.style.transform = "translateX(0%)";
+      } else {
+        calmTabBtn.classList.remove("hm-active");
+        energyTabBtn.classList.add("hm-active");
+        calmPanel.classList.remove("hm-panel-active");
+        energyPanel.classList.add("hm-panel-active");
+        tabIndicator.classList.add("hm-energy");
+        tabIndicator.style.transform = "translateX(100%)";
+      }
     }
 
-    Object.keys(wheels).forEach((key) => {
-      const wheel = wheels[key];
-      const ctx = wheel.canvas.getContext('2d');
-      drawWheel(ctx, wheel.slices);
-    });
+    calmTabBtn.addEventListener("click", () => activateTab("calm"));
+    energyTabBtn.addEventListener("click", () => activateTab("energy"));
 
-    document.querySelectorAll('button.spin').forEach((button) => {
-      button.addEventListener('click', () => {
-        const target = button.getAttribute('data-target');
-        spinWheel(target);
-      });
-    });
+    tabIndicator.style.transform = "translateX(0%)";
   </script>
 </body>
 </html>
