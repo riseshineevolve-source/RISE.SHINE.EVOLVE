@@ -1916,6 +1916,1044 @@
     <iframe id="giftFrame" title="Gift Viewer"></iframe>
    </div>
   </div>
+
+  <template id="gift-template-calm">
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Happy Makers Calm and Energy Wheel</title>
+  <style>
+    :root {
+      --purple: #8A2BE2;
+      --gold: #ffd700;
+      --bg: #07070c;
+      --card: rgba(0, 0, 0, 0.82);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 24px 12px 40px;
+      font-family: 'Arial', sans-serif;
+      background: radial-gradient(circle at 20% 18%, rgba(138, 43, 226, 0.16), transparent 32%),
+                  radial-gradient(circle at 78% 12%, rgba(255, 215, 0, 0.2), transparent 30%),
+                  radial-gradient(circle at 52% 78%, rgba(138, 43, 226, 0.2), transparent 38%),
+                  var(--bg);
+      color: #ffffff;
+      min-height: 100vh;
+    }
+    .shell {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: linear-gradient(140deg, rgba(0, 0, 0, 0.92), rgba(15, 15, 22, 0.9));
+      border: 3px solid var(--purple);
+      border-radius: 22px;
+      padding: 26px 22px 30px;
+      box-shadow: 0 0 35px rgba(138, 43, 226, 0.55), 0 0 65px rgba(255, 215, 0, 0.26);
+    }
+    h1 {
+      margin: 0 0 8px 0;
+      text-align: center;
+      font-size: 2.1rem;
+      letter-spacing: 1px;
+      background: linear-gradient(90deg, var(--purple), #9932CC, var(--gold));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 18px rgba(138, 43, 226, 0.65);
+    }
+    .subtitle {
+      text-align: center;
+      margin: 0 0 22px 0;
+      color: var(--gold);
+      font-weight: bold;
+      letter-spacing: 0.4px;
+    }
+    .intro {
+      text-align: center;
+      margin-bottom: 26px;
+      color: #e8e8e8;
+      line-height: 1.6;
+      font-size: 1rem;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 22px;
+      align-items: start;
+    }
+    .card {
+      background: var(--card);
+      border: 2px solid var(--gold);
+      border-radius: 18px;
+      padding: 18px 18px 22px;
+      position: relative;
+      box-shadow: 0 0 26px rgba(255, 215, 0, 0.28), 0 0 48px rgba(138, 43, 226, 0.28);
+    }
+    .card h2 {
+      margin: 0 0 6px 0;
+      text-align: center;
+      font-size: 1.35rem;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .card .hint {
+      text-align: center;
+      color: #cfcfcf;
+      margin: 0 0 14px 0;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+    .wheel-wrap {
+      position: relative;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 4px 0 14px 0;
+    }
+    canvas {
+      width: 280px;
+      height: 280px;
+      max-width: 100%;
+      border-radius: 50%;
+      box-shadow: 0 0 24px rgba(255, 215, 0, 0.25), inset 0 0 12px rgba(0, 0, 0, 0.35);
+      transition: transform 3.4s cubic-bezier(0.2, 0.8, 0.25, 1);
+    }
+    .pointer {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 12px solid transparent;
+      border-right: 12px solid transparent;
+      border-bottom: 16px solid var(--gold);
+      filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.65));
+    }
+    button.spin {
+      display: block;
+      width: 100%;
+      background: linear-gradient(45deg, var(--purple), #9932CC);
+      color: #ffffff;
+      border: 2px solid var(--gold);
+      border-radius: 14px;
+      padding: 12px 16px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 0 18px rgba(138, 43, 226, 0.55);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    button.spin:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 26px rgba(138, 43, 226, 0.75);
+    }
+    .result {
+      margin-top: 14px;
+      text-align: center;
+      color: #ffffff;
+      font-weight: bold;
+      min-height: 40px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: rgba(138, 43, 226, 0.14);
+      border: 1px solid rgba(255, 215, 0, 0.45);
+      box-shadow: inset 0 0 12px rgba(138, 43, 226, 0.2);
+    }
+    .badge {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: var(--purple);
+      color: #ffffff;
+      padding: 6px 10px;
+      border-radius: 12px;
+      font-weight: bold;
+      font-size: 0.75rem;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+      box-shadow: 0 0 12px rgba(138, 43, 226, 0.55);
+    }
+    .list {
+      margin: 14px 0 6px 0;
+      color: #e8e8e8;
+      line-height: 1.5;
+      font-size: 0.95rem;
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(255, 215, 0, 0.3);
+      border-radius: 12px;
+      padding: 12px 14px;
+    }
+    .list strong { color: var(--gold); }
+    .footer-note {
+      text-align: center;
+      color: #dcdcdc;
+      margin-top: 24px;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+    @media (max-width: 720px) {
+      h1 { font-size: 1.7rem; }
+      .subtitle { font-size: 1rem; }
+      canvas { height: 240px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <h1>The Happy Makers Calm and Energy Wheel</h1>
+    <p class="subtitle">Two tiny tools to soften or brighten any moment</p>
+    <p class="intro">Spin a wheel, pause for a few breaths, and let the Happy Makers offer a quick reset. Calm Wheel slows everything down and brings gentle focus. Energy Wheel boosts momentum when you want to wake up, laugh, and move.</p>
+    <div class="grid">
+      <div class="card" data-wheel="calm">
+        <div class="badge">Calm</div>
+        <h2>Calm Wheel</h2>
+        <p class="hint">Choose a soothing cue to help everyone settle. Breathe, stretch, and soften together.</p>
+        <div class="wheel-wrap">
+          <div class="pointer"></div>
+          <canvas id="calmWheel" width="320" height="320" aria-label="Calm Wheel"></canvas>
+        </div>
+        <button class="spin" data-target="calm">Spin the Calm Wheel</button>
+        <div class="result" id="calmResult">Tap spin to reveal your calming cue.</div>
+        <div class="list">
+          <strong>What's inside:</strong>
+          <div>Quiet breaths, slow stretches, soft focus, whisper voices, and gentle reset prompts inspired by the Happy Makers.</div>
+        </div>
+      </div>
+      <div class="card" data-wheel="energy">
+        <div class="badge">Energy</div>
+        <h2>Energy Wheel</h2>
+        <p class="hint">Pick a playful spark to move, smile, and recharge. Quick bursts keep the fun flowing.</p>
+        <div class="wheel-wrap">
+          <div class="pointer"></div>
+          <canvas id="energyWheel" width="320" height="320" aria-label="Energy Wheel"></canvas>
+        </div>
+        <button class="spin" data-target="energy">Spin the Energy Wheel</button>
+        <div class="result" id="energyResult">Tap spin to reveal your energy boost.</div>
+        <div class="list">
+          <strong>What's inside:</strong>
+          <div>Joy jumps, mini dance breaks, quick challenges, bright breaths, and upbeat actions from the Happy Makers crew.</div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-note">Spin whenever you need a calm pause or a happy spark. Let the wheels decide, then enjoy the moment together.</div>
+  </div>
+  <script>
+    const wheels = {
+      calm: {
+        canvas: document.getElementById('calmWheel'),
+        resultEl: document.getElementById('calmResult'),
+        rotation: 0,
+        slices: [
+          'Four-count belly breaths',
+          'Shoulder roll and slow blink',
+          'Stretch arms up, then melt down',
+          'Whisper-count to ten together',
+          'Hand on heart, feel your beat',
+          'Slow neck circle and smile',
+          'Inhale calm, exhale wiggles',
+          'Cozy hug or self-hug',
+          'Trace a small infinity in the air',
+          'Listen for three soft sounds',
+          'Pretend to blow a candle out',
+          'Sit tall, soften face and jaw'
+        ]
+      },
+      energy: {
+        canvas: document.getElementById('energyWheel'),
+        resultEl: document.getElementById('energyResult'),
+        rotation: 0,
+        slices: [
+          'Happy hops to ten',
+          'Mini dance party',
+          'Robot walk to the door',
+          'Fast hands, slow feet',
+          'Balance on one leg and switch',
+          'Superhero pose and grin',
+          'Clap a rhythm, repeat it',
+          'Spin once, land like a star',
+          'Jump, freeze, then wiggle',
+          'March with high knees',
+          'Make the silliest face',
+          'Stretch tall, then tiny ball'
+        ]
+      }
+    };
+
+    const segmentColors = ['#8A2BE2', '#9932CC', '#B86BFF', '#6A1BA2'];
+
+    function drawWheel(ctx, slices) {
+      const { width, height } = ctx.canvas;
+      const radius = Math.min(width, height) / 2 - 6;
+      const centerX = width / 2;
+      const centerY = height / 2;
+      const angle = (Math.PI * 2) / slices.length;
+      ctx.clearRect(0, 0, width, height);
+      slices.forEach((label, index) => {
+        const start = index * angle;
+        const end = start + angle;
+        ctx.beginPath();
+        ctx.moveTo(centerX, centerY);
+        ctx.arc(centerX, centerY, radius, start, end);
+        ctx.closePath();
+        ctx.fillStyle = segmentColors[index % segmentColors.length];
+        ctx.fill();
+        ctx.strokeStyle = '#ffd700';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        ctx.save();
+        ctx.translate(centerX, centerY);
+        ctx.rotate(start + angle / 2);
+        ctx.textAlign = 'right';
+        ctx.fillStyle = '#fff';
+        ctx.font = 'bold 13px Arial';
+        const padding = 12;
+        ctx.fillText(label, radius - padding, 4);
+        ctx.restore();
+      });
+    }
+
+    function spinWheel(key) {
+      const wheel = wheels[key];
+      if (!wheel || !wheel.canvas) return;
+
+      const ctx = wheel.canvas.getContext('2d');
+      const slices = wheel.slices;
+      const anglePer = 360 / slices.length;
+      const targetIndex = Math.floor(Math.random() * slices.length);
+
+      const current = wheel.rotation;
+      const normalizedCurrent = current % 360;
+      const desiredAlignment = -90 - (anglePer / 2 + targetIndex * anglePer);
+      const adjust = desiredAlignment - normalizedCurrent;
+      const finalRotation = current + 720 + adjust; // two extra spins for flair
+
+      wheel.rotation = finalRotation;
+      wheel.canvas.style.transform = `rotate(${finalRotation}deg)`;
+
+      wheel.canvas.ontransitionend = () => {
+        wheel.resultEl.textContent = slices[targetIndex];
+      };
+    }
+
+    Object.keys(wheels).forEach((key) => {
+      const wheel = wheels[key];
+      const ctx = wheel.canvas.getContext('2d');
+      drawWheel(ctx, wheel.slices);
+    });
+
+    document.querySelectorAll('button.spin').forEach((button) => {
+      button.addEventListener('click', () => {
+        const target = button.getAttribute('data-target');
+        spinWheel(target);
+      });
+    });
+  </script>
+</body>
+</html>
+
+  </template>
+  <template id="gift-template-challenge">
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Happy Makers 1-Minute Challenge</title>
+    <style>
+        :root {
+            --purple: #8A2BE2;
+            --gold: #ffd700;
+            --magenta: #ff69b4;
+            --bg: #050505;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background: radial-gradient(circle at 20% 20%, rgba(255, 215, 0, 0.12), transparent 35%),
+                        radial-gradient(circle at 80% 0%, rgba(138, 43, 226, 0.18), transparent 40%),
+                        radial-gradient(circle at 60% 80%, rgba(255, 105, 180, 0.14), transparent 42%),
+                        var(--bg);
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .sparkle-layer {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .sparkle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: var(--gold);
+            border-radius: 50%;
+            opacity: 0;
+            animation: twinkle 4s ease-in-out infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0; transform: scale(0.5); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 24px 60px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .title {
+            font-size: 2.6rem;
+            margin: 0 0 12px 0;
+            font-weight: 800;
+            background: linear-gradient(45deg, var(--gold), #f5e791, var(--purple));
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmer 12s ease-in-out infinite;
+            text-shadow: 0 0 28px rgba(255, 215, 0, 0.8);
+            letter-spacing: 1px;
+        }
+
+        .subtitle {
+            font-size: 1.15rem;
+            margin: 0;
+            color: #f5e791;
+            text-shadow: 0 0 16px rgba(255, 215, 0, 0.7);
+        }
+
+        @keyframes shimmer {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .card {
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.92), rgba(18, 18, 18, 0.9));
+            border: 3px solid var(--purple);
+            border-radius: 22px;
+            padding: 24px;
+            box-shadow: 0 0 40px rgba(138, 43, 226, 0.45), 0 0 80px rgba(255, 215, 0, 0.08), inset 0 0 18px rgba(255, 255, 255, 0.04);
+        }
+
+        .tagline {
+            text-align: center;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            color: #e8e8e8;
+            margin: 0 0 20px 0;
+        }
+
+        .pill-row {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 18px;
+        }
+
+        .pill {
+            background: rgba(138, 43, 226, 0.18);
+            border: 1.5px solid var(--gold);
+            color: var(--gold);
+            border-radius: 999px;
+            padding: 8px 14px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            box-shadow: 0 0 18px rgba(255, 215, 0, 0.25);
+        }
+
+        .challenge-box {
+            background: linear-gradient(145deg, rgba(138, 43, 226, 0.08), rgba(0, 0, 0, 0.92));
+            border: 2px solid var(--gold);
+            border-radius: 18px;
+            padding: 22px;
+            text-align: center;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.2);
+        }
+
+        .challenge-label {
+            font-size: 0.95rem;
+            color: var(--gold);
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .challenge-title {
+            font-size: 1.4rem;
+            margin: 0 0 8px 0;
+            color: #ffffff;
+            text-shadow: 0 0 20px rgba(138, 43, 226, 0.6);
+        }
+
+        .challenge-text {
+            font-size: 1.05rem;
+            line-height: 1.6;
+            margin: 0;
+            color: #f4f4f4;
+        }
+
+        .actions {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .btn {
+            background: linear-gradient(45deg, var(--purple), #9932CC);
+            border: 2px solid var(--gold);
+            color: #ffffff;
+            padding: 12px 18px;
+            border-radius: 14px;
+            font-weight: 800;
+            letter-spacing: 0.6px;
+            text-transform: uppercase;
+            cursor: pointer;
+            box-shadow: 0 0 18px rgba(138, 43, 226, 0.55);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .btn.secondary {
+            background: rgba(0, 0, 0, 0.6);
+            border-color: #ffffff;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 28px rgba(255, 215, 0, 0.55);
+        }
+
+        .timer-shell {
+            margin: 26px auto 0 auto;
+            display: flex;
+            justify-content: center;
+        }
+
+        .timer-ring {
+            width: 170px;
+            height: 170px;
+            border-radius: 50%;
+            background: conic-gradient(var(--gold) 0deg, rgba(138, 43, 226, 0.25) 0deg);
+            display: grid;
+            place-items: center;
+            border: 3px solid rgba(255, 215, 0, 0.6);
+            box-shadow: 0 0 40px rgba(255, 215, 0, 0.3);
+        }
+
+        .timer-core {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: #000000;
+            border: 2px solid var(--gold);
+            display: grid;
+            place-items: center;
+            color: var(--gold);
+            font-size: 1.6rem;
+            font-weight: 800;
+            box-shadow: inset 0 0 18px rgba(138, 43, 226, 0.5);
+            text-shadow: 0 0 16px rgba(255, 215, 0, 0.7);
+        }
+
+        .footer-note {
+            text-align: center;
+            margin-top: 34px;
+            color: #cfcfcf;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 640px) {
+            .title { font-size: 2.2rem; }
+            .timer-ring { width: 150px; height: 150px; }
+            .timer-core { width: 108px; height: 108px; font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="sparkle-layer" aria-hidden="true"></div>
+    <div class="container">
+        <header>
+            <p style="margin: 0 0 8px 0; color: #ffd700; letter-spacing: 1px; text-transform: uppercase; font-weight: 700;">Happy Makers Presents</p>
+            <h1 class="title">The Happy Makers 1-Minute Challenge</h1>
+            <p class="subtitle">One click. One tiny mission. One minute of joy, creativity or connection.</p>
+            <p class="subtitle" style="color: #d7c9ff; margin-top: 6px;">Powered by your Happy Makers.</p>
+        </header>
+
+        <div class="card">
+            <p class="tagline">Spin up a fast prompt, tap start and see what your family can do in sixty golden seconds. Every click serves a fresh spark - joyful, creative or deeply connective.</p>
+
+            <div class="pill-row">
+                <span class="pill">Joy Burst</span>
+                <span class="pill">Creative Spark</span>
+                <span class="pill">Connection Boost</span>
+            </div>
+
+            <div class="challenge-box" id="challengeBox">
+                <span class="challenge-label" id="challengeLabel">Today's Spark</span>
+                <h2 class="challenge-title" id="challengeTitle">Ready for a quick mission?</h2>
+                <p class="challenge-text" id="challengeText">Tap "New Challenge" to draw a 1-minute prompt from the Happy Makers.</p>
+            </div>
+
+            <div class="actions">
+                <button class="btn" onclick="rollChallenge()">New Challenge</button>
+                <button class="btn secondary" onclick="startTimer()">Start 60s Timer</button>
+            </div>
+
+            <div class="timer-shell">
+                <div class="timer-ring" id="timerRing">
+                    <div class="timer-core" id="timerCore">60</div>
+                </div>
+            </div>
+        </div>
+
+        <p class="footer-note">Tip: If your timer hits zero, celebrate whatever happened - giggles, new ideas or simply pausing together. Then click for another spark.</p>
+    </div>
+
+    <script>
+        const challengeCategories = {
+            joy: {
+                label: 'Joy Burst',
+                items: [
+                    'Share your silliest animal impression until everyone laughs.',
+                    'Play “mirror moves” for one minute - copy each other’s gestures.',
+                    'Find three objects nearby and invent a funny mini-story.',
+                    'Create a one-minute dance with the wildest finale pose you can imagine.',
+                    'Whisper a secret compliment to every person in the room.',
+                    'Do a one-minute gratitude lightning round - no repeats allowed!'
+                ]
+            },
+            creative: {
+                label: 'Creative Spark',
+                items: [
+                    'Draw a creature that combines two favorite animals and name it.',
+                    'Build the tallest object you can using only what’s on the table.',
+                    'Write a six-word story about today - make it inspiring.',
+                    'Invent a new handshake for the family and practice it twice.',
+                    'Pick one random word and rhyme with it until the minute ends.',
+                    'Choose a household item and pitch it like it’s a top-secret gadget.'
+                ]
+            },
+            connection: {
+                label: 'Connection Boost',
+                items: [
+                    'Each person shares one win from today - big or tiny.',
+                    'Give one genuine high-five and say what you appreciate about them.',
+                    'Swap favorite movie or book titles and explain why in one sentence.',
+                    'Ask: “What made you smile recently?” - everyone answers fast.',
+                    'Plan a pretend micro-adventure for the weekend in 60 seconds.',
+                    'Pick a photo on your phone and tell the one-minute story behind it.'
+                ]
+            }
+        };
+
+        let timerInterval = null;
+        let timeLeft = 60;
+
+        function rollChallenge() {
+            const keys = Object.keys(challengeCategories);
+            const categoryKey = keys[Math.floor(Math.random() * keys.length)];
+            const category = challengeCategories[categoryKey];
+            const prompt = category.items[Math.floor(Math.random() * category.items.length)];
+
+            document.getElementById('challengeLabel').textContent = category.label;
+            document.getElementById('challengeTitle').textContent = 'Your 1-Minute Mission';
+            document.getElementById('challengeText').textContent = prompt;
+        }
+
+        function startTimer() {
+            if (timerInterval) {
+                clearInterval(timerInterval);
+            }
+            timeLeft = 60;
+            updateTimerDisplay();
+
+            timerInterval = setInterval(() => {
+                timeLeft -= 1;
+                if (timeLeft <= 0) {
+                    timeLeft = 0;
+                    clearInterval(timerInterval);
+                }
+                updateTimerDisplay();
+            }, 1000);
+        }
+
+        function updateTimerDisplay() {
+            const ring = document.getElementById('timerRing');
+            const core = document.getElementById('timerCore');
+            const progress = ((60 - timeLeft) / 60) * 360;
+            ring.style.background = `conic-gradient(var(--gold) ${progress}deg, rgba(138, 43, 226, 0.25) ${progress}deg)`;
+            core.textContent = timeLeft.toString().padStart(2, '0');
+        }
+
+        function seedSparkles() {
+            const layer = document.querySelector('.sparkle-layer');
+            const count = 60;
+            for (let i = 0; i < count; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'sparkle';
+                dot.style.left = Math.random() * 100 + '%';
+                dot.style.top = Math.random() * 100 + '%';
+                dot.style.animationDelay = (Math.random() * 4) + 's';
+                dot.style.animationDuration = (3 + Math.random() * 3) + 's';
+                layer.appendChild(dot);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            seedSparkles();
+            rollChallenge();
+            updateTimerDisplay();
+        });
+    </script>
+</body>
+</html>
+
+  </template>
+  <template id="gift-template-wordsearch">
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Happy Makers Word Search</title>
+  <style>
+    :root {
+      --purple: #8A2BE2;
+      --gold: #ffd700;
+      --bg: #0a0a0f;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 30px 12px 50px;
+      background: radial-gradient(circle at 20% 20%, rgba(138,43,226,0.15), transparent 30%),
+                  radial-gradient(circle at 80% 10%, rgba(255,215,0,0.18), transparent 32%),
+                  radial-gradient(circle at 50% 80%, rgba(138,43,226,0.22), transparent 38%),
+                  var(--bg);
+      color: #ffffff;
+      font-family: 'Arial', sans-serif;
+      min-height: 100vh;
+    }
+    .shell {
+      max-width: 1100px;
+      margin: 0 auto;
+      background: linear-gradient(145deg, rgba(0,0,0,0.9), rgba(18,18,28,0.9));
+      border: 3px solid var(--purple);
+      border-radius: 22px;
+      padding: 28px 22px;
+      box-shadow: 0 0 35px rgba(138,43,226,0.55), 0 0 65px rgba(255,215,0,0.25);
+    }
+    h1 {
+      text-align: center;
+      margin: 0 0 8px 0;
+      font-size: 2rem;
+      letter-spacing: 1px;
+      background: linear-gradient(90deg, var(--purple), #9932CC, var(--gold));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 18px rgba(138,43,226,0.65);
+    }
+    .subtitle {
+      text-align: center;
+      margin: 0 0 24px 0;
+      color: var(--gold);
+      font-weight: bold;
+      letter-spacing: 0.3px;
+    }
+    .layout {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 22px;
+      align-items: start;
+    }
+    .grid-shell {
+      background: rgba(0,0,0,0.7);
+      border: 2px solid var(--gold);
+      border-radius: 16px;
+      padding: 16px;
+      box-shadow: inset 0 0 18px rgba(255,215,0,0.25);
+    }
+    .word-grid {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+    }
+    .word-grid td {
+      border: 1px solid rgba(255,215,0,0.35);
+      text-align: center;
+      font-weight: bold;
+      font-size: 1.05rem;
+      padding: 8px 0;
+      color: #ffffff;
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+      user-select: none;
+    }
+    .word-grid td:hover {
+      background: rgba(138,43,226,0.25);
+      box-shadow: 0 0 12px rgba(138,43,226,0.4);
+    }
+    .word-grid td.selected {
+      background: rgba(138,43,226,0.35);
+      box-shadow: 0 0 18px rgba(138,43,226,0.55);
+    }
+    .word-grid td.found {
+      background: rgba(255,215,0,0.2);
+      color: var(--gold);
+      box-shadow: 0 0 18px rgba(255,215,0,0.55);
+    }
+    .panel {
+      background: rgba(0,0,0,0.65);
+      border: 2px solid var(--purple);
+      border-radius: 16px;
+      padding: 16px;
+      box-shadow: inset 0 0 16px rgba(138,43,226,0.25);
+    }
+    .panel h2 {
+      margin: 0 0 12px 0;
+      font-size: 1.1rem;
+      letter-spacing: 0.5px;
+      color: var(--gold);
+      text-transform: uppercase;
+      text-align: center;
+    }
+    .word-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 8px;
+    }
+    .word-chip {
+      padding: 8px 10px;
+      border: 1px solid rgba(255,215,0,0.65);
+      border-radius: 10px;
+      text-align: center;
+      font-weight: bold;
+      color: #ffffff;
+      background: rgba(138,43,226,0.18);
+      box-shadow: 0 0 12px rgba(138,43,226,0.3);
+    }
+    .word-chip.found {
+      color: var(--gold);
+      text-decoration: line-through;
+      background: rgba(255,215,0,0.12);
+      box-shadow: 0 0 15px rgba(255,215,0,0.4);
+    }
+    .instructions {
+      margin-top: 12px;
+      font-size: 0.95rem;
+      color: #dcdcdc;
+      text-align: center;
+    }
+    .status {
+      margin-top: 14px;
+      text-align: center;
+      font-weight: bold;
+      color: var(--gold);
+      min-height: 20px;
+    }
+    @media (max-width: 900px) {
+      .layout { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <h1>The Happy Makers Word Search</h1>
+    <p class="subtitle">Can you spot every name and mantra before Nini calls for cuddles?</p>
+    <div class="layout">
+      <div class="grid-shell">
+        <table class="word-grid" id="wordGrid" aria-label="Word search grid"></table>
+        <div class="instructions">Tap a starting letter, tap the ending letter in a straight line, and see if you found a hidden word.</div>
+        <div class="status" id="status"></div>
+      </div>
+      <div class="panel">
+        <h2>Find These Words</h2>
+        <div class="word-list" id="wordList"></div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const gridSize = 12;
+    const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const words = [
+      'RISE','SHINE','EVOLVE','NINI','ALIO','DILO','LULI','MIMI','BIBI','HAPPY','CHAOS','PUZZLE'
+    ];
+    const placements = [
+      { word: 'RISE', row: 0, col: 0, dir: [0, 1] },
+      { word: 'HAPPY', row: 1, col: 2, dir: [0, 1] },
+      { word: 'SHINE', row: 2, col: 6, dir: [0, 1] },
+      { word: 'EVOLVE', row: 3, col: 0, dir: [0, 1] },
+      { word: 'NINI', row: 4, col: 8, dir: [1, 0] },
+      { word: 'ALIO', row: 5, col: 0, dir: [0, 1] },
+      { word: 'DILO', row: 6, col: 2, dir: [0, 1] },
+      { word: 'LULI', row: 7, col: 4, dir: [0, 1] },
+      { word: 'MIMI', row: 8, col: 0, dir: [0, 1] },
+      { word: 'BIBI', row: 9, col: 6, dir: [0, 1] },
+      { word: 'CHAOS', row: 10, col: 3, dir: [0, 1] },
+      { word: 'PUZZLE', row: 2, col: 11, dir: [1, 0] }
+    ];
+
+    const grid = Array.from({ length: gridSize }, () => Array(gridSize).fill('.'));
+
+    function placeWord({ word, row, col, dir }) {
+      const [dr, dc] = dir;
+      if (row + dr * (word.length - 1) >= gridSize || col + dc * (word.length - 1) >= gridSize || row + dr * (word.length - 1) < 0 || col + dc * (word.length - 1) < 0) {
+        console.warn(`Placement out of bounds for ${word}`);
+        return;
+      }
+      for (let i = 0; i < word.length; i++) {
+        const r = row + dr * i;
+        const c = col + dc * i;
+        const char = word[i];
+        if (grid[r][c] !== '.' && grid[r][c] !== char) {
+          console.warn(`Conflict placing ${word} at ${r},${c}`);
+        }
+        grid[r][c] = char;
+      }
+    }
+
+    placements.forEach(placeWord);
+
+    for (let r = 0; r < gridSize; r++) {
+      for (let c = 0; c < gridSize; c++) {
+        if (grid[r][c] === '.') {
+          grid[r][c] = alphabet[Math.floor(Math.random() * alphabet.length)];
+        }
+      }
+    }
+
+    const foundWords = new Set();
+    let startCell = null;
+
+    function renderGrid() {
+      const table = document.getElementById('wordGrid');
+      table.innerHTML = '';
+      grid.forEach((row, rIdx) => {
+        const tr = document.createElement('tr');
+        row.forEach((letter, cIdx) => {
+          const td = document.createElement('td');
+          td.textContent = letter;
+          td.dataset.row = rIdx;
+          td.dataset.col = cIdx;
+          td.addEventListener('click', handleCellClick);
+          tr.appendChild(td);
+        });
+        table.appendChild(tr);
+      });
+    }
+
+    function renderWords() {
+      const list = document.getElementById('wordList');
+      list.innerHTML = '';
+      words.forEach(word => {
+        const chip = document.createElement('div');
+        chip.className = 'word-chip';
+        chip.textContent = word;
+        chip.id = `word-${word}`;
+        list.appendChild(chip);
+      });
+    }
+
+    function clearSelections() {
+      document.querySelectorAll('.word-grid td.selected').forEach(td => td.classList.remove('selected'));
+      startCell = null;
+    }
+
+    function markFound(pathCells, word) {
+      pathCells.forEach(({ r, c }) => {
+        const cell = document.querySelector(`td[data-row="${r}"][data-col="${c}"]`);
+        if (cell) {
+          cell.classList.add('found');
+          cell.classList.remove('selected');
+        }
+      });
+      foundWords.add(word);
+      const chip = document.getElementById(`word-${word}`);
+      if (chip) {
+        chip.classList.add('found');
+      }
+      const status = document.getElementById('status');
+      status.textContent = foundWords.size === words.length ? 'You found them all! 🎉' : `${foundWords.size}/${words.length} words found`;
+    }
+
+    function buildPath(r1, c1, r2, c2) {
+      const dr = Math.sign(r2 - r1);
+      const dc = Math.sign(c2 - c1);
+      if (dr === 0 && dc === 0) return null;
+      const length = Math.max(Math.abs(r2 - r1), Math.abs(c2 - c1)) + 1;
+      if (Math.abs(r2 - r1) !== 0 && Math.abs(c2 - c1) !== 0 && Math.abs(r2 - r1) !== Math.abs(c2 - c1)) {
+        return null; // not straight line
+      }
+      const cells = [];
+      for (let i = 0; i < length; i++) {
+        cells.push({ r: r1 + dr * i, c: c1 + dc * i });
+      }
+      return cells;
+    }
+
+    function handleCellClick(e) {
+      const cell = e.currentTarget;
+      const r = parseInt(cell.dataset.row, 10);
+      const c = parseInt(cell.dataset.col, 10);
+
+      if (!startCell) {
+        startCell = { r, c };
+        cell.classList.add('selected');
+        return;
+      }
+
+      const path = buildPath(startCell.r, startCell.c, r, c);
+      if (!path) {
+        clearSelections();
+        return;
+      }
+
+      const word = path.map(pos => grid[pos.r][pos.c]).join('');
+      const reversed = word.split('').reverse().join('');
+      const match = words.find(w => w === word || w === reversed);
+
+      if (match && !foundWords.has(match)) {
+        markFound(path, match);
+      }
+      clearSelections();
+    }
+
+    renderGrid();
+    renderWords();
+    document.getElementById('status').textContent = `0/${words.length} words found`;
+  </script>
+</body>
+</html>
+
+  </template>
   <script>
         // Create sparkles
         function createSparkles() {
@@ -2276,18 +3314,14 @@
             }
         }
 
-        const giftPages = {
-            calm: 'assets/calm-energy/index.html',
-            challenge: 'assets/one-minute/index.html',
-            wordsearch: 'assets/word-search/index.html'
-        };
-
         function openGift(key) {
             const frame = document.getElementById('giftFrame');
             const overlay = document.getElementById('giftOverlay');
-            const src = giftPages[key];
+            const template = document.getElementById(`gift-template-${key}`);
+            const src = template ? template.innerHTML : null;
             if (frame && overlay && src) {
-                frame.src = src;
+                frame.src = '';
+                frame.srcdoc = src;
                 overlay.style.display = 'flex';
                 document.body.style.overflow = 'hidden';
             }
@@ -2296,7 +3330,7 @@
         function closeGiftOverlay() {
             const frame = document.getElementById('giftFrame');
             const overlay = document.getElementById('giftOverlay');
-            if (frame) { frame.src = ''; }
+            if (frame) { frame.src = ''; frame.srcdoc = ''; }
             if (overlay) { overlay.style.display = 'none'; }
             document.body.style.overflow = 'auto';
         }
