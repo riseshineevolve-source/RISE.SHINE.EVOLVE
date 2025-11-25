@@ -3685,8 +3685,8 @@
             localStorage.removeItem('giftsFirstName');
             hasGiftsAccess = false;
         }
-        // Function to send to Netlify (używane przez formularz GIFTS)
-         const cloudflareFormEndpoint = window.CLOUDFLARE_FORM_ENDPOINT || '';
+        // Function to send to Cloudflare (optional endpoint override)
+         const cloudflareFormEndpoint = window.CLOUDFLARE_FORM_ENDPOINT || 'https://newsletter-endpoint.rise-shine-evolve.workers.dev/';
 
          function sendToCloudflare(payload) {
              if (!cloudflareFormEndpoint) {
@@ -3790,10 +3790,10 @@
             setTimeout(() => {
                 grantGiftsAccess(firstName, email);
                 closeEmailModal();
-                showThankYouPage();
                 submitBtn.textContent = 'Join us';
                 submitBtn.disabled = false;
                 form.reset();
+                accessGifts();
             }, 1500);
         }
 
