@@ -3773,6 +3773,12 @@
         const giftFrame = document.getElementById('gift-frame');
         const giftFallback = document.getElementById('gift-fallback');
 
+        const giftSources = {
+            calmEnergy: './assets/calm-energy/index.html',
+            oneMinute: './assets/one-minute/index.html',
+            wordSearch: './assets/word-search/index.html',
+        };
+
         function getGiftHtml(key) {
             const tpl = giftTemplates[key];
             if (!tpl) return null;
@@ -3785,10 +3791,31 @@
             }
 
             const html = getGiftHtml(key);
+            const source = giftSources[key];
+
             giftFrame.removeAttribute('src');
             giftFrame.removeAttribute('srcdoc');
+            giftFrame.onload = null;
+            giftFrame.onerror = null;
 
-            if (html) {
+            if (source) {
+                giftFrame.style.display = 'block';
+                giftFallback.style.display = 'none';
+                giftFrame.onload = () => {
+                    giftFallback.style.display = 'none';
+                    giftFrame.style.display = 'block';
+                };
+                giftFrame.onerror = () => {
+                    if (html) {
+                        giftFrame.srcdoc = html;
+                        giftFallback.style.display = 'none';
+                        giftFrame.style.display = 'block';
+                    } else {
+                        showGiftFallback();
+                    }
+                };
+                giftFrame.src = source;
+            } else if (html) {
                 giftFallback.style.display = 'none';
                 giftFrame.style.display = 'block';
                 giftFrame.srcdoc = html;
