@@ -174,6 +174,217 @@
             animation: evolveGlow 8s infinite ease-in-out;
         }
 
+        .icon-heading {
+            color: #ffd700;
+            font-weight: bold;
+            margin: 18px 0 8px 0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .icon-circle {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #8A2BE2, #ffd700);
+            box-shadow: 0 0 12px rgba(138, 43, 226, 0.6), 0 0 18px rgba(255, 215, 0, 0.6);
+        }
+
+        .icon-circle svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .golden-bullets {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 0;
+        }
+
+        .golden-bullets li {
+            position: relative;
+            padding-left: 26px;
+            margin-bottom: 10px;
+            line-height: 1.5;
+            color: #ffffff;
+        }
+
+        .golden-bullets li::before {
+            content: '✶';
+            position: absolute;
+            left: 0;
+            top: 4px;
+            color: #ffd700;
+            text-shadow: 0 0 8px rgba(255, 215, 0, 0.9), 0 0 16px rgba(255, 215, 0, 0.6);
+            font-size: 0.8rem;
+        }
+
+        .character-detail-shell {
+            background: linear-gradient(145deg, rgba(0, 0, 0, 0.95), rgba(20, 20, 20, 0.9));
+            border: 3px solid #8A2BE2;
+            border-radius: 24px;
+            padding: 28px;
+            box-shadow: 0 0 40px rgba(138, 43, 226, 0.6), 0 0 80px rgba(138, 43, 226, 0.25), inset 0 0 25px rgba(255, 215, 0, 0.1);
+        }
+
+        .character-header {
+            display: flex;
+            gap: 22px;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 18px;
+        }
+
+        .character-header img {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #ffd700;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.7);
+        }
+
+        .character-title {
+            color: #ffd700;
+            font-size: 1.4rem;
+            margin: 0;
+            text-shadow: 0 0 25px rgba(255, 215, 0, 0.8);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .character-subtitle {
+            color: #8A2BE2;
+            font-size: 1.1rem;
+            margin: 6px 0 0 0;
+            font-weight: bold;
+            text-shadow: 0 0 16px rgba(138, 43, 226, 0.7);
+        }
+
+        .character-description p {
+            color: #ffffff;
+            line-height: 1.7;
+            margin: 0 0 16px 0;
+            text-align: justify;
+        }
+
+        .character-description-box {
+            background: linear-gradient(135deg, rgba(138, 43, 226, 0.08), rgba(0, 0, 0, 0.85));
+            border: 2px solid #ffd700;
+            border-radius: 16px;
+            padding: 18px 20px;
+            box-shadow: 0 0 28px rgba(255, 215, 0, 0.25);
+            margin-bottom: 26px;
+        }
+
+        .character-section-heading {
+            color: #8A2BE2;
+            text-transform: uppercase;
+            font-weight: bold;
+            letter-spacing: 0.8px;
+            margin: 6px 0 14px 0;
+            text-shadow: 0 0 20px rgba(138, 43, 226, 0.6);
+            text-align: center;
+        }
+
+        .character-qualities-box {
+            background: linear-gradient(145deg, rgba(0, 0, 0, 0.95), rgba(20, 20, 20, 0.9));
+            border: 2px solid #8A2BE2;
+            border-radius: 18px;
+            padding: 18px 20px 10px 20px;
+            box-shadow: 0 0 30px rgba(138, 43, 226, 0.4), inset 0 0 20px rgba(138, 43, 226, 0.08);
+            margin-top: 14px;
+        }
+
+        .qualities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+            margin-top: 12px;
+        }
+
+        /* Contact form */
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 12px;
+        }
+
+        .contact-form label {
+            color: #ffd700;
+            font-weight: bold;
+            font-size: 0.95rem;
+            text-align: left;
+        }
+
+        .contact-form input,
+        .contact-form select,
+        .contact-form textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 2px solid #8A2BE2;
+            border-radius: 12px;
+            background: rgba(0, 0, 0, 0.7);
+            color: #ffffff;
+            box-shadow: 0 0 12px rgba(138, 43, 226, 0.35);
+            box-sizing: border-box;
+            font-size: 0.95rem;
+        }
+
+        .contact-form textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .contact-form button {
+            align-self: center;
+            padding: 12px 24px;
+            border: 2px solid #ffd700;
+            border-radius: 15px;
+            background: linear-gradient(45deg, #8A2BE2, #9932CC);
+            color: #ffffff;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 0 18px rgba(138, 43, 226, 0.5);
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+        }
+
+        .contact-form button:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 0 26px rgba(138, 43, 226, 0.7);
+        }
+
+        .contact-success {
+            display: none;
+            margin-top: 12px;
+            padding: 12px 15px;
+            background: rgba(107, 207, 127, 0.15);
+            border: 2px solid #6bcf7f;
+            border-radius: 12px;
+            color: #6bcf7f;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .quality-chip {
+            background: rgba(255, 255, 255, 0.04);
+            border: 2px solid #ffd700;
+            border-radius: 12px;
+            padding: 10px 12px;
+            color: #ffd700;
+            font-weight: bold;
+            text-align: center;
+            box-shadow: 0 0 18px rgba(255, 215, 0, 0.3);
+            letter-spacing: 0.3px;
+        }
+
         @keyframes riseGlow {
             0%, 100% { 
                 text-shadow: 0 0 20px rgba(255, 20, 147, 0.8), 0 0 30px rgba(255, 20, 147, 0.4), 0 0 45px rgba(255, 20, 147, 0.2);
@@ -488,27 +699,21 @@
         /* Elegant Christmas Floating Box - Dark Sophisticated Design */
         .elegant-christmas-box {
             position: fixed;
-            top: 15%;
-            right: -280px;
-            width: 200px;
-            background: linear-gradient(135deg, 
-                rgba(0, 0, 0, 0.95), 
-                rgba(20, 20, 20, 0.9), 
-                rgba(0, 0, 0, 0.95)
-            );
+            top: 2%;
+            right: -320px;
+            width: 205px;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.95), rgba(20, 20, 20, 0.9), rgba(0, 0, 0, 0.95));
             border: 2px solid #ffd700;
             border-radius: 20px;
-            padding: 16px;
-            box-shadow: 
-                0 0 40px rgba(255, 215, 0, 0.6), 
-                0 0 80px rgba(255, 215, 0, 0.3), 
-                0 0 120px rgba(255, 215, 0, 0.1),
-                inset 0 0 30px rgba(138, 43, 226, 0.1);
+            padding: 8px 12px;
+            text-align: center;
+            box-shadow: 0 0 40px rgba(255, 215, 0, 0.6), 0 0 80px rgba(255, 215, 0, 0.3), 0 0 120px rgba(255, 215, 0, 0.1), inset 0 0 30px rgba(138, 43, 226, 0.1);
             transform: rotate(2deg);
             z-index: 100;
             cursor: pointer;
             transition: all 0.4s ease;
             backdrop-filter: blur(5px);
+            opacity: 0;
             animation: elegantBoxFloat 8s ease-in-out infinite, elegantBoxGlow 6s ease-in-out infinite, slideInFromRight 2.5s ease-out 1.5s forwards;
         }
 
@@ -530,31 +735,27 @@
         }
 
         .elegant-crown-icon {
-            width: 40px;
-            height: 40px;
-            margin-bottom: 8px;
+            width: 34px;
+            height: 34px;
+            margin-bottom: 6px;
             filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.8));
         }
 
         .elegant-main-title {
-            font-size: 1rem;
+            font-size: 0.95rem;
+            font-weight: bold;
             color: #ffd700;
-            line-height: 1.1;
-            margin-bottom: 5px;
-            font-weight: 900;
-            text-shadow: 0 0 20px rgba(255, 215, 0, 1), 0 0 40px rgba(255, 215, 0, 0.6);
-            letter-spacing: 1px;
-            text-align: center;
-            text-transform: uppercase;
+            margin-bottom: 4px;
+            text-shadow: 0 0 25px rgba(255, 215, 0, 1);
+            line-height: 1.3;
         }
 
         .elegant-subtitle {
-            font-size: 0.7rem;
+            font-size: 0.68rem;
             color: #8A2BE2;
             text-shadow: 0 0 15px rgba(138, 43, 226, 0.8);
-            margin-bottom: 6px;
+            margin-bottom: 4px;
             font-weight: bold;
-            font-style: italic;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
@@ -573,9 +774,9 @@
             background-size: 200% 200%;
             border: 2px solid #ffd700;
             border-radius: 15px;
-            padding: 8px 12px;
+            padding: 8px 10px;
             color: #ffffff;
-            font-size: 0.7rem;
+            font-size: 0.68rem;
             font-weight: bold;
             cursor: pointer;
             text-shadow: 0 0 12px rgba(0, 0, 0, 0.8);
@@ -655,14 +856,15 @@
 
         @keyframes slideInFromRight {
             0% {
-                right: -280px;
+                right: -320px;
                 opacity: 0;
-                transform: rotate(-2deg) scale(0.8);
+            }
+            15% {
+                opacity: 0.1;
             }
             100% {
-                right: 15px;
+                right: 14px;
                 opacity: 1;
-                transform: rotate(-2deg) scale(1);
             }
         }
 
@@ -704,7 +906,7 @@
                 top: auto;
                 right: auto;
                 width: 90%;
-                max-width: 240px;
+                max-width: 220px;
                 margin: 20px auto;
                 transform: rotate(0deg);
                 animation: elegantBoxGlow 6s ease-in-out infinite, elegantBoxFloat 8s ease-in-out infinite;
@@ -755,34 +957,27 @@
     </div>
    </div><!-- New Elegant Christmas Box - Dark Sophisticated Design -->
    <div class="elegant-christmas-box" onclick="window.open('https://amazon.com', '_blank', 'noopener,noreferrer')">
-    <div class="elegant-box-content"><!-- Christmas Tree Icon - Same as Book Cover -->
-     <svg class="elegant-crown-icon" viewbox="0 0 100 100"><!-- Tree layers - Purple with golden glow --> <polygon points="50,15 35,35 65,35" fill="#8A2BE2" stroke="#ffd700" stroke-width="1" /> <polygon points="50,25 30,45 70,45" fill="#9932CC" stroke="#ffd700" stroke-width="1" /> <polygon points="50,35 25,55 75,55" fill="#8A2BE2" stroke="#ffd700" stroke-width="1" /> <!-- Tree trunk --> <rect x="45" y="55" width="10" height="15" fill="#8B4513" stroke="#ffd700" stroke-width="0.5" /> <!-- Golden star on top --> <polygon points="50,5 52,12 59,12 54,17 56,24 50,20 44,24 46,17 41,12 48,12" fill="#ffd700" stroke="#ffffff" stroke-width="0.5">
-       <animate attributename="fill" values="#ffd700;#ffff00;#ffd700" dur="2s" repeatcount="indefinite" />
-      </polygon> <!-- Sparkling ornaments - Same as book cover --> <circle cx="42" cy="30" r="2" fill="#ffd700" opacity="0.9">
-       <animate attributename="opacity" values="0.9;0.4;0.9" dur="1.5s" repeatcount="indefinite" />
-      </circle> <circle cx="58" cy="32" r="2" fill="#ff69b4" opacity="0.9">
-       <animate attributename="opacity" values="0.4;0.9;0.4" dur="1.8s" repeatcount="indefinite" />
-      </circle> <circle cx="45" cy="42" r="2" fill="#00ffff" opacity="0.9">
-       <animate attributename="opacity" values="0.9;0.4;0.9" dur="2.2s" repeatcount="indefinite" />
-      </circle> <circle cx="55" cy="44" r="2" fill="#ffd700" opacity="0.9">
-       <animate attributename="opacity" values="0.4;0.9;0.4" dur="1.3s" repeatcount="indefinite" />
-      </circle> <circle cx="38" cy="48" r="2" fill="#ff69b4" opacity="0.9">
-       <animate attributename="opacity" values="0.9;0.4;0.9" dur="1.7s" repeatcount="indefinite" />
-      </circle> <circle cx="62" cy="50" r="2" fill="#00ffff" opacity="0.9">
-       <animate attributename="opacity" values="0.4;0.9;0.4" dur="2s" repeatcount="indefinite" />
-      </circle>
+    <div class="elegant-box-content">
+     <svg class="elegant-crown-icon" viewBox="0 0 100 100" role="img" aria-hidden="true">
+      <defs>
+       <linearGradient id="treeGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#8A2BE2" />
+        <stop offset="100%" stop-color="#ffd700" />
+       </linearGradient>
+      </defs>
+      <polygon points="50,15 35,35 40,35 25,55 30,55 15,75 85,75 70,55 75,55 60,35 65,35" fill="url(#treeGradient)" stroke="#8A2BE2" stroke-width="1.5" />
      </svg>
      <div class="elegant-main-title">
       24 Gentle Steps<br>
       to Christmas
      </div>
      <div class="elegant-subtitle">
-      Family Advent Calendar
+      A mindful, heart-warming advent experience for the whole family.
      </div>
-     <div class="elegant-description">
-      Create magical December memories<br>
-      together with your whole family!
-     </div><button class="elegant-amazon-btn" onclick="event.stopPropagation(); window.open('https://amazon.com', '_blank', 'noopener,noreferrer')"> Get on Amazon </button>
+     <button class="elegant-amazon-btn" onclick="event.stopPropagation(); window.open('https://amazon.com', '_blank', 'noopener,noreferrer')">
+      <svg viewBox="0 0 100 100" style="width: 14px; height: 14px; display: inline-block; vertical-align: middle; margin-right: 5px;" aria-hidden="true"></svg>
+      Unwrap it on Amazon
+     </button>
     </div>
    </div>
    <div class="tabs-container">
@@ -1136,12 +1331,113 @@
      </div>
     </div>
     <div id="gifts-content" class="tab-content"><!-- Welcome Box with Golden Border -->
-     <div class="kids-tile" style="border: 3px solid #ffd700; box-shadow: 0 0 35px rgba(255, 215, 0, 0.7), 0 0 60px rgba(255, 215, 0, 0.4); margin: 30px auto; max-width: 600px;">
+     <div class="kids-tile" style="border: 3px solid #ffd700; box-shadow: 0 0 35px rgba(255, 215, 0, 0.7), 0 0 60px rgba(255, 215, 0, 0.4); margin: 24px auto; max-width: 520px; padding: 16px 18px;">
       <div class="kids-text">
-       <h3 style="color: #ffd700; font-size: 1.8rem; margin-bottom: 25px; text-shadow: 0 0 20px rgba(255, 215, 0, 0.8); line-height: 1.3;">Welcome to your<br>
+       <h3 style="color: #ffd700; font-size: 1.5rem; margin-bottom: 18px; text-shadow: 0 0 16px rgba(255, 215, 0, 0.8); line-height: 1.25;">Welcome to your<br>
         exclusive GIFTS section!</h3>
-       <p style="color: #ffffff; font-size: 1.2rem; line-height: 1.8; margin-bottom: 15px;">Free resources to help you</p>
-       <p style="color: #ffffff; font-size: 1.2rem; line-height: 1.8;"><span class="word-rise">RISE</span>, <span class="word-shine">SHINE</span>, and <span class="word-evolve">EVOLVE</span>.</p>
+       <p style="color: #ffffff; font-size: 1.05rem; line-height: 1.6; margin-bottom: 10px;">Free resources to help you</p>
+       <p style="color: #ffffff; font-size: 1.05rem; line-height: 1.6;"><span class="word-rise">RISE</span>, <span class="word-shine">SHINE</span> and <span class="word-evolve">EVOLVE</span>.</p>
+      </div>
+     </div><!-- Gifts Shelf -->
+     <div class="kids-tile" style="border: 3px solid #8A2BE2; box-shadow: 0 0 35px rgba(138, 43, 226, 0.7), 0 0 60px rgba(138, 43, 226, 0.4); margin: 30px auto; max-width: 1200px; padding: 24px 18px;">
+      <div class="kids-text" style="margin-bottom: 20px;">
+       <h3 style="color: #8A2BE2; font-size: 1.9rem; margin: 0 0 10px 0; text-shadow: 0 0 18px rgba(138, 43, 226, 0.7);">GIFTS LIBRARY</h3>
+       <p style="color: #ffd700; font-size: 1rem; margin: 0;">Explore new resources as they arrive - starting with the Calm + Energy Wheel, the 1-Minute Challenge, and the Word Search!</p>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; padding: 0 10px;">
+       <div style="background: #000000; border: 3px solid #ffd700; border-radius: 18px; padding: 22px; text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(255, 215, 0, 0.5); position: relative; min-height: 300px; display: flex; flex-direction: column; align-items: center; gap: 12px;">
+        <div style="position: absolute; top: 12px; left: 12px; background: #8A2BE2; color: #ffffff; font-size: 0.7rem; font-weight: bold; padding: 6px 10px; border-radius: 10px; text-transform: uppercase; box-shadow: 0 0 12px rgba(138, 43, 226, 0.6);">Available</div>
+        <div style="width: 86px; height: 86px; margin-top: 8px; border-radius: 50%; border: 3px solid #ffd700; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 20px rgba(255,215,0,0.6);">
+         <svg width="46" height="46" viewbox="0 0 120 120" aria-hidden="true">
+          <defs>
+           <lineargradient id="wheelGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#ffd700" />
+            <stop offset="100%" stop-color="#8A2BE2" />
+           </lineargradient>
+          </defs>
+          <circle cx="60" cy="60" r="44" fill="none" stroke="url(#wheelGradient)" stroke-width="8" />
+          <circle cx="60" cy="60" r="6" fill="#ffd700" />
+          <path d="M60 16 L67 8 L53 8 Z" fill="#ffd700" />
+          <g stroke="#ffd700" stroke-width="4">
+           <line x1="60" y1="16" x2="60" y2="28" />
+           <line x1="94" y1="60" x2="82" y2="60" />
+           <line x1="60" y1="94" x2="60" y2="82" />
+           <line x1="26" y1="60" x2="38" y2="60" />
+          </g>
+         </svg>
+        </div>
+        <h4 style="color: #ffd700; margin: 0; font-size: 1.25rem; text-shadow: 0 0 15px rgba(255, 215, 0, 0.7);">The Happy Makers Calm and Energy Wheel</h4>
+        <p style="color: #ffffff; font-size: 0.95rem; line-height: 1.5; margin: 0 0 6px 0;">Two tiny tools for your family: one to slow down and soften, one to wake up and brighten - spin, stop and let the Happy Makers guide you.</p>
+        <button onclick="openCalmEnergyWheel(event)" style="background: linear-gradient(45deg, #8A2BE2, #9932CC); border: 2px solid #ffd700; border-radius: 14px; color: #ffffff; font-weight: bold; padding: 10px 16px; cursor: pointer; text-transform: uppercase; box-shadow: 0 0 18px rgba(138, 43, 226, 0.6); margin-top: auto;">Launch the Calm + Energy Wheel</button>
+       </div>
+       <div style="background: #000000; border: 3px solid #ffd700; border-radius: 18px; padding: 22px; text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(255, 215, 0, 0.5); position: relative; min-height: 300px; display: flex; flex-direction: column; align-items: center; gap: 12px;">
+        <div style="position: absolute; top: 12px; left: 12px; background: #8A2BE2; color: #ffffff; font-size: 0.7rem; font-weight: bold; padding: 6px 10px; border-radius: 10px; text-transform: uppercase; box-shadow: 0 0 12px rgba(138, 43, 226, 0.6);">Available</div>
+        <div style="width: 86px; height: 86px; margin-top: 8px; border-radius: 50%; border: 3px solid #ffd700; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 20px rgba(255,215,0,0.6);">
+         <svg width="46" height="46" viewbox="0 0 120 120" aria-hidden="true">
+          <defs>
+           <lineargradient id="challengeGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#ffd700" />
+            <stop offset="100%" stop-color="#8A2BE2" />
+           </lineargradient>
+          </defs>
+          <circle cx="60" cy="60" r="46" fill="none" stroke="url(#challengeGlow)" stroke-width="6" />
+          <polygon points="60,18 72,62 60,54 48,62" fill="#8A2BE2" stroke="#ffd700" stroke-width="3" />
+          <circle cx="60" cy="80" r="10" fill="#ffd700" stroke="#8A2BE2" stroke-width="3" />
+         </svg>
+        </div>
+        <h4 style="color: #ffd700; margin: 0; font-size: 1.25rem; text-shadow: 0 0 15px rgba(255, 215, 0, 0.7);">The Happy Makers 1-Minute Challenge</h4>
+        <p style="color: #ffffff; font-size: 0.95rem; line-height: 1.5; margin: 0 0 6px 0;">One click. One tiny mission. One minute of joy, creativity or connection. Powered by your Happy Makers.</p>
+        <button onclick="openOneMinuteChallenge(event)" style="background: linear-gradient(45deg, #8A2BE2, #9932CC); border: 2px solid #ffd700; border-radius: 14px; color: #ffffff; font-weight: bold; padding: 10px 16px; cursor: pointer; text-transform: uppercase; box-shadow: 0 0 18px rgba(138, 43, 226, 0.6); margin-top: auto;">Start the 1-Minute Challenge</button>
+       </div>
+       <div style="background: #000000; border: 3px solid #ffd700; border-radius: 18px; padding: 22px; text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(255, 215, 0, 0.5); position: relative; min-height: 280px; display: flex; flex-direction: column; align-items: center; gap: 12px;">
+        <div style="position: absolute; top: 12px; left: 12px; background: #8A2BE2; color: #ffffff; font-size: 0.7rem; font-weight: bold; padding: 6px 10px; border-radius: 10px; text-transform: uppercase;">Available</div>
+        <div style="width: 86px; height: 86px; margin-top: 8px; border-radius: 50%; border: 3px solid #ffd700; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 20px rgba(255,215,0,0.6);">
+         <span style="font-size: 2rem;">🔍</span>
+        </div>
+        <h4 style="color: #ffd700; margin: 0; font-size: 1.3rem; text-shadow: 0 0 15px rgba(255, 215, 0, 0.7);">Word Search Puzzle</h4>
+        <p style="color: #ffffff; font-size: 0.95rem; line-height: 1.5; margin: 0 0 6px 0;">The Happy Makers Challenge: can you find the words before Nini declares cuddle time or faster than Alio creates chaos?</p>
+        <button onclick="openWordSearchPuzzle(event)" style="background: linear-gradient(45deg, #8A2BE2, #9932CC); border: 2px solid #ffd700; border-radius: 14px; color: #ffffff; font-weight: bold; padding: 10px 16px; cursor: pointer; text-transform: uppercase; box-shadow: 0 0 18px rgba(138, 43, 226, 0.6);">Start the Happy Search!</button>
+       </div>
+       <div style="background: #000000; border: 3px solid #8A2BE2; border-radius: 18px; padding: 22px; text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(138, 43, 226, 0.4); position: relative; min-height: 260px;">
+        <div style="width: 86px; height: 86px; margin: 10px auto 18px auto; border-radius: 50%; border: 3px solid #8A2BE2; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 18px rgba(138,43,226,0.5);"><svg width="40" height="40" viewbox="0 0 100 100" aria-hidden="true">
+            <rect x="22" y="40" width="56" height="38" rx="6" fill="#8A2BE2" stroke="#ffd700" stroke-width="3"></rect>
+            <rect x="18" y="54" width="64" height="8" fill="#ffd700"></rect>
+            <rect x="46" y="34" width="8" height="50" fill="#ffd700"></rect>
+            <circle cx="50" cy="34" r="8" fill="#ffd700"></circle>
+        </svg></div>
+        <h4 style="color: #8A2BE2; margin: 0 0 12px 0; font-size: 1.3rem; text-shadow: 0 0 15px rgba(138, 43, 226, 0.7);">Gift Coming Soon</h4>
+        <p style="color: #ffffff; font-size: 0.95rem; line-height: 1.5; margin: 0;">Stay tuned for a fresh resource drop.</p>
+       </div>
+       <div style="background: #000000; border: 3px solid #8A2BE2; border-radius: 18px; padding: 22px; text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(138, 43, 226, 0.4); position: relative; min-height: 260px;">
+        <div style="width: 86px; height: 86px; margin: 10px auto 18px auto; border-radius: 50%; border: 3px solid #8A2BE2; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 18px rgba(138,43,226,0.5);"><svg width="40" height="40" viewbox="0 0 100 100" aria-hidden="true">
+            <rect x="22" y="40" width="56" height="38" rx="6" fill="#8A2BE2" stroke="#ffd700" stroke-width="3"></rect>
+            <rect x="18" y="54" width="64" height="8" fill="#ffd700"></rect>
+            <rect x="46" y="34" width="8" height="50" fill="#ffd700"></rect>
+            <circle cx="50" cy="34" r="8" fill="#ffd700"></circle>
+        </svg></div>
+        <h4 style="color: #8A2BE2; margin: 0 0 12px 0; font-size: 1.3rem; text-shadow: 0 0 15px rgba(138, 43, 226, 0.7);">Gift Coming Soon</h4>
+        <p style="color: #ffffff; font-size: 0.95rem; line-height: 1.5; margin: 0;">Another treasure is being crafted.</p>
+       </div>
+       <div style="background: #000000; border: 3px solid #8A2BE2; border-radius: 18px; padding: 22px; text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(138, 43, 226, 0.4); position: relative; min-height: 260px;">
+        <div style="width: 86px; height: 86px; margin: 10px auto 18px auto; border-radius: 50%; border: 3px solid #8A2BE2; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 18px rgba(138,43,226,0.5);"><svg width="40" height="40" viewbox="0 0 100 100" aria-hidden="true">
+            <rect x="22" y="40" width="56" height="38" rx="6" fill="#8A2BE2" stroke="#ffd700" stroke-width="3"></rect>
+            <rect x="18" y="54" width="64" height="8" fill="#ffd700"></rect>
+            <rect x="46" y="34" width="8" height="50" fill="#ffd700"></rect>
+            <circle cx="50" cy="34" r="8" fill="#ffd700"></circle>
+        </svg></div>
+        <h4 style="color: #8A2BE2; margin: 0 0 12px 0; font-size: 1.3rem; text-shadow: 0 0 15px rgba(138, 43, 226, 0.7);">Gift Coming Soon</h4>
+        <p style="color: #ffffff; font-size: 0.95rem; line-height: 1.5; margin: 0;">Watch this space for the next drop.</p>
+       </div>
+       <div style="background: #000000; border: 3px solid #8A2BE2; border-radius: 18px; padding: 22px; text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(138, 43, 226, 0.4); position: relative; min-height: 260px;">
+        <div style="width: 86px; height: 86px; margin: 10px auto 18px auto; border-radius: 50%; border: 3px solid #8A2BE2; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 18px rgba(138,43,226,0.5);"><svg width="40" height="40" viewbox="0 0 100 100" aria-hidden="true">
+            <rect x="22" y="40" width="56" height="38" rx="6" fill="#8A2BE2" stroke="#ffd700" stroke-width="3"></rect>
+            <rect x="18" y="54" width="64" height="8" fill="#ffd700"></rect>
+            <rect x="46" y="34" width="8" height="50" fill="#ffd700"></rect>
+            <circle cx="50" cy="34" r="8" fill="#ffd700"></circle>
+        </svg></div>
+        <h4 style="color: #8A2BE2; margin: 0 0 12px 0; font-size: 1.3rem; text-shadow: 0 0 15px rgba(138, 43, 226, 0.7);">Gift Coming Soon</h4>
+        <p style="color: #ffffff; font-size: 0.95rem; line-height: 1.5; margin: 0;">Fresh learning magic is on the way.</p>
+       </div>
       </div>
      </div>
      <div class="kids-tile" style="margin-top: 20px;">
@@ -1149,6 +1445,34 @@
        It is time to <span class="word-rise">RISE</span>.<span class="word-shine">SHINE</span>.<span class="word-evolve">EVOLVE</span>
       </div>
      </div>
+     <div class="unsubscribe-wrapper" style="margin: 14px auto 0 auto; max-width: 520px; text-align: center; color: #ffd700; font-size: 0.75rem;">
+        <form name="rse-email-unsubscribe-gifts" onsubmit="handleUnsubscribe(event)" style="display: flex; flex-direction: column; gap: 8px; align-items: center;">
+            <span style="display: block;">Unsubscribe &amp; remove GIFTS access</span>
+            <input type="email" name="email" placeholder="Enter your e-mail" required style="
+                width: 100%;
+                max-width: 260px;
+                padding: 8px 10px;
+                border: 2px solid #8A2BE2;
+                border-radius: 10px;
+                background: rgba(0, 0, 0, 0.65);
+                color: #ffffff;
+                box-shadow: 0 0 10px rgba(138, 43, 226, 0.35);
+                font-size: 0.78rem;
+            ">
+            <button type="submit" style="
+                padding: 8px 14px;
+                border: 2px solid #8A2BE2;
+                border-radius: 12px;
+                background: #000000;
+                color: #8A2BE2;
+                font-weight: bold;
+                cursor: pointer;
+                box-shadow: 0 0 12px rgba(138, 43, 226, 0.4);
+                font-size: 0.78rem;
+            ">Unsubscribe</button>
+            <div class="unsubscribe-message" style="font-size: 0.75rem; min-height: 18px;"></div>
+        </form>
+    </div>
     </div>
     <div id="thank-you-content" class="tab-content">
      <div class="kids-tile" style="border: 3px solid #ffd700; box-shadow: 0 0 35px rgba(255, 215, 0, 0.7), 0 0 60px rgba(255, 215, 0, 0.4);">
@@ -1185,134 +1509,116 @@
      </div>
     </div>
     <div id="contact-content" class="tab-content">
-     <div class="kids-tile">
-      <div class="kids-text">
-       Ready to <span class="word-rise">RISE</span>, <span class="word-shine">SHINE</span>, and <span class="word-evolve">EVOLVE</span> together?<br><br>
-        We'd love to hear from you! Whether you have questions, feedback,<br>
-        or just want to share your journey with us.
-      </div>
-     </div><!-- Contact Form -->
-     <div class="kids-tile" style="border: 3px solid #8A2BE2; box-shadow: 0 0 35px rgba(138, 43, 226, 0.7), 0 0 60px rgba(138, 43, 226, 0.4); margin: 30px auto; max-width: 600px;">
-      <div class="kids-text">
-       <h3 style="color: #8A2BE2; font-size: 1.5rem; margin-bottom: 15px; text-shadow: 0 0 20px rgba(138, 43, 226, 0.8);">📧 GET IN TOUCH</h3>
-       <p style="color: #ffffff; font-size: 1rem; margin-bottom: 20px; line-height: 1.4;">Have questions, suggestions, or just want to say hello? We'd love to hear from you!</p>
-       <form id="contact-form" style="display: flex; flex-direction: column; gap: 15px;"><input type="text" id="contact-name" placeholder="Your Name" required style="
-                                    width: 100%;
-                                    padding: 12px 15px;
-                                    border: 2px solid #8A2BE2;
-                                    border-radius: 15px;
-                                    background: rgba(0, 0, 0, 0.7);
-                                    color: #ffffff;
-                                    font-size: 1rem;
-                                    box-shadow: 0 0 15px rgba(138, 43, 226, 0.3);
-                                "> <input type="email" id="contact-email" placeholder="Your Email Address" required style="
-                                    width: 100%;
-                                    padding: 12px 15px;
-                                    border: 2px solid #8A2BE2;
-                                    border-radius: 15px;
-                                    background: rgba(0, 0, 0, 0.7);
-                                    color: #ffffff;
-                                    font-size: 1rem;
-                                    box-shadow: 0 0 15px rgba(138, 43, 226, 0.3);
-                                "> <select id="contact-subject" required style="
-                                    width: 100%;
-                                    padding: 12px 15px;
-                                    border: 2px solid #8A2BE2;
-                                    border-radius: 15px;
-                                    background: rgba(0, 0, 0, 0.7);
-                                    color: #ffffff;
-                                    font-size: 1rem;
-                                    box-shadow: 0 0 15px rgba(138, 43, 226, 0.3);
-                                "> <option value="">Select a topic...</option> <option value="general">General Inquiry</option> <option value="books">Questions about Books</option> <option value="gifts">Free Resources &amp; Gifts</option> <option value="collaboration">Collaboration Opportunities</option> <option value="feedback">Feedback &amp; Suggestions</option> <option value="support">Technical Support</option> </select> <textarea id="contact-message" placeholder="Your Message" rows="5" required style="
-                                    width: 100%;
-                                    padding: 12px 15px;
-                                    border: 2px solid #8A2BE2;
-                                    border-radius: 15px;
-                                    background: rgba(0, 0, 0, 0.7);
-                                    color: #ffffff;
-                                    font-size: 1rem;
-                                    box-shadow: 0 0 15px rgba(138, 43, 226, 0.3);
-                                    resize: vertical;
-                                    font-family: Arial, sans-serif;
-                                "></textarea> <button type="submit" style="
-                                    background: linear-gradient(45deg, #8A2BE2, #9932CC);
-                                    border: 2px solid #ffd700;
-                                    border-radius: 25px;
-                                    padding: 15px 30px;
-                                    color: #ffffff;
-                                    font-size: 1.1rem;
-                                    font-weight: bold;
-                                    cursor: pointer;
-                                    box-shadow: 0 0 20px rgba(138, 43, 226, 0.6);
-                                    transition: all 0.3s ease;
-                                    text-transform: uppercase;
-                                    align-self: center;
-                                " onmouseover="this.style.transform='translateY(-2px) scale(1.05)'; this.style.boxShadow='0 0 30px rgba(138, 43, 226, 0.8)';" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 0 20px rgba(138, 43, 226, 0.6)';"> 📤 Send Message </button>
-       </form>
-       <div id="contact-form-message" style="margin-top: 15px; font-weight: bold; display: none;"></div>
-      </div>
-     </div><!-- Social Media Links -->
-     <div class="kids-tile" style="border: 3px solid #ffd700; box-shadow: 0 0 35px rgba(255, 215, 0, 0.7), 0 0 60px rgba(255, 215, 0, 0.4); margin: 30px auto; max-width: 600px;">
-      <div class="kids-text">
-       <h3 style="color: #ffd700; font-size: 1.5rem; margin-bottom: 15px; text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);">🌟 FOLLOW US</h3>
-       <p style="color: #ffffff; font-size: 1rem; margin-bottom: 20px; line-height: 1.4;">Stay connected and get the latest updates on our social media channels!</p>
-       <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;"><a href="https://facebook.com/riseshineevolve" target="_blank" rel="noopener noreferrer" style="
-                                display: flex;
-                                align-items: center;
-                                gap: 8px;
-                                background: linear-gradient(45deg, #1877f2, #42a5f5);
-                                border: none;
-                                border-radius: 15px;
-                                padding: 12px 20px;
-                                color: #ffffff;
-                                font-size: 1rem;
-                                font-weight: bold;
-                                text-decoration: none;
-                                cursor: pointer;
-                                box-shadow: 0 0 15px rgba(24, 119, 242, 0.4);
-                                transition: all 0.3s ease;
-                            " onmouseover="this.style.transform='translateY(-2px) scale(1.05)'; this.style.boxShadow='0 0 25px rgba(24, 119, 242, 0.6)';" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 0 15px rgba(24, 119, 242, 0.4)';"> 📘 Facebook </a> <a href="https://instagram.com/riseshineevolve" target="_blank" rel="noopener noreferrer" style="
-                                display: flex;
-                                align-items: center;
-                                gap: 8px;
-                                background: linear-gradient(45deg, #e4405f, #fd1d1d, #fcb045);
-                                border: none;
-                                border-radius: 15px;
-                                padding: 12px 20px;
-                                color: #ffffff;
-                                font-size: 1rem;
-                                font-weight: bold;
-                                text-decoration: none;
-                                cursor: pointer;
-                                box-shadow: 0 0 15px rgba(228, 64, 95, 0.4);
-                                transition: all 0.3s ease;
-                            " onmouseover="this.style.transform='translateY(-2px) scale(1.05)'; this.style.boxShadow='0 0 25px rgba(228, 64, 95, 0.6)';" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 0 15px rgba(228, 64, 95, 0.4)';"> 📷 Instagram </a> <a href="https://tiktok.com/@riseshineevolve" target="_blank" rel="noopener noreferrer" style="
-                                display: flex;
-                                align-items: center;
-                                gap: 8px;
-                                background: linear-gradient(45deg, #000000, #ff0050);
-                                border: none;
-                                border-radius: 15px;
-                                padding: 12px 20px;
-                                color: #ffffff;
-                                font-size: 1rem;
-                                font-weight: bold;
-                                text-decoration: none;
-                                cursor: pointer;
-                                box-shadow: 0 0 15px rgba(255, 0, 80, 0.4);
-                                transition: all 0.3s ease;
-                            " onmouseover="this.style.transform='translateY(-2px) scale(1.05)'; this.style.boxShadow='0 0 25px rgba(255, 0, 80, 0.6)';" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 0 15px rgba(255, 0, 80, 0.4)';"> 🎵 TikTok </a>
-       </div>
-      </div>
-     </div>
-     <div class="kids-tile" style="margin-top: 20px;">
-      <div class="kids-text">
-       It is time to <span class="word-rise">RISE</span>.<span class="word-shine">SHINE</span>.<span class="word-evolve">EVOLVE</span>
-      </div>
-     </div>
+    
+        <div class="kids-tile" style="border: 3px solid #ff69b4; box-shadow: 0 0 35px rgba(255, 105, 180, 0.7), 0 0 60px rgba(255, 105, 180, 0.4);">
+            <div class="kids-text">
+                <strong style="color: #ffffff; font-size: 1.1rem;">Email</strong><br>
+                <a href="mailto:rise.shine.evolve@gmail.com" style="color: #ff69b4; text-decoration: none; text-shadow: 0 0 20px rgba(255, 105, 180, 1); font-size: 1rem; font-weight: bold;">rise.shine.evolve@gmail.com</a>
+            </div>
+        </div>
+
+        <div class="kids-tile">
+            <div class="kids-text">
+                <strong>Follow Us</strong><br>
+                Join our community of learners and growers
+            </div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 10px; align-items: center; margin: 20px 0;">
+
+            <div class="kids-tile" style="width: 150px; padding: 8px 15px;">
+                <div class="kids-text">
+                    <a href="https://www.instagram.com/rise.shine.evolve.learning.hub/" target="_blank" rel="noopener noreferrer" style="color: #ff69b4; text-decoration: none; text-shadow: 0 0 15px rgba(255, 105, 180, 0.8); font-size: 0.9rem;"><strong>Instagram</strong></a>
+                </div>
+            </div>
+            
+            <div class="kids-tile" style="width: 150px; padding: 8px 15px;">
+                <div class="kids-text">
+                    <a href="https://www.tiktok.com/@rise.shine.evolve" target="_blank" rel="noopener noreferrer" style="color: #ff1493; text-decoration: none; text-shadow: 0 0 15px rgba(255, 20, 147, 0.8); font-size: 0.9rem;"><strong>TikTok</strong></a>
+                </div>
+            </div>
+            
+            <div class="kids-tile" style="width: 150px; padding: 8px 15px;">
+                <div class="kids-text">
+                    <a href="https://www.facebook.com/profile.php?viewas=100000686899395&id=61582525115704" target="_blank" rel="noopener noreferrer" style="color: #8A2BE2; text-decoration: none; text-shadow: 0 0 15px rgba(138, 43, 226, 0.8); font-size: 0.9rem;"><strong>Facebook</strong></a>
+                </div>
+            </div>
+
+            <div class="kids-tile" style="max-width: 720px; width: 100%; text-align: left; padding: 18px 22px;">
+                <div class="kids-text" style="text-align: left;">
+                    <p style="margin-top: 0; margin-bottom: 12px; font-weight: bold; font-size: 1.1rem;">Send us a message</p>
+                    <form id="contact-form" class="contact-form" onsubmit="handleContactSubmit(event)">
+                        <p style="display: none;">
+                            <label>Don’t fill this out if you’re human: <input name="bot-field-contact"></label>
+                        </p>
+                        <label for="contact-name">Name</label>
+                        <input type="text" id="contact-name" name="name" placeholder="Your name" required>
+
+                        <label for="contact-email">Email Address</label>
+                        <input type="email" id="contact-email" name="email" placeholder="your.email@example.com" required>
+
+                        <label for="contact-subject">Subject</label>
+                        <select id="contact-subject" name="subject" required>
+                            <option value="">Choose a topic...</option>
+                            <option value="general">General Inquiry</option>
+                            <option value="partnership">Partnership Opportunity</option>
+                            <option value="feedback">Feedback</option>
+                            <option value="support">Support</option>
+                            <option value="other">Other</option>
+                        </select>
+
+                        <label for="contact-message">Message</label>
+                        <textarea id="contact-message" name="message" placeholder="Tell us what's on your mind..." required></textarea>
+
+                        <button type="submit">Send Message ✉️</button>
+                        <div id="contact-success" class="contact-success">✅ Thank you! Your message has been sent successfully.</div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="kids-tile" style="padding: 12px 18px; max-width: 400px; width: 100%;">
+                <div class="kids-text">
+                    It is time to <span class="word-rise">RISE</span>.<span class="word-shine">SHINE</span>.<span class="word-evolve">EVOLVE</span>
+                </div>
+            </div>
+            <div class="unsubscribe-wrapper" style="margin: 14px auto 0 auto; max-width: 520px; text-align: center; color: #ffd700; font-size: 0.75rem;">
+                <form name="rse-email-unsubscribe-contact" onsubmit="handleUnsubscribe(event)" style="display: flex; flex-direction: column; gap: 8px; align-items: center;">
+                    <p style="display: none;">
+                        <label>Don’t fill this out if you’re human: <input name="bot-field-unsub-contact"></label>
+                    </p>
+                    <span style="display: block;">Unsubscribe &amp; remove GIFTS access</span>
+                    <input type="email" name="email" placeholder="Enter your e-mail" required style="
+                        width: 100%;
+                        max-width: 260px;
+                        padding: 8px 10px;
+                        border: 2px solid #8A2BE2;
+                        border-radius: 10px;
+                        background: rgba(0, 0, 0, 0.65);
+                        color: #ffffff;
+                        box-shadow: 0 0 10px rgba(138, 43, 226, 0.35);
+                        font-size: 0.78rem;
+                    ">
+                    <button type="submit" style="
+                        padding: 8px 14px;
+                        border: 2px solid #8A2BE2;
+                        border-radius: 12px;
+                        background: #000000;
+                        color: #8A2BE2;
+                        font-weight: bold;
+                        cursor: pointer;
+                        box-shadow: 0 0 12px rgba(138, 43, 226, 0.4);
+                        font-size: 0.78rem;
+                    ">Unsubscribe</button>
+                    <div class="unsubscribe-message" style="font-size: 0.75rem; min-height: 18px; text-align: center;"></div>
+                </form>
+            </div>
+        </div>
     </div>
    </div>
-  </div><!-- Full Screen Family Gallery -->
+  </div>
+  <footer style="text-align: center; color: #888; font-size: 0.75rem; margin-bottom: 15px;">
+    © 2025 Rise.Shine.Evolve - Empowering Learning Hub
+  </footer><!-- Full Screen Family Gallery -->
   <div id="full-screen-family-gallery" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000000; z-index: 10000; overflow-y: auto; padding: 40px 20px; box-sizing: border-box;">
    <div style="max-width: 1400px; margin: 0 auto;"><!-- Back Button --> <button onclick="backToLibrary()" style="
                 background: linear-gradient(45deg, #8A2BE2, #9932CC);
@@ -1352,7 +1658,7 @@
         width: 12px;
         background: linear-gradient(to right, rgba(0, 0, 0, 0.3), transparent);
         border-radius: 20px 0 0 20px;
-    "></div><!-- Obrazek (zdjęcie profilowe) --> <img src="https://raw.githubusercontent.com/riseshineevolve-source/RISE.SHINE.EVOLVE/main/assets/images/mimi.png" alt="Mimi" style="width: 120px; height: 120px; border-radius: 50%; margin-bottom: 20px; margin-top: 25px; object-fit: cover; border: 3px solid #ff69b4; box-shadow: 0 0 25px rgba(255, 105, 180, 0.6);" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"> <!-- Tytuł i opis -->
+                    "></div><!-- Obrazek (zdjęcie profilowe) --> <img src="assets/images/Mimi.png" data-character-img="Mimi.png" alt="Mimi" style="display: block; width: 120px; height: 120px; border-radius: 50%; margin: 25px auto 20px auto; object-fit: cover; border: 3px solid #ff69b4; box-shadow: 0 0 25px rgba(255, 105, 180, 0.6);"> <!-- Tytuł i opis -->
       <h4 style="color: #ff69b4; margin: 0 0 12px 0; font-size: 1.6rem; text-shadow: 0 0 20px rgba(255, 105, 180, 0.8);">Mimi</h4>
       <p style="color: #ffffff; font-size: 1.1rem; margin: 0 0 20px 0; font-weight: bold;">Chaos Queen</p><!-- Przycisk "Learn More" na dole -->
       <div style="
@@ -1395,7 +1701,7 @@
                         width: 12px;
                         background: linear-gradient(to right, rgba(0, 0, 0, 0.3), transparent);
                         border-radius: 20px 0 0 20px;
-                    "></div><img src="https://raw.githubusercontent.com/riseshineevolve-source/RISE.SHINE.EVOLVE/main/assets/images/luli.png" alt="Luli" style="width: 120px; height: 120px; border-radius: 50%; margin-bottom: 20px; margin-top: 25px; object-fit: cover; border: 3px solid #ffd700; box-shadow: 0 0 25px rgba(255, 215, 0, 0.6);" onerror="this.style.display='none';">
+                    "></div><img src="assets/images/Luli.png" data-character-img="Luli.png" alt="Luli" style="display: block; width: 120px; height: 120px; border-radius: 50%; margin: 25px auto 20px auto; object-fit: cover; border: 3px solid #ffd700; box-shadow: 0 0 25px rgba(255, 215, 0, 0.6);">
       <h4 style="color: #ffd700; margin: 0 0 12px 0; font-size: 1.6rem; text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);">Luli</h4>
       <p style="color: #ffffff; font-size: 1.1rem; margin: 0 0 20px 0; font-weight: bold;">Creative Glow</p>
       <div style="
@@ -1438,7 +1744,7 @@
                         width: 12px;
                         background: linear-gradient(to right, rgba(0, 0, 0, 0.3), transparent);
                         border-radius: 20px 0 0 20px;
-                    "></div><img src="https://raw.githubusercontent.com/riseshineevolve-source/RISE.SHINE.EVOLVE/main/assets/images/dilo.png" alt="Dilo" style="width: 120px; height: 120px; border-radius: 50%; margin-bottom: 20px; margin-top: 25px; object-fit: cover; border: 3px solid #00bfff; box-shadow: 0 0 25px rgba(0, 191, 255, 0.6);" onerror="this.style.display='none';">
+                    "></div><img src="assets/images/Dilo.png" data-character-img="Dilo.png" alt="Dilo" style="display: block; width: 120px; height: 120px; border-radius: 50%; margin: 25px auto 20px auto; object-fit: cover; border: 3px solid #00bfff; box-shadow: 0 0 25px rgba(0, 191, 255, 0.6);">
       <h4 style="color: #00bfff; margin: 0 0 12px 0; font-size: 1.6rem; text-shadow: 0 0 20px rgba(0, 191, 255, 0.8);">Dilo</h4>
       <p style="color: #ffffff; font-size: 1.1rem; margin: 0 0 20px 0; font-weight: bold;">Pixel Striker</p>
       <div style="
@@ -1481,7 +1787,7 @@
                         width: 12px;
                         background: linear-gradient(to right, rgba(0, 0, 0, 0.3), transparent);
                         border-radius: 20px 0 0 20px;
-                    "></div><img src="https://raw.githubusercontent.com/riseshineevolve-source/RISE.SHINE.EVOLVE/main/assets/images/alio.png" alt="Alio" style="width: 120px; height: 120px; border-radius: 50%; margin-bottom: 20px; margin-top: 25px; object-fit: cover; border: 3px solid #32cd32; box-shadow: 0 0 25px rgba(50, 205, 50, 0.6);" onerror="this.style.display='none';">
+                    "></div><img src="assets/images/Alio.png" data-character-img="Alio.png" alt="Alio" style="display: block; width: 120px; height: 120px; border-radius: 50%; margin: 25px auto 20px auto; object-fit: cover; border: 3px solid #32cd32; box-shadow: 0 0 25px rgba(50, 205, 50, 0.6);">
       <h4 style="color: #32cd32; margin: 0 0 12px 0; font-size: 1.6rem; text-shadow: 0 0 20px rgba(50, 205, 50, 0.8);">Alio</h4>
       <p style="color: #ffffff; font-size: 1.1rem; margin: 0 0 20px 0; font-weight: bold;">Playful Power</p>
       <div style="
@@ -1524,7 +1830,7 @@
                         width: 12px;
                         background: linear-gradient(to right, rgba(0, 0, 0, 0.3), transparent);
                         border-radius: 20px 0 0 20px;
-                    "></div><img src="https://raw.githubusercontent.com/riseshineevolve-source/RISE.SHINE.EVOLVE/main/assets/images/nini.png" alt="Little Nini" style="width: 120px; height: 120px; border-radius: 50%; margin-bottom: 20px; margin-top: 25px; object-fit: cover; border: 3px solid #ff69b4; box-shadow: 0 0 25px rgba(255, 105, 180, 0.6);" onerror="this.style.display='none';">
+                    "></div><img src="assets/images/Nini.png" data-character-img="Nini.png" alt="Little Nini" style="display: block; width: 120px; height: 120px; border-radius: 50%; margin: 25px auto 20px auto; object-fit: cover; border: 3px solid #ff69b4; box-shadow: 0 0 25px rgba(255, 105, 180, 0.6);">
       <h4 style="color: #ff69b4; margin: 0 0 12px 0; font-size: 1.6rem; text-shadow: 0 0 20px rgba(255, 105, 180, 0.8);">Little Nini</h4>
       <p style="color: #ffffff; font-size: 1.1rem; margin: 0 0 20px 0; font-weight: bold;">Joy Spark</p>
       <div style="
@@ -1567,7 +1873,7 @@
                         width: 12px;
                         background: linear-gradient(to right, rgba(0, 0, 0, 0.3), transparent);
                         border-radius: 20px 0 0 20px;
-                    "></div><img src="https://raw.githubusercontent.com/riseshineevolve-source/RISE.SHINE.EVOLVE/main/assets/images/bibi.png" alt="Grandma Bibi" style="width: 120px; height: 120px; border-radius: 50%; margin-bottom: 20px; margin-top: 25px; object-fit: cover; border: 3px solid #9932CC; box-shadow: 0 0 25px rgba(153, 50, 204, 0.6);" onerror="this.style.display='none';">
+                    "></div><img src="assets/images/Grandma%20Bibi.png" data-character-img="Grandma Bibi.png" alt="Grandma Bibi" style="display: block; width: 120px; height: 120px; border-radius: 50%; margin: 25px auto 20px auto; object-fit: cover; border: 3px solid #9932CC; box-shadow: 0 0 25px rgba(153, 50, 204, 0.6);">
       <h4 style="color: #9932CC; margin: 0 0 12px 0; font-size: 1.6rem; text-shadow: 0 0 20px rgba(153, 50, 204, 0.8);">Grandma Bibi</h4>
       <p style="color: #ffffff; font-size: 1.1rem; margin: 0 0 20px 0; font-weight: bold;">Royal Glow</p>
       <div style="
@@ -1610,8 +1916,8 @@
       </div>
       <h3 style="color: #8A2BE2; font-size: 2rem; margin-bottom: 15px; text-shadow: 0 0 20px rgba(138, 43, 226, 1); font-weight: bold; text-transform: uppercase; letter-spacing: 1px;">MORE COMING SOON!</h3>
       <p style="color: #ffffff; font-size: 1.05rem; line-height: 1.6; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);">Stay tuned to meet more amazing members of The Happy-Makers Family!</p>
-     </div>
-    </div><!-- Back Button Bottom -->
+    </div>
+   </div><!-- Back Button Bottom -->
     <div style="text-align: center;"><button onclick="backToLibrary()" style="
                     background: linear-gradient(45deg, #8A2BE2, #9932CC);
                     border: 2px solid #ffd700;
@@ -1625,6 +1931,24 @@
                     transition: all 0.3s ease;
                 " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 0 30px rgba(138, 43, 226, 0.8)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 0 20px rgba(138, 43, 226, 0.6)';"> ← Back to Library </button>
     </div>
+   </div>
+  </div><!-- Full Screen Book Details -->
+  <div id="character-details-view" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000000; z-index: 10001; overflow-y: auto; padding: 40px 20px; box-sizing: border-box;">
+   <div style="max-width: 1100px; margin: 0 auto;">
+    <button onclick="backToFamilyGalleryFromCharacter()" style="
+                background: linear-gradient(45deg, #8A2BE2, #9932CC);
+                border: 2px solid #ffd700;
+                border-radius: 20px;
+                padding: 12px 25px;
+                color: #ffffff;
+                font-size: 1rem;
+                font-weight: bold;
+                cursor: pointer;
+                margin-bottom: 24px;
+                box-shadow: 0 0 20px rgba(138, 43, 226, 0.6);
+                transition: all 0.3s ease;
+            " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 0 30px rgba(138, 43, 226, 0.8)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 0 20px rgba(138, 43, 226, 0.6)';"> ← Back to Gallery </button>
+    <div id="character-details-content"></div>
    </div>
   </div><!-- Full Screen Book Details -->
   <div id="full-screen-book-details" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000000; z-index: 999; overflow-y: auto; padding: 40px 20px;">
@@ -1652,12 +1976,21 @@
                     font-weight: bold;
                     cursor: pointer;
                     box-shadow: 0 0 20px rgba(138, 43, 226, 0.6);
-                    transition: all 0.3s ease;
-                " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 0 30px rgba(138, 43, 226, 0.8)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 0 20px rgba(138, 43, 226, 0.6)';"> ← Back to Library </button>
+                transition: all 0.3s ease;
+            " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 0 30px rgba(138, 43, 226, 0.8)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 0 20px rgba(138, 43, 226, 0.6)';"> ← Back to Library </button>
     </div>
    </div>
   </div><!-- Email Modal -->
-  <div id="emailModal" style="
+  <div id="gift-overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.95); z-index: 10010; overflow-y: auto; padding: 30px 20px; box-sizing: border-box;">
+   <div style="max-width: 1200px; margin: 0 auto; position: relative;">
+    <button onclick="closeGiftOverlay()" style="position: sticky; top: 10px; margin-bottom: 15px; background: linear-gradient(45deg, #8A2BE2, #9932CC); border: 2px solid #ffd700; border-radius: 14px; padding: 10px 18px; color: #ffffff; font-size: 1rem; font-weight: bold; cursor: pointer; box-shadow: 0 0 18px rgba(138, 43, 226, 0.6);">Close gift ✖</button>
+    <iframe id="gift-frame" title="Gift experience" style="width: 100%; height: 82vh; border: 3px solid #8A2BE2; border-radius: 16px; box-shadow: 0 0 35px rgba(138, 43, 226, 0.6), 0 0 60px rgba(138, 43, 226, 0.3); background: #000;"></iframe>
+    <div id="gift-fallback" style="display: none; color: #ffffff; text-align: center; padding: 30px 15px; background: linear-gradient(135deg, rgba(138, 43, 226, 0.2), rgba(0, 0, 0, 0.9)); border: 2px solid #ffd700; border-radius: 16px; margin-top: 10px; box-shadow: 0 0 25px rgba(255, 215, 0, 0.4);">
+     Gift content is unavailable right now. Please try again in a moment.
+    </div>
+   </div>
+  </div>
+  <div id="emailModal" class="modal" style="
         display: none;
         position: fixed;
         top: 0;
@@ -1668,7 +2001,7 @@
         z-index: 1000;
         backdrop-filter: blur(5px);
     ">
-   <div style="
+   <div class="modal-content" style="
             position: absolute;
             top: 50%;
             left: 50%;
@@ -1677,10 +2010,11 @@
             border: 3px solid #8A2BE2;
             border-radius: 20px;
             padding: 30px;
-            max-width: 500px;
-            width: 90%;
+            max-width: 520px;
+            width: 92%;
             box-shadow: 0 0 50px rgba(138, 43, 226, 0.8);
-        "><!-- Close Button --> <button onclick="closeEmailModal()" style="
+        ">
+    <span class="close" onclick="closeEmailModal()" style="
                 position: absolute;
                 top: 15px;
                 right: 15px;
@@ -1696,13 +2030,17 @@
                 justify-content: center;
                 border-radius: 50%;
                 transition: all 0.3s ease;
-            " onmouseover="this.style.background='rgba(138, 43, 226, 0.3)';" onmouseout="this.style.background='none';">×</button>
+            " onmouseover="this.style.background='rgba(138, 43, 226, 0.3)';" onmouseout="this.style.background='none';">×</span>
     <h3 style="color: #8A2BE2; font-size: 1.8rem; margin-bottom: 10px; text-align: center; text-shadow: 0 0 15px rgba(138, 43, 226, 0.8); animation: colorTransition 3s ease-in-out infinite; line-height: 1.3;">Join Our Community</h3>
     <p style="color: #ffd700; font-size: 1.1rem; margin-bottom: 20px; text-align: center; text-shadow: 0 0 10px rgba(255, 215, 0, 0.6); font-weight: bold;">Get our newsletter &amp; unlock exclusive GIFTS</p>
     <p style="color: #ffffff; font-size: 1rem; margin-bottom: 25px; text-align: center; line-height: 1.5;">Free resources to help you <span style="color: #ff1493; font-weight: bold;">RISE</span>,<br>
       tools that make you <span style="color: #ffd700; font-weight: bold;">SHINE</span>,<br>
-      and materials that help you <span style="color: #9932CC; font-weight: bold;">EVOLVE</span>.</p><!-- Form Fields -->
-    <div style="margin-bottom: 15px; position: relative;"><span style="color: #ff69b4; font-size: 1rem; position: absolute; left: -10px; top: 12px;">*</span> <input type="text" id="giftsFirstNameInput" placeholder="Enter your first name" style="
+      and materials that help you <span style="color: #9932CC; font-weight: bold;">EVOLVE</span>.</p>
+      <form name="rse-email-list-modal" onsubmit="submitEmailModal(event)">
+            <div class="form-group" style="margin-bottom: 20px;">
+                <div style="position: relative; margin-bottom: 15px;">
+                    <span style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #ff69b4; font-size: 12px; text-shadow: 0 0 10px rgba(255, 105, 180, 0.8);">*</span>
+                    <input type="text" id="firstNameInput" name="firstName" placeholder="Enter your first name" required style="
                         width: 100%;
                         padding: 12px 15px;
                         border: 2px solid #8A2BE2;
@@ -1713,8 +2051,10 @@
                         box-shadow: 0 0 15px rgba(138, 43, 226, 0.3);
                         box-sizing: border-box;
                     ">
-    </div>
-    <div style="margin-bottom: 15px; position: relative;"><span style="color: #ff69b4; font-size: 1rem; position: absolute; left: -10px; top: 12px;">*</span> <input type="email" id="giftsEmailInput" placeholder="Enter your e-mail" style="
+                </div>
+                <div style="position: relative;">
+                    <span style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #ff69b4; font-size: 12px; text-shadow: 0 0 10px rgba(255, 105, 180, 0.8);">*</span>
+                    <input type="email" id="emailInput" name="email" placeholder="Enter your e-mail" required style="
                         width: 100%;
                         padding: 12px 15px;
                         border: 2px solid #8A2BE2;
@@ -1725,32 +2065,1132 @@
                         box-shadow: 0 0 15px rgba(138, 43, 226, 0.3);
                         box-sizing: border-box;
                     ">
-    </div>
-    <div style="display: flex; align-items: flex-start; gap: 10px; margin-bottom: 20px;"><span style="color: #ff69b4; font-size: 1rem; margin-top: 2px;">*</span> <input type="checkbox" id="giftsGdprCheck" style="transform: scale(1.2); margin-top: 2px;"> <label for="giftsGdprCheck" style="color: #ffffff; font-size: 0.9rem; line-height: 1.3;"> I have read and agree to the <a href="#" onclick="openPrivacyPolicy(); return false;" style="color: #ffd700; text-decoration: underline;">Privacy Policy</a> and agree to receive emails from Rise.Shine.Evolve. </label>
-    </div><!-- Error Message -->
-    <div id="giftsErrorMsg" style="color: #ff0000; font-size: 0.9rem; margin-bottom: 15px; text-align: center;"></div><!-- Submit Button -->
-    <div style="text-align: center;"><button id="giftsSubmitEmail" style="
-                        background: linear-gradient(45deg, #8A2BE2, #9932CC);
-                        border: 2px solid #ffd700;
-                        border-radius: 25px;
-                        padding: 15px 30px;
-                        color: #ffffff;
-                        font-size: 1.1rem;
-                        font-weight: bold;
-                        cursor: pointer;
-                        box-shadow: 0 0 20px rgba(138, 43, 226, 0.6);
-                        transition: all 0.3s ease;
-                        text-transform: uppercase;
-                    " onmouseover="this.style.transform='translateY(-2px) scale(1.05)'; this.style.boxShadow='0 0 30px rgba(138, 43, 226, 0.8)';" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 0 20px rgba(138, 43, 226, 0.6)';"> Join us </button>
-    </div>
+                </div>
+            </div>
+            <div class="checkbox-group" style="display: flex; align-items: flex-start; gap: 10px; margin-bottom: 20px;">
+                <span style="color: #ff69b4; font-size: 12px; text-shadow: 0 0 10px rgba(255, 105, 180, 0.8); margin-top: 4px;">*</span>
+                <input type="checkbox" id="gdprCheck" name="gdprConsent" required style="margin-top: 4px; transform: scale(1.2); accent-color: #8A2BE2;">
+                <label for="gdprCheck" style="color: #ffffff; font-size: 14px; line-height: 1.4; margin-bottom: 0;"> I have read and agree to the <span class="privacy-link" onclick="openPrivacyPolicy()" style="color: #ffd700; cursor: pointer; text-decoration: underline;">Privacy Policy</span> and agree to receive emails from Rise.Shine.Evolve. </label>
+            </div>
+            <button type="submit" id="submitEmail" style="width: 100%; padding: 15px; background: linear-gradient(45deg, #8A2BE2, #ff69b4); border: none; border-radius: 25px; color: #ffffff; font-size: 18px; font-weight: bold; cursor: pointer; text-shadow: 0 0 10px rgba(0, 0, 0, 0.5); box-shadow: 0 0 25px rgba(138, 43, 226, 0.6); transition: all 0.3s ease;">Join us</button>
+            <p id="errorMsg" style="color: #ff1493; text-align: center; margin-top: 15px; font-weight: bold;"></p>
+        </form>
    </div>
   </div>
+  <div id="privacyModal" class="modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 1001; backdrop-filter: blur(6px);">
+    <div class="modal-content" style="max-width: 700px; max-height: 80vh; overflow-y: auto; margin: 40px auto; background: #0c0c0c; border: 3px solid #8A2BE2; border-radius: 20px; padding: 25px; position: relative; box-shadow: 0 0 40px rgba(138, 43, 226, 0.7);">
+        <span class="close" onclick="closePrivacyModal()" style="position: absolute; top: 12px; right: 12px; font-size: 1.4rem; cursor: pointer; color: #ffffff;">×</span>
+        <h2 style="color: #ffd700; text-align: center; margin-bottom: 10px;">Privacy Policy</h2>
+        <div style="color: #ffffff; line-height: 1.6; font-size: 14px;">
+            <p><strong>Effective Date:</strong> January 1, 2025</p>
+
+            <h3 style="color: #ff69b4; margin-top: 25px;">1. Information We Collect</h3>
+            <p>We collect information you provide directly to us when you subscribe to our community newsletter:</p>
+            <ul>
+                <li>First name</li>
+                <li>Email address</li>
+                <li>Communication preferences</li>
+            </ul>
+
+            <h3 style="color: #ff69b4; margin-top: 25px;">2. How We Use Your Information</h3>
+            <p>We use the information we collect to:</p>
+            <ul>
+                <li>Send you educational materials and newsletters</li>
+                <li>Provide access to free educational resources</li>
+                <li>Communicate with you about our services and new releases</li>
+                <li>Improve our educational content</li>
+                <li>Comply with legal obligations</li>
+            </ul>
+
+            <h3 style="color: #ff69b4; margin-top: 25px;">3. Information Sharing</h3>
+            <p>We do not sell, trade, or otherwise transfer your personal information to third parties without your consent, except as described in this policy or as required by law.</p>
+
+            <h3 style="color: #ff69b4; margin-top: 25px;">4. Data Security</h3>
+            <p>We implement appropriate security measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction. Passwords are encrypted and stored securely.</p>
+
+            <h3 style="color: #ff69b4; margin-top: 25px;">5. Your Rights (GDPR &amp; RODO Compliance)</h3>
+            <p>Under GDPR (General Data Protection Regulation) and Polish RODO (Rozporządzenie o Ochronie Danych Osobowych), you have the right to:</p>
+            <ul>
+                <li><strong>Access (Art. 15 GDPR/RODO):</strong> Request access to your personal data</li>
+                <li><strong>Rectification (Art. 16 GDPR/RODO):</strong> Correct inaccurate or incomplete data</li>
+                <li><strong>Erasure (Art. 17 GDPR/RODO):</strong> Request deletion of your data ("right to be forgotten")</li>
+                <li><strong>Restriction (Art. 18 GDPR/RODO):</strong> Restrict processing of your data</li>
+                <li><strong>Portability (Art. 20 GDPR/RODO):</strong> Receive your data in a structured format</li>
+                <li><strong>Objection (Art. 21 GDPR/RODO):</strong> Object to processing of your data</li>
+                <li><strong>Withdraw consent:</strong> Unsubscribe from newsletter at any time</li>
+                <li><strong>Lodge a complaint:</strong> File a complaint with supervisory authority (UODO in Poland)</li>
+            </ul>
+
+            <h3 style="color: #ff69b4; margin-top: 25px;">6. Legal Basis for Processing (GDPR/RODO Art. 6)</h3>
+            <p>We process your data based on:</p>
+            <ul>
+                <li><strong>Consent (Art. 6(1)(a)):</strong> For newsletter subscriptions and community access</li>
+                <li><strong>Legitimate interests (Art. 6(1)(f)):</strong> For service improvement and educational content development</li>
+            </ul>
+
+            <h3 style="color: #ff69b4; margin-top: 25px;">7. Data Retention</h3>
+            <p>We retain your newsletter subscription data only as long as necessary for the purposes outlined in this policy or as required by law. Newsletter data is kept until you unsubscribe from our community.</p>
+
+            <h3 style="color: #ff69b4; margin-top: 25px;">8. International Transfers</h3>
+            <p>Your information may be transferred to and processed in countries other than your own. We ensure appropriate safeguards are in place in accordance with GDPR Chapter V.</p>
+
+            <h3 style="color: #ff69b4; margin-top: 25px;">9. Contact &amp; Data Protection Officer</h3>
+            <p>For questions about this Privacy Policy or to exercise your rights, contact us at: <a href="mailto:rise.shine.evolve@gmail.com" style="color: #ff69b4;">rise.shine.evolve@gmail.com</a></p>
+            <p>You can also contact the Polish supervisory authority (UODO): <a href="https://uodo.gov.pl" target="_blank" style="color: #ff69b4;">uodo.gov.pl</a></p>
+            <p style="margin-top: 25px; font-size: 12px; color: #8A2BE2;">This policy complies with GDPR (EU), RODO (Poland) and CCPA (California) data protection laws.</p>
+
+            <p style="margin-top: 25px;">Rise.Shine.Evolve - Empowering Learning Hub</p>
+        </div>
+    </div>
+  </div>
+
+  <!-- Gift templates for on-page overlay -->
+  <template id="gift-template-calm-energy">
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Happy Makers Calm and Energy Wheel</title>
+  <style>
+    :root {
+      --purple: #8A2BE2;
+      --gold: #ffd700;
+      --bg: #07070c;
+      --card: rgba(0, 0, 0, 0.82);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 24px 12px 40px;
+      font-family: 'Arial', sans-serif;
+      background: radial-gradient(circle at 20% 18%, rgba(138, 43, 226, 0.16), transparent 32%),
+                  radial-gradient(circle at 78% 12%, rgba(255, 215, 0, 0.2), transparent 30%),
+                  radial-gradient(circle at 52% 78%, rgba(138, 43, 226, 0.2), transparent 38%),
+                  var(--bg);
+      color: #ffffff;
+      min-height: 100vh;
+    }
+    .shell {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: linear-gradient(140deg, rgba(0, 0, 0, 0.92), rgba(15, 15, 22, 0.9));
+      border: 3px solid var(--purple);
+      border-radius: 22px;
+      padding: 26px 22px 30px;
+      box-shadow: 0 0 35px rgba(138, 43, 226, 0.55), 0 0 65px rgba(255, 215, 0, 0.26);
+    }
+    h1 {
+      margin: 0 0 8px 0;
+      text-align: center;
+      font-size: 2.1rem;
+      letter-spacing: 1px;
+      background: linear-gradient(90deg, var(--purple), #9932CC, var(--gold));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 18px rgba(138, 43, 226, 0.65);
+    }
+    .subtitle {
+      text-align: center;
+      margin: 0 0 22px 0;
+      color: var(--gold);
+      font-weight: bold;
+      letter-spacing: 0.4px;
+    }
+    .intro {
+      text-align: center;
+      margin-bottom: 26px;
+      color: #e8e8e8;
+      line-height: 1.6;
+      font-size: 1rem;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 22px;
+      align-items: start;
+    }
+    .card {
+      background: var(--card);
+      border: 2px solid var(--gold);
+      border-radius: 18px;
+      padding: 18px 18px 22px;
+      position: relative;
+      box-shadow: 0 0 26px rgba(255, 215, 0, 0.28), 0 0 48px rgba(138, 43, 226, 0.28);
+    }
+    .card h2 {
+      margin: 0 0 6px 0;
+      text-align: center;
+      font-size: 1.35rem;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .card .hint {
+      text-align: center;
+      color: #cfcfcf;
+      margin: 0 0 14px 0;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+    .wheel-wrap {
+      position: relative;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 4px 0 14px 0;
+    }
+    canvas {
+      width: 280px;
+      height: 280px;
+      max-width: 100%;
+      border-radius: 50%;
+      box-shadow: 0 0 24px rgba(255, 215, 0, 0.25), inset 0 0 12px rgba(0, 0, 0, 0.35);
+      transition: transform 3.4s cubic-bezier(0.2, 0.8, 0.25, 1);
+    }
+    .pointer {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 12px solid transparent;
+      border-right: 12px solid transparent;
+      border-bottom: 16px solid var(--gold);
+      filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.65));
+    }
+    button.spin {
+      display: block;
+      width: 100%;
+      background: linear-gradient(45deg, var(--purple), #9932CC);
+      color: #ffffff;
+      border: 2px solid var(--gold);
+      border-radius: 14px;
+      padding: 12px 16px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 0 18px rgba(138, 43, 226, 0.55);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    button.spin:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 26px rgba(138, 43, 226, 0.75);
+    }
+    .result {
+      margin-top: 14px;
+      text-align: center;
+      color: #ffffff;
+      font-weight: bold;
+      min-height: 40px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: rgba(138, 43, 226, 0.14);
+      border: 1px solid rgba(255, 215, 0, 0.45);
+      box-shadow: inset 0 0 12px rgba(138, 43, 226, 0.2);
+    }
+    .badge {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: var(--purple);
+      color: #ffffff;
+      padding: 6px 10px;
+      border-radius: 12px;
+      font-weight: bold;
+      font-size: 0.75rem;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+      box-shadow: 0 0 12px rgba(138, 43, 226, 0.55);
+    }
+    .list {
+      margin: 14px 0 6px 0;
+      color: #e8e8e8;
+      line-height: 1.5;
+      font-size: 0.95rem;
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(255, 215, 0, 0.3);
+      border-radius: 12px;
+      padding: 12px 14px;
+    }
+    .list strong { color: var(--gold); }
+    .footer-note {
+      text-align: center;
+      color: #dcdcdc;
+      margin-top: 24px;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+    @media (max-width: 720px) {
+      h1 { font-size: 1.7rem; }
+      .subtitle { font-size: 1rem; }
+      canvas { height: 240px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <h1>The Happy Makers Calm and Energy Wheel</h1>
+    <p class="subtitle">Two tiny tools to soften or brighten any moment</p>
+    <p class="intro">Spin a wheel, pause for a few breaths, and let the Happy Makers offer a quick reset. Calm Wheel slows everything down and brings gentle focus. Energy Wheel boosts momentum when you want to wake up, laugh, and move.</p>
+    <div class="grid">
+      <div class="card" data-wheel="calm">
+        <div class="badge">Calm</div>
+        <h2>Calm Wheel</h2>
+        <p class="hint">Choose a soothing cue to help everyone settle. Breathe, stretch, and soften together.</p>
+        <div class="wheel-wrap">
+          <div class="pointer"></div>
+          <canvas id="calmWheel" width="320" height="320" aria-label="Calm Wheel"></canvas>
+        </div>
+        <button class="spin" data-target="calm">Spin the Calm Wheel</button>
+        <div class="result" id="calmResult">Tap spin to reveal your calming cue.</div>
+        <div class="list">
+          <strong>What's inside:</strong>
+          <div>Quiet breaths, slow stretches, soft focus, whisper voices, and gentle reset prompts inspired by the Happy Makers.</div>
+        </div>
+      </div>
+      <div class="card" data-wheel="energy">
+        <div class="badge">Energy</div>
+        <h2>Energy Wheel</h2>
+        <p class="hint">Pick a playful spark to move, smile, and recharge. Quick bursts keep the fun flowing.</p>
+        <div class="wheel-wrap">
+          <div class="pointer"></div>
+          <canvas id="energyWheel" width="320" height="320" aria-label="Energy Wheel"></canvas>
+        </div>
+        <button class="spin" data-target="energy">Spin the Energy Wheel</button>
+        <div class="result" id="energyResult">Tap spin to reveal your energy boost.</div>
+        <div class="list">
+          <strong>What's inside:</strong>
+          <div>Joy jumps, mini dance breaks, quick challenges, bright breaths, and upbeat actions from the Happy Makers crew.</div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-note">Spin whenever you need a calm pause or a happy spark. Let the wheels decide, then enjoy the moment together.</div>
+  </div>
+  <script>
+    const wheels = {
+      calm: {
+        canvas: document.getElementById('calmWheel'),
+        resultEl: document.getElementById('calmResult'),
+        rotation: 0,
+        slices: [
+          'Four-count belly breaths',
+          'Shoulder roll and slow blink',
+          'Stretch arms up, then melt down',
+          'Whisper-count to ten together',
+          'Hand on heart, feel your beat',
+          'Slow neck circle and smile',
+          'Inhale calm, exhale wiggles',
+          'Cozy hug or self-hug',
+          'Trace a small infinity in the air',
+          'Listen for three soft sounds',
+          'Pretend to blow a candle out',
+          'Sit tall, soften face and jaw'
+        ]
+      },
+      energy: {
+        canvas: document.getElementById('energyWheel'),
+        resultEl: document.getElementById('energyResult'),
+        rotation: 0,
+        slices: [
+          'Happy hops to ten',
+          'Mini dance party',
+          'Robot walk to the door',
+          'Fast hands, slow feet',
+          'Balance on one leg and switch',
+          'Superhero pose and grin',
+          'Clap a rhythm, repeat it',
+          'Spin once, land like a star',
+          'Jump, freeze, then wiggle',
+          'March with high knees',
+          'Make the silliest face',
+          'Stretch tall, then tiny ball'
+        ]
+      }
+    };
+
+    const segmentColors = ['#8A2BE2', '#9932CC', '#B86BFF', '#6A1BA2'];
+
+    function drawWheel(ctx, slices) {
+      const { width, height } = ctx.canvas;
+      const radius = Math.min(width, height) / 2 - 6;
+      const centerX = width / 2;
+      const centerY = height / 2;
+      const angle = (Math.PI * 2) / slices.length;
+      ctx.clearRect(0, 0, width, height);
+      slices.forEach((label, index) => {
+        const start = index * angle;
+        const end = start + angle;
+        ctx.beginPath();
+        ctx.moveTo(centerX, centerY);
+        ctx.arc(centerX, centerY, radius, start, end);
+        ctx.closePath();
+        ctx.fillStyle = segmentColors[index % segmentColors.length];
+        ctx.fill();
+        ctx.strokeStyle = '#ffd700';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        ctx.save();
+        ctx.translate(centerX, centerY);
+        ctx.rotate(start + angle / 2);
+        ctx.textAlign = 'right';
+        ctx.fillStyle = '#fff';
+        ctx.font = 'bold 13px Arial';
+        const padding = 12;
+        ctx.fillText(label, radius - padding, 4);
+        ctx.restore();
+      });
+    }
+
+    function spinWheel(key) {
+      const wheel = wheels[key];
+      if (!wheel || !wheel.canvas) return;
+
+      const ctx = wheel.canvas.getContext('2d');
+      const slices = wheel.slices;
+      const anglePer = 360 / slices.length;
+      const targetIndex = Math.floor(Math.random() * slices.length);
+
+      const current = wheel.rotation;
+      const normalizedCurrent = current % 360;
+      const desiredAlignment = -90 - (anglePer / 2 + targetIndex * anglePer);
+      const adjust = desiredAlignment - normalizedCurrent;
+      const finalRotation = current + 720 + adjust; // two extra spins for flair
+
+      wheel.rotation = finalRotation;
+      wheel.canvas.style.transform = `rotate(${finalRotation}deg)`;
+
+      wheel.canvas.ontransitionend = () => {
+        wheel.resultEl.textContent = slices[targetIndex];
+      };
+    }
+
+    Object.keys(wheels).forEach((key) => {
+      const wheel = wheels[key];
+      const ctx = wheel.canvas.getContext('2d');
+      drawWheel(ctx, wheel.slices);
+    });
+
+    document.querySelectorAll('button.spin').forEach((button) => {
+      button.addEventListener('click', () => {
+        const target = button.getAttribute('data-target');
+        spinWheel(target);
+      });
+    });
+  </script>
+</body>
+</html>
+
+  </template>
+
+  <template id="gift-template-one-minute">
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Happy Makers 1-Minute Challenge</title>
+    <style>
+        :root {
+            --purple: #8A2BE2;
+            --gold: #ffd700;
+            --magenta: #ff69b4;
+            --bg: #050505;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background: radial-gradient(circle at 20% 20%, rgba(255, 215, 0, 0.12), transparent 35%),
+                        radial-gradient(circle at 80% 0%, rgba(138, 43, 226, 0.18), transparent 40%),
+                        radial-gradient(circle at 60% 80%, rgba(255, 105, 180, 0.14), transparent 42%),
+                        var(--bg);
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .sparkle-layer {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .sparkle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: var(--gold);
+            border-radius: 50%;
+            opacity: 0;
+            animation: twinkle 4s ease-in-out infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0; transform: scale(0.5); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 24px 60px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .title {
+            font-size: 2.6rem;
+            margin: 0 0 12px 0;
+            font-weight: 800;
+            background: linear-gradient(45deg, var(--gold), #f5e791, var(--purple));
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmer 12s ease-in-out infinite;
+            text-shadow: 0 0 28px rgba(255, 215, 0, 0.8);
+            letter-spacing: 1px;
+        }
+
+        .subtitle {
+            font-size: 1.15rem;
+            margin: 0;
+            color: #f5e791;
+            text-shadow: 0 0 16px rgba(255, 215, 0, 0.7);
+        }
+
+        @keyframes shimmer {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .card {
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.92), rgba(18, 18, 18, 0.9));
+            border: 3px solid var(--purple);
+            border-radius: 22px;
+            padding: 24px;
+            box-shadow: 0 0 40px rgba(138, 43, 226, 0.45), 0 0 80px rgba(255, 215, 0, 0.08), inset 0 0 18px rgba(255, 255, 255, 0.04);
+        }
+
+        .tagline {
+            text-align: center;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            color: #e8e8e8;
+            margin: 0 0 20px 0;
+        }
+
+        .pill-row {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 18px;
+        }
+
+        .pill {
+            background: rgba(138, 43, 226, 0.18);
+            border: 1.5px solid var(--gold);
+            color: var(--gold);
+            border-radius: 999px;
+            padding: 8px 14px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            box-shadow: 0 0 18px rgba(255, 215, 0, 0.25);
+        }
+
+        .challenge-box {
+            background: linear-gradient(145deg, rgba(138, 43, 226, 0.08), rgba(0, 0, 0, 0.92));
+            border: 2px solid var(--gold);
+            border-radius: 18px;
+            padding: 22px;
+            text-align: center;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.2);
+        }
+
+        .challenge-label {
+            font-size: 0.95rem;
+            color: var(--gold);
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .challenge-title {
+            font-size: 1.4rem;
+            margin: 0 0 8px 0;
+            color: #ffffff;
+            text-shadow: 0 0 20px rgba(138, 43, 226, 0.6);
+        }
+
+        .challenge-text {
+            font-size: 1.05rem;
+            line-height: 1.6;
+            margin: 0;
+            color: #f4f4f4;
+        }
+
+        .actions {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .btn {
+            background: linear-gradient(45deg, var(--purple), #9932CC);
+            border: 2px solid var(--gold);
+            color: #ffffff;
+            padding: 12px 18px;
+            border-radius: 14px;
+            font-weight: 800;
+            letter-spacing: 0.6px;
+            text-transform: uppercase;
+            cursor: pointer;
+            box-shadow: 0 0 18px rgba(138, 43, 226, 0.55);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .btn.secondary {
+            background: rgba(0, 0, 0, 0.6);
+            border-color: #ffffff;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 28px rgba(255, 215, 0, 0.55);
+        }
+
+        .timer-shell {
+            margin: 26px auto 0 auto;
+            display: flex;
+            justify-content: center;
+        }
+
+        .timer-ring {
+            width: 170px;
+            height: 170px;
+            border-radius: 50%;
+            background: conic-gradient(var(--gold) 0deg, rgba(138, 43, 226, 0.25) 0deg);
+            display: grid;
+            place-items: center;
+            border: 3px solid rgba(255, 215, 0, 0.6);
+            box-shadow: 0 0 40px rgba(255, 215, 0, 0.3);
+        }
+
+        .timer-core {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: #000000;
+            border: 2px solid var(--gold);
+            display: grid;
+            place-items: center;
+            color: var(--gold);
+            font-size: 1.6rem;
+            font-weight: 800;
+            box-shadow: inset 0 0 18px rgba(138, 43, 226, 0.5);
+            text-shadow: 0 0 16px rgba(255, 215, 0, 0.7);
+        }
+
+        .footer-note {
+            text-align: center;
+            margin-top: 34px;
+            color: #cfcfcf;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 640px) {
+            .title { font-size: 2.2rem; }
+            .timer-ring { width: 150px; height: 150px; }
+            .timer-core { width: 108px; height: 108px; font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="sparkle-layer" aria-hidden="true"></div>
+    <div class="container">
+        <header>
+            <p style="margin: 0 0 8px 0; color: #ffd700; letter-spacing: 1px; text-transform: uppercase; font-weight: 700;">Happy Makers Presents</p>
+            <h1 class="title">The Happy Makers 1-Minute Challenge</h1>
+            <p class="subtitle">One click. One tiny mission. One minute of joy, creativity or connection.</p>
+            <p class="subtitle" style="color: #d7c9ff; margin-top: 6px;">Powered by your Happy Makers.</p>
+        </header>
+
+        <div class="card">
+            <p class="tagline">Spin up a fast prompt, tap start and see what your family can do in sixty golden seconds. Every click serves a fresh spark - joyful, creative or deeply connective.</p>
+
+            <div class="pill-row">
+                <span class="pill">Joy Burst</span>
+                <span class="pill">Creative Spark</span>
+                <span class="pill">Connection Boost</span>
+            </div>
+
+            <div class="challenge-box" id="challengeBox">
+                <span class="challenge-label" id="challengeLabel">Today's Spark</span>
+                <h2 class="challenge-title" id="challengeTitle">Ready for a quick mission?</h2>
+                <p class="challenge-text" id="challengeText">Tap "New Challenge" to draw a 1-minute prompt from the Happy Makers.</p>
+            </div>
+
+            <div class="actions">
+                <button class="btn" onclick="rollChallenge()">New Challenge</button>
+                <button class="btn secondary" onclick="startTimer()">Start 60s Timer</button>
+            </div>
+
+            <div class="timer-shell">
+                <div class="timer-ring" id="timerRing">
+                    <div class="timer-core" id="timerCore">60</div>
+                </div>
+            </div>
+        </div>
+
+        <p class="footer-note">Tip: If your timer hits zero, celebrate whatever happened - giggles, new ideas or simply pausing together. Then click for another spark.</p>
+    </div>
+
+    <script>
+        const challengeCategories = {
+            joy: {
+                label: 'Joy Burst',
+                items: [
+                    'Share your silliest animal impression until everyone laughs.',
+                    'Play “mirror moves” for one minute - copy each other’s gestures.',
+                    'Find three objects nearby and invent a funny mini-story.',
+                    'Create a one-minute dance with the wildest finale pose you can imagine.',
+                    'Whisper a secret compliment to every person in the room.',
+                    'Do a one-minute gratitude lightning round - no repeats allowed!'
+                ]
+            },
+            creative: {
+                label: 'Creative Spark',
+                items: [
+                    'Draw a creature that combines two favorite animals and name it.',
+                    'Build the tallest object you can using only what’s on the table.',
+                    'Write a six-word story about today - make it inspiring.',
+                    'Invent a new handshake for the family and practice it twice.',
+                    'Pick one random word and rhyme with it until the minute ends.',
+                    'Choose a household item and pitch it like it’s a top-secret gadget.'
+                ]
+            },
+            connection: {
+                label: 'Connection Boost',
+                items: [
+                    'Each person shares one win from today - big or tiny.',
+                    'Give one genuine high-five and say what you appreciate about them.',
+                    'Swap favorite movie or book titles and explain why in one sentence.',
+                    'Ask: “What made you smile recently?” - everyone answers fast.',
+                    'Plan a pretend micro-adventure for the weekend in 60 seconds.',
+                    'Pick a photo on your phone and tell the one-minute story behind it.'
+                ]
+            }
+        };
+
+        let timerInterval = null;
+        let timeLeft = 60;
+
+        function rollChallenge() {
+            const keys = Object.keys(challengeCategories);
+            const categoryKey = keys[Math.floor(Math.random() * keys.length)];
+            const category = challengeCategories[categoryKey];
+            const prompt = category.items[Math.floor(Math.random() * category.items.length)];
+
+            document.getElementById('challengeLabel').textContent = category.label;
+            document.getElementById('challengeTitle').textContent = 'Your 1-Minute Mission';
+            document.getElementById('challengeText').textContent = prompt;
+        }
+
+        function startTimer() {
+            if (timerInterval) {
+                clearInterval(timerInterval);
+            }
+            timeLeft = 60;
+            updateTimerDisplay();
+
+            timerInterval = setInterval(() => {
+                timeLeft -= 1;
+                if (timeLeft <= 0) {
+                    timeLeft = 0;
+                    clearInterval(timerInterval);
+                }
+                updateTimerDisplay();
+            }, 1000);
+        }
+
+        function updateTimerDisplay() {
+            const ring = document.getElementById('timerRing');
+            const core = document.getElementById('timerCore');
+            const progress = ((60 - timeLeft) / 60) * 360;
+            ring.style.background = `conic-gradient(var(--gold) ${progress}deg, rgba(138, 43, 226, 0.25) ${progress}deg)`;
+            core.textContent = timeLeft.toString().padStart(2, '0');
+        }
+
+        function seedSparkles() {
+            const layer = document.querySelector('.sparkle-layer');
+            const count = 60;
+            for (let i = 0; i < count; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'sparkle';
+                dot.style.left = Math.random() * 100 + '%';
+                dot.style.top = Math.random() * 100 + '%';
+                dot.style.animationDelay = (Math.random() * 4) + 's';
+                dot.style.animationDuration = (3 + Math.random() * 3) + 's';
+                layer.appendChild(dot);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            seedSparkles();
+            rollChallenge();
+            updateTimerDisplay();
+        });
+    </script>
+</body>
+</html>
+
+  </template>
+
+  <template id="gift-template-word-search">
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Happy Makers Word Search</title>
+  <style>
+    :root {
+      --purple: #8A2BE2;
+      --gold: #ffd700;
+      --bg: #0a0a0f;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 30px 12px 50px;
+      background: radial-gradient(circle at 20% 20%, rgba(138,43,226,0.15), transparent 30%),
+                  radial-gradient(circle at 80% 10%, rgba(255,215,0,0.18), transparent 32%),
+                  radial-gradient(circle at 50% 80%, rgba(138,43,226,0.22), transparent 38%),
+                  var(--bg);
+      color: #ffffff;
+      font-family: 'Arial', sans-serif;
+      min-height: 100vh;
+    }
+    .shell {
+      max-width: 1100px;
+      margin: 0 auto;
+      background: linear-gradient(145deg, rgba(0,0,0,0.9), rgba(18,18,28,0.9));
+      border: 3px solid var(--purple);
+      border-radius: 22px;
+      padding: 28px 22px;
+      box-shadow: 0 0 35px rgba(138,43,226,0.55), 0 0 65px rgba(255,215,0,0.25);
+    }
+    h1 {
+      text-align: center;
+      margin: 0 0 8px 0;
+      font-size: 2rem;
+      letter-spacing: 1px;
+      background: linear-gradient(90deg, var(--purple), #9932CC, var(--gold));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 18px rgba(138,43,226,0.65);
+    }
+    .subtitle {
+      text-align: center;
+      margin: 0 0 24px 0;
+      color: var(--gold);
+      font-weight: bold;
+      letter-spacing: 0.3px;
+    }
+    .layout {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 22px;
+      align-items: start;
+    }
+    .grid-shell {
+      background: rgba(0,0,0,0.7);
+      border: 2px solid var(--gold);
+      border-radius: 16px;
+      padding: 16px;
+      box-shadow: inset 0 0 18px rgba(255,215,0,0.25);
+    }
+    .word-grid {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+    }
+    .word-grid td {
+      border: 1px solid rgba(255,215,0,0.35);
+      text-align: center;
+      font-weight: bold;
+      font-size: 1.05rem;
+      padding: 8px 0;
+      color: #ffffff;
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+      user-select: none;
+    }
+    .word-grid td:hover {
+      background: rgba(138,43,226,0.25);
+      box-shadow: 0 0 12px rgba(138,43,226,0.4);
+    }
+    .word-grid td.selected {
+      background: rgba(138,43,226,0.35);
+      box-shadow: 0 0 18px rgba(138,43,226,0.55);
+    }
+    .word-grid td.found {
+      background: rgba(255,215,0,0.2);
+      color: var(--gold);
+      box-shadow: 0 0 18px rgba(255,215,0,0.55);
+    }
+    .panel {
+      background: rgba(0,0,0,0.65);
+      border: 2px solid var(--purple);
+      border-radius: 16px;
+      padding: 16px;
+      box-shadow: inset 0 0 16px rgba(138,43,226,0.25);
+    }
+    .panel h2 {
+      margin: 0 0 12px 0;
+      font-size: 1.1rem;
+      letter-spacing: 0.5px;
+      color: var(--gold);
+      text-transform: uppercase;
+      text-align: center;
+    }
+    .word-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 8px;
+    }
+    .word-chip {
+      padding: 8px 10px;
+      border: 1px solid rgba(255,215,0,0.65);
+      border-radius: 10px;
+      text-align: center;
+      font-weight: bold;
+      color: #ffffff;
+      background: rgba(138,43,226,0.18);
+      box-shadow: 0 0 12px rgba(138,43,226,0.3);
+    }
+    .word-chip.found {
+      color: var(--gold);
+      text-decoration: line-through;
+      background: rgba(255,215,0,0.12);
+      box-shadow: 0 0 15px rgba(255,215,0,0.4);
+    }
+    .instructions {
+      margin-top: 12px;
+      font-size: 0.95rem;
+      color: #dcdcdc;
+      text-align: center;
+    }
+    .status {
+      margin-top: 14px;
+      text-align: center;
+      font-weight: bold;
+      color: var(--gold);
+      min-height: 20px;
+    }
+    @media (max-width: 900px) {
+      .layout { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <h1>The Happy Makers Word Search</h1>
+    <p class="subtitle">Can you spot every name and mantra before Nini calls for cuddles?</p>
+    <div class="layout">
+      <div class="grid-shell">
+        <table class="word-grid" id="wordGrid" aria-label="Word search grid"></table>
+        <div class="instructions">Tap a starting letter, tap the ending letter in a straight line, and see if you found a hidden word.</div>
+        <div class="status" id="status"></div>
+      </div>
+      <div class="panel">
+        <h2>Find These Words</h2>
+        <div class="word-list" id="wordList"></div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const gridSize = 12;
+    const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const words = [
+      'RISE','SHINE','EVOLVE','NINI','ALIO','DILO','LULI','MIMI','BIBI','HAPPY','CHAOS','PUZZLE'
+    ];
+    const placements = [
+      { word: 'RISE', row: 0, col: 0, dir: [0, 1] },
+      { word: 'HAPPY', row: 1, col: 2, dir: [0, 1] },
+      { word: 'SHINE', row: 2, col: 6, dir: [0, 1] },
+      { word: 'EVOLVE', row: 3, col: 0, dir: [0, 1] },
+      { word: 'NINI', row: 4, col: 8, dir: [1, 0] },
+      { word: 'ALIO', row: 5, col: 0, dir: [0, 1] },
+      { word: 'DILO', row: 6, col: 2, dir: [0, 1] },
+      { word: 'LULI', row: 7, col: 4, dir: [0, 1] },
+      { word: 'MIMI', row: 8, col: 0, dir: [0, 1] },
+      { word: 'BIBI', row: 9, col: 6, dir: [0, 1] },
+      { word: 'CHAOS', row: 10, col: 3, dir: [0, 1] },
+      { word: 'PUZZLE', row: 2, col: 11, dir: [1, 0] }
+    ];
+
+    const grid = Array.from({ length: gridSize }, () => Array(gridSize).fill('.'));
+
+    function placeWord({ word, row, col, dir }) {
+      const [dr, dc] = dir;
+      if (row + dr * (word.length - 1) >= gridSize || col + dc * (word.length - 1) >= gridSize || row + dr * (word.length - 1) < 0 || col + dc * (word.length - 1) < 0) {
+        console.warn(`Placement out of bounds for ${word}`);
+        return;
+      }
+      for (let i = 0; i < word.length; i++) {
+        const r = row + dr * i;
+        const c = col + dc * i;
+        const char = word[i];
+        if (grid[r][c] !== '.' && grid[r][c] !== char) {
+          console.warn(`Conflict placing ${word} at ${r},${c}`);
+        }
+        grid[r][c] = char;
+      }
+    }
+
+    placements.forEach(placeWord);
+
+    for (let r = 0; r < gridSize; r++) {
+      for (let c = 0; c < gridSize; c++) {
+        if (grid[r][c] === '.') {
+          grid[r][c] = alphabet[Math.floor(Math.random() * alphabet.length)];
+        }
+      }
+    }
+
+    const foundWords = new Set();
+    let startCell = null;
+
+    function renderGrid() {
+      const table = document.getElementById('wordGrid');
+      table.innerHTML = '';
+      grid.forEach((row, rIdx) => {
+        const tr = document.createElement('tr');
+        row.forEach((letter, cIdx) => {
+          const td = document.createElement('td');
+          td.textContent = letter;
+          td.dataset.row = rIdx;
+          td.dataset.col = cIdx;
+          td.addEventListener('click', handleCellClick);
+          tr.appendChild(td);
+        });
+        table.appendChild(tr);
+      });
+    }
+
+    function renderWords() {
+      const list = document.getElementById('wordList');
+      list.innerHTML = '';
+      words.forEach(word => {
+        const chip = document.createElement('div');
+        chip.className = 'word-chip';
+        chip.textContent = word;
+        chip.id = `word-${word}`;
+        list.appendChild(chip);
+      });
+    }
+
+    function clearSelections() {
+      document.querySelectorAll('.word-grid td.selected').forEach(td => td.classList.remove('selected'));
+      startCell = null;
+    }
+
+    function markFound(pathCells, word) {
+      pathCells.forEach(({ r, c }) => {
+        const cell = document.querySelector(`td[data-row="${r}"][data-col="${c}"]`);
+        if (cell) {
+          cell.classList.add('found');
+          cell.classList.remove('selected');
+        }
+      });
+      foundWords.add(word);
+      const chip = document.getElementById(`word-${word}`);
+      if (chip) {
+        chip.classList.add('found');
+      }
+      const status = document.getElementById('status');
+      status.textContent = foundWords.size === words.length ? 'You found them all! 🎉' : `${foundWords.size}/${words.length} words found`;
+    }
+
+    function buildPath(r1, c1, r2, c2) {
+      const dr = Math.sign(r2 - r1);
+      const dc = Math.sign(c2 - c1);
+      if (dr === 0 && dc === 0) return null;
+      const length = Math.max(Math.abs(r2 - r1), Math.abs(c2 - c1)) + 1;
+      if (Math.abs(r2 - r1) !== 0 && Math.abs(c2 - c1) !== 0 && Math.abs(r2 - r1) !== Math.abs(c2 - c1)) {
+        return null; // not straight line
+      }
+      const cells = [];
+      for (let i = 0; i < length; i++) {
+        cells.push({ r: r1 + dr * i, c: c1 + dc * i });
+      }
+      return cells;
+    }
+
+    function handleCellClick(e) {
+      const cell = e.currentTarget;
+      const r = parseInt(cell.dataset.row, 10);
+      const c = parseInt(cell.dataset.col, 10);
+
+      if (!startCell) {
+        startCell = { r, c };
+        cell.classList.add('selected');
+        return;
+      }
+
+      const path = buildPath(startCell.r, startCell.c, r, c);
+      if (!path) {
+        clearSelections();
+        return;
+      }
+
+      const word = path.map(pos => grid[pos.r][pos.c]).join('');
+      const reversed = word.split('').reverse().join('');
+      const match = words.find(w => w === word || w === reversed);
+
+      if (match && !foundWords.has(match)) {
+        markFound(path, match);
+      }
+      clearSelections();
+    }
+
+    renderGrid();
+    renderWords();
+    document.getElementById('status').textContent = `0/${words.length} words found`;
+  </script>
+</body>
+</html>
+
+  </template>
+
   <script>
         // Create sparkles
         function createSparkles() {
             const sparklesContainer = document.getElementById('sparkles');
             const sparkleCount = 50;
-            
+
             for (let i = 0; i < sparkleCount; i++) {
                 const sparkle = document.createElement('div');
                 sparkle.className = 'sparkle';
@@ -1758,6 +3198,39 @@
                 sparkle.style.top = Math.random() * 100 + '%';
                 sparkle.style.animationDelay = Math.random() * 3 + 's';
                 sparklesContainer.appendChild(sparkle);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            checkGiftsAccess();
+        });
+
+        // Dynamic info tile copy
+        const infoMessages = {
+            main: `Join us on a journey where every child can <span class="word-rise">RISE</span>,<br>
+                every family can <span class="word-shine">SHINE</span><br>
+                and every person can <span class="word-evolve">EVOLVE</span>.`,
+            kids: `Watch your child <span class="word-rise">RISE</span> to new adventures,<br>
+                see their natural curiosity <span class="word-shine">SHINE</span> bright<br>
+                and together you'll <span class="word-evolve">EVOLVE</span> into an unstoppable team!`,
+            teenagers: `Navigate your journey to <span class="word-rise">RISE</span> above challenges,<br>
+                discover your unique way to <span class="word-shine">SHINE</span><br>
+                and embrace the power within you to <span class="word-evolve">EVOLVE</span>.`,
+            adults: `It's never too late to <span class="word-rise">RISE</span>,<br>
+                your experience helps you <span class="word-shine">SHINE</span> brighter<br>
+                and you can embrace the power within you to <span class="word-evolve">EVOLVE</span>.`,
+            gifts: `Free resources to help you <span class="word-rise">RISE</span>,<br>
+                tools that make you <span class="word-shine">SHINE</span><br>
+                and materials that help you <span class="word-evolve">EVOLVE</span>.`,
+            contact: `Ready to <span class="word-rise">RISE</span> together?<br>
+                Let's help you <span class="word-shine">SHINE</span><br>
+                and connect with us to <span class="word-evolve">EVOLVE</span>.`
+        };
+
+        function updateInfoTile(tabName) {
+            const infoTextElement = document.querySelector('#dynamic-info-tile .info-text');
+            if (infoTextElement) {
+                infoTextElement.innerHTML = infoMessages[tabName] || infoMessages.main;
             }
         }
 
@@ -1789,6 +3262,8 @@
             if (selectedContent) {
                 selectedContent.classList.add('active');
             }
+
+            updateInfoTile(tabName);
         }
 
         // Family Gallery Functions
@@ -1814,14 +3289,174 @@
             bookDetails.forEach(detail => detail.style.display = 'none');
         }
 
+        const imageBaseLocal = './assets/images/';
+        const imageBaseRemote = 'https://raw.githubusercontent.com/riseshineevolve-source/RISE.SHINE.EVOLVE/main/assets/images/';
+
+        function buildImageSources(filename) {
+            const cleanName = (filename || '').trim();
+            const encoded = encodeURIComponent(cleanName);
+            return {
+                local: `${imageBaseLocal}${cleanName}`,
+                localEncoded: `${imageBaseLocal}${encoded}`,
+                remote: `${imageBaseRemote}${encoded}`
+            };
+        }
+
+        function setPortraitSource(img, filename) {
+            const { local, localEncoded, remote } = buildImageSources(filename);
+            img.src = localEncoded;
+            img.onerror = () => {
+                img.onerror = () => {
+                    img.onerror = null;
+                    img.src = remote;
+                };
+                img.src = local;
+            };
+        }
+
+        function applyCharacterPortraits() {
+            const portraits = document.querySelectorAll('[data-character-img]');
+            portraits.forEach(img => {
+                const filename = img.getAttribute('data-character-img');
+                if (!filename) return;
+                setPortraitSource(img, filename);
+                img.style.display = 'block';
+            });
+        }
+
+        const characterProfiles = {
+            mimi: {
+                name: 'Mimi',
+                tagline: 'Chaos Queen',
+                image: 'Mimi.png',
+                color: '#ff69b4',
+                description: [
+                    'Mimi is the queen of juggling life - meals, schedules, kids, questions and mysteriously disappearing socks - all at a pace that would exhaust a small army. Peaceful? Not even close. She’s never calm, rarely slow and always somehow impressively effective.',
+                    'As the family’s self-appointed Fashion Police, she guards the family’s sense of style so fiercely you’d think she was protecting a national treasure of personal expression. Chaos is acceptable but clashing colors? Absolutely not on her watch.',
+                    'Fast-thinking, witty and armed with a sixth sense for anything out of place, Mimi doesn’t just survive the daily madness - she organizes it, beautifies it and keeps everyone moving. Warm, unstoppable and effortlessly in charge, she’s the heart and high-speed engine of the whole crew.'
+                ],
+                qualities: ['Multitask Ninja', 'Lost-Things Finder', 'Time Bender', 'Mood Stabilizer', 'Schedule Juggler']
+            },
+            luli: {
+                name: 'Luli',
+                tagline: 'Creative Glow',
+                image: 'Luli.png',
+                color: '#ffd700',
+                traitsHeadingColor: '#8A2BE2',
+                description: [
+                    'Luli is creativity wrapped in elegance, a stylish mastermind with a soft spot for detective stories, mystery plots and any book that promises a clever twist sharp enough to make you gasp.',
+                    'With her sleek long hair, sparkling earrings and boldly colorful outfits, she has a style that’s impossible to overlook. And don’t let the elegance fool you - she’s strong, sporty and can outclimb or outrun most boys long before they even realize it’s a competition.',
+                    'When she’s on her aerial silks, she moves with such effortless, fluid confidence that people start wondering if gravity simply treats her better. Calm, confident, effortlessly chic and brilliantly thoughtful - she shines without even trying. Her warm, magnetic spirit doesn’t just lift the vibe - it upgrades the entire atmosphere to premium edition.'
+                ],
+                qualities: ['Mystery Brain', 'Style Queen', 'Clue Collector', 'Idea Whisperer', 'Book Diver']
+            },
+            dilo: {
+                name: 'Dilo',
+                tagline: 'Pixel Striker',
+                image: 'Dilo.png',
+                color: '#00bfff',
+                description: [
+                    'Dilo is that rare combo of natural footballer and born gamer - fast feet, fast fingers and even faster opinions. He scores goals with both feet, beats video-game levels like he’s speedrunning life and takes on every challenge with a mix of stubborn determination and surprising generosity.',
+                    'Part soccer king, part tech whiz and part style icon, he’s a powerhouse trio packed into one nine-year-old. His gel-spiked hair stays perfect in any weather (even the kind that defeats umbrellas) and his energy and curiosity brighten everything he joins.',
+                    'With Dilo around, things tend to move a little faster - and get a lot more interesting.'
+                ],
+                qualities: ['Goal Goblin', 'Level Crusher', 'Style General', 'Stubborn Star', 'Treat Dealer']
+            },
+            alio: {
+                name: 'Alio',
+                tagline: 'Playful Power',
+                image: 'Alio.png',
+                color: '#32cd32',
+                description: [
+                    'Alio operates on 120% pure energy and curiosity with a dash of friendly mischief. He’s always bouncing, building epic block cities, testing or inventing something absolutely essential (at least in his opinion).',
+                    'He also practices his very serious 12-second Kung Fu routine - usually ending in dramatic poses and uncontrollable giggles. If he’s quiet it usually means he’s planning something fun… or slightly chaotic.',
+                    'Life is never boring with Alio around.'
+                ],
+                qualities: ['Jump Expert', 'Chaos Starter', 'Game Inventor', 'Snack Sprinter', 'Fun Rocket']
+            },
+            nini: {
+                name: 'Nini',
+                tagline: 'Joy Spark',
+                image: 'Nini.png',
+                color: '#ff69b4',
+                description: [
+                    'Nini is a tiny burst of joy who can brighten any room faster than you can say “snack time.” She sings, dances and giggles her way through the day as if the world were her personal stage - she’s clearly the headliner.',
+                    'She is only 4 but she runs the family cuddle economy with impressive authority (and zero negotiation). With her big eyes and even bigger heart, she spreads happiness the way confetti spreads at a birthday party - generously, enthusiastically and absolutely everywhere.'
+                ],
+                qualities: ['Hug Machine', 'Giggle Generator', 'Tiny Tornado', 'Dance Button', 'Sunshine Drop']
+            },
+            bibi: {
+                name: 'Bibi',
+                tagline: 'Royal Glow',
+                image: 'Grandma Bibi.png',
+                color: '#9932CC',
+                description: [
+                    'Bibi is the glamorous whirlwind who treats her age like a minor typo someone should really fix. With her chic short hair, stylish glasses and love for bold, modern outfits, she turns every sidewalk into a runway - often without even noticing.',
+                    'She’s warm, energetic and always ready for an adventure: skiing with the grandkids, baking muffins that mysteriously disappear within minutes or beating everyone at yoga (yes, she absolutely can - and will brag about it with charm).',
+                    'If “cool grandma” had a global ambassador, it would be Bibi - elegant, unstoppable and glowing with queen-level confidence.'
+                ],
+                qualities: ['Style Empress', 'Energy Icon', 'Adventure Magnet', 'Chic Dynamo', 'Fun Commander']
+            }
+        };
+
+        function buildCharacterDetails(profile) {
+            const { localEncoded: localImageSrc, remote: remoteImageSrc, local: unencodedLocal } = buildImageSources(profile.image);
+            return `
+                <div class="character-detail-shell">
+                    <div class="character-header">
+                        <img src="${localImageSrc}" alt="${profile.name}" data-character-img="${profile.image}" onerror="this.onerror=null; this.src='${unencodedLocal}'; this.onerror=()=>{ this.onerror=null; this.src='${remoteImageSrc}';};">
+                        <div>
+                            <h2 style="color: ${profile.color}; font-size: 2.4rem; margin: 0 0 6px 0; text-shadow: 0 0 22px rgba(255, 215, 0, 0.6); letter-spacing: 1px;">${profile.name}</h2>
+                            <p class="character-subtitle" style="color: ${profile.color};">${profile.tagline}</p>
+                        </div>
+                    </div>
+                    <div class="character-description character-description-box">
+                        ${profile.description.map(p => `<p>${p}</p>`).join('')}
+                    </div>
+                    <div class="character-qualities-box">
+                        <p class="character-section-heading" style="color: ${profile.traitsHeadingColor || '#8A2BE2'};">Special Traits</p>
+                        <div class="qualities-grid">
+                            ${profile.qualities.map(q => `<div class="quality-chip" style="border-color: ${profile.color}; color: ${profile.color};">${q}</div>`).join('')}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function showCharacterDetailsFullScreen(characterKey) {
+            const profile = characterProfiles[characterKey];
+            if (!profile) return;
+
+            document.querySelector('.container').style.display = 'none';
+            document.getElementById('full-screen-family-gallery').style.display = 'none';
+            const view = document.getElementById('character-details-view');
+            const content = document.getElementById('character-details-content');
+
+            content.innerHTML = buildCharacterDetails(profile);
+            view.style.display = 'block';
+            view.scrollTop = 0;
+            window.scrollTo(0, 0);
+        }
+
+        function backToFamilyGalleryFromCharacter() {
+            document.getElementById('character-details-view').style.display = 'none';
+            document.getElementById('full-screen-family-gallery').style.display = 'block';
+            document.querySelector('.container').style.display = 'none';
+            window.scrollTo(0, 0);
+        }
+
         // Book Details Functions - Full Screen Version
         function showBookDetailsFullScreen(bookType) {
             // Hide main container and show full-screen book details
             document.querySelector('.container').style.display = 'none';
-            document.getElementById('full-screen-book-details').style.display = 'block';
-            
+            const bookDetailsWrapper = document.getElementById('full-screen-book-details');
+            bookDetailsWrapper.style.display = 'block';
+            bookDetailsWrapper.scrollTop = 0;
+            window.scrollTo(0, 0);
+
             const detailsContent = document.getElementById('full-screen-book-details-content');
-            
+            detailsContent.scrollTop = 0;
+
             if (bookType === 'christmas-book') {
                 detailsContent.innerHTML = `
                     <!-- Brand Name -->
@@ -1830,122 +3465,68 @@
                     </div>
                     
                     <h2 style="color: #ffd700; font-size: 2.5rem; margin-bottom: 15px; text-shadow: 0 0 30px rgba(255, 215, 0, 0.8); text-align: center;">24 GENTLE STEPS TO CHRISTMAS</h2>
-                    <h3 style="color: #8A2BE2; font-size: 1.8rem; margin-bottom: 25px; text-shadow: 0 0 20px rgba(138, 43, 226, 0.8); text-align: center;">Unique Family Advent Calendar</h3>
-                    
-                    <!-- Beautiful Purple Christmas Tree Icon -->
-                    <div style="
-                        text-align: center; 
-                        margin-bottom: 30px;
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                    ">
-                        <div style="
-                            background: radial-gradient(circle, rgba(255, 215, 0, 0.15) 0%, rgba(255, 215, 0, 0.05) 50%, transparent 70%);
-                            border-radius: 50%;
-                            padding: 20px;
-                            box-shadow: 
-                                0 0 30px rgba(255, 215, 0, 0.4),
-                                0 0 60px rgba(255, 215, 0, 0.2),
-                                0 0 90px rgba(255, 215, 0, 0.1);
-                            animation: goldenGlow 4s ease-in-out infinite;
-                        ">
-                            <svg width="100" height="100" viewBox="0 0 100 100" style="
-                                filter: 
-                                    drop-shadow(0 0 20px rgba(138, 43, 226, 0.8))
-                                    drop-shadow(0 0 40px rgba(255, 215, 0, 0.6))
-                                    drop-shadow(0 0 60px rgba(255, 215, 0, 0.3));
-                            ">
-                                <!-- Golden circular frame -->
-                                <circle cx="50" cy="50" r="45" fill="none" stroke="#ffd700" stroke-width="3" opacity="0.8">
-                                    <animate attributeName="opacity" values="0.8;0.5;0.8" dur="3s" repeatCount="indefinite"/>
-                                </circle>
-                                
-                                <!-- Solid purple Christmas tree -->
-                                <polygon points="50,20 38,38 62,38" fill="#8A2BE2"/>
-                                <polygon points="50,30 35,48 65,48" fill="#8A2BE2"/>
-                                <polygon points="50,40 32,58 68,58" fill="#8A2BE2"/>
-                                
-                                <!-- Tree trunk -->
-                                <rect x="46" y="58" width="8" height="12" fill="#8A2BE2"/>
-                                
-                                <!-- Golden star on top -->
-                                <polygon points="50,10 52,16 58,16 54,20 56,26 50,23 44,26 46,20 42,16 48,16" fill="#ffd700">
-                                    <animate attributeName="fill" values="#ffd700;#ffff00;#ffd700" dur="2s" repeatCount="indefinite"/>
-                                </polygon>
-                                
-                                <!-- 6 sparkling ornaments - same as cover -->
-                                <circle cx="44" cy="32" r="2" fill="#ffd700" opacity="0.9">
-                                    <animate attributeName="opacity" values="0.9;0.4;0.9" dur="1.5s" repeatCount="indefinite"/>
-                                </circle>
-                                <circle cx="56" cy="34" r="2" fill="#ff69b4" opacity="0.9">
-                                    <animate attributeName="opacity" values="0.4;0.9;0.4" dur="1.8s" repeatCount="indefinite"/>
-                                </circle>
-                                <circle cx="47" cy="44" r="2" fill="#00ffff" opacity="0.9">
-                                    <animate attributeName="opacity" values="0.9;0.4;0.9" dur="2.2s" repeatCount="indefinite"/>
-                                </circle>
-                                <circle cx="53" cy="46" r="2" fill="#ffd700" opacity="0.9">
-                                    <animate attributeName="opacity" values="0.4;0.9;0.4" dur="1.3s" repeatCount="indefinite"/>
-                                </circle>
-                                <circle cx="40" cy="52" r="2" fill="#ff69b4" opacity="0.9">
-                                    <animate attributeName="opacity" values="0.9;0.4;0.9" dur="1.7s" repeatCount="indefinite"/>
-                                </circle>
-                                <circle cx="60" cy="54" r="2" fill="#00ffff" opacity="0.9">
-                                    <animate attributeName="opacity" values="0.4;0.9;0.4" dur="2s" repeatCount="indefinite"/>
-                                </circle>
-                            </svg>
-                        </div>
-                    </div>
                     
                     <!-- Description -->
-                    <div style="color: #ffffff; font-size: 1.2rem; line-height: 1.6; text-align: center; margin-bottom: 30px; max-width: 800px; margin-left: auto; margin-right: auto;">
-                        <strong>Create magical December memories together with your whole family!</strong><br><br>
-                        
-                        <strong style="color: #ffd700; font-size: 1.3rem;">What's Inside:</strong><br><br>
-                        <div style="text-align: left; max-width: 600px; margin: 0 auto;">
-                            <div style="display: flex; align-items: flex-start; margin: 12px 0;">
-                                <svg width="24" height="24" viewBox="0 0 100 100" style="margin-right: 15px; margin-top: 3px; flex-shrink: 0;">
-                                    <rect x="20" y="30" width="60" height="40" fill="#8A2BE2" rx="5"/>
-                                    <rect x="15" y="25" width="70" height="50" fill="none" stroke="#8A2BE2" stroke-width="3" rx="8"/>
-                                    <rect x="40" y="15" width="20" height="15" fill="#ffd700" rx="2"/>
-                                    <path d="M35,15 Q50,5 65,15" fill="none" stroke="#ffd700" stroke-width="3"/>
-                                    <path d="M30,15 Q50,0 70,15" fill="none" stroke="#ffd700" stroke-width="2"/>
-                                </svg>
-                                <span>24 daily family activities - just 10 minutes each</span>
-                            </div>
-                            <div style="display: flex; align-items: flex-start; margin: 12px 0;">
-                                <svg width="24" height="24" viewBox="0 0 100 100" style="margin-right: 15px; margin-top: 3px; flex-shrink: 0;">
-                                    <rect x="20" y="30" width="60" height="40" fill="#8A2BE2" rx="5"/>
-                                    <rect x="15" y="25" width="70" height="50" fill="none" stroke="#8A2BE2" stroke-width="3" rx="8"/>
-                                    <rect x="40" y="15" width="20" height="15" fill="#ffd700" rx="2"/>
-                                    <path d="M35,15 Q50,5 65,15" fill="none" stroke="#ffd700" stroke-width="3"/>
-                                    <path d="M30,15 Q50,0 70,15" fill="none" stroke="#ffd700" stroke-width="2"/>
-                                </svg>
-                                <span>Mindful moments & family connections</span>
-                            </div>
-                            <div style="display: flex; align-items: flex-start; margin: 12px 0;">
-                                <svg width="24" height="24" viewBox="0 0 100 100" style="margin-right: 15px; margin-top: 3px; flex-shrink: 0;">
-                                    <rect x="20" y="30" width="60" height="40" fill="#8A2BE2" rx="5"/>
-                                    <rect x="15" y="25" width="70" height="50" fill="none" stroke="#8A2BE2" stroke-width="3" rx="8"/>
-                                    <rect x="40" y="15" width="20" height="15" fill="#ffd700" rx="2"/>
-                                    <path d="M35,15 Q50,5 65,15" fill="none" stroke="#ffd700" stroke-width="3"/>
-                                    <path d="M30,15 Q50,0 70,15" fill="none" stroke="#ffd700" stroke-width="2"/>
-                                </svg>
-                                <span>No preparation needed - just open hearts</span>
-                            </div>
-                            <div style="display: flex; align-items: flex-start; margin: 12px 0;">
-                                <svg width="24" height="24" viewBox="0 0 100 100" style="margin-right: 15px; margin-top: 3px; flex-shrink: 0;">
-                                    <rect x="20" y="30" width="60" height="40" fill="#8A2BE2" rx="5"/>
-                                    <rect x="15" y="25" width="70" height="50" fill="none" stroke="#8A2BE2" stroke-width="3" rx="8"/>
-                                    <rect x="40" y="15" width="20" height="15" fill="#ffd700" rx="2"/>
-                                    <path d="M35,15 Q50,5 65,15" fill="none" stroke="#ffd700" stroke-width="3"/>
-                                    <path d="M30,15 Q50,0 70,15" fill="none" stroke="#ffd700" stroke-width="2"/>
-                                </svg>
-                                <span>Perfect for all ages - children and adults together</span>
-                            </div>
-                        </div><br>
-                        
-                        <strong style="color: #ffd700; font-size: 1.3rem;">Transform your December into a gentle journey of togetherness, reflection & the magic of Christmas!</strong>
+                    <div style="color: #ffffff; font-size: 1.1rem; line-height: 1.7; text-align: center; margin-bottom: 30px; max-width: 850px; margin-left: auto; margin-right: auto;">
+                        <p style="margin-bottom: 20px;">
+                            Create magical December memories with your family!
+                        </p>
+                        <p style="margin-bottom: 25px;">
+                            This isn't just another advent calendar - it's a journey of togetherness, mindfulness and Christmas magic.
+                            Each day brings a gentle activity designed to bring your family closer together.
+                        </p>
+                        <div style="text-align: left; max-width: 650px; margin: 0 auto;">
+                            <p class="icon-heading">WHAT IT IS</p>
+                            <ul class="golden-bullets">
+                                <li>A mindful, heartwarming Advent Calendar in book form</li>
+                                <li>24 days of short, meaningful activities</li>
+                                <li>Perfect for busy, beautifully imperfect families</li>
+                            </ul>
+
+                            <p class="icon-heading">WHAT'S INSIDE</p>
+                            <ul class="golden-bullets">
+                                <li>1-Minute Mindfulness - calming practices kids actually enjoy</li>
+                                <li>Fun Sparks - quick, laughter-packed mini games (zero mess!)</li>
+                                <li>Connection Shares - one warm sentence, once a day</li>
+                            </ul>
+
+                            <p class="icon-heading">WHY FAMILIES LOVE IT</p>
+                            <ul class="golden-bullets">
+                                <li>Only 10 minutes a day</li>
+                                <li>No prep, no supplies, no chaos</li>
+                                <li>Builds routine, emotional regulation and closeness</li>
+                                <li>Loved by kids ages 4–14 (even the "too cool" ones)</li>
+                                <li>Makes December feel calmer, cozier and more connected</li>
+                            </ul>
+
+                            <p class="icon-heading">GUIDED BY THE HAPPY-MAKERS FAMILY</p>
+                            <ul class="golden-bullets">
+                                <li>Nini – pocket-sized joy machine</li>
+                                <li>Alio – certified chaos engineer</li>
+                                <li>Dilo – winter sports ace with perfect hair</li>
+                                <li>Luli – elegant detective of holiday magic</li>
+                                <li>Mimi – stylish heart of the home</li>
+                            </ul>
+                            <p style="margin-top: 5px;">Their funny, warm notes appear throughout the book.</p>
+
+                            <p class="icon-heading">A PERFECT FAMILY GIFT</p>
+                            <ul class="golden-bullets">
+                                <li>Works for small and big families</li>
+                                <li>Most Advent calendars give you small surprises.<br>This one gives you small transformations.</li>
+                                <li>A tradition kids will ask for every year</li>
+                            </ul>
+
+                            <p class="icon-heading">THE MAGIC OF THIS BOOK</p>
+                            <ul class="golden-bullets">
+                                <li>Creates small daily memories</li>
+                                <li>Sparks teamwork, laughter and trust</li>
+                                <li>Gently guides toward calm moments in a busy month</li>
+                            </ul>
+                        </div>
+
+                        <p style="margin-top: 25px; font-weight: bold; color: #ffd700; text-align: center;">
+                            If you want a December that feels closer, calmer and full of soft little memories - this is your new favorite holiday tradition.
+                        </p>
                     </div>
                     
                     <!-- Amazon Button -->
@@ -1956,15 +3537,14 @@
                             border-radius: 25px;
                             padding: 20px 40px;
                             color: #ffffff;
-                            font-size: 1.3rem;
+                            font-size: 1.2rem;
                             font-weight: bold;
                             cursor: pointer;
                             box-shadow: 0 0 30px rgba(138, 43, 226, 0.6);
                             transition: all 0.3s ease;
-                            text-transform: uppercase;
-                            letter-spacing: 1px;
+                            letter-spacing: 0.5px;
                         " onmouseover="this.style.transform='translateY(-3px) scale(1.05)'; this.style.boxShadow='0 0 40px rgba(138, 43, 226, 0.8)';" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 0 30px rgba(138, 43, 226, 0.6)';">
-                            🎄 GET IT ON AMAZON 🎄
+                            Add to cart on Amazon and let the magic begin!
                         </button>
                     </div>
                 `;
@@ -2083,25 +3663,45 @@
         // GIFTS access functions
         let hasGiftsAccess = false;
         function checkGiftsAccess() {
-            return localStorage.getItem('giftsAccess') === 'true';
+            const access = localStorage.getItem('giftsAccess') === 'true';
+            if (access) {
+                hasGiftsAccess = true;
+            }
+            return access;
         }
-        function grantGiftsAccess() {
+        function grantGiftsAccess(firstName = '', email = '') {
             localStorage.setItem('giftsAccess', 'true');
+            if (email) {
+                localStorage.setItem('giftsEmail', email);
+            }
+            if (firstName) {
+                localStorage.setItem('giftsFirstName', firstName);
+            }
             hasGiftsAccess = true;
         }
-        // Function to send to Netlify (używane przez formularz GIFTS)
-        function sendToNetlify(firstName, email) {
-            const formData = new FormData();
-            formData.append("form-name", "rse-email-list");
-            formData.append("firstName", firstName);
-            formData.append("email", email);
-            fetch("/", {
-                method: "POST",
-                body: formData
-            }).catch(error => {
-                // Silent error handling for iframe environment
-            });
+        function clearGiftsAccess() {
+            localStorage.removeItem('giftsAccess');
+            localStorage.removeItem('giftsEmail');
+            localStorage.removeItem('giftsFirstName');
+            hasGiftsAccess = false;
         }
+        // Function to send to Netlify (używane przez formularz GIFTS)
+         const cloudflareFormEndpoint = window.CLOUDFLARE_FORM_ENDPOINT || '';
+
+         function sendToCloudflare(payload) {
+             if (!cloudflareFormEndpoint) {
+                 return Promise.resolve();
+             }
+             return fetch(cloudflareFormEndpoint, {
+                 method: "POST",
+                 headers: {
+                     "Content-Type": "application/json"
+                 },
+                 body: JSON.stringify(payload)
+             }).catch(() => {
+                 // Keep UX smooth even if the optional endpoint is unavailable
+             });
+         }
         function showThankYouPage() {
             // Hide all tab contents
             const allContents = document.querySelectorAll('.tab-content');
@@ -2114,6 +3714,10 @@
         }
         
         function accessGifts() {
+            if (!checkGiftsAccess()) {
+                showEmailModal();
+                return;
+            }
             // Hide all tab contents
             const allContents = document.querySelectorAll('.tab-content');
             allContents.forEach(content => content.classList.remove('active'));
@@ -2129,238 +3733,167 @@
             }
         }
         function showEmailModal() {
+            const errorMsg = document.getElementById('errorMsg');
+            if (errorMsg) {
+                errorMsg.textContent = '';
+            }
             document.getElementById('emailModal').style.display = 'block';
             document.body.style.overflow = 'hidden';
         }
-        
+
         function openPrivacyPolicy() {
-            const privacyWindow = window.open('', '_blank', 'width=800,height=600,scrollbars=yes,resizable=yes');
-            privacyWindow.document.write(`
-                <!DOCTYPE html>
-                <html lang="en">
-                <head>
-                    <meta charset="UTF-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <title>Privacy Policy - Rise.Shine.Evolve</title>
-                    <style>
-                        body {
-                            font-family: Arial, sans-serif;
-                            line-height: 1.6;
-                            margin: 0;
-                            padding: 20px;
-                            background: #000000;
-                            color: #ffffff;
-                        }
-                        .container {
-                            max-width: 800px;
-                            margin: 0 auto;
-                            background: #1a1a1a;
-                            padding: 30px;
-                            border-radius: 15px;
-                            border: 2px solid #8A2BE2;
-                            box-shadow: 0 0 30px rgba(138, 43, 226, 0.5);
-                        }
-                        h1 {
-                            color: #8A2BE2;
-                            text-align: center;
-                            margin-bottom: 30px;
-                            text-shadow: 0 0 15px rgba(138, 43, 226, 0.8);
-                        }
-                        h3 {
-                            color: #ff69b4;
-                            margin-top: 25px;
-                            text-shadow: 0 0 10px rgba(255, 105, 180, 0.6);
-                        }
-                        .close-btn {
-                            background: #8A2BE2;
-                            color: white;
-                            border: none;
-                            padding: 10px 20px;
-                            border-radius: 15px;
-                            cursor: pointer;
-                            float: right;
-                            margin-bottom: 20px;
-                            box-shadow: 0 0 15px rgba(138, 43, 226, 0.6);
-                            transition: all 0.3s ease;
-                        }
-                        .close-btn:hover {
-                            background: #9932CC;
-                            box-shadow: 0 0 20px rgba(138, 43, 226, 0.8);
-                        }
-                        ul {
-                            padding-left: 20px;
-                        }
-                        li {
-                            margin-bottom: 8px;
-                        }
-                        strong {
-                            color: #ffd700;
-                        }
-                    </style>
-                </head>
-                <body>
-                    <div class="container">
-                        <button class="close-btn" onclick="window.close()">Close</button>
-                        <div style="clear: both;"></div>
-                        
-                        <h1>Privacy Policy</h1>
-                        <p><strong>Effective Date:</strong> January 1, 2025</p>
-                        
-                        <h3>1. Information We Collect</h3>
-                        <p>We collect information you provide directly to us when you subscribe to our community newsletter:</p>
-                        <ul>
-                            <li>First name</li>
-                            <li>Email address</li>
-                            <li>Communication preferences</li>
-                        </ul>
-                        
-                        <h3>2. How We Use Your Information</h3>
-                        <p>We use the information we collect to:</p>
-                        <ul>
-                            <li>Send you educational materials and newsletters</li>
-                            <li>Provide access to free educational resources</li>
-                            <li>Communicate with you about our services and new releases</li>
-                            <li>Improve our educational content</li>
-                            <li>Comply with legal obligations</li>
-                        </ul>
-                        
-                        <h3>3. Information Sharing</h3>
-                        <p>We do not sell, trade, or otherwise transfer your personal information to third parties without your consent, except as described in this policy or as required by law.</p>
-                        
-                        <h3>4. Data Security</h3>
-                        <p>We implement appropriate security measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction. Passwords are encrypted and stored securely.</p>
-                        
-                        <h3>5. Your Rights (GDPR & RODO Compliance)</h3>
-                        <p>Under GDPR (General Data Protection Regulation) and Polish RODO (Rozporządzenie o Ochronie Danych Osobowych), you have the right to:</p>
-                        <ul>
-                            <li><strong>Access (Art. 15 GDPR/RODO):</strong> Request access to your personal data</li>
-                            <li><strong>Rectification (Art. 16 GDPR/RODO):</strong> Correct inaccurate or incomplete data</li>
-                            <li><strong>Erasure (Art. 17 GDPR/RODO):</strong> Request deletion of your data ("right to be forgotten")</li>
-                            <li><strong>Restriction (Art. 18 GDPR/RODO):</strong> Restrict processing of your data</li>
-                            <li><strong>Portability (Art. 20 GDPR/RODO):</strong> Receive your data in a structured format</li>
-                            <li><strong>Objection (Art. 21 GDPR/RODO):</strong> Object to processing of your data</li>
-                            <li><strong>Withdraw consent:</strong> Unsubscribe from newsletter at any time</li>
-                            <li><strong>Lodge a complaint:</strong> File a complaint with supervisory authority (UODO in Poland)</li>
-                        </ul>
-                        
-                        <h3>6. Legal Basis for Processing (GDPR/RODO Art. 6)</h3>
-                        <p>We process your data based on:</p>
-                        <ul>
-                            <li><strong>Consent (Art. 6(1)(a)):</strong> For newsletter subscriptions and community access</li>
-                            <li><strong>Legitimate interests (Art. 6(1)(f)):</strong> For service improvement and educational content development</li>
-                        </ul>
-                        
-                        <h3>7. Data Retention</h3>
-                        <p>We retain your newsletter subscription data only as long as necessary for the purposes outlined in this policy or as required by law. Newsletter data is kept until you unsubscribe from our community.</p>
-                        
-                        <h3>8. International Transfers</h3>
-                        <p>Your information may be transferred to and processed in countries other than your own. We ensure appropriate safeguards are in place in accordance with GDPR Chapter V.</p>
-                        
-                        <h3>9. Contact & Data Protection Officer</h3>
-                        <p>For questions about this Privacy Policy or to exercise your rights, contact us at: <a href="mailto:rise.shine.evolve@gmail.com" style="color: #ff69b4;">rise.shine.evolve@gmail.com</a></p>
-                        <p>You can also contact the Polish supervisory authority (UODO): <a href="https://uodo.gov.pl" target="_blank" style="color: #ff69b4;">uodo.gov.pl</a></p>
-                        
-                        <p style="margin-top: 25px; font-size: 12px; color: #8A2BE2;">This policy complies with GDPR (EU), RODO (Poland), and CCPA (California) data protection laws.</p>
-                        
-                        <p style="text-align: center; margin-top: 30px; color: #8A2BE2; font-weight: bold; text-shadow: 0 0 10px rgba(138, 43, 226, 0.6);">
-                            Rise.Shine.Evolve - Empowering Learning Hub
-                        </p>
-                    </div>
-                </body>
-                </html>
-            `);
-            privacyWindow.document.close();
+            document.getElementById('privacyModal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
         }
         function closeEmailModal() {
             document.getElementById('emailModal').style.display = 'none';
             document.body.style.overflow = 'auto';
         }
+        function closePrivacyModal() {
+            document.getElementById('privacyModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+        function submitEmailModal(event) {
+            event.preventDefault();
+            const form = event.target;
+            const firstName = document.getElementById('firstNameInput').value.trim();
+            const email = document.getElementById('emailInput').value.trim();
+            const gdprChecked = document.getElementById('gdprCheck').checked;
+            const errorMsg = document.getElementById('errorMsg');
+            const submitBtn = document.getElementById('submitEmail');
+
+            if (errorMsg) {
+                errorMsg.textContent = '';
+            }
+            if (!firstName) {
+                errorMsg.textContent = 'Please enter your first name.';
+                return;
+            }
+            if (!email || !email.includes('@') || !email.includes('.')) {
+                errorMsg.textContent = 'Please enter a valid email address.';
+                return;
+            }
+            if (!gdprChecked) {
+                errorMsg.textContent = 'Please agree to the Privacy Policy.';
+                return;
+            }
+
+            submitBtn.textContent = 'Joining...';
+            submitBtn.disabled = true;
+             sendToCloudflare({
+                 type: 'subscribe',
+                 source: 'email-modal',
+                 firstName,
+                 email
+             });
+
+            setTimeout(() => {
+                grantGiftsAccess(firstName, email);
+                closeEmailModal();
+                showThankYouPage();
+                submitBtn.textContent = 'Join us';
+                submitBtn.disabled = false;
+                form.reset();
+            }, 1500);
+        }
+
+        function handleContactSubmit(event) {
+            event.preventDefault();
+            const name = document.getElementById('contact-name').value.trim();
+            const email = document.getElementById('contact-email').value.trim();
+            const subject = document.getElementById('contact-subject').value.trim();
+            const message = document.getElementById('contact-message').value.trim();
+            const successBox = document.getElementById('contact-success');
+            const submitBtn = event.target.querySelector('button[type="submit"]');
+
+            const showMessage = (text, isError = false) => {
+                if (!successBox) return;
+                successBox.style.display = 'block';
+                successBox.textContent = text;
+                successBox.style.color = isError ? '#ff69b4' : '#6bcf7f';
+                successBox.style.borderColor = isError ? '#ff69b4' : '#6bcf7f';
+            };
+
+            if (!name) {
+                showMessage('Please enter your name.', true);
+                return;
+            }
+            if (!email || !email.includes('@') || !email.includes('.')) {
+                showMessage('Please enter a valid email address.', true);
+                return;
+            }
+            if (!subject) {
+                showMessage('Please choose a subject.', true);
+                return;
+            }
+            if (!message) {
+                showMessage('Please enter your message.', true);
+                return;
+            }
+
+            if (successBox) {
+                successBox.style.display = 'none';
+            }
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Sending...';
+            }
+
+            sendToCloudflare({
+                type: 'contact',
+                source: 'contact-form',
+                name,
+                email,
+                subject,
+                message
+            });
+
+            setTimeout(() => {
+                showMessage('✅ Thank you! Your message has been sent successfully.', false);
+                event.target.reset();
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Send Message ✉️';
+                }
+            }, 1200);
+        }
+        function handleUnsubscribe(event) {
+            event.preventDefault();
+            const form = event.target;
+            const emailInput = form.querySelector('input[type="email"]');
+            const messageBox = form.querySelector('.unsubscribe-message');
+            if (messageBox) {
+                messageBox.textContent = '';
+            }
+            const emailValue = emailInput ? emailInput.value.trim() : '';
+            if (!emailValue || !emailValue.includes('@') || !emailValue.includes('.')) {
+                if (messageBox) {
+                    messageBox.style.color = '#ff69b4';
+                    messageBox.textContent = 'Please enter a valid email address.';
+                }
+                return;
+            }
+              sendToCloudflare({
+                  type: 'unsubscribe',
+                  source: form.getAttribute('name') || 'unsubscribe',
+                  email: emailValue
+              });
+            clearGiftsAccess();
+            if (messageBox) {
+                messageBox.style.color = '#ffd700';
+                messageBox.textContent = 'You have been unsubscribed and GIFTS access was removed.';
+            }
+            setTimeout(() => {
+                selectTab(document.querySelector('.tab'), 'main');
+            }, 1200);
+        }
+        document.addEventListener('DOMContentLoaded', applyCharacterPortraits);
+
         // Email modal submit listener
-        document.addEventListener('DOMContentLoaded', function() {
-            const submitEmailBtn = document.getElementById('giftsSubmitEmail');
-            if (submitEmailBtn) {
-                submitEmailBtn.addEventListener('click', function() {
-                    const firstName = document.getElementById('giftsFirstNameInput').value.trim();
-                    const email = document.getElementById('giftsEmailInput').value.trim();
-                    const gdprCheck = document.getElementById('giftsGdprCheck').checked;
-                    const errorMsg = document.getElementById('giftsErrorMsg');
-                    // Clear previous error
-                    errorMsg.textContent = '';
-                    // Validation
-                    if (!firstName) {
-                        errorMsg.textContent = 'Please enter your first name.';
-                        return;
-                    }
-                    if (!email) {
-                        errorMsg.textContent = 'Please enter your email address.';
-                        return;
-                    }
-                    if (!email.includes('@') || !email.includes('.')) {
-                        errorMsg.textContent = 'Please enter a valid email address.';
-                        return;
-                    }
-                    if (!gdprCheck) {
-                        errorMsg.textContent = 'Please agree to the Privacy Policy.';
-                        return;
-                    }
-                    // Show loading state
-                    submitEmailBtn.textContent = 'Joining...';
-                    submitEmailBtn.disabled = true;
-                    // Send data to Netlify
-                    sendToNetlify(firstName, email);
-                    // Simulate processing
-                    setTimeout(() => {
-                        grantGiftsAccess();
-                        closeEmailModal();
-                        showThankYouPage();
-                        // Reset form
-                        document.getElementById('giftsFirstNameInput').value = '';
-                        document.getElementById('giftsEmailInput').value = '';
-                    document.getElementById('giftsGdprCheck').checked = false;
-                        submitEmailBtn.textContent = 'Join us';
-                        submitEmailBtn.disabled = false;
-                    }, 2000);
-                });
-            }
-        });
-
-        // Contact form functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            const contactForm = document.getElementById('contact-form');
-            if (contactForm) {
-                contactForm.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    
-                    const name = document.getElementById('contact-name').value;
-                    const email = document.getElementById('contact-email').value;
-                    const subject = document.getElementById('contact-subject').value;
-                    const message = document.getElementById('contact-message').value;
-                    const messageDiv = document.getElementById('contact-form-message');
-                    
-                    // Show success message
-                    messageDiv.style.display = 'block';
-                    messageDiv.style.color = '#00ff00';
-                    messageDiv.innerHTML = '✅ Thank you for your message! We\'ll get back to you soon.';
-                    
-                    // Clear form
-                    document.getElementById('contact-name').value = '';
-                    document.getElementById('contact-email').value = '';
-                    document.getElementById('contact-subject').value = '';
-                    document.getElementById('contact-message').value = '';
-                    
-                    // Hide message after 5 seconds
-                    setTimeout(() => {
-                        messageDiv.style.display = 'none';
-                    }, 5000);
-                });
-            }
-        });
-
         // Remove access functionality
         function removeAccess() {
-            localStorage.removeItem('giftsAccess');
-            hasGiftsAccess = false;
-            
+            clearGiftsAccess();
+
             // Show confirmation message
             const messageDiv = document.createElement('div');
             messageDiv.style.cssText = `
@@ -2393,7 +3926,89 @@
             document.body.appendChild(messageDiv);
         }
 
-        // Resource download functionality
+
+                
+                const giftTemplates = {
+            calmEnergy: document.getElementById('gift-template-calm-energy'),
+            oneMinute: document.getElementById('gift-template-one-minute'),
+            wordSearch: document.getElementById('gift-template-word-search'),
+        };
+
+        const giftOverlay = document.getElementById('gift-overlay');
+        const giftFrame = document.getElementById('gift-frame');
+        const giftFallback = document.getElementById('gift-fallback');
+
+        function getGiftHtml(key) {
+            const tpl = giftTemplates[key];
+            if (!tpl) return null;
+            return '<!doctype html>\n' + tpl.innerHTML;
+        }
+
+        function openGiftOverlay(key, event) {
+            if (event) {
+                event.stopPropagation();
+            }
+
+            const html = getGiftHtml(key);
+            giftFrame.removeAttribute('src');
+            giftFrame.removeAttribute('srcdoc');
+
+            if (html) {
+                try {
+                    const doc = giftFrame.contentWindow ? giftFrame.contentWindow.document : null;
+                    if (doc) {
+                        doc.open();
+                        doc.write(html);
+                        doc.close();
+                    } else {
+                        giftFrame.srcdoc = html;
+                    }
+                    giftFallback.style.display = 'none';
+                    giftFrame.style.display = 'block';
+                } catch (err) {
+                    showGiftFallback('Gift content is unavailable right now. Please try again in a moment.');
+                    return;
+                }
+            } else {
+                showGiftFallback();
+                return;
+            }
+
+            giftOverlay.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function showGiftFallback(message) {
+            giftFrame.src = 'about:blank';
+            giftFrame.srcdoc = '';
+            giftFrame.style.display = 'none';
+            giftFallback.style.display = 'block';
+            giftFallback.textContent = message || 'Gift content is unavailable right now. Please try again in a moment.';
+            giftOverlay.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeGiftOverlay() {
+            giftOverlay.style.display = 'none';
+            giftFrame.src = 'about:blank';
+            giftFrame.srcdoc = '';
+            giftFallback.style.display = 'none';
+            document.body.style.overflow = '';
+        }
+
+        function openCalmEnergyWheel(event) {
+            openGiftOverlay('calmEnergy', event);
+        }
+
+        function openOneMinuteChallenge(event) {
+            openGiftOverlay('oneMinute', event);
+        }
+
+        function openWordSearchPuzzle(event) {
+            openGiftOverlay('wordSearch', event);
+        }
+
+// Resource download functionality
         function downloadResource(resourceType) {
             const resources = {
                 'christmas-guide': {
@@ -2449,6 +4064,7 @@
 
         // Initialize sparkles when page loads
         document.addEventListener('DOMContentLoaded', createSparkles);
+        document.addEventListener('DOMContentLoaded', () => updateInfoTile('main'));
     </script>
  <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'99ffed4b87077057',t:'MTc2MzM4OTgzNi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
