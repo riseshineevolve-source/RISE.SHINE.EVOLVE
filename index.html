@@ -1888,11 +1888,11 @@
     </div>
    </div>
   </div><!-- Email Modal -->
-  <div id="gift-overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.95); z-index: 10010; overflow-y: auto; padding: 30px 20px; box-sizing: border-box;">
-   <div style="max-width: 1200px; margin: 0 auto; position: relative;">
-    <button onclick="closeGiftOverlay()" style="position: sticky; top: 10px; margin-bottom: 15px; background: linear-gradient(45deg, #8A2BE2, #9932CC); border: 2px solid #ffd700; border-radius: 14px; padding: 10px 18px; color: #ffffff; font-size: 1rem; font-weight: bold; cursor: pointer; box-shadow: 0 0 18px rgba(138, 43, 226, 0.6);">Close gift ✖</button>
-    <iframe id="gift-frame" title="Gift experience" style="width: 100%; height: 82vh; border: 3px solid #8A2BE2; border-radius: 16px; box-shadow: 0 0 35px rgba(138, 43, 226, 0.6), 0 0 60px rgba(138, 43, 226, 0.3); background: #000;"></iframe>
-    <div id="gift-fallback" style="display: none; color: #ffffff; text-align: center; padding: 30px 15px; background: linear-gradient(135deg, rgba(138, 43, 226, 0.2), rgba(0, 0, 0, 0.9)); border: 2px solid #ffd700; border-radius: 16px; margin-top: 10px; box-shadow: 0 0 25px rgba(255, 215, 0, 0.4);">
+  <div id="gift-overlay" style="display: none; position: fixed; inset: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.95); z-index: 10010; overflow: hidden; padding: 0; box-sizing: border-box;">
+   <div style="position: relative; width: 100%; height: 100%; max-width: 1200px; margin: 0 auto;">
+    <button onclick="closeGiftOverlay()" style="position: absolute; top: 12px; right: 12px; background: linear-gradient(45deg, #8A2BE2, #9932CC); border: 2px solid #ffd700; border-radius: 14px; padding: 10px 18px; color: #ffffff; font-size: 1rem; font-weight: bold; cursor: pointer; box-shadow: 0 0 18px rgba(138, 43, 226, 0.6); z-index: 2;">Close gift ✖</button>
+    <iframe id="gift-frame" title="Gift experience" style="display: block; width: 100%; height: 100%; border: 3px solid #8A2BE2; border-radius: 16px; box-shadow: 0 0 35px rgba(138, 43, 226, 0.6), 0 0 60px rgba(138, 43, 226, 0.3); background: #000;"></iframe>
+    <div id="gift-fallback" style="display: none; position: absolute; inset: 0; color: #ffffff; text-align: center; padding: 30px 15px; background: linear-gradient(135deg, rgba(138, 43, 226, 0.2), rgba(0, 0, 0, 0.9)); border: 2px solid #ffd700; border-radius: 16px; margin: 0 12px; box-shadow: 0 0 25px rgba(255, 215, 0, 0.4); overflow: auto; align-items: center; justify-content: center; text-align: center;">
      Gift content is unavailable right now. Please try again in a moment.
     </div>
    </div>
@@ -3977,7 +3977,7 @@ document
             giftFrame.src = 'about:blank';
             giftFrame.srcdoc = '';
             giftFrame.style.display = 'none';
-            giftFallback.style.display = 'block';
+            giftFallback.style.display = 'flex';
             giftFallback.textContent = message || 'Gift content is unavailable right now. Please try again in a moment.';
             giftOverlay.style.display = 'block';
             document.body.style.overflow = 'hidden';
