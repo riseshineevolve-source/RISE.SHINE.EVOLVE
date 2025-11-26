@@ -3784,17 +3784,24 @@
                 event.stopPropagation();
             }
 
-            const html = getGiftHtml(key);
             giftFrame.removeAttribute('src');
             giftFrame.removeAttribute('srcdoc');
 
-            if (html) {
+            if (key === 'calmEnergy') {
                 giftFallback.style.display = 'none';
                 giftFrame.style.display = 'block';
-                giftFrame.srcdoc = html;
+                giftFrame.src = 'assets/calm-energy/index.html';
             } else {
-                showGiftFallback();
-                return;
+                const html = getGiftHtml(key);
+
+                if (html) {
+                    giftFallback.style.display = 'none';
+                    giftFrame.style.display = 'block';
+                    giftFrame.srcdoc = html;
+                } else {
+                    showGiftFallback();
+                    return;
+                }
             }
 
             giftOverlay.style.display = 'block';
