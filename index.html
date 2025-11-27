@@ -836,16 +836,14 @@
             }
 
             .elegant-christmas-box {
-                position: fixed;
-                bottom: 18px;
-                right: 16px;
-                left: auto;
-                width: 200px;
-                max-width: 70vw;
-                margin: 0;
+                position: relative;
+                top: auto;
+                right: auto;
+                width: 90%;
+                max-width: 220px;
+                margin: 20px auto;
                 transform: rotate(0deg);
                 animation: elegantBoxGlow 6s ease-in-out infinite, elegantBoxFloat 8s ease-in-out infinite;
-                z-index: 50;
             }
 
             .elegant-christmas-box:hover {
@@ -872,26 +870,6 @@
             .elegant-amazon-btn {
                 font-size: 0.65rem;
                 padding: 7px 12px;
-            }
-
-            #gift-overlay {
-                padding: 14px 10px;
-            }
-
-            #gift-overlay .gift-wrapper {
-                height: 100%;
-            }
-
-            .gift-close-btn {
-                position: fixed;
-                top: 12px;
-                right: 12px;
-                z-index: 10020;
-            }
-
-            #gift-frame {
-                height: calc(100vh - 80px);
-                border-width: 2px;
             }
         }
     </style>
@@ -938,22 +916,22 @@
    </div>
    <div class="tabs-container">
     <div class="tabs">
-     <div class="tab active" data-tab="main" onclick="selectTab(this, 'main')">
+     <div class="tab active" onclick="selectTab(this, 'main')">
       MAIN
      </div>
-     <div class="tab" data-tab="kids" onclick="selectTab(this, 'kids')">
+     <div class="tab" onclick="selectTab(this, 'kids')">
       KIDS
      </div>
-     <div class="tab" data-tab="teenagers" onclick="selectTab(this, 'teenagers')">
+     <div class="tab" onclick="selectTab(this, 'teenagers')">
       TEENAGERS
      </div>
-     <div class="tab" data-tab="adults" onclick="selectTab(this, 'adults')">
+     <div class="tab" onclick="selectTab(this, 'adults')">
       ADULTS
      </div>
-     <div class="tab" data-tab="gifts" onclick="selectTab(this, 'gifts')">
+     <div class="tab" onclick="selectTab(this, 'gifts')">
       GIFTS
      </div>
-     <div class="tab" data-tab="contact" onclick="selectTab(this, 'contact')">
+     <div class="tab" onclick="selectTab(this, 'contact')">
       CONTACT
      </div>
     </div><!-- Tab contents -->
@@ -1910,11 +1888,11 @@
     </div>
    </div>
   </div><!-- Email Modal -->
-  <div id="gift-overlay">
-   <div class="gift-wrapper">
-    <button class="gift-close-btn" onclick="closeGiftOverlay()">Close gift ✖</button>
-    <iframe id="gift-frame" title="Gift experience"></iframe>
-    <div id="gift-fallback">
+  <div id="gift-overlay" style="display: none; position: fixed; inset: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.95); z-index: 10010; overflow: hidden; padding: 0; box-sizing: border-box;">
+   <div style="position: relative; width: 100%; height: 100%; max-width: 1200px; margin: 0 auto;">
+    <button onclick="closeGiftOverlay()" style="position: absolute; top: 12px; right: 12px; background: linear-gradient(45deg, #8A2BE2, #9932CC); border: 2px solid #ffd700; border-radius: 14px; padding: 10px 18px; color: #ffffff; font-size: 1rem; font-weight: bold; cursor: pointer; box-shadow: 0 0 18px rgba(138, 43, 226, 0.6); z-index: 2;">Close gift ✖</button>
+    <iframe id="gift-frame" title="Gift experience" style="display: block; width: calc(100% - 24px); height: calc(100% - 24px); margin: 12px auto; border: 3px solid #8A2BE2; border-radius: 16px; box-shadow: 0 0 35px rgba(138, 43, 226, 0.6), 0 0 60px rgba(138, 43, 226, 0.3); background: #000; box-sizing: border-box;"></iframe>
+    <div id="gift-fallback" style="display: none; position: absolute; inset: 0; color: #ffffff; text-align: center; padding: 30px 15px; background: linear-gradient(135deg, rgba(138, 43, 226, 0.2), rgba(0, 0, 0, 0.9)); border: 2px solid #ffd700; border-radius: 16px; margin: 0 12px; box-shadow: 0 0 25px rgba(255, 215, 0, 0.4); overflow: auto; align-items: center; justify-content: center; text-align: center;">
      Gift content is unavailable right now. Please try again in a moment.
     </div>
    </div>
@@ -3847,7 +3825,8 @@
   </script>
 </body>
 </html>
-</template>
+
+  </template>
 
   <template id="gift-template-one-minute">
 <!DOCTYPE html>
@@ -4134,112 +4113,112 @@ const challenges = [
     title: "Color Dash",
     instruction: "Spend one minute finding as many different colors around the room as you can.",
     character: "Luli",
-    comment: "Luli: "Color detectives never rest."",
+    comment: "Luli: \"Color detectives never rest.\"",
     category: "Calm & Focus"
   },
   {
     title: "Mini Freeze Game",
     instruction: "For one minute, someone calls FREEZE at random moments and everyone poses.",
     character: "Alio",
-    comment: "Alio: "Freeze like your Wi-Fi just dropped!"",
+    comment: "Alio: \"Freeze like your Wi-Fi just dropped!\"",
     category: "Fun & Movement"
   },
   {
     title: "Compliment Chain",
     instruction: "Spend one minute passing compliments around like a kindness relay.",
     character: "Nini",
-    comment: "Nini: "Soft words = warm hearts."",
+    comment: "Nini: \"Soft words = warm hearts.\"",
     category: "Connection"
   },
   {
     title: "Silly Walk Parade",
     instruction: "Walk around for one minute using the silliest walk you can invent.",
     character: "Dilo",
-    comment: "Dilo: "The sillier, the better."",
+    comment: "Dilo: \"The sillier, the better.\"",
     category: "Movement"
   },
   {
     title: "1-Minute Story Spark",
     instruction: "Pick any object and invent a fast one-minute story together.",
     character: "Bibi",
-    comment: "Bibi: "Even teaspoons have secret lives."",
+    comment: "Bibi: \"Even teaspoons have secret lives.\"",
     category: "Creativity"
   },
   {
     title: "Gratitude Glow",
     instruction: "List as many small things you’re grateful for as you can in one minute.",
     character: "Nini",
-    comment: "Nini: "Gratitude is sparkle fuel."",
+    comment: "Nini: \"Gratitude is sparkle fuel.\"",
     category: "Calm & Connection"
   },
   {
     title: "Dance Blink Battle",
     instruction: "Dance for one minute — every big blink changes the move.",
     character: "Alio",
-    comment: "Alio: "Blink = chaos unlocked."",
+    comment: "Alio: \"Blink = chaos unlocked.\"",
     category: "Movement"
   },
   {
     title: "Hand Spa Minute",
     instruction: "Give someone next to you a gentle one-minute hand massage.",
     character: "Nini",
-    comment: "Nini: "Soft hands, soft hearts."",
+    comment: "Nini: \"Soft hands, soft hearts.\"",
     category: "Connection"
   },
   {
     title: "Memory Snapshot",
     instruction: "Look around, close your eyes, and name details you remember for one minute.",
     character: "Luli",
-    comment: "Luli: "Quiet minds see more."",
+    comment: "Luli: \"Quiet minds see more.\"",
     category: "Brain & Focus"
   },
   {
     title: "Shadow Theater",
     instruction: "Use your hands to create shadow shapes for one minute.",
     character: "Luli",
-    comment: "Luli: "Dragons encouraged."",
+    comment: "Luli: \"Dragons encouraged.\"",
     category: "Creativity"
   },
   {
     title: "Mini Rhyme Race",
     instruction: "Pick a word and find rhymes or associations for one minute.",
     character: "Luli",
-    comment: "Luli: "Your brain adores this kind of work."",
+    comment: "Luli: \"Your brain adores this kind of work.\"",
     category: "Brain"
   },
   {
     title: "Hug Relay",
     instruction: "Keep passing a warm hug from person to person for one minute.",
     character: "Nini",
-    comment: "Nini: "The cuddle chain must not break."",
+    comment: "Nini: \"The cuddle chain must not break.\"",
     category: "Connection"
   },
   {
     title: "Balance Challenge",
     instruction: "Balance on one leg for one minute, switching whenever needed.",
     character: "Mimi",
-    comment: "Mimi: "Grace under pressure — always stylish."",
+    comment: "Mimi: \"Grace under pressure — always stylish.\"",
     category: "Movement"
   },
   {
     title: "Secret Handshake Maker",
     instruction: "Spend one minute inventing the fastest handshake ever.",
     character: "Alio",
-    comment: "Alio: "Add a dramatic spin."",
+    comment: "Alio: \"Add a dramatic spin.\"",
     category: "Fun & Connection"
   },
   {
     title: "Happy Whisper Minute",
     instruction: "Whisper kind or funny things to each other for one minute.",
     character: "Nini",
-    comment: "Nini: "Whispers travel straight to the heart."",
+    comment: "Nini: \"Whispers travel straight to the heart.\"",
     category: "Connection"
   },
   {
     title: "Emotion Actor",
     instruction: "Act out different emotions for one minute while others guess.",
     character: "Luli",
-    comment: "Luli: "Welcome to the family drama school."",
+    comment: "Luli: \"Welcome to the family drama school.\"",
     category: "Emotions"
   }
 ];
@@ -4371,7 +4350,8 @@ document
 
 </body>
 </html>
-</template>
+
+  </template>
 
   <template id="gift-template-word-search">
 <!doctype html>
@@ -4771,21 +4751,6 @@ document
             }
 
             updateInfoTile(tabName);
-        }
-
-        window.selectTab = selectTab;
-
-        function attachTabHandlers() {
-            const tabElements = document.querySelectorAll('.tab[data-tab]');
-            tabElements.forEach(tab => {
-                tab.addEventListener('click', event => {
-                    event.preventDefault();
-                    const tabName = tab.dataset.tab;
-                    if (tabName) {
-                        selectTab(tab, tabName);
-                    }
-                });
-            });
         }
 
         // Family Gallery Functions
@@ -5374,21 +5339,20 @@ document
 
 
                 
-        const giftTemplates = {
+                const giftTemplates = {
             calmEnergy: document.getElementById('gift-template-calm-energy'),
             oneMinute: document.getElementById('gift-template-one-minute'),
             wordSearch: document.getElementById('gift-template-word-search'),
         };
 
-        const giftAssetPaths = {
-            calmEnergy: 'assets/calm-energy/index.html',
-            oneMinute: 'assets/one-minute/index.html',
-            wordSearch: 'assets/word-search/index.html',
-        };
-
         const giftOverlay = document.getElementById('gift-overlay');
         const giftFrame = document.getElementById('gift-frame');
         const giftFallback = document.getElementById('gift-fallback');
+
+        const giftSources = {
+            calmEnergy: './assets/calm-energy/index.html',
+            wordSearch: './assets/word-search/index.html',
+        };
 
         function getGiftHtml(key) {
             const tpl = giftTemplates[key];
@@ -5401,101 +5365,51 @@ document
                 event.stopPropagation();
             }
 
+            const html = getGiftHtml(key);
+            const source = giftSources[key];
+
             giftFrame.removeAttribute('src');
             giftFrame.removeAttribute('srcdoc');
+            giftFrame.onload = null;
+            giftFrame.onerror = null;
 
-            const html = getGiftHtml(key);
-
-            const assetPath = giftAssetPaths[key];
-
-            if (html) {
+            if (source) {
+                giftFrame.style.display = 'block';
+                giftFallback.style.display = 'none';
+                giftFrame.onload = () => {
+                    giftFallback.style.display = 'none';
+                    giftFrame.style.display = 'block';
+                };
+                giftFrame.onerror = () => {
+                    if (html) {
+                        giftFrame.srcdoc = html;
+                        giftFallback.style.display = 'none';
+                        giftFrame.style.display = 'block';
+                    } else {
+                        showGiftFallback();
+                    }
+                };
+                giftFrame.src = source;
+            } else if (html) {
                 giftFallback.style.display = 'none';
                 giftFrame.style.display = 'block';
                 giftFrame.srcdoc = html;
-            } else if (assetPath) {
-                giftFallback.style.display = 'none';
-                giftFrame.style.display = 'block';
-                giftFrame.src = assetPath;
             } else {
                 showGiftFallback();
                 return;
             }
 
-            giftOverlay.style.display = 'flex';
+            giftOverlay.style.display = 'block';
             document.body.style.overflow = 'hidden';
-        }
-
-        /* Gift overlay layout */
-        #gift-overlay {
-            display: none;
-            position: fixed;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.95);
-            z-index: 10010;
-            padding: 28px 18px;
-            box-sizing: border-box;
-            overflow: auto;
-        }
-
-        #gift-overlay .gift-wrapper {
-            max-width: 1200px;
-            margin: 0 auto;
-            position: relative;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            padding-top: 52px;
-        }
-
-        .gift-close-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: linear-gradient(45deg, #8A2BE2, #9932CC);
-            border: 2px solid #ffd700;
-            border-radius: 14px;
-            padding: 10px 18px;
-            color: #ffffff;
-            font-size: 1rem;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 0 0 18px rgba(138, 43, 226, 0.6);
-            z-index: 2;
-        }
-
-        #gift-frame {
-            width: 100%;
-            height: 100%;
-            border: 3px solid #8A2BE2;
-            border-radius: 16px;
-            box-shadow: 0 0 35px rgba(138, 43, 226, 0.6), 0 0 60px rgba(138, 43, 226, 0.3);
-            background: #000;
-            flex: 1;
-            min-height: 0;
-        }
-
-        #gift-fallback {
-            display: none;
-            color: #ffffff;
-            text-align: center;
-            padding: 30px 15px;
-            background: linear-gradient(135deg, rgba(138, 43, 226, 0.2), rgba(0, 0, 0, 0.9));
-            border: 2px solid #ffd700;
-            border-radius: 16px;
-            margin-top: 10px;
-            box-shadow: 0 0 25px rgba(255, 215, 0, 0.4);
         }
 
         function showGiftFallback(message) {
             giftFrame.src = 'about:blank';
             giftFrame.srcdoc = '';
             giftFrame.style.display = 'none';
-            giftFallback.style.display = 'block';
+            giftFallback.style.display = 'flex';
             giftFallback.textContent = message || 'Gift content is unavailable right now. Please try again in a moment.';
-            giftOverlay.style.display = 'flex';
+            giftOverlay.style.display = 'block';
             document.body.style.overflow = 'hidden';
         }
 
@@ -5517,26 +5431,6 @@ document
 
         function openWordSearchPuzzle(event) {
             openGiftOverlay('wordSearch', event);
-        }
-
-        function handleBackNavigation(event) {
-            const overlayVisible = giftOverlay.style.display === 'flex' || giftOverlay.style.display === 'block';
-
-            if (overlayVisible) {
-                closeGiftOverlay();
-            } else {
-                const mainTab = document.querySelector('.tab');
-                if (mainTab && !mainTab.classList.contains('active')) {
-                    selectTab(mainTab, 'main');
-                }
-            }
-
-            history.pushState({ stay: true }, '', '#home');
-        }
-
-        function initBackNavigationGuard() {
-            history.pushState({ stay: true }, '', '#home');
-            window.addEventListener('popstate', handleBackNavigation);
         }
 
 // Resource download functionality
@@ -5595,15 +5489,7 @@ document
 
         // Initialize sparkles when page loads
         document.addEventListener('DOMContentLoaded', createSparkles);
-        document.addEventListener('DOMContentLoaded', () => {
-            updateInfoTile('main');
-            attachTabHandlers();
-            const mainTab = document.querySelector('.tab[data-tab="main"]');
-            if (mainTab) {
-                selectTab(mainTab, 'main');
-            }
-            initBackNavigationGuard();
-        });
+        document.addEventListener('DOMContentLoaded', () => updateInfoTile('main'));
     </script>
  <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'99ffed4b87077057',t:'MTc2MzM4OTgzNi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
