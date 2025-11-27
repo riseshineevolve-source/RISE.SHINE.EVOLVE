@@ -1902,11 +1902,11 @@
     </div>
    </div>
   </div><!-- Email Modal -->
-  <div id="gift-overlay" style="display: none; position: fixed; inset: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.95); z-index: 10010; overflow: auto; padding: 10px; box-sizing: border-box; display: flex; align-items: center; justify-content: center;">
-   <div style="position: relative; width: min(1200px, 98vw); height: min(92vh, 980px); margin: 0 auto; display: flex; align-items: stretch;">
+  <div id="gift-overlay" style="display: none; position: fixed; inset: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.95); z-index: 10010; overflow: auto; padding: 8px; box-sizing: border-box; display: flex; align-items: center; justify-content: center;">
+   <div style="position: relative; width: min(1200px, 98vw); height: min(90vh, 880px); margin: 0 auto; display: flex; align-items: stretch;">
     <button onclick="closeGiftOverlay()" style="position: fixed; top: 10px; right: 12px; background: linear-gradient(45deg, #8A2BE2, #9932CC); border: 2px solid #ffd700; border-radius: 14px; padding: 9px 14px; color: #ffffff; font-size: 0.95rem; font-weight: bold; cursor: pointer; box-shadow: 0 0 18px rgba(138, 43, 226, 0.6); z-index: 2;">Close gift ✖</button>
     <iframe id="gift-frame" title="Gift experience" style="display: block; width: 100%; height: 100%; margin: 0 auto; border: 3px solid #8A2BE2; border-radius: 16px; box-shadow: 0 0 35px rgba(138, 43, 226, 0.6), 0 0 60px rgba(138, 43, 226, 0.3); background: #000; box-sizing: border-box;"></iframe>
-    <div id="gift-fallback" style="display: none; position: absolute; inset: 44px 0 0 0; color: #ffffff; text-align: center; padding: 30px 15px; background: linear-gradient(135deg, rgba(138, 43, 226, 0.2), rgba(0, 0, 0, 0.9)); border: 2px solid #ffd700; border-radius: 16px; margin: 0; box-shadow: 0 0 25px rgba(255, 215, 0, 0.4); overflow: auto; align-items: center; justify-content: center; text-align: center;">
+    <div id="gift-fallback" style="display: none; position: absolute; inset: 32px 0 0 0; color: #ffffff; text-align: center; padding: 24px 14px; background: linear-gradient(135deg, rgba(138, 43, 226, 0.2), rgba(0, 0, 0, 0.9)); border: 2px solid #ffd700; border-radius: 16px; margin: 0; box-shadow: 0 0 25px rgba(255, 215, 0, 0.4); overflow: auto; align-items: center; justify-content: center; text-align: center;">
      Gift content is unavailable right now. Please try again in a moment.
     </div>
    </div>
@@ -2220,6 +2220,51 @@
     @media (max-width: 860px) {
       .hm-panel-inner {
         grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    @media (max-width: 1024px) {
+      .hm-page {
+        margin: 14px auto 18px;
+      }
+
+      .hm-panel-inner {
+        gap: 10px;
+      }
+
+      .hm-wheel-box {
+        padding: 10px;
+      }
+
+      .hm-wheel-visual {
+        width: 158px;
+        height: 158px;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .hm-page {
+        margin: 12px auto 16px;
+        padding: 0 10px;
+      }
+
+      .hm-panel-inner {
+        max-width: 100%;
+      }
+
+      .hm-wheel-box {
+        padding: 9px;
+      }
+
+      .hm-wheel-visual {
+        width: 150px;
+        height: 150px;
+      }
+
+      .hm-wheel-subtitle,
+      .hm-wheel-note,
+      .hm-info-text {
+        font-size: 0.9rem;
       }
     }
 
@@ -3914,10 +3959,10 @@ body {
   font-family: system-ui, sans-serif;
   background: var(--dark-bg);
   color: var(--text-main);
-  padding: 32px 16px;
+  padding: 20px 12px;
   display: flex;
   justify-content: center;
-  min-height: 100vh;
+  min-height: 0;
   overflow-x: hidden;
   position: relative;
 }
@@ -3955,17 +4000,18 @@ body {
 /* WRAPPER */
 .hm-wrapper {
   width: 100%;
-  max-width: 720px;
+  max-width: 680px;
   text-align: center;
   position: relative;
   z-index: 2;
+  max-height: 90vh;
 }
 
 /* TITLE */
 .hm-title {
-  font-size: 2.35rem;
+  font-size: 2.05rem;
   font-weight: 900;
-  margin-bottom: 18px;
+  margin-bottom: 14px;
   background: linear-gradient(45deg, #8A2BE2, #9932CC, #ff69b4, #ffb6c1);
   -webkit-background-clip: text;
   color: transparent;
@@ -3974,9 +4020,9 @@ body {
 .hm-title::after {
   content: "";
   display: block;
-  width: 240px;
+  width: 220px;
   height: 3px;
-  margin: 10px auto 0;
+  margin: 8px auto 0;
   background: linear-gradient(90deg, transparent, var(--gold), transparent);
   box-shadow: 0 0 14px rgba(255,215,0,.9);
   border-radius: 999px;
@@ -3984,9 +4030,9 @@ body {
 
 /* SUBTITLE – GOLD */
 .hm-subtitle {
-  font-size: 1.15rem;
+  font-size: 1.05rem;
   color: var(--gold);
-  margin-bottom: 28px;
+  margin-bottom: 20px;
   text-shadow: 0 0 10px rgba(255,215,0,.35);
   line-height: 1.55;
 }
@@ -3996,14 +4042,14 @@ body {
 /* BUTTON */
 .hm-button {
   border: 0;
-  padding: 14px 28px;
+  padding: 12px 22px;
   border-radius: 999px;
-  font-size: 1.1rem;
+  font-size: 1.02rem;
   font-weight: 700;
   cursor: pointer;
   background: linear-gradient(135deg, #8A2BE2, #ff69b4);
   color: #fff;
-  margin-bottom: 15px;
+  margin-bottom: 12px;
   transition: transform .15s, box-shadow .15s;
 }
 
@@ -4015,14 +4061,14 @@ body {
 /* CHALLENGE CARD — SMALLER */
 .hm-card {
   margin: 0 auto;
-  margin-top: 18px;
+  margin-top: 14px;
   width: 100%;
-  max-width: 530px;
+  max-width: 500px;
   background: #000;
-  border-radius: 20px;
-  padding: 18px;
+  border-radius: 18px;
+  padding: 15px;
   border: 3px solid var(--purple-main);
-  box-shadow: 0 0 26px rgba(138,43,226,.55);
+  box-shadow: 0 0 24px rgba(138,43,226,.48);
   position: relative;
   opacity: 0;
   scale: .9;
@@ -4034,10 +4080,10 @@ body {
   content: "";
   position: absolute;
   inset: 6px;
-  border-radius: 16px;
+  border-radius: 14px;
   border: 2px solid var(--gold);
   pointer-events: none;
-  box-shadow: 0 0 15px rgba(255,215,0,.55);
+  box-shadow: 0 0 12px rgba(255,215,0,.5);
 }
 
 .hm-card.show { opacity: 1; scale: 1; }
@@ -4047,14 +4093,14 @@ body {
 .hm-card-header {
   display: flex;
   justify-content: center;
-  gap: 14px;
+  gap: 12px;
   align-items: center;
 }
 
 /* SMALL ROUND AVATAR WITH ICON INSIDE */
 .hm-avatar {
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   background:
     radial-gradient(circle at 30% 0%, rgba(255,215,0,0.65), transparent 52%),
@@ -4065,33 +4111,33 @@ body {
   align-items: center;
   justify-content: center;
   box-shadow:
-    0 0 12px rgba(255,215,0,0.8),
-    0 0 18px rgba(138,43,226,0.5);
+    0 0 10px rgba(255,215,0,0.75),
+    0 0 15px rgba(138,43,226,0.45);
   flex-shrink: 0;
 }
 
 .hm-avatar svg {
-  width: 24px;
-  height: 24px;
+  width: 22px;
+  height: 22px;
   display: block;
 }
 
 /* TEXT */
 .hm-card-title {
-  font-size: 1.55rem;
+  font-size: 1.35rem;
   font-weight: 900;
   color: var(--gold);
 }
 
 .hm-category-icon {
-  font-size: 16px;
-  margin-right: 6px;
+  font-size: 15px;
+  margin-right: 5px;
   filter: drop-shadow(0 0 3px rgba(255,215,0,.6));
 }
 
 .hm-character {
-  margin-top: 12px;
-  font-size: 1.05rem;
+  margin-top: 10px;
+  font-size: 1rem;
   color: var(--gold);
   font-weight: 700;
 }
@@ -4099,24 +4145,35 @@ body {
 .hm-character strong { font-weight: 800; }
 
 .hm-card-instruction {
-  margin-top: 10px;
-  font-size: 1.12rem;
-  line-height: 1.6;
+  margin-top: 9px;
+  font-size: 1.05rem;
+  line-height: 1.5;
 }
 
 .hm-comment {
-  margin-top: 12px;
+  margin-top: 10px;
   color: #f3d98f;
   font-style: italic;
-  font-size: 1.05rem;
+  font-size: .98rem;
 }
 
 /* RESPONSIVE */
 @media (max-width: 600px) {
-  body { padding: 24px 10px; }
-  .hm-title { font-size: 2rem; }
-  .hm-card-title { font-size: 1.4rem; }
-  .hm-card-instruction { font-size: 1.05rem; }
+  body { padding: 16px 10px; }
+  .hm-title { font-size: 1.75rem; }
+  .hm-subtitle { font-size: 0.98rem; }
+  .hm-button { padding: 11px 18px; font-size: 0.98rem; }
+  .hm-card { padding: 13px; max-width: 480px; }
+  .hm-card-title { font-size: 1.28rem; }
+  .hm-card-instruction { font-size: 1rem; }
+}
+
+@media (max-height: 860px) {
+  body { padding: 14px 10px; }
+  .hm-wrapper { max-height: 86vh; }
+  .hm-title { font-size: 1.8rem; }
+  .hm-subtitle { margin-bottom: 16px; }
+  .hm-card { margin-top: 12px; }
 }
 </style>
 </head>
@@ -5411,7 +5468,7 @@ document
 
         const giftSources = {
             calmEnergy: null,
-            wordSearch: './assets/word-search/index.html',
+            wordSearch: null,
         };
 
         function getGiftHtml(key) {
@@ -5496,6 +5553,17 @@ document
                 giftOverlayOpen = false;
             }
         }
+
+        window.addEventListener('popstate', (event) => {
+            if (giftOverlayOpen) {
+                giftOverlay.style.display = 'none';
+                giftFrame.src = 'about:blank';
+                giftFrame.srcdoc = '';
+                giftFallback.style.display = 'none';
+                document.body.style.overflow = '';
+                giftOverlayOpen = false;
+            }
+        });
 
         window.addEventListener('popstate', (event) => {
             if (giftOverlayOpen) {
