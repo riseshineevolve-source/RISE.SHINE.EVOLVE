@@ -5374,10 +5374,16 @@ document
 
 
                 
-                const giftTemplates = {
+        const giftTemplates = {
             calmEnergy: document.getElementById('gift-template-calm-energy'),
             oneMinute: document.getElementById('gift-template-one-minute'),
             wordSearch: document.getElementById('gift-template-word-search'),
+        };
+
+        const giftAssetPaths = {
+            calmEnergy: 'assets/calm-energy/index.html',
+            oneMinute: 'assets/one-minute/index.html',
+            wordSearch: 'assets/word-search/index.html',
         };
 
         const giftOverlay = document.getElementById('gift-overlay');
@@ -5400,14 +5406,16 @@ document
 
             const html = getGiftHtml(key);
 
+            const assetPath = giftAssetPaths[key];
+
             if (html) {
                 giftFallback.style.display = 'none';
                 giftFrame.style.display = 'block';
                 giftFrame.srcdoc = html;
-            } else if (key === 'calmEnergy') {
+            } else if (assetPath) {
                 giftFallback.style.display = 'none';
                 giftFrame.style.display = 'block';
-                giftFrame.src = 'assets/calm-energy/index.html';
+                giftFrame.src = assetPath;
             } else {
                 showGiftFallback();
                 return;
