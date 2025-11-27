@@ -1279,7 +1279,7 @@
        <p style="color: #ffd700; font-size: 1rem; margin: 0;">Explore new resources as they arrive - starting with the Calm + Energy Wheel, the 1-Minute Challenge, and the Word Search!</p>
       </div>
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; padding: 0 10px;">
-       <div style="background: #000000; border: 3px solid #ffd700; border-radius: 18px; padding: 22px; text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(255, 215, 0, 0.5); position: relative; min-height: 300px; display: flex; flex-direction: column; align-items: center; gap: 12px;">
+       <div id="gift-card-calm-energy" onclick="openCalmEnergyWheel(event)" style="background: #000000; border: 3px solid #ffd700; border-radius: 18px; padding: 22px; text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(255, 215, 0, 0.5); position: relative; min-height: 300px; display: flex; flex-direction: column; align-items: center; gap: 12px; cursor: pointer;">
         <div style="position: absolute; top: 12px; left: 12px; background: #8A2BE2; color: #ffffff; font-size: 0.7rem; font-weight: bold; padding: 6px 10px; border-radius: 10px; text-transform: uppercase; box-shadow: 0 0 12px rgba(138, 43, 226, 0.6);">Available</div>
         <div style="width: 86px; height: 86px; margin-top: 8px; border-radius: 50%; border: 3px solid #ffd700; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 20px rgba(255,215,0,0.6);">
          <svg width="46" height="46" viewbox="0 0 120 120" aria-hidden="true">
@@ -5350,7 +5350,7 @@ document
         const giftFallback = document.getElementById('gift-fallback');
 
         const giftSources = {
-            calmEnergy: './assets/calm-energy/index.html',
+            calmEnergy: null,
             wordSearch: './assets/word-search/index.html',
         };
 
