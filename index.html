@@ -2268,6 +2268,51 @@
       }
     }
 
+    @media (max-width: 1024px) {
+      .hm-page {
+        margin: 14px auto 18px;
+      }
+
+      .hm-panel-inner {
+        gap: 10px;
+      }
+
+      .hm-wheel-box {
+        padding: 10px;
+      }
+
+      .hm-wheel-visual {
+        width: 158px;
+        height: 158px;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .hm-page {
+        margin: 12px auto 16px;
+        padding: 0 10px;
+      }
+
+      .hm-panel-inner {
+        max-width: 100%;
+      }
+
+      .hm-wheel-box {
+        padding: 9px;
+      }
+
+      .hm-wheel-visual {
+        width: 150px;
+        height: 150px;
+      }
+
+      .hm-wheel-subtitle,
+      .hm-wheel-note,
+      .hm-info-text {
+        font-size: 0.9rem;
+      }
+    }
+
     /* Wheel box */
 
     .hm-wheel-box {
@@ -5508,6 +5553,17 @@ document
                 giftOverlayOpen = false;
             }
         }
+
+        window.addEventListener('popstate', (event) => {
+            if (giftOverlayOpen) {
+                giftOverlay.style.display = 'none';
+                giftFrame.src = 'about:blank';
+                giftFrame.srcdoc = '';
+                giftFallback.style.display = 'none';
+                document.body.style.overflow = '';
+                giftOverlayOpen = false;
+            }
+        });
 
         window.addEventListener('popstate', (event) => {
             if (giftOverlayOpen) {
