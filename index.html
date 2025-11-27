@@ -938,22 +938,22 @@
    </div>
    <div class="tabs-container">
     <div class="tabs">
-     <div class="tab active" onclick="selectTab(this, 'main')">
+     <div class="tab active" data-tab="main" onclick="selectTab(this, 'main')">
       MAIN
      </div>
-     <div class="tab" onclick="selectTab(this, 'kids')">
+     <div class="tab" data-tab="kids" onclick="selectTab(this, 'kids')">
       KIDS
      </div>
-     <div class="tab" onclick="selectTab(this, 'teenagers')">
+     <div class="tab" data-tab="teenagers" onclick="selectTab(this, 'teenagers')">
       TEENAGERS
      </div>
-     <div class="tab" onclick="selectTab(this, 'adults')">
+     <div class="tab" data-tab="adults" onclick="selectTab(this, 'adults')">
       ADULTS
      </div>
-     <div class="tab" onclick="selectTab(this, 'gifts')">
+     <div class="tab" data-tab="gifts" onclick="selectTab(this, 'gifts')">
       GIFTS
      </div>
-     <div class="tab" onclick="selectTab(this, 'contact')">
+     <div class="tab" data-tab="contact" onclick="selectTab(this, 'contact')">
       CONTACT
      </div>
     </div><!-- Tab contents -->
@@ -4773,6 +4773,21 @@ document
             updateInfoTile(tabName);
         }
 
+        window.selectTab = selectTab;
+
+        function attachTabHandlers() {
+            const tabElements = document.querySelectorAll('.tab[data-tab]');
+            tabElements.forEach(tab => {
+                tab.addEventListener('click', event => {
+                    event.preventDefault();
+                    const tabName = tab.dataset.tab;
+                    if (tabName) {
+                        selectTab(tab, tabName);
+                    }
+                });
+            });
+        }
+
         // Family Gallery Functions
         function showFamilyGallery() {
             // Hide main container and show full-screen family gallery
@@ -5574,6 +5589,11 @@ document
         document.addEventListener('DOMContentLoaded', createSparkles);
         document.addEventListener('DOMContentLoaded', () => {
             updateInfoTile('main');
+            attachTabHandlers();
+            const mainTab = document.querySelector('.tab[data-tab="main"]');
+            if (mainTab) {
+                selectTab(mainTab, 'main');
+            }
             initBackNavigationGuard();
         });
     </script>
