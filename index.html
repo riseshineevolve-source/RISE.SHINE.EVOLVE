@@ -4888,9 +4888,11 @@ document
         // of your Brevo list — e.g., the list named "RiseShineEvolve Subscribe" in Brevo), and use
         // the Worker script shown below or copy the full cloudflare-worker.js file we included.
         // To avoid the "Missing entry-point" deploy error in Wrangler, keep cloudflare-worker.js and
-        // wrangler.toml (or wrangler.jsonc) together and deploy with:
-        //   npx wrangler deploy --config ./wrangler.toml
-        // The config already points to cloudflare-worker.js as main.
+        // wrangler.toml (or wrangler.json / wrangler.jsonc) together and deploy from the repo root with:
+        //   npm run deploy
+        // (this runs "wrangler deploy cloudflare-worker.js --config ./wrangler.toml" and sets the entry
+        // point explicitly). If you call wrangler yourself, use the same command or include
+        // "--config ./wrangler.toml" and the explicit script path so Wrangler can always find the entrypoint.
         const CLOUDFLARE_WORKER_ENDPOINT = 'https://rise-shine-evolve.workers.dev/form';
         const BREVO_LIST_ID = '';
         /*
