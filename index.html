@@ -4884,8 +4884,13 @@ document
         // Optional Cloudflare Worker endpoint for form submissions.
         // Replace the value below with your Worker URL (e.g., "https://your-worker.subdomain.workers.dev/form")
         // when you want form posts to be forwarded through Cloudflare first.
-        // If you want the Worker to also add contacts to Brevo, set BREVO_LIST_ID
-        // and use the Worker script shown below this block.
+        // If you want the Worker to also add contacts to Brevo, set BREVO_LIST_ID (the numeric id
+        // of your Brevo list — e.g., the list named "RiseShineEvolve Subscribe" in Brevo), and use
+        // the Worker script shown below or copy the full cloudflare-worker.js file we included.
+        // To avoid the "Missing entry-point" deploy error in Wrangler, keep cloudflare-worker.js and
+        // wrangler.toml (or wrangler.jsonc) together and deploy with:
+        //   npx wrangler deploy --config ./wrangler.toml
+        // The config already points to cloudflare-worker.js as main.
         const CLOUDFLARE_WORKER_ENDPOINT = 'https://rise-shine-evolve.workers.dev/form';
         const BREVO_LIST_ID = '';
         /*
@@ -4893,37 +4898,69 @@ document
          *
          * export default {
          *   async fetch(request, env) {
-         *     const apiKey = env.BREVO_API_KEY; // Add in Worker > Settings > Variables
          *     const sitePostTarget = 'https://rise-shine-evolve-learning-hub.com/';
          *
          *     if (request.method !== 'POST') {
          *       return new Response('ready');
          *     }
          *
-         *     const formData = await request.formData();
-         *     const firstName = formData.get('firstName') || '';
-         *     const email = formData.get('email') || '';
-         *     const listId = formData.get('brevoListId');
-         *
-         *     // Forward to Netlify/site handler first (keeps existing flow)
-         *     await fetch(sitePostTarget, { method: 'POST', body: formData });
-         *
-         *     if (apiKey && email) {
-         *       const payload = { email, attributes: { FIRSTNAME: firstName } };
-         *       if (listId) payload.listIds = [Number(listId)];
-         *
-         *       await fetch('https://api.brevo.com/v3/contacts', {
-         *         method: 'POST',
-         *         headers: {
-         *           'api-key': apiKey,
-         *           'content-type': 'application/json'
-         *         },
-         *         body: JSON.stringify(payload)
+         *     let formData;
+         *     try {
+         *       formData = await request.formData();
+         *     } catch (error) {
+         *       return new Response(JSON.stringify({ ok: false, error: 'Invalid form data', detail: String(error) }), {
+         *         status: 400,
+         *         headers: { 'content-type': 'application/json' },
          *       });
          *     }
          *
-         *     return new Response(JSON.stringify({ ok: true }), {
-         *       headers: { 'content-type': 'application/json' }
+         *     const firstName = (formData.get('firstName') || '').toString().trim();
+         *     const email = (formData.get('email') || '').toString().trim();
+         *     const listId = formData.get('brevoListId') || env.BREVO_LIST_ID; // set BREVO_LIST_ID in Worker variables
+         *
+         *     // Forward to the site handler first (keeps existing flow)
+         *     let siteOk = false;
+         *     try {
+         *       const siteResp = await fetch(sitePostTarget, { method: 'POST', body: formData });
+         *       siteOk = siteResp.ok;
+         *     } catch (error) {
+         *       // keep going so Brevo still gets a chance
+         *     }
+         *
+         *     let brevoStatus = null;
+         *     if (env.BREVO_API_KEY && email) {
+         *       const payload = {
+         *         email,
+         *         attributes: firstName ? { FIRSTNAME: firstName } : {},
+         *         updateEnabled: true,
+         *       };
+         *       if (listId) payload.listIds = [Number(listId)];
+         *
+         *       const brevoResp = await fetch('https://api.brevo.com/v3/contacts', {
+         *         method: 'POST',
+         *         headers: {
+         *           'api-key': env.BREVO_API_KEY,
+         *           'content-type': 'application/json',
+         *           accept: 'application/json',
+         *         },
+         *         body: JSON.stringify(payload),
+         *       });
+         *       brevoStatus = brevoResp.status;
+         *
+         *       if (!brevoResp.ok) {
+         *         const errorText = await brevoResp.text();
+         *         return new Response(
+         *           JSON.stringify({ ok: false, siteOk, brevoStatus, error: errorText || 'Brevo rejected the request' }),
+         *           {
+         *             status: brevoResp.status,
+         *             headers: { 'content-type': 'application/json' },
+         *           }
+         *         );
+         *       }
+         *     }
+         *
+         *     return new Response(JSON.stringify({ ok: true, siteOk, brevoStatus }), {
+         *       headers: { 'content-type': 'application/json' },
          *     });
          *   },
          * };
@@ -5391,8 +5428,8 @@ document
             localStorage.removeItem('giftsFirstName');
             hasGiftsAccess = false;
         }
-        // Function to send to Netlify or Cloudflare Worker (używane przez formularz GIFTS)
-        function sendToNetlify(formData) {
+        // Function to send to the site and (optionally) Cloudflare Worker (używane przez formularz GIFTS)
+        function sendToSite(formData) {
             const workerEndpoint = (typeof CLOUDFLARE_WORKER_ENDPOINT === 'string' ? CLOUDFLARE_WORKER_ENDPOINT.trim() : '');
 
             if (BREVO_LIST_ID && !formData.has('brevoListId')) {
@@ -5494,7 +5531,7 @@ document
             submitBtn.textContent = 'Joining...';
             submitBtn.disabled = true;
             const formData = new FormData(form);
-            sendToNetlify(formData);
+            sendToSite(formData);
 
             setTimeout(() => {
                 grantGiftsAccess(firstName, email);
@@ -5522,7 +5559,7 @@ document
                 return;
             }
             const formData = new FormData(form);
-            sendToNetlify(formData);
+            sendToSite(formData);
             clearGiftsAccess();
             if (messageBox) {
                 messageBox.style.color = '#ffd700';
