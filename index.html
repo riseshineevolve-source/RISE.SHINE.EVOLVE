@@ -4881,7 +4881,9 @@ document
             }
         }
 
-        // Optional Cloudflare Worker endpoint for form submissions
+        // Optional Cloudflare Worker endpoint for form submissions.
+        // Replace the value below with your Worker URL (e.g., "https://your-worker.subdomain.workers.dev/form")
+        // when you want form posts to be forwarded through Cloudflare first.
         const CLOUDFLARE_WORKER_ENDPOINT = '';
 
         function getTabElement(tabName) {
