@@ -1,8 +1,12 @@
 // Cloudflare Worker: forwards form submissions to the site and (optionally) Brevo.
-// Configure these secrets in Worker > Settings > Variables:
-//   - BREVO_API_KEY: your Brevo API key (keep it secret)
-//   - BREVO_LIST_ID: numeric list id (e.g., for "RiseShineEvolve Subscribe")
-// Then deploy the Worker and set CLOUDFLARE_WORKER_ENDPOINT in index.html to its URL.
+// How to wire Brevo so contacts land in your "RiseShineEvolve Subscribe" list:
+//   1) In Brevo, open Contacts > Lists, click your list, and copy the numeric id from the URL.
+//      (Example URL fragment: https://app.brevo.com/contacts/lists/<LIST_ID>.)
+//   2) In Cloudflare Workers > Settings > Variables, add:
+//        - BREVO_API_KEY: your Brevo API key (keep it secret)
+//        - BREVO_LIST_ID: the numeric id from step 1
+//   3) Deploy the worker, then set CLOUDFLARE_WORKER_ENDPOINT in index.html to this worker's URL.
+// The worker will forward to the site handler and also push to Brevo when both env vars are set.
 export default {
   async fetch(request, env) {
     const sitePostTarget = 'https://rise-shine-evolve-learning-hub.com/';
