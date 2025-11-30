@@ -4884,7 +4884,50 @@ document
         // Optional Cloudflare Worker endpoint for form submissions.
         // Replace the value below with your Worker URL (e.g., "https://your-worker.subdomain.workers.dev/form")
         // when you want form posts to be forwarded through Cloudflare first.
+        // If you want the Worker to also add contacts to Brevo, set BREVO_LIST_ID
+        // and use the Worker script shown below this block.
         const CLOUDFLARE_WORKER_ENDPOINT = 'https://rise-shine-evolve.workers.dev/form';
+        const BREVO_LIST_ID = '';
+        /*
+         * Cloudflare Worker example (paste into your Worker, then set CLOUDFLARE_WORKER_ENDPOINT above):
+         *
+         * export default {
+         *   async fetch(request, env) {
+         *     const apiKey = env.BREVO_API_KEY; // Add in Worker > Settings > Variables
+         *     const sitePostTarget = 'https://rise-shine-evolve-learning-hub.com/';
+         *
+         *     if (request.method !== 'POST') {
+         *       return new Response('ready');
+         *     }
+         *
+         *     const formData = await request.formData();
+         *     const firstName = formData.get('firstName') || '';
+         *     const email = formData.get('email') || '';
+         *     const listId = formData.get('brevoListId');
+         *
+         *     // Forward to Netlify/site handler first (keeps existing flow)
+         *     await fetch(sitePostTarget, { method: 'POST', body: formData });
+         *
+         *     if (apiKey && email) {
+         *       const payload = { email, attributes: { FIRSTNAME: firstName } };
+         *       if (listId) payload.listIds = [Number(listId)];
+         *
+         *       await fetch('https://api.brevo.com/v3/contacts', {
+         *         method: 'POST',
+         *         headers: {
+         *           'api-key': apiKey,
+         *           'content-type': 'application/json'
+         *         },
+         *         body: JSON.stringify(payload)
+         *       });
+         *     }
+         *
+         *     return new Response(JSON.stringify({ ok: true }), {
+         *       headers: { 'content-type': 'application/json' }
+         *     });
+         *   },
+         * };
+         */
 
         function getTabElement(tabName) {
             return document.querySelector(`.tab[data-tab="${tabName}"]`);
@@ -5351,6 +5394,10 @@ document
         // Function to send to Netlify or Cloudflare Worker (używane przez formularz GIFTS)
         function sendToNetlify(formData) {
             const workerEndpoint = (typeof CLOUDFLARE_WORKER_ENDPOINT === 'string' ? CLOUDFLARE_WORKER_ENDPOINT.trim() : '');
+
+            if (BREVO_LIST_ID && !formData.has('brevoListId')) {
+                formData.append('brevoListId', BREVO_LIST_ID);
+            }
 
             if (workerEndpoint) {
                 fetch(workerEndpoint, {
