@@ -1,0 +1,11 @@
+{
+  "name": "rise-shine-evolve-worker",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "deploy": "wrangler deploy ./cloudflare-worker.js --config ./wrangler.toml"
+  },
+  "devDependencies": {
+    "wrangler": "^4.51.0"
+  }
+}
