@@ -904,7 +904,7 @@
      and every person can <span class="word-evolve">EVOLVE</span>.
     </div>
    </div><!-- New Elegant Christmas Box - Dark Sophisticated Design -->
-   <div class="elegant-christmas-box" onclick="window.open('https://amazon.com', '_blank', 'noopener,noreferrer')">
+   <div class="elegant-christmas-box" onclick="window.open('https://www.amazon.com/s?i=digital-text&rh=p_27%3ARise.Shine.Evolve.&s=relevancerank&text=Rise.Shine.Evolve.&ref=dp_byline_sr_ebooks_1', '_blank', 'noopener,noreferrer')">
     <div class="elegant-box-content">
      <svg class="elegant-crown-icon" viewBox="0 0 100 100" role="img" aria-hidden="true">
       <defs>
@@ -922,7 +922,7 @@
      <div class="elegant-subtitle">
       A mindful, heart-warming advent experience for the whole family.
      </div>
-     <button class="elegant-amazon-btn" onclick="event.stopPropagation(); window.open('https://amazon.com', '_blank', 'noopener,noreferrer')">
+     <button class="elegant-amazon-btn" onclick="event.stopPropagation(); window.open('https://www.amazon.com/s?i=digital-text&rh=p_27%3ARise.Shine.Evolve.&s=relevancerank&text=Rise.Shine.Evolve.&ref=dp_byline_sr_ebooks_1', '_blank', 'noopener,noreferrer')">
       <svg viewBox="0 0 100 100" style="width: 14px; height: 14px; display: inline-block; vertical-align: middle; margin-right: 5px;" aria-hidden="true"></svg>
       Unwrap it on Amazon
      </button>
@@ -930,22 +930,22 @@
    </div>
    <div class="tabs-container">
     <div class="tabs">
-     <div class="tab active" onclick="selectTab(this, 'main')">
+     <div class="tab active" data-tab="main" onclick="selectTab(this, 'main')">
       MAIN
      </div>
-     <div class="tab" onclick="selectTab(this, 'kids')">
+     <div class="tab" data-tab="kids" onclick="selectTab(this, 'kids')">
       KIDS
      </div>
-     <div class="tab" onclick="selectTab(this, 'teenagers')">
+     <div class="tab" data-tab="teenagers" onclick="selectTab(this, 'teenagers')">
       TEENAGERS
      </div>
-     <div class="tab" onclick="selectTab(this, 'adults')">
+     <div class="tab" data-tab="adults" onclick="selectTab(this, 'adults')">
       ADULTS
      </div>
-     <div class="tab" onclick="selectTab(this, 'gifts')">
+     <div class="tab" data-tab="gifts" onclick="selectTab(this, 'gifts')">
       GIFTS
      </div>
-     <div class="tab" onclick="selectTab(this, 'contact')">
+     <div class="tab" data-tab="contact" onclick="selectTab(this, 'contact')">
       CONTACT
      </div>
     </div><!-- Tab contents -->
@@ -1290,7 +1290,7 @@
      <div class="kids-tile" style="border: 3px solid #8A2BE2; box-shadow: 0 0 35px rgba(138, 43, 226, 0.7), 0 0 60px rgba(138, 43, 226, 0.4); margin: 30px auto; max-width: 1200px; padding: 24px 18px;">
       <div class="kids-text" style="margin-bottom: 20px;">
        <h3 style="color: #8A2BE2; font-size: 1.9rem; margin: 0 0 10px 0; text-shadow: 0 0 18px rgba(138, 43, 226, 0.7);">GIFTS LIBRARY</h3>
-       <p style="color: #ffd700; font-size: 1rem; margin: 0;">Explore new resources as they arrive - starting with the Calm + Energy Wheel, the 1-Minute Challenge, and the Word Search!</p>
+       <p style="color: #ffd700; font-size: 1rem; margin: 0;">Explore new resources as they arrive - starting with the Calm + Energy Wheel and the 1-Minute Challenge. Word Search puzzle coming soon.</p>
       </div>
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; padding: 0 10px;">
        <div id="gift-card-calm-energy" onclick="openCalmEnergyWheel(event)" style="background: #000000; border: 3px solid #ffd700; border-radius: 18px; padding: 22px; text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(255, 215, 0, 0.5); position: relative; min-height: 300px; display: flex; flex-direction: column; align-items: center; gap: 12px; cursor: pointer;">
@@ -1337,14 +1337,13 @@
         <p style="color: #ffffff; font-size: 0.95rem; line-height: 1.5; margin: 0 0 6px 0;">One click. One tiny mission. One minute of joy, creativity or connection. Powered by your Happy Makers.</p>
         <button onclick="openOneMinuteChallenge(event)" style="background: linear-gradient(45deg, #8A2BE2, #9932CC); border: 2px solid #ffd700; border-radius: 14px; color: #ffffff; font-weight: bold; padding: 10px 16px; cursor: pointer; text-transform: uppercase; box-shadow: 0 0 18px rgba(138, 43, 226, 0.6); margin-top: auto;">Start the 1-Minute Challenge</button>
        </div>
-       <div style="background: #000000; border: 3px solid #ffd700; border-radius: 18px; padding: 22px; text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(255, 215, 0, 0.5); position: relative; min-height: 280px; display: flex; flex-direction: column; align-items: center; gap: 12px;">
-        <div style="position: absolute; top: 12px; left: 12px; background: #8A2BE2; color: #ffffff; font-size: 0.7rem; font-weight: bold; padding: 6px 10px; border-radius: 10px; text-transform: uppercase;">Available</div>
+       <div style="background: #000000; border: 3px solid #8A2BE2; border-radius: 18px; padding: 22px; text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(138, 43, 226, 0.4); position: relative; min-height: 280px; display: flex; flex-direction: column; align-items: center; gap: 12px;">
+        <div style="position: absolute; top: 12px; left: 12px; background: #8A2BE2; color: #ffffff; font-size: 0.7rem; font-weight: bold; padding: 6px 10px; border-radius: 10px; text-transform: uppercase; box-shadow: 0 0 12px rgba(138, 43, 226, 0.6);">Coming soon</div>
         <div style="width: 86px; height: 86px; margin-top: 8px; border-radius: 50%; border: 3px solid #ffd700; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 20px rgba(255,215,0,0.6);">
          <span style="font-size: 2rem;">🔍</span>
         </div>
         <h4 style="color: #ffd700; margin: 0; font-size: 1.3rem; text-shadow: 0 0 15px rgba(255, 215, 0, 0.7);">Word Search Puzzle</h4>
-        <p style="color: #ffffff; font-size: 0.95rem; line-height: 1.5; margin: 0 0 6px 0;">The Happy Makers Challenge: can you find the words before Nini declares cuddle time or faster than Alio creates chaos?</p>
-        <button onclick="openWordSearchPuzzle(event)" style="background: linear-gradient(45deg, #8A2BE2, #9932CC); border: 2px solid #ffd700; border-radius: 14px; color: #ffffff; font-weight: bold; padding: 10px 16px; cursor: pointer; text-transform: uppercase; box-shadow: 0 0 18px rgba(138, 43, 226, 0.6);">Start the Happy Search!</button>
+        <p style="color: #ffffff; font-size: 0.95rem; line-height: 1.5; margin: 0;">This puzzle is in the works—check back soon for the Happy Search challenge.</p>
        </div>
        <div style="background: #000000; border: 3px solid #8A2BE2; border-radius: 18px; padding: 22px; text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(138, 43, 226, 0.4); position: relative; min-height: 260px;">
         <div style="width: 86px; height: 86px; margin: 10px auto 18px auto; border-radius: 50%; border: 3px solid #8A2BE2; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 18px rgba(138,43,226,0.5);"><svg width="40" height="40" viewbox="0 0 100 100" aria-hidden="true">
@@ -4882,8 +4881,98 @@ document
             }
         }
 
+        // Optional Cloudflare Worker endpoint for form submissions.
+        // Replace the value below with your Worker URL (e.g., "https://your-worker.subdomain.workers.dev/form")
+        // when you want form posts to be forwarded through Cloudflare first.
+        // If you want the Worker to also add contacts to Brevo, set BREVO_LIST_ID (the numeric id
+        // of your Brevo list — e.g., the list named "RiseShineEvolve Subscribe" in Brevo), and use
+        // the Worker script shown below or copy the full cloudflare-worker.js file we included.
+        // To avoid the "Missing entry-point" deploy error in Wrangler, keep cloudflare-worker.js and
+        // wrangler.toml (or wrangler.jsonc) together and deploy with:
+        //   npx wrangler deploy --config ./wrangler.toml
+        // The config already points to cloudflare-worker.js as main.
+        const CLOUDFLARE_WORKER_ENDPOINT = 'https://rise-shine-evolve.workers.dev/form';
+        const BREVO_LIST_ID = '';
+        /*
+         * Cloudflare Worker example (paste into your Worker, then set CLOUDFLARE_WORKER_ENDPOINT above):
+         *
+         * export default {
+         *   async fetch(request, env) {
+         *     const sitePostTarget = 'https://rise-shine-evolve-learning-hub.com/';
+         *
+         *     if (request.method !== 'POST') {
+         *       return new Response('ready');
+         *     }
+         *
+         *     let formData;
+         *     try {
+         *       formData = await request.formData();
+         *     } catch (error) {
+         *       return new Response(JSON.stringify({ ok: false, error: 'Invalid form data', detail: String(error) }), {
+         *         status: 400,
+         *         headers: { 'content-type': 'application/json' },
+         *       });
+         *     }
+         *
+         *     const firstName = (formData.get('firstName') || '').toString().trim();
+         *     const email = (formData.get('email') || '').toString().trim();
+         *     const listId = formData.get('brevoListId') || env.BREVO_LIST_ID; // set BREVO_LIST_ID in Worker variables
+         *
+         *     // Forward to the site handler first (keeps existing flow)
+         *     let siteOk = false;
+         *     try {
+         *       const siteResp = await fetch(sitePostTarget, { method: 'POST', body: formData });
+         *       siteOk = siteResp.ok;
+         *     } catch (error) {
+         *       // keep going so Brevo still gets a chance
+         *     }
+         *
+         *     let brevoStatus = null;
+         *     if (env.BREVO_API_KEY && email) {
+         *       const payload = {
+         *         email,
+         *         attributes: firstName ? { FIRSTNAME: firstName } : {},
+         *         updateEnabled: true,
+         *       };
+         *       if (listId) payload.listIds = [Number(listId)];
+         *
+         *       const brevoResp = await fetch('https://api.brevo.com/v3/contacts', {
+         *         method: 'POST',
+         *         headers: {
+         *           'api-key': env.BREVO_API_KEY,
+         *           'content-type': 'application/json',
+         *           accept: 'application/json',
+         *         },
+         *         body: JSON.stringify(payload),
+         *       });
+         *       brevoStatus = brevoResp.status;
+         *
+         *       if (!brevoResp.ok) {
+         *         const errorText = await brevoResp.text();
+         *         return new Response(
+         *           JSON.stringify({ ok: false, siteOk, brevoStatus, error: errorText || 'Brevo rejected the request' }),
+         *           {
+         *             status: brevoResp.status,
+         *             headers: { 'content-type': 'application/json' },
+         *           }
+         *         );
+         *       }
+         *     }
+         *
+         *     return new Response(JSON.stringify({ ok: true, siteOk, brevoStatus }), {
+         *       headers: { 'content-type': 'application/json' },
+         *     });
+         *   },
+         * };
+         */
+
+        function getTabElement(tabName) {
+            return document.querySelector(`.tab[data-tab="${tabName}"]`);
+        }
+
         // Tab functionality
-        function selectTab(tabElement, tabName) {
+        function selectTab(tabElement, tabName, options = {}) {
+            const { skipHistory = false } = options;
             // Check if GIFTS tab is clicked
             if (tabName === 'gifts') {
                 // Check if user has access
@@ -4897,14 +4986,16 @@ document
             // Remove active class from all tabs
             const tabs = document.querySelectorAll('.tab');
             tabs.forEach(tab => tab.classList.remove('active'));
-            
+
             // Add active class to clicked tab
-            tabElement.classList.add('active');
-            
+            if (tabElement) {
+                tabElement.classList.add('active');
+            }
+
             // Hide all tab contents
             const contents = document.querySelectorAll('.tab-content');
             contents.forEach(content => content.classList.remove('active'));
-            
+
             // Show selected tab content
             const selectedContent = document.getElementById(tabName + '-content');
             if (selectedContent) {
@@ -4912,6 +5003,10 @@ document
             }
 
             updateInfoTile(tabName);
+
+            if (!skipHistory) {
+                history.pushState({ tab: tabName }, '', `#${tabName}`);
+            }
         }
 
         // Family Gallery Functions
@@ -5179,7 +5274,7 @@ document
                     
                     <!-- Amazon Button -->
                     <div style="text-align: center; margin-top: 30px;">
-                        <button onclick="window.open('https://amazon.com', '_blank', 'noopener,noreferrer')" style="
+                        <button onclick="window.open('https://www.amazon.com/s?i=digital-text&rh=p_27%3ARise.Shine.Evolve.&s=relevancerank&text=Rise.Shine.Evolve.&ref=dp_byline_sr_ebooks_1', '_blank', 'noopener,noreferrer')" style="
                             background: linear-gradient(45deg, #8A2BE2, #9932CC);
                             border: 3px solid #ffd700;
                             border-radius: 25px;
@@ -5333,8 +5428,23 @@ document
             localStorage.removeItem('giftsFirstName');
             hasGiftsAccess = false;
         }
-        // Function to send to Netlify (używane przez formularz GIFTS)
-        function sendToNetlify(formData) {
+        // Function to send to the site and (optionally) Cloudflare Worker (używane przez formularz GIFTS)
+        function sendToSite(formData) {
+            const workerEndpoint = (typeof CLOUDFLARE_WORKER_ENDPOINT === 'string' ? CLOUDFLARE_WORKER_ENDPOINT.trim() : '');
+
+            if (BREVO_LIST_ID && !formData.has('brevoListId')) {
+                formData.append('brevoListId', BREVO_LIST_ID);
+            }
+
+            if (workerEndpoint) {
+                fetch(workerEndpoint, {
+                    method: "POST",
+                    body: formData
+                }).catch(() => {
+                    // Silent error handling for iframe environment
+                });
+            }
+
             fetch("/", {
                 method: "POST",
                 body: formData
@@ -5421,7 +5531,7 @@ document
             submitBtn.textContent = 'Joining...';
             submitBtn.disabled = true;
             const formData = new FormData(form);
-            sendToNetlify(formData);
+            sendToSite(formData);
 
             setTimeout(() => {
                 grantGiftsAccess(firstName, email);
@@ -5449,7 +5559,7 @@ document
                 return;
             }
             const formData = new FormData(form);
-            sendToNetlify(formData);
+            sendToSite(formData);
             clearGiftsAccess();
             if (messageBox) {
                 messageBox.style.color = '#ffd700';
@@ -5459,7 +5569,17 @@ document
                 selectTab(document.querySelector('.tab'), 'main');
             }, 1200);
         }
-        document.addEventListener('DOMContentLoaded', applyCharacterPortraits);
+        document.addEventListener('DOMContentLoaded', () => {
+            applyCharacterPortraits();
+
+            const hashTab = (window.location.hash || '').replace('#', '');
+            const desiredTab = hashTab && getTabElement(hashTab) ? hashTab : 'main';
+            const tabElement = getTabElement(desiredTab) || getTabElement('main');
+            if (tabElement) {
+                selectTab(tabElement, tabElement.dataset.tab, { skipHistory: true });
+                history.replaceState({ tab: tabElement.dataset.tab }, '', `#${tabElement.dataset.tab}`);
+            }
+        });
 
         // Email modal submit listener
         // Remove access functionality
@@ -5503,7 +5623,6 @@ document
                 const giftTemplates = {
             calmEnergy: document.getElementById('gift-template-calm-energy'),
             oneMinute: document.getElementById('gift-template-one-minute'),
-            wordSearch: document.getElementById('gift-template-word-search'),
         };
 
         const giftOverlay = document.getElementById('gift-overlay');
@@ -5513,7 +5632,6 @@ document
 
         const giftSources = {
             calmEnergy: null,
-            wordSearch: 'assets/word-search/index.html',
         };
 
         function getGiftHtml(key) {
@@ -5608,27 +5726,12 @@ document
                 document.body.style.overflow = '';
                 giftOverlayOpen = false;
             }
-        });
 
-        window.addEventListener('popstate', (event) => {
-            if (giftOverlayOpen) {
-                giftOverlay.style.display = 'none';
-                giftFrame.src = 'about:blank';
-                giftFrame.srcdoc = '';
-                giftFallback.style.display = 'none';
-                document.body.style.overflow = '';
-                giftOverlayOpen = false;
-            }
-        });
-
-        window.addEventListener('popstate', (event) => {
-            if (giftOverlayOpen) {
-                giftOverlay.style.display = 'none';
-                giftFrame.src = 'about:blank';
-                giftFrame.srcdoc = '';
-                giftFallback.style.display = 'none';
-                document.body.style.overflow = '';
-                giftOverlayOpen = false;
+            const activeTab = document.querySelector('.tab.active');
+            const targetTab = (event.state && event.state.tab) ? event.state.tab : (activeTab ? activeTab.dataset.tab : 'main');
+            const tabElement = getTabElement(targetTab) || getTabElement('main');
+            if (tabElement) {
+                selectTab(tabElement, tabElement.dataset.tab, { skipHistory: true });
             }
         });
 
@@ -5638,10 +5741,6 @@ document
 
         function openOneMinuteChallenge(event) {
             openGiftOverlay('oneMinute', event);
-        }
-
-        function openWordSearchPuzzle(event) {
-            openGiftOverlay('wordSearch', event);
         }
 
 // Resource download functionality
