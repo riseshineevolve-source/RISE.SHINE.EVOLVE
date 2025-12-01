@@ -4886,9 +4886,9 @@ document
         // when you want form posts to be forwarded through Cloudflare first.
         // If you want the Worker to also add contacts to Brevo, do this after deploy succeeds:
         //   1) In Brevo > Contacts > Lists, open "RiseShineEvolve Subscribe" and copy the numeric id
-        //      from the URL (https://app.brevo.com/contacts/lists/<LIST_ID>).
+        //      from the URL (https://app.brevo.com/contact/list-listing/id/3 => id is 3).
         //   2) In your Cloudflare Worker settings, add variables BREVO_API_KEY (your Brevo key) and
-        //      BREVO_LIST_ID (the numeric id from step 1).
+        //      BREVO_LIST_ID = 3.
         //   3) Keep CLOUDFLARE_WORKER_ENDPOINT set to the worker URL so forms go through Cloudflare then Brevo.
         // To avoid the "Missing entry-point" deploy error in Wrangler, keep cloudflare-worker.js and
         // wrangler.toml (or wrangler.json / wrangler.jsonc) together and deploy from the repo root with:
@@ -4896,8 +4896,8 @@ document
         // (this runs "wrangler deploy cloudflare-worker.js --config ./wrangler.toml" and sets the entry
         // point explicitly). If you call wrangler yourself, use the same command or include
         // "--config ./wrangler.toml" and the explicit script path so Wrangler can always find the entrypoint.
-        const CLOUDFLARE_WORKER_ENDPOINT = 'https://rise-shine-evolve.workers.dev/form';
-        const BREVO_LIST_ID = '';
+        const CLOUDFLARE_WORKER_ENDPOINT = 'https://newsletter-endpoint.rise-shine-evolve.workers.dev/';
+        const BREVO_LIST_ID = '3';
         /*
          * Cloudflare Worker example (paste into your Worker, then set CLOUDFLARE_WORKER_ENDPOINT above):
          *
