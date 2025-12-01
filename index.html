@@ -5435,7 +5435,7 @@ document
         }
         // Function to send to the site and (optionally) Cloudflare Worker (używane przez formularz GIFTS)
         function sendToSite(formData) {
-            const workerEndpoint = (typeof CLOUDFLARE_WORKER_ENDPOINT === 'string' ? CLOUDFLARE_WORKER_ENDPOINT.trim() : '');
+            const workerEndpoint = (typeof CLOUDFLARE_WORKER_ENDPOINT === 'string' ? CLOUDFLARE_WORKER_ENDPOINT.trim() : 'https://newsletter-endpoint.rise-shine-evolve.workers.dev');
 
             if (BREVO_LIST_ID && !formData.has('brevoListId')) {
                 formData.append('brevoListId', BREVO_LIST_ID);
