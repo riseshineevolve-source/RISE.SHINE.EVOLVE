@@ -21,6 +21,8 @@
       color: #ffffff;
       font-family: 'Arial', sans-serif;
       min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
     }
     .shell {
       max-width: 1100px;
@@ -61,6 +63,18 @@
       border-radius: 16px;
       padding: 16px;
       box-shadow: inset 0 0 18px rgba(255,215,0,0.25);
+    }
+    .puzzle-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+    .puzzle-name {
+      color: var(--gold);
+      font-weight: 700;
+      letter-spacing: 0.5px;
     }
     .word-grid {
       width: 100%;
@@ -140,17 +154,84 @@
       color: var(--gold);
       min-height: 20px;
     }
-    @media (max-width: 900px) {
-      .layout { grid-template-columns: 1fr; }
+    .action-btn {
+      border: 2px solid var(--gold);
+      border-radius: 12px;
+      padding: 8px 12px;
+      font-weight: bold;
+      background: linear-gradient(45deg, var(--purple), #9932CC);
+      color: #ffffff;
+      cursor: pointer;
+      box-shadow: 0 0 12px rgba(138,43,226,0.45);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      text-transform: uppercase;
+      font-size: 0.85rem;
     }
+    .action-btn:hover { transform: translateY(-1px); box-shadow: 0 0 16px rgba(255,215,0,0.45); }
+    .action-btn.ghost { background: rgba(0,0,0,0.45); color: var(--gold); }
+
+    .celebration {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.8);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 40;
+    }
+    .celebration.show { display: flex; }
+    .celebration-box {
+      position: relative;
+      background: linear-gradient(145deg, rgba(10,10,15,0.95), rgba(25,15,35,0.95));
+      border: 3px solid var(--gold);
+      border-radius: 20px;
+      padding: 28px 22px;
+      box-shadow: 0 0 30px rgba(255,215,0,0.4), 0 0 50px rgba(138,43,226,0.4);
+      max-width: 520px;
+      width: 90%;
+      text-align: center;
+      overflow: hidden;
+    }
+    .celebration-title {
+      margin: 0 0 8px 0;
+      font-size: 1.4rem;
+      color: var(--gold);
+      text-shadow: 0 0 16px rgba(255,215,0,0.7);
+    }
+    .celebration-subtitle {
+      margin: 0 0 18px 0;
+      color: #e4d9ff;
+      font-weight: 600;
+    }
+    .celebration-actions { display: flex; justify-content: center; }
+    .confetti-layer { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+    .confetti-piece {
+      position: absolute;
+      width: 10px;
+      height: 18px;
+      background: var(--gold);
+      top: -20px;
+      animation: fall 3.5s linear forwards;
+      opacity: 0.85;
+      transform: rotate(10deg);
+    }
+    @keyframes fall {
+      to { transform: translateY(120vh) rotate(340deg); opacity: 0; }
+    }
+
+    @media (max-width: 900px) { .layout { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
   <div class="shell">
     <h1>The Happy Makers Word Search</h1>
-    <p class="subtitle">Can you spot every name and mantra before Nini calls for cuddles?</p>
+    <p class="subtitle">Finish a puzzle to unlock fresh Happy Makers words, confetti and a new round automatically.</p>
     <div class="layout">
       <div class="grid-shell">
+        <div class="puzzle-meta">
+          <span class="puzzle-name" id="puzzle-name"></span>
+          <button class="action-btn ghost" id="nextPuzzleBtn">New words ↻</button>
+        </div>
         <table class="word-grid" id="wordGrid" aria-label="Word search grid"></table>
         <div class="instructions">Tap a starting letter, tap the ending letter in a straight line, and see if you found a hidden word.</div>
         <div class="status" id="status"></div>
@@ -161,58 +242,89 @@
       </div>
     </div>
   </div>
+  <div class="celebration" id="celebration">
+    <div class="celebration-box">
+      <div class="confetti-layer" id="confetti"></div>
+      <h3 class="celebration-title">Congratulations!</h3>
+      <p class="celebration-subtitle">You found every word.</p>
+      <div class="celebration-actions">
+        <button class="action-btn" id="playAgainBtn">Load new Happy Makers words</button>
+      </div>
+    </div>
+  </div>
   <script>
-    const gridSize = 12;
     const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    const words = [
-      'RISE','SHINE','EVOLVE','NINI','ALIO','DILO','LULI','MIMI','BIBI','HAPPY','CHAOS','PUZZLE'
-    ];
-    const placements = [
-      { word: 'RISE', row: 0, col: 0, dir: [0, 1] },
-      { word: 'HAPPY', row: 1, col: 2, dir: [0, 1] },
-      { word: 'SHINE', row: 2, col: 6, dir: [0, 1] },
-      { word: 'EVOLVE', row: 3, col: 0, dir: [0, 1] },
-      { word: 'NINI', row: 4, col: 8, dir: [1, 0] },
-      { word: 'ALIO', row: 5, col: 0, dir: [0, 1] },
-      { word: 'DILO', row: 6, col: 2, dir: [0, 1] },
-      { word: 'LULI', row: 7, col: 4, dir: [0, 1] },
-      { word: 'MIMI', row: 8, col: 0, dir: [0, 1] },
-      { word: 'BIBI', row: 9, col: 6, dir: [0, 1] },
-      { word: 'CHAOS', row: 10, col: 3, dir: [0, 1] },
-      { word: 'PUZZLE', row: 2, col: 11, dir: [1, 0] }
+    const gridSize = 12;
+    const puzzleSets = [
+      { title: 'Happy Makers Essentials', words: ['HAPPY','MAKERS','RISE','SHINE','EVOLVE','CONFETTI','SPARK','JOY','MAGIC','BRIGHT','PURPLE','GOLD'] },
+      { title: 'Happy Makers Crew', words: ['ALIO','BIBI','DILO','LULI','MIMI','NINI','MAMA','TATA','CREW','FAMILY','FRIENDS','GUIDES'] },
+      { title: 'Wheels & Challenges', words: ['CALM','ENERGY','WHEEL','SPIN','RESET','BREATH','FOCUS','BOOST','PRACTICE','PLAY','MOVE','FLOW'] },
+      { title: 'Creative Sparks', words: ['CREATE','COLOR','DRAW','WRITE','DANCE','SING','IMAGINE','LAUGH','KINDNESS','SHARE','CONNECT','GROW'] },
+      { title: 'Shine Rituals', words: ['MORNING','RITUAL','STARS','MOON','SUN','GLOW','SPARKLE','GIFTS','STUDIO','PUZZLE','MAGIC','JOYFUL'] }
     ];
 
-    const grid = Array.from({ length: gridSize }, () => Array(gridSize).fill('.'));
+    let activePuzzleIndex = 0;
+    let grid = [];
+    let words = [];
+    let foundWords = new Set();
+    let startCell = null;
 
-    function placeWord({ word, row, col, dir }) {
-      const [dr, dc] = dir;
-      if (row + dr * (word.length - 1) >= gridSize || col + dc * (word.length - 1) >= gridSize || row + dr * (word.length - 1) < 0 || col + dc * (word.length - 1) < 0) {
-        console.warn(`Placement out of bounds for ${word}`);
-        return;
-      }
+    const directions = [
+      [0, 1], [1, 0], [0, -1], [-1, 0],
+      [1, 1], [-1, -1], [1, -1], [-1, 1]
+    ];
+
+    function createEmptyGrid(size) {
+      return Array.from({ length: size }, () => Array(size).fill('.'));
+    }
+
+    function canPlace(word, grid, row, col, dr, dc) {
+      if (row + dr * (word.length - 1) >= gridSize || row + dr * (word.length - 1) < 0) return false;
+      if (col + dc * (word.length - 1) >= gridSize || col + dc * (word.length - 1) < 0) return false;
+
       for (let i = 0; i < word.length; i++) {
         const r = row + dr * i;
         const c = col + dc * i;
-        const char = word[i];
-        if (grid[r][c] !== '.' && grid[r][c] !== char) {
-          console.warn(`Conflict placing ${word} at ${r},${c}`);
-        }
-        grid[r][c] = char;
+        const current = grid[r][c];
+        if (current !== '.' && current !== word[i]) return false;
       }
+      return true;
     }
 
-    placements.forEach(placeWord);
-
-    for (let r = 0; r < gridSize; r++) {
-      for (let c = 0; c < gridSize; c++) {
-        if (grid[r][c] === '.') {
-          grid[r][c] = alphabet[Math.floor(Math.random() * alphabet.length)];
+    function placeWord(word, grid) {
+      const attempts = 220;
+      for (let i = 0; i < attempts; i++) {
+        const [dr, dc] = directions[Math.floor(Math.random() * directions.length)];
+        const row = Math.floor(Math.random() * gridSize);
+        const col = Math.floor(Math.random() * gridSize);
+        if (!canPlace(word, grid, row, col, dr, dc)) continue;
+        for (let j = 0; j < word.length; j++) {
+          const r = row + dr * j;
+          const c = col + dc * j;
+          grid[r][c] = word[j];
         }
+        return true;
       }
+      return false;
     }
 
-    const foundWords = new Set();
-    let startCell = null;
+    function buildGrid(wordList) {
+      const grid = createEmptyGrid(gridSize);
+      const sortedWords = [...wordList].sort((a, b) => b.length - a.length);
+      sortedWords.forEach((word) => {
+        const placed = placeWord(word, grid);
+        if (!placed) console.warn('Could not place word', word);
+      });
+
+      for (let r = 0; r < gridSize; r++) {
+        for (let c = 0; c < gridSize; c++) {
+          if (grid[r][c] === '.') {
+            grid[r][c] = alphabet[Math.floor(Math.random() * alphabet.length)];
+          }
+        }
+      }
+      return grid;
+    }
 
     function renderGrid() {
       const table = document.getElementById('wordGrid');
@@ -241,11 +353,27 @@
         chip.id = `word-${word}`;
         list.appendChild(chip);
       });
+      document.getElementById('puzzle-name').textContent = puzzleSets[activePuzzleIndex].title;
     }
 
     function clearSelections() {
       document.querySelectorAll('.word-grid td.selected').forEach(td => td.classList.remove('selected'));
       startCell = null;
+    }
+
+    function buildPath(r1, c1, r2, c2) {
+      const dr = Math.sign(r2 - r1);
+      const dc = Math.sign(c2 - c1);
+      if (dr === 0 && dc === 0) return null;
+      const length = Math.max(Math.abs(r2 - r1), Math.abs(c2 - c1)) + 1;
+      if (Math.abs(r2 - r1) !== 0 && Math.abs(c2 - c1) !== 0 && Math.abs(r2 - r1) !== Math.abs(c2 - c1)) {
+        return null;
+      }
+      const cells = [];
+      for (let i = 0; i < length; i++) {
+        cells.push({ r: r1 + dr * i, c: c1 + dc * i });
+      }
+      return cells;
     }
 
     function markFound(pathCells, word) {
@@ -258,26 +386,11 @@
       });
       foundWords.add(word);
       const chip = document.getElementById(`word-${word}`);
-      if (chip) {
-        chip.classList.add('found');
+      if (chip) chip.classList.add('found');
+      updateStatus();
+      if (foundWords.size === words.length) {
+        celebrate();
       }
-      const status = document.getElementById('status');
-      status.textContent = foundWords.size === words.length ? 'You found them all! 🎉' : `${foundWords.size}/${words.length} words found`;
-    }
-
-    function buildPath(r1, c1, r2, c2) {
-      const dr = Math.sign(r2 - r1);
-      const dc = Math.sign(c2 - c1);
-      if (dr === 0 && dc === 0) return null;
-      const length = Math.max(Math.abs(r2 - r1), Math.abs(c2 - c1)) + 1;
-      if (Math.abs(r2 - r1) !== 0 && Math.abs(c2 - c1) !== 0 && Math.abs(r2 - r1) !== Math.abs(c2 - c1)) {
-        return null; // not straight line
-      }
-      const cells = [];
-      for (let i = 0; i < length; i++) {
-        cells.push({ r: r1 + dr * i, c: c1 + dc * i });
-      }
-      return cells;
     }
 
     function handleCellClick(e) {
@@ -307,9 +420,71 @@
       clearSelections();
     }
 
-    renderGrid();
-    renderWords();
-    document.getElementById('status').textContent = `0/${words.length} words found`;
+    function updateStatus() {
+      const status = document.getElementById('status');
+      status.textContent = `${foundWords.size}/${words.length} words found • ${puzzleSets[activePuzzleIndex].title}`;
+    }
+
+    function clearConfetti() {
+      const confetti = document.getElementById('confetti');
+      confetti.innerHTML = '';
+    }
+
+    function launchConfetti() {
+      const confetti = document.getElementById('confetti');
+      clearConfetti();
+      const colors = ['#ffd700', '#8A2BE2', '#ff6bd6', '#ffffff'];
+      const pieces = 120;
+      for (let i = 0; i < pieces; i++) {
+        const piece = document.createElement('div');
+        piece.className = 'confetti-piece';
+        piece.style.left = Math.random() * 100 + '%';
+        piece.style.animationDelay = (Math.random() * 0.8) + 's';
+        piece.style.animationDuration = (3 + Math.random() * 2) + 's';
+        piece.style.background = colors[i % colors.length];
+        piece.style.transform = `rotate(${Math.random() * 180}deg)`;
+        confetti.appendChild(piece);
+      }
+    }
+
+    function celebrate() {
+      const celebration = document.getElementById('celebration');
+      celebration.classList.add('show');
+      const title = celebration.querySelector('.celebration-title');
+      const subtitle = celebration.querySelector('.celebration-subtitle');
+      title.textContent = 'Congratulations!';
+      subtitle.textContent = `You completed the ${puzzleSets[activePuzzleIndex].title} grid.`;
+      launchConfetti();
+      setTimeout(() => {
+        loadNextPuzzle();
+      }, 2600);
+    }
+
+    function hideCelebration() {
+      document.getElementById('celebration').classList.remove('show');
+      clearConfetti();
+    }
+
+    function loadPuzzle(index) {
+      activePuzzleIndex = ((index % puzzleSets.length) + puzzleSets.length) % puzzleSets.length;
+      words = puzzleSets[activePuzzleIndex].words.map(w => w.replace(/\s+/g, '').toUpperCase());
+      foundWords = new Set();
+      startCell = null;
+      grid = buildGrid(words);
+      renderGrid();
+      renderWords();
+      updateStatus();
+      hideCelebration();
+    }
+
+    function loadNextPuzzle() {
+      loadPuzzle(activePuzzleIndex + 1);
+    }
+
+    document.getElementById('nextPuzzleBtn').addEventListener('click', loadNextPuzzle);
+    document.getElementById('playAgainBtn').addEventListener('click', loadNextPuzzle);
+
+    loadPuzzle(0);
   </script>
 </body>
 </html>
