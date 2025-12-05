@@ -256,11 +256,11 @@
     const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     const gridSize = 12;
     const puzzleSets = [
-      { title: 'Rise • Shine • Evolve', words: ['RISE','SHINE','EVOLVE','GOLD','PURPLE','SPARK','BRIGHT','ENERGY','CALM','JOY','GLOW','GIFT'] },
-      { title: 'Happy Makers Crew', words: ['MIMI','LULI','DILO','ALIO','NINI','BIBI','MAMA','TATA','FAMILY','CREW','LOVE','SMILE'] },
-      { title: 'Maker Magic', words: ['HAPPY','MAKERS','MAGIC','PLAY','CREATE','COLOR','LAUGH','HEART','BRAVE','BOLD','KIND','SPIRIT'] },
-      { title: 'Adventure Sparks', words: ['TRAVEL','PUZZLE','QUEST','STUDIO','IDEAS','WORDS','HEROES','STARS','MOON','SUN','DREAM','GLOW'] },
-      { title: 'Celebration Blast', words: ['CONFETTI','CELEBRATE','WINNER','GIFT','MUSIC','DANCE','SHARE','SHINE','CHEER','SPARKLE','HAPPY','GOLD'] }
+      { title: 'Happy Makers Essentials', words: ['HAPPY','MAKERS','RISE','SHINE','EVOLVE','CONFETTI','SPARK','JOY','MAGIC','BRIGHT','PURPLE','GOLD'] },
+      { title: 'Happy Makers Crew', words: ['ALIO','BIBI','DILO','LULI','MIMI','NINI','MAMA','TATA','CREW','FAMILY','FRIENDS','GUIDES'] },
+      { title: 'Wheels & Challenges', words: ['CALM','ENERGY','WHEEL','SPIN','RESET','BREATH','FOCUS','BOOST','PRACTICE','PLAY','MOVE','FLOW'] },
+      { title: 'Creative Sparks', words: ['CREATE','COLOR','DRAW','WRITE','DANCE','SING','IMAGINE','LAUGH','KINDNESS','SHARE','CONNECT','GROW'] },
+      { title: 'Shine Rituals', words: ['MORNING','RITUAL','STARS','MOON','SUN','GLOW','SPARKLE','GIFTS','STUDIO','PUZZLE','MAGIC','JOYFUL'] }
     ];
 
     let activePuzzleIndex = 0;
@@ -433,7 +433,7 @@
     function launchConfetti() {
       const confetti = document.getElementById('confetti');
       clearConfetti();
-      const colors = ['#ffd700', '#8A2BE2', '#ffffff'];
+      const colors = ['#ffd700', '#8A2BE2', '#ff6bd6', '#ffffff'];
       const pieces = 120;
       for (let i = 0; i < pieces; i++) {
         const piece = document.createElement('div');

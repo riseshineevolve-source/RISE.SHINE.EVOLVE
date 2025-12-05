@@ -1,0 +1,618 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Word Search Studio</title>
+  <style>
+    :root {
+      --bg: #08070d;
+      --panel: rgba(14, 12, 20, 0.9);
+      --purple: #8a2be2;
+      --purple-soft: #a86bff;
+      --gold: #ffd700;
+      --ink: #0f0d14;
+      --text: #f8f6ff;
+      --muted: #c8c2e3;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+      background: radial-gradient(circle at 15% 20%, rgba(138, 43, 226, 0.12), transparent 30%),
+                  radial-gradient(circle at 80% 10%, rgba(255, 215, 0, 0.12), transparent 32%),
+                  radial-gradient(circle at 50% 80%, rgba(138, 43, 226, 0.18), transparent 36%),
+                  var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 20px 14px 32px;
+    }
+
+    .frame {
+      max-width: 1280px;
+      margin: 0 auto;
+      background: linear-gradient(145deg, rgba(10, 8, 16, 0.92), rgba(18, 12, 24, 0.94));
+      border: 3px solid var(--purple);
+      border-radius: 22px;
+      box-shadow: 0 0 32px rgba(138, 43, 226, 0.45), 0 0 55px rgba(255, 215, 0, 0.28);
+      padding: 20px 18px 22px;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 18px;
+    }
+
+    .title {
+      margin: 0;
+      font-size: 2.1rem;
+      letter-spacing: 0.8px;
+      background: linear-gradient(90deg, var(--gold), #fff6a9, var(--purple));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+    }
+
+    .subtitle {
+      margin: 8px 0 0 0;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 16px;
+      align-items: start;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 2px solid rgba(138, 43, 226, 0.6);
+      border-radius: 16px;
+      padding: 14px;
+      box-shadow: inset 0 0 16px rgba(138, 43, 226, 0.25);
+    }
+
+    .panel h2 {
+      margin: 0 0 10px 0;
+      color: var(--gold);
+      font-size: 1.05rem;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .panel h2 span {
+      display: inline-flex;
+      width: 22px;
+      height: 22px;
+      border-radius: 8px;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, var(--purple), var(--purple-soft));
+      color: #fff;
+      font-size: 0.8rem;
+      box-shadow: 0 0 12px rgba(138, 43, 226, 0.4);
+    }
+
+    label {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #eae5ff;
+      margin-bottom: 6px;
+    }
+
+    select, textarea, input[type="number"] {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 2px solid rgba(138, 43, 226, 0.5);
+      background: rgba(18, 14, 24, 0.85);
+      color: var(--text);
+      font-size: 0.95rem;
+      box-shadow: 0 0 12px rgba(138, 43, 226, 0.25);
+    }
+
+    textarea { min-height: 120px; resize: vertical; }
+
+    .grid-controls {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 10px 12px;
+      margin-bottom: 10px;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .btn {
+      border: 2px solid var(--gold);
+      border-radius: 12px;
+      padding: 10px 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      cursor: pointer;
+      color: #ffffff;
+      background: linear-gradient(45deg, var(--purple), #9932CC);
+      box-shadow: 0 0 18px rgba(138, 43, 226, 0.6);
+    }
+
+    .btn.secondary {
+      background: rgba(0, 0, 0, 0.45);
+      color: var(--gold);
+      border-color: rgba(255, 215, 0, 0.8);
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .badge {
+      background: rgba(138, 43, 226, 0.14);
+      border: 1px solid rgba(255, 215, 0, 0.65);
+      color: #fff;
+      padding: 5px 10px;
+      border-radius: 10px;
+      font-size: 0.88rem;
+      box-shadow: 0 0 10px rgba(138, 43, 226, 0.28);
+    }
+
+    .board-panel {
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      gap: 10px;
+      min-height: 520px;
+    }
+
+    .board-shell {
+      background: rgba(0,0,0,0.7);
+      border: 2px solid var(--gold);
+      border-radius: 16px;
+      padding: 12px;
+      box-shadow: inset 0 0 18px rgba(255, 215, 0, 0.25);
+      overflow: auto;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      table-layout: fixed;
+    }
+
+    td {
+      border: 1px solid rgba(255, 215, 0, 0.35);
+      text-align: center;
+      font-weight: bold;
+      font-size: 1rem;
+      padding: 8px 0;
+      color: #ffffff;
+      width: 34px;
+      height: 34px;
+    }
+
+    td.off {
+      background: rgba(255,255,255,0.05);
+      color: rgba(255,255,255,0.2);
+    }
+
+    td span { display: block; }
+
+    .words {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 8px;
+    }
+
+    .word-chip {
+      padding: 8px 10px;
+      border: 1px solid rgba(255,215,0,0.65);
+      border-radius: 10px;
+      text-align: center;
+      font-weight: bold;
+      color: #ffffff;
+      background: rgba(138, 43, 226, 0.18);
+      box-shadow: 0 0 12px rgba(138, 43, 226, 0.3);
+    }
+
+    .status { text-align: center; color: var(--gold); font-weight: 700; margin: 6px 0 0; }
+
+    .helper { color: var(--muted); font-size: 0.95rem; line-height: 1.5; }
+
+    @media (max-width: 1080px) {
+      .layout { grid-template-columns: 1fr; }
+      .board-panel { min-height: 0; }
+    }
+
+    @media print {
+      body { padding: 0; background: #fff; color: #000; }
+      .frame { box-shadow: none; border: none; }
+      .panel, .board-shell { border-color: #000; box-shadow: none; background: #fff; }
+      .btn, .badge { display: none; }
+      td { color: #000; border-color: #000; }
+    }
+  </style>
+</head>
+<body>
+  <div class="frame">
+    <div class="header">
+      <h1 class="title">Word Search Studio</h1>
+      <p class="subtitle">Full printable puzzle builder — match the original studio experience with shapes, presets, and saves.</p>
+    </div>
+
+    <div class="layout">
+      <div class="panel">
+        <h2><span>1</span> Word list & options</h2>
+        <div class="grid-controls">
+          <div>
+            <label for="themeSelect">Preset</label>
+            <select id="themeSelect"></select>
+            <div class="badge-row" id="presetBadges"></div>
+          </div>
+          <div>
+            <label for="shapeSelect">Shape</label>
+            <select id="shapeSelect">
+              <option value="square">Square</option>
+              <option value="diamond">Diamond</option>
+              <option value="circle">Circle</option>
+              <option value="heart">Heart</option>
+            </select>
+          </div>
+          <div>
+            <label for="difficultySelect">Difficulty</label>
+            <select id="difficultySelect">
+              <option value="easy">Easy (no diagonals)</option>
+              <option value="standard" selected>Standard</option>
+              <option value="expert">Expert (diagonals + reverses)</option>
+            </select>
+          </div>
+          <div>
+            <label for="sizeInput">Grid size (10 - 22)</label>
+            <input id="sizeInput" type="number" min="10" max="22" value="14">
+          </div>
+        </div>
+
+        <label for="customWords">Custom words (one per line)</label>
+        <textarea id="customWords" placeholder="Add your own list or mix with a preset..."></textarea>
+
+        <div class="actions">
+          <button class="btn" id="generateBtn">Generate puzzle</button>
+          <button class="btn" id="shuffleBtn">Shuffle letters</button>
+          <button class="btn secondary" id="usePresetBtn">Use preset words</button>
+          <button class="btn secondary" id="clearWordsBtn">Clear words</button>
+          <button class="btn secondary" id="printBtn">Print</button>
+          <button class="btn secondary" id="downloadBtn">Download image</button>
+          <button class="btn secondary" id="saveBtn">Save puzzle data</button>
+        </div>
+      </div>
+
+      <div class="panel board-panel">
+        <div>
+          <h2><span>2</span> Puzzle grid</h2>
+          <p class="helper">Generate, then print or download your puzzle. Shape masks and difficulty change placement just like in the original studio.</p>
+        </div>
+        <div class="board-shell">
+          <table id="proGrid" aria-label="Generated word search grid"></table>
+        </div>
+        <div>
+          <h2 style="margin-bottom:8px;"><span>3</span> Word list</h2>
+          <div class="words" id="proWordList"></div>
+          <div class="status" id="status"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const presetThemes = [
+      { id: 'happy-makers', name: 'Happy Makers Core', words: ['RISE','SHINE','EVOLVE','NINI','ALIO','DILO','LULI','MIMI','BIBI','JOY','CALM','SPARK'] },
+      { id: 'feelings', name: 'Feelings & Mindsets', words: ['KIND','BRAVE','CURIOUS','PATIENT','CALM','BOLD','CREATIVE','HOPEFUL','STRONG','PEACE'] },
+      { id: 'galaxy', name: 'Galaxy Adventure', words: ['COMET','ORBIT','PLANET','STARS','MOON','NEBULA','COSMIC','ROCKET','ASTRO','SOLAR'] },
+      { id: 'bilingual', name: 'Polish Mix', words: ['RADOSC','ODWAGA','SERCE','SILA','MILOSC','MOC','NADZIEJA','MOCNI','MARZENIE','PRZYJAZN'] },
+      { id: 'custom', name: 'Empty grid (custom only)', words: [] },
+    ];
+
+    const themeSelect = document.getElementById('themeSelect');
+    const shapeSelect = document.getElementById('shapeSelect');
+    const difficultySelect = document.getElementById('difficultySelect');
+    const sizeInput = document.getElementById('sizeInput');
+    const customWords = document.getElementById('customWords');
+    const presetBadges = document.getElementById('presetBadges');
+    const proGrid = document.getElementById('proGrid');
+    const proWordList = document.getElementById('proWordList');
+    const statusEl = document.getElementById('status');
+
+    presetThemes.forEach((theme) => {
+      const option = document.createElement('option');
+      option.value = theme.id;
+      option.textContent = theme.name;
+      themeSelect.appendChild(option);
+    });
+
+    function loadPresetBadges(themeId) {
+      presetBadges.innerHTML = '';
+      const preset = presetThemes.find((t) => t.id === themeId);
+      if (!preset || !preset.words.length) {
+        presetBadges.innerHTML = '<span class="badge">No preset words loaded</span>';
+        return;
+      }
+      preset.words.forEach((word) => {
+        const badge = document.createElement('span');
+        badge.className = 'badge';
+        badge.textContent = word;
+        presetBadges.appendChild(badge);
+      });
+    }
+
+    function normalizeWords(rawList) {
+      return rawList
+        .map((w) => w.trim().toUpperCase())
+        .filter(Boolean)
+        .filter((w, idx, arr) => arr.indexOf(w) === idx);
+    }
+
+    function gatherWords() {
+      const preset = presetThemes.find((t) => t.id === themeSelect.value);
+      const presetWords = preset ? preset.words : [];
+      const custom = normalizeWords(customWords.value.split(/\n+/));
+      const all = Array.from(new Set([...presetWords.map((w) => w.toUpperCase()), ...custom]));
+      return all.slice(0, 60);
+    }
+
+    function directionsForDifficulty(level) {
+      const base = [ [1,0], [-1,0], [0,1], [0,-1] ];
+      const diag = [ [1,1], [1,-1], [-1,1], [-1,-1] ];
+      if (level === 'easy') return base;
+      if (level === 'standard') return base.concat(diag);
+      return base.concat(diag);
+    }
+
+    function maskForShape(size, shape) {
+      const mid = (size - 1) / 2;
+      const mask = Array.from({ length: size }, () => Array(size).fill(false));
+      for (let r = 0; r < size; r++) {
+        for (let c = 0; c < size; c++) {
+          if (shape === 'diamond') {
+            mask[r][c] = Math.abs(r - mid) + Math.abs(c - mid) <= mid + 0.2;
+          } else if (shape === 'circle') {
+            const dist = Math.sqrt((r - mid) ** 2 + (c - mid) ** 2);
+            mask[r][c] = dist <= mid + 0.1;
+          } else if (shape === 'heart') {
+            const x = (c - mid) / mid;
+            const y = (r - mid) / mid - 0.2;
+            mask[r][c] = (x * x + y * y - 1) ** 3 - x * x * y * y * y <= 0;
+          } else {
+            mask[r][c] = true;
+          }
+        }
+      }
+      return mask;
+    }
+
+    function attemptPlace(word, grid, mask, dirs) {
+      const size = grid.length;
+      const maxTries = 200;
+      for (let t = 0; t < maxTries; t++) {
+        const dir = dirs[Math.floor(Math.random() * dirs.length)];
+        const [dr, dc] = dir;
+        const startRow = Math.floor(Math.random() * size);
+        const startCol = Math.floor(Math.random() * size);
+        const endRow = startRow + dr * (word.length - 1);
+        const endCol = startCol + dc * (word.length - 1);
+        if (endRow < 0 || endRow >= size || endCol < 0 || endCol >= size) continue;
+
+        let fits = true;
+        for (let i = 0; i < word.length; i++) {
+          const r = startRow + dr * i;
+          const c = startCol + dc * i;
+          if (!mask[r][c]) { fits = false; break; }
+          const current = grid[r][c];
+          if (current && current !== word[i]) { fits = false; break; }
+        }
+
+        if (fits) {
+          for (let i = 0; i < word.length; i++) {
+            const r = startRow + dr * i;
+            const c = startCol + dc * i;
+            grid[r][c] = word[i];
+          }
+          return true;
+        }
+      }
+      return false;
+    }
+
+    function buildGrid(words) {
+      const size = Math.max(10, Math.min(22, parseInt(sizeInput.value, 10) || 14));
+      const grid = Array.from({ length: size }, () => Array(size).fill(''));
+      const mask = maskForShape(size, shapeSelect.value);
+      const dirs = directionsForDifficulty(difficultySelect.value);
+
+      const sorted = [...words].sort((a, b) => b.length - a.length);
+      let placedCount = 0;
+      sorted.forEach((word) => {
+        const target = difficultySelect.value === 'expert' && Math.random() > 0.5 ? word.split('').reverse().join('') : word;
+        if (attemptPlace(target, grid, mask, dirs)) placedCount++;
+      });
+
+      for (let r = 0; r < size; r++) {
+        for (let c = 0; c < size; c++) {
+          if (!mask[r][c]) continue;
+          if (!grid[r][c]) grid[r][c] = alphabet[Math.floor(Math.random() * alphabet.length)];
+        }
+      }
+
+      return { grid, mask, placedCount };
+    }
+
+    function renderGrid(grid, mask) {
+      proGrid.innerHTML = '';
+      grid.forEach((row, rIdx) => {
+        const tr = document.createElement('tr');
+        row.forEach((letter, cIdx) => {
+          const td = document.createElement('td');
+          if (!mask[rIdx][cIdx]) {
+            td.classList.add('off');
+            td.innerHTML = '<span>·</span>';
+          } else {
+            td.innerHTML = `<span>${letter || ''}</span>`;
+          }
+          tr.appendChild(td);
+        });
+        proGrid.appendChild(tr);
+      });
+    }
+
+    function renderWordList(words) {
+      proWordList.innerHTML = '';
+      words.forEach((word) => {
+        const chip = document.createElement('div');
+        chip.className = 'word-chip';
+        chip.textContent = word;
+        proWordList.appendChild(chip);
+      });
+    }
+
+    function generate() {
+      const words = gatherWords();
+      if (!words.length) {
+        statusEl.textContent = 'Add at least one word to generate a puzzle.';
+        proGrid.innerHTML = '';
+        proWordList.innerHTML = '';
+        return;
+      }
+
+      const { grid, mask, placedCount } = buildGrid(words);
+      renderGrid(grid, mask);
+      renderWordList(words);
+
+      statusEl.textContent = `Placed ${placedCount}/${words.length} words • Shape: ${shapeSelect.options[shapeSelect.selectedIndex].text} • Difficulty: ${difficultySelect.options[difficultySelect.selectedIndex].text}`;
+      return { grid, mask, words };
+    }
+
+    let lastPuzzle = null;
+    document.getElementById('generateBtn').addEventListener('click', () => {
+      lastPuzzle = generate();
+    });
+
+    document.getElementById('shuffleBtn').addEventListener('click', () => {
+      if (!lastPuzzle) lastPuzzle = generate();
+      if (!lastPuzzle) return;
+      lastPuzzle = generate();
+    });
+
+    document.getElementById('usePresetBtn').addEventListener('click', () => {
+      const preset = presetThemes.find((t) => t.id === themeSelect.value);
+      customWords.value = preset && preset.words.length ? preset.words.join('\n') : '';
+      lastPuzzle = generate();
+    });
+
+    document.getElementById('clearWordsBtn').addEventListener('click', () => {
+      customWords.value = '';
+      lastPuzzle = generate();
+    });
+
+    themeSelect.addEventListener('change', (e) => {
+      loadPresetBadges(e.target.value);
+      lastPuzzle = generate();
+    });
+
+    document.getElementById('printBtn').addEventListener('click', () => {
+      window.print();
+    });
+
+    document.getElementById('downloadBtn').addEventListener('click', () => {
+      if (!lastPuzzle) lastPuzzle = generate();
+      if (!lastPuzzle) return;
+      const cell = 40;
+      const padding = 40;
+      const { grid, mask, words } = lastPuzzle;
+      const size = grid.length;
+      const canvas = document.createElement('canvas');
+      canvas.width = size * cell + padding * 2;
+      canvas.height = size * cell + padding * 2 + 120;
+      const ctx = canvas.getContext('2d');
+      ctx.fillStyle = '#0b0a0f';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.strokeStyle = '#ffd700';
+      ctx.lineWidth = 2;
+      ctx.font = 'bold 18px Arial';
+      ctx.fillStyle = '#ffd700';
+      ctx.fillText('Word Search Studio', padding, padding - 10);
+
+      for (let r = 0; r < size; r++) {
+        for (let c = 0; c < size; c++) {
+          const x = padding + c * cell;
+          const y = padding + r * cell;
+          ctx.strokeStyle = 'rgba(255,215,0,0.35)';
+          ctx.strokeRect(x, y, cell, cell);
+          if (!mask[r][c]) {
+            ctx.fillStyle = 'rgba(255,255,255,0.08)';
+            ctx.fillRect(x, y, cell, cell);
+            continue;
+          }
+          ctx.fillStyle = '#ffffff';
+          ctx.font = 'bold 18px Arial';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText(grid[r][c] || '', x + cell / 2, y + cell / 2);
+        }
+      }
+
+      ctx.fillStyle = '#ffd700';
+      ctx.font = 'bold 16px Arial';
+      ctx.textAlign = 'left';
+      ctx.textBaseline = 'top';
+      ctx.fillText('Words:', padding, size * cell + padding + 12);
+      ctx.fillStyle = '#ffffff';
+      ctx.font = '14px Arial';
+      words.forEach((w, i) => {
+        const col = i % 3;
+        const row = Math.floor(i / 3);
+        ctx.fillText(w, padding + col * 160, size * cell + padding + 40 + row * 20);
+      });
+
+      const link = document.createElement('a');
+      link.download = 'word-search-studio.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    });
+
+    document.getElementById('saveBtn').addEventListener('click', () => {
+      if (!lastPuzzle) lastPuzzle = generate();
+      if (!lastPuzzle) return;
+      const payload = {
+        generatedAt: new Date().toISOString(),
+        shape: shapeSelect.value,
+        difficulty: difficultySelect.value,
+        size: parseInt(sizeInput.value, 10),
+        words: lastPuzzle.words,
+        grid: lastPuzzle.grid,
+      };
+      const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+      const link = document.createElement('a');
+      link.download = 'word-search-studio.json';
+      link.href = URL.createObjectURL(blob);
+      link.click();
+      URL.revokeObjectURL(link.href);
+    });
+
+    loadPresetBadges(themeSelect.value);
+    lastPuzzle = generate();
+  </script>
+</body>
+</html>
