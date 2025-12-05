@@ -5893,26 +5893,8 @@ document
             giftFrame.onload = null;
             giftFrame.onerror = null;
 
-            if (key === 'wordSearchPro') {
-                giftFrame.style.display = 'block';
-                giftFallback.style.display = 'none';
-                fetch('assets/word-search-studio/index.html')
-                    .then((resp) => resp.text())
-                    .then((htmlText) => {
-                        giftFrame.srcdoc = htmlText;
-                        giftFallback.style.display = 'none';
-                        giftFrame.style.display = 'block';
-                    })
-                    .catch(() => {
-                        if (html) {
-                            giftFrame.srcdoc = html;
-                            giftFallback.style.display = 'none';
-                            giftFrame.style.display = 'block';
-                        } else {
-                            showGiftFallback();
-                        }
-                    });
-            } else if (source) {
+            if (source) {
+                const srcWithCacheBust = key === 'wordSearchPro' ? `${source}?v=${Date.now()}` : source;
                 giftFrame.style.display = 'block';
                 giftFallback.style.display = 'none';
                 giftFrame.onload = () => {
@@ -5928,7 +5910,7 @@ document
                         showGiftFallback();
                     }
                 };
-                giftFrame.src = source;
+                giftFrame.src = srcWithCacheBust;
             } else if (html) {
                 giftFallback.style.display = 'none';
                 giftFrame.style.display = 'block';
