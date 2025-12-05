@@ -4826,7 +4826,7 @@ document
     const gridSize = 12;
     const puzzleSets = [
       { title: 'Rise • Shine • Evolve', words: ['RISE','SHINE','EVOLVE','GOLD','PURPLE','SPARK','BRIGHT','ENERGY','CALM','JOY','GLOW','GIFT'] },
-      { title: 'Happy Makers Crew', words: ['MIMI','LULI','DILO','ALIO','NINI','BIBI','MAMA','TATA','FAMILY','CREW','LOVE','SMILE'] },
+      { title: 'Happy Makers Crew', words: ['MIMI','LULI','DILO','ALIO','NINI','BIBI','MOTHER','FATHER','FAMILY','CREW','LOVE','SMILE'] },
       { title: 'Maker Magic', words: ['HAPPY','MAKERS','MAGIC','PLAY','CREATE','COLOR','LAUGH','HEART','BRAVE','BOLD','KIND','SPIRIT'] },
       { title: 'Adventure Sparks', words: ['TRAVEL','PUZZLE','QUEST','STUDIO','IDEAS','WORDS','HEROES','STARS','MOON','SUN','DREAM','GLOW'] },
       { title: 'Celebration Blast', words: ['CONFETTI','CELEBRATE','WINNER','GIFT','MUSIC','DANCE','SHARE','SHINE','CHEER','SPARKLE','HAPPY','GOLD'] }
@@ -5893,7 +5893,26 @@ document
             giftFrame.onload = null;
             giftFrame.onerror = null;
 
-            if (source) {
+            if (key === 'wordSearchPro') {
+                giftFrame.style.display = 'block';
+                giftFallback.style.display = 'none';
+                fetch('assets/word-search-studio/index.html')
+                    .then((resp) => resp.text())
+                    .then((htmlText) => {
+                        giftFrame.srcdoc = htmlText;
+                        giftFallback.style.display = 'none';
+                        giftFrame.style.display = 'block';
+                    })
+                    .catch(() => {
+                        if (html) {
+                            giftFrame.srcdoc = html;
+                            giftFallback.style.display = 'none';
+                            giftFrame.style.display = 'block';
+                        } else {
+                            showGiftFallback();
+                        }
+                    });
+            } else if (source) {
                 giftFrame.style.display = 'block';
                 giftFallback.style.display = 'none';
                 giftFrame.onload = () => {
