@@ -5542,6 +5542,8 @@ document
         }
 
         // Book Details Functions - Full Screen Version
+        let bookOverlayOpen = false;
+
         function showBookDetailsFullScreen(bookType) {
             // Hide main container and show full-screen book details
             document.querySelector('.container').style.display = 'none';
@@ -5552,6 +5554,11 @@ document
 
             const detailsContent = document.getElementById('full-screen-book-details-content');
             detailsContent.scrollTop = 0;
+
+            if (!bookOverlayOpen) {
+                history.pushState({ bookOverlay: true, bookType }, document.title, window.location.href);
+                bookOverlayOpen = true;
+            }
 
             if (bookType === 'christmas-book') {
                 detailsContent.innerHTML = `
@@ -5751,9 +5758,19 @@ document
             }
         }
 
-        function backToLibraryFromFullScreen() {
+        function hideBookDetailsOverlay() {
             document.getElementById('full-screen-book-details').style.display = 'none';
             document.querySelector('.container').style.display = 'block';
+            bookOverlayOpen = false;
+        }
+
+        function backToLibraryFromFullScreen() {
+            if (bookOverlayOpen && history.state && history.state.bookOverlay) {
+                history.back();
+                return;
+            }
+
+            hideBookDetailsOverlay();
         }
 
         // GIFTS access functions
@@ -6155,6 +6172,10 @@ document
         }
 
         window.addEventListener('popstate', (event) => {
+            if (bookOverlayOpen) {
+                hideBookDetailsOverlay();
+            }
+
             if (giftOverlayOpen) {
                 giftOverlay.style.display = 'none';
                 giftFrame.src = 'about:blank';
