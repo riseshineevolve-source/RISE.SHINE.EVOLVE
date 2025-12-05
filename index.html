@@ -198,6 +198,26 @@
             height: 20px;
         }
 
+        @media (max-width: 640px) {
+            .container {
+                padding: 22px 16px;
+            }
+            .main-title {
+                font-size: 2rem;
+            }
+            .subtitle {
+                font-size: 0.95rem;
+            }
+            .info-tile {
+                max-width: 340px;
+                padding: 10px 14px;
+                font-size: 0.78rem;
+            }
+            .kids-tile {
+                padding: 14px 16px !important;
+            }
+        }
+
         .golden-bullets {
             list-style: none;
             padding-left: 0;
@@ -1290,7 +1310,7 @@
      <div class="kids-tile" style="border: 3px solid #8A2BE2; box-shadow: 0 0 35px rgba(138, 43, 226, 0.7), 0 0 60px rgba(138, 43, 226, 0.4); margin: 30px auto; max-width: 1200px; padding: 24px 18px;">
       <div class="kids-text" style="margin-bottom: 20px;">
        <h3 style="color: #8A2BE2; font-size: 1.9rem; margin: 0 0 10px 0; text-shadow: 0 0 18px rgba(138, 43, 226, 0.7);">GIFTS LIBRARY</h3>
-       <p style="color: #ffd700; font-size: 1rem; margin: 0;">Explore new resources as they arrive - starting with the Calm + Energy Wheel and the 1-Minute Challenge. Word Search puzzle coming soon.</p>
+       <p style="color: #ffd700; font-size: 1rem; margin: 0;">Explore new resources as they arrive - Calm + Energy Wheel, the 1-Minute Challenge and the brand-new Word Search puzzle.</p>
       </div>
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; padding: 0 10px;">
        <div id="gift-card-calm-energy" onclick="openCalmEnergyWheel(event)" style="background: #000000; border: 3px solid #ffd700; border-radius: 18px; padding: 22px; text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(255, 215, 0, 0.5); position: relative; min-height: 300px; display: flex; flex-direction: column; align-items: center; gap: 12px; cursor: pointer;">
@@ -1337,23 +1357,17 @@
         <p style="color: #ffffff; font-size: 0.95rem; line-height: 1.5; margin: 0 0 6px 0;">One click. One tiny mission. One minute of joy, creativity or connection. Powered by your Happy Makers.</p>
         <button onclick="openOneMinuteChallenge(event)" style="background: linear-gradient(45deg, #8A2BE2, #9932CC); border: 2px solid #ffd700; border-radius: 14px; color: #ffffff; font-weight: bold; padding: 10px 16px; cursor: pointer; text-transform: uppercase; box-shadow: 0 0 18px rgba(138, 43, 226, 0.6); margin-top: auto;">Start the 1-Minute Challenge</button>
        </div>
-       <div style="background: #000000; border: 3px solid #8A2BE2; border-radius: 18px; padding: 22px; text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(138, 43, 226, 0.4); position: relative; min-height: 280px; display: flex; flex-direction: column; align-items: center; gap: 12px;">
-        <div style="position: absolute; top: 12px; left: 12px; background: #8A2BE2; color: #ffffff; font-size: 0.7rem; font-weight: bold; padding: 6px 10px; border-radius: 10px; text-transform: uppercase; box-shadow: 0 0 12px rgba(138, 43, 226, 0.6);">Coming soon</div>
-        <div style="width: 86px; height: 86px; margin-top: 8px; border-radius: 50%; border: 3px solid #ffd700; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 20px rgba(255,215,0,0.6);">
-         <span style="font-size: 2rem;">🔍</span>
-        </div>
-        <h4 style="color: #ffd700; margin: 0; font-size: 1.3rem; text-shadow: 0 0 15px rgba(255, 215, 0, 0.7);">Word Search Puzzle</h4>
-        <p style="color: #ffffff; font-size: 0.95rem; line-height: 1.5; margin: 0;">This puzzle is in the works—check back soon for the Happy Search challenge.</p>
-       </div>
-       <div style="background: #000000; border: 3px solid #8A2BE2; border-radius: 18px; padding: 22px; text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(138, 43, 226, 0.4); position: relative; min-height: 260px;">
-        <div style="width: 86px; height: 86px; margin: 10px auto 18px auto; border-radius: 50%; border: 3px solid #8A2BE2; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 18px rgba(138,43,226,0.5);"><svg width="40" height="40" viewbox="0 0 100 100" aria-hidden="true">
+        <div id="gift-card-word-search" onclick="openWordSearch(event)" style="background: #000000; border: 3px solid #8A2BE2; border-radius: 18px; padding: 22px; text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(138, 43, 226, 0.4); position: relative; min-height: 260px; display: flex; flex-direction: column; gap: 10px; justify-content: space-between;">
+        <div style="position: absolute; top: 12px; left: 12px; background: #8A2BE2; color: #ffffff; font-size: 0.7rem; font-weight: bold; padding: 6px 10px; border-radius: 10px; text-transform: uppercase; box-shadow: 0 0 12px rgba(138, 43, 226, 0.6);">Available</div>
+        <div style="width: 86px; height: 86px; margin: 10px auto 6px auto; border-radius: 50%; border: 3px solid #8A2BE2; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 18px rgba(138,43,226,0.5);"><svg width="40" height="40" viewbox="0 0 100 100" aria-hidden="true">
             <rect x="22" y="40" width="56" height="38" rx="6" fill="#8A2BE2" stroke="#ffd700" stroke-width="3"></rect>
             <rect x="18" y="54" width="64" height="8" fill="#ffd700"></rect>
             <rect x="46" y="34" width="8" height="50" fill="#ffd700"></rect>
             <circle cx="50" cy="34" r="8" fill="#ffd700"></circle>
         </svg></div>
-        <h4 style="color: #8A2BE2; margin: 0 0 12px 0; font-size: 1.3rem; text-shadow: 0 0 15px rgba(138, 43, 226, 0.7);">Gift Coming Soon</h4>
-        <p style="color: #ffffff; font-size: 0.95rem; line-height: 1.5; margin: 0;">Stay tuned for a fresh resource drop.</p>
+        <h4 style="color: #8A2BE2; margin: 0 0 8px 0; font-size: 1.22rem; text-shadow: 0 0 15px rgba(138, 43, 226, 0.7);">Word Search Puzzle</h4>
+        <p style="color: #ffffff; font-size: 0.95rem; line-height: 1.5; margin: 0 0 6px 0;">Hunt for Happy-Makers names and mottos in a neon-styled grid designed for quick fun.</p>
+        <button onclick="openWordSearch(event)" style="background: linear-gradient(45deg, #8A2BE2, #9932CC); border: 2px solid #ffd700; border-radius: 12px; color: #ffffff; font-weight: bold; padding: 10px 14px; cursor: pointer; text-transform: uppercase; box-shadow: 0 0 18px rgba(138, 43, 226, 0.6);">Open puzzle</button>
        </div>
        <div style="background: #000000; border: 3px solid #8A2BE2; border-radius: 18px; padding: 22px; text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(138, 43, 226, 0.4); position: relative; min-height: 260px;">
         <div style="width: 86px; height: 86px; margin: 10px auto 18px auto; border-radius: 50%; border: 3px solid #8A2BE2; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 18px rgba(138,43,226,0.5);"><svg width="40" height="40" viewbox="0 0 100 100" aria-hidden="true">
@@ -1901,8 +1915,8 @@
     </div>
    </div>
   </div><!-- Email Modal -->
-  <div id="gift-overlay" style="display: none; position: fixed; inset: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.95); z-index: 10010; overflow: auto; padding: 8px; box-sizing: border-box; align-items: center; justify-content: center;">
-   <div style="position: relative; width: min(1140px, 98vw); height: min(86vh, 820px); margin: 0 auto; display: flex; align-items: stretch;">
+  <div id="gift-overlay" style="display: none; position: fixed; inset: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.95); z-index: 10010; overflow: auto; padding: 12px; box-sizing: border-box; align-items: center; justify-content: center;">
+   <div style="position: relative; width: min(1100px, 96vw); height: min(92vh, 760px); max-height: calc(100vh - 36px); margin: 0 auto; display: flex; align-items: stretch;">
     <button onclick="closeGiftOverlay()" style="position: fixed; top: 10px; right: 12px; background: linear-gradient(45deg, #8A2BE2, #9932CC); border: 2px solid #ffd700; border-radius: 14px; padding: 9px 14px; color: #ffffff; font-size: 0.95rem; font-weight: bold; cursor: pointer; box-shadow: 0 0 18px rgba(138, 43, 226, 0.6); z-index: 2;">Close gift ✖</button>
     <iframe id="gift-frame" title="Gift experience" style="display: block; width: 100%; height: 100%; margin: 0 auto; border: 3px solid #8A2BE2; border-radius: 16px; box-shadow: 0 0 35px rgba(138, 43, 226, 0.6), 0 0 60px rgba(138, 43, 226, 0.3); background: #000; box-sizing: border-box;"></iframe>
     <div id="gift-fallback" style="display: none; position: absolute; inset: 32px 0 0 0; color: #ffffff; text-align: center; padding: 24px 14px; background: linear-gradient(135deg, rgba(138, 43, 226, 0.2), rgba(0, 0, 0, 0.9)); border: 2px solid #ffd700; border-radius: 16px; margin: 0; box-shadow: 0 0 25px rgba(255, 215, 0, 0.4); overflow: auto; align-items: center; justify-content: center; text-align: center;">
@@ -1929,9 +1943,11 @@
             background: linear-gradient(135deg, #000000, #1a1a1a);
             border: 3px solid #8A2BE2;
             border-radius: 20px;
-            padding: 30px;
+            padding: 24px;
             max-width: 520px;
             width: 92%;
+            max-height: 90vh;
+            overflow-y: auto;
             box-shadow: 0 0 50px rgba(138, 43, 226, 0.8);
         ">
     <span class="close" onclick="closeEmailModal()" style="
@@ -4529,7 +4545,7 @@ document
     * { box-sizing: border-box; }
     body {
       margin: 0;
-      padding: 30px 12px 50px;
+      padding: 18px 10px 28px;
       background: radial-gradient(circle at 20% 20%, rgba(138,43,226,0.15), transparent 30%),
                   radial-gradient(circle at 80% 10%, rgba(255,215,0,0.18), transparent 32%),
                   radial-gradient(circle at 50% 80%, rgba(138,43,226,0.22), transparent 38%),
@@ -4539,12 +4555,12 @@ document
       min-height: 100vh;
     }
     .shell {
-      max-width: 1100px;
+      max-width: 1020px;
       margin: 0 auto;
       background: linear-gradient(145deg, rgba(0,0,0,0.9), rgba(18,18,28,0.9));
       border: 3px solid var(--purple);
       border-radius: 22px;
-      padding: 28px 22px;
+      padding: 20px 16px;
       box-shadow: 0 0 35px rgba(138,43,226,0.55), 0 0 65px rgba(255,215,0,0.25);
     }
     h1 {
@@ -4568,14 +4584,14 @@ document
     .layout {
       display: grid;
       grid-template-columns: 2fr 1fr;
-      gap: 22px;
+      gap: 18px;
       align-items: start;
     }
     .grid-shell {
       background: rgba(0,0,0,0.7);
       border: 2px solid var(--gold);
       border-radius: 16px;
-      padding: 16px;
+      padding: 14px;
       box-shadow: inset 0 0 18px rgba(255,215,0,0.25);
     }
     .word-grid {
@@ -4587,8 +4603,8 @@ document
       border: 1px solid rgba(255,215,0,0.35);
       text-align: center;
       font-weight: bold;
-      font-size: 1.05rem;
-      padding: 8px 0;
+      font-size: 1rem;
+      padding: 6px 0;
       color: #ffffff;
       cursor: pointer;
       transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
@@ -4658,6 +4674,8 @@ document
     }
     @media (max-width: 900px) {
       .layout { grid-template-columns: 1fr; }
+      .shell { padding: 16px 12px; }
+      .word-grid td { font-size: 0.92rem; padding: 5px 0; }
     }
   </style>
 </head>
@@ -5441,19 +5459,23 @@ document
                 formData.append('brevoListId', BREVO_LIST_ID);
             }
 
+            const requests = [];
+
             if (workerEndpoint) {
-                fetch(workerEndpoint, {
+                requests.push(fetch(workerEndpoint, {
                     method: "POST",
-                    body: formData
-                }).catch(() => {
-                    // Silent error handling for iframe environment
-                });
+                    body: formData,
+                    mode: "cors",
+                    credentials: "omit"
+                }));
             }
 
-            fetch("/", {
+            requests.push(fetch("/", {
                 method: "POST",
                 body: formData
-            }).catch(() => {
+            }));
+
+            Promise.allSettled(requests).catch(() => {
                 // Silent error handling for iframe environment
             });
         }
@@ -5623,11 +5645,10 @@ document
             document.body.appendChild(messageDiv);
         }
 
-
-                
-                const giftTemplates = {
+        const giftTemplates = {
             calmEnergy: document.getElementById('gift-template-calm-energy'),
             oneMinute: document.getElementById('gift-template-one-minute'),
+            wordSearch: document.getElementById('gift-template-word-search'),
         };
 
         const giftOverlay = document.getElementById('gift-overlay');
@@ -5637,6 +5658,7 @@ document
 
         const giftSources = {
             calmEnergy: null,
+            wordSearch: null,
         };
 
         function getGiftHtml(key) {
@@ -5746,6 +5768,10 @@ document
 
         function openOneMinuteChallenge(event) {
             openGiftOverlay('oneMinute', event);
+        }
+
+        function openWordSearch(event) {
+            openGiftOverlay('wordSearch', event);
         }
 
 // Resource download functionality
