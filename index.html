@@ -1511,6 +1511,7 @@
      <div class="unsubscribe-wrapper" style="margin: 14px auto 0 auto; max-width: 520px; text-align: center; color: #ffd700; font-size: 0.75rem;">
         <form name="rse-email-unsubscribe-gifts" method="POST" data-netlify="true" netlify-honeypot="bot-field-unsub" onsubmit="handleUnsubscribe(event)" style="display: flex; flex-direction: column; gap: 8px; align-items: center;">
             <input type="hidden" name="form-name" value="rse-email-unsubscribe-gifts">
+            <input type="hidden" name="actionType" value="unsubscribe">
             <p style="display: none;">
                 <label>Don’t fill this out if you’re human: <input name="bot-field-unsub"></label>
             </p>
@@ -1620,6 +1621,7 @@
             <div class="unsubscribe-wrapper" style="margin: 14px auto 0 auto; max-width: 520px; text-align: center; color: #ffd700; font-size: 0.75rem;">
                 <form name="rse-email-unsubscribe-contact" method="POST" data-netlify="true" netlify-honeypot="bot-field-unsub-contact" onsubmit="handleUnsubscribe(event)" style="display: flex; flex-direction: column; gap: 8px; align-items: center;">
                     <input type="hidden" name="form-name" value="rse-email-unsubscribe-contact">
+                    <input type="hidden" name="actionType" value="unsubscribe">
                     <p style="display: none;">
                         <label>Don’t fill this out if you’re human: <input name="bot-field-unsub-contact"></label>
                     </p>
@@ -2095,6 +2097,7 @@
       and materials that help you <span style="color: #9932CC; font-weight: bold;">EVOLVE</span>.</p>
     <form name="rse-email-list-modal" method="POST" data-netlify="true" netlify-honeypot="bot-field-modal" onsubmit="submitEmailModal(event)">
             <input type="hidden" name="form-name" value="rse-email-list-modal">
+            <input type="hidden" name="actionType" value="subscribe">
             <p style="display: none;">
                 <label>Don't fill this out if you're human: <input name="bot-field-modal"></label>
             </p>
@@ -6027,15 +6030,24 @@ document
             const params = new URLSearchParams(window.location.search);
             const confirmToken = params.get('confirmToken');
             const confirmEmail = params.get('confirmEmail');
+            const brevoConfirmed = params.get('brevoConfirmed');
+            const brevoEmail = params.get('email');
             const pendingEmail = (localStorage.getItem('giftsPendingEmail') || '').trim();
             const pendingToken = (localStorage.getItem('giftsConfirmToken') || '').trim();
 
-            if (
+            const tokenMatches = (
                 confirmToken && confirmEmail &&
                 pendingEmail && pendingToken &&
                 confirmEmail.toLowerCase() === pendingEmail.toLowerCase() &&
                 confirmToken === pendingToken
-            ) {
+            );
+
+            const brevoLinkMatches = (
+                brevoConfirmed && pendingEmail && brevoEmail &&
+                brevoEmail.toLowerCase() === pendingEmail.toLowerCase()
+            );
+
+            if (tokenMatches || brevoLinkMatches) {
                 grantGiftsAccess(localStorage.getItem('giftsFirstName') || '', pendingEmail);
             }
         }
@@ -6047,7 +6059,7 @@ document
             const pendingEmail = localStorage.getItem('giftsPendingEmail') || '';
             if (status === 'pending') {
                 statusEl.textContent = pendingEmail
-                    ? `We sent a confirmation link to ${pendingEmail}. Please confirm to unlock GIFTS.`
+                    ? `We sent a confirmation link to ${pendingEmail}. Please confirm from that inbox to unlock GIFTS.`
                     : 'Check your email to confirm your subscription and unlock GIFTS access.';
                 statusEl.style.color = '#ffd700';
             } else if (status === 'active' || localStorage.getItem('giftsAccess') === 'true') {
