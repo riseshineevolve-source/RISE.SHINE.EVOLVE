@@ -1054,7 +1054,7 @@
                                     margin-bottom: 25px;
                                     flex-wrap: wrap;
                                 "><!-- New Year Book -->
-          <div onclick="openNewYearBookWindow(event)" style="
+          <div onclick="showBookDetailsFullScreen('newyear-book')" style="
                                         background: #000000;
                                         border: 3px solid #8A2BE2;
                                         border-radius: 15px;
@@ -1137,7 +1137,7 @@
                                             box-shadow: 0 0 15px rgba(138, 43, 226, 0.6);
                                             letter-spacing: 0.5px;
                                             cursor: pointer;
-                                        " onclick="openNewYearBookWindow(event)">
+                                        " onclick="showBookDetailsFullScreen('newyear-book')">
             Open Preview
            </div>
           </div><!-- Christmas Book -->
@@ -1545,11 +1545,12 @@
      <div class="kids-tile" style="border: 3px solid #ffd700; box-shadow: 0 0 35px rgba(255, 215, 0, 0.7), 0 0 60px rgba(255, 215, 0, 0.4);">
       <div class="kids-text">
        <h3 style="color: #ffd700; font-size: 1.8rem; margin-bottom: 20px; text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);">Thank You for Joining!</h3>
-       <p style="color: #ffffff; font-size: 1.2rem; margin-bottom: 25px; line-height: 1.5;">You now get access to:<br>
-         • Free educational materials and worksheets<br>
-         • Latest news about new releases and premieres<br>
-         • Exclusive updates about upcoming books and courses<br>
-         • Special offers and early access content</p><!-- Access GIFTS Button -->
+       <p id="thank-you-status" style="color: #ffffff; font-size: 1.1rem; margin-bottom: 18px; line-height: 1.5;">Check your email to confirm your subscription and unlock GIFTS.</p>
+       <p style="color: #ffffff; font-size: 1.05rem; margin-bottom: 25px; line-height: 1.5;">You'll receive:
+        <br>• Free educational materials and worksheets
+        <br>• Latest news about new releases and premieres
+        <br>• Exclusive updates about upcoming books and courses
+        <br>• Special offers and early access content</p><!-- Access GIFTS Button -->
        <div style="text-align: center; margin: 30px 0;"><button onclick="accessGifts()" style="
                                 background: linear-gradient(45deg, #8A2BE2, #9932CC);
                                 border: 2px solid #ffd700;
@@ -1969,6 +1970,24 @@
     </div>
    </div>
   </div><!-- Full Screen Book Details -->
+  <style>
+    @media (max-width: 768px) {
+        #full-screen-book-details {
+            padding: 18px 12px;
+        }
+        #full-screen-book-details > div {
+            max-width: 100% !important;
+        }
+        #full-screen-book-details button {
+            width: 100%;
+            min-height: 44px;
+            margin-bottom: 12px;
+        }
+        #full-screen-book-details-content {
+            padding: 0 4px;
+        }
+    }
+  </style>
   <div id="character-details-view" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000000; z-index: 10001; overflow-y: auto; padding: 40px 20px; box-sizing: border-box;">
    <div style="max-width: 1100px; margin: 0 auto;">
     <button onclick="backToFamilyGalleryFromCharacter()" style="
@@ -5510,37 +5529,6 @@ document
             window.scrollTo(0, 0);
         }
 
-        function openNewYearBookWindow(event) {
-            if (event) {
-                event.stopPropagation();
-            }
-
-            const newWindow = window.open('', '_blank', 'noopener,noreferrer,width=980,height=760');
-            if (!newWindow) return;
-
-            newWindow.document.write(`<!doctype html>
-                <html lang="en">
-                <head>
-                    <meta charset="UTF-8" />
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-                    <title>24 Gentle Steps Into New Year</title>
-                    <style>
-                        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #000; color: #fff; margin: 0; padding: 28px; }
-                        .shell { max-width: 920px; margin: 0 auto; border: 3px solid #8A2BE2; border-radius: 20px; padding: 30px; box-shadow: 0 0 35px rgba(138,43,226,0.6), 0 0 60px rgba(255,215,0,0.35); background: linear-gradient(145deg, rgba(0,0,0,0.9), rgba(20,0,40,0.8)); min-height: 60vh; }
-                        h1 { text-align: center; color: #ffd700; margin-top: 0; letter-spacing: 1px; text-shadow: 0 0 22px rgba(255,215,0,0.7); }
-                        .placeholder { margin-top: 28px; border: 2px dashed rgba(255,255,255,0.25); border-radius: 16px; padding: 22px; text-align: center; color: #cbb4ff; }
-                    </style>
-                </head>
-                <body>
-                    <div class="shell">
-                        <h1>24 Gentle Steps Into New Year</h1>
-                        <div class="placeholder">Detailed description will appear here soon.</div>
-                    </div>
-                </body>
-                </html>`);
-            newWindow.document.close();
-        }
-
         // Book Details Functions - Full Screen Version
         let bookOverlayOpen = false;
 
@@ -5560,7 +5548,60 @@ document
                 bookOverlayOpen = true;
             }
 
-            if (bookType === 'christmas-book') {
+            if (bookType === 'newyear-book') {
+                detailsContent.innerHTML = `
+                    <div style="text-align: center; margin-bottom: 25px;">
+                        <span style="color: #8A2BE2; font-weight: bold; font-size: 1.6rem; text-shadow: 0 0 20px rgba(138, 43, 226, 0.8);">The Happy-Makers Family Presents:</span>
+                    </div>
+
+                    <h2 style="color: #ffd700; font-size: 2.4rem; margin-bottom: 10px; text-shadow: 0 0 30px rgba(255, 215, 0, 0.8); text-align: center;">24 GENTLE STEPS INTO NEW YEAR</h2>
+                    <h3 style="color: #ff69b4; font-size: 1.6rem; margin-bottom: 22px; text-align: center; text-shadow: 0 0 22px rgba(255, 105, 180, 0.8);">A calm reset for families who want to start the year softly</h3>
+
+                    <div style="color: #ffffff; font-size: 1.05rem; line-height: 1.65; text-align: center; margin-bottom: 30px; max-width: 840px; margin-left: auto; margin-right: auto;">
+                        <p style="margin-bottom: 16px;">A gentle January roadmap with mindful prompts, micro-rituals, and soft accountability nudges the whole family can enjoy together.</p>
+                        <p style="margin-bottom: 20px;">Set intentions, celebrate small wins, and keep the spark of the holidays while creating routines that actually feel doable.</p>
+                        <div style="text-align: left; max-width: 640px; margin: 0 auto;">
+                            <p class="icon-heading">WHAT YOU'LL FIND</p>
+                            <ul class="golden-bullets">
+                                <li>24 tiny steps to reset energy, sleep, and calm</li>
+                                <li>Weekly reflection prompts with playful check-ins</li>
+                                <li>Printables and trackers sized for busy families</li>
+                            </ul>
+
+                            <p class="icon-heading">WHO IT'S FOR</p>
+                            <ul class="golden-bullets">
+                                <li>Families who want soft structure, not strict rules</li>
+                                <li>Parents craving gentle momentum after the holidays</li>
+                                <li>Kids who enjoy colorful, achievable wins</li>
+                            </ul>
+
+                            <p class="icon-heading">STATUS</p>
+                            <ul class="golden-bullets">
+                                <li>Preview edition in progress — full details coming soon</li>
+                                <li>Tap the button below to get notified at release</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div style="text-align: center; margin-top: 30px;">
+                        <button onclick="openEmailModal();" style="
+                            background: linear-gradient(45deg, #8A2BE2, #9932CC);
+                            border: 3px solid #ffd700;
+                            border-radius: 25px;
+                            padding: 18px 34px;
+                            color: #ffffff;
+                            font-size: 1.15rem;
+                            font-weight: bold;
+                            cursor: pointer;
+                            box-shadow: 0 0 30px rgba(138, 43, 226, 0.6);
+                            transition: all 0.3s ease;
+                            letter-spacing: 0.5px;
+                        " onmouseover="this.style.transform='translateY(-3px) scale(1.04)'; this.style.boxShadow='0 0 40px rgba(138, 43, 226, 0.8)';" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 0 30px rgba(138, 43, 226, 0.6)';">
+                            Get notified when it launches
+                        </button>
+                    </div>
+                `;
+            } else if (bookType === 'christmas-book') {
                 detailsContent.innerHTML = `
                     <!-- Brand Name -->
                     <div style="text-align: center; margin-bottom: 25px;">
@@ -5776,13 +5817,17 @@ document
         // GIFTS access functions
         let hasGiftsAccess = false;
         function checkGiftsAccess() {
-            const access = localStorage.getItem('giftsAccess') === 'true';
-            if (access) {
-                hasGiftsAccess = true;
+            const status = localStorage.getItem('giftsStatus');
+            const legacyAccess = localStorage.getItem('giftsAccess') === 'true';
+            if (!status && legacyAccess) {
+                localStorage.setItem('giftsStatus', 'active');
             }
+            const access = (status === 'active') || (!status && legacyAccess);
+            hasGiftsAccess = access;
             return access;
         }
         function grantGiftsAccess(firstName = '', email = '') {
+            localStorage.setItem('giftsStatus', 'active');
             localStorage.setItem('giftsAccess', 'true');
             if (email) {
                 localStorage.setItem('giftsEmail', email);
@@ -5790,12 +5835,18 @@ document
             if (firstName) {
                 localStorage.setItem('giftsFirstName', firstName);
             }
+            localStorage.removeItem('giftsPendingEmail');
+            localStorage.removeItem('giftsConfirmToken');
             hasGiftsAccess = true;
+            updateThankYouStatus();
         }
         function clearGiftsAccess() {
             localStorage.removeItem('giftsAccess');
+            localStorage.removeItem('giftsStatus');
             localStorage.removeItem('giftsEmail');
             localStorage.removeItem('giftsFirstName');
+            localStorage.removeItem('giftsPendingEmail');
+            localStorage.removeItem('giftsConfirmToken');
             hasGiftsAccess = false;
         }
         // Function to send to the site and (optionally) Cloudflare Worker (używane przez formularz GIFTS)
@@ -5826,7 +5877,7 @@ document
                 // Silent error handling for iframe environment
             });
         }
-        function showThankYouPage() {
+        function showThankYouPage(isConfirmationPending = false) {
             // Hide all tab contents
             const allContents = document.querySelectorAll('.tab-content');
             allContents.forEach(content => content.classList.remove('active'));
@@ -5835,6 +5886,9 @@ document
             // Update tab appearance
             const allTabs = document.querySelectorAll('.tab');
             allTabs.forEach(tab => tab.classList.remove('active'));
+            if (isConfirmationPending) {
+                updateThankYouStatus();
+            }
         }
         
         function accessGifts() {
@@ -5902,19 +5956,29 @@ document
                 return;
             }
 
-            submitBtn.textContent = 'Joining...';
+            submitBtn.textContent = 'Check your email...';
             submitBtn.disabled = true;
+
+            const confirmToken = Math.random().toString(36).slice(2, 10) + Date.now().toString(36);
+            localStorage.setItem('giftsStatus', 'pending');
+            localStorage.setItem('giftsPendingEmail', email);
+            localStorage.setItem('giftsConfirmToken', confirmToken);
+            if (firstName) {
+                localStorage.setItem('giftsFirstName', firstName);
+            }
+
             const formData = new FormData(form);
+            formData.append('confirmEmail', email);
+            formData.append('confirmToken', confirmToken);
             sendToSite(formData);
 
             setTimeout(() => {
-                grantGiftsAccess(firstName, email);
-                closeEmailModal();
-                showThankYouPage();
                 submitBtn.textContent = 'Join us';
                 submitBtn.disabled = false;
+                closeEmailModal();
+                showThankYouPage(true);
                 form.reset();
-            }, 1500);
+            }, 1200);
         }
         function handleUnsubscribe(event) {
             event.preventDefault();
@@ -5925,10 +5989,25 @@ document
                 messageBox.textContent = '';
             }
             const emailValue = emailInput ? emailInput.value.trim() : '';
+            const storedEmail = (localStorage.getItem('giftsEmail') || '').trim();
             if (!emailValue || !emailValue.includes('@') || !emailValue.includes('.')) {
                 if (messageBox) {
                     messageBox.style.color = '#ff69b4';
                     messageBox.textContent = 'Please enter a valid email address.';
+                }
+                return;
+            }
+            if (!storedEmail) {
+                if (messageBox) {
+                    messageBox.style.color = '#ff69b4';
+                    messageBox.textContent = 'No active subscription was found on this device.';
+                }
+                return;
+            }
+            if (storedEmail.toLowerCase() !== emailValue.toLowerCase()) {
+                if (messageBox) {
+                    messageBox.style.color = '#ff69b4';
+                    messageBox.textContent = 'Please enter the same email you used to subscribe.';
                 }
                 return;
             }
@@ -5943,6 +6022,43 @@ document
                 selectTab(document.querySelector('.tab'), 'main');
             }, 1200);
         }
+
+        function handleEmailConfirmationFromUrl() {
+            const params = new URLSearchParams(window.location.search);
+            const confirmToken = params.get('confirmToken');
+            const confirmEmail = params.get('confirmEmail');
+            const pendingEmail = (localStorage.getItem('giftsPendingEmail') || '').trim();
+            const pendingToken = (localStorage.getItem('giftsConfirmToken') || '').trim();
+
+            if (
+                confirmToken && confirmEmail &&
+                pendingEmail && pendingToken &&
+                confirmEmail.toLowerCase() === pendingEmail.toLowerCase() &&
+                confirmToken === pendingToken
+            ) {
+                grantGiftsAccess(localStorage.getItem('giftsFirstName') || '', pendingEmail);
+            }
+        }
+
+        function updateThankYouStatus() {
+            const statusEl = document.getElementById('thank-you-status');
+            if (!statusEl) return;
+            const status = localStorage.getItem('giftsStatus') || '';
+            const pendingEmail = localStorage.getItem('giftsPendingEmail') || '';
+            if (status === 'pending') {
+                statusEl.textContent = pendingEmail
+                    ? `We sent a confirmation link to ${pendingEmail}. Please confirm to unlock GIFTS.`
+                    : 'Check your email to confirm your subscription and unlock GIFTS access.';
+                statusEl.style.color = '#ffd700';
+            } else if (status === 'active' || localStorage.getItem('giftsAccess') === 'true') {
+                statusEl.textContent = 'You now get full access to our GIFTS library and updates.';
+                statusEl.style.color = '#ffd700';
+            } else {
+                statusEl.textContent = 'Join the newsletter to unlock GIFTS and updates.';
+                statusEl.style.color = '#ffffff';
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             applyCharacterPortraits();
 
@@ -5953,6 +6069,13 @@ document
                 selectTab(tabElement, tabElement.dataset.tab, { skipHistory: true });
                 history.replaceState({ tab: tabElement.dataset.tab }, '', `#${tabElement.dataset.tab}`);
             }
+
+            if (localStorage.getItem('giftsAccess') === 'true' && !localStorage.getItem('giftsStatus')) {
+                localStorage.setItem('giftsStatus', 'active');
+            }
+
+            handleEmailConfirmationFromUrl();
+            updateThankYouStatus();
         });
 
         // Email modal submit listener
