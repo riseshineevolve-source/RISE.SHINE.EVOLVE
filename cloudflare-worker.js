@@ -11,9 +11,18 @@
 export default {
   async fetch(request, env) {
     const sitePostTarget = 'https://rise-shine-evolve-learning-hub.com/';
+    const corsHeaders = {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'POST,OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type',
+    };
+
+    if (request.method === 'OPTIONS') {
+      return new Response('ok', { headers: corsHeaders });
+    }
 
     if (request.method !== 'POST') {
-      return new Response('ready');
+      return new Response('ready', { headers: corsHeaders });
     }
 
     let formData;
@@ -22,7 +31,7 @@ export default {
     } catch (error) {
       return new Response(JSON.stringify({ ok: false, error: 'Invalid form data', detail: String(error) }), {
         status: 400,
-        headers: { 'content-type': 'application/json' },
+        headers: { 'content-type': 'application/json', ...corsHeaders },
       });
     }
 
@@ -65,14 +74,14 @@ export default {
           JSON.stringify({ ok: false, siteOk, brevoStatus, error: errorText || 'Brevo rejected the request' }),
           {
             status: brevoResp.status,
-            headers: { 'content-type': 'application/json' },
+            headers: { 'content-type': 'application/json', ...corsHeaders },
           }
         );
       }
     }
 
     return new Response(JSON.stringify({ ok: true, siteOk, brevoStatus }), {
-      headers: { 'content-type': 'application/json' },
+      headers: { 'content-type': 'application/json', ...corsHeaders },
     });
   },
 };
