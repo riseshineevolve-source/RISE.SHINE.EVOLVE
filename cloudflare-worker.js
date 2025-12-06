@@ -41,6 +41,8 @@ export default {
     const actionType = (formData.get('actionType') || '').toString().toLowerCase();
     const formName = (formData.get('form-name') || '').toString().toLowerCase();
     const confirmToken = (formData.get('confirmToken') || '').toString().trim();
+    const requireDoi = (formData.get('requireDoi') || '').toString().toLowerCase() === 'true' || !!confirmToken;
+    const hasDoiConfig = !!(env.BREVO_DOI_TEMPLATE_ID && env.BREVO_DOI_REDIRECT);
     const isUnsubscribe = actionType === 'unsubscribe' || formName.includes('unsubscribe');
 
     // Forward to the site handler first to keep existing behavior.
@@ -89,8 +91,26 @@ export default {
       } else {
         const baseAttributes = firstName ? { FIRSTNAME: firstName } : {};
         const includeListIds = listId ? [Number(listId)] : undefined;
+        const headers = { 'content-type': 'application/json', accept: 'application/json', 'api-key': env.BREVO_API_KEY };
 
-        const tryDoi = env.BREVO_DOI_TEMPLATE_ID && env.BREVO_DOI_REDIRECT;
+        if (requireDoi && !hasDoiConfig) {
+          return new Response(
+            JSON.stringify({
+              ok: false,
+              siteOk,
+              brevoStatus,
+              doiAttempted: false,
+              doiStatus,
+              doiError: 'Double opt-in is required but BREVO_DOI_TEMPLATE_ID or BREVO_DOI_REDIRECT is not set in the worker.',
+              doiFallbackUsed,
+              requireDoi,
+              doiConfigMissing: true,
+            }),
+            { status: 400, headers: { 'content-type': 'application/json', ...corsHeaders } }
+          );
+        }
+
+        const tryDoi = hasDoiConfig;
         if (tryDoi) {
           doiAttempted = true;
           const doiPayload = {
@@ -103,11 +123,7 @@ export default {
 
           const doiResp = await fetch('https://api.brevo.com/v3/contacts/doubleOptinConfirmation', {
             method: 'POST',
-            headers: {
-              'api-key': env.BREVO_API_KEY,
-              'content-type': 'application/json',
-              accept: 'application/json',
-            },
+            headers,
             body: JSON.stringify(doiPayload),
           });
           brevoStatus = doiResp.status;
@@ -116,41 +132,20 @@ export default {
           if (!doiResp.ok) {
             const errorText = await doiResp.text();
             doiError = errorText || 'Brevo double opt-in rejected the request';
-            doiFallbackUsed = true;
-            // Fall back to the standard contact creation path if DOI fails
-            const payload = {
-              email,
-              attributes: baseAttributes,
-              updateEnabled: true,
-              ...(includeListIds ? { listIds: includeListIds } : {}),
-            };
-
-            const fallbackResp = await fetch('https://api.brevo.com/v3/contacts', {
-              method: 'POST',
-              headers: {
-                'api-key': env.BREVO_API_KEY,
-                'content-type': 'application/json',
-                accept: 'application/json',
-              },
-              body: JSON.stringify(payload),
-            });
-            brevoStatus = fallbackResp.status;
-
-            if (!fallbackResp.ok) {
-              const fallbackText = await fallbackResp.text();
-              return new Response(
-                JSON.stringify({
-                  ok: false,
-                  siteOk,
-                  brevoStatus,
-                  error: errorText || fallbackText || 'Brevo rejected the request',
-                }),
-                {
-                  status: fallbackResp.status,
-                  headers: { 'content-type': 'application/json', ...corsHeaders },
-                }
-              );
-            }
+            return new Response(
+              JSON.stringify({
+                ok: false,
+                siteOk,
+                brevoStatus,
+                doiAttempted,
+                doiStatus,
+                doiError,
+                doiFallbackUsed,
+                requireDoi,
+                doiConfigMissing: false,
+              }),
+              { status: doiResp.status, headers: { 'content-type': 'application/json', ...corsHeaders } }
+            );
           }
         } else {
           const payload = {
@@ -162,11 +157,7 @@ export default {
 
           const brevoResp = await fetch('https://api.brevo.com/v3/contacts', {
             method: 'POST',
-            headers: {
-              'api-key': env.BREVO_API_KEY,
-              'content-type': 'application/json',
-              accept: 'application/json',
-            },
+            headers,
             body: JSON.stringify(payload),
           });
           brevoStatus = brevoResp.status;
@@ -186,7 +177,7 @@ export default {
     }
 
     return new Response(
-      JSON.stringify({ ok: true, siteOk, brevoStatus, doiAttempted, doiStatus, doiError, doiFallbackUsed }),
+      JSON.stringify({ ok: true, siteOk, brevoStatus, doiAttempted, doiStatus, doiError, doiFallbackUsed, requireDoi, doiConfigMissing: false }),
       {
         headers: { 'content-type': 'application/json', ...corsHeaders },
       }

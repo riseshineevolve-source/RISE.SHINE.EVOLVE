@@ -5853,18 +5853,27 @@ document
             hasGiftsAccess = false;
         }
         // Function to send to the site and (optionally) Cloudflare Worker (używane przez formularz GIFTS)
-        function sendToSite(formData) {
+        async function sendToSite(formData, options = {}) {
+            const { requireDoi = false } = options;
             const workerEndpoint = (typeof CLOUDFLARE_WORKER_ENDPOINT === 'string' ? CLOUDFLARE_WORKER_ENDPOINT.trim() : 'https://newsletter-endpoint.rise-shine-evolve.workers.dev');
 
             if (BREVO_LIST_ID && !formData.has('brevoListId')) {
                 formData.append('brevoListId', BREVO_LIST_ID);
             }
 
+            const result = {
+                worker: { ok: false, skipped: false },
+                site: { ok: false }
+            };
+
             const requests = [];
 
             if (workerEndpoint) {
                 const workerPayload = new FormData();
                 formData.forEach((value, key) => workerPayload.append(key, value));
+                if (requireDoi) {
+                    workerPayload.append('requireDoi', 'true');
+                }
 
                 requests.push(
                     fetch(workerEndpoint, {
@@ -5881,32 +5890,43 @@ document
                                 // If Brevo returns HTML/plain text, skip JSON parsing errors
                             }
 
-                            if (!resp.ok || (data && data.ok === false)) {
+                            result.worker = {
+                                ok: resp.ok && (!(data && data.ok === false)),
+                                status: resp.status,
+                                data: data || null
+                            };
+
+                            if (!result.worker.ok) {
                                 console.warn("Brevo/worker response signaled an error", data || resp.status);
-                            } else if (data && data.doiAttempted && data.doiError) {
-                                console.warn("Brevo double opt-in failed, fallback used", {
-                                    status: data.doiStatus,
-                                    error: data.doiError,
-                                    fallback: data.doiFallbackUsed
-                                });
                             }
                         })
                         .catch((err) => {
+                            result.worker = { ok: false, error: String(err) };
                             console.warn("Worker request failed", err);
                         })
                 );
+            } else {
+                result.worker = { ok: false, skipped: true, missingEndpoint: true };
             }
 
             requests.push(
                 fetch("/", {
                     method: "POST",
                     body: formData
-                }).catch(() => {})
+                })
+                    .then((resp) => {
+                        result.site = { ok: resp.ok, status: resp.status };
+                    })
+                    .catch((err) => {
+                        result.site = { ok: false, error: String(err) };
+                    })
             );
 
-            Promise.allSettled(requests).catch(() => {
+            await Promise.allSettled(requests).catch(() => {
                 // Silent error handling for iframe environment
             });
+
+            return result;
         }
         function showThankYouPage(isConfirmationPending = false) {
             // Hide all tab contents
@@ -5962,7 +5982,7 @@ document
             document.getElementById('privacyModal').style.display = 'none';
             document.body.style.overflow = 'auto';
         }
-        function submitEmailModal(event) {
+        async function submitEmailModal(event) {
             event.preventDefault();
             const form = event.target;
             const firstName = document.getElementById('firstNameInput').value.trim();
@@ -5991,6 +6011,36 @@ document
             submitBtn.disabled = true;
 
             const confirmToken = Math.random().toString(36).slice(2, 10) + Date.now().toString(36);
+            const formData = new FormData(form);
+            formData.append('confirmEmail', email);
+            formData.append('confirmToken', confirmToken);
+
+            let workerResult = null;
+            try {
+                const result = await sendToSite(formData, { requireDoi: true });
+                workerResult = result.worker || {};
+            } catch (err) {
+                workerResult = { ok: false, error: String(err) };
+            }
+
+            const workerData = (workerResult && workerResult.data) || {};
+            const doiAttempted = !!workerData.doiAttempted;
+            const doiDelivered = doiAttempted && !workerData.doiError && workerData.doiStatus && workerData.doiStatus >= 200 && workerData.doiStatus < 400;
+            const missingDoiConfig = workerData.doiConfigMissing || workerResult.missingEndpoint;
+            const requireDoi = true;
+
+            if (!workerResult || workerResult.ok === false || missingDoiConfig || (requireDoi && (!doiAttempted || !doiDelivered))) {
+                const message = missingDoiConfig
+                    ? 'Double opt-in is not configured on the server. Please set BREVO_DOI_TEMPLATE_ID and BREVO_DOI_REDIRECT.'
+                    : 'We could not send the confirmation email. Please try again in a moment.';
+                if (errorMsg) {
+                    errorMsg.textContent = message;
+                }
+                submitBtn.textContent = 'Join us';
+                submitBtn.disabled = false;
+                return;
+            }
+
             localStorage.setItem('giftsStatus', 'pending');
             localStorage.setItem('giftsPendingEmail', email);
             localStorage.setItem('giftsConfirmToken', confirmToken);
@@ -5998,18 +6048,13 @@ document
                 localStorage.setItem('giftsFirstName', firstName);
             }
 
-            const formData = new FormData(form);
-            formData.append('confirmEmail', email);
-            formData.append('confirmToken', confirmToken);
-            sendToSite(formData);
-
             setTimeout(() => {
                 submitBtn.textContent = 'Join us';
                 submitBtn.disabled = false;
                 closeEmailModal();
                 showThankYouPage(true);
                 form.reset();
-            }, 1200);
+            }, 800);
         }
         function handleUnsubscribe(event) {
             event.preventDefault();
