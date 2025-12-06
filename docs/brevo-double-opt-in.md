@@ -19,3 +19,5 @@ These steps explain which template to use, how the confirmation link is generate
 - `BREVO_DOI_REDIRECT`: the live URL Brevo should send users to after they click the confirmation button.
 
 With those variables set, the worker sends the double opt-in request to Brevo, Brevo emails your chosen template, and the built-in confirmation link routes users back through your redirect URL with the confirmation flags.
+
+If you haven’t populated the worker variables yet, you can also pass `BREVO_DOI_TEMPLATE_ID` and `BREVO_DOI_REDIRECT` from the page: fill them in `index.html` near the other Brevo constants and the form will forward them to the worker so the double opt-in call can still succeed.

@@ -5237,6 +5237,11 @@ document
         // "--config ./wrangler.toml" and the explicit script path so Wrangler can always find the entrypoint.
         const CLOUDFLARE_WORKER_ENDPOINT = 'https://newsletter-endpoint.rise-shine-evolve.workers.dev/';
         const BREVO_LIST_ID = '3';
+        // Optional: if your Worker variables are not set, you can also forward the DOI template
+        // id and redirect URL from the page. Leave these blank if you already set them in
+        // Cloudflare → Workers → Variables.
+        const BREVO_DOI_TEMPLATE_ID = '';
+        const BREVO_DOI_REDIRECT = '';
         /*
          * Cloudflare Worker example (paste into your Worker, then set CLOUDFLARE_WORKER_ENDPOINT above):
          *
@@ -5873,6 +5878,12 @@ document
                 formData.forEach((value, key) => workerPayload.append(key, value));
                 if (requireDoi) {
                     workerPayload.append('requireDoi', 'true');
+                }
+                if (typeof BREVO_DOI_TEMPLATE_ID === 'string' && BREVO_DOI_TEMPLATE_ID.trim()) {
+                    workerPayload.append('doiTemplateId', BREVO_DOI_TEMPLATE_ID.trim());
+                }
+                if (typeof BREVO_DOI_REDIRECT === 'string' && BREVO_DOI_REDIRECT.trim()) {
+                    workerPayload.append('doiRedirect', BREVO_DOI_REDIRECT.trim());
                 }
 
                 requests.push(

@@ -41,8 +41,12 @@ export default {
     const actionType = (formData.get('actionType') || '').toString().toLowerCase();
     const formName = (formData.get('form-name') || '').toString().toLowerCase();
     const confirmToken = (formData.get('confirmToken') || '').toString().trim();
+    const formDoiTemplate = (formData.get('doiTemplateId') || '').toString().trim();
+    const formDoiRedirect = (formData.get('doiRedirect') || '').toString().trim();
     const requireDoi = (formData.get('requireDoi') || '').toString().toLowerCase() === 'true' || !!confirmToken;
-    const hasDoiConfig = !!(env.BREVO_DOI_TEMPLATE_ID && env.BREVO_DOI_REDIRECT);
+    const doiTemplateId = formDoiTemplate || env.BREVO_DOI_TEMPLATE_ID;
+    const doiRedirect = formDoiRedirect || env.BREVO_DOI_REDIRECT;
+    const hasDoiConfig = !!(doiTemplateId && doiRedirect);
     const isUnsubscribe = actionType === 'unsubscribe' || formName.includes('unsubscribe');
 
     // Forward to the site handler first to keep existing behavior.
@@ -105,6 +109,8 @@ export default {
               doiFallbackUsed,
               requireDoi,
               doiConfigMissing: true,
+              doiTemplateId: doiTemplateId || null,
+              doiRedirect: doiRedirect || null,
             }),
             { status: 400, headers: { 'content-type': 'application/json', ...corsHeaders } }
           );
@@ -115,9 +121,9 @@ export default {
           doiAttempted = true;
           const doiPayload = {
             email,
-            templateId: Number(env.BREVO_DOI_TEMPLATE_ID),
+            templateId: Number(doiTemplateId),
             attributes: baseAttributes,
-            redirectionUrl: `${env.BREVO_DOI_REDIRECT}?brevoConfirmed=1&email=${encodeURIComponent(email)}${confirmToken ? `&confirmToken=${encodeURIComponent(confirmToken)}` : ''}`,
+            redirectionUrl: `${doiRedirect}?brevoConfirmed=1&email=${encodeURIComponent(email)}${confirmToken ? `&confirmToken=${encodeURIComponent(confirmToken)}` : ''}`,
             includeListIds: includeListIds || [],
           };
 
@@ -143,6 +149,8 @@ export default {
                 doiFallbackUsed,
                 requireDoi,
                 doiConfigMissing: false,
+                doiTemplateId: doiTemplateId || null,
+                doiRedirect: doiRedirect || null,
               }),
               { status: doiResp.status, headers: { 'content-type': 'application/json', ...corsHeaders } }
             );
@@ -177,7 +185,19 @@ export default {
     }
 
     return new Response(
-      JSON.stringify({ ok: true, siteOk, brevoStatus, doiAttempted, doiStatus, doiError, doiFallbackUsed, requireDoi, doiConfigMissing: false }),
+      JSON.stringify({
+        ok: true,
+        siteOk,
+        brevoStatus,
+        doiAttempted,
+        doiStatus,
+        doiError,
+        doiFallbackUsed,
+        requireDoi,
+        doiConfigMissing: false,
+        doiTemplateId: doiTemplateId || null,
+        doiRedirect: doiRedirect || null,
+      }),
       {
         headers: { 'content-type': 'application/json', ...corsHeaders },
       }
