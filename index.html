@@ -2138,6 +2138,15 @@
             </div>
             <button type="submit" id="submitEmail" style="width: 100%; padding: 15px; background: linear-gradient(45deg, #8A2BE2, #ff69b4); border: none; border-radius: 25px; color: #ffffff; font-size: 18px; font-weight: bold; cursor: pointer; text-shadow: 0 0 10px rgba(0, 0, 0, 0.5); box-shadow: 0 0 25px rgba(138, 43, 226, 0.6); transition: all 0.3s ease;">Join us</button>
             <p id="errorMsg" style="color: #ff1493; text-align: center; margin-top: 15px; font-weight: bold;"></p>
+            <div id="doiConfigHelper" style="display: none; margin-top: 12px; padding: 14px; border: 2px dashed #8A2BE2; border-radius: 14px; background: rgba(0,0,0,0.55); box-shadow: 0 0 18px rgba(138, 43, 226, 0.35);">
+                <p style="color: #ffd700; font-weight: 700; margin-bottom: 10px; text-align: center;">Missing confirmation email? Add your Brevo DOI details below.</p>
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+                    <input type="text" id="doiTemplateInput" inputmode="numeric" pattern="[0-9]*" placeholder="Brevo template ID (e.g., 123)" style="width: 100%; padding: 10px 12px; border: 2px solid #8A2BE2; border-radius: 10px; background: rgba(0,0,0,0.65); color: #ffffff; font-weight: 700;">
+                    <input type="text" id="doiRedirectInput" placeholder="Redirect URL after confirm (e.g., https://rise-shine-evolve-learning-hub.com/)" style="width: 100%; padding: 10px 12px; border: 2px solid #8A2BE2; border-radius: 10px; background: rgba(0,0,0,0.65); color: #ffffff; font-weight: 700;">
+                    <button type="button" id="saveDoiConfigBtn" style="padding: 10px 14px; border-radius: 12px; border: 2px solid #ff69b4; background: linear-gradient(45deg, #8A2BE2, #ff69b4); color: #fff; font-weight: 800; cursor: pointer; box-shadow: 0 0 18px rgba(255, 105, 180, 0.35);">Save &amp; retry</button>
+                    <p style="color: #e6e6e6; font-size: 12px; margin: 0; text-align: center;">These values stay on this device (localStorage) and will be sent with the form.</p>
+                </div>
+            </div>
         </form>
    </div>
   </div>
@@ -5264,6 +5273,43 @@ document
                 redirect: (urlDoiRedirect || storedRedirect || BREVO_DOI_REDIRECT || '').trim()
             };
         }
+
+        function hydrateDoiConfigHelper() {
+            const helper = document.getElementById('doiConfigHelper');
+            if (!helper) return;
+            const { templateId, redirect } = getDoiConfig();
+            const tplInput = document.getElementById('doiTemplateInput');
+            const redirectInput = document.getElementById('doiRedirectInput');
+            if (tplInput && !tplInput.value) tplInput.value = templateId;
+            if (redirectInput && !redirectInput.value) redirectInput.value = redirect;
+        }
+
+        function showDoiConfigHelper(message = '') {
+            const helper = document.getElementById('doiConfigHelper');
+            if (!helper) return;
+            helper.style.display = 'block';
+            hydrateDoiConfigHelper();
+            const tplInput = document.getElementById('doiTemplateInput');
+            if (tplInput) tplInput.focus();
+            if (message) {
+                const errorMsg = document.getElementById('errorMsg');
+                if (errorMsg) errorMsg.textContent = message;
+            }
+        }
+
+        function saveDoiConfigFromForm() {
+            const tplInput = document.getElementById('doiTemplateInput');
+            const redirectInput = document.getElementById('doiRedirectInput');
+            if (!tplInput || !redirectInput) return { saved: false };
+
+            const tpl = (tplInput.value || '').trim();
+            const redirect = (redirectInput.value || '').trim();
+
+            if (tpl) localStorage.setItem('brevoDoiTemplateId', tpl);
+            if (redirect) localStorage.setItem('brevoDoiRedirect', redirect);
+
+            return { saved: !!tpl || !!redirect };
+        }
         /*
          * Cloudflare Worker example (paste into your Worker, then set CLOUDFLARE_WORKER_ENDPOINT above):
          *
@@ -6075,6 +6121,9 @@ document
                 if (errorMsg) {
                     errorMsg.textContent = message;
                 }
+                if (!hasLocalDoi) {
+                    showDoiConfigHelper();
+                }
                 submitBtn.textContent = 'Join us';
                 submitBtn.disabled = false;
                 return;
@@ -6200,6 +6249,21 @@ document
 
             handleEmailConfirmationFromUrl();
             updateThankYouStatus();
+
+            hydrateDoiConfigHelper();
+
+            const saveDoiBtn = document.getElementById('saveDoiConfigBtn');
+            if (saveDoiBtn) {
+                saveDoiBtn.addEventListener('click', () => {
+                    const { saved } = saveDoiConfigFromForm();
+                    if (saved) {
+                        const helper = document.getElementById('doiConfigHelper');
+                        if (helper) helper.style.display = 'none';
+                        const errorMsg = document.getElementById('errorMsg');
+                        if (errorMsg) errorMsg.textContent = '';
+                    }
+                });
+            }
         });
 
         // Email modal submit listener
