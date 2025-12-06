@@ -11,9 +11,18 @@
 export default {
   async fetch(request, env) {
     const sitePostTarget = 'https://rise-shine-evolve-learning-hub.com/';
+    const corsHeaders = {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'POST,OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type',
+    };
+
+    if (request.method === 'OPTIONS') {
+      return new Response('ok', { headers: corsHeaders });
+    }
 
     if (request.method !== 'POST') {
-      return new Response('ready');
+      return new Response('ready', { headers: corsHeaders });
     }
 
     let formData;
@@ -22,13 +31,23 @@ export default {
     } catch (error) {
       return new Response(JSON.stringify({ ok: false, error: 'Invalid form data', detail: String(error) }), {
         status: 400,
-        headers: { 'content-type': 'application/json' },
+        headers: { 'content-type': 'application/json', ...corsHeaders },
       });
     }
 
     const firstName = (formData.get('firstName') || '').toString().trim();
     const email = (formData.get('email') || '').toString().trim();
     const listId = formData.get('brevoListId') || env.BREVO_LIST_ID;
+    const actionType = (formData.get('actionType') || '').toString().toLowerCase();
+    const formName = (formData.get('form-name') || '').toString().toLowerCase();
+    const confirmToken = (formData.get('confirmToken') || '').toString().trim();
+    const formDoiTemplate = (formData.get('doiTemplateId') || '').toString().trim();
+    const formDoiRedirect = (formData.get('doiRedirect') || '').toString().trim();
+    const requireDoi = (formData.get('requireDoi') || '').toString().toLowerCase() === 'true' || !!confirmToken;
+    const doiTemplateId = formDoiTemplate || env.BREVO_DOI_TEMPLATE_ID;
+    const doiRedirect = formDoiRedirect || env.BREVO_DOI_REDIRECT;
+    const hasDoiConfig = !!(doiTemplateId && doiRedirect);
+    const isUnsubscribe = actionType === 'unsubscribe' || formName.includes('unsubscribe');
 
     // Forward to the site handler first to keep existing behavior.
     let siteOk = false;
@@ -40,39 +59,148 @@ export default {
     }
 
     let brevoStatus = null;
+    let doiAttempted = false;
+    let doiStatus = null;
+    let doiError = null;
+    let doiFallbackUsed = false;
     if (env.BREVO_API_KEY && email) {
-      const payload = {
-        email,
-        attributes: firstName ? { FIRSTNAME: firstName } : {},
-        updateEnabled: true,
-      };
-      if (listId) payload.listIds = [Number(listId)];
+      if (isUnsubscribe) {
+        const unlinkListIds = listId ? [Number(listId)] : undefined;
+        const payload = {
+          emailBlacklisted: true,
+          ...(unlinkListIds ? { unlinkListIds } : {}),
+        };
 
-      const brevoResp = await fetch('https://api.brevo.com/v3/contacts', {
-        method: 'POST',
-        headers: {
-          'api-key': env.BREVO_API_KEY,
-          'content-type': 'application/json',
-          accept: 'application/json',
-        },
-        body: JSON.stringify(payload),
-      });
-      brevoStatus = brevoResp.status;
+        const brevoResp = await fetch(`https://api.brevo.com/v3/contacts/${encodeURIComponent(email)}`, {
+          method: 'PUT',
+          headers: {
+            'api-key': env.BREVO_API_KEY,
+            'content-type': 'application/json',
+            accept: 'application/json',
+          },
+          body: JSON.stringify(payload),
+        });
+        brevoStatus = brevoResp.status;
 
-      if (!brevoResp.ok) {
-        const errorText = await brevoResp.text();
-        return new Response(
-          JSON.stringify({ ok: false, siteOk, brevoStatus, error: errorText || 'Brevo rejected the request' }),
-          {
-            status: brevoResp.status,
-            headers: { 'content-type': 'application/json' },
+        if (!brevoResp.ok) {
+          const errorText = await brevoResp.text();
+          return new Response(
+            JSON.stringify({ ok: false, siteOk, brevoStatus, error: errorText || 'Brevo unsubscribe failed' }),
+            {
+              status: brevoResp.status,
+              headers: { 'content-type': 'application/json', ...corsHeaders },
+            }
+          );
+        }
+      } else {
+        const baseAttributes = firstName ? { FIRSTNAME: firstName } : {};
+        const includeListIds = listId ? [Number(listId)] : undefined;
+        const headers = { 'content-type': 'application/json', accept: 'application/json', 'api-key': env.BREVO_API_KEY };
+
+        if (requireDoi && !hasDoiConfig) {
+          return new Response(
+            JSON.stringify({
+              ok: false,
+              siteOk,
+              brevoStatus,
+              doiAttempted: false,
+              doiStatus,
+              doiError: 'Double opt-in is required but BREVO_DOI_TEMPLATE_ID or BREVO_DOI_REDIRECT is not set in the worker.',
+              doiFallbackUsed,
+              requireDoi,
+              doiConfigMissing: true,
+              doiTemplateId: doiTemplateId || null,
+              doiRedirect: doiRedirect || null,
+            }),
+            { status: 400, headers: { 'content-type': 'application/json', ...corsHeaders } }
+          );
+        }
+
+        const tryDoi = hasDoiConfig;
+        if (tryDoi) {
+          doiAttempted = true;
+          const doiPayload = {
+            email,
+            templateId: Number(doiTemplateId),
+            attributes: baseAttributes,
+            redirectionUrl: `${doiRedirect}?brevoConfirmed=1&email=${encodeURIComponent(email)}${confirmToken ? `&confirmToken=${encodeURIComponent(confirmToken)}` : ''}`,
+            includeListIds: includeListIds || [],
+          };
+
+          const doiResp = await fetch('https://api.brevo.com/v3/contacts/doubleOptinConfirmation', {
+            method: 'POST',
+            headers,
+            body: JSON.stringify(doiPayload),
+          });
+          brevoStatus = doiResp.status;
+          doiStatus = doiResp.status;
+
+          if (!doiResp.ok) {
+            const errorText = await doiResp.text();
+            doiError = errorText || 'Brevo double opt-in rejected the request';
+            return new Response(
+              JSON.stringify({
+                ok: false,
+                siteOk,
+                brevoStatus,
+                doiAttempted,
+                doiStatus,
+                doiError,
+                doiFallbackUsed,
+                requireDoi,
+                doiConfigMissing: false,
+                doiTemplateId: doiTemplateId || null,
+                doiRedirect: doiRedirect || null,
+              }),
+              { status: doiResp.status, headers: { 'content-type': 'application/json', ...corsHeaders } }
+            );
           }
-        );
+        } else {
+          const payload = {
+            email,
+            attributes: baseAttributes,
+            updateEnabled: true,
+            ...(includeListIds ? { listIds: includeListIds } : {}),
+          };
+
+          const brevoResp = await fetch('https://api.brevo.com/v3/contacts', {
+            method: 'POST',
+            headers,
+            body: JSON.stringify(payload),
+          });
+          brevoStatus = brevoResp.status;
+
+          if (!brevoResp.ok) {
+            const errorText = await brevoResp.text();
+            return new Response(
+              JSON.stringify({ ok: false, siteOk, brevoStatus, error: errorText || 'Brevo rejected the request' }),
+              {
+                status: brevoResp.status,
+                headers: { 'content-type': 'application/json', ...corsHeaders },
+              }
+            );
+          }
+        }
       }
     }
 
-    return new Response(JSON.stringify({ ok: true, siteOk, brevoStatus }), {
-      headers: { 'content-type': 'application/json' },
-    });
+    return new Response(
+      JSON.stringify({
+        ok: true,
+        siteOk,
+        brevoStatus,
+        doiAttempted,
+        doiStatus,
+        doiError,
+        doiFallbackUsed,
+        requireDoi,
+        doiConfigMissing: false,
+        doiTemplateId: doiTemplateId || null,
+        doiRedirect: doiRedirect || null,
+      }),
+      {
+        headers: { 'content-type': 'application/json', ...corsHeaders },
+      }
+    );
   },
 };
