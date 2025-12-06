@@ -5240,8 +5240,30 @@ document
         // Optional: if your Worker variables are not set, you can also forward the DOI template
         // id and redirect URL from the page. Leave these blank if you already set them in
         // Cloudflare → Workers → Variables.
+        // Optional: you can supply DOI values via URL params or localStorage without
+        // rebuilding the page. Add `?doiTemplateId=123&doiRedirect=https://your.site/`
+        // to store them locally; forms will forward them to the worker.
         const BREVO_DOI_TEMPLATE_ID = '';
         const BREVO_DOI_REDIRECT = '';
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const urlDoiTemplate = urlParams.get('doiTemplateId');
+        const urlDoiRedirect = urlParams.get('doiRedirect');
+        if (urlDoiTemplate) {
+            localStorage.setItem('brevoDoiTemplateId', urlDoiTemplate.trim());
+        }
+        if (urlDoiRedirect) {
+            localStorage.setItem('brevoDoiRedirect', urlDoiRedirect.trim());
+        }
+
+        function getDoiConfig() {
+            const storedTemplate = localStorage.getItem('brevoDoiTemplateId') || '';
+            const storedRedirect = localStorage.getItem('brevoDoiRedirect') || '';
+            return {
+                templateId: (urlDoiTemplate || storedTemplate || BREVO_DOI_TEMPLATE_ID || '').trim(),
+                redirect: (urlDoiRedirect || storedRedirect || BREVO_DOI_REDIRECT || '').trim()
+            };
+        }
         /*
          * Cloudflare Worker example (paste into your Worker, then set CLOUDFLARE_WORKER_ENDPOINT above):
          *
@@ -5879,11 +5901,13 @@ document
                 if (requireDoi) {
                     workerPayload.append('requireDoi', 'true');
                 }
-                if (typeof BREVO_DOI_TEMPLATE_ID === 'string' && BREVO_DOI_TEMPLATE_ID.trim()) {
-                    workerPayload.append('doiTemplateId', BREVO_DOI_TEMPLATE_ID.trim());
+
+                const doiConfig = getDoiConfig();
+                if (doiConfig.templateId) {
+                    workerPayload.append('doiTemplateId', doiConfig.templateId);
                 }
-                if (typeof BREVO_DOI_REDIRECT === 'string' && BREVO_DOI_REDIRECT.trim()) {
-                    workerPayload.append('doiRedirect', BREVO_DOI_REDIRECT.trim());
+                if (doiConfig.redirect) {
+                    workerPayload.append('doiRedirect', doiConfig.redirect);
                 }
 
                 requests.push(
@@ -6041,9 +6065,13 @@ document
             const requireDoi = true;
 
             if (!workerResult || workerResult.ok === false || missingDoiConfig || (requireDoi && (!doiAttempted || !doiDelivered))) {
+                const doiConfig = getDoiConfig();
+                const hasLocalDoi = doiConfig.templateId && doiConfig.redirect;
                 const message = missingDoiConfig
-                    ? 'Double opt-in is not configured on the server. Please set BREVO_DOI_TEMPLATE_ID and BREVO_DOI_REDIRECT.'
-                    : 'We could not send the confirmation email. Please try again in a moment.';
+                    ? 'Double opt-in is not configured on the server. Set BREVO_DOI_TEMPLATE_ID/BREVO_DOI_REDIRECT in the worker or add ?doiTemplateId=XXX&doiRedirect=YOUR_URL to enable emails.'
+                    : hasLocalDoi
+                        ? 'We could not send the confirmation email. Please try again in a moment.'
+                        : 'We could not send the confirmation email. Add ?doiTemplateId=XXX&doiRedirect=YOUR_URL or update the worker settings, then try again.';
                 if (errorMsg) {
                     errorMsg.textContent = message;
                 }
