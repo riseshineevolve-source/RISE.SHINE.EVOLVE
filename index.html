@@ -6368,8 +6368,12 @@ document
                 const templateHtml = html;
                 const studioSrc = wordSearchProUrl ? `${wordSearchProUrl}?v=${Date.now()}` : null;
 
-                const loadFromUrl = () => {
-                    if (!studioSrc) return false;
+                if (inlineHtml) {
+                    giftFrame.style.display = 'block';
+                    giftFallback.style.display = 'none';
+                    giftFrame.src = 'about:blank';
+                    giftFrame.srcdoc = inlineHtml;
+                } else if (studioSrc) {
                     giftFrame.style.display = 'block';
                     giftFallback.style.display = 'none';
                     giftFrame.onload = () => {
@@ -6387,42 +6391,13 @@ document
                         }
                     };
                     giftFrame.src = studioSrc;
-                    return true;
-                };
-
-                const loadTemplateFallback = () => {
-                    if (templateHtml) {
-                        giftFrame.src = 'about:blank';
-                        giftFrame.srcdoc = templateHtml;
-                        giftFallback.style.display = 'none';
-                        giftFrame.style.display = 'block';
-                        return true;
-                    }
-                    showGiftFallback('Word Search Studio is unavailable right now.');
-                    return false;
-                };
-
-                if (inlineHtml) {
-                    giftFrame.style.display = 'block';
+                } else if (templateHtml) {
+                    giftFrame.src = 'about:blank';
+                    giftFrame.srcdoc = templateHtml;
                     giftFallback.style.display = 'none';
-                    giftFrame.srcdoc = inlineHtml;
-
-                    setTimeout(() => {
-                        if (!frameHasContent(giftFrame)) {
-                            loadFromUrl();
-                        }
-                    }, 400);
-
-                    setTimeout(() => {
-                        if (!frameHasContent(giftFrame)) {
-                            if (!loadTemplateFallback()) {
-                                loadFromUrl();
-                            }
-                        }
-                    }, 1200);
-                } else if (loadFromUrl()) {
-                    // Loaded via URL
-                } else if (!loadTemplateFallback()) {
+                    giftFrame.style.display = 'block';
+                } else {
+                    showGiftFallback('Word Search Studio is unavailable right now.');
                     return;
                 }
             } else if (source) {
