@@ -6261,6 +6261,14 @@ document
                         if (helper) helper.style.display = 'none';
                         const errorMsg = document.getElementById('errorMsg');
                         if (errorMsg) errorMsg.textContent = '';
+
+                        // Immediately retry the signup with the freshly saved DOI values
+                        const modalForm = document.querySelector('form[name="rse-email-list-modal"]');
+                        if (modalForm && typeof modalForm.requestSubmit === 'function') {
+                            modalForm.requestSubmit();
+                        } else if (modalForm) {
+                            modalForm.submit();
+                        }
                     }
                 });
             }
