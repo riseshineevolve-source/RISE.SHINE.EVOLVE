@@ -53,6 +53,10 @@ export default {
     }
 
     let brevoStatus = null;
+    let doiAttempted = false;
+    let doiStatus = null;
+    let doiError = null;
+    let doiFallbackUsed = false;
     if (env.BREVO_API_KEY && email) {
       if (isUnsubscribe) {
         const unlinkListIds = listId ? [Number(listId)] : undefined;
@@ -88,6 +92,7 @@ export default {
 
         const tryDoi = env.BREVO_DOI_TEMPLATE_ID && env.BREVO_DOI_REDIRECT;
         if (tryDoi) {
+          doiAttempted = true;
           const doiPayload = {
             email,
             templateId: Number(env.BREVO_DOI_TEMPLATE_ID),
@@ -106,9 +111,12 @@ export default {
             body: JSON.stringify(doiPayload),
           });
           brevoStatus = doiResp.status;
+          doiStatus = doiResp.status;
 
           if (!doiResp.ok) {
             const errorText = await doiResp.text();
+            doiError = errorText || 'Brevo double opt-in rejected the request';
+            doiFallbackUsed = true;
             // Fall back to the standard contact creation path if DOI fails
             const payload = {
               email,
@@ -177,8 +185,11 @@ export default {
       }
     }
 
-    return new Response(JSON.stringify({ ok: true, siteOk, brevoStatus }), {
-      headers: { 'content-type': 'application/json', ...corsHeaders },
-    });
+    return new Response(
+      JSON.stringify({ ok: true, siteOk, brevoStatus, doiAttempted, doiStatus, doiError, doiFallbackUsed }),
+      {
+        headers: { 'content-type': 'application/json', ...corsHeaders },
+      }
+    );
   },
 };

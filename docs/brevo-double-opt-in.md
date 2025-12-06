@@ -2,9 +2,11 @@
 
 These steps explain which template to use, how the confirmation link is generated, and what to configure in Cloudflare so the email arrives and the redirect works.
 
-## 1) Choose the confirmation template in Brevo
-- Open **Brevo → Campaigns → Templates** and pick the email you want to send as the confirmation request. The numeric ID shown in the template URL is what you pass to `BREVO_DOI_TEMPLATE_ID`.
-- The template itself should contain a single confirmation button or link using Brevo’s built-in double opt-in placeholder (you do **not** paste your own link). Brevo injects the confirmation URL automatically when the worker calls the `/v3/contacts/doubleOptinConfirmation` endpoint.
+## 1) Create the confirmation template in Brevo (with a working link)
+- Go to **Transactional → Templates** (or **Campaigns → Templates** if that’s where your account shows them) and click **Create a new template**.
+- In **Design**, add a **Button** (or text link) and set its URL to Brevo’s placeholder: `{{ doubleoptinUrl }}`. In the drag-and-drop editor you can click **Personalize → Double opt-in confirmation link** to insert it automatically.
+- Save and **Activate** the template. The numeric ID in the URL (e.g., `/templates/123`) is what you set as `BREVO_DOI_TEMPLATE_ID`.
+- Note: sending a “test email” from the template editor will not include a live confirmation link. The link only appears when Brevo sends the template via the double opt-in API call.
 
 ## 2) Where the confirmation link comes from
 - You do not generate or paste a link into the template. Brevo inserts the confirmation link for you when the worker triggers the double opt-in API.

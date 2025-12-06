@@ -5863,18 +5863,46 @@ document
             const requests = [];
 
             if (workerEndpoint) {
-                requests.push(fetch(workerEndpoint, {
-                    method: "POST",
-                    body: formData,
-                    mode: "cors",
-                    credentials: "omit"
-                }));
+                const workerPayload = new FormData();
+                formData.forEach((value, key) => workerPayload.append(key, value));
+
+                requests.push(
+                    fetch(workerEndpoint, {
+                        method: "POST",
+                        body: workerPayload,
+                        mode: "cors",
+                        credentials: "omit"
+                    })
+                        .then(async (resp) => {
+                            let data = null;
+                            try {
+                                data = await resp.clone().json();
+                            } catch (_) {
+                                // If Brevo returns HTML/plain text, skip JSON parsing errors
+                            }
+
+                            if (!resp.ok || (data && data.ok === false)) {
+                                console.warn("Brevo/worker response signaled an error", data || resp.status);
+                            } else if (data && data.doiAttempted && data.doiError) {
+                                console.warn("Brevo double opt-in failed, fallback used", {
+                                    status: data.doiStatus,
+                                    error: data.doiError,
+                                    fallback: data.doiFallbackUsed
+                                });
+                            }
+                        })
+                        .catch((err) => {
+                            console.warn("Worker request failed", err);
+                        })
+                );
             }
 
-            requests.push(fetch("/", {
-                method: "POST",
-                body: formData
-            }));
+            requests.push(
+                fetch("/", {
+                    method: "POST",
+                    body: formData
+                }).catch(() => {})
+            );
 
             Promise.allSettled(requests).catch(() => {
                 // Silent error handling for iframe environment
