@@ -98,6 +98,25 @@ export default {
         const headers = { 'content-type': 'application/json', accept: 'application/json', 'api-key': env.BREVO_API_KEY };
 
         const tryDoi = hasDoiConfig;
+        if (requireDoi && !tryDoi) {
+          return new Response(
+            JSON.stringify({
+              ok: false,
+              siteOk,
+              brevoStatus: null,
+              doiAttempted,
+              doiStatus,
+              doiError: 'Double opt-in is required but no template/redirect was provided.',
+              doiFallbackUsed,
+              requireDoi,
+              doiConfigMissing: true,
+              doiTemplateId: doiTemplateId || null,
+              doiRedirect: doiRedirect || null,
+            }),
+            { status: 400, headers: { 'content-type': 'application/json', ...corsHeaders } }
+          );
+        }
+
         if (tryDoi) {
           doiAttempted = true;
           const doiPayload = {

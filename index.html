@@ -6111,6 +6111,7 @@ document
             const missingDoiConfig = workerData.doiConfigMissing || workerResult.missingEndpoint;
             const requireDoi = true;
             const doiSatisfied = doiDelivered || doiFallbackDelivered;
+            const workerErrorMessage = workerData.doiError || workerData.error || (workerResult && workerResult.error);
 
             if (!workerResult || workerResult.ok === false || (missingDoiConfig && !doiFallbackDelivered) || (requireDoi && !doiSatisfied)) {
                 const doiConfig = getDoiConfig();
@@ -6118,7 +6119,7 @@ document
                 const message = missingDoiConfig && !doiFallbackDelivered
                     ? 'Double opt-in is not configured on the server. Set BREVO_DOI_TEMPLATE_ID/BREVO_DOI_REDIRECT in the worker or add ?doiTemplateId=XXX&doiRedirect=YOUR_URL to enable emails.'
                     : hasLocalDoi
-                        ? 'We could not send the confirmation email. Please try again in a moment.'
+                        ? (workerErrorMessage ? `We could not send the confirmation email: ${workerErrorMessage}` : 'We could not send the confirmation email. Please try again in a moment.')
                         : 'We could not send the confirmation email. Add ?doiTemplateId=XXX&doiRedirect=YOUR_URL or update the worker settings, then try again.';
                 if (errorMsg) {
                     errorMsg.textContent = message;
