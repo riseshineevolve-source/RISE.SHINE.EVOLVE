@@ -6107,13 +6107,15 @@ document
             const workerData = (workerResult && workerResult.data) || {};
             const doiAttempted = !!workerData.doiAttempted;
             const doiDelivered = doiAttempted && !workerData.doiError && workerData.doiStatus && workerData.doiStatus >= 200 && workerData.doiStatus < 400;
+            const doiFallbackDelivered = !!(workerData.doiFallbackUsed && workerData.doiStatus && workerData.doiStatus >= 200 && workerData.doiStatus < 400 && !workerData.doiError);
             const missingDoiConfig = workerData.doiConfigMissing || workerResult.missingEndpoint;
             const requireDoi = true;
+            const doiSatisfied = doiDelivered || doiFallbackDelivered;
 
-            if (!workerResult || workerResult.ok === false || missingDoiConfig || (requireDoi && (!doiAttempted || !doiDelivered))) {
+            if (!workerResult || workerResult.ok === false || (missingDoiConfig && !doiFallbackDelivered) || (requireDoi && !doiSatisfied)) {
                 const doiConfig = getDoiConfig();
                 const hasLocalDoi = doiConfig.templateId && doiConfig.redirect;
-                const message = missingDoiConfig
+                const message = missingDoiConfig && !doiFallbackDelivered
                     ? 'Double opt-in is not configured on the server. Set BREVO_DOI_TEMPLATE_ID/BREVO_DOI_REDIRECT in the worker or add ?doiTemplateId=XXX&doiRedirect=YOUR_URL to enable emails.'
                     : hasLocalDoi
                         ? 'We could not send the confirmation email. Please try again in a moment.'
