@@ -37,7 +37,7 @@ export default {
 
     const firstName = (formData.get('firstName') || '').toString().trim();
     const email = (formData.get('email') || '').toString().trim();
-    const listIdRaw = formData.get('brevoListId') || env.BREVO_LIST_ID;
+    const listIdRaw = (formData.get('brevoListId') || env.BREVO_LIST_ID || '').toString().trim();
     const actionType = (formData.get('actionType') || '').toString().toLowerCase();
     const formName = (formData.get('form-name') || '').toString().toLowerCase();
     const confirmToken = (formData.get('confirmToken') || '').toString().trim();
@@ -70,16 +70,25 @@ export default {
     let doiConfigMissing = requireDoi && !hasDoiConfig;
     let brevoErrorText = null;
 
-    if (requireDoi && !env.BREVO_API_KEY) {
-      return new Response(
-        JSON.stringify({
-          ok: false,
-          siteOk,
-          brevoStatus: null,
-          error: 'BREVO_API_KEY is missing; Brevo cannot send the confirmation email',
-        }),
-        { status: 400, headers: { 'content-type': 'application/json', ...corsHeaders } }
-      );
+    if (requireDoi) {
+      const missing = [];
+      if (!env.BREVO_API_KEY) missing.push('BREVO_API_KEY');
+      if (!hasListId) missing.push('BREVO_LIST_ID / brevoListId');
+      if (!Number.isFinite(templateIdNum)) missing.push('BREVO_DOI_TEMPLATE_ID / doiTemplateId');
+      if (!doiRedirect) missing.push('BREVO_DOI_REDIRECT / doiRedirect');
+
+      if (missing.length) {
+        return new Response(
+          JSON.stringify({
+            ok: false,
+            siteOk,
+            brevoStatus: null,
+            error: `Missing required Brevo settings: ${missing.join(', ')}`,
+            missing,
+          }),
+          { status: 400, headers: { 'content-type': 'application/json', ...corsHeaders } }
+        );
+      }
     }
 
     if (env.BREVO_API_KEY && email) {
@@ -198,12 +207,13 @@ export default {
             );
           }
 
+          const separator = doiRedirect.includes('?') ? '&' : '?';
           const doiPayload = {
             email,
             templateId: Number(doiTemplateId),
             attributes: baseAttributes,
-            redirectionUrl: `${doiRedirect}?brevoConfirmed=1&email=${encodeURIComponent(email)}${confirmToken ? `&confirmToken=${encodeURIComponent(confirmToken)}` : ''}`,
-            includeListIds: includeListIds || [],
+            redirectionUrl: `${doiRedirect}${separator}brevoConfirmed=1&email=${encodeURIComponent(email)}${confirmToken ? `&confirmToken=${encodeURIComponent(confirmToken)}` : ''}`,
+            includeListIds: includeListIds,
           };
 
           const doiResp = await fetch('https://api.brevo.com/v3/contacts/doubleOptinConfirmation', {
@@ -280,11 +290,12 @@ export default {
             );
           }
 
+          const separator = doiRedirect.includes('?') ? '&' : '?';
           const payload = {
             email,
             attributes: baseAttributes,
-            redirectionUrl: `${doiRedirect}?brevoConfirmed=1&email=${encodeURIComponent(email)}${confirmToken ? `&confirmToken=${encodeURIComponent(confirmToken)}` : ''}`,
-            includeListIds: includeListIds || [],
+            redirectionUrl: `${doiRedirect}${separator}brevoConfirmed=1&email=${encodeURIComponent(email)}${confirmToken ? `&confirmToken=${encodeURIComponent(confirmToken)}` : ''}`,
+            includeListIds: includeListIds,
             templateId: Number(doiTemplateId),
           };
 
