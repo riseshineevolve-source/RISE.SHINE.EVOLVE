@@ -43,7 +43,8 @@ export default {
     const confirmToken = (formData.get('confirmToken') || '').toString().trim();
     const formDoiTemplate = (formData.get('doiTemplateId') || '').toString().trim();
     const formDoiRedirect = (formData.get('doiRedirect') || '').toString().trim();
-    const requireDoi = (formData.get('requireDoi') || '').toString().toLowerCase() === 'true' || !!confirmToken;
+    const requireDoiField = (formData.get('requireDoi') || '').toString().toLowerCase() === 'true';
+    const requireDoi = requireDoiField || !!confirmToken || !!formDoiTemplate || !!env.BREVO_DOI_TEMPLATE_ID;
     const doiTemplateId = formDoiTemplate || env.BREVO_DOI_TEMPLATE_ID;
     const doiRedirect = formDoiRedirect || env.BREVO_DOI_REDIRECT;
     const hasDoiConfig = !!(doiTemplateId && doiRedirect);
