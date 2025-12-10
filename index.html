@@ -5965,20 +5965,26 @@ document
                     })
                         .then(async (resp) => {
                             let data = null;
+                            let rawText = null;
                             try {
                                 data = await resp.clone().json();
                             } catch (_) {
-                                // If Brevo returns HTML/plain text, skip JSON parsing errors
+                                try {
+                                    rawText = await resp.clone().text();
+                                } catch (_) {
+                                    // ignored
+                                }
                             }
 
                             result.worker = {
                                 ok: resp.ok && (!(data && data.ok === false)),
                                 status: resp.status,
-                                data: data || null
+                                data: data || null,
+                                errorText: rawText || null
                             };
 
                             if (!result.worker.ok) {
-                                console.warn("Brevo/worker response signaled an error", data || resp.status);
+                                console.warn("Brevo/worker response signaled an error", data || rawText || resp.status);
                             }
                         })
                         .catch((err) => {
@@ -6111,16 +6117,18 @@ document
             const missingDoiConfig = workerData.doiConfigMissing || workerResult.missingEndpoint;
             const requireDoi = true;
             const doiSatisfied = doiDelivered || doiFallbackDelivered;
-            const workerErrorMessage = workerData.doiError || workerData.error || (workerResult && workerResult.error);
+            const workerErrorMessage = workerData.doiError || workerData.error || (workerResult && (workerResult.errorText || workerResult.error));
 
             if (!workerResult || workerResult.ok === false || (missingDoiConfig && !doiFallbackDelivered) || (requireDoi && !doiSatisfied)) {
                 const doiConfig = getDoiConfig();
                 const hasLocalDoi = doiConfig.templateId && doiConfig.redirect;
-                const message = missingDoiConfig && !doiFallbackDelivered
-                    ? 'Double opt-in is not configured on the server. Set BREVO_DOI_TEMPLATE_ID/BREVO_DOI_REDIRECT in the worker or add ?doiTemplateId=XXX&doiRedirect=YOUR_URL to enable emails.'
-                    : hasLocalDoi
-                        ? (workerErrorMessage ? `We could not send the confirmation email: ${workerErrorMessage}` : 'We could not send the confirmation email. Please try again in a moment.')
-                        : 'We could not send the confirmation email. Add ?doiTemplateId=XXX&doiRedirect=YOUR_URL or update the worker settings, then try again.';
+                const message = workerResult && workerResult.missingEndpoint
+                    ? 'The signup server is not configured. Set CLOUDFLARE_WORKER_ENDPOINT to your Worker URL and redeploy before retrying.'
+                    : missingDoiConfig && !doiFallbackDelivered
+                        ? 'Double opt-in is not configured on the server. Set BREVO_DOI_TEMPLATE_ID/BREVO_DOI_REDIRECT in the worker or add ?doiTemplateId=XXX&doiRedirect=YOUR_URL to enable emails.'
+                        : hasLocalDoi
+                            ? (workerErrorMessage ? `We could not send the confirmation email: ${workerErrorMessage}` : 'We could not send the confirmation email. Please try again in a moment.')
+                            : 'We could not send the confirmation email. Add ?doiTemplateId=XXX&doiRedirect=YOUR_URL or update the worker settings, then try again.';
                 if (errorMsg) {
                     errorMsg.textContent = message;
                 }
@@ -6560,9 +6568,33 @@ document
             }
         }
 
+        function applyEnglishValidationMessages() {
+            const emailMessage = 'Please enter a valid email address.';
+            document.querySelectorAll('input[type="email"]').forEach((input) => {
+                input.addEventListener('invalid', (event) => {
+                    event.target.setCustomValidity(emailMessage);
+                });
+                input.addEventListener('input', (event) => {
+                    event.target.setCustomValidity('');
+                });
+            });
+
+            const gdprCheck = document.getElementById('gdprCheck');
+            if (gdprCheck) {
+                const consentMessage = 'Please agree to the Privacy Policy to continue.';
+                gdprCheck.addEventListener('invalid', (event) => {
+                    event.target.setCustomValidity(consentMessage);
+                });
+                gdprCheck.addEventListener('change', (event) => {
+                    event.target.setCustomValidity('');
+                });
+            }
+        }
+
         // Initialize sparkles when page loads
         document.addEventListener('DOMContentLoaded', createSparkles);
         document.addEventListener('DOMContentLoaded', () => updateInfoTile('main'));
+        document.addEventListener('DOMContentLoaded', applyEnglishValidationMessages);
     </script>
  <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'99ffed4b87077057',t:'MTc2MzM4OTgzNi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
