@@ -44,10 +44,10 @@ export default {
     const formDoiTemplate = (formData.get('doiTemplateId') || '').toString().trim();
     const formDoiRedirect = (formData.get('doiRedirect') || '').toString().trim();
     const requireDoiField = (formData.get('requireDoi') || '').toString().toLowerCase() === 'true';
-    const requireDoi = requireDoiField || !!confirmToken || !!formDoiTemplate || !!env.BREVO_DOI_TEMPLATE_ID;
     const doiTemplateId = formDoiTemplate || env.BREVO_DOI_TEMPLATE_ID;
     const doiRedirect = formDoiRedirect || env.BREVO_DOI_REDIRECT;
     const hasDoiConfig = !!(doiTemplateId && doiRedirect);
+    const requireDoi = requireDoiField || !!confirmToken || hasDoiConfig;
     const isUnsubscribe = actionType === 'unsubscribe' || formName.includes('unsubscribe');
 
     // Forward to the site handler first to keep existing behavior.
@@ -74,25 +74,6 @@ export default {
       const sendFallbackConfirmation = async () => {
         doiFallbackUsed = true;
         doiConfigMissing = doiConfigMissing || !hasDoiConfig;
-
-        const fallbackPayload = {
-          email,
-          attributes: baseAttributes,
-          updateEnabled: true,
-          ...(includeListIds ? { listIds: includeListIds } : {}),
-        };
-
-        const contactResp = await fetch('https://api.brevo.com/v3/contacts', {
-          method: 'POST',
-          headers,
-          body: JSON.stringify(fallbackPayload),
-        });
-        brevoStatus = contactResp.status;
-
-        if (!contactResp.ok) {
-          const errorText = await contactResp.text();
-          return { ok: false, status: contactResp.status, error: errorText || 'Brevo rejected the fallback contact creation' };
-        }
 
         const fallbackRedirect = doiRedirect || sitePostTarget;
         const separator = fallbackRedirect.includes('?') ? '&' : '?';
@@ -122,6 +103,7 @@ export default {
         });
 
         doiStatus = smtpResp.status;
+        brevoStatus = brevoStatus || smtpResp.status;
 
         if (!smtpResp.ok) {
           const errorText = await smtpResp.text();
@@ -231,14 +213,27 @@ export default {
             );
           }
         } else {
+          if (!doiTemplateId || !doiRedirect) {
+            return new Response(
+              JSON.stringify({
+                ok: false,
+                siteOk,
+                brevoStatus: null,
+                error: 'Brevo double opt-in requires BREVO_DOI_TEMPLATE_ID and BREVO_DOI_REDIRECT',
+              }),
+              { status: 400, headers: { 'content-type': 'application/json', ...corsHeaders } }
+            );
+          }
+
           const payload = {
             email,
             attributes: baseAttributes,
-            updateEnabled: true,
-            ...(includeListIds ? { listIds: includeListIds } : {}),
+            redirectionUrl: `${doiRedirect}?brevoConfirmed=1&email=${encodeURIComponent(email)}${confirmToken ? `&confirmToken=${encodeURIComponent(confirmToken)}` : ''}`,
+            includeListIds: includeListIds || [],
+            templateId: Number(doiTemplateId),
           };
 
-          const brevoResp = await fetch('https://api.brevo.com/v3/contacts', {
+          const brevoResp = await fetch('https://api.brevo.com/v3/contacts/doubleOptinConfirmation', {
             method: 'POST',
             headers,
             body: JSON.stringify(payload),
