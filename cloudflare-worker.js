@@ -37,7 +37,7 @@ export default {
 
     const firstName = (formData.get('firstName') || '').toString().trim();
     const email = (formData.get('email') || '').toString().trim();
-    const listId = formData.get('brevoListId') || env.BREVO_LIST_ID;
+    const listIdRaw = formData.get('brevoListId') || env.BREVO_LIST_ID;
     const actionType = (formData.get('actionType') || '').toString().toLowerCase();
     const formName = (formData.get('form-name') || '').toString().toLowerCase();
     const confirmToken = (formData.get('confirmToken') || '').toString().trim();
@@ -46,6 +46,7 @@ export default {
     const requireDoiField = (formData.get('requireDoi') || '').toString().toLowerCase() === 'true';
     const doiTemplateId = formDoiTemplate || env.BREVO_DOI_TEMPLATE_ID;
     const doiRedirect = formDoiRedirect || env.BREVO_DOI_REDIRECT;
+    const listId = listIdRaw ? Number(listIdRaw) : null;
     const hasDoiConfig = !!(doiTemplateId && doiRedirect);
     const requireDoi = requireDoiField || !!confirmToken || hasDoiConfig;
     const isUnsubscribe = actionType === 'unsubscribe' || formName.includes('unsubscribe');
@@ -68,7 +69,20 @@ export default {
 
     if (env.BREVO_API_KEY && email) {
       const baseAttributes = firstName ? { FIRSTNAME: firstName } : {};
-      const includeListIds = listId ? [Number(listId)] : undefined;
+
+      if (requireDoi && (!listId || Number.isNaN(listId))) {
+        return new Response(
+          JSON.stringify({
+            ok: false,
+            siteOk,
+            brevoStatus: null,
+            error: 'Brevo double opt-in requires a numeric BREVO_LIST_ID / brevoListId',
+          }),
+          { status: 400, headers: { 'content-type': 'application/json', ...corsHeaders } }
+        );
+      }
+
+      const includeListIds = !Number.isNaN(listId) && listId !== null ? [listId] : undefined;
       const headers = { 'content-type': 'application/json', accept: 'application/json', 'api-key': env.BREVO_API_KEY };
 
       const sendFallbackConfirmation = async () => {
