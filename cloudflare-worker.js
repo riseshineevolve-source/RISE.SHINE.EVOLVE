@@ -65,66 +65,70 @@ export default {
     let doiFallbackUsed = false;
     let doiConfigMissing = requireDoi && !hasDoiConfig;
 
-    const sendFallbackConfirmation = async () => {
-      doiFallbackUsed = true;
-      doiConfigMissing = doiConfigMissing || !hasDoiConfig;
+    if (env.BREVO_API_KEY && email) {
+      const baseAttributes = firstName ? { FIRSTNAME: firstName } : {};
+      const includeListIds = listId ? [Number(listId)] : undefined;
+      const headers = { 'content-type': 'application/json', accept: 'application/json', 'api-key': env.BREVO_API_KEY };
 
-      const fallbackPayload = {
-        email,
-        attributes: baseAttributes,
-        updateEnabled: true,
-        ...(includeListIds ? { listIds: includeListIds } : {}),
-      };
+      const sendFallbackConfirmation = async () => {
+        doiFallbackUsed = true;
+        doiConfigMissing = doiConfigMissing || !hasDoiConfig;
 
-      const contactResp = await fetch('https://api.brevo.com/v3/contacts', {
-        method: 'POST',
-        headers,
-        body: JSON.stringify(fallbackPayload),
-      });
-      brevoStatus = contactResp.status;
+        const fallbackPayload = {
+          email,
+          attributes: baseAttributes,
+          updateEnabled: true,
+          ...(includeListIds ? { listIds: includeListIds } : {}),
+        };
 
-      if (!contactResp.ok) {
-        const errorText = await contactResp.text();
-        return { ok: false, status: contactResp.status, error: errorText || 'Brevo rejected the fallback contact creation' };
-      }
+        const contactResp = await fetch('https://api.brevo.com/v3/contacts', {
+          method: 'POST',
+          headers,
+          body: JSON.stringify(fallbackPayload),
+        });
+        brevoStatus = contactResp.status;
 
-      const fallbackRedirect = doiRedirect || sitePostTarget;
-      const separator = fallbackRedirect.includes('?') ? '&' : '?';
-      const confirmLink = `${fallbackRedirect}${separator}brevoConfirmed=1&email=${encodeURIComponent(email)}` +
-        `${confirmToken ? `&confirmToken=${encodeURIComponent(confirmToken)}` : ''}`;
+        if (!contactResp.ok) {
+          const errorText = await contactResp.text();
+          return { ok: false, status: contactResp.status, error: errorText || 'Brevo rejected the fallback contact creation' };
+        }
 
-      const senderEmail = (env.BREVO_SENDER_EMAIL || '').trim() || 'no-reply@rise-shine-evolve.com';
-      const senderName = (env.BREVO_SENDER_NAME || '').trim() || 'Rise Shine Evolve';
+        const fallbackRedirect = doiRedirect || sitePostTarget;
+        const separator = fallbackRedirect.includes('?') ? '&' : '?';
+        const confirmLink = `${fallbackRedirect}${separator}brevoConfirmed=1&email=${encodeURIComponent(email)}` +
+          `${confirmToken ? `&confirmToken=${encodeURIComponent(confirmToken)}` : ''}`;
 
-      const smtpPayload = {
-        sender: { email: senderEmail, name: senderName },
-        to: [{ email, name: firstName || 'Friend' }],
-        subject: 'Please confirm your subscription',
-        htmlContent: `
+        const senderEmail = (env.BREVO_SENDER_EMAIL || '').trim() || 'no-reply@rise-shine-evolve.com';
+        const senderName = (env.BREVO_SENDER_NAME || '').trim() || 'Rise Shine Evolve';
+
+        const smtpPayload = {
+          sender: { email: senderEmail, name: senderName },
+          to: [{ email, name: firstName || 'Friend' }],
+          subject: 'Please confirm your subscription',
+          htmlContent: `
           <p>Hi${firstName ? ` ${firstName}` : ''},</p>
           <p>Click the button below to confirm your subscription and unlock GIFTS:</p>
           <p><a href="${confirmLink}" style="background:#8A2BE2;color:#fff;padding:10px 18px;border-radius:6px;text-decoration:none;">Confirm my subscription</a></p>
           <p>Or copy this link if the button does not work:<br>${confirmLink}</p>
         `,
-        textContent: `Please confirm your subscription: ${confirmLink}`,
+          textContent: `Please confirm your subscription: ${confirmLink}`,
+        };
+
+        const smtpResp = await fetch('https://api.brevo.com/v3/smtp/email', {
+          method: 'POST',
+          headers,
+          body: JSON.stringify(smtpPayload),
+        });
+
+        doiStatus = smtpResp.status;
+
+        if (!smtpResp.ok) {
+          const errorText = await smtpResp.text();
+          return { ok: false, status: smtpResp.status, error: errorText || 'Fallback confirmation email failed' };
+        }
+
+        return { ok: true, status: smtpResp.status };
       };
-
-      const smtpResp = await fetch('https://api.brevo.com/v3/smtp/email', {
-        method: 'POST',
-        headers,
-        body: JSON.stringify(smtpPayload),
-      });
-
-      doiStatus = smtpResp.status;
-
-      if (!smtpResp.ok) {
-        const errorText = await smtpResp.text();
-        return { ok: false, status: smtpResp.status, error: errorText || 'Fallback confirmation email failed' };
-      }
-
-      return { ok: true, status: smtpResp.status };
-    };
-    if (env.BREVO_API_KEY && email) {
       if (isUnsubscribe) {
         const unlinkListIds = listId ? [Number(listId)] : undefined;
         const payload = {
@@ -154,10 +158,6 @@ export default {
           );
         }
       } else {
-        const baseAttributes = firstName ? { FIRSTNAME: firstName } : {};
-        const includeListIds = listId ? [Number(listId)] : undefined;
-        const headers = { 'content-type': 'application/json', accept: 'application/json', 'api-key': env.BREVO_API_KEY };
-
         const tryDoi = hasDoiConfig;
 
         if (tryDoi) {
