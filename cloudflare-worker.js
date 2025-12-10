@@ -47,7 +47,8 @@ export default {
     const doiTemplateId = formDoiTemplate || env.BREVO_DOI_TEMPLATE_ID;
     const doiRedirect = formDoiRedirect || env.BREVO_DOI_REDIRECT;
     const listId = listIdRaw ? Number(listIdRaw) : null;
-    const hasDoiConfig = !!(doiTemplateId && doiRedirect);
+    const templateIdNum = doiTemplateId ? Number(doiTemplateId) : NaN;
+    const hasDoiConfig = Number.isFinite(templateIdNum) && !!doiRedirect;
     const requireDoi = requireDoiField || !!confirmToken || hasDoiConfig;
     const isUnsubscribe = actionType === 'unsubscribe' || formName.includes('unsubscribe');
 
@@ -66,6 +67,19 @@ export default {
     let doiError = null;
     let doiFallbackUsed = false;
     let doiConfigMissing = requireDoi && !hasDoiConfig;
+    let brevoErrorText = null;
+
+    if (requireDoi && !env.BREVO_API_KEY) {
+      return new Response(
+        JSON.stringify({
+          ok: false,
+          siteOk,
+          brevoStatus: null,
+          error: 'BREVO_API_KEY is missing; Brevo cannot send the confirmation email',
+        }),
+        { status: 400, headers: { 'content-type': 'application/json', ...corsHeaders } }
+      );
+    }
 
     if (env.BREVO_API_KEY && email) {
       const baseAttributes = firstName ? { FIRSTNAME: firstName } : {};
@@ -77,6 +91,30 @@ export default {
             siteOk,
             brevoStatus: null,
             error: 'Brevo double opt-in requires a numeric BREVO_LIST_ID / brevoListId',
+          }),
+          { status: 400, headers: { 'content-type': 'application/json', ...corsHeaders } }
+        );
+      }
+
+      if (requireDoi && Number.isNaN(templateIdNum)) {
+        return new Response(
+          JSON.stringify({
+            ok: false,
+            siteOk,
+            brevoStatus: null,
+            error: 'Brevo double opt-in requires a numeric BREVO_DOI_TEMPLATE_ID / doiTemplateId',
+          }),
+          { status: 400, headers: { 'content-type': 'application/json', ...corsHeaders } }
+        );
+      }
+
+      if (requireDoi && !doiRedirect) {
+        return new Response(
+          JSON.stringify({
+            ok: false,
+            siteOk,
+            brevoStatus: null,
+            error: 'Brevo double opt-in requires BREVO_DOI_REDIRECT / doiRedirect',
           }),
           { status: 400, headers: { 'content-type': 'application/json', ...corsHeaders } }
         );
@@ -177,6 +215,7 @@ export default {
 
           if (!doiResp.ok) {
             const errorText = await doiResp.text();
+            brevoErrorText = errorText || null;
             doiError = errorText || 'Brevo double opt-in rejected the request';
             const fallback = requireDoi ? await sendFallbackConfirmation() : { ok: false };
 
@@ -189,6 +228,7 @@ export default {
                   doiAttempted,
                   doiStatus,
                   doiError,
+                  brevoErrorText,
                   doiFallbackUsed,
                   requireDoi,
                   doiConfigMissing: false,
@@ -256,6 +296,7 @@ export default {
 
           if (!brevoResp.ok) {
             const errorText = await brevoResp.text();
+            brevoErrorText = errorText || null;
             return new Response(
               JSON.stringify({ ok: false, siteOk, brevoStatus, error: errorText || 'Brevo rejected the request' }),
               {
@@ -276,6 +317,7 @@ export default {
         doiAttempted,
         doiStatus,
         doiError,
+        brevoErrorText,
         doiFallbackUsed,
         requireDoi,
         doiConfigMissing,
