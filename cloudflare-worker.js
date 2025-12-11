@@ -63,12 +63,42 @@ export default {
     }
 
     let brevoStatus = null;
+    let brevoLookupStatus = null;
+    let alreadySubscribed = false;
     let doiAttempted = false;
     let doiStatus = null;
     let doiError = null;
     let doiFallbackUsed = false;
     let doiConfigMissing = requireDoi && !hasDoiConfig;
     let brevoErrorText = null;
+
+    const headers = env.BREVO_API_KEY
+      ? { 'content-type': 'application/json', accept: 'application/json', 'api-key': env.BREVO_API_KEY }
+      : null;
+
+    if (env.BREVO_API_KEY && hasListId && email && headers) {
+      try {
+        const lookupResp = await fetch(`https://api.brevo.com/v3/contacts/${encodeURIComponent(email)}`, { headers });
+        brevoLookupStatus = lookupResp.status;
+
+        if (lookupResp.ok) {
+          const contact = await lookupResp.json();
+          const listIds = Array.isArray(contact.listIds) ? contact.listIds : [];
+
+          if (listIds.includes(listId) && contact.emailBlacklisted !== true) {
+            alreadySubscribed = true;
+            brevoStatus = brevoLookupStatus;
+
+            return new Response(
+              JSON.stringify({ ok: true, siteOk, brevoStatus, alreadySubscribed: true }),
+              { headers: { 'content-type': 'application/json', ...corsHeaders } }
+            );
+          }
+        }
+      } catch (_) {
+        // If the lookup fails, continue to normal DOI handling.
+      }
+    }
 
     if (requireDoi) {
       const missing = [];
@@ -91,11 +121,10 @@ export default {
       }
     }
 
-    if (env.BREVO_API_KEY && email) {
+    if (env.BREVO_API_KEY && email && headers) {
       const baseAttributes = firstName ? { FIRSTNAME: firstName } : {};
 
       const includeListIds = hasListId ? [listId] : undefined;
-      const headers = { 'content-type': 'application/json', accept: 'application/json', 'api-key': env.BREVO_API_KEY };
 
       const sendFallbackConfirmation = async () => {
         doiFallbackUsed = true;
@@ -333,6 +362,8 @@ export default {
         doiFallbackUsed,
         requireDoi,
         doiConfigMissing,
+        alreadySubscribed,
+        brevoLookupStatus,
         doiTemplateId: doiTemplateId || null,
         doiRedirect: doiRedirect || null,
       }),

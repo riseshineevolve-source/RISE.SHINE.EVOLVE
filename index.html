@@ -956,50 +956,46 @@
   <style>
     /* Brevo embed theming to match Rise.Shine.Evolve palette */
     .brevo-embed {
-      background: radial-gradient(circle at 10% 10%, rgba(255, 215, 0, 0.08), transparent 30%),
-                  radial-gradient(circle at 90% 10%, rgba(138, 43, 226, 0.14), transparent 32%),
-                  rgba(12, 12, 12, 0.92);
-      border: 2px solid #8A2BE2;
-      border-radius: 16px;
-      box-shadow: 0 0 26px rgba(138, 43, 226, 0.45), 0 0 18px rgba(255, 215, 0, 0.2);
-      padding: 18px;
+      background: transparent;
+      border: none;
+      box-shadow: none;
+      padding: 0;
       max-width: 560px;
       width: 100%;
-      text-align: center;
+      text-align: left;
     }
 
     .brevo-embed #sib-form-container {
-      background: rgba(10, 10, 10, 0.85) !important;
-      border-radius: 14px !important;
-      border: 1px solid rgba(255, 215, 0, 0.45) !important;
-      box-shadow: inset 0 0 0 1px rgba(138, 43, 226, 0.35);
-      padding: 16px !important;
+      background: transparent !important;
+      border-radius: 0 !important;
+      border: none !important;
+      box-shadow: none !important;
+      padding: 0 !important;
     }
 
     .brevo-embed #sib-container {
-      background: linear-gradient(135deg, rgba(15, 15, 25, 0.9), rgba(20, 5, 35, 0.92)) !important;
-      border-radius: 12px !important;
-      border: 1px solid rgba(138, 43, 226, 0.55) !important;
-      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.45);
+      background: transparent !important;
+      border-radius: 0 !important;
+      border: none !important;
+      box-shadow: none !important;
+      padding: 0 !important;
     }
 
     .brevo-embed .sib-form-message-panel {
-      border-radius: 10px !important;
-      border-width: 1px !important;
-      padding: 12px 14px !important;
-      box-shadow: 0 0 16px rgba(0, 0, 0, 0.35);
+      border-radius: 8px !important;
+      border: none !important;
+      padding: 8px 0 !important;
+      box-shadow: none !important;
+      background: transparent !important;
+      color: #ffd700 !important;
     }
 
     .brevo-embed #success-message {
-      background: linear-gradient(135deg, rgba(8, 82, 41, 0.85), rgba(13, 206, 102, 0.35)) !important;
-      color: #e9fff3 !important;
-      border-color: rgba(19, 206, 102, 0.5) !important;
+      color: #ffd700 !important;
     }
 
     .brevo-embed #error-message {
-      background: linear-gradient(135deg, rgba(102, 29, 29, 0.85), rgba(255, 73, 73, 0.35)) !important;
-      color: #ffecec !important;
-      border-color: rgba(255, 73, 73, 0.6) !important;
+      color: #ffb6c1 !important;
     }
 
     .brevo-embed .entry__label {
@@ -1017,37 +1013,37 @@
       border: 1px solid rgba(138, 43, 226, 0.6) !important;
       color: #ffffff !important;
       border-radius: 12px !important;
-      box-shadow: 0 0 16px rgba(138, 43, 226, 0.35);
+      box-shadow: 0 0 10px rgba(138, 43, 226, 0.25);
     }
 
     .brevo-embed .input:focus,
     .brevo-embed .entry__choice input[type="checkbox"]:focus {
       outline: none !important;
       border-color: #ffd700 !important;
-      box-shadow: 0 0 18px rgba(255, 215, 0, 0.45);
+      box-shadow: 0 0 14px rgba(255, 215, 0, 0.35);
     }
 
     .brevo-embed .checkbox_tick_positive {
       border-color: rgba(138, 43, 226, 0.7) !important;
       background: radial-gradient(circle at 30% 30%, rgba(255, 215, 0, 0.9), rgba(138, 43, 226, 0.65));
-      box-shadow: 0 0 14px rgba(255, 215, 0, 0.5);
+      box-shadow: 0 0 12px rgba(255, 215, 0, 0.45);
     }
 
     .brevo-embed .sib-form-block__button {
-      background: linear-gradient(120deg, #8A2BE2, #9932CC, #ffd700) !important;
+      background: linear-gradient(135deg, #ffd700, #f2c200) !important;
       border: 1px solid #ffd700 !important;
       border-radius: 14px !important;
       color: #0a0a0f !important;
       font-weight: 800 !important;
       letter-spacing: 1px;
       text-transform: uppercase;
-      box-shadow: 0 0 28px rgba(138, 43, 226, 0.6), 0 0 18px rgba(255, 215, 0, 0.4);
+      box-shadow: 0 0 18px rgba(255, 215, 0, 0.45);
       transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
     .brevo-embed .sib-form-block__button:hover {
       transform: translateY(-1px) scale(1.02);
-      box-shadow: 0 0 32px rgba(138, 43, 226, 0.75), 0 0 22px rgba(255, 215, 0, 0.55);
+      box-shadow: 0 0 22px rgba(255, 215, 0, 0.55);
     }
 
     .brevo-embed .sib-form-block__button svg path {
@@ -1080,6 +1076,75 @@
       border-radius: 12px;
       border: 2px solid #8A2BE2;
       box-shadow: 0 0 18px rgba(138, 43, 226, 0.45);
+    }
+
+    #unsubscribeModal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.9);
+      z-index: 10020;
+      backdrop-filter: blur(5px);
+      align-items: center;
+      justify-content: center;
+      padding: 12px;
+      box-sizing: border-box;
+    }
+
+    #unsubscribeModal .modal-content {
+      background: linear-gradient(135deg, #000000, #0f0a1a);
+      border: 3px solid #8A2BE2;
+      border-radius: 20px;
+      padding: 22px;
+      max-width: 560px;
+      width: 92%;
+      box-shadow: 0 0 40px rgba(138, 43, 226, 0.65), 0 0 26px rgba(255, 215, 0, 0.35);
+      position: relative;
+    }
+
+    #unsubscribeModal .close {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: none;
+      border: none;
+      color: #ffffff;
+      font-size: 1.3rem;
+      cursor: pointer;
+      width: 32px;
+      height: 32px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      transition: background 0.2s ease;
+    }
+
+    #unsubscribeModal .close:hover {
+      background: rgba(138, 43, 226, 0.25);
+    }
+
+    .brevo-inline-wrap {
+      text-align: center;
+      margin-top: 18px;
+    }
+
+    .brevo-inline-wrap button {
+      background: linear-gradient(45deg, #8A2BE2, #9932CC);
+      border: 2px solid #ffd700;
+      border-radius: 14px;
+      color: #ffffff;
+      font-weight: bold;
+      padding: 10px 18px;
+      cursor: pointer;
+      text-transform: uppercase;
+      box-shadow: 0 0 18px rgba(138, 43, 226, 0.6);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .brevo-inline-wrap button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 0 24px rgba(138, 43, 226, 0.75);
     }
   </style>
   <link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css">
@@ -1684,9 +1749,8 @@
        It is time to <span class="word-rise">RISE</span>.<span class="word-shine">SHINE</span>.<span class="word-evolve">EVOLVE</span>
       </div>
      </div>
-     <div class="unsubscribe-wrapper brevo-frame">
-        <span class="brevo-frame__label">Unsubscribe &amp; remove GIFTS access</span>
-        <iframe class="brevo-frame__iframe" title="Brevo unsubscribe form" width="540" height="305" src="https://63a754d7.sibforms.com/serve/MUIFAFHUysqkv6AVglKLbx0TvFWGQdWOoJuBPFhkMDEVTF4aPSeF46gC0dYZo87MuAXY-Gc_DJumvvoWVWO0fRIKJU9A03rDy2sWQNDdgvdhBqsPWqxp205DdnJ-NV4eIlfNaQ8FEkritDp9WhzyIWm-JSXmDIXbo7ZICBiYgVu8uIm6QUzig57dIWTSuFOD1R3BrPqqGx2-wvN36w==" frameborder="0" scrolling="auto" allowfullscreen></iframe>
+    <div class="brevo-inline-wrap">
+        <button type="button" onclick="openUnsubscribeModal()">Unsubscribe &amp; remove GIFTS access</button>
     </div>
     </div>
     <div id="thank-you-content" class="tab-content">
@@ -1765,9 +1829,8 @@
                     It is time to <span class="word-rise">RISE</span>.<span class="word-shine">SHINE</span>.<span class="word-evolve">EVOLVE</span>
                 </div>
             </div>
-            <div class="unsubscribe-wrapper brevo-frame">
-                <span class="brevo-frame__label">Unsubscribe &amp; remove GIFTS access</span>
-                <iframe class="brevo-frame__iframe" title="Brevo unsubscribe form" width="540" height="305" src="https://63a754d7.sibforms.com/serve/MUIFAFHUysqkv6AVglKLbx0TvFWGQdWOoJuBPFhkMDEVTF4aPSeF46gC0dYZo87MuAXY-Gc_DJumvvoWVWO0fRIKJU9A03rDy2sWQNDdgvdhBqsPWqxp205DdnJ-NV4eIlfNaQ8FEkritDp9WhzyIWm-JSXmDIXbo7ZICBiYgVu8uIm6QUzig57dIWTSuFOD1R3BrPqqGx2-wvN36w==" frameborder="0" scrolling="auto" allowfullscreen></iframe>
+            <div class="brevo-inline-wrap">
+                <button type="button" onclick="openUnsubscribeModal()">Unsubscribe &amp; remove GIFTS access</button>
             </div>
         </div>
     </div>
@@ -2324,6 +2387,14 @@
 
 <script defer src="https://sibforms.com/forms/end-form/build/main.js"></script>
    </div>
+  </div>
+  <div id="unsubscribeModal">
+    <div class="modal-content">
+      <button class="close" onclick="closeUnsubscribeModal()">×</button>
+      <h3 style="color: #ffd700; text-align: center; margin: 0 0 12px 0;">Unsubscribe &amp; remove GIFTS access</h3>
+      <p style="color: #ffffff; text-align: center; margin: 0 0 18px 0;">Enter your email to stop emails and revoke GIFTS access.</p>
+      <iframe class="brevo-frame__iframe" title="Brevo unsubscribe form" width="540" height="305" src="https://63a754d7.sibforms.com/serve/MUIFAFHUysqkv6AVglKLbx0TvFWGQdWOoJuBPFhkMDEVTF4aPSeF46gC0dYZo87MuAXY-Gc_DJumvvoWVWO0fRIKJU9A03rDy2sWQNDdgvdhBqsPWqxp205DdnJ-NV4eIlfNaQ8FEkritDp9WhzyIWm-JSXmDIXbo7ZICBiYgVu8uIm6QUzig57dIWTSuFOD1R3BrPqqGx2-wvN36w==" frameborder="0" scrolling="auto" allowfullscreen style="display:block; width:100%;"></iframe>
+    </div>
   </div>
   <div id="privacyModal" class="modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 1001; backdrop-filter: blur(6px);">
     <div class="modal-content" style="max-width: 700px; max-height: 80vh; overflow-y: auto; margin: 40px auto; background: #0c0c0c; border: 3px solid #8A2BE2; border-radius: 20px; padding: 25px; position: relative; box-shadow: 0 0 40px rgba(138, 43, 226, 0.7);">
@@ -6232,6 +6303,22 @@ document
             document.body.style.overflow = 'hidden';
         }
 
+        function openUnsubscribeModal() {
+            const modal = document.getElementById('unsubscribeModal');
+            if (modal) {
+                modal.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeUnsubscribeModal() {
+            const modal = document.getElementById('unsubscribeModal');
+            if (modal) {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        }
+
         function openPrivacyPolicy() {
             document.getElementById('privacyModal').style.display = 'block';
             document.body.style.overflow = 'hidden';
@@ -6286,6 +6373,16 @@ document
             }
 
             const workerData = (workerResult && workerResult.data) || {};
+            if (workerData.alreadySubscribed) {
+                grantGiftsAccess(firstName, email);
+                submitBtn.textContent = 'Join us';
+                submitBtn.disabled = false;
+                closeEmailModal();
+                showThankYouPage(false);
+                updateThankYouStatus();
+                form.reset();
+                return;
+            }
             const doiAttempted = !!workerData.doiAttempted;
             const doiDelivered = doiAttempted && !workerData.doiError && workerData.doiStatus && workerData.doiStatus >= 200 && workerData.doiStatus < 400;
             const doiFallbackDelivered = !!(workerData.doiFallbackUsed && workerData.doiStatus && workerData.doiStatus >= 200 && workerData.doiStatus < 400 && !workerData.doiError);
@@ -6364,6 +6461,48 @@ document
             }
         }
 
+        function wireBrevoSubscriptionPrefilter() {
+            const brevoForm = document.querySelector('form#sib-form[data-type="subscription"]');
+            const emailInput = brevoForm ? brevoForm.querySelector('input[name="EMAIL"]') : null;
+
+            if (!brevoForm || !emailInput) return;
+
+            const prefilter = async (event) => {
+                const email = (emailInput.value || '').trim();
+                if (!email) return;
+
+                event.preventDefault();
+
+                const probe = new FormData();
+                probe.append('email', email);
+                probe.append('actionType', 'subscribe');
+                if (BREVO_LIST_ID) {
+                    probe.append('brevoListId', BREVO_LIST_ID);
+                }
+
+                let workerData = null;
+                try {
+                    const result = await sendToSite(probe, { requireDoi: false });
+                    workerData = (result.worker && result.worker.data) || null;
+                } catch (_) {
+                    // ignore and let the Brevo form submit normally
+                }
+
+                if (workerData && workerData.alreadySubscribed) {
+                    grantGiftsAccess(localStorage.getItem('giftsFirstName') || '', email);
+                    closeEmailModal();
+                    showThankYouPage(false);
+                    updateThankYouStatus();
+                    return;
+                }
+
+                brevoForm.removeEventListener('submit', prefilter);
+                brevoForm.submit();
+            };
+
+            brevoForm.addEventListener('submit', prefilter);
+        }
+
         function updateThankYouStatus() {
             const statusEl = document.getElementById('thank-you-status');
             if (!statusEl) return;
@@ -6402,6 +6541,8 @@ document
             updateThankYouStatus();
 
             hydrateDoiConfigHelper();
+
+            wireBrevoSubscriptionPrefilter();
 
             const saveDoiBtn = document.getElementById('saveDoiConfigBtn');
             if (saveDoiBtn) {
