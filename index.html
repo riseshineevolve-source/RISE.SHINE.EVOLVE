@@ -2233,30 +2233,29 @@
    </div>
   </div>
   <div id="emailModal" class="modal" style="
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
+        display: block;
+        position: relative;
+        top: auto;
+        left: auto;
         width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.8);
-        z-index: 1000;
-        backdrop-filter: blur(5px);
+        height: auto;
+        background: transparent;
+        z-index: 2;
+        backdrop-filter: none;
+        margin: 0 auto 30px auto;
     ">
    <div class="modal-content" style="
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            position: relative;
             background: linear-gradient(135deg, #000000, #1a1a1a);
             border: 3px solid #8A2BE2;
             border-radius: 20px;
             padding: 24px;
             max-width: 520px;
             width: 92%;
-            max-height: 90vh;
-            overflow-y: auto;
+            max-height: none;
+            overflow: visible;
             box-shadow: 0 0 50px rgba(138, 43, 226, 0.8);
+            margin: 0 auto;
         ">
     <span class="close" onclick="closeEmailModal()" style="
                 position: absolute;
@@ -6303,8 +6302,33 @@ document
             if (errorMsg) {
                 errorMsg.textContent = '';
             }
-            document.getElementById('emailModal').style.display = 'block';
-            document.body.style.overflow = 'hidden';
+            const modal = document.getElementById('emailModal');
+            if (modal) {
+                modal.style.display = 'block';
+                modal.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+            document.body.style.overflow = 'auto';
+        }
+
+        // Backwards-compatible helper for existing buttons
+        function openEmailModal() {
+            showEmailModal();
+        }
+
+        function openUnsubscribeModal() {
+            const modal = document.getElementById('unsubscribeModal');
+            if (modal) {
+                modal.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeUnsubscribeModal() {
+            const modal = document.getElementById('unsubscribeModal');
+            if (modal) {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
         }
 
         // Backwards-compatible helper for existing buttons
@@ -6333,7 +6357,6 @@ document
             document.body.style.overflow = 'hidden';
         }
         function closeEmailModal() {
-            document.getElementById('emailModal').style.display = 'none';
             document.body.style.overflow = 'auto';
         }
         function closePrivacyModal() {
@@ -6476,39 +6499,6 @@ document
             if (lookupTarget) {
                 probeBrevoSubscription(lookupTarget);
             }
-
-            return false;
-        }
-
-        function wireBrevoSubscriptionPrefilter() {
-            const brevoForm = document.querySelector('form#sib-form[data-type="subscription"]');
-            const emailInput = brevoForm ? brevoForm.querySelector('input[name="EMAIL"]') : null;
-
-            if (!brevoForm || !emailInput) return;
-
-            const prefilter = async (event) => {
-                const email = (emailInput.value || '').trim();
-                if (!email) return;
-
-                event.preventDefault();
-
-                localStorage.setItem('giftsPendingEmail', email);
-                localStorage.setItem('giftsStatus', 'pending');
-                localStorage.removeItem('giftsAccess');
-
-                const unlocked = await verifyBrevoSubscriber(email);
-                if (unlocked) {
-                    closeEmailModal();
-                    showThankYouPage(false);
-                    updateThankYouStatus();
-                    return;
-                }
-
-                brevoForm.removeEventListener('submit', prefilter);
-                brevoForm.submit();
-            };
-
-            brevoForm.addEventListener('submit', prefilter);
         }
 
         async function probeBrevoSubscription(email) {
