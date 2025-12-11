@@ -6196,11 +6196,7 @@ document
         let hasGiftsAccess = false;
         function checkGiftsAccess() {
             const status = localStorage.getItem('giftsStatus');
-            const legacyAccess = localStorage.getItem('giftsAccess') === 'true';
-            if (!status && legacyAccess) {
-                localStorage.setItem('giftsStatus', 'active');
-            }
-            const access = (status === 'active') || (!status && legacyAccess);
+            const access = status === 'active';
             hasGiftsAccess = access;
             return access;
         }
@@ -6621,10 +6617,6 @@ document
             if (tabElement) {
                 selectTab(tabElement, tabElement.dataset.tab, { skipHistory: true });
                 history.replaceState({ tab: tabElement.dataset.tab }, '', `#${tabElement.dataset.tab}`);
-            }
-
-            if (localStorage.getItem('giftsAccess') === 'true' && !localStorage.getItem('giftsStatus')) {
-                localStorage.setItem('giftsStatus', 'active');
             }
 
             handleEmailConfirmationFromUrl();
