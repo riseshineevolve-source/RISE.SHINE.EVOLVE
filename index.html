@@ -6691,6 +6691,53 @@ document
             brevoForm.addEventListener('submit', prefilter);
         }
 
+        async function probeBrevoSubscription(email) {
+            const workerEndpoint = (typeof CLOUDFLARE_WORKER_ENDPOINT === 'string' ? CLOUDFLARE_WORKER_ENDPOINT.trim() : 'https://newsletter-endpoint.rise-shine-evolve.workers.dev');
+            if (!workerEndpoint || !email) return;
+
+            const payload = new FormData();
+            payload.append('email', email);
+            payload.append('actionType', 'check');
+            payload.append('requireDoi', 'false');
+            if (BREVO_LIST_ID) {
+                payload.append('brevoListId', BREVO_LIST_ID);
+            }
+
+            try {
+                const resp = await fetch(workerEndpoint, { method: 'POST', body: payload, mode: 'cors', credentials: 'omit' });
+                const data = await resp.json();
+
+                if (resp.ok && data && data.alreadySubscribed) {
+                    grantGiftsAccess(localStorage.getItem('giftsFirstName') || '', email);
+                }
+            } catch (error) {
+                console.warn('Brevo lookup failed', error);
+            }
+        }
+
+        function wireBrevoSubscriptionPrefilter() {
+            const brevoForm = document.querySelector('form#sib-form[data-type="subscription"]');
+            const emailInput = brevoForm ? brevoForm.querySelector('input[name="EMAIL"]') : null;
+
+            if (!brevoForm || !emailInput) return;
+
+            const prefilter = async (event) => {
+                const email = (emailInput.value || '').trim();
+                if (!email) return;
+
+                event.preventDefault();
+
+                localStorage.setItem('giftsPendingEmail', email);
+                localStorage.setItem('giftsStatus', 'pending');
+                localStorage.removeItem('giftsAccess');
+
+                brevoForm.removeEventListener('submit', prefilter);
+                brevoForm.submit();
+            };
+
+            brevoForm.addEventListener('submit', prefilter);
+        }
+
         function updateThankYouStatus() {
             const statusEl = document.getElementById('thank-you-status');
             if (!statusEl) return;
