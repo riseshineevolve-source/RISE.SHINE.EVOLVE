@@ -966,40 +966,42 @@
     }
 
     .brevo-embed #sib-form-container {
-      background: linear-gradient(135deg, #0d0d0d, #18122f) !important;
-      border-radius: 16px !important;
-      border: 2px solid #8A2BE2 !important;
-      box-shadow: 0 0 30px rgba(138, 43, 226, 0.4) !important;
-      padding: 12px 14px !important;
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+      padding: 0 !important;
     }
 
     .brevo-embed #sib-container {
-      background: rgba(8, 8, 12, 0.9) !important;
+      background: rgba(12, 12, 18, 0.88) !important;
       border-radius: 12px !important;
       border: 1px solid rgba(255, 215, 0, 0.35) !important;
-      box-shadow: inset 0 0 20px rgba(255, 215, 0, 0.1) !important;
-      padding: 10px 12px !important;
+      box-shadow: inset 0 0 18px rgba(255, 215, 0, 0.14) !important;
+      padding: 8px 10px !important;
+      margin: 0 !important;
     }
 
     .brevo-embed .sib-form-message-panel {
       border-radius: 10px !important;
-      border: 1px solid rgba(255, 215, 0, 0.5) !important;
+      border: 1px solid rgba(255, 215, 0, 0.38) !important;
       padding: 10px 12px !important;
-      box-shadow: 0 0 18px rgba(255, 215, 0, 0.2) !important;
-      background: rgba(12, 12, 18, 0.9) !important;
+      box-shadow: none !important;
+      background: rgba(12, 12, 18, 0.85) !important;
       color: #ffd700 !important;
+      width: 100% !important;
+      max-width: none !important;
     }
 
     .brevo-embed #success-message {
       color: #ffd700 !important;
       background: rgba(12, 18, 12, 0.85) !important;
-      border-color: rgba(255, 215, 0, 0.6) !important;
+      border-color: rgba(255, 215, 0, 0.5) !important;
     }
 
     .brevo-embed #error-message {
       color: #ff9fae !important;
       background: rgba(32, 8, 16, 0.85) !important;
-      border-color: rgba(255, 105, 180, 0.45) !important;
+      border-color: rgba(255, 105, 180, 0.35) !important;
     }
 
     .brevo-embed .entry__label {
@@ -1052,6 +1054,37 @@
 
     .brevo-embed .sib-form-block__button svg path {
       fill: #0a0a0f !important;
+    }
+
+    .brevo-embed .brevo-inline-actions {
+      margin-top: 6px;
+      text-align: center;
+    }
+
+    .brevo-embed .brevo-verify-btn {
+      background: transparent;
+      border: 1px solid #ffd700;
+      border-radius: 12px;
+      color: #ffd700;
+      padding: 8px 12px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      width: 100%;
+    }
+
+    .brevo-embed .brevo-verify-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 0 14px rgba(255, 215, 0, 0.45);
+      background: rgba(255, 215, 0, 0.08);
+    }
+
+    .brevo-embed .brevo-verify-status {
+      color: #ffd700;
+      font-size: 12px;
+      margin-top: 6px;
+      min-height: 16px;
     }
 
     .brevo-frame {
@@ -2338,7 +2371,7 @@
                   <div class="form__entry entry_mcq">
                     <div class="form__label-row ">
                       <div class="entry__choice" style="">
-                        <label><input type="checkbox" class="input_replaced" value="1" id="OPT_IN" name="OPT_IN" required/><span class="checkbox checkbox_tick_positive" style="margin-left:"></span><span style="font-size:12px;text-align:left;font-family:&quot;Lucida Grande&quot;,sans-serif;color:#3C4858;background-color:transparent;"><p>I have read and agree to the <u>Privacy Policy</u> and agree to receive emails from Rise.Shine.Evolve.</p><span data-required="*" style="display:inline;" class="entry__label entry__label_optin"></span></span></label></div>
+                        <label><input type="checkbox" class="input_replaced" value="1" id="OPT_IN" name="OPT_IN" required/><span class="checkbox checkbox_tick_positive" style="margin-left:"></span><span style="font-size:12px;text-align:left;font-family:&quot;Lucida Grande&quot;,sans-serif;color:#3C4858;background-color:transparent;"><p>I have read and agree to the <a href="#" onclick="openPrivacyPolicy(); return false;" style="color:#ffd700; text-decoration:underline;">Privacy Policy</a> and agree to receive emails from Rise.Shine.Evolve.</p><span data-required="*" style="display:inline;" class="entry__label entry__label_optin"></span></span></label></div>
                     </div>
                     <label class="entry__error entry__error--primary" style="font-size:16px;text-align:left;font-family:Helvetica,sans-serif;color:#661d1d;background-color:#ffeded;border-radius:3px;border-color:#ff4949;"></label>
                   </div>
@@ -2351,6 +2384,10 @@
                     JOIN US
                   </button>
                 </div>
+              </div>
+              <div class="brevo-inline-actions">
+                <button type="button" class="brevo-verify-btn" onclick="verifyExistingSubscriber(event)">Already subscribed? Unlock GIFTS</button>
+                <p id="brevo-verify-status" class="brevo-verify-status"></p>
               </div>
               <input type="text" name="email_address_check" value="" class="input--hidden"><input type="hidden" name="locale" value="en">
             </form>
@@ -6354,6 +6391,11 @@ document
             if (errorMsg) {
                 errorMsg.textContent = '';
             }
+            const verifyStatus = document.getElementById('brevo-verify-status');
+            if (verifyStatus) {
+                verifyStatus.textContent = '';
+                verifyStatus.style.color = '#ffd700';
+            }
             const modal = document.getElementById('emailModal');
             if (modal) {
                 modal.style.display = 'flex';
@@ -6543,6 +6585,110 @@ document
             if (lookupTarget) {
                 probeBrevoSubscription(lookupTarget);
             }
+        }
+
+        async function probeBrevoSubscription(email, options = {}) {
+            const statusEl = options.statusEl || null;
+            const silent = options.silent === undefined ? !statusEl : options.silent;
+
+            const workerEndpoint = (typeof CLOUDFLARE_WORKER_ENDPOINT === 'string' ? CLOUDFLARE_WORKER_ENDPOINT.trim() : 'https://newsletter-endpoint.rise-shine-evolve.workers.dev');
+            if (!workerEndpoint || !email) return false;
+
+            if (statusEl) {
+                statusEl.textContent = 'Checking your subscription...';
+                statusEl.style.color = '#ffd700';
+            }
+
+            const payload = new FormData();
+            payload.append('email', email);
+            payload.append('actionType', 'check');
+            payload.append('requireDoi', 'false');
+            if (BREVO_LIST_ID) {
+                payload.append('brevoListId', BREVO_LIST_ID);
+            }
+
+            try {
+                const resp = await fetch(workerEndpoint, { method: 'POST', body: payload, mode: 'cors', credentials: 'omit' });
+                const data = await resp.json();
+
+                if (resp.ok && data && data.alreadySubscribed) {
+                    grantGiftsAccess(localStorage.getItem('giftsFirstName') || '', email);
+                    if (statusEl) {
+                        statusEl.textContent = 'You are already subscribed — GIFTS unlocked!';
+                        statusEl.style.color = '#ffd700';
+                    }
+                    return true;
+                }
+
+                if (statusEl && !silent) {
+                    const detail = (data && (data.error || data.brevoLookupStatus))
+                        ? ` (${data.error || `status ${data.brevoLookupStatus}`})`
+                        : '';
+                    statusEl.textContent = `We could not confirm this email right now${detail}. Please try again or subscribe.`;
+                    statusEl.style.color = '#ff9fae';
+                }
+
+            } catch (error) {
+                console.warn('Brevo lookup failed', error);
+                if (statusEl && !silent) {
+                    statusEl.textContent = 'We could not confirm your subscription right now. Please try again.';
+                    statusEl.style.color = '#ff9fae';
+                }
+            }
+
+            return false;
+        }
+
+        async function verifyExistingSubscriber(event) {
+            if (event) event.preventDefault();
+            const statusEl = document.getElementById('brevo-verify-status');
+            const emailInput = document.querySelector('.brevo-embed input[name="EMAIL"]');
+            const email = emailInput ? emailInput.value.trim() : '';
+
+            if (statusEl) {
+                statusEl.textContent = '';
+                statusEl.style.color = '#ffd700';
+            }
+
+            if (!email) {
+                if (statusEl) {
+                    statusEl.textContent = 'Enter your email above so we can check your access.';
+                    statusEl.style.color = '#ff9fae';
+                }
+                return false;
+            }
+
+            const success = await probeBrevoSubscription(email, { statusEl, silent: false });
+
+            if (success) {
+                closeEmailModal();
+                accessGifts();
+            }
+
+            return success;
+        }
+
+        function wireBrevoSubscriptionPrefilter() {
+            const brevoForm = document.querySelector('form#sib-form[data-type="subscription"]');
+            const emailInput = brevoForm ? brevoForm.querySelector('input[name="EMAIL"]') : null;
+
+            if (!brevoForm || !emailInput) return;
+
+            const prefilter = async (event) => {
+                const email = (emailInput.value || '').trim();
+                if (!email) return;
+
+                event.preventDefault();
+
+                localStorage.setItem('giftsPendingEmail', email);
+                localStorage.setItem('giftsStatus', 'pending');
+                localStorage.removeItem('giftsAccess');
+
+                brevoForm.removeEventListener('submit', prefilter);
+                brevoForm.submit();
+            };
+
+            brevoForm.addEventListener('submit', prefilter);
         }
 
         async function probeBrevoSubscription(email) {
