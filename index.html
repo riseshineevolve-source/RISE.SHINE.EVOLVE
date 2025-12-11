@@ -6476,6 +6476,39 @@ document
             if (lookupTarget) {
                 probeBrevoSubscription(lookupTarget);
             }
+
+            return false;
+        }
+
+        function wireBrevoSubscriptionPrefilter() {
+            const brevoForm = document.querySelector('form#sib-form[data-type="subscription"]');
+            const emailInput = brevoForm ? brevoForm.querySelector('input[name="EMAIL"]') : null;
+
+            if (!brevoForm || !emailInput) return;
+
+            const prefilter = async (event) => {
+                const email = (emailInput.value || '').trim();
+                if (!email) return;
+
+                event.preventDefault();
+
+                localStorage.setItem('giftsPendingEmail', email);
+                localStorage.setItem('giftsStatus', 'pending');
+                localStorage.removeItem('giftsAccess');
+
+                const unlocked = await verifyBrevoSubscriber(email);
+                if (unlocked) {
+                    closeEmailModal();
+                    showThankYouPage(false);
+                    updateThankYouStatus();
+                    return;
+                }
+
+                brevoForm.removeEventListener('submit', prefilter);
+                brevoForm.submit();
+            };
+
+            brevoForm.addEventListener('submit', prefilter);
         }
 
         async function probeBrevoSubscription(email) {
