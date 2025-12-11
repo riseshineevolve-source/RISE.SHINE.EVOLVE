@@ -6520,6 +6520,62 @@ document
             brevoForm.addEventListener('submit', prefilter);
         }
 
+        async function verifyBrevoSubscriber(email) {
+            const normalizedEmail = (email || '').trim();
+            if (!normalizedEmail) return false;
+
+            const probe = new FormData();
+            probe.append('email', normalizedEmail);
+            probe.append('actionType', 'subscribe');
+            if (BREVO_LIST_ID) {
+                probe.append('brevoListId', BREVO_LIST_ID);
+            }
+
+            try {
+                const result = await sendToSite(probe, { requireDoi: false });
+                const workerData = (result.worker && result.worker.data) || null;
+                if (workerData && workerData.alreadySubscribed) {
+                    grantGiftsAccess(localStorage.getItem('giftsFirstName') || '', normalizedEmail);
+                    return true;
+                }
+            } catch (_) {
+                // Ignore worker failures; Brevo form submission will continue.
+            }
+
+            return false;
+        }
+
+        function wireBrevoSubscriptionPrefilter() {
+            const brevoForm = document.querySelector('form#sib-form[data-type="subscription"]');
+            const emailInput = brevoForm ? brevoForm.querySelector('input[name="EMAIL"]') : null;
+
+            if (!brevoForm || !emailInput) return;
+
+            const prefilter = async (event) => {
+                const email = (emailInput.value || '').trim();
+                if (!email) return;
+
+                event.preventDefault();
+
+                localStorage.setItem('giftsPendingEmail', email);
+                localStorage.setItem('giftsStatus', 'pending');
+                localStorage.removeItem('giftsAccess');
+
+                const unlocked = await verifyBrevoSubscriber(email);
+                if (unlocked) {
+                    closeEmailModal();
+                    showThankYouPage(false);
+                    updateThankYouStatus();
+                    return;
+                }
+
+                brevoForm.removeEventListener('submit', prefilter);
+                brevoForm.submit();
+            };
+
+            brevoForm.addEventListener('submit', prefilter);
+        }
+
         function updateThankYouStatus() {
             const statusEl = document.getElementById('thank-you-status');
             if (!statusEl) return;
