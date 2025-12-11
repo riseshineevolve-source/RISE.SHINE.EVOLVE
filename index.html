@@ -966,36 +966,40 @@
     }
 
     .brevo-embed #sib-form-container {
-      background: transparent !important;
-      border-radius: 0 !important;
-      border: none !important;
-      box-shadow: none !important;
-      padding: 0 !important;
+      background: linear-gradient(135deg, #0d0d0d, #18122f) !important;
+      border-radius: 16px !important;
+      border: 2px solid #8A2BE2 !important;
+      box-shadow: 0 0 30px rgba(138, 43, 226, 0.4) !important;
+      padding: 12px 14px !important;
     }
 
     .brevo-embed #sib-container {
-      background: transparent !important;
-      border-radius: 0 !important;
-      border: none !important;
-      box-shadow: none !important;
-      padding: 0 !important;
+      background: rgba(8, 8, 12, 0.9) !important;
+      border-radius: 12px !important;
+      border: 1px solid rgba(255, 215, 0, 0.35) !important;
+      box-shadow: inset 0 0 20px rgba(255, 215, 0, 0.1) !important;
+      padding: 10px 12px !important;
     }
 
     .brevo-embed .sib-form-message-panel {
-      border-radius: 8px !important;
-      border: none !important;
-      padding: 8px 0 !important;
-      box-shadow: none !important;
-      background: transparent !important;
+      border-radius: 10px !important;
+      border: 1px solid rgba(255, 215, 0, 0.5) !important;
+      padding: 10px 12px !important;
+      box-shadow: 0 0 18px rgba(255, 215, 0, 0.2) !important;
+      background: rgba(12, 12, 18, 0.9) !important;
       color: #ffd700 !important;
     }
 
     .brevo-embed #success-message {
       color: #ffd700 !important;
+      background: rgba(12, 18, 12, 0.85) !important;
+      border-color: rgba(255, 215, 0, 0.6) !important;
     }
 
     .brevo-embed #error-message {
-      color: #ffb6c1 !important;
+      color: #ff9fae !important;
+      background: rgba(32, 8, 16, 0.85) !important;
+      border-color: rgba(255, 105, 180, 0.45) !important;
     }
 
     .brevo-embed .entry__label {
@@ -6505,6 +6509,10 @@ document
                 if (!email) return;
 
                 event.preventDefault();
+
+                localStorage.setItem('giftsPendingEmail', email);
+                localStorage.setItem('giftsStatus', 'pending');
+                localStorage.removeItem('giftsAccess');
 
                 const unlocked = await verifyBrevoSubscriber(email);
                 if (unlocked) {
