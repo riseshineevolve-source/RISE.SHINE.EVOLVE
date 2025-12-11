@@ -6331,6 +6331,27 @@ document
             }
         }
 
+        // Backwards-compatible helper for existing buttons
+        function openEmailModal() {
+            showEmailModal();
+        }
+
+        function openUnsubscribeModal() {
+            const modal = document.getElementById('unsubscribeModal');
+            if (modal) {
+                modal.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeUnsubscribeModal() {
+            const modal = document.getElementById('unsubscribeModal');
+            if (modal) {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        }
+
         function openPrivacyPolicy() {
             document.getElementById('privacyModal').style.display = 'block';
             document.body.style.overflow = 'hidden';
