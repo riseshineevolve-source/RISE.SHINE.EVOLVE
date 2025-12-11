@@ -2397,7 +2397,7 @@
       <button class="close" onclick="closeUnsubscribeModal()">×</button>
       <h3 style="color: #ffd700; text-align: center; margin: 0 0 12px 0;">Unsubscribe &amp; remove GIFTS access</h3>
       <p style="color: #ffffff; text-align: center; margin: 0 0 18px 0;">Enter your email to stop emails and revoke GIFTS access.</p>
-      <iframe class="brevo-frame__iframe" title="Brevo unsubscribe form" width="540" height="305" src="https://63a754d7.sibforms.com/serve/MUIFAN2KKjn5bNZ5zUIRlL2D7sPWRloXblfPus-BGvQfe1Gu-etFwbtt2R6qMNdX7bqIX6jwrQKBovevp_45825sSPe7hrK8hiqToxMUCIR6mkvVNvgi9MpzJ44pbmvQNxbbnkdMppaQ6e4rRSq-ozG8dxzYJ4GZZQ2slkbKv0SC2Zr-OQ8y-rYnqLnj9BlEV6Lj12ZelJP50Fve3A==" frameborder="0" scrolling="auto" allowfullscreen style="display:block; width:100%;"></iframe>
+      <iframe class="brevo-frame__iframe" title="Brevo unsubscribe form" width="540" height="305" src="https://63a754d7.sibforms.com/serve/MUIFALxgSAAyeS8IU6J0d6bj45Q_yTZR0s3ubhnd6Tg4i2nKYgNp39yacS-xmVjofCqm5zWyjPg7t4sfwNFa5VXAzEUNDcOQN2jK-VOUJAfz40JLp2-XNM2W0j-yMh8qPW1wsDYKk1E0uKYBh9Rq3mwMhmS2q5dPHc54dqLJF_8S7dV7I7LqHs_prA1MbsExf1I62FQEX_286wfqBw==" frameborder="0" scrolling="auto" allowfullscreen style="display:block; width:100%;"></iframe>
     </div>
   </div>
   <div id="privacyModal" class="modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 1001; backdrop-filter: blur(6px);">
@@ -6465,12 +6465,59 @@ document
                 return;
             }
 
-            // If we have an email hint (from URL or confirmation page) but no stored token,
-            // ask the worker whether the contact is already on the Brevo list and unlock GIFTS.
-            const fallbackEmail = brevoEmail || confirmEmail;
-            if (fallbackEmail) {
-                verifyBrevoSubscriber(fallbackEmail);
+            // If the user confirmed but the redirect lacked our params, ask the worker to
+            // verify Brevo list membership for the pending email or URL-provided email.
+            const lookupTarget = pendingEmail || brevoEmail || confirmEmail;
+            if (lookupTarget) {
+                probeBrevoSubscription(lookupTarget);
             }
+        }
+
+        async function probeBrevoSubscription(email) {
+            const workerEndpoint = (typeof CLOUDFLARE_WORKER_ENDPOINT === 'string' ? CLOUDFLARE_WORKER_ENDPOINT.trim() : 'https://newsletter-endpoint.rise-shine-evolve.workers.dev');
+            if (!workerEndpoint || !email) return;
+
+            const payload = new FormData();
+            payload.append('email', email);
+            payload.append('actionType', 'check');
+            payload.append('requireDoi', 'false');
+            if (BREVO_LIST_ID) {
+                payload.append('brevoListId', BREVO_LIST_ID);
+            }
+
+            try {
+                const resp = await fetch(workerEndpoint, { method: 'POST', body: payload, mode: 'cors', credentials: 'omit' });
+                const data = await resp.json();
+
+                if (resp.ok && data && data.alreadySubscribed) {
+                    grantGiftsAccess(localStorage.getItem('giftsFirstName') || '', email);
+                }
+            } catch (error) {
+                console.warn('Brevo lookup failed', error);
+            }
+        }
+
+        function wireBrevoSubscriptionPrefilter() {
+            const brevoForm = document.querySelector('form#sib-form[data-type="subscription"]');
+            const emailInput = brevoForm ? brevoForm.querySelector('input[name="EMAIL"]') : null;
+
+            if (!brevoForm || !emailInput) return;
+
+            const prefilter = async (event) => {
+                const email = (emailInput.value || '').trim();
+                if (!email) return;
+
+                event.preventDefault();
+
+                localStorage.setItem('giftsPendingEmail', email);
+                localStorage.setItem('giftsStatus', 'pending');
+                localStorage.removeItem('giftsAccess');
+
+                brevoForm.removeEventListener('submit', prefilter);
+                brevoForm.submit();
+            };
+
+            brevoForm.addEventListener('submit', prefilter);
         }
 
         async function verifyBrevoSubscriber(email) {
@@ -6566,19 +6613,14 @@ document
             handleEmailConfirmationFromUrl();
             updateThankYouStatus();
 
+            const pendingEmail = (localStorage.getItem('giftsPendingEmail') || '').trim();
+            if (localStorage.getItem('giftsStatus') === 'pending' && pendingEmail) {
+                probeBrevoSubscription(pendingEmail);
+            }
+
             hydrateDoiConfigHelper();
 
             wireBrevoSubscriptionPrefilter();
-
-            if (!checkGiftsAccess()) {
-                const params = new URLSearchParams(window.location.search);
-                const urlEmail = params.get('email') || '';
-                const pendingEmail = localStorage.getItem('giftsPendingEmail') || '';
-                const probeEmail = (pendingEmail || urlEmail).trim();
-                if (probeEmail) {
-                    verifyBrevoSubscriber(probeEmail);
-                }
-            }
 
             const saveDoiBtn = document.getElementById('saveDoiConfigBtn');
             if (saveDoiBtn) {
