@@ -2266,7 +2266,7 @@
    </div>
   </div>
   <div id="emailModal" class="modal" style="
-        display: none;
+        display: flex;
         position: fixed;
         inset: 0;
         width: 100%;
@@ -5536,9 +5536,17 @@ document
         }
 
         document.addEventListener('DOMContentLoaded', () => {
+            const modal = document.getElementById('emailModal');
             const hasAccess = checkGiftsAccess();
-            if (!hasAccess) {
-                showEmailModal();
+
+            if (!modal) return;
+
+            if (hasAccess) {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            } else {
+                modal.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
             }
         });
 
@@ -6689,30 +6697,6 @@ document
             };
 
             brevoForm.addEventListener('submit', prefilter);
-        }
-
-        async function probeBrevoSubscription(email) {
-            const workerEndpoint = (typeof CLOUDFLARE_WORKER_ENDPOINT === 'string' ? CLOUDFLARE_WORKER_ENDPOINT.trim() : 'https://newsletter-endpoint.rise-shine-evolve.workers.dev');
-            if (!workerEndpoint || !email) return;
-
-            const payload = new FormData();
-            payload.append('email', email);
-            payload.append('actionType', 'check');
-            payload.append('requireDoi', 'false');
-            if (BREVO_LIST_ID) {
-                payload.append('brevoListId', BREVO_LIST_ID);
-            }
-
-            try {
-                const resp = await fetch(workerEndpoint, { method: 'POST', body: payload, mode: 'cors', credentials: 'omit' });
-                const data = await resp.json();
-
-                if (resp.ok && data && data.alreadySubscribed) {
-                    grantGiftsAccess(localStorage.getItem('giftsFirstName') || '', email);
-                }
-            } catch (error) {
-                console.warn('Brevo lookup failed', error);
-            }
         }
 
         function wireBrevoSubscriptionPrefilter() {
