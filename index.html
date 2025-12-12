@@ -6699,6 +6699,29 @@ document
             brevoForm.addEventListener('submit', prefilter);
         }
 
+        function wireBrevoSubscriptionPrefilter() {
+            const brevoForm = document.querySelector('form#sib-form[data-type="subscription"]');
+            const emailInput = brevoForm ? brevoForm.querySelector('input[name="EMAIL"]') : null;
+
+            if (!brevoForm || !emailInput) return;
+
+            const prefilter = async (event) => {
+                const email = (emailInput.value || '').trim();
+                if (!email) return;
+
+                event.preventDefault();
+
+                localStorage.setItem('giftsPendingEmail', email);
+                localStorage.setItem('giftsStatus', 'pending');
+                localStorage.removeItem('giftsAccess');
+
+                brevoForm.removeEventListener('submit', prefilter);
+                brevoForm.submit();
+            };
+
+            brevoForm.addEventListener('submit', prefilter);
+        }
+
         function updateThankYouStatus() {
             const statusEl = document.getElementById('thank-you-status');
             if (!statusEl) return;
