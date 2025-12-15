@@ -39,6 +39,54 @@ export default {
     const email = (formData.get('email') || '').toString().trim();
     const listId = formData.get('brevoListId') || env.BREVO_LIST_ID;
 
+    // Lightweight contact check: skip site forwarding/DOI handling and only report Brevo list membership.
+    if (actionType === 'check') {
+      if (!env.BREVO_API_KEY || !hasListId || !email) {
+        const missing = [];
+        if (!env.BREVO_API_KEY) missing.push('BREVO_API_KEY');
+        if (!hasListId) missing.push('BREVO_LIST_ID / brevoListId');
+        if (!email) missing.push('email');
+
+        return new Response(
+          JSON.stringify({ ok: false, error: `Missing: ${missing.join(', ')}` }),
+          { status: 400, headers: { 'content-type': 'application/json', ...corsHeaders } }
+        );
+      }
+
+      try {
+        const lookupResp = await fetch(`https://api.brevo.com/v3/contacts/${encodeURIComponent(email)}`, {
+          headers: {
+            'content-type': 'application/json',
+            accept: 'application/json',
+            'api-key': env.BREVO_API_KEY,
+          },
+        });
+
+        const status = lookupResp.status;
+        if (!lookupResp.ok) {
+          const text = await lookupResp.text();
+          return new Response(
+            JSON.stringify({ ok: false, brevoLookupStatus: status, error: text || 'Brevo lookup failed' }),
+            { status, headers: { 'content-type': 'application/json', ...corsHeaders } }
+          );
+        }
+
+        const contact = await lookupResp.json();
+        const listIds = Array.isArray(contact.listIds) ? contact.listIds : [];
+        const alreadySubscribed = listIds.includes(listId);
+
+        return new Response(
+          JSON.stringify({ ok: true, brevoLookupStatus: status, alreadySubscribed }),
+          { headers: { 'content-type': 'application/json', ...corsHeaders } }
+        );
+      } catch (error) {
+        return new Response(
+          JSON.stringify({ ok: false, error: String(error) }),
+          { status: 500, headers: { 'content-type': 'application/json', ...corsHeaders } }
+        );
+      }
+    }
+
     // Forward to the site handler first to keep existing behavior.
     let siteOk = false;
     try {
