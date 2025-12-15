@@ -176,9 +176,12 @@
 
         /* Brevo compact embed styling */
         .brevo-embed .sib-container--large {
-            background: #0b0b0b !important;
-            border: 1px solid #8A2BE2 !important;
-            box-shadow: 0 0 24px rgba(138, 43, 226, 0.45);
+            background: #060606 !important;
+            border: 0 !important;
+            box-shadow: 0 0 18px rgba(138, 43, 226, 0.5);
+            max-width: 420px !important;
+            margin: 0 auto !important;
+            padding: 18px 16px !important;
         }
 
         .brevo-embed .sib-form-message-panel {
@@ -200,15 +203,15 @@
         .brevo-embed .input,
         .brevo-embed .input_replaced + .checkbox,
         .brevo-embed .sib-form-block__button {
-            border-radius: 10px !important;
+            border-radius: 8px !important;
         }
 
         .brevo-embed .input {
-            background: #070707 !important;
+            background: #0b0b0b !important;
             border: 1px solid #8A2BE2 !important;
             color: #ffffff !important;
-            padding: 10px 12px !important;
-            font-size: 0.95rem !important;
+            padding: 8px 10px !important;
+            font-size: 0.9rem !important;
         }
 
         .brevo-embed .input::placeholder {
@@ -220,6 +223,11 @@
             color: #0a0a0a !important;
             font-weight: 800 !important;
             box-shadow: 0 0 20px rgba(255, 215, 0, 0.45) !important;
+            padding: 10px 12px !important;
+        }
+
+        .brevo-embed .sib-form-block {
+            margin-bottom: 8px !important;
         }
 
         .brevo-embed .entry__error {
@@ -5735,10 +5743,15 @@ document
         let hasGiftsAccess = false;
         function checkGiftsAccess() {
             const access = localStorage.getItem('giftsAccess') === 'true';
-            if (access) {
+            const savedEmail = (localStorage.getItem('giftsEmail') || '').trim();
+
+            if (access && savedEmail.includes('@')) {
                 hasGiftsAccess = true;
+                return true;
             }
-            return access;
+
+            clearGiftsAccess();
+            return false;
         }
         function grantGiftsAccess(firstName = '', email = '') {
             localStorage.setItem('giftsAccess', 'true');
