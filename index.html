@@ -970,14 +970,15 @@
       border: none !important;
       box-shadow: none !important;
       padding: 0 !important;
+      margin: 0 !important;
     }
 
     .brevo-embed #sib-container {
-      background: rgba(12, 12, 18, 0.88) !important;
+      background: transparent !important;
       border-radius: 12px !important;
-      border: 1px solid rgba(255, 215, 0, 0.35) !important;
-      box-shadow: inset 0 0 18px rgba(255, 215, 0, 0.14) !important;
-      padding: 8px 10px !important;
+      border: none !important;
+      box-shadow: none !important;
+      padding: 0 !important;
       margin: 0 !important;
     }
 
@@ -6409,6 +6410,19 @@ document
                 verifyStatus.textContent = '';
                 verifyStatus.style.color = '#ffd700';
             }
+
+            // Prefill known details so subscribers don't have to retype
+            const storedEmail = (localStorage.getItem('giftsPendingEmail') || localStorage.getItem('giftsEmail') || '').trim();
+            const storedFirst = (localStorage.getItem('giftsFirstName') || '').trim();
+            const brevoEmailInput = document.querySelector('.brevo-embed input[name="EMAIL"]');
+            const brevoFirstInput = document.querySelector('.brevo-embed input[name="FIRSTNAME"]');
+            if (brevoEmailInput && storedEmail) {
+                brevoEmailInput.value = storedEmail;
+            }
+            if (brevoFirstInput && storedFirst) {
+                brevoFirstInput.value = storedFirst;
+            }
+
             const modal = document.getElementById('emailModal');
             if (modal) {
                 modal.style.display = 'flex';
@@ -6598,27 +6612,6 @@ document
             if (lookupTarget) {
                 probeBrevoSubscription(lookupTarget);
             }
-        }
-
-        async function probeBrevoSubscription(email, options = {}) {
-            const statusEl = options.statusEl || null;
-            const silent = options.silent === undefined ? !statusEl : options.silent;
-
-            const workerEndpoint = (typeof CLOUDFLARE_WORKER_ENDPOINT === 'string' ? CLOUDFLARE_WORKER_ENDPOINT.trim() : 'https://newsletter-endpoint.rise-shine-evolve.workers.dev');
-            if (!workerEndpoint || !email) return false;
-
-            if (statusEl) {
-                statusEl.textContent = 'Checking your subscription...';
-                statusEl.style.color = '#ffd700';
-            }
-
-            const payload = new FormData();
-            payload.append('email', email);
-            payload.append('actionType', 'check');
-            payload.append('requireDoi', 'false');
-            if (BREVO_LIST_ID) {
-                payload.append('brevoListId', BREVO_LIST_ID);
-            }
 
             try {
                 const resp = await fetch(workerEndpoint, { method: 'POST', body: payload, mode: 'cors', credentials: 'omit' });
@@ -6808,6 +6801,29 @@ document
             brevoForm.addEventListener('submit', prefilter);
         }
 
+        function wireBrevoSubscriptionPrefilter() {
+            const brevoForm = document.querySelector('form#sib-form[data-type="subscription"]');
+            const emailInput = brevoForm ? brevoForm.querySelector('input[name="EMAIL"]') : null;
+
+            if (!brevoForm || !emailInput) return;
+
+            const prefilter = async (event) => {
+                const email = (emailInput.value || '').trim();
+                if (!email) return;
+
+                event.preventDefault();
+
+                localStorage.setItem('giftsPendingEmail', email);
+                localStorage.setItem('giftsStatus', 'pending');
+                localStorage.removeItem('giftsAccess');
+
+                brevoForm.removeEventListener('submit', prefilter);
+                brevoForm.submit();
+            };
+
+            brevoForm.addEventListener('submit', prefilter);
+        }
+
         async function probeBrevoSubscription(email, options = {}) {
             const statusEl = options.statusEl || null;
             const silent = options.silent === undefined ? !statusEl : options.silent;
@@ -6887,29 +6903,6 @@ document
             }
 
             return success;
-        }
-
-        function wireBrevoSubscriptionPrefilter() {
-            const brevoForm = document.querySelector('form#sib-form[data-type="subscription"]');
-            const emailInput = brevoForm ? brevoForm.querySelector('input[name="EMAIL"]') : null;
-
-            if (!brevoForm || !emailInput) return;
-
-            const prefilter = async (event) => {
-                const email = (emailInput.value || '').trim();
-                if (!email) return;
-
-                event.preventDefault();
-
-                localStorage.setItem('giftsPendingEmail', email);
-                localStorage.setItem('giftsStatus', 'pending');
-                localStorage.removeItem('giftsAccess');
-
-                brevoForm.removeEventListener('submit', prefilter);
-                brevoForm.submit();
-            };
-
-            brevoForm.addEventListener('submit', prefilter);
         }
 
         function wireBrevoSubscriptionPrefilter() {
@@ -6958,7 +6951,14 @@ document
             applyCharacterPortraits();
 
             const hashTab = (window.location.hash || '').replace('#', '');
-            const desiredTab = hashTab && getTabElement(hashTab) ? hashTab : 'main';
+            const hasAccess = checkGiftsAccess();
+            let desiredTab = hashTab && getTabElement(hashTab) ? hashTab : 'main';
+
+            // Do not auto-open the GIFTS modal on initial load; wait for an explicit click
+            if (desiredTab === 'gifts' && !hasAccess) {
+                desiredTab = 'main';
+            }
+
             const tabElement = getTabElement(desiredTab) || getTabElement('main');
             if (tabElement) {
                 selectTab(tabElement, tabElement.dataset.tab, { skipHistory: true });
