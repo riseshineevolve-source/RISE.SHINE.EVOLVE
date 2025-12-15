@@ -236,9 +236,9 @@
             color: #ffd700 !important;
             border: 1px solid #ffd700 !important;
             box-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
-            padding: 4px 9px !important;
+            padding: 3px 7px !important;
             letter-spacing: 0.35px;
-            font-size: 0.7rem !important;
+            font-size: 0.65rem !important;
         }
 
         .brevo-unsub .entry__error {
@@ -256,13 +256,18 @@
             border-radius: 8px !important;
         }
 
-        .brevo-embed .input {
+        .brevo-embed .input,
+        .brevo-embed input[type="text"],
+        .brevo-embed input[type="email"],
+        .brevo-embed .form__entry input {
             background: #050505 !important;
             border: 1px solid #8A2BE2 !important;
             color: #ffffff !important;
-            padding: 5px 8px !important;
-            font-size: 0.8rem !important;
-            line-height: 1.2 !important;
+            padding: 6px 8px !important;
+            font-size: 0.85rem !important;
+            line-height: 1.25 !important;
+            border-radius: 10px !important;
+            box-shadow: 0 0 10px rgba(138, 43, 226, 0.35);
         }
 
         .brevo-embed .input::placeholder {
@@ -274,8 +279,105 @@
             color: #0a0a0a !important;
             font-weight: 800 !important;
             box-shadow: 0 0 20px rgba(255, 215, 0, 0.45) !important;
-            padding: 9px 10px !important;
-            font-size: 0.95rem !important;
+            padding: 8px 10px !important;
+            font-size: 0.92rem !important;
+            border-radius: 10px !important;
+        }
+
+        .gift-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 10010;
+            overflow: auto;
+            padding: 12px;
+            box-sizing: border-box;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gift-overlay-inner {
+            position: relative;
+            width: min(1100px, 96vw);
+            height: min(92vh, 760px);
+            max-height: calc(100vh - 36px);
+            margin: 0 auto;
+            display: flex;
+            align-items: stretch;
+        }
+
+        .gift-close-btn {
+            position: fixed;
+            top: 10px;
+            right: 12px;
+            background: linear-gradient(45deg, #8A2BE2, #9932CC);
+            border: 2px solid #ffd700;
+            border-radius: 14px;
+            padding: 9px 14px;
+            color: #ffffff;
+            font-size: 0.95rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 0 18px rgba(138, 43, 226, 0.6);
+            z-index: 2;
+        }
+
+        .gift-frame {
+            display: block;
+            width: 100%;
+            height: 100%;
+            margin: 0 auto;
+            border: 3px solid #8A2BE2;
+            border-radius: 16px;
+            box-shadow: 0 0 35px rgba(138, 43, 226, 0.6), 0 0 60px rgba(138, 43, 226, 0.3);
+            background: #000;
+            box-sizing: border-box;
+        }
+
+        .gift-fallback {
+            display: none;
+            position: absolute;
+            inset: 32px 0 0 0;
+            color: #ffffff;
+            text-align: center;
+            padding: 24px 14px;
+            background: linear-gradient(135deg, rgba(138, 43, 226, 0.2), rgba(0, 0, 0, 0.9));
+            border: 2px solid #ffd700;
+            border-radius: 16px;
+            margin: 0;
+            box-shadow: 0 0 25px rgba(255, 215, 0, 0.4);
+            overflow: auto;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        @media (max-width: 720px) {
+            .gift-overlay {
+                padding: 6px;
+            }
+            .gift-overlay-inner {
+                width: 100%;
+                height: 85vh;
+                max-height: none;
+            }
+            .gift-frame {
+                height: 78vh;
+                border-width: 2px;
+            }
+            .gift-close-btn {
+                top: 8px;
+                right: 8px;
+                padding: 7px 11px;
+                font-size: 0.88rem;
+            }
+        }
+
+        #privacyModal {
+            z-index: 13000 !important;
         }
 
         .brevo-embed .sib-form-block {
@@ -2393,11 +2495,11 @@
     </div>
    </div>
   </div><!-- Email Modal -->
-  <div id="gift-overlay" style="display: none; position: fixed; inset: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.95); z-index: 10010; overflow: auto; padding: 12px; box-sizing: border-box; align-items: center; justify-content: center;">
-   <div style="position: relative; width: min(1100px, 96vw); height: min(92vh, 760px); max-height: calc(100vh - 36px); margin: 0 auto; display: flex; align-items: stretch;">
-    <button onclick="closeGiftOverlay()" style="position: fixed; top: 10px; right: 12px; background: linear-gradient(45deg, #8A2BE2, #9932CC); border: 2px solid #ffd700; border-radius: 14px; padding: 9px 14px; color: #ffffff; font-size: 0.95rem; font-weight: bold; cursor: pointer; box-shadow: 0 0 18px rgba(138, 43, 226, 0.6); z-index: 2;">Close gift ✖</button>
-    <iframe id="gift-frame" title="Gift experience" style="display: block; width: 100%; height: 100%; margin: 0 auto; border: 3px solid #8A2BE2; border-radius: 16px; box-shadow: 0 0 35px rgba(138, 43, 226, 0.6), 0 0 60px rgba(138, 43, 226, 0.3); background: #000; box-sizing: border-box;"></iframe>
-    <div id="gift-fallback" style="display: none; position: absolute; inset: 32px 0 0 0; color: #ffffff; text-align: center; padding: 24px 14px; background: linear-gradient(135deg, rgba(138, 43, 226, 0.2), rgba(0, 0, 0, 0.9)); border: 2px solid #ffd700; border-radius: 16px; margin: 0; box-shadow: 0 0 25px rgba(255, 215, 0, 0.4); overflow: auto; align-items: center; justify-content: center; text-align: center;">
+  <div id="gift-overlay" class="gift-overlay">
+   <div class="gift-overlay-inner">
+    <button onclick="closeGiftOverlay()" class="gift-close-btn">Close gift ✖</button>
+    <iframe id="gift-frame" title="Gift experience" class="gift-frame"></iframe>
+    <div id="gift-fallback" class="gift-fallback">
      Gift content is unavailable right now. Please try again in a moment.
     </div>
    </div>
@@ -6306,66 +6408,15 @@ document
             if (errorMsg) {
                 errorMsg.textContent = '';
             }
-            const verifyStatus = document.getElementById('brevo-verify-status');
-            if (verifyStatus) {
-                verifyStatus.textContent = '';
-                verifyStatus.style.color = '#ffd700';
-            }
-
-            // Prefill known details so subscribers don't have to retype
-            const storedEmail = (localStorage.getItem('giftsPendingEmail') || localStorage.getItem('giftsEmail') || '').trim();
-            const storedFirst = (localStorage.getItem('giftsFirstName') || '').trim();
-            const brevoEmailInput = document.querySelector('.brevo-embed input[name="EMAIL"]');
-            const brevoFirstInput = document.querySelector('.brevo-embed input[name="FIRSTNAME"]');
-            if (brevoEmailInput && storedEmail) {
-                brevoEmailInput.value = storedEmail;
-            }
-            if (brevoFirstInput && storedFirst) {
-                brevoFirstInput.value = storedFirst;
-            }
-
-            const modal = document.getElementById('emailModal');
-            if (modal) {
-                modal.classList.add('show');
-                modal.style.display = 'flex';
-                modal.style.alignItems = 'center';
-                modal.style.justifyContent = 'center';
-                document.body.style.overflow = 'hidden';
-            }
-        }
-
-        // Backwards-compatible helper for existing buttons
-        function openEmailModal() {
-            showEmailModal();
-        }
-
-        function openUnsubscribeModal() {
-            const modal = document.getElementById('unsubscribeModal');
-            const frame = document.getElementById('brevo-unsubscribe-frame');
-            const tmpl = document.getElementById('brevo-unsubscribe-template');
-
-            if (frame && tmpl && !frame.dataset.loaded) {
-                frame.srcdoc = tmpl.innerHTML;
-                frame.dataset.loaded = 'true';
-            }
-
-            if (modal) {
-                modal.style.display = 'flex';
-                document.body.style.overflow = 'hidden';
-            }
-        }
-
-        function closeUnsubscribeModal() {
-            const modal = document.getElementById('unsubscribeModal');
-            if (modal) {
-                modal.style.display = 'none';
-                document.body.style.overflow = 'auto';
-            }
+            document.getElementById('emailModal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+            history.pushState({ modal: 'email' }, '', window.location.href);
         }
 
         function openPrivacyPolicy() {
             document.getElementById('privacyModal').style.display = 'block';
             document.body.style.overflow = 'hidden';
+            history.pushState({ modal: 'privacy' }, '', window.location.href);
         }
         function closeEmailModal() {
             const modal = document.getElementById('emailModal');
@@ -6466,7 +6517,9 @@ document
             const tabElement = getTabElement(desiredTab) || getTabElement('main');
             if (tabElement) {
                 selectTab(tabElement, tabElement.dataset.tab, { skipHistory: true });
-                history.replaceState({ tab: tabElement.dataset.tab }, '', `#${tabElement.dataset.tab}`);
+                const baseState = { tab: tabElement.dataset.tab, base: true };
+                history.replaceState(baseState, '', `#${tabElement.dataset.tab}`);
+                history.pushState({ tab: tabElement.dataset.tab, base: false }, '', `#${tabElement.dataset.tab}`);
             }
         });
 
@@ -6643,14 +6696,14 @@ document
             }
         }
 
-        function closeGiftOverlay() {
+        function closeGiftOverlay(fromHistory = false) {
             giftOverlay.style.display = 'none';
             giftFrame.src = 'about:blank';
             giftFrame.srcdoc = '';
             giftFallback.style.display = 'none';
             document.body.style.overflow = '';
 
-            if (giftOverlayOpen && history.state && history.state.giftOverlay) {
+            if (giftOverlayOpen && history.state && history.state.giftOverlay && !fromHistory) {
                 giftOverlayOpen = false;
                 history.back();
             } else {
@@ -6659,13 +6712,22 @@ document
         }
 
         window.addEventListener('popstate', (event) => {
+            const emailModal = document.getElementById('emailModal');
+            const privacyModal = document.getElementById('privacyModal');
+
+            if (privacyModal && privacyModal.style.display === 'block') {
+                closePrivacyModal();
+                return;
+            }
+
+            if (emailModal && emailModal.style.display === 'block') {
+                closeEmailModal();
+                return;
+            }
+
             if (giftOverlayOpen) {
-                giftOverlay.style.display = 'none';
-                giftFrame.src = 'about:blank';
-                giftFrame.srcdoc = '';
-                giftFallback.style.display = 'none';
-                document.body.style.overflow = '';
-                giftOverlayOpen = false;
+                closeGiftOverlay(true);
+                return;
             }
 
             const activeTab = document.querySelector('.tab.active');

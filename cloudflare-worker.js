@@ -53,7 +53,9 @@ export default {
     }
 
     let brevoStatus = null;
+    let brevoBody = null;
     let welcomeStatus = null;
+    let welcomeBody = null;
     if (env.BREVO_API_KEY && email) {
       const doiTemplateId = Number(env.BREVO_DOI_TEMPLATE_ID || '');
       const doiRedirect = (env.BREVO_DOI_REDIRECT || '').toString().trim();
@@ -94,11 +96,17 @@ export default {
         body: JSON.stringify(payload),
       });
       brevoStatus = brevoResp.status;
+      brevoBody = await brevoResp.text();
 
       if (!brevoResp.ok) {
-        const errorText = await brevoResp.text();
         return new Response(
-          JSON.stringify({ ok: false, siteOk, brevoStatus, error: errorText || 'Brevo rejected the request' }),
+          JSON.stringify({
+            ok: false,
+            siteOk,
+            brevoStatus,
+            brevoBody: brevoBody || null,
+            error: brevoBody || 'Brevo rejected the request',
+          }),
           {
             status: brevoResp.status,
             headers: { 'content-type': 'application/json', ...corsHeaders },
@@ -120,16 +128,17 @@ export default {
         });
 
         welcomeStatus = welcomeResp.status;
+        welcomeBody = await welcomeResp.text();
 
         if (!welcomeResp.ok) {
-          const welcomeError = await welcomeResp.text();
           return new Response(
             JSON.stringify({
               ok: false,
               siteOk,
               brevoStatus,
               welcomeStatus,
-              error: welcomeError || 'Brevo welcome email failed',
+              welcomeBody: welcomeBody || null,
+              error: welcomeBody || 'Brevo welcome email failed',
             }),
             {
               status: welcomeResp.status,
@@ -140,7 +149,7 @@ export default {
       }
     }
 
-    return new Response(JSON.stringify({ ok: true, siteOk, brevoStatus, welcomeStatus }), {
+    return new Response(JSON.stringify({ ok: true, siteOk, brevoStatus, brevoBody, welcomeStatus, welcomeBody }), {
       headers: { 'content-type': 'application/json', ...corsHeaders },
     });
   },
