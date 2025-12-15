@@ -60,7 +60,11 @@ export default {
       const doiTemplateId = Number(env.BREVO_DOI_TEMPLATE_ID || '');
       const doiRedirect = (env.BREVO_DOI_REDIRECT || '').toString().trim();
       const numericListId = Number(listId || '');
-      const welcomeTemplateId = Number(env.BREVO_WELCOME_TEMPLATE_ID || '');
+      const welcomeTemplateId = Number(
+        env.BREVO_WELCOME_TEMPLATE_ID ||
+        env.BREVO_TEMPLATE_2 ||
+        '2'
+      );
 
       const headers = {
         'api-key': env.BREVO_API_KEY,
