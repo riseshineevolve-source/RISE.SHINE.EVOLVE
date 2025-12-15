@@ -50,14 +50,31 @@ export default {
 
     let brevoStatus = null;
     if (env.BREVO_API_KEY && email) {
+      const doiTemplateId = Number(env.BREVO_DOI_TEMPLATE_ID || '');
+      const doiRedirect = (env.BREVO_DOI_REDIRECT || '').toString().trim();
+      const numericListId = Number(listId || '');
+
+      if (!numericListId || !doiTemplateId || !doiRedirect) {
+        return new Response(
+          JSON.stringify({
+            ok: false,
+            siteOk,
+            brevoStatus: 400,
+            error: 'Missing Brevo DOI configuration (list id, template id, or redirect)',
+          }),
+          { status: 400, headers: { 'content-type': 'application/json', ...corsHeaders } }
+        );
+      }
+
       const payload = {
         email,
+        includeListIds: [numericListId],
+        templateId: doiTemplateId,
+        redirectionUrl: doiRedirect,
         attributes: firstName ? { FIRSTNAME: firstName } : {},
-        updateEnabled: true,
       };
-      if (listId) payload.listIds = [Number(listId)];
 
-      const brevoResp = await fetch('https://api.brevo.com/v3/contacts', {
+      const brevoResp = await fetch('https://api.brevo.com/v3/contacts/doubleOptinConfirmation', {
         method: 'POST',
         headers: {
           'api-key': env.BREVO_API_KEY,
