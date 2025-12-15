@@ -179,9 +179,9 @@
             background: #060606 !important;
             border: 0 !important;
             box-shadow: 0 0 18px rgba(138, 43, 226, 0.5);
-            max-width: 380px !important;
+            max-width: 360px !important;
             margin: 0 auto !important;
-            padding: 14px 12px !important;
+            padding: 12px 12px !important;
             border-radius: 14px !important;
         }
 
@@ -190,7 +190,7 @@
             border: 1px solid #8A2BE2 !important;
             color: #ffd700 !important;
             box-shadow: 0 0 18px rgba(255, 215, 0, 0.35);
-            max-width: 380px !important;
+            max-width: 360px !important;
             margin: 6px auto !important;
         }
 
@@ -204,9 +204,9 @@
             background: #060606 !important;
             border: 1px solid #8A2BE2 !important;
             box-shadow: 0 0 14px rgba(138, 43, 226, 0.55);
-            max-width: 240px !important;
+            max-width: 220px !important;
             margin: 0 auto !important;
-            padding: 14px 12px !important;
+            padding: 10px 10px !important;
             border-radius: 12px !important;
         }
 
@@ -226,8 +226,8 @@
             background: #0d0d0d !important;
             border: 1px solid #8A2BE2 !important;
             color: #ffffff !important;
-            border-radius: 10px !important;
-            font-size: 0.85rem !important;
+            border-radius: 9px !important;
+            font-size: 0.8rem !important;
             box-shadow: 0 0 10px rgba(138, 43, 226, 0.35);
         }
 
@@ -235,9 +235,9 @@
             background: #121313 !important;
             color: #ffd700 !important;
             border: 1px solid #ffd700 !important;
-            box-shadow: 0 0 12px rgba(255, 215, 0, 0.45);
-            padding: 5px 10px !important;
-            letter-spacing: 0.4px;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
+            padding: 4px 9px !important;
+            letter-spacing: 0.35px;
             font-size: 0.7rem !important;
         }
 
@@ -257,11 +257,11 @@
         }
 
         .brevo-embed .input {
-            background: #0b0b0b !important;
+            background: #050505 !important;
             border: 1px solid #8A2BE2 !important;
             color: #ffffff !important;
             padding: 6px 9px !important;
-            font-size: 0.85rem !important;
+            font-size: 0.83rem !important;
             line-height: 1.2 !important;
         }
 
@@ -2543,7 +2543,7 @@
     <p id="errorMsg" style="color: #ff1493; text-align: center; margin-top: 15px; font-weight: bold;"></p>
    </div>
   </div>
-  <div id="privacyModal" class="modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 1200; backdrop-filter: blur(6px);">
+  <div id="privacyModal" class="modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 2000; backdrop-filter: blur(6px);">
     <div class="modal-content" style="max-width: 700px; max-height: 80vh; overflow-y: auto; margin: 40px auto; background: #0c0c0c; border: 3px solid #8A2BE2; border-radius: 20px; padding: 25px; position: relative; box-shadow: 0 0 40px rgba(138, 43, 226, 0.7);">
         <span class="close" onclick="closePrivacyModal()" style="position: absolute; top: 12px; right: 12px; font-size: 1.4rem; cursor: pointer; color: #ffffff;">×</span>
         <h2 style="color: #ffd700; text-align: center; margin-bottom: 10px;">Privacy Policy</h2>
@@ -5590,23 +5590,11 @@ document
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            const modal = document.getElementById('emailModal');
-            const storedEmail = (localStorage.getItem('giftsEmail') || '').trim();
-            const hasAccess = checkGiftsAccess();
+            checkGiftsAccess();
 
-            if (!modal) return;
-
-            // Ensure the Brevo modal starts hidden until GIFTS is clicked
-            modal.classList.remove('show');
-            modal.style.display = 'none';
-
-            if (hasAccess && storedEmail) {
-                // Re-validate access with Brevo; if it fails, clear local access and let GIFTS click reopen.
-                probeBrevoSubscription(storedEmail, { silent: true }).then((ok) => {
-                    if (!ok) {
-                        clearGiftsAccess();
-                    }
-                }).catch(() => {
+            const brevoUnsubForm = document.getElementById('sib-form-unsub');
+            if (brevoUnsubForm) {
+                brevoUnsubForm.addEventListener('submit', () => {
                     clearGiftsAccess();
                 });
             }
@@ -5975,13 +5963,13 @@ document
                     <h3 style="color: #ff69b4; font-size: 1.35rem; margin-bottom: 20px; text-shadow: 0 0 18px rgba(255, 105, 180, 0.7); text-align: center;">31 Days to Boost Self-Esteem, Master Big Feelings &amp; Unlock Your Inner Superpower</h3>
 
                     <div style="color: #ffffff; font-size: 1rem; line-height: 1.7; text-align: left; margin-bottom: 30px; max-width: 900px; margin-left: auto; margin-right: auto;">
-                        <p style="margin-bottom: 16px; font-weight: bold;">IF GROWING UP FEELS LIKE A ROLLER COASTER OF BIG FEELINGS… THIS BOOK IS YOUR CHILD'S SAFETY BELT.</p>
-                        <p style="margin-bottom: 12px;"><strong>THE PARENTING CHALLENGE</strong> Let’s be honest: growing up is an amazing journey, but sometimes feelings get big and the world gets loud. You see your child struggling with worry, perfectionism, or just finding their voice. You want to help them guide their way through it all with confidence and joy.</p>
-                        <p style="margin-bottom: 12px;"><strong>THE HAPPY MAKERS PRESENT SOLUTION:</strong> The Confident, Mindful &amp; Happy Me Adventure! This isn't just a book. It is an interactive roadmap designed to help your child master the wild ride of growing up with courage and a smile.</p>
-                        <p style="margin-bottom: 12px;"><strong>MEET THE GUIDES</strong> Your child won't be doing this alone. They will be led by The Happy Makers Squad, a lovable family of trusted guides and fun-loving companions (Mimi, Luli, Dilo, Alio, and Nini). They are here to show your child that they don't need a superhero cape to be brave. They just need to unlock the superpowers inside to become the best version of themselves. Join the Happy Makers Squad on this journey to discover your kid's inner LEGEND.</p>
-                        <p style="margin-bottom: 12px;"><strong>HOW IT WORKS: THE 31-DAY MISSION</strong> This book is designed to fit into real life. No pressure. No perfection. Just 10 minutes of connection and fun a day.</p>
+                        <p style="margin-bottom: 16px; font-weight: bold; color: #8A2BE2;">IF GROWING UP FEELS LIKE A ROLLER COASTER OF BIG FEELINGS… THIS BOOK IS YOUR CHILD'S SAFETY BELT.</p>
+                        <p style="margin-bottom: 12px;"><strong style="color: #8A2BE2;">THE PARENTING CHALLENGE</strong> Let’s be honest: growing up is an amazing journey, but sometimes feelings get big and the world gets loud. You see your child struggling with worry, perfectionism, or just finding their voice. You want to help them guide their way through it all with confidence and joy.</p>
+                        <p style="margin-bottom: 12px;"><strong style="color: #8A2BE2;">THE HAPPY MAKERS PRESENT SOLUTION:</strong> The Confident, Mindful &amp; Happy Me Adventure! This isn't just a book. It is an interactive roadmap designed to help your child master the wild ride of growing up with courage and a smile.</p>
+                        <p style="margin-bottom: 12px;"><strong style="color: #8A2BE2;">MEET THE GUIDES</strong> Your child won't be doing this alone. They will be led by The Happy Makers Squad, a lovable family of trusted guides and fun-loving companions (Mimi, Luli, Dilo, Alio, and Nini). They are here to show your child that they don't need a superhero cape to be brave. They just need to unlock the superpowers inside to become the best version of themselves. Join the Happy Makers Squad on this journey to discover your kid's inner LEGEND.</p>
+                        <p style="margin-bottom: 12px;"><strong style="color: #8A2BE2;">HOW IT WORKS: THE 31-DAY MISSION</strong> This book is designed to fit into real life. No pressure. No perfection. Just 10 minutes of connection and fun a day.</p>
 
-                        <p style="margin-top: 18px; font-weight: bold; color: #ffd700;">OUR 31-DAY MISSION CHECKLIST:</p>
+                        <p style="margin-top: 18px; font-weight: bold; color: #8A2BE2;">OUR 31-DAY MISSION CHECKLIST:</p>
                         <ul class="golden-bullets" style="margin-left: 20px;">
                             <li>Week 1: Build Your Fortress ▶ Feeling Safe &amp; Grounded</li>
                             <li>Week 2: Tame the Wild Emotions ▶ Mastering Anxiety &amp; Anger</li>
@@ -5990,20 +5978,11 @@ document
                             <li>Week 5: Fly High ▶ Launching Your Dreams</li>
                         </ul>
 
-                        <p style="margin-top: 18px; font-weight: bold; color: #ffd700;">INSIDE THE LEVELS</p>
-                        <ul class="golden-bullets" style="margin-left: 20px;">
-                            <li>🧱 WEEK 1: Build Your Fortress – grounding techniques to feel secure and worthy.</li>
-                            <li>🦁 WEEK 2: Tame the Wild Emotions – fun metaphors to identify emotions and turn “monsters” into friends.</li>
-                            <li>🌟 WEEK 3: Shine Your Light – discover unique strengths and build unshakeable confidence.</li>
-                            <li>🤝 WEEK 4: Assemble Your Team – empathy, friendship, boundaries, and asking for support.</li>
-                            <li>👑 WEEK 5: Fly High – set goals, launch dreams, and celebrate growth.</li>
-                        </ul>
-
-                        <p style="margin-top: 18px; font-weight: bold; color: #ffd700;">WHAT MAKES THIS BOOK DIFFERENT?</p>
+                        <p style="margin-top: 18px; font-weight: bold; color: #8A2BE2;">WHAT MAKES THIS BOOK DIFFERENT?</p>
                         <p style="margin-bottom: 12px;">We bring the empowering spirit of the Rise Shine Evolve Learning Hub straight into your living room. We craft immersive journeys that turn everyday challenges into opportunities for connection and growth. The Happy Makers vibe? We take emotional growth seriously, but we never take ourselves too seriously. Zero boring lectures and 100% fun. Kids learn best when they are laughing and exploring.</p>
                         <p style="margin-bottom: 12px;">This is not a passive reading experience. It’s a movement fueled by love, humor, and high-fives! Your child will draw, reflect, breathe, play, and create their way to become Confident, Mindful, and Happy.</p>
 
-                        <p style="margin-top: 18px; font-weight: bold; color: #ffd700;">THE PROMISE</p>
+                        <p style="margin-top: 18px; font-weight: bold; color: #8A2BE2;">THE PROMISE</p>
                         <p style="margin-bottom: 12px;">The world is waiting for your child's magic. We don't just tell them they are brave—we give them the toolkit to feel resilient, capable, and confident every single day.</p>
                         <p style="margin-bottom: 12px;">Join us on a journey where every child can RISE, every family can SHINE, and every person can EVOLVE. Ready to unlock true potential? It is time to Rise. Shine. Evolve. TOGETHER!</p>
                     </div>

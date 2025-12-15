@@ -35,8 +35,12 @@ export default {
       });
     }
 
-    const firstName = (formData.get('firstName') || '').toString().trim();
-    const email = (formData.get('email') || '').toString().trim();
+    const firstName = (
+      formData.get('firstName') ||
+      formData.get('FIRSTNAME') ||
+      ''
+    ).toString().trim();
+    const email = (formData.get('email') || formData.get('EMAIL') || '').toString().trim();
     const listId = formData.get('brevoListId') || env.BREVO_LIST_ID;
 
     // Forward to the site handler first to keep existing behavior.
@@ -54,33 +58,37 @@ export default {
       const doiRedirect = (env.BREVO_DOI_REDIRECT || '').toString().trim();
       const numericListId = Number(listId || '');
 
-      if (!numericListId || !doiTemplateId || !doiRedirect) {
-        return new Response(
-          JSON.stringify({
-            ok: false,
-            siteOk,
-            brevoStatus: 400,
-            error: 'Missing Brevo DOI configuration (list id, template id, or redirect)',
-          }),
-          { status: 400, headers: { 'content-type': 'application/json', ...corsHeaders } }
-        );
-      }
-
-      const payload = {
-        email,
-        includeListIds: [numericListId],
-        templateId: doiTemplateId,
-        redirectionUrl: doiRedirect,
-        attributes: firstName ? { FIRSTNAME: firstName } : {},
+      const headers = {
+        'api-key': env.BREVO_API_KEY,
+        'content-type': 'application/json',
+        accept: 'application/json',
       };
 
-      const brevoResp = await fetch('https://api.brevo.com/v3/contacts/doubleOptinConfirmation', {
+      // Prefer DOI when template + redirect are configured, otherwise fall back to contact creation
+      const useDoi = !!(numericListId && doiTemplateId && doiRedirect);
+
+      const payload = useDoi
+        ? {
+            email,
+            includeListIds: [numericListId],
+            templateId: doiTemplateId,
+            redirectionUrl: doiRedirect,
+            attributes: firstName ? { FIRSTNAME: firstName } : {},
+          }
+        : {
+            email,
+            attributes: firstName ? { FIRSTNAME: firstName } : {},
+            updateEnabled: true,
+            listIds: numericListId ? [numericListId] : undefined,
+          };
+
+      const endpoint = useDoi
+        ? 'https://api.brevo.com/v3/contacts/doubleOptinConfirmation'
+        : 'https://api.brevo.com/v3/contacts';
+
+      const brevoResp = await fetch(endpoint, {
         method: 'POST',
-        headers: {
-          'api-key': env.BREVO_API_KEY,
-          'content-type': 'application/json',
-          accept: 'application/json',
-        },
+        headers,
         body: JSON.stringify(payload),
       });
       brevoStatus = brevoResp.status;
