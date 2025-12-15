@@ -5537,16 +5537,35 @@ document
 
         document.addEventListener('DOMContentLoaded', () => {
             const modal = document.getElementById('emailModal');
+            const storedEmail = (localStorage.getItem('giftsEmail') || '').trim();
             const hasAccess = checkGiftsAccess();
 
             if (!modal) return;
 
-            if (hasAccess) {
-                modal.style.display = 'none';
-                document.body.style.overflow = 'auto';
+            if (hasAccess && storedEmail) {
+                // Re-validate access with Brevo; if it fails, show the form again.
+                probeBrevoSubscription(storedEmail, { silent: true }).then((ok) => {
+                    if (ok) {
+                        modal.style.display = 'none';
+                        document.body.style.overflow = 'auto';
+                    } else {
+                        clearGiftsAccess();
+                        showEmailModal();
+                    }
+                }).catch(() => {
+                    // If the lookup fails, surface the form so the user can re-confirm.
+                    clearGiftsAccess();
+                    showEmailModal();
+                });
             } else {
-                modal.style.display = 'flex';
-                document.body.style.overflow = 'hidden';
+                showEmailModal();
+            }
+        });
+
+        window.addEventListener('load', () => {
+            const modal = document.getElementById('emailModal');
+            if (modal && modal.style.display === 'none' && !checkGiftsAccess()) {
+                showEmailModal();
             }
         });
 
@@ -6244,7 +6263,8 @@ document
         let hasGiftsAccess = false;
         function checkGiftsAccess() {
             const status = localStorage.getItem('giftsStatus');
-            const access = status === 'active';
+            const storedEmail = (localStorage.getItem('giftsEmail') || '').trim();
+            const access = status === 'active' && !!storedEmail;
             hasGiftsAccess = access;
             return access;
         }
@@ -6593,6 +6613,110 @@ document
             if (lookupTarget) {
                 probeBrevoSubscription(lookupTarget);
             }
+        }
+
+        async function probeBrevoSubscription(email, options = {}) {
+            const statusEl = options.statusEl || null;
+            const silent = options.silent === undefined ? !statusEl : options.silent;
+
+            const workerEndpoint = (typeof CLOUDFLARE_WORKER_ENDPOINT === 'string' ? CLOUDFLARE_WORKER_ENDPOINT.trim() : 'https://newsletter-endpoint.rise-shine-evolve.workers.dev');
+            if (!workerEndpoint || !email) return false;
+
+            if (statusEl) {
+                statusEl.textContent = 'Checking your subscription...';
+                statusEl.style.color = '#ffd700';
+            }
+
+            const payload = new FormData();
+            payload.append('email', email);
+            payload.append('actionType', 'check');
+            payload.append('requireDoi', 'false');
+            if (BREVO_LIST_ID) {
+                payload.append('brevoListId', BREVO_LIST_ID);
+            }
+
+            try {
+                const resp = await fetch(workerEndpoint, { method: 'POST', body: payload, mode: 'cors', credentials: 'omit' });
+                const data = await resp.json();
+
+                if (resp.ok && data && data.alreadySubscribed) {
+                    grantGiftsAccess(localStorage.getItem('giftsFirstName') || '', email);
+                    if (statusEl) {
+                        statusEl.textContent = 'You are already subscribed — GIFTS unlocked!';
+                        statusEl.style.color = '#ffd700';
+                    }
+                    return true;
+                }
+
+                if (statusEl && !silent) {
+                    const detail = (data && (data.error || data.brevoLookupStatus))
+                        ? ` (${data.error || `status ${data.brevoLookupStatus}`})`
+                        : '';
+                    statusEl.textContent = `We could not confirm this email right now${detail}. Please try again or subscribe.`;
+                    statusEl.style.color = '#ff9fae';
+                }
+
+            } catch (error) {
+                console.warn('Brevo lookup failed', error);
+                if (statusEl && !silent) {
+                    statusEl.textContent = 'We could not confirm your subscription right now. Please try again.';
+                    statusEl.style.color = '#ff9fae';
+                }
+            }
+
+            return false;
+        }
+
+        async function verifyExistingSubscriber(event) {
+            if (event) event.preventDefault();
+            const statusEl = document.getElementById('brevo-verify-status');
+            const emailInput = document.querySelector('.brevo-embed input[name="EMAIL"]');
+            const email = emailInput ? emailInput.value.trim() : '';
+
+            if (statusEl) {
+                statusEl.textContent = '';
+                statusEl.style.color = '#ffd700';
+            }
+
+            if (!email) {
+                if (statusEl) {
+                    statusEl.textContent = 'Enter your email above so we can check your access.';
+                    statusEl.style.color = '#ff9fae';
+                }
+                return false;
+            }
+
+            const success = await probeBrevoSubscription(email, { statusEl, silent: false });
+
+            if (success) {
+                closeEmailModal();
+                accessGifts();
+            }
+
+            return success;
+        }
+
+        function wireBrevoSubscriptionPrefilter() {
+            const brevoForm = document.querySelector('form#sib-form[data-type="subscription"]');
+            const emailInput = brevoForm ? brevoForm.querySelector('input[name="EMAIL"]') : null;
+
+            if (!brevoForm || !emailInput) return;
+
+            const prefilter = async (event) => {
+                const email = (emailInput.value || '').trim();
+                if (!email) return;
+
+                event.preventDefault();
+
+                localStorage.setItem('giftsPendingEmail', email);
+                localStorage.setItem('giftsStatus', 'pending');
+                localStorage.removeItem('giftsAccess');
+
+                brevoForm.removeEventListener('submit', prefilter);
+                brevoForm.submit();
+            };
+
+            brevoForm.addEventListener('submit', prefilter);
         }
 
         async function probeBrevoSubscription(email, options = {}) {
