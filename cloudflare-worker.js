@@ -53,10 +53,12 @@ export default {
     }
 
     let brevoStatus = null;
+    let welcomeStatus = null;
     if (env.BREVO_API_KEY && email) {
       const doiTemplateId = Number(env.BREVO_DOI_TEMPLATE_ID || '');
       const doiRedirect = (env.BREVO_DOI_REDIRECT || '').toString().trim();
       const numericListId = Number(listId || '');
+      const welcomeTemplateId = Number(env.BREVO_WELCOME_TEMPLATE_ID || '');
 
       const headers = {
         'api-key': env.BREVO_API_KEY,
@@ -103,9 +105,42 @@ export default {
           }
         );
       }
+
+      if (welcomeTemplateId) {
+        const welcomePayload = {
+          to: [{ email, name: firstName || email }],
+          templateId: welcomeTemplateId,
+          params: firstName ? { FIRSTNAME: firstName } : {},
+        };
+
+        const welcomeResp = await fetch('https://api.brevo.com/v3/smtp/email', {
+          method: 'POST',
+          headers,
+          body: JSON.stringify(welcomePayload),
+        });
+
+        welcomeStatus = welcomeResp.status;
+
+        if (!welcomeResp.ok) {
+          const welcomeError = await welcomeResp.text();
+          return new Response(
+            JSON.stringify({
+              ok: false,
+              siteOk,
+              brevoStatus,
+              welcomeStatus,
+              error: welcomeError || 'Brevo welcome email failed',
+            }),
+            {
+              status: welcomeResp.status,
+              headers: { 'content-type': 'application/json', ...corsHeaders },
+            }
+          );
+        }
+      }
     }
 
-    return new Response(JSON.stringify({ ok: true, siteOk, brevoStatus }), {
+    return new Response(JSON.stringify({ ok: true, siteOk, brevoStatus, welcomeStatus }), {
       headers: { 'content-type': 'application/json', ...corsHeaders },
     });
   },
