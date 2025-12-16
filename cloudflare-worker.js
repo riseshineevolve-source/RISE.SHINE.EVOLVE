@@ -35,6 +35,7 @@ export default {
       });
     }
 
+    const action = (formData.get('action') || '').toString().trim();
     const firstName = (
       formData.get('firstName') ||
       formData.get('FIRSTNAME') ||
@@ -42,6 +43,64 @@ export default {
     ).toString().trim();
     const email = (formData.get('email') || formData.get('EMAIL') || '').toString().trim();
     const listId = formData.get('brevoListId') || env.BREVO_LIST_ID;
+
+    // Quick Brevo contact check flow (no site forwarding)
+    if (action === 'check') {
+      if (!env.BREVO_API_KEY) {
+        return new Response(JSON.stringify({ ok: false, error: 'Missing Brevo API key' }), {
+          status: 400,
+          headers: { 'content-type': 'application/json', ...corsHeaders },
+        });
+      }
+
+      if (!email) {
+        return new Response(JSON.stringify({ ok: false, error: 'Missing email' }), {
+          status: 400,
+          headers: { 'content-type': 'application/json', ...corsHeaders },
+        });
+      }
+
+      const numericListId = Number(listId || '');
+      const contactEndpoint = `https://api.brevo.com/v3/contacts/${encodeURIComponent(email)}`;
+      const brevoResp = await fetch(contactEndpoint, {
+        method: 'GET',
+        headers: {
+          'api-key': env.BREVO_API_KEY,
+          accept: 'application/json',
+        },
+      });
+
+      const bodyText = await brevoResp.text();
+      if (!brevoResp.ok) {
+        return new Response(
+          JSON.stringify({ ok: false, brevoStatus: brevoResp.status, brevoBody: bodyText || null }),
+          { headers: { 'content-type': 'application/json', ...corsHeaders }, status: brevoResp.status }
+        );
+      }
+
+      let parsed = null;
+      try {
+        parsed = JSON.parse(bodyText);
+      } catch (error) {
+        // leave parsed null
+      }
+
+      const listIds = Array.isArray(parsed?.listIds) ? parsed.listIds : [];
+      const listMatch = numericListId ? listIds.includes(numericListId) : listIds.length > 0;
+      const notBlacklisted = parsed ? parsed.emailBlacklisted === false : false;
+      const subscribed = listMatch && notBlacklisted;
+
+      return new Response(
+        JSON.stringify({
+          ok: true,
+          brevoStatus: brevoResp.status,
+          brevoBody: parsed || bodyText || null,
+          subscribed,
+          listMatch,
+        }),
+        { headers: { 'content-type': 'application/json', ...corsHeaders } }
+      );
+    }
 
     // Forward to the site handler first to keep existing behavior.
     let siteOk = false;

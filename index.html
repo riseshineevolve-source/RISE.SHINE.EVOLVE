@@ -5733,6 +5733,11 @@ document
         document.addEventListener('DOMContentLoaded', () => {
             checkGiftsAccess();
 
+            const storedEmail = (localStorage.getItem('giftsEmail') || '').trim();
+            if (storedEmail) {
+                revalidateBrevoAccess(storedEmail);
+            }
+
             const brevoUnsubForm = document.getElementById('sib-form-unsub');
             if (brevoUnsubForm) {
                 brevoUnsubForm.addEventListener('submit', () => {
@@ -6350,8 +6355,9 @@ document
         }
 
         // GIFTS access functions
-        const GIFTS_ACCESS_VERSION = '5';
+        const GIFTS_ACCESS_VERSION = '6';
         let hasGiftsAccess = false;
+        let brevoCheckPromise = null;
         function checkGiftsAccess() {
             const access = localStorage.getItem('giftsAccess') === 'true';
             const savedEmail = (localStorage.getItem('giftsEmail') || '').trim();
@@ -6359,6 +6365,11 @@ document
 
             if (access && savedEmail.includes('@') && accessVersion === GIFTS_ACCESS_VERSION) {
                 hasGiftsAccess = true;
+                if (!brevoCheckPromise) {
+                    brevoCheckPromise = revalidateBrevoAccess(savedEmail).finally(() => {
+                        brevoCheckPromise = null;
+                    });
+                }
                 return true;
             }
 
@@ -6382,6 +6393,34 @@ document
             localStorage.removeItem('giftsFirstName');
             localStorage.removeItem('giftsAccessVersion');
             hasGiftsAccess = false;
+        }
+
+        async function revalidateBrevoAccess(email) {
+            const workerEndpoint = (typeof CLOUDFLARE_WORKER_ENDPOINT === 'string' ? CLOUDFLARE_WORKER_ENDPOINT.trim() : '');
+            if (!workerEndpoint || !email) return;
+
+            try {
+                const fd = new FormData();
+                fd.append('action', 'check');
+                fd.append('EMAIL', email);
+                if (BREVO_LIST_ID) {
+                    fd.append('brevoListId', BREVO_LIST_ID);
+                }
+
+                const resp = await fetch(workerEndpoint, { method: 'POST', body: fd, mode: 'cors', credentials: 'omit' });
+                const data = await resp.json().catch(() => ({}));
+                const isSubscribed = resp.ok && data && data.subscribed !== false;
+
+                if (!isSubscribed) {
+                    clearGiftsAccess();
+                    const giftsActive = document.getElementById('gifts-content')?.classList.contains('active');
+                    if (giftsActive) {
+                        showEmailModal();
+                    }
+                }
+            } catch (error) {
+                // If the check fails, keep local state; access will be asked again on next click.
+            }
         }
         // Function to send to the site and (optionally) Cloudflare Worker (używane przez formularz GIFTS)
         function sendToSite(formData) {
@@ -6526,7 +6565,7 @@ document
         function handleUnsubscribe(event) {
             event.preventDefault();
             const form = event.target;
-            const emailInput = form.querySelector('input[type="email"]');
+            const emailInput = form.querySelector('input[type="email"], input[name="EMAIL"]');
             const messageBox = form.querySelector('.unsubscribe-message');
             if (messageBox) {
                 messageBox.textContent = '';
