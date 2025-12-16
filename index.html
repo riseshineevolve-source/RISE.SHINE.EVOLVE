@@ -174,6 +174,242 @@
             animation: evolveGlow 8s infinite ease-in-out;
         }
 
+        /* Brevo compact embed styling */
+        .brevo-embed .sib-container--large {
+            background: #060606 !important;
+            border: 0 !important;
+            box-shadow: 0 0 18px rgba(138, 43, 226, 0.5);
+            max-width: 330px !important;
+            margin: 0 auto !important;
+            padding: 10px 10px !important;
+            border-radius: 14px !important;
+        }
+
+        .brevo-embed .sib-form-message-panel {
+            background: rgba(0, 0, 0, 0.7) !important;
+            border: 1px solid #8A2BE2 !important;
+            color: #ffd700 !important;
+            box-shadow: 0 0 18px rgba(255, 215, 0, 0.35);
+            max-width: 360px !important;
+            margin: 6px auto !important;
+        }
+
+        .brevo-embed .sib-form-message-panel__inner-text {
+            color: #ffd700 !important;
+        }
+
+        .brevo-embed .input {
+            background: #0a0a0a !important;
+            color: #ffffff !important;
+            border: 1px solid #8A2BE2 !important;
+            border-radius: 10px !important;
+            padding: 8px 10px !important;
+            font-size: 12px !important;
+            height: 36px !important;
+            box-shadow: inset 0 0 10px rgba(138, 43, 226, 0.25);
+        }
+
+        .brevo-embed .entry__label {
+            color: #c9a3ff !important;
+            font-size: 12px !important;
+        }
+
+        .brevo-embed .sib-form-block__button {
+            min-height: 38px;
+            padding: 8px 14px;
+        }
+
+        /* Brevo unsubscribe embed styling */
+        .brevo-unsub .sib-container--small,
+        .brevo-unsub .sib-container--large {
+            background: #060606 !important;
+            border: 1px solid #8A2BE2 !important;
+            box-shadow: 0 0 14px rgba(138, 43, 226, 0.55);
+            max-width: 220px !important;
+            margin: 0 auto !important;
+            padding: 10px 10px !important;
+            border-radius: 12px !important;
+        }
+
+        .brevo-unsub .sib-form-message-panel {
+            background: rgba(0, 0, 0, 0.7) !important;
+            border: 1px solid #8A2BE2 !important;
+            color: #ffd700 !important;
+            box-shadow: 0 0 14px rgba(255, 215, 0, 0.35);
+        }
+
+        .brevo-unsub .sib-form-message-panel__inner-text {
+            color: #ffd700 !important;
+        }
+
+        .brevo-unsub .input,
+        .brevo-unsub .sib-form-block__button {
+            background: #0d0d0d !important;
+            border: 1px solid #8A2BE2 !important;
+            color: #ffffff !important;
+            border-radius: 9px !important;
+            font-size: 0.8rem !important;
+            box-shadow: 0 0 10px rgba(138, 43, 226, 0.35);
+        }
+
+        .brevo-unsub .sib-form-block__button {
+            background: #121313 !important;
+            color: #ffd700 !important;
+            border: 1px solid #ffd700 !important;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
+            padding: 3px 7px !important;
+            letter-spacing: 0.35px;
+            font-size: 0.65rem !important;
+        }
+
+        .brevo-unsub .entry__error {
+            border-color: #ff4949 !important;
+        }
+
+        .brevo-embed .entry__label {
+            color: #ffd700 !important;
+            font-size: 0.85rem !important;
+        }
+
+        .brevo-embed .input,
+        .brevo-embed .input_replaced + .checkbox,
+        .brevo-embed .sib-form-block__button {
+            border-radius: 8px !important;
+        }
+
+        .brevo-embed .input,
+        .brevo-embed input[type="text"],
+        .brevo-embed input[type="email"],
+        .brevo-embed .form__entry input {
+            background: #050505 !important;
+            border: 1px solid #8A2BE2 !important;
+            color: #ffffff !important;
+            padding: 6px 8px !important;
+            font-size: 0.85rem !important;
+            line-height: 1.25 !important;
+            border-radius: 10px !important;
+            box-shadow: 0 0 10px rgba(138, 43, 226, 0.35);
+        }
+
+        .brevo-embed .input::placeholder {
+            color: #888 !important;
+        }
+
+        .brevo-embed .sib-form-block__button {
+            background: linear-gradient(45deg, #caa04d, #ffd700) !important;
+            color: #0a0a0a !important;
+            font-weight: 800 !important;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.45) !important;
+            padding: 8px 10px !important;
+            font-size: 0.92rem !important;
+            border-radius: 10px !important;
+        }
+
+        .gift-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 10010;
+            overflow: auto;
+            padding: 12px;
+            box-sizing: border-box;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gift-overlay-inner {
+            position: relative;
+            width: min(1100px, 96vw);
+            height: min(92vh, 760px);
+            max-height: calc(100vh - 36px);
+            margin: 0 auto;
+            display: flex;
+            align-items: stretch;
+        }
+
+        .gift-close-btn {
+            position: fixed;
+            top: 10px;
+            right: 12px;
+            background: linear-gradient(45deg, #8A2BE2, #9932CC);
+            border: 2px solid #ffd700;
+            border-radius: 14px;
+            padding: 9px 14px;
+            color: #ffffff;
+            font-size: 0.95rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 0 18px rgba(138, 43, 226, 0.6);
+            z-index: 2;
+        }
+
+        .gift-frame {
+            display: block;
+            width: 100%;
+            height: 100%;
+            margin: 0 auto;
+            border: 3px solid #8A2BE2;
+            border-radius: 16px;
+            box-shadow: 0 0 35px rgba(138, 43, 226, 0.6), 0 0 60px rgba(138, 43, 226, 0.3);
+            background: #000;
+            box-sizing: border-box;
+        }
+
+        .gift-fallback {
+            display: none;
+            position: absolute;
+            inset: 32px 0 0 0;
+            color: #ffffff;
+            text-align: center;
+            padding: 24px 14px;
+            background: linear-gradient(135deg, rgba(138, 43, 226, 0.2), rgba(0, 0, 0, 0.9));
+            border: 2px solid #ffd700;
+            border-radius: 16px;
+            margin: 0;
+            box-shadow: 0 0 25px rgba(255, 215, 0, 0.4);
+            overflow: auto;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        @media (max-width: 720px) {
+            .gift-overlay {
+                padding: 6px;
+            }
+            .gift-overlay-inner {
+                width: 100%;
+                height: 85vh;
+                max-height: none;
+            }
+            .gift-frame {
+                height: 78vh;
+                border-width: 2px;
+            }
+            .gift-close-btn {
+                top: 8px;
+                right: 8px;
+                padding: 7px 11px;
+                font-size: 0.88rem;
+            }
+        }
+
+        #privacyModal {
+            z-index: 13000 !important;
+        }
+
+        .brevo-embed .sib-form-block {
+            margin-bottom: 8px !important;
+        }
+
+        .brevo-embed .entry__error {
+            background: rgba(255, 0, 87, 0.12) !important;
+            color: #ff6fa5 !important;
+        }
+
         .icon-heading {
             color: #ffd700;
             font-weight: bold;
@@ -924,7 +1160,7 @@
      and every person can <span class="word-evolve">EVOLVE</span>.
     </div>
    </div><!-- New Elegant Christmas Box - Dark Sophisticated Design -->
-   <div class="elegant-christmas-box" onclick="window.open('https://www.amazon.com/s?i=digital-text&rh=p_27%3ARise.Shine.Evolve.&s=relevancerank&text=Rise.Shine.Evolve.&ref=dp_byline_sr_ebooks_1', '_blank', 'noopener,noreferrer')">
+   <div class="elegant-christmas-box" onclick="window.open('https://www.amazon.com/dp/B0G6ZBD7YF/ref=sr_1_1?crid=1JNI65G7Y5W2T&dib=eyJ2IjoiMSJ9.6sPvd45HQ0DwFx7rDVm4GzEvVHvx5Nfyyk4-aOOpL-R9ARZwGRkFwI6K0rPa1EX0ZBKEzsfqQGLw0d4jZ5-ItQ.HHZ--L7lh4LL8MZJqdljxFqBdMTp3g8LL8IgiH3QPb0&dib_tag=se&keywords=the+confident+mindful+%26+happy+me+adventure&qid=1765802239&s=digital-text&sprefix=%2Cdigital-text%2C354&sr=1-1', '_blank', 'noopener,noreferrer')">
     <div class="elegant-box-content">
      <svg class="elegant-crown-icon" viewBox="0 0 100 100" role="img" aria-hidden="true">
       <defs>
@@ -935,16 +1171,17 @@
       </defs>
       <polygon points="50,15 35,35 40,35 25,55 30,55 15,75 85,75 70,55 75,55 60,35 65,35" fill="url(#treeGradient)" stroke="#8A2BE2" stroke-width="1.5" />
      </svg>
-     <div class="elegant-main-title">
-      24 Gentle Steps<br>
-      to Christmas
+     <div class="elegant-main-title" style="text-transform: uppercase;">
+      The Confident,<br>
+      Mindful &amp; Happy Me<br>
+      Adventure
      </div>
      <div class="elegant-subtitle">
-      A mindful, heart-warming advent experience for the whole family.
+      31 days of confidence, calm, and growth-mindset fun for kids 6-10.
      </div>
-     <button class="elegant-amazon-btn" onclick="event.stopPropagation(); window.open('https://www.amazon.com/s?i=digital-text&rh=p_27%3ARise.Shine.Evolve.&s=relevancerank&text=Rise.Shine.Evolve.&ref=dp_byline_sr_ebooks_1', '_blank', 'noopener,noreferrer')">
+     <button class="elegant-amazon-btn" onclick="event.stopPropagation(); window.open('https://www.amazon.com/dp/B0G6ZBD7YF/ref=sr_1_1?crid=1JNI65G7Y5W2T&dib=eyJ2IjoiMSJ9.6sPvd45HQ0DwFx7rDVm4GzEvVHvx5Nfyyk4-aOOpL-R9ARZwGRkFwI6K0rPa1EX0ZBKEzsfqQGLw0d4jZ5-ItQ.HHZ--L7lh4LL8MZJqdljxFqBdMTp3g8LL8IgiH3QPb0&dib_tag=se&keywords=the+confident+mindful+%26+happy+me+adventure&qid=1765802239&s=digital-text&sprefix=%2Cdigital-text%2C354&sr=1-1', '_blank', 'noopener,noreferrer')">
       <svg viewBox="0 0 100 100" style="width: 14px; height: 14px; display: inline-block; vertical-align: middle; margin-right: 5px;" aria-hidden="true"></svg>
-      Unwrap it on Amazon
+      Add to cart on Amazon
      </button>
     </div>
    </div>
@@ -1047,101 +1284,14 @@
                                 border-radius: 15px;
                                 background: rgba(138, 43, 226, 0.05);
                             "><!-- First Row of Books -->
-        <div style="
+         <div style="
                                     display: flex;
                                     justify-content: center;
                                     gap: 20px;
                                     margin-bottom: 25px;
                                     flex-wrap: wrap;
-                                "><!-- New Year Book -->
-          <div onclick="showBookDetailsFullScreen('newyear-book')" style="
-                                        background: #000000;
-                                        border: 3px solid #8A2BE2;
-                                        border-radius: 15px;
-                                        padding: 20px;
-                                        text-align: center;
-                                        cursor: pointer;
-                                        transition: all 0.3s ease;
-                                        box-shadow:
-                                            0 12px 40px rgba(0, 0, 0, 0.4),
-                                            0 0 0 1px rgba(138, 43, 226, 0.6),
-                                            inset 0 2px 0 rgba(255, 255, 255, 0.1),
-                                            0 0 30px rgba(138, 43, 226, 0.5),
-                                            0 0 60px rgba(138, 43, 226, 0.3);
-                                        width: 250px;
-                                        min-height: 320px;
-                                        position: relative;
-                                    " onmouseover="this.style.transform='translateY(-8px) scale(1.05)'; this.style.boxShadow='0 20px 60px rgba(0, 0, 0, 0.5), 0 0 0 2px rgba(138, 43, 226, 0.8), inset 0 3px 0 rgba(255, 255, 255, 0.2), 0 0 50px rgba(138, 43, 226, 0.7), 0 0 100px rgba(138, 43, 226, 0.5)';" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 12px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(138, 43, 226, 0.6), inset 0 2px 0 rgba(255, 255, 255, 0.1), 0 0 30px rgba(138, 43, 226, 0.5), 0 0 60px rgba(138, 43, 226, 0.3)';">
-           <div style="
-                                            position: absolute;
-                                            left: -3px;
-                                            top: 0;
-                                            bottom: 0;
-                                            width: 8px;
-                                            background: linear-gradient(to right, rgba(0, 0, 0, 0.3), transparent);
-                                            border-radius: 15px 0 0 15px;
-                                        "></div>
-           <div style="
-                                            position: absolute;
-                                            top: 10px;
-                                            left: 10px;
-                                            background: #8A2BE2;
-                                            color: #ffffff;
-                                            font-size: 0.6rem;
-                                            font-weight: bold;
-                                            padding: 4px 8px;
-                                            border-radius: 8px;
-                                            text-transform: uppercase;
-                                            box-shadow: 0 0 10px rgba(138, 43, 226, 0.6);
-                                        ">
-            Available
-           </div>
-           <div style="
-                                            width: 50px;
-                                            height: 50px;
-                                            border-radius: 50%;
-                                            border: 2px solid #ffd700;
-                                            display: flex;
-                                            align-items: center;
-                                            justify-content: center;
-                                            margin: 20px auto 15px auto;
-                                            box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
-                                            animation: christmasGlow 3s ease-in-out infinite;
-                                        ">
-            <svg width="24" height="24" viewbox="0 0 100 100" style="filter: drop-shadow(0 0 8px rgba(138, 43, 226, 0.8));">
-             <circle cx="50" cy="50" r="26" fill="#8A2BE2" stroke="#ffd700" stroke-width="2"></circle>
-             <path d="M50 26 L56 44 L75 44 L60 55 L66 73 L50 63 L34 73 L40 55 L25 44 L44 44 Z" fill="#ffd700" stroke="#ffffff" stroke-width="1"></path>
-            </svg>
-           </div>
-           <div style="color: #ffd700; font-weight: bold; font-size: 1.1rem; margin-bottom: 8px; line-height: 1.1; text-shadow: 0 0 15px rgba(255, 215, 0, 0.8);">
-            24 Gentle Steps
-           </div>
-           <div style="color: #ffd700; font-weight: bold; font-size: 1.1rem; margin-bottom: 15px; line-height: 1.1; text-shadow:  0 0 15px rgba(255, 215, 0, 0.8);">
-            Into New Year
-           </div>
-           <div style="color: #ffffff; font-size: 0.85rem; margin-bottom: 15px; line-height: 1.3;">
-            A joyful reset for families to welcome the year with light, simple steps.
-           </div>
-           <div style="
-                                            position: absolute;
-                                            bottom: 15px;
-                                            left: 50%;
-                                            transform: translateX(-50%);
-                                            background: #8A2BE2;
-                                            color: #ffffff;
-                                            font-size: 0.75rem;
-                                            font-weight: bold;
-                                            padding: 8px 12px;
-                                            border-radius: 12px;
-                                            text-transform: uppercase;
-                                            box-shadow: 0 0 15px rgba(138, 43, 226, 0.6);
-                                            letter-spacing: 0.5px;
-                                            cursor: pointer;
-                                        " onclick="showBookDetailsFullScreen('newyear-book')">
-            Open Preview
-           </div>
-          </div><!-- Christmas Book -->
-          <div onclick="showBookDetailsFullScreen('christmas-book')" style="
+                                "><!-- Confident, Mindful & Happy Me -->
+          <div onclick="showBookDetailsFullScreen('confident-adventure')" style="
                                         background: #000000;
                                         border: 3px solid #ffd700;
                                         border-radius: 15px;
@@ -1152,20 +1302,20 @@
                                         box-shadow:
                                             0 12px 40px rgba(0, 0, 0, 0.4),
                                             0 0 0 1px rgba(255, 215, 0, 0.6),
-                                            inset 0 2px 0 rgba(255, 255, 255, 0.1),
+                                            inset 0 2px 0 rgba(255, 255, 255, 0.08),
                                             0 0 30px rgba(255, 215, 0, 0.5),
                                             0 0 60px rgba(255, 215, 0, 0.3);
                                         width: 250px;
                                         min-height: 320px;
                                         position: relative;
-                                    " onmouseover="this.style.transform='translateY(-8px) scale(1.05)'; this.style.boxShadow='0 20px 60px rgba(0, 0, 0, 0.5), 0 0 0 2px rgba(255, 215, 0, 0.8), inset 0 3px 0 rgba(255, 255, 255, 0.2), 0 0 50px rgba(255, 215, 0, 0.7), 0 0 100px rgba(255, 215, 0, 0.5)';" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 12px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 215, 0, 0.6), inset 0 2px 0 rgba(255, 255, 255, 0.1), 0 0 30px rgba(255, 215, 0, 0.5), 0 0 60px rgba(255, 215, 0, 0.3)';">
-           <div style="
+                                    " onmouseover="this.style.transform='translateY(-8px) scale(1.05)'; this.style.boxShadow='0 20px 60px rgba(0, 0, 0, 0.5), 0 0 0 2px rgba(255, 215, 0, 0.8), inset 0 3px 0 rgba(255, 255, 255, 0.2), 0 0 50px rgba(255, 215, 0, 0.7), 0 0 100px rgba(255, 215, 0, 0.5)';" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 12px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 215, 0, 0.6), inset 0 2px 0 rgba(255, 255, 255, 0.08), 0 0 30px rgba(255, 215, 0, 0.5), 0 0 60px rgba(255, 215, 0, 0.3)';">
+          <div style="
                                             position: absolute;
                                             left: -3px;
                                             top: 0;
                                             bottom: 0;
                                             width: 8px;
-                                            background: linear-gradient(to right, rgba(0, 0, 0, 0.3), transparent);
+                                            background: linear-gradient(to right, rgba(255, 215, 0, 0.2), transparent);
                                             border-radius: 15px 0 0 15px;
                                         "></div>
            <div style="
@@ -1183,6 +1333,85 @@
                                         ">
             Available
            </div>
+           <div style="
+                                            background: #ffd700;
+                                            border: 2px solid #ffffff;
+                                            border-radius: 12px;
+                                            padding: 6px 12px;
+                                            margin: 0 auto 12px auto;
+                                            width: fit-content;
+                                            box-shadow: 0 0 14px rgba(255, 215, 0, 0.8);
+                                            color: #000;
+                                            font-weight: bold;
+                                            font-size: 0.9rem;
+                                        ">NEW</div>
+           <div style="color: #ffd700; font-weight: bold; font-size: 1.05rem; margin-bottom: 12px; line-height: 1.2; text-shadow: 0 0 15px rgba(255, 215, 0, 0.8);">
+            Confident, Mindful &amp; Happy Me
+           </div>
+           <div style="color: #ffffff; font-size: 0.85rem; margin-bottom: 15px; line-height: 1.3;">
+            31-day adventure to build resilience, confidence, and calm for kids 6-10.
+           </div>
+           <div style="
+                                            position: absolute;
+                                            bottom: 15px;
+                                            left: 50%;
+                                            transform: translateX(-50%);
+                                            background: #ffd700;
+                                            color: #000000;
+                                            font-size: 0.75rem;
+                                            font-weight: bold;
+                                            padding: 8px 12px;
+                                            border-radius: 12px;
+                                            text-transform: uppercase;
+                                            box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+                                            letter-spacing: 0.5px;
+                                            cursor: pointer;
+                                        " onclick="showBookDetailsFullScreen('confident-adventure')">
+            Explore Book
+           </div>
+          </div><!-- Christmas Book -->
+          <div onclick="showBookDetailsFullScreen('christmas-book')" style="
+                                        background: #000000;
+                                        border: 3px solid #ffd700;
+                                        border-radius: 15px;
+                                        padding: 20px;
+                                        text-align: center;
+                                        cursor: pointer;
+                                        transition: all 0.3s ease;
+                                        box-shadow: 
+                                            0 12px 40px rgba(0, 0, 0, 0.4),
+                                            0 0 0 1px rgba(255, 215, 0, 0.6),
+                                            inset 0 2px 0 rgba(255, 255, 255, 0.1),
+                                            0 0 30px rgba(255, 215, 0, 0.5),
+                                            0 0 60px rgba(255, 215, 0, 0.3);
+                                        width: 250px;
+                                        min-height: 320px;
+                                        position: relative;
+                                    " onmouseover="this.style.transform='translateY(-8px) scale(1.05)'; this.style.boxShadow='0 20px 60px rgba(0, 0, 0, 0.5), 0 0 0 2px rgba(255, 215, 0, 0.8), inset 0 3px 0 rgba(255, 255, 255, 0.2), 0 0 50px rgba(255, 215, 0, 0.7), 0 0 100px rgba(255, 215, 0, 0.5)';" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 12px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 215, 0, 0.6), inset 0 2px 0 rgba(255, 255, 255, 0.1), 0 0 30px rgba(255, 215, 0, 0.5), 0 0 60px rgba(255, 215, 0, 0.3)';"><!-- Book spine effect -->
+           <div style="
+                                            position: absolute;
+                                            left: -3px;
+                                            top: 0;
+                                            bottom: 0;
+                                            width: 8px;
+                                            background: linear-gradient(to right, rgba(0, 0, 0, 0.3), transparent);
+                                            border-radius: 15px 0 0 15px;
+                                        "></div><!-- Available Box - Top Left -->
+           <div style="
+                                            position: absolute;
+                                            top: 10px;
+                                            left: 10px;
+                                            background: #8A2BE2;
+                                            color: #ffffff;
+                                            font-size: 0.6rem;
+                                            font-weight: bold;
+                                            padding: 4px 8px;
+                                            border-radius: 8px;
+                                            text-transform: uppercase;
+                                            box-shadow: 0 0 10px rgba(138, 43, 226, 0.6);
+                                        ">
+            Available
+           </div><!-- Christmas Tree Icon with Animation -->
            <div style="
                                             width: 50px;
                                             height: 50px;
@@ -1215,12 +1444,12 @@
            <div style="color: #ffd700; font-weight: bold; font-size: 1.1rem; margin-bottom: 8px; line-height: 1.1; text-shadow: 0 0 15px rgba(255, 215, 0, 0.8);">
             24 Gentle Steps
            </div>
-           <div style="color: #ffd700; font-weight: bold; font-size: 1.1rem; margin-bottom: 15px; line-height: 1.1; text-shadow:  0 0 15px rgba(255, 215, 0, 0.8);">
+           <div style="color: #ffd700; font-weight: bold; font-size: 1.1rem; margin-bottom: 15px; line-height: 1.1; text-shadow: 0 0 15px rgba(255, 215, 0, 0.8);">
             to Christmas
            </div>
            <div style="color: #ffffff; font-size: 0.85rem; margin-bottom: 15px; line-height: 1.3;">
             A mindful family journey to togetherness, reflection &amp; the magic of Christmas
-           </div>
+           </div><!-- Explore Book Button - Bottom -->
            <div style="
                                             position: absolute;
                                             bottom: 15px;
@@ -1248,7 +1477,7 @@
                                         text-align: center;
                                         cursor: pointer;
                                         transition: all 0.3s ease;
-                                        box-shadow:
+                                        box-shadow: 
                                             0 12px 40px rgba(0, 0, 0, 0.4),
                                             0 0 0 1px rgba(255, 105, 180, 0.6),
                                             inset 0 2px 0 rgba(255, 255, 255, 0.1),
@@ -1257,7 +1486,7 @@
                                         width: 250px;
                                         min-height: 320px;
                                         position: relative;
-                                    " onmouseover="this.style.transform='translateY(-8px) scale(1.05)'; this.style.boxShadow='0 20px 60px rgba(0, 0, 0, 0.5), 0 0 0 2px rgba(255, 105, 180, 0.8), inset 0 3px 0 rgba(255, 255, 255, 0.2), 0 0 50px rgba(255, 105, 180, 0.7), 0 0 100px rgba(255, 105, 180, 0.5)';" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 12px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 105, 180, 0.6), inset 0 2px 0 rgba(255, 255, 255, 0.1), 0 0 30px rgba(255, 105, 180, 0.5), 0 0 60px rgba(255, 105, 180, 0.3)';">
+                                    " onmouseover="this.style.transform='translateY(-8px) scale(1.05)'; this.style.boxShadow='0 20px 60px rgba(0, 0, 0, 0.5), 0 0 0 2px rgba(255, 105, 180, 0.8), inset 0 3px 0 rgba(255, 255, 255, 0.2), 0 0 50px rgba(255, 105, 180, 0.7), 0 0 100px rgba(255, 105, 180, 0.5)';" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 12px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 105, 180, 0.6), inset 0 2px 0 rgba(255, 255, 255, 0.1), 0 0 30px rgba(255, 105, 180, 0.5), 0 0 60px rgba(255, 105, 180, 0.3)';"><!-- Book spine effect -->
            <div style="
                                             position: absolute;
                                             left: -3px;
@@ -1266,7 +1495,7 @@
                                             width: 8px;
                                             background: linear-gradient(to right, rgba(0, 0, 0, 0.3), transparent);
                                             border-radius: 15px 0 0 15px;
-                                        "></div>
+                                        "></div><!-- Coming Soon Box - Top Left -->
            <div style="
                                             position: absolute;
                                             top: 10px;
@@ -1281,7 +1510,7 @@
                                             box-shadow: 0 0 10px rgba(138, 43, 226, 0.6);
                                         ">
             Coming Soon
-           </div>
+           </div><!-- Elegant Golden Calendar Icon with Animation -->
            <div style="
                                             width: 50px;
                                             height: 50px;
@@ -1310,12 +1539,12 @@
            <div style="color: #ff69b4; font-weight: bold; font-size: 1.1rem; margin-bottom: 8px; line-height: 1.1; text-shadow: 0 0 15px rgba(255, 105, 180, 0.8);">
             GRANDMA'S BIBI
            </div>
-           <div style="color: #ff69b4; font-weight: bold; font-size: 1.1rem; margin-bottom: 15px; line-height: 1.1; text-shadow:  0 0 15px rgba(255, 105, 180, 0.8);">
+           <div style="color: #ff69b4; font-weight: bold; font-size: 1.1rem; margin-bottom: 15px; line-height: 1.1; text-shadow: 0 0 15px rgba(255, 105, 180, 0.8);">
             ANTI-BOREDOM CLUB!
            </div>
            <div style="color: #ffffff; font-weight: bold; font-size: 0.85rem; margin-bottom: 15px; line-height: 1.3;">
             12 months of epic adventures
-           </div>
+           </div><!-- Explore Book Button - Bottom -->
            <div style="
                                             position: absolute;
                                             bottom: 15px;
@@ -1508,50 +1737,71 @@
        It is time to <span class="word-rise">RISE</span>.<span class="word-shine">SHINE</span>.<span class="word-evolve">EVOLVE</span>
       </div>
      </div>
-     <div class="unsubscribe-wrapper" style="margin: 14px auto 0 auto; max-width: 520px; text-align: center; color: #ffd700; font-size: 0.75rem;">
-        <form name="rse-email-unsubscribe-gifts" method="POST" data-netlify="true" netlify-honeypot="bot-field-unsub" onsubmit="handleUnsubscribe(event)" style="display: flex; flex-direction: column; gap: 8px; align-items: center;">
-            <input type="hidden" name="form-name" value="rse-email-unsubscribe-gifts">
-            <input type="hidden" name="actionType" value="unsubscribe">
-            <p style="display: none;">
-                <label>Don’t fill this out if you’re human: <input name="bot-field-unsub"></label>
-            </p>
-            <span style="display: block;">Unsubscribe &amp; remove GIFTS access</span>
-            <input type="email" name="email" placeholder="Enter your e-mail" required style="
-                width: 100%;
-                max-width: 260px;
-                padding: 8px 10px;
-                border: 2px solid #8A2BE2;
-                border-radius: 10px;
-                background: rgba(0, 0, 0, 0.65);
-                color: #ffffff;
-                box-shadow: 0 0 10px rgba(138, 43, 226, 0.35);
-                font-size: 0.78rem;
-            ">
-            <button type="submit" style="
-                padding: 8px 14px;
-                border: 2px solid #8A2BE2;
-                border-radius: 12px;
-                background: #000000;
-                color: #8A2BE2;
-                font-weight: bold;
-                cursor: pointer;
-                box-shadow: 0 0 12px rgba(138, 43, 226, 0.4);
-                font-size: 0.78rem;
-            ">Unsubscribe</button>
-            <div class="unsubscribe-message" style="font-size: 0.75rem; min-height: 18px;"></div>
-        </form>
+    <div id="brevo-unsub" class="unsubscribe-wrapper" style="margin: 14px auto 0 auto; max-width: 520px; text-align: center; color: #ffd700; font-size: 0.75rem;">
+        <div class="brevo-unsub">
+            <style>
+                @font-face{font-display:block;font-family:Roboto;src:url(https://assets.brevo.com/font/Roboto/Latin/normal/normal/7529907e9eaf8ebb5220c5f9850e3811.woff2) format("woff2"),url(https://assets.brevo.com/font/Roboto/Latin/normal/normal/25c678feafdc175a70922a116c9be3e7.woff) format("woff")}@font-face{font-display:fallback;font-family:Roboto;font-weight:600;src:url(https://assets.brevo.com/font/Roboto/Latin/medium/normal/6e9caeeafb1f3491be3e32744bc30440.woff2) format("woff2"),url(https://assets.brevo.com/font/Roboto/Latin/medium/normal/71501f0d8d5aa95960f6475d5487d4c2.woff) format("woff")}@font-face{font-display:fallback;font-family:Roboto;font-weight:700;src:url(https://assets.brevo.com/font/Roboto/Latin/bold/normal/3ef7cf158f310cf752d5ad08cd0e7e60.woff2) format("woff2"),url(https://assets.brevo.com/font/Roboto/Latin/bold/normal/ece3a1d82f18b60bcce0211725c476aa.woff) format("woff")}#sib-container input:-ms-input-placeholder{text-align:left;font-family:Helvetica,sans-serif;color:#c0ccda}#sib-container input::placeholder{text-align:left;font-family:Helvetica,sans-serif;color:#c0ccda}#sib-container textarea::placeholder{text-align:left;font-family:Helvetica,sans-serif;color:#c0ccda}#sib-container a{text-decoration:underline;color:#2BB2FC}
+            </style>
+            <link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css">
+            <div class="sib-form" style="text-align:center;background-color:#0d0d0d;">
+                <div id="sib-form-container-unsub" class="sib-form-container">
+                    <div id="error-message-unsub" class="sib-form-message-panel" style="font-size:14px;text-align:left;font-family:Helvetica,sans-serif;color:#661d1d;background-color:#ffeded;border-radius:3px;border-color:#ff4949;max-width:320px;">
+                        <div class="sib-form-message-panel__text sib-form-message-panel__text--center">
+                            <svg viewBox="0 0 512 512" class="sib-icon sib-notification__icon"><path d="M256 40c118.621 0 216 96.075 216 216 0 119.291-96.61 216-216 216-119.244 0-216-96.562-216-216 0-119.203 96.602-216 216-216m0-32C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm-11.49 120h22.979c6.823 0 12.274 5.682 11.99 12.5l-7 168c-.268 6.428-5.556 11.5-11.99 11.5h-8.979c-6.433 0-11.722-5.073-11.99-11.5l-7-168c-.283-6.818 5.167-12.5 11.99-12.5zM256 340c-15.464 0-28 12.536-28 28s12.536 28 28 28 28-12.536 28-28-12.536-28-28-28z"/></svg>
+                            <span class="sib-form-message-panel__inner-text">Your Unsubscription could not be validated. Please try again.</span>
+                        </div>
+                    </div>
+                    <div></div>
+                    <div id="success-message-unsub" class="sib-form-message-panel" style="font-size:14px;text-align:left;font-family:Helvetica,sans-serif;color:#085229;background-color:#e7faf0;border-radius:3px;border-color:#13ce66;max-width:320px;">
+                        <div class="sib-form-message-panel__text sib-form-message-panel__text--center">
+                            <svg viewBox="0 0 512 512" class="sib-icon sib-notification__icon"><path d="M256 8C119.033 8 8 119.033 8 256s111.033 248 248 248 248-111.033 248-248S392.967 8 256 8zm0 464c-118.664 0-216-96.055-216-216 0-118.663 96.055-216 216-216 118.664 0 216 96.055 216 216 0 118.663-96.055 216-216 216zm141.63-274.961L217.15 376.071c-4.705 4.667-12.303 4.637-16.97-.068l-85.878-86.572c-4.667-4.705-4.637-12.303.068-16.97l8.52-8.451c4.705-4.667 12.303-4.637 16.97.068l68.976 69.533 163.441-162.13c4.705-4.667 12.303-4.637 16.97.068l8.451 8.52c4.668 4.705 4.637 12.303-.068 16.97z"/></svg>
+                            <span class="sib-form-message-panel__inner-text">You have been successfully unsubscribed. Thank you for being part of our community. If you ever need a spark of joy or calm again, our door is always open for you!</span>
+                        </div>
+                    </div>
+                    <div></div>
+                    <div id="sib-container-unsub" class="sib-container--small sib-container--vertical" style="text-align:center;background-color:rgba(255,255,255,1);max-width:220px;border-radius:3px;border-width:1px;border-color:#C0CCD9;border-style:solid;direction:ltr">
+                        <form id="sib-form-unsub" method="POST" action="https://63a754d7.sibforms.com/serve/MUIFAHRBA_Iv3SiSn_XeKSFvIisPlTNG_iRhG8U3Im8rCw3Wvg8wsz0g_d1D_-m0mms0vaPRI4wzpSvtL8tTB42GYzXsPdvqXYbz5ES88Ee2hI3Wi8a3wPFDCeOP6djSEtF-XORDcvuinheDAJltJqqyBUOJsqySeHdR0JXIm8tbj3XtT8O4MUAxH73NZNf0iCLspoq4Luueuc98jA==" data-type="unsubscription">
+                            <div style="padding:8px 0;">
+                                <div class="sib-input sib-form-block">
+                                    <div class="form__entry entry_block">
+                                        <div class="form__label-row ">
+                                            <div class="entry__field">
+                                                <input class="input" type="text" id="EMAIL" name="EMAIL" autocomplete="off" placeholder="EMAIL" data-required="true" required>
+                                            </div>
+                                        </div>
+                                        <label class="entry__error entry__error--primary" style="font-size:16px;text-align:left;font-family:Helvetica,sans-serif;color:#661d1d;background-color:#ffeded;border-radius:3px;border-color:#ff4949;"></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="padding:8px 0;">
+                                <div class="sib-form-block" style="text-align:center">
+                                    <button class="sib-form-block__button sib-form-block__button-with-loader" style="font-size:10px;text-align:center;font-weight:700;font-family:Helvetica,sans-serif;color:#FFFFFF;background-color:#121313;border-radius:6px;border-width:0px;cursor:pointer;padding:6px 10px;" form="sib-form-unsub" type="submit">
+                                        <svg class="icon clickable__icon progress-indicator__icon sib-hide-loader-icon" viewBox="0 0 512 512"><path d="M460.116 373.846l-20.823-12.022c-5.541-3.199-7.54-10.159-4.663-15.874 30.137-59.886 28.343-131.652-5.386-189.946-33.641-58.394-94.896-95.833-161.827-99.676C261.028 55.961 256 50.751 256 44.352V20.309c0-6.904 5.808-12.337 12.703-11.982 83.556 4.306 160.163 50.864 202.11 123.677 42.063 72.696 44.079 162.316 6.031 236.832-3.14 6.148-10.75 8.461-16.728 5.01z"/></svg> UNSUBSCRIBE
+                                    </button>
+                                </div>
+                            </div>
+                            <input type="text" name="email_address_check" value="" class="input--hidden">
+                            <input type="hidden" name="locale" value="en">
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <script>
+                window.REQUIRED_CODE_ERROR_MESSAGE='Please choose a country code';window.LOCALE='en';window.EMAIL_INVALID_MESSAGE=window.SMS_INVALID_MESSAGE="The information provided is invalid. Please review the field format and try again.";window.REQUIRED_ERROR_MESSAGE="This field cannot be left blank. ";window.GENERIC_INVALID_MESSAGE="The information provided is invalid. Please review the field format and try again.";window.translation={common:{selectedList:'{quantity} list selected',selectedLists:'{quantity} lists selected',selectedOption:'{quantity} selected',selectedOptions:'{quantity} selected',}};var AUTOHIDE=Boolean(0);
+            </script>
+            <script defer src="https://sibforms.com/forms/end-form/build/main.js"></script>
+        </div>
     </div>
     </div>
     <div id="thank-you-content" class="tab-content">
      <div class="kids-tile" style="border: 3px solid #ffd700; box-shadow: 0 0 35px rgba(255, 215, 0, 0.7), 0 0 60px rgba(255, 215, 0, 0.4);">
       <div class="kids-text">
        <h3 style="color: #ffd700; font-size: 1.8rem; margin-bottom: 20px; text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);">Thank You for Joining!</h3>
-       <p id="thank-you-status" style="color: #ffffff; font-size: 1.1rem; margin-bottom: 18px; line-height: 1.5;">Check your email to confirm your subscription and unlock GIFTS.</p>
-       <p style="color: #ffffff; font-size: 1.05rem; margin-bottom: 25px; line-height: 1.5;">You'll receive:
-        <br>• Free educational materials and worksheets
-        <br>• Latest news about new releases and premieres
-        <br>• Exclusive updates about upcoming books and courses
-        <br>• Special offers and early access content</p><!-- Access GIFTS Button -->
+       <p style="color: #ffffff; font-size: 1.2rem; margin-bottom: 25px; line-height: 1.5;">You now get access to:<br>
+         • Free educational materials and worksheets<br>
+         • Latest news about new releases and premieres<br>
+         • Exclusive updates about upcoming books and courses<br>
+         • Special offers and early access content</p><!-- Access GIFTS Button -->
        <div style="text-align: center; margin: 30px 0;"><button onclick="accessGifts()" style="
                                 background: linear-gradient(45deg, #8A2BE2, #9932CC);
                                 border: 2px solid #ffd700;
@@ -1619,37 +1869,19 @@
                 </div>
             </div>
             <div class="unsubscribe-wrapper" style="margin: 14px auto 0 auto; max-width: 520px; text-align: center; color: #ffd700; font-size: 0.75rem;">
-                <form name="rse-email-unsubscribe-contact" method="POST" data-netlify="true" netlify-honeypot="bot-field-unsub-contact" onsubmit="handleUnsubscribe(event)" style="display: flex; flex-direction: column; gap: 8px; align-items: center;">
-                    <input type="hidden" name="form-name" value="rse-email-unsubscribe-contact">
-                    <input type="hidden" name="actionType" value="unsubscribe">
-                    <p style="display: none;">
-                        <label>Don’t fill this out if you’re human: <input name="bot-field-unsub-contact"></label>
-                    </p>
-                    <span style="display: block;">Unsubscribe &amp; remove GIFTS access</span>
-                    <input type="email" name="email" placeholder="Enter your e-mail" required style="
-                        width: 100%;
-                        max-width: 260px;
-                        padding: 8px 10px;
-                        border: 2px solid #8A2BE2;
-                        border-radius: 10px;
-                        background: rgba(0, 0, 0, 0.65);
-                        color: #ffffff;
-                        box-shadow: 0 0 10px rgba(138, 43, 226, 0.35);
-                        font-size: 0.78rem;
-                    ">
-                    <button type="submit" style="
-                        padding: 8px 14px;
-                        border: 2px solid #8A2BE2;
-                        border-radius: 12px;
-                        background: #000000;
-                        color: #8A2BE2;
-                        font-weight: bold;
-                        cursor: pointer;
-                        box-shadow: 0 0 12px rgba(138, 43, 226, 0.4);
-                        font-size: 0.78rem;
-                    ">Unsubscribe</button>
-                    <div class="unsubscribe-message" style="font-size: 0.75rem; min-height: 18px; text-align: center;"></div>
-                </form>
+                <p style="margin-bottom: 8px;">Unsubscribe &amp; remove GIFTS access</p>
+                <button onclick="document.getElementById('brevo-unsub').scrollIntoView({ behavior: 'smooth' });" style="
+                    padding: 8px 14px;
+                    border: 2px solid #ffd700;
+                    border-radius: 12px;
+                    background: #000000;
+                    color: #ffd700;
+                    font-weight: bold;
+                    cursor: pointer;
+                    box-shadow: 0 0 12px rgba(255, 215, 0, 0.4);
+                    font-size: 0.78rem;">
+                    Go to unsubscribe form
+                </button>
             </div>
         </div>
     </div>
@@ -1972,24 +2204,6 @@
     </div>
    </div>
   </div><!-- Full Screen Book Details -->
-  <style>
-    @media (max-width: 768px) {
-        #full-screen-book-details {
-            padding: 18px 12px;
-        }
-        #full-screen-book-details > div {
-            max-width: 100% !important;
-        }
-        #full-screen-book-details button {
-            width: 100%;
-            min-height: 44px;
-            margin-bottom: 12px;
-        }
-        #full-screen-book-details-content {
-            padding: 0 4px;
-        }
-    }
-  </style>
   <div id="character-details-view" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000000; z-index: 10001; overflow-y: auto; padding: 40px 20px; box-sizing: border-box;">
    <div style="max-width: 1100px; margin: 0 auto;">
     <button onclick="backToFamilyGalleryFromCharacter()" style="
@@ -2038,11 +2252,11 @@
     </div>
    </div>
   </div><!-- Email Modal -->
-  <div id="gift-overlay" style="display: none; position: fixed; inset: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.95); z-index: 10010; overflow: auto; padding: 12px; box-sizing: border-box; align-items: center; justify-content: center;">
-   <div style="position: relative; width: min(1100px, 96vw); height: min(92vh, 760px); max-height: calc(100vh - 36px); margin: 0 auto; display: flex; align-items: stretch;">
-    <button onclick="closeGiftOverlay()" style="position: fixed; top: 10px; right: 12px; background: linear-gradient(45deg, #8A2BE2, #9932CC); border: 2px solid #ffd700; border-radius: 14px; padding: 9px 14px; color: #ffffff; font-size: 0.95rem; font-weight: bold; cursor: pointer; box-shadow: 0 0 18px rgba(138, 43, 226, 0.6); z-index: 2;">Close gift ✖</button>
-    <iframe id="gift-frame" title="Gift experience" style="display: block; width: 100%; height: 100%; margin: 0 auto; border: 3px solid #8A2BE2; border-radius: 16px; box-shadow: 0 0 35px rgba(138, 43, 226, 0.6), 0 0 60px rgba(138, 43, 226, 0.3); background: #000; box-sizing: border-box;"></iframe>
-    <div id="gift-fallback" style="display: none; position: absolute; inset: 32px 0 0 0; color: #ffffff; text-align: center; padding: 24px 14px; background: linear-gradient(135deg, rgba(138, 43, 226, 0.2), rgba(0, 0, 0, 0.9)); border: 2px solid #ffd700; border-radius: 16px; margin: 0; box-shadow: 0 0 25px rgba(255, 215, 0, 0.4); overflow: auto; align-items: center; justify-content: center; text-align: center;">
+  <div id="gift-overlay" class="gift-overlay">
+   <div class="gift-overlay-inner">
+    <button onclick="closeGiftOverlay()" class="gift-close-btn">Close gift ✖</button>
+    <iframe id="gift-frame" title="Gift experience" class="gift-frame"></iframe>
+    <div id="gift-fallback" class="gift-fallback">
      Gift content is unavailable right now. Please try again in a moment.
     </div>
    </div>
@@ -2066,11 +2280,11 @@
             background: linear-gradient(135deg, #000000, #1a1a1a);
             border: 3px solid #8A2BE2;
             border-radius: 20px;
-            padding: 24px;
+            padding: 18px;
             max-width: 520px;
             width: 92%;
-            max-height: 90vh;
-            overflow-y: auto;
+            max-height: 95vh;
+            overflow-y: visible;
             box-shadow: 0 0 50px rgba(138, 43, 226, 0.8);
         ">
     <span class="close" onclick="closeEmailModal()" style="
@@ -2092,65 +2306,95 @@
             " onmouseover="this.style.background='rgba(138, 43, 226, 0.3)';" onmouseout="this.style.background='none';">×</span>
     <h3 style="color: #8A2BE2; font-size: 1.8rem; margin-bottom: 10px; text-align: center; text-shadow: 0 0 15px rgba(138, 43, 226, 0.8); animation: colorTransition 3s ease-in-out infinite; line-height: 1.3;">Join Our Community</h3>
     <p style="color: #ffd700; font-size: 1.1rem; margin-bottom: 20px; text-align: center; text-shadow: 0 0 10px rgba(255, 215, 0, 0.6); font-weight: bold;">Get our newsletter &amp; unlock exclusive GIFTS</p>
-    <p style="color: #ffffff; font-size: 1rem; margin-bottom: 25px; text-align: center; line-height: 1.5;">Free resources to help you <span style="color: #ff1493; font-weight: bold;">RISE</span>,<br>
+    <p style="color: #8A2BE2; font-size: 1rem; margin-bottom: 25px; text-align: center; line-height: 1.5;">Free resources to help you <span style="color: #ff1493; font-weight: bold;">RISE</span>,<br>
       tools that make you <span style="color: #ffd700; font-weight: bold;">SHINE</span>,<br>
       and materials that help you <span style="color: #9932CC; font-weight: bold;">EVOLVE</span>.</p>
-    <form name="rse-email-list-modal" method="POST" data-netlify="true" netlify-honeypot="bot-field-modal" onsubmit="submitEmailModal(event)">
-            <input type="hidden" name="form-name" value="rse-email-list-modal">
-            <input type="hidden" name="actionType" value="subscribe">
-            <p style="display: none;">
-                <label>Don't fill this out if you're human: <input name="bot-field-modal"></label>
-            </p>
-            <div class="form-group" style="margin-bottom: 20px;">
-                <div style="position: relative; margin-bottom: 15px;">
-                    <span style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #ff69b4; font-size: 12px; text-shadow: 0 0 10px rgba(255, 105, 180, 0.8);">*</span>
-                    <input type="text" id="firstNameInput" name="firstName" placeholder="Enter your first name" required style="
-                        width: 100%;
-                        padding: 12px 15px;
-                        border: 2px solid #8A2BE2;
-                        border-radius: 15px;
-                        background: rgba(0, 0, 0, 0.7);
-                        color: #ffffff;
-                        font-size: 1rem;
-                        box-shadow: 0 0 15px rgba(138, 43, 226, 0.3);
-                        box-sizing: border-box;
-                    ">
+    <div class="brevo-embed" style="margin-top: 6px;">
+        <style>
+            @font-face{font-display:block;font-family:Roboto;src:url(https://assets.brevo.com/font/Roboto/Latin/normal/normal/7529907e9eaf8ebb5220c5f9850e3811.woff2) format("woff2"),url(https://assets.brevo.com/font/Roboto/Latin/normal/normal/25c678feafdc175a70922a116c9be3e7.woff) format("woff")}@font-face{font-display:fallback;font-family:Roboto;font-weight:600;src:url(https://assets.brevo.com/font/Roboto/Latin/medium/normal/6e9caeeafb1f3491be3e32744bc30440.woff2) format("woff2"),url(https://assets.brevo.com/font/Roboto/Latin/medium/normal/71501f0d8d5aa95960f6475d5487d4c2.woff) format("woff")}@font-face{font-display:fallback;font-family:Roboto;font-weight:700;src:url(https://assets.brevo.com/font/Roboto/Latin/bold/normal/3ef7cf158f310cf752d5ad08cd0e7e60.woff2) format("woff2"),url(https://assets.brevo.com/font/Roboto/Latin/bold/normal/ece3a1d82f18b60bcce0211725c476aa.woff) format("woff")}#sib-container input:-ms-input-placeholder{text-align:left;font-family:Helvetica,sans-serif;color:#c0ccda}#sib-container input::placeholder{text-align:left;font-family:Helvetica,sans-serif;color:#c0ccda}#sib-container textarea::placeholder{text-align:left;font-family:Helvetica,sans-serif;color:#c0ccda}#sib-container a{text-decoration:underline;color:#2BB2FC}
+        </style>
+        <link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css">
+        <div class="sib-form" style="text-align:center;background-color:#0d0d0d;">
+            <div id="sib-form-container" class="sib-form-container">
+                <div id="error-message" class="sib-form-message-panel" style="font-size:14px;text-align:left;font-family:Helvetica,sans-serif;color:#661d1d;background-color:#ffeded;border-radius:3px;border-color:#ff4949;max-width:380px;">
+                    <div class="sib-form-message-panel__text sib-form-message-panel__text--center">
+                        <svg viewBox="0 0 512 512" class="sib-icon sib-notification__icon"><path d="M256 40c118.621 0 216 96.075 216 216 0 119.291-96.61 216-216 216-119.244 0-216-96.562-216-216 0-119.203 96.602-216 216-216m0-32C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm-11.49 120h22.979c6.823 0 12.274 5.682 11.99 12.5l-7 168c-.268 6.428-5.556 11.5-11.99 11.5h-8.979c-6.433 0-11.722-5.073-11.99-11.5l-7-168c-.283-6.818 5.167-12.5 11.99-12.5zM256 340c-15.464 0-28 12.536-28 28s12.536 28 28 28 28-12.536 28-28-12.536-28-28-28z"/></svg>
+                        <span class="sib-form-message-panel__inner-text">Your subscription could not be saved. Please try again.</span>
+                    </div>
                 </div>
-                <div style="position: relative;">
-                    <span style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #ff69b4; font-size: 12px; text-shadow: 0 0 10px rgba(255, 105, 180, 0.8);">*</span>
-                    <input type="email" id="emailInput" name="email" placeholder="Enter your e-mail" required style="
-                        width: 100%;
-                        padding: 12px 15px;
-                        border: 2px solid #8A2BE2;
-                        border-radius: 15px;
-                        background: rgba(0, 0, 0, 0.7);
-                        color: #ffffff;
-                        font-size: 1rem;
-                        box-shadow: 0 0 15px rgba(138, 43, 226, 0.3);
-                        box-sizing: border-box;
-                    ">
+                <div></div>
+                <div id="success-message" class="sib-form-message-panel" style="font-size:14px;text-align:left;font-family:Helvetica,sans-serif;color:#085229;background-color:#e7faf0;border-radius:3px;border-color:#13ce66;max-width:380px;">
+                    <div class="sib-form-message-panel__text sib-form-message-panel__text--center">
+                        <svg viewBox="0 0 512 512" class="sib-icon sib-notification__icon"><path d="M256 8C119.033 8 8 119.033 8 256s111.033 248 248 248 248-111.033 248-248S392.967 8 256 8zm0 464c-118.664 0-216-96.055-216-216 0-118.663 96.055-216 216-216 118.664 0 216 96.055 216 216 0 118.663-96.055 216-216 216zm141.63-274.961L217.15 376.071c-4.705 4.667-12.303 4.637-16.97-.068l-85.878-86.572c-4.667-4.705-4.637-12.303.068-16.97l8.52-8.451c4.705-4.667 12.303-4.637 16.97.068l68.976 69.533 163.441-162.13c4.705-4.667 12.303-4.637 16.97.068l8.451 8.52c4.668 4.705 4.637 12.303-.068 16.97z"/></svg>
+                        <span class="sib-form-message-panel__inner-text">You are ready to unwrap your gifts and stay connected with us!</span>
+                    </div>
+                </div>
+                <div></div>
+                <div id="sib-container" class="sib-container--large sib-container--vertical" style="text-align:center;background-color:#060606;max-width:420px;border-radius:12px;border-width:0;border-color:transparent;border-style:solid;direction:ltr">
+                    <form id="sib-form" method="POST" action="https://63a754d7.sibforms.com/serve/MUIFAHvEmnXf059dGE3HEZiuciPTbaxPJ2taKFTaKWG6NhxrhJRV-vRXVyhFPv-0apv_XcCTSAHvbk3fhsanT_6Jvxoikikniw7de7nN4SpOAAWcnU67c9J9qS9-hI2ty3tJ_uLr8DWRT-lWpBS9CREK5lSn7IFAkvUNsvKYBt8TWtqG2X83CgXb_jfzPu-gtzEu9dI2a0PdhkfAaQ==" data-type="subscription" onsubmit="submitEmailModal(event)">
+                        <div style="padding:8px 0;">
+                            <div class="sib-input sib-form-block">
+                                <div class="form__entry entry_block">
+                                    <div class="form__label-row ">
+                                        <label class="entry__label" style="font-weight:700;text-align:left;font-size:14px;font-family:Helvetica,sans-serif;color:#ffd700;" for="FIRSTNAME" data-required="*">Enter your FIRSTNAME</label>
+                                        <div class="entry__field">
+                                            <input class="input" maxlength="200" type="text" id="brevoFirstName" name="FIRSTNAME" autocomplete="off" placeholder="FIRSTNAME" data-required="true" required>
+                                        </div>
+                                    </div>
+                                    <label class="entry__error entry__error--primary" style="font-size:16px;text-align:left;font-family:Helvetica,sans-serif;color:#661d1d;background-color:#ffeded;border-radius:3px;border-color:#ff4949;"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="padding:8px 0;">
+                            <div class="sib-input sib-form-block">
+                                <div class="form__entry entry_block">
+                                    <div class="form__label-row ">
+                                        <label class="entry__label" style="font-weight:700;text-align:left;font-size:14px;font-family:Helvetica,sans-serif;color:#ffd700;" for="EMAIL" data-required="*">Enter your EMAIL</label>
+                                        <div class="entry__field">
+                                            <input class="input" type="text" id="brevoEmail" name="EMAIL" autocomplete="off" placeholder="EMAIL" data-required="true" required>
+                                        </div>
+                                    </div>
+                                    <label class="entry__error entry__error--primary" style="font-size:16px;text-align:left;font-family:Helvetica,sans-serif;color:#661d1d;background-color:#ffeded;border-radius:3px;border-color:#ff4949;"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="padding:8px 0;">
+                            <div class="sib-optin sib-form-block" data-required="true">
+                                <div class="form__entry entry_mcq">
+                                    <div class="form__label-row ">
+                                        <div class="entry__choice">
+                                            <label>
+                                                <input type="checkbox" class="input_replaced" value="1" id="brevoOptIn" name="OPT_IN" required>
+                                                <span class="checkbox checkbox_tick_positive"></span><span style="font-size:11px;text-align:left;font-family:&quot;Lucida Grande&quot;,sans-serif;color:#e6e6e6;background-color:transparent;"><p style="margin:0;">I have read and agree to the <a href="#" onclick="openPrivacyPolicy();return false;" style="color:#ffd700;">Privacy Policy</a> and agree to receive emails from Rise.Shine.Evolve.</p><span data-required="*" style="display:inline;" class="entry__label entry__label_optin"></span></span></label>
+                                        </div>
+                                    </div>
+                                    <label class="entry__error entry__error--primary" style="font-size:16px;text-align:left;font-family:Helvetica,sans-serif;color:#661d1d;background-color:#ffeded;border-radius:3px;border-color:#ff4949;"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="padding:8px 0;">
+                            <div class="sib-form-block" style="text-align:left">
+                                <button id="submitEmail" class="sib-form-block__button sib-form-block__button-with-loader" style="font-size:15px;text-align:center;font-weight:800;font-family:Helvetica,sans-serif;color:#0a0a0a;background-color:#d4af37;border-radius:10px;border-width:0px;" form="sib-form" type="submit">
+                                    <svg class="icon clickable__icon progress-indicator__icon sib-hide-loader-icon" viewBox="0 0 512 512" style=""><path d="M460.116 373.846l-20.823-12.022c-5.541-3.199-7.54-10.159-4.663-15.874 30.137-59.886 28.343-131.652-5.386-189.946-33.641-58.394-94.896-95.833-161.827-99.676C261.028 55.961 256 50.751 256 44.352V20.309c0-6.904 5.808-12.337 12.703-11.982 83.556 4.306 160.163 50.864 202.11 123.677 42.063 72.696 44.079 162.316 6.031 236.832-3.14 6.148-10.75 8.461-16.728 5.01z"/></svg>JOIN US
+                                </button>
+                            </div>
+                        </div>
+                        <input type="text" name="email_address_check" value="" class="input--hidden">
+                        <input type="hidden" name="locale" value="en">
+                        <input type="hidden" name="form-name" value="rse-email-list-modal">
+                    </form>
                 </div>
             </div>
-            <div class="checkbox-group" style="display: flex; align-items: flex-start; gap: 10px; margin-bottom: 20px;">
-                <span style="color: #ff69b4; font-size: 12px; text-shadow: 0 0 10px rgba(255, 105, 180, 0.8); margin-top: 4px;">*</span>
-                <input type="checkbox" id="gdprCheck" name="gdprConsent" required style="margin-top: 4px; transform: scale(1.2); accent-color: #8A2BE2;">
-                <label for="gdprCheck" style="color: #ffffff; font-size: 14px; line-height: 1.4; margin-bottom: 0;"> I have read and agree to the <span class="privacy-link" onclick="openPrivacyPolicy()" style="color: #ffd700; cursor: pointer; text-decoration: underline;">Privacy Policy</span> and agree to receive emails from Rise.Shine.Evolve. </label>
-            </div>
-            <button type="submit" id="submitEmail" style="width: 100%; padding: 15px; background: linear-gradient(45deg, #8A2BE2, #ff69b4); border: none; border-radius: 25px; color: #ffffff; font-size: 18px; font-weight: bold; cursor: pointer; text-shadow: 0 0 10px rgba(0, 0, 0, 0.5); box-shadow: 0 0 25px rgba(138, 43, 226, 0.6); transition: all 0.3s ease;">Join us</button>
-            <p id="errorMsg" style="color: #ff1493; text-align: center; margin-top: 15px; font-weight: bold;"></p>
-            <div id="doiConfigHelper" style="display: none; margin-top: 12px; padding: 14px; border: 2px dashed #8A2BE2; border-radius: 14px; background: rgba(0,0,0,0.55); box-shadow: 0 0 18px rgba(138, 43, 226, 0.35);">
-                <p style="color: #ffd700; font-weight: 700; margin-bottom: 10px; text-align: center;">Missing confirmation email? Add your Brevo DOI details below.</p>
-                <div style="display: flex; flex-direction: column; gap: 10px;">
-                    <input type="text" id="doiTemplateInput" inputmode="numeric" pattern="[0-9]*" placeholder="Brevo template ID (e.g., 123)" style="width: 100%; padding: 10px 12px; border: 2px solid #8A2BE2; border-radius: 10px; background: rgba(0,0,0,0.65); color: #ffffff; font-weight: 700;">
-                    <input type="text" id="doiRedirectInput" placeholder="Redirect URL after confirm (e.g., https://rise-shine-evolve-learning-hub.com/)" style="width: 100%; padding: 10px 12px; border: 2px solid #8A2BE2; border-radius: 10px; background: rgba(0,0,0,0.65); color: #ffffff; font-weight: 700;">
-                    <button type="button" id="saveDoiConfigBtn" style="padding: 10px 14px; border-radius: 12px; border: 2px solid #ff69b4; background: linear-gradient(45deg, #8A2BE2, #ff69b4); color: #fff; font-weight: 800; cursor: pointer; box-shadow: 0 0 18px rgba(255, 105, 180, 0.35);">Save &amp; retry</button>
-                    <p style="color: #e6e6e6; font-size: 12px; margin: 0; text-align: center;">These values stay on this device (localStorage) and will be sent with the form.</p>
-                </div>
-            </div>
-        </form>
+        </div>
+        <script>
+            window.REQUIRED_CODE_ERROR_MESSAGE='Please choose a country code';window.LOCALE='en';window.EMAIL_INVALID_MESSAGE=window.SMS_INVALID_MESSAGE="The information provided is invalid. Please review the field format and try again.";window.REQUIRED_ERROR_MESSAGE="This field cannot be left blank. ";window.GENERIC_INVALID_MESSAGE="The information provided is invalid. Please review the field format and try again.";window.translation={common:{selectedList:'{quantity} list selected',selectedLists:'{quantity} lists selected',selectedOption:'{quantity} selected',selectedOptions:'{quantity} selected',}};var AUTOHIDE=Boolean(0);
+        </script>
+        <script defer src="https://sibforms.com/forms/end-form/build/main.js"></script>
+    </div>
+    <p id="errorMsg" style="color: #ff1493; text-align: center; margin-top: 15px; font-weight: bold;"></p>
    </div>
   </div>
-  <div id="privacyModal" class="modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 1001; backdrop-filter: blur(6px);">
+  <div id="privacyModal" class="modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 12000; backdrop-filter: blur(6px);">
     <div class="modal-content" style="max-width: 700px; max-height: 80vh; overflow-y: auto; margin: 40px auto; background: #0c0c0c; border: 3px solid #8A2BE2; border-radius: 20px; padding: 25px; position: relative; box-shadow: 0 0 40px rgba(138, 43, 226, 0.7);">
         <span class="close" onclick="closePrivacyModal()" style="position: absolute; top: 12px; right: 12px; font-size: 1.4rem; cursor: pointer; color: #ffffff;">×</span>
         <h2 style="color: #ffd700; text-align: center; margin-bottom: 10px;">Privacy Policy</h2>
@@ -5198,6 +5442,18 @@ document
 
         document.addEventListener('DOMContentLoaded', () => {
             checkGiftsAccess();
+
+            const storedEmail = (localStorage.getItem('giftsEmail') || '').trim();
+            if (storedEmail) {
+                revalidateBrevoAccess(storedEmail);
+            }
+
+            const brevoUnsubForm = document.getElementById('sib-form-unsub');
+            if (brevoUnsubForm) {
+                brevoUnsubForm.addEventListener('submit', () => {
+                    clearGiftsAccess();
+                });
+            }
         });
 
         // Dynamic info tile copy
@@ -5246,70 +5502,6 @@ document
         // "--config ./wrangler.toml" and the explicit script path so Wrangler can always find the entrypoint.
         const CLOUDFLARE_WORKER_ENDPOINT = 'https://newsletter-endpoint.rise-shine-evolve.workers.dev/';
         const BREVO_LIST_ID = '3';
-        // Optional: if your Worker variables are not set, you can also forward the DOI template
-        // id and redirect URL from the page. Leave these blank if you already set them in
-        // Cloudflare → Workers → Variables.
-        // Optional: you can supply DOI values via URL params or localStorage without
-        // rebuilding the page. Add `?doiTemplateId=123&doiRedirect=https://your.site/`
-        // to store them locally; forms will forward them to the worker.
-        const BREVO_DOI_TEMPLATE_ID = '';
-        const BREVO_DOI_REDIRECT = '';
-
-        const urlParams = new URLSearchParams(window.location.search);
-        const urlDoiTemplate = urlParams.get('doiTemplateId');
-        const urlDoiRedirect = urlParams.get('doiRedirect');
-        if (urlDoiTemplate) {
-            localStorage.setItem('brevoDoiTemplateId', urlDoiTemplate.trim());
-        }
-        if (urlDoiRedirect) {
-            localStorage.setItem('brevoDoiRedirect', urlDoiRedirect.trim());
-        }
-
-        function getDoiConfig() {
-            const storedTemplate = localStorage.getItem('brevoDoiTemplateId') || '';
-            const storedRedirect = localStorage.getItem('brevoDoiRedirect') || '';
-            return {
-                templateId: (urlDoiTemplate || storedTemplate || BREVO_DOI_TEMPLATE_ID || '').trim(),
-                redirect: (urlDoiRedirect || storedRedirect || BREVO_DOI_REDIRECT || '').trim()
-            };
-        }
-
-        function hydrateDoiConfigHelper() {
-            const helper = document.getElementById('doiConfigHelper');
-            if (!helper) return;
-            const { templateId, redirect } = getDoiConfig();
-            const tplInput = document.getElementById('doiTemplateInput');
-            const redirectInput = document.getElementById('doiRedirectInput');
-            if (tplInput && !tplInput.value) tplInput.value = templateId;
-            if (redirectInput && !redirectInput.value) redirectInput.value = redirect;
-        }
-
-        function showDoiConfigHelper(message = '') {
-            const helper = document.getElementById('doiConfigHelper');
-            if (!helper) return;
-            helper.style.display = 'block';
-            hydrateDoiConfigHelper();
-            const tplInput = document.getElementById('doiTemplateInput');
-            if (tplInput) tplInput.focus();
-            if (message) {
-                const errorMsg = document.getElementById('errorMsg');
-                if (errorMsg) errorMsg.textContent = message;
-            }
-        }
-
-        function saveDoiConfigFromForm() {
-            const tplInput = document.getElementById('doiTemplateInput');
-            const redirectInput = document.getElementById('doiRedirectInput');
-            if (!tplInput || !redirectInput) return { saved: false };
-
-            const tpl = (tplInput.value || '').trim();
-            const redirect = (redirectInput.value || '').trim();
-
-            if (tpl) localStorage.setItem('brevoDoiTemplateId', tpl);
-            if (redirect) localStorage.setItem('brevoDoiRedirect', redirect);
-
-            return { saved: !!tpl || !!redirect };
-        }
         /*
          * Cloudflare Worker example (paste into your Worker, then set CLOUDFLARE_WORKER_ENDPOINT above):
          *
@@ -5606,8 +5798,6 @@ document
         }
 
         // Book Details Functions - Full Screen Version
-        let bookOverlayOpen = false;
-
         function showBookDetailsFullScreen(bookType) {
             // Hide main container and show full-screen book details
             document.querySelector('.container').style.display = 'none';
@@ -5619,61 +5809,55 @@ document
             const detailsContent = document.getElementById('full-screen-book-details-content');
             detailsContent.scrollTop = 0;
 
-            if (!bookOverlayOpen) {
-                history.pushState({ bookOverlay: true, bookType }, document.title, window.location.href);
-                bookOverlayOpen = true;
-            }
-
-            if (bookType === 'newyear-book') {
+            if (bookType === 'confident-adventure') {
                 detailsContent.innerHTML = `
                     <div style="text-align: center; margin-bottom: 25px;">
                         <span style="color: #8A2BE2; font-weight: bold; font-size: 1.6rem; text-shadow: 0 0 20px rgba(138, 43, 226, 0.8);">The Happy-Makers Family Presents:</span>
                     </div>
 
-                    <h2 style="color: #ffd700; font-size: 2.4rem; margin-bottom: 10px; text-shadow: 0 0 30px rgba(255, 215, 0, 0.8); text-align: center;">24 GENTLE STEPS INTO NEW YEAR</h2>
-                    <h3 style="color: #ff69b4; font-size: 1.6rem; margin-bottom: 22px; text-align: center; text-shadow: 0 0 22px rgba(255, 105, 180, 0.8);">A calm reset for families who want to start the year softly</h3>
+                    <h2 style="color: #ffd700; font-size: 2.5rem; margin-bottom: 12px; text-shadow: 0 0 30px rgba(255, 215, 0, 0.8); text-align: center;">THE CONFIDENT, MINDFUL &amp; HAPPY ME ADVENTURE</h2>
+                    <h3 style="color: #ff69b4; font-size: 1.35rem; margin-bottom: 20px; text-shadow: 0 0 18px rgba(255, 105, 180, 0.7); text-align: center;">31 Days to Boost Self-Esteem, Master Big Feelings &amp; Unlock Your Inner Superpower</h3>
 
-                    <div style="color: #ffffff; font-size: 1.05rem; line-height: 1.65; text-align: center; margin-bottom: 30px; max-width: 840px; margin-left: auto; margin-right: auto;">
-                        <p style="margin-bottom: 16px;">A gentle January roadmap with mindful prompts, micro-rituals, and soft accountability nudges the whole family can enjoy together.</p>
-                        <p style="margin-bottom: 20px;">Set intentions, celebrate small wins, and keep the spark of the holidays while creating routines that actually feel doable.</p>
-                        <div style="text-align: left; max-width: 640px; margin: 0 auto;">
-                            <p class="icon-heading">WHAT YOU'LL FIND</p>
-                            <ul class="golden-bullets">
-                                <li>24 tiny steps to reset energy, sleep, and calm</li>
-                                <li>Weekly reflection prompts with playful check-ins</li>
-                                <li>Printables and trackers sized for busy families</li>
-                            </ul>
+                    <div style="color: #ffffff; font-size: 1rem; line-height: 1.7; text-align: left; margin-bottom: 30px; max-width: 900px; margin-left: auto; margin-right: auto;">
+                        <p style="margin-bottom: 16px; font-weight: bold; color: #8A2BE2;">IF GROWING UP FEELS LIKE A ROLLER COASTER OF BIG FEELINGS… THIS BOOK IS YOUR CHILD'S SAFETY BELT.</p>
+                        <p style="margin-bottom: 12px;"><strong style="color: #8A2BE2;">THE PARENTING CHALLENGE</strong> Let’s be honest: growing up is an amazing journey, but sometimes feelings get big and the world gets loud. You see your child struggling with worry, perfectionism, or just finding their voice. You want to help them guide their way through it all with confidence and joy.</p>
+                        <p style="margin-bottom: 12px;"><strong style="color: #8A2BE2;">THE HAPPY MAKERS PRESENT SOLUTION:</strong> The Confident, Mindful &amp; Happy Me Adventure! This isn't just a book. It is an interactive roadmap designed to help your child master the wild ride of growing up with courage and a smile.</p>
+                        <p style="margin-bottom: 12px;"><strong style="color: #8A2BE2;">MEET THE GUIDES</strong> Your child won't be doing this alone. They will be led by The Happy Makers Squad, a lovable family of trusted guides and fun-loving companions (Mimi, Luli, Dilo, Alio, and Nini). They are here to show your child that they don't need a superhero cape to be brave. They just need to unlock the superpowers inside to become the best version of themselves. Join the Happy Makers Squad on this journey to discover your kid's inner LEGEND.</p>
+                        <p style="margin-bottom: 12px;"><strong style="color: #8A2BE2;">HOW IT WORKS: THE 31-DAY MISSION</strong> This book is designed to fit into real life. No pressure. No perfection. Just 10 minutes of connection and fun a day.</p>
 
-                            <p class="icon-heading">WHO IT'S FOR</p>
-                            <ul class="golden-bullets">
-                                <li>Families who want soft structure, not strict rules</li>
-                                <li>Parents craving gentle momentum after the holidays</li>
-                                <li>Kids who enjoy colorful, achievable wins</li>
-                            </ul>
+                        <p style="margin-top: 18px; font-weight: bold; color: #8A2BE2;">OUR 31-DAY MISSION CHECKLIST:</p>
+                        <ul class="golden-bullets" style="margin-left: 20px;">
+                            <li>Week 1: Build Your Fortress ▶ Feeling Safe &amp; Grounded</li>
+                            <li>Week 2: Tame the Wild Emotions ▶ Mastering Anxiety &amp; Anger</li>
+                            <li>Week 3: Shine Your Light ▶ Building Confidence</li>
+                            <li>Week 4: Assemble Your TEAM ▶ Connection &amp; Kindness</li>
+                            <li>Week 5: Fly High ▶ Launching Your Dreams</li>
+                        </ul>
 
-                            <p class="icon-heading">STATUS</p>
-                            <ul class="golden-bullets">
-                                <li>Preview edition in progress — full details coming soon</li>
-                                <li>Tap the button below to get notified at release</li>
-                            </ul>
-                        </div>
+                        <p style="margin-top: 18px; font-weight: bold; color: #8A2BE2;">WHAT MAKES THIS BOOK DIFFERENT?</p>
+                        <p style="margin-bottom: 12px;">We bring the empowering spirit of the Rise Shine Evolve Learning Hub straight into your living room. We craft immersive journeys that turn everyday challenges into opportunities for connection and growth. The Happy Makers vibe? We take emotional growth seriously, but we never take ourselves too seriously. Zero boring lectures and 100% fun. Kids learn best when they are laughing and exploring.</p>
+                        <p style="margin-bottom: 12px;">This is not a passive reading experience. It’s a movement fueled by love, humor, and high-fives! Your child will draw, reflect, breathe, play, and create their way to become Confident, Mindful, and Happy.</p>
+
+                        <p style="margin-top: 18px; font-weight: bold; color: #8A2BE2;">THE PROMISE</p>
+                        <p style="margin-bottom: 12px;">The world is waiting for your child's magic. We don't just tell them they are brave—we give them the toolkit to feel resilient, capable, and confident every single day.</p>
+                        <p style="margin-bottom: 12px;">Join us on a journey where every child can RISE, every family can SHINE, and every person can EVOLVE. Ready to unlock true potential? It is time to Rise. Shine. Evolve. TOGETHER!</p>
                     </div>
 
                     <div style="text-align: center; margin-top: 30px;">
-                        <button onclick="openEmailModal();" style="
+                        <button onclick="window.open('https://www.amazon.com/dp/B0G6ZBD7YF/ref=sr_1_1?crid=1JNI65G7Y5W2T&dib=eyJ2IjoiMSJ9.6sPvd45HQ0DwFx7rDVm4GzEvVHvx5Nfyyk4-aOOpL-R9ARZwGRkFwI6K0rPa1EX0ZBKEzsfqQGLw0d4jZ5-ItQ.HHZ--L7lh4LL8MZJqdljxFqBdMTp3g8LL8IgiH3QPb0&dib_tag=se&keywords=the+confident+mindful+%26+happy+me+adventure&qid=1765802239&s=digital-text&sprefix=%2Cdigital-text%2C354&sr=1-1', '_blank', 'noopener,noreferrer')" style="
                             background: linear-gradient(45deg, #8A2BE2, #9932CC);
                             border: 3px solid #ffd700;
                             border-radius: 25px;
-                            padding: 18px 34px;
+                            padding: 18px 36px;
                             color: #ffffff;
-                            font-size: 1.15rem;
+                            font-size: 1.05rem;
                             font-weight: bold;
                             cursor: pointer;
                             box-shadow: 0 0 30px rgba(138, 43, 226, 0.6);
                             transition: all 0.3s ease;
                             letter-spacing: 0.5px;
-                        " onmouseover="this.style.transform='translateY(-3px) scale(1.04)'; this.style.boxShadow='0 0 40px rgba(138, 43, 226, 0.8)';" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 0 30px rgba(138, 43, 226, 0.6)';">
-                            Get notified when it launches
+                        " onmouseover="this.style.transform='translateY(-3px) scale(1.05)'; this.style.boxShadow='0 0 40px rgba(138, 43, 226, 0.8)';" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 0 30px rgba(138, 43, 226, 0.6)';">
+                            Add to cart on Amazon and let the mission begin!
                         </button>
                     </div>
                 `;
@@ -5875,141 +6059,108 @@ document
             }
         }
 
-        function hideBookDetailsOverlay() {
+        function backToLibraryFromFullScreen() {
             document.getElementById('full-screen-book-details').style.display = 'none';
             document.querySelector('.container').style.display = 'block';
-            bookOverlayOpen = false;
-        }
-
-        function backToLibraryFromFullScreen() {
-            if (bookOverlayOpen && history.state && history.state.bookOverlay) {
-                history.back();
-                return;
-            }
-
-            hideBookDetailsOverlay();
         }
 
         // GIFTS access functions
+        const GIFTS_ACCESS_VERSION = '6';
         let hasGiftsAccess = false;
+        let brevoCheckPromise = null;
         function checkGiftsAccess() {
-            const status = localStorage.getItem('giftsStatus');
-            const legacyAccess = localStorage.getItem('giftsAccess') === 'true';
-            if (!status && legacyAccess) {
-                localStorage.setItem('giftsStatus', 'active');
+            const access = localStorage.getItem('giftsAccess') === 'true';
+            const savedEmail = (localStorage.getItem('giftsEmail') || '').trim();
+            const accessVersion = localStorage.getItem('giftsAccessVersion');
+
+            if (access && savedEmail.includes('@') && accessVersion === GIFTS_ACCESS_VERSION) {
+                hasGiftsAccess = true;
+                if (!brevoCheckPromise) {
+                    brevoCheckPromise = revalidateBrevoAccess(savedEmail).finally(() => {
+                        brevoCheckPromise = null;
+                    });
+                }
+                return true;
             }
-            const access = (status === 'active') || (!status && legacyAccess);
-            hasGiftsAccess = access;
-            return access;
+
+            clearGiftsAccess();
+            return false;
         }
         function grantGiftsAccess(firstName = '', email = '') {
-            localStorage.setItem('giftsStatus', 'active');
             localStorage.setItem('giftsAccess', 'true');
+            localStorage.setItem('giftsAccessVersion', GIFTS_ACCESS_VERSION);
             if (email) {
                 localStorage.setItem('giftsEmail', email);
             }
             if (firstName) {
                 localStorage.setItem('giftsFirstName', firstName);
             }
-            localStorage.removeItem('giftsPendingEmail');
-            localStorage.removeItem('giftsConfirmToken');
             hasGiftsAccess = true;
-            updateThankYouStatus();
         }
         function clearGiftsAccess() {
             localStorage.removeItem('giftsAccess');
-            localStorage.removeItem('giftsStatus');
             localStorage.removeItem('giftsEmail');
             localStorage.removeItem('giftsFirstName');
-            localStorage.removeItem('giftsPendingEmail');
-            localStorage.removeItem('giftsConfirmToken');
+            localStorage.removeItem('giftsAccessVersion');
             hasGiftsAccess = false;
         }
+
+        async function revalidateBrevoAccess(email) {
+            const workerEndpoint = (typeof CLOUDFLARE_WORKER_ENDPOINT === 'string' ? CLOUDFLARE_WORKER_ENDPOINT.trim() : '');
+            if (!workerEndpoint || !email) return;
+
+            try {
+                const fd = new FormData();
+                fd.append('action', 'check');
+                fd.append('EMAIL', email);
+                if (BREVO_LIST_ID) {
+                    fd.append('brevoListId', BREVO_LIST_ID);
+                }
+
+                const resp = await fetch(workerEndpoint, { method: 'POST', body: fd, mode: 'cors', credentials: 'omit' });
+                const data = await resp.json().catch(() => ({}));
+                const isSubscribed = resp.ok && data && data.subscribed !== false;
+
+                if (!isSubscribed) {
+                    clearGiftsAccess();
+                    const giftsActive = document.getElementById('gifts-content')?.classList.contains('active');
+                    if (giftsActive) {
+                        showEmailModal();
+                    }
+                }
+            } catch (error) {
+                // If the check fails, keep local state; access will be asked again on next click.
+            }
+        }
         // Function to send to the site and (optionally) Cloudflare Worker (używane przez formularz GIFTS)
-        async function sendToSite(formData, options = {}) {
-            const { requireDoi = false } = options;
+        function sendToSite(formData) {
             const workerEndpoint = (typeof CLOUDFLARE_WORKER_ENDPOINT === 'string' ? CLOUDFLARE_WORKER_ENDPOINT.trim() : 'https://newsletter-endpoint.rise-shine-evolve.workers.dev');
 
             if (BREVO_LIST_ID && !formData.has('brevoListId')) {
                 formData.append('brevoListId', BREVO_LIST_ID);
             }
 
-            const result = {
-                worker: { ok: false, skipped: false },
-                site: { ok: false }
-            };
-
             const requests = [];
 
             if (workerEndpoint) {
-                const workerPayload = new FormData();
-                formData.forEach((value, key) => workerPayload.append(key, value));
-                if (requireDoi) {
-                    workerPayload.append('requireDoi', 'true');
-                }
-
-                const doiConfig = getDoiConfig();
-                if (doiConfig.templateId) {
-                    workerPayload.append('doiTemplateId', doiConfig.templateId);
-                }
-                if (doiConfig.redirect) {
-                    workerPayload.append('doiRedirect', doiConfig.redirect);
-                }
-
-                requests.push(
-                    fetch(workerEndpoint, {
-                        method: "POST",
-                        body: workerPayload,
-                        mode: "cors",
-                        credentials: "omit"
-                    })
-                        .then(async (resp) => {
-                            let data = null;
-                            try {
-                                data = await resp.clone().json();
-                            } catch (_) {
-                                // If Brevo returns HTML/plain text, skip JSON parsing errors
-                            }
-
-                            result.worker = {
-                                ok: resp.ok && (!(data && data.ok === false)),
-                                status: resp.status,
-                                data: data || null
-                            };
-
-                            if (!result.worker.ok) {
-                                console.warn("Brevo/worker response signaled an error", data || resp.status);
-                            }
-                        })
-                        .catch((err) => {
-                            result.worker = { ok: false, error: String(err) };
-                            console.warn("Worker request failed", err);
-                        })
-                );
-            } else {
-                result.worker = { ok: false, skipped: true, missingEndpoint: true };
+                requests.push(fetch(workerEndpoint, {
+                    method: "POST",
+                    body: formData,
+                    mode: "cors",
+                    credentials: "omit"
+                }));
             }
 
-            requests.push(
-                fetch("/", {
-                    method: "POST",
-                    body: formData
-                })
-                    .then((resp) => {
-                        result.site = { ok: resp.ok, status: resp.status };
-                    })
-                    .catch((err) => {
-                        result.site = { ok: false, error: String(err) };
-                    })
-            );
+            requests.push(fetch("/", {
+                method: "POST",
+                body: formData
+            }));
 
-            await Promise.allSettled(requests).catch(() => {
+            Promise.allSettled(requests).catch(() => {
                 // Silent error handling for iframe environment
             });
-
-            return result;
         }
-        function showThankYouPage(isConfirmationPending = false) {
+        function showThankYouPage() {
             // Hide all tab contents
             const allContents = document.querySelectorAll('.tab-content');
             allContents.forEach(content => content.classList.remove('active'));
@@ -6018,9 +6169,6 @@ document
             // Update tab appearance
             const allTabs = document.querySelectorAll('.tab');
             allTabs.forEach(tab => tab.classList.remove('active'));
-            if (isConfirmationPending) {
-                updateThankYouStatus();
-            }
         }
         
         function accessGifts() {
@@ -6047,13 +6195,25 @@ document
             if (errorMsg) {
                 errorMsg.textContent = '';
             }
+            const storedFirst = localStorage.getItem('giftsFirstName') || '';
+            const storedEmail = localStorage.getItem('giftsEmail') || '';
+            const firstNameField = document.getElementById('brevoFirstName');
+            const emailField = document.getElementById('brevoEmail');
+            if (firstNameField && storedFirst) {
+                firstNameField.value = storedFirst;
+            }
+            if (emailField && storedEmail) {
+                emailField.value = storedEmail;
+            }
             document.getElementById('emailModal').style.display = 'block';
             document.body.style.overflow = 'hidden';
+            history.pushState({ modal: 'email' }, '', window.location.href);
         }
 
         function openPrivacyPolicy() {
             document.getElementById('privacyModal').style.display = 'block';
             document.body.style.overflow = 'hidden';
+            history.pushState({ modal: 'privacy' }, '', window.location.href);
         }
         function closeEmailModal() {
             document.getElementById('emailModal').style.display = 'none';
@@ -6063,12 +6223,15 @@ document
             document.getElementById('privacyModal').style.display = 'none';
             document.body.style.overflow = 'auto';
         }
-        async function submitEmailModal(event) {
+        function submitEmailModal(event) {
             event.preventDefault();
             const form = event.target;
-            const firstName = document.getElementById('firstNameInput').value.trim();
-            const email = document.getElementById('emailInput').value.trim();
-            const gdprChecked = document.getElementById('gdprCheck').checked;
+            const firstNameInput = document.getElementById('brevoFirstName');
+            const emailInput = document.getElementById('brevoEmail');
+            const optIn = document.getElementById('brevoOptIn');
+            const firstName = firstNameInput ? firstNameInput.value.trim() : '';
+            const email = emailInput ? emailInput.value.trim() : '';
+            const gdprChecked = optIn ? optIn.checked : false;
             const errorMsg = document.getElementById('errorMsg');
             const submitBtn = document.getElementById('submitEmail');
 
@@ -6088,93 +6251,36 @@ document
                 return;
             }
 
-            submitBtn.textContent = 'Check your email...';
+            submitBtn.textContent = 'Joining...';
             submitBtn.disabled = true;
-
-            const confirmToken = Math.random().toString(36).slice(2, 10) + Date.now().toString(36);
             const formData = new FormData(form);
-            formData.append('confirmEmail', email);
-            formData.append('confirmToken', confirmToken);
-
-            let workerResult = null;
-            try {
-                const result = await sendToSite(formData, { requireDoi: true });
-                workerResult = result.worker || {};
-            } catch (err) {
-                workerResult = { ok: false, error: String(err) };
-            }
-
-            const workerData = (workerResult && workerResult.data) || {};
-            const doiAttempted = !!workerData.doiAttempted;
-            const doiDelivered = doiAttempted && !workerData.doiError && workerData.doiStatus && workerData.doiStatus >= 200 && workerData.doiStatus < 400;
-            const doiFallbackDelivered = !!(workerData.doiFallbackUsed && workerData.doiStatus && workerData.doiStatus >= 200 && workerData.doiStatus < 400 && !workerData.doiError);
-            const missingDoiConfig = workerData.doiConfigMissing || workerResult.missingEndpoint;
-            const requireDoi = true;
-            const doiSatisfied = doiDelivered || doiFallbackDelivered;
-            const workerErrorMessage = workerData.doiError || workerData.error || (workerResult && workerResult.error);
-
-            if (!workerResult || workerResult.ok === false || (missingDoiConfig && !doiFallbackDelivered) || (requireDoi && !doiSatisfied)) {
-                const doiConfig = getDoiConfig();
-                const hasLocalDoi = doiConfig.templateId && doiConfig.redirect;
-                const message = missingDoiConfig && !doiFallbackDelivered
-                    ? 'Double opt-in is not configured on the server. Set BREVO_DOI_TEMPLATE_ID/BREVO_DOI_REDIRECT in the worker or add ?doiTemplateId=XXX&doiRedirect=YOUR_URL to enable emails.'
-                    : hasLocalDoi
-                        ? (workerErrorMessage ? `We could not send the confirmation email: ${workerErrorMessage}` : 'We could not send the confirmation email. Please try again in a moment.')
-                        : 'We could not send the confirmation email. Add ?doiTemplateId=XXX&doiRedirect=YOUR_URL or update the worker settings, then try again.';
-                if (errorMsg) {
-                    errorMsg.textContent = message;
-                }
-                if (!hasLocalDoi) {
-                    showDoiConfigHelper();
-                }
-                submitBtn.textContent = 'Join us';
-                submitBtn.disabled = false;
-                return;
-            }
-
-            localStorage.setItem('giftsStatus', 'pending');
-            localStorage.setItem('giftsPendingEmail', email);
-            localStorage.setItem('giftsConfirmToken', confirmToken);
-            if (firstName) {
-                localStorage.setItem('giftsFirstName', firstName);
-            }
+            formData.set('firstName', firstName);
+            formData.set('email', email);
+            formData.set('gdprConsent', gdprChecked ? 'true' : 'false');
+            sendToSite(formData);
 
             setTimeout(() => {
+                grantGiftsAccess(firstName, email);
+                closeEmailModal();
+                showThankYouPage();
                 submitBtn.textContent = 'Join us';
                 submitBtn.disabled = false;
-                closeEmailModal();
-                showThankYouPage(true);
                 form.reset();
-            }, 800);
+            }, 1500);
         }
         function handleUnsubscribe(event) {
             event.preventDefault();
             const form = event.target;
-            const emailInput = form.querySelector('input[type="email"]');
+            const emailInput = form.querySelector('input[type="email"], input[name="EMAIL"]');
             const messageBox = form.querySelector('.unsubscribe-message');
             if (messageBox) {
                 messageBox.textContent = '';
             }
             const emailValue = emailInput ? emailInput.value.trim() : '';
-            const storedEmail = (localStorage.getItem('giftsEmail') || '').trim();
             if (!emailValue || !emailValue.includes('@') || !emailValue.includes('.')) {
                 if (messageBox) {
                     messageBox.style.color = '#ff69b4';
                     messageBox.textContent = 'Please enter a valid email address.';
-                }
-                return;
-            }
-            if (!storedEmail) {
-                if (messageBox) {
-                    messageBox.style.color = '#ff69b4';
-                    messageBox.textContent = 'No active subscription was found on this device.';
-                }
-                return;
-            }
-            if (storedEmail.toLowerCase() !== emailValue.toLowerCase()) {
-                if (messageBox) {
-                    messageBox.style.color = '#ff69b4';
-                    messageBox.textContent = 'Please enter the same email you used to subscribe.';
                 }
                 return;
             }
@@ -6189,52 +6295,6 @@ document
                 selectTab(document.querySelector('.tab'), 'main');
             }, 1200);
         }
-
-        function handleEmailConfirmationFromUrl() {
-            const params = new URLSearchParams(window.location.search);
-            const confirmToken = params.get('confirmToken');
-            const confirmEmail = params.get('confirmEmail');
-            const brevoConfirmed = params.get('brevoConfirmed');
-            const brevoEmail = params.get('email');
-            const pendingEmail = (localStorage.getItem('giftsPendingEmail') || '').trim();
-            const pendingToken = (localStorage.getItem('giftsConfirmToken') || '').trim();
-
-            const tokenMatches = (
-                confirmToken && confirmEmail &&
-                pendingEmail && pendingToken &&
-                confirmEmail.toLowerCase() === pendingEmail.toLowerCase() &&
-                confirmToken === pendingToken
-            );
-
-            const brevoLinkMatches = (
-                brevoConfirmed && pendingEmail && brevoEmail &&
-                brevoEmail.toLowerCase() === pendingEmail.toLowerCase()
-            );
-
-            if (tokenMatches || brevoLinkMatches) {
-                grantGiftsAccess(localStorage.getItem('giftsFirstName') || '', pendingEmail);
-            }
-        }
-
-        function updateThankYouStatus() {
-            const statusEl = document.getElementById('thank-you-status');
-            if (!statusEl) return;
-            const status = localStorage.getItem('giftsStatus') || '';
-            const pendingEmail = localStorage.getItem('giftsPendingEmail') || '';
-            if (status === 'pending') {
-                statusEl.textContent = pendingEmail
-                    ? `We sent a confirmation link to ${pendingEmail}. Please confirm from that inbox to unlock GIFTS.`
-                    : 'Check your email to confirm your subscription and unlock GIFTS access.';
-                statusEl.style.color = '#ffd700';
-            } else if (status === 'active' || localStorage.getItem('giftsAccess') === 'true') {
-                statusEl.textContent = 'You now get full access to our GIFTS library and updates.';
-                statusEl.style.color = '#ffd700';
-            } else {
-                statusEl.textContent = 'Join the newsletter to unlock GIFTS and updates.';
-                statusEl.style.color = '#ffffff';
-            }
-        }
-
         document.addEventListener('DOMContentLoaded', () => {
             applyCharacterPortraits();
 
@@ -6243,36 +6303,17 @@ document
             const tabElement = getTabElement(desiredTab) || getTabElement('main');
             if (tabElement) {
                 selectTab(tabElement, tabElement.dataset.tab, { skipHistory: true });
-                history.replaceState({ tab: tabElement.dataset.tab }, '', `#${tabElement.dataset.tab}`);
+                const baseState = { tab: tabElement.dataset.tab, base: true };
+                history.replaceState(baseState, '', `#${tabElement.dataset.tab}`);
+                history.pushState({ tab: tabElement.dataset.tab, base: false }, '', `#${tabElement.dataset.tab}`);
             }
 
-            if (localStorage.getItem('giftsAccess') === 'true' && !localStorage.getItem('giftsStatus')) {
-                localStorage.setItem('giftsStatus', 'active');
-            }
-
-            handleEmailConfirmationFromUrl();
-            updateThankYouStatus();
-
-            hydrateDoiConfigHelper();
-
-            const saveDoiBtn = document.getElementById('saveDoiConfigBtn');
-            if (saveDoiBtn) {
-                saveDoiBtn.addEventListener('click', () => {
-                    const { saved } = saveDoiConfigFromForm();
-                    if (saved) {
-                        const helper = document.getElementById('doiConfigHelper');
-                        if (helper) helper.style.display = 'none';
-                        const errorMsg = document.getElementById('errorMsg');
-                        if (errorMsg) errorMsg.textContent = '';
-
-                        // Immediately retry the signup with the freshly saved DOI values
-                        const modalForm = document.querySelector('form[name="rse-email-list-modal"]');
-                        if (modalForm && typeof modalForm.requestSubmit === 'function') {
-                            modalForm.requestSubmit();
-                        } else if (modalForm) {
-                            modalForm.submit();
-                        }
-                    }
+            const unsubForm = document.getElementById('sib-form-unsub');
+            if (unsubForm) {
+                unsubForm.addEventListener('submit', () => {
+                    setTimeout(() => {
+                        clearGiftsAccess();
+                    }, 250);
                 });
             }
         });
@@ -6337,15 +6378,7 @@ document
                 ? window.WORD_SEARCH_STUDIO_HTML
                 : null;
         const wordSearchProUrl = giftSources.wordSearchPro;
-
-        function frameHasContent(frameEl) {
-            try {
-                const doc = frameEl.contentDocument;
-                return !!(doc && doc.body && doc.body.children && doc.body.children.length > 0);
-            } catch (e) {
-                return false;
-            }
-        }
+        let wordSearchProHtmlPromise = null;
 
         function getGiftHtml(key) {
             const tpl = giftTemplates[key];
@@ -6368,39 +6401,44 @@ document
 
             if (key === 'wordSearchPro') {
                 const inlineHtml = (wordSearchProInlineHtml || '').trim();
-                const templateHtml = html;
-                const studioSrc = wordSearchProUrl ? `${wordSearchProUrl}?v=${Date.now()}` : null;
-
                 if (inlineHtml) {
                     giftFrame.style.display = 'block';
                     giftFallback.style.display = 'none';
-                    giftFrame.src = 'about:blank';
                     giftFrame.srcdoc = inlineHtml;
-                } else if (studioSrc) {
+                } else if (wordSearchProUrl) {
                     giftFrame.style.display = 'block';
-                    giftFallback.style.display = 'none';
-                    giftFrame.onload = () => {
-                        giftFallback.style.display = 'none';
-                        giftFrame.style.display = 'block';
-                    };
-                    giftFrame.onerror = () => {
-                        if (templateHtml) {
-                            giftFrame.src = 'about:blank';
-                            giftFrame.srcdoc = templateHtml;
+                    giftFallback.style.display = 'flex';
+                    giftFallback.innerHTML = '<div style="width:100%;padding:12px 8px;">Loading Word Search Studio…</div>';
+
+                    if (!wordSearchProHtmlPromise) {
+                        wordSearchProHtmlPromise = fetch(`${wordSearchProUrl}?v=${Date.now()}`, { cache: 'no-cache' })
+                            .then((resp) => {
+                                if (!resp.ok) throw new Error('Failed to load Word Search Studio');
+                                return resp.text();
+                            });
+                    }
+
+                    wordSearchProHtmlPromise
+                        .then((htmlText) => {
+                            giftFrame.srcdoc = htmlText;
                             giftFallback.style.display = 'none';
                             giftFrame.style.display = 'block';
-                        } else {
-                            showGiftFallback('Word Search Studio is unavailable right now.');
-                        }
-                    };
-                    giftFrame.src = studioSrc;
-                } else if (templateHtml) {
-                    giftFrame.src = 'about:blank';
-                    giftFrame.srcdoc = templateHtml;
+                        })
+                        .catch(() => {
+                            if (html) {
+                                giftFrame.srcdoc = html;
+                                giftFallback.style.display = 'none';
+                                giftFrame.style.display = 'block';
+                            } else {
+                                showGiftFallback();
+                            }
+                        });
+                } else if (html) {
                     giftFallback.style.display = 'none';
                     giftFrame.style.display = 'block';
+                    giftFrame.srcdoc = html;
                 } else {
-                    showGiftFallback('Word Search Studio is unavailable right now.');
+                    showGiftFallback();
                     return;
                 }
             } else if (source) {
@@ -6453,14 +6491,14 @@ document
             }
         }
 
-        function closeGiftOverlay() {
+        function closeGiftOverlay(fromHistory = false) {
             giftOverlay.style.display = 'none';
             giftFrame.src = 'about:blank';
             giftFrame.srcdoc = '';
             giftFallback.style.display = 'none';
             document.body.style.overflow = '';
 
-            if (giftOverlayOpen && history.state && history.state.giftOverlay) {
+            if (giftOverlayOpen && history.state && history.state.giftOverlay && !fromHistory) {
                 giftOverlayOpen = false;
                 history.back();
             } else {
@@ -6469,17 +6507,22 @@ document
         }
 
         window.addEventListener('popstate', (event) => {
-            if (bookOverlayOpen) {
-                hideBookDetailsOverlay();
+            const emailModal = document.getElementById('emailModal');
+            const privacyModal = document.getElementById('privacyModal');
+
+            if (privacyModal && privacyModal.style.display === 'block') {
+                closePrivacyModal();
+                return;
+            }
+
+            if (emailModal && emailModal.style.display === 'block') {
+                closeEmailModal();
+                return;
             }
 
             if (giftOverlayOpen) {
-                giftOverlay.style.display = 'none';
-                giftFrame.src = 'about:blank';
-                giftFrame.srcdoc = '';
-                giftFallback.style.display = 'none';
-                document.body.style.overflow = '';
-                giftOverlayOpen = false;
+                closeGiftOverlay(true);
+                return;
             }
 
             const activeTab = document.querySelector('.tab.active');
