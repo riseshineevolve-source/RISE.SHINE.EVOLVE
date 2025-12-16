@@ -203,9 +203,9 @@
             color: #ffffff !important;
             border: 1px solid #8A2BE2 !important;
             border-radius: 10px !important;
-            padding: 8px 10px !important;
-            font-size: 12px !important;
-            height: 36px !important;
+            padding: 6px 10px !important;
+            font-size: 11px !important;
+            height: 32px !important;
             box-shadow: inset 0 0 10px rgba(138, 43, 226, 0.25);
         }
 
@@ -382,11 +382,11 @@
             }
             .gift-overlay-inner {
                 width: 100%;
-                height: 85vh;
+                height: 80vh;
                 max-height: none;
             }
             .gift-frame {
-                height: 78vh;
+                height: 74vh;
                 border-width: 2px;
             }
             .gift-close-btn {
@@ -395,10 +395,32 @@
                 padding: 7px 11px;
                 font-size: 0.88rem;
             }
+            body {
+                filter: brightness(0.9);
+            }
+            .sparkles {
+                opacity: 0.5;
+            }
+            .container {
+                padding: 28px 16px;
+            }
+            .info-tile,
+            .kids-tile {
+                box-shadow: 0 0 20px rgba(138, 43, 226, 0.35), 0 0 30px rgba(255, 215, 0, 0.2);
+            }
+            .elegant-christmas-box {
+                right: 8px;
+                width: 170px;
+                box-shadow: 0 0 24px rgba(255, 215, 0, 0.5), 0 0 60px rgba(255, 215, 0, 0.2);
+            }
+            .brevo-embed .sib-container--large {
+                max-width: 320px !important;
+                padding: 8px 8px !important;
+            }
         }
 
         #privacyModal {
-            z-index: 13000 !important;
+            z-index: 15000 !important;
         }
 
         .brevo-embed .sib-form-block {
@@ -892,13 +914,13 @@
             position: fixed;
             top: 2%;
             right: 14px;
-            width: 205px;
+            width: 178px;
             background: linear-gradient(135deg, rgba(0, 0, 0, 0.95), rgba(20, 20, 20, 0.9), rgba(0, 0, 0, 0.95));
             border: 2px solid #ffd700;
             border-radius: 20px;
-            padding: 8px 12px;
+            padding: 8px 10px;
             text-align: center;
-            box-shadow: 0 0 40px rgba(255, 215, 0, 0.6), 0 0 80px rgba(255, 215, 0, 0.3), 0 0 120px rgba(255, 215, 0, 0.1), inset 0 0 30px rgba(138, 43, 226, 0.1);
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.6), 0 0 70px rgba(255, 215, 0, 0.25), inset 0 0 24px rgba(138, 43, 226, 0.12);
             transform: rotate(2deg);
             z-index: 100;
             cursor: pointer;
@@ -2056,7 +2078,7 @@
                             </div>
                             <div style="padding:8px 0;">
                                 <div class="sib-form-block" style="text-align:center">
-                                    <button class="sib-form-block__button sib-form-block__button-with-loader" style="font-size:10px;text-align:center;font-weight:700;font-family:Helvetica,sans-serif;color:#FFFFFF;background-color:#121313;border-radius:6px;border-width:0px;cursor:pointer;padding:6px 10px;" form="sib-form-unsub" type="submit">
+                                    <button class="sib-form-block__button sib-form-block__button-with-loader" style="font-size:9px;text-align:center;font-weight:700;font-family:Helvetica,sans-serif;color:#FFFFFF;background-color:#121313;border-radius:6px;border-width:0px;cursor:pointer;padding:5px 8px;" form="sib-form-unsub" type="submit">
                                         <svg class="icon clickable__icon progress-indicator__icon sib-hide-loader-icon" viewBox="0 0 512 512"><path d="M460.116 373.846l-20.823-12.022c-5.541-3.199-7.54-10.159-4.663-15.874 30.137-59.886 28.343-131.652-5.386-189.946-33.641-58.394-94.896-95.833-161.827-99.676C261.028 55.961 256 50.751 256 44.352V20.309c0-6.904 5.808-12.337 12.703-11.982 83.556 4.306 160.163 50.864 202.11 123.677 42.063 72.696 44.079 162.316 6.031 236.832-3.14 6.148-10.75 8.461-16.728 5.01z"/></svg> UNSUBSCRIBE
                                     </button>
                                 </div>
@@ -6355,17 +6377,21 @@ document
         }
 
         // GIFTS access functions
-        const GIFTS_ACCESS_VERSION = '6';
+        const GIFTS_ACCESS_VERSION = '7';
+        const GIFTS_PENDING_KEY = 'giftsPendingUntil';
+        const GIFTS_PENDING_WINDOW_MS = 1000 * 60 * 60 * 48; // 48 hours grace before clearing on failed Brevo checks
         let hasGiftsAccess = false;
         let brevoCheckPromise = null;
         function checkGiftsAccess() {
             const access = localStorage.getItem('giftsAccess') === 'true';
             const savedEmail = (localStorage.getItem('giftsEmail') || '').trim();
             const accessVersion = localStorage.getItem('giftsAccessVersion');
+            const pendingUntil = parseInt(localStorage.getItem(GIFTS_PENDING_KEY) || '0', 10);
+            const pendingActive = pendingUntil && pendingUntil > Date.now();
 
             if (access && savedEmail.includes('@') && accessVersion === GIFTS_ACCESS_VERSION) {
                 hasGiftsAccess = true;
-                if (!brevoCheckPromise) {
+                if (!pendingActive && !brevoCheckPromise) {
                     brevoCheckPromise = revalidateBrevoAccess(savedEmail).finally(() => {
                         brevoCheckPromise = null;
                     });
@@ -6385,6 +6411,8 @@ document
             if (firstName) {
                 localStorage.setItem('giftsFirstName', firstName);
             }
+            const graceUntil = Date.now() + GIFTS_PENDING_WINDOW_MS;
+            localStorage.setItem(GIFTS_PENDING_KEY, `${graceUntil}`);
             hasGiftsAccess = true;
         }
         function clearGiftsAccess() {
@@ -6392,6 +6420,7 @@ document
             localStorage.removeItem('giftsEmail');
             localStorage.removeItem('giftsFirstName');
             localStorage.removeItem('giftsAccessVersion');
+            localStorage.removeItem(GIFTS_PENDING_KEY);
             hasGiftsAccess = false;
         }
 
@@ -6410,8 +6439,15 @@ document
                 const resp = await fetch(workerEndpoint, { method: 'POST', body: fd, mode: 'cors', credentials: 'omit' });
                 const data = await resp.json().catch(() => ({}));
                 const isSubscribed = resp.ok && data && data.subscribed !== false;
+                const pendingUntil = parseInt(localStorage.getItem(GIFTS_PENDING_KEY) || '0', 10);
+                const pendingActive = pendingUntil && pendingUntil > Date.now();
 
-                if (!isSubscribed) {
+                if (isSubscribed) {
+                    localStorage.removeItem(GIFTS_PENDING_KEY);
+                    return;
+                }
+
+                if (!pendingActive) {
                     clearGiftsAccess();
                     const giftsActive = document.getElementById('gifts-content')?.classList.contains('active');
                     if (giftsActive) {
@@ -6820,6 +6856,12 @@ document
             }
 
             const activeTab = document.querySelector('.tab.active');
+            const mainTab = getTabElement('main');
+            if ((!event.state || !event.state.tab) && activeTab && mainTab && activeTab.dataset.tab !== 'main') {
+                selectTab(mainTab, 'main', { skipHistory: true });
+                history.pushState({ tab: 'main', base: true }, '', '#main');
+                return;
+            }
             const targetTab = (event.state && event.state.tab) ? event.state.tab : (activeTab ? activeTab.dataset.tab : 'main');
             const tabElement = getTabElement(targetTab) || getTabElement('main');
             if (tabElement) {
