@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="900" viewBox="0 0 600 900">
+  <defs>
+    <linearGradient id="winter" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0a0d"/>
+      <stop offset="50%" stop-color="#1f0f2f"/>
+      <stop offset="100%" stop-color="#0b0b10"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="900" fill="url(#winter)"/>
+  <rect x="60" y="120" width="480" height="660" rx="26" stroke="#8A2BE2" stroke-width="10" fill="rgba(255,255,255,0.02)"/>
+  <text x="300" y="260" font-family="'Poppins','Helvetica',sans-serif" font-size="44" font-weight="700" text-anchor="middle" fill="#ffd700">24 Gentle Steps</text>
+  <text x="300" y="320" font-family="'Poppins','Helvetica',sans-serif" font-size="40" font-weight="700" text-anchor="middle" fill="#ffd700">to Christmas</text>
+  <text x="300" y="390" font-family="'Poppins','Helvetica',sans-serif" font-size="24" font-weight="600" text-anchor="middle" fill="#c7b3ff">A mindful family journey</text>
+  <text x="300" y="430" font-family="'Poppins','Helvetica',sans-serif" font-size="24" font-weight="600" text-anchor="middle" fill="#c7b3ff">to togetherness &amp; magic</text>
+  <text x="300" y="520" font-family="'Poppins','Helvetica',sans-serif" font-size="20" font-weight="500" text-anchor="middle" fill="#ffd700">CONNECT · REFLECT · CELEBRATE</text>
+</svg>

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="900" viewBox="0 0 600 900">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b0b0f"/>
+      <stop offset="50%" stop-color="#1b0f2e"/>
+      <stop offset="100%" stop-color="#050507"/>
+    </linearGradient>
+    <linearGradient id="ribbon" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#8A2BE2"/>
+      <stop offset="100%" stop-color="#ffd700"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="900" fill="url(#bg)"/>
+  <rect x="60" y="120" width="480" height="660" rx="26" stroke="#ffd700" stroke-width="10" fill="rgba(255,255,255,0.02)"/>
+  <rect x="90" y="520" width="420" height="90" rx="14" fill="url(#ribbon)" opacity="0.8"/>
+  <text x="300" y="280" font-family="'Poppins', 'Helvetica', sans-serif" font-size="46" font-weight="700" text-anchor="middle" fill="#ffd700">Confident,</text>
+  <text x="300" y="340" font-family="'Poppins', 'Helvetica', sans-serif" font-size="46" font-weight="700" text-anchor="middle" fill="#ffd700">Mindful &amp;</text>
+  <text x="300" y="400" font-family="'Poppins', 'Helvetica', sans-serif" font-size="46" font-weight="700" text-anchor="middle" fill="#ffd700">Happy Me</text>
+  <text x="300" y="470" font-family="'Poppins', 'Helvetica', sans-serif" font-size="26" font-weight="600" text-anchor="middle" fill="#c7b3ff">31-Day Adventure</text>
+  <text x="300" y="570" font-family="'Poppins', 'Helvetica', sans-serif" font-size="22" font-weight="600" text-anchor="middle" fill="#0c0c0c">GROW BRAVE · FEEL CALM · HAVE FUN</text>
+  <text x="300" y="640" font-family="'Poppins', 'Helvetica', sans-serif" font-size="20" font-weight="500" text-anchor="middle" fill="#ffd700">A Happy Makers Journey</text>
+</svg>
