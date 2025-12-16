@@ -119,6 +119,13 @@ export default {
       const doiTemplateId = Number(env.BREVO_DOI_TEMPLATE_ID || '');
       const doiRedirect = (env.BREVO_DOI_REDIRECT || '').toString().trim();
       const numericListId = Number(listId || '');
+
+      if (!Number.isFinite(numericListId) || numericListId <= 0) {
+        return new Response(
+          JSON.stringify({ ok: false, siteOk, error: 'Missing or invalid Brevo list id' }),
+          { status: 400, headers: { 'content-type': 'application/json', ...corsHeaders } }
+        );
+      }
       const welcomeTemplateId = Number(
         env.BREVO_WELCOME_TEMPLATE_ID ||
         env.BREVO_TEMPLATE_2 ||

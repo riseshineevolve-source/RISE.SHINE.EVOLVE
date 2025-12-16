@@ -410,8 +410,9 @@
             }
             .elegant-christmas-box {
                 right: 8px;
-                width: 170px;
-                box-shadow: 0 0 24px rgba(255, 215, 0, 0.5), 0 0 60px rgba(255, 215, 0, 0.2);
+                top: 110px;
+                width: 150px;
+                box-shadow: 0 0 24px rgba(255, 215, 0, 0.5), 0 0 40px rgba(255, 215, 0, 0.2);
             }
             .brevo-embed .sib-container--large {
                 max-width: 320px !important;
@@ -420,7 +421,7 @@
         }
 
         #privacyModal {
-            z-index: 15000 !important;
+            z-index: 20000 !important;
         }
 
         .brevo-embed .sib-form-block {
@@ -912,13 +913,13 @@
         /* Elegant Christmas Floating Box - Dark Sophisticated Design */
         .elegant-christmas-box {
             position: fixed;
-            top: 2%;
-            right: 14px;
-            width: 178px;
+            top: 210px;
+            right: 10px;
+            width: 150px;
             background: linear-gradient(135deg, rgba(0, 0, 0, 0.95), rgba(20, 20, 20, 0.9), rgba(0, 0, 0, 0.95));
             border: 2px solid #ffd700;
             border-radius: 20px;
-            padding: 8px 10px;
+            padding: 8px 9px;
             text-align: center;
             box-shadow: 0 0 30px rgba(255, 215, 0, 0.6), 0 0 70px rgba(255, 215, 0, 0.25), inset 0 0 24px rgba(138, 43, 226, 0.12);
             transform: rotate(2deg);
@@ -956,7 +957,7 @@
         }
 
         .elegant-main-title {
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             font-weight: bold;
             color: #ffd700;
             margin-bottom: 4px;
@@ -965,7 +966,7 @@
         }
 
         .elegant-subtitle {
-            font-size: 0.68rem;
+            font-size: 0.7rem;
             color: #8A2BE2;
             text-shadow: 0 0 15px rgba(138, 43, 226, 0.8);
             margin-bottom: 4px;
@@ -1088,9 +1089,9 @@
                 position: relative;
                 right: auto;
                 left: auto;
-                margin: 16px auto 0;
-                width: 92%;
-                max-width: 240px;
+                margin: 12px auto 0;
+                width: 88%;
+                max-width: 200px;
                 transform: rotate(0deg);
                 animation: elegantBoxGlow 6s ease-in-out infinite, elegantBoxFloat 8s ease-in-out infinite;
             }
@@ -1132,9 +1133,9 @@
                 position: relative;
                 top: auto;
                 right: auto;
-                width: 90%;
-                max-width: 220px;
-                margin: 20px auto;
+                width: 88%;
+                max-width: 200px;
+                margin: 18px auto;
                 transform: rotate(0deg);
                 animation: elegantBoxGlow 6s ease-in-out infinite, elegantBoxFloat 8s ease-in-out infinite;
             }
@@ -1149,11 +1150,11 @@
             }
 
             .elegant-main-title {
-                font-size: 0.9rem;
+                font-size: 0.86rem;
             }
 
             .elegant-subtitle {
-                font-size: 0.65rem;
+                font-size: 0.62rem;
             }
 
             .elegant-description {
@@ -1594,69 +1595,60 @@
                                 "><!-- Confident, Mindful & Happy Me -->
           <div onclick="showBookDetailsFullScreen('confident-adventure')" style="
                                         background: #000000;
-                                        border: 3px solid #ffd700;
-                                        border-radius: 15px;
-                                        padding: 20px;
+                                        border: 3px solid #8A2BE2;
+                                        border-radius: 16px;
+                                        padding: 16px 14px 60px 14px;
                                         text-align: center;
                                         cursor: pointer;
                                         transition: all 0.3s ease;
                                         box-shadow:
                                             0 12px 40px rgba(0, 0, 0, 0.4),
-                                            0 0 0 1px rgba(255, 215, 0, 0.6),
-                                            inset 0 2px 0 rgba(255, 255, 255, 0.08),
-                                            0 0 30px rgba(255, 215, 0, 0.5),
-                                            0 0 60px rgba(255, 215, 0, 0.3);
-                                        width: 250px;
-                                        min-height: 320px;
+                                            0 0 0 1px rgba(138, 43, 226, 0.5),
+                                            inset 0 2px 0 rgba(255, 255, 255, 0.05),
+                                            0 0 28px rgba(138, 43, 226, 0.45);
+                                        width: 240px;
+                                        min-height: 340px;
                                         position: relative;
-                                    " onmouseover="this.style.transform='translateY(-8px) scale(1.05)'; this.style.boxShadow='0 20px 60px rgba(0, 0, 0, 0.5), 0 0 0 2px rgba(255, 215, 0, 0.8), inset 0 3px 0 rgba(255, 255, 255, 0.2), 0 0 50px rgba(255, 215, 0, 0.7), 0 0 100px rgba(255, 215, 0, 0.5)';" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 12px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 215, 0, 0.6), inset 0 2px 0 rgba(255, 255, 255, 0.08), 0 0 30px rgba(255, 215, 0, 0.5), 0 0 60px rgba(255, 215, 0, 0.3)';">
-          <div style="
-                                            position: absolute;
-                                            left: -3px;
-                                            top: 0;
-                                            bottom: 0;
-                                            width: 8px;
-                                            background: linear-gradient(to right, rgba(255, 215, 0, 0.2), transparent);
-                                            border-radius: 15px 0 0 15px;
-                                        "></div>
+                                        overflow: hidden;
+                                    " onmouseover="this.style.transform='translateY(-6px) scale(1.03)'; this.style.boxShadow='0 18px 48px rgba(0, 0, 0, 0.55), 0 0 0 2px rgba(138, 43, 226, 0.7), inset 0 3px 0 rgba(255, 255, 255, 0.12), 0 0 44px rgba(138, 43, 226, 0.6)';" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 12px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(138, 43, 226, 0.5), inset 0 2px 0 rgba(255, 255, 255, 0.05), 0 0 28px rgba(138, 43, 226, 0.45)';">
            <div style="
-                                            background: #ffd700;
-                                            border: 2px solid #ffffff;
-                                            border-radius: 12px;
-                                            padding: 6px 12px;
-                                            margin: 0 auto 12px auto;
-                                            width: fit-content;
-                                            box-shadow: 0 0 14px rgba(255, 215, 0, 0.8);
-                                            color: #000;
+                                            position: absolute;
+                                            top: 10px;
+                                            left: 10px;
+                                            background: #8A2BE2;
+                                            color: #ffffff;
+                                            font-size: 0.62rem;
                                             font-weight: bold;
-                                            padding: 4px 8px;
-                                            border-radius: 8px;
+                                            padding: 5px 9px;
+                                            border-radius: 9px;
                                             text-transform: uppercase;
                                             box-shadow: 0 0 10px rgba(138, 43, 226, 0.6);
                                         ">
             Available
            </div>
            <div style="
+                                            position: absolute;
+                                            top: 10px;
+                                            right: 10px;
                                             background: #ffd700;
-                                            border: 2px solid #ffffff;
-                                            border-radius: 12px;
-                                            padding: 6px 12px;
-                                            margin: 0 auto 12px auto;
-                                            width: fit-content;
-                                            box-shadow: 0 0 14px rgba(255, 215, 0, 0.8);
-                                            color: #000;
-                                            font-weight: bold;
-                                            font-size: 0.9rem;
+                                            color: #000000;
+                                            font-size: 0.68rem;
+                                            font-weight: 800;
+                                            padding: 5px 9px;
+                                            border-radius: 9px;
+                                            text-transform: uppercase;
+                                            box-shadow: 0 0 12px rgba(255, 215, 0, 0.7);
                                         ">NEW</div>
-           <div style="color: #ffd700; font-weight: bold; font-size: 1.05rem; margin-bottom: 12px; line-height: 1.2; text-shadow: 0 0 15px rgba(255, 215, 0, 0.8);">
+           <img src="assets/images/confident-cover.svg" alt="Confident, Mindful &amp; Happy Me cover" style="width: 130px; height: auto; border-radius: 12px; border: 2px solid #ffd700; box-shadow: 0 0 18px rgba(255,215,0,0.35); margin: 34px auto 12px auto; display: block;">
+           <div style="color: #ffd700; font-weight: bold; font-size: 1rem; margin-bottom: 8px; line-height: 1.25; text-shadow: 0 0 15px rgba(255, 215, 0, 0.8);">
             Confident, Mindful &amp; Happy Me
            </div>
-           <div style="color: #ffffff; font-size: 0.85rem; margin-bottom: 15px; line-height: 1.3;">
+           <div style="color: #ffffff; font-size: 0.8rem; margin-bottom: 12px; line-height: 1.25;">
             31-day adventure to build resilience, confidence, and calm for kids 6-10.
            </div>
            <div style="
                                             position: absolute;
-                                            bottom: 15px;
+                                            bottom: 14px;
                                             left: 50%;
                                             transform: translateX(-50%);
                                             background: #ffd700;
@@ -1675,87 +1667,47 @@
           </div><!-- Christmas Book -->
           <div onclick="showBookDetailsFullScreen('christmas-book')" style="
                                         background: #000000;
-                                        border: 3px solid #ffd700;
-                                        border-radius: 15px;
-                                        padding: 20px;
+                                        border: 3px solid #8A2BE2;
+                                        border-radius: 16px;
+                                        padding: 16px 14px 60px 14px;
                                         text-align: center;
                                         cursor: pointer;
                                         transition: all 0.3s ease;
                                         box-shadow: 
                                             0 12px 40px rgba(0, 0, 0, 0.4),
-                                            0 0 0 1px rgba(255, 215, 0, 0.6),
-                                            inset 0 2px 0 rgba(255, 255, 255, 0.1),
-                                            0 0 30px rgba(255, 215, 0, 0.5),
-                                            0 0 60px rgba(255, 215, 0, 0.3);
-                                        width: 250px;
-                                        min-height: 320px;
+                                            0 0 0 1px rgba(138, 43, 226, 0.5),
+                                            inset 0 2px 0 rgba(255, 255, 255, 0.05),
+                                            0 0 28px rgba(138, 43, 226, 0.45);
+                                        width: 240px;
+                                        min-height: 340px;
                                         position: relative;
-                                    " onmouseover="this.style.transform='translateY(-8px) scale(1.05)'; this.style.boxShadow='0 20px 60px rgba(0, 0, 0, 0.5), 0 0 0 2px rgba(255, 215, 0, 0.8), inset 0 3px 0 rgba(255, 255, 255, 0.2), 0 0 50px rgba(255, 215, 0, 0.7), 0 0 100px rgba(255, 215, 0, 0.5)';" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 12px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 215, 0, 0.6), inset 0 2px 0 rgba(255, 255, 255, 0.1), 0 0 30px rgba(255, 215, 0, 0.5), 0 0 60px rgba(255, 215, 0, 0.3)';"><!-- Book spine effect -->
-           <div style="
-                                            position: absolute;
-                                            left: -3px;
-                                            top: 0;
-                                            bottom: 0;
-                                            width: 8px;
-                                            background: linear-gradient(to right, rgba(0, 0, 0, 0.3), transparent);
-                                            border-radius: 15px 0 0 15px;
-                                        "></div><!-- Available Box - Top Left -->
+                                        overflow: hidden;
+                                    " onmouseover="this.style.transform='translateY(-6px) scale(1.03)'; this.style.boxShadow='0 18px 48px rgba(0, 0, 0, 0.55), 0 0 0 2px rgba(138, 43, 226, 0.7), inset 0 3px 0 rgba(255, 255, 255, 0.12), 0 0 44px rgba(138, 43, 226, 0.6)';" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 12px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(138, 43, 226, 0.5), inset 0 2px 0 rgba(255, 255, 255, 0.05), 0 0 28px rgba(138, 43, 226, 0.45)';">
            <div style="
                                             position: absolute;
                                             top: 10px;
                                             left: 10px;
                                             background: #8A2BE2;
                                             color: #ffffff;
-                                            font-size: 0.6rem;
+                                            font-size: 0.62rem;
                                             font-weight: bold;
-                                            padding: 4px 8px;
-                                            border-radius: 8px;
+                                            padding: 5px 9px;
+                                            border-radius: 9px;
                                             text-transform: uppercase;
                                             box-shadow: 0 0 10px rgba(138, 43, 226, 0.6);
                                         ">
             Available
-           </div><!-- Christmas Tree Icon with Animation -->
-           <div style="
-                                            width: 50px;
-                                            height: 50px;
-                                            border-radius: 50%;
-                                            border: 2px solid #ffd700;
-                                            display: flex;
-                                            align-items: center;
-                                            justify-content: center;
-                                            margin: 20px auto 15px auto;
-                                            box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
-                                            animation: christmasGlow 3s ease-in-out infinite;
-                                        ">
-            <svg width="24" height="24" viewbox="0 0 100 100" style="filter: drop-shadow(0 0 8px rgba(138, 43, 226, 0.8));"><!-- Tree layers - Purple with golden glow --> <polygon points="50,15 35,35 65,35" fill="#8A2BE2" stroke="#ffd700" stroke-width="1" /> <polygon points="50,25 30,45 70,45" fill="#9932CC" stroke="#ffd700" stroke-width="1" /> <polygon points="50,35 25,55 75,55" fill="#8A2BE2" stroke="#ffd700" stroke-width="1" /> <!-- Tree trunk --> <rect x="45" y="55" width="10" height="15" fill="#8B4513" stroke="#ffd700" stroke-width="0.5" /> <!-- Golden star on top --> <polygon points="50,5 52,12 59,12 54,17 56,24 50,20 44,24 46,17 41,12 48,12" fill="#ffd700" stroke="#ffffff" stroke-width="0.5">
-              <animate attributename="fill" values="#ffd700;#ffff00;#ffd700" dur="2s" repeatcount="indefinite" />
-             </polygon> <!-- Sparkling ornaments --> <circle cx="42" cy="30" r="2" fill="#ffd700" opacity="0.9">
-              <animate attributename="opacity" values="0.9;0.4;0.9" dur="1.5s" repeatcount="indefinite" />
-             </circle> <circle cx="58" cy="32" r="2" fill="#ff69b4" opacity="0.9">
-              <animate attributename="opacity" values="0.4;0.9;0.4" dur="1.8s" repeatcount="indefinite" />
-             </circle> <circle cx="45" cy="42" r="2" fill="#00ffff" opacity="0.9">
-              <animate attributename="opacity" values="0.9;0.4;0.9" dur="2.2s" repeatcount="indefinite" />
-             </circle> <circle cx="55" cy="44" r="2" fill="#ffd700" opacity="0.9">
-              <animate attributename="opacity" values="0.4;0.9;0.4" dur="1.3s" repeatcount="indefinite" />
-             </circle> <circle cx="38" cy="48" r="2" fill="#ff69b4" opacity="0.9">
-              <animate attributename="opacity" values="0.9;0.4;0.9" dur="1.7s" repeatcount="indefinite" />
-             </circle> <circle cx="62" cy="50" r="2" fill="#00ffff" opacity="0.9">
-              <animate attributename="opacity" values="0.4;0.9;0.4" dur="2s" repeatcount="indefinite" />
-             </circle>
-            </svg>
            </div>
-           <div style="color: #ffd700; font-weight: bold; font-size: 1.1rem; margin-bottom: 8px; line-height: 1.1; text-shadow: 0 0 15px rgba(255, 215, 0, 0.8);">
-            24 Gentle Steps
+           <img src="assets/images/gentle-steps-cover.svg" alt="24 Gentle Steps to Christmas cover" style="width: 130px; height: auto; border-radius: 12px; border: 2px solid #ffd700; box-shadow: 0 0 18px rgba(255,215,0,0.35); margin: 28px auto 10px auto; display: block;">
+           <div style="color: #ffd700; font-weight: bold; font-size: 1.05rem; margin-bottom: 10px; line-height: 1.2; text-shadow: 0 0 15px rgba(255, 215, 0, 0.8);">
+            24 Gentle Steps to Christmas
            </div>
-           <div style="color: #ffd700; font-weight: bold; font-size: 1.1rem; margin-bottom: 15px; line-height: 1.1; text-shadow: 0 0 15px rgba(255, 215, 0, 0.8);">
-            to Christmas
+           <div style="color: #ffffff; font-size: 0.82rem; margin-bottom: 14px; line-height: 1.3;">
+            A mindful family journey to togetherness, reflection &amp; the magic of Christmas.
            </div>
-           <div style="color: #ffffff; font-size: 0.85rem; margin-bottom: 15px; line-height: 1.3;">
-            A mindful family journey to togetherness, reflection &amp; the magic of Christmas
-           </div><!-- Explore Book Button - Bottom -->
            <div style="
                                             position: absolute;
-                                            bottom: 15px;
+                                            bottom: 14px;
                                             left: 50%;
                                             transform: translateX(-50%);
                                             background: #8A2BE2;
@@ -6127,14 +6079,14 @@ document
                         <span style="color: #8A2BE2; font-weight: bold; font-size: 1.6rem; text-shadow: 0 0 20px rgba(138, 43, 226, 0.8);">The Happy-Makers Family Presents:</span>
                     </div>
 
-                    <h2 style="color: #ffd700; font-size: 2.5rem; margin-bottom: 12px; text-shadow: 0 0 30px rgba(255, 215, 0, 0.8); text-align: center;">THE CONFIDENT, MINDFUL &amp; HAPPY ME ADVENTURE</h2>
-                    <h3 style="color: #ff69b4; font-size: 1.35rem; margin-bottom: 20px; text-shadow: 0 0 18px rgba(255, 105, 180, 0.7); text-align: center;">31 Days to Boost Self-Esteem, Master Big Feelings &amp; Unlock Your Inner Superpower</h3>
+                    <h2 style="color: #8A2BE2; font-size: 2.5rem; margin-bottom: 12px; text-shadow: 0 0 30px rgba(138, 43, 226, 0.8); text-align: center;">THE CONFIDENT, MINDFUL &amp; HAPPY ME ADVENTURE</h2>
+                    <h3 style="color: #8A2BE2; font-size: 1.35rem; margin-bottom: 20px; text-shadow: 0 0 18px rgba(138, 43, 226, 0.7); text-align: center;">31 Days to Boost Self-Esteem, Master Big Feelings &amp; Unlock Your Inner Superpower</h3>
 
                     <div style="color: #ffffff; font-size: 1rem; line-height: 1.7; text-align: left; margin-bottom: 30px; max-width: 900px; margin-left: auto; margin-right: auto;">
                         <p style="margin-bottom: 16px; font-weight: bold; color: #8A2BE2;">IF GROWING UP FEELS LIKE A ROLLER COASTER OF BIG FEELINGS… THIS BOOK IS YOUR CHILD'S SAFETY BELT.</p>
                         <p style="margin-bottom: 12px;"><strong style="color: #8A2BE2;">THE PARENTING CHALLENGE</strong> Let’s be honest: growing up is an amazing journey, but sometimes feelings get big and the world gets loud. You see your child struggling with worry, perfectionism, or just finding their voice. You want to help them guide their way through it all with confidence and joy.</p>
                         <p style="margin-bottom: 12px;"><strong style="color: #8A2BE2;">THE HAPPY MAKERS PRESENT SOLUTION:</strong> The Confident, Mindful &amp; Happy Me Adventure! This isn't just a book. It is an interactive roadmap designed to help your child master the wild ride of growing up with courage and a smile.</p>
-                        <p style="margin-bottom: 12px;"><strong style="color: #8A2BE2;">MEET THE GUIDES</strong> Your child won't be doing this alone. They will be led by The Happy Makers Squad, a lovable family of trusted guides and fun-loving companions (Mimi, Luli, Dilo, Alio, and Nini). They are here to show your child that they don't need a superhero cape to be brave. They just need to unlock the superpowers inside to become the best version of themselves. Join the Happy Makers Squad on this journey to discover your kid's inner LEGEND.</p>
+                        <p style="margin-bottom: 12px;"><strong style="color: #8A2BE2;">MEET THE GUIDES</strong> Your child won't be doing this alone. They will be led by The Happy Makers Squad, a lovable family of trusted guides and fun-loving companions (Mimi, Luli, Dilo, Alio, and Nini). They are here to show your child that they don't need a superhero cape to be brave. They just need to unlock the superpowers inside to become the best version of themselves. Join the Happy Makers Squad on this journey to discover your kid's inner <span style="color:#8A2BE2; font-weight: 700;">LEGEND</span>.</p>
                         <p style="margin-bottom: 12px;"><strong style="color: #8A2BE2;">HOW IT WORKS: THE 31-DAY MISSION</strong> This book is designed to fit into real life. No pressure. No perfection. Just 10 minutes of connection and fun a day.</p>
 
                         <p style="margin-top: 18px; font-weight: bold; color: #8A2BE2;">OUR 31-DAY MISSION CHECKLIST:</p>
