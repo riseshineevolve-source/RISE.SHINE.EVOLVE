@@ -16,6 +16,7 @@
             position: relative;
         }
 
+
         /* Golden sparkles background */
         .sparkles {
             position: fixed;
@@ -1449,6 +1450,7 @@
   <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
   <script src="/_sdk/element_sdk.js" type="text/javascript"></script>
   <script src="https://cdn.tailwindcss.com" type="text/javascript"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
  </head>
  <body><!-- Golden sparkles -->
   <div class="sparkles" id="sparkles"></div><!-- Main content -->
@@ -2046,6 +2048,7 @@
             </script>
             <script defer src="https://sibforms.com/forms/end-form/build/main.js"></script>
         </div>
+     </div>
     </div>
     </div>
     <div id="thank-you-content" class="tab-content">
@@ -2570,9 +2573,18 @@
             " onmouseover="this.style.background='rgba(138, 43, 226, 0.3)';" onmouseout="this.style.background='none';">×</span>
     <h3 style="color: #8A2BE2; font-size: 1.8rem; margin-bottom: 10px; text-align: center; text-shadow: 0 0 15px rgba(138, 43, 226, 0.8); animation: colorTransition 3s ease-in-out infinite; line-height: 1.3;">Join Our Community</h3>
     <p style="color: #ffd700; font-size: 1.1rem; margin-bottom: 20px; text-align: center; text-shadow: 0 0 10px rgba(255, 215, 0, 0.6); font-weight: bold;">Get our newsletter &amp; unlock exclusive GIFTS</p>
-    <p style="color: #8A2BE2; font-size: 1rem; margin-bottom: 25px; text-align: center; line-height: 1.5;">Free resources to help you <span style="color: #ff1493; font-weight: bold;">RISE</span>,<br>
+    <p style="color: #8A2BE2; font-size: 1rem; margin-bottom: 18px; text-align: center; line-height: 1.5;">Free resources to help you <span style="color: #ff1493; font-weight: bold;">RISE</span>,<br>
       tools that make you <span style="color: #ffd700; font-weight: bold;">SHINE</span>,<br>
       and materials that help you <span style="color: #9932CC; font-weight: bold;">EVOLVE</span>.</p>
+    <div style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-bottom: 18px;">
+        <button type="button" id="authModeSignUp" onclick="setAuthMode('signup')" style="padding: 8px 16px; border: 2px solid #ffd700; border-radius: 12px; background: linear-gradient(45deg, #8A2BE2, #9932CC); color: #ffffff; font-weight: bold; cursor: pointer; box-shadow: 0 0 12px rgba(138, 43, 226, 0.6);">
+            Create Account
+        </button>
+        <button type="button" id="authModeLogin" onclick="setAuthMode('login')" style="padding: 8px 16px; border: 2px solid #ffd700; border-radius: 12px; background: #0d0d0d; color: #ffd700; font-weight: bold; cursor: pointer; box-shadow: 0 0 12px rgba(255, 215, 0, 0.4);">
+            Log In
+        </button>
+    </div>
+    <p id="authModeHelp" style="color: #e6e6e6; font-size: 0.9rem; text-align: center; margin-bottom: 18px;">New here? Create your account to unlock GIFTS. Already have an account? Log in to continue.</p>
     <div class="brevo-embed" style="margin-top: 6px;">
         <style>
             @font-face{font-display:block;font-family:Roboto;src:url(https://assets.brevo.com/font/Roboto/Latin/normal/normal/7529907e9eaf8ebb5220c5f9850e3811.woff2) format("woff2"),url(https://assets.brevo.com/font/Roboto/Latin/normal/normal/25c678feafdc175a70922a116c9be3e7.woff) format("woff")}@font-face{font-display:fallback;font-family:Roboto;font-weight:600;src:url(https://assets.brevo.com/font/Roboto/Latin/medium/normal/6e9caeeafb1f3491be3e32744bc30440.woff2) format("woff2"),url(https://assets.brevo.com/font/Roboto/Latin/medium/normal/71501f0d8d5aa95960f6475d5487d4c2.woff) format("woff")}@font-face{font-display:fallback;font-family:Roboto;font-weight:700;src:url(https://assets.brevo.com/font/Roboto/Latin/bold/normal/3ef7cf158f310cf752d5ad08cd0e7e60.woff2) format("woff2"),url(https://assets.brevo.com/font/Roboto/Latin/bold/normal/ece3a1d82f18b60bcce0211725c476aa.woff) format("woff")}#sib-container input:-ms-input-placeholder{text-align:left;font-family:Helvetica,sans-serif;color:#c0ccda}#sib-container input::placeholder{text-align:left;font-family:Helvetica,sans-serif;color:#c0ccda}#sib-container textarea::placeholder{text-align:left;font-family:Helvetica,sans-serif;color:#c0ccda}#sib-container a{text-decoration:underline;color:#2BB2FC}
@@ -2595,8 +2607,8 @@
                 </div>
                 <div></div>
                 <div id="sib-container" class="sib-container--large sib-container--vertical" style="text-align:center;background-color:#060606;max-width:420px;border-radius:12px;border-width:0;border-color:transparent;border-style:solid;direction:ltr">
-                    <form id="sib-form" method="POST" action="https://63a754d7.sibforms.com/serve/MUIFAHvEmnXf059dGE3HEZiuciPTbaxPJ2taKFTaKWG6NhxrhJRV-vRXVyhFPv-0apv_XcCTSAHvbk3fhsanT_6Jvxoikikniw7de7nN4SpOAAWcnU67c9J9qS9-hI2ty3tJ_uLr8DWRT-lWpBS9CREK5lSn7IFAkvUNsvKYBt8TWtqG2X83CgXb_jfzPu-gtzEu9dI2a0PdhkfAaQ==" data-type="subscription" onsubmit="submitEmailModal(event)">
-                        <div style="padding:8px 0;">
+                    <form id="sib-form" method="POST" action="https://63a754d7.sibforms.com/serve/MUIFAHvEmnXf059dGE3HEZiuciPTbaxPJ2taKFTaKWG6NhxrhJRV-vRXVyhFPv-0apv_XcCTSAHvbk3fhsanT_6Jvxoikikniw7de7nN4SpOAAWcnU67c9J9qS9-hI2ty3tJ_uLr8DWRT-lWpBS9CREK5lSn7IFAkvUNsvKYBt8TWtqG2X83CgXb_jfzPu-gtzEu9dI2a0PdhkfAaQ==" data-type="subscription" onsubmit="handleAuthSubmit(event)">
+                        <div id="signupFields" style="padding:8px 0;">
                             <div class="sib-input sib-form-block">
                                 <div class="form__entry entry_block">
                                     <div class="form__label-row ">
@@ -2623,6 +2635,19 @@
                             </div>
                         </div>
                         <div style="padding:8px 0;">
+                            <div class="sib-input sib-form-block">
+                                <div class="form__entry entry_block">
+                                    <div class="form__label-row ">
+                                        <label class="entry__label" style="font-weight:700;text-align:left;font-size:14px;font-family:Helvetica,sans-serif;color:#ffd700;" for="PASSWORD" data-required="*">Password</label>
+                                        <div class="entry__field">
+                                            <input class="input" type="password" id="userPassword" name="PASSWORD" autocomplete="new-password" placeholder="PASSWORD" data-required="true" required>
+                                        </div>
+                                    </div>
+                                    <label class="entry__error entry__error--primary" style="font-size:16px;text-align:left;font-family:Helvetica,sans-serif;color:#661d1d;background-color:#ffeded;border-radius:3px;border-color:#ff4949;"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="signupConsent" style="padding:8px 0;">
                             <div class="sib-optin sib-form-block" data-required="true">
                                 <div class="form__entry entry_mcq">
                                     <div class="form__label-row ">
@@ -2637,9 +2662,9 @@
                             </div>
                         </div>
                         <div style="padding:8px 0;">
-                            <div class="sib-form-block" style="text-align:left">
+                            <div class="sib-form-block" style="text-align:left; display: flex; gap: 10px; flex-wrap: wrap;">
                                 <button id="submitEmail" class="sib-form-block__button sib-form-block__button-with-loader" style="font-size:15px;text-align:center;font-weight:800;font-family:Helvetica,sans-serif;color:#0a0a0a;background-color:#d4af37;border-radius:10px;border-width:0px;" form="sib-form" type="submit">
-                                    <svg class="icon clickable__icon progress-indicator__icon sib-hide-loader-icon" viewBox="0 0 512 512" style=""><path d="M460.116 373.846l-20.823-12.022c-5.541-3.199-7.54-10.159-4.663-15.874 30.137-59.886 28.343-131.652-5.386-189.946-33.641-58.394-94.896-95.833-161.827-99.676C261.028 55.961 256 50.751 256 44.352V20.309c0-6.904 5.808-12.337 12.703-11.982 83.556 4.306 160.163 50.864 202.11 123.677 42.063 72.696 44.079 162.316 6.031 236.832-3.14 6.148-10.75 8.461-16.728 5.01z"/></svg>JOIN US
+                                    <svg class="icon clickable__icon progress-indicator__icon sib-hide-loader-icon" viewBox="0 0 512 512" style=""><path d="M460.116 373.846l-20.823-12.022c-5.541-3.199-7.54-10.159-4.663-15.874 30.137-59.886 28.343-131.652-5.386-189.946-33.641-58.394-94.896-95.833-161.827-99.676C261.028 55.961 256 50.751 256 44.352V20.309c0-6.904 5.808-12.337 12.703-11.982 83.556 4.306 160.163 50.864 202.11 123.677 42.063 72.696 44.079 162.316 6.031 236.832-3.14 6.148-10.75 8.461-16.728 5.01z"/></svg>Create Account
                                 </button>
                             </div>
                         </div>
@@ -5705,12 +5730,8 @@ document
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            checkGiftsAccess();
-
-            const storedEmail = (localStorage.getItem('giftsEmail') || '').trim();
-            if (storedEmail) {
-                revalidateBrevoAccess(storedEmail);
-            }
+            checkUser();
+            setAuthMode('signup');
 
             const brevoUnsubForm = document.getElementById('sib-form-unsub');
             if (brevoUnsubForm) {
@@ -5746,6 +5767,179 @@ document
             const infoTextElement = document.querySelector('#dynamic-info-tile .info-text');
             if (infoTextElement) {
                 infoTextElement.innerHTML = infoMessages[tabName] || infoMessages.main;
+            }
+        }
+
+        const SUPABASE_URL = 'https://gegaodrfqwhrfdqtiokb.supabase.co';
+        const SUPABASE_ANON_KEY = 'sb_publishable_eQ8wSa9kvfNwu8Uz033h-A_IFDuUAaK';
+        const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        let hasGiftsAccess = false;
+        let authMode = 'signup';
+
+        async function checkUser() {
+            const { data: { session } } = await supabaseClient.auth.getSession();
+            hasGiftsAccess = !!session;
+            if (hasGiftsAccess) {
+                closeEmailModal();
+            }
+        }
+
+        supabaseClient.auth.onAuthStateChange(() => {
+            checkUser();
+        });
+
+        function showAuthMessage(message, color = '#ffd700') {
+            const errorMsg = document.getElementById('errorMsg');
+            if (errorMsg) {
+                errorMsg.style.color = color;
+                errorMsg.textContent = message;
+            }
+        }
+
+        function setAuthMode(mode) {
+            authMode = mode === 'login' ? 'login' : 'signup';
+            const signUpBtn = document.getElementById('authModeSignUp');
+            const loginBtn = document.getElementById('authModeLogin');
+            const signupFields = document.getElementById('signupFields');
+            const signupConsent = document.getElementById('signupConsent');
+            const submitBtn = document.getElementById('submitEmail');
+            const passwordField = document.getElementById('userPassword');
+            const firstNameField = document.getElementById('brevoFirstName');
+            const optInField = document.getElementById('brevoOptIn');
+            const helpText = document.getElementById('authModeHelp');
+
+            if (signUpBtn && loginBtn) {
+                const isSignup = authMode === 'signup';
+                signUpBtn.style.background = isSignup ? 'linear-gradient(45deg, #8A2BE2, #9932CC)' : '#0d0d0d';
+                signUpBtn.style.color = isSignup ? '#ffffff' : '#ffd700';
+                loginBtn.style.background = isSignup ? '#0d0d0d' : 'linear-gradient(45deg, #8A2BE2, #9932CC)';
+                loginBtn.style.color = isSignup ? '#ffd700' : '#ffffff';
+            }
+
+            if (signupFields) {
+                signupFields.style.display = authMode === 'signup' ? 'block' : 'none';
+            }
+            if (signupConsent) {
+                signupConsent.style.display = authMode === 'signup' ? 'block' : 'none';
+            }
+            if (firstNameField) {
+                firstNameField.required = authMode === 'signup';
+            }
+            if (optInField) {
+                optInField.required = authMode === 'signup';
+            }
+            if (passwordField) {
+                passwordField.autocomplete = authMode === 'signup' ? 'new-password' : 'current-password';
+            }
+            if (submitBtn) {
+                const icon = submitBtn.querySelector('svg');
+                submitBtn.textContent = authMode === 'signup' ? 'Create Account' : 'Log In';
+                if (icon) {
+                    submitBtn.prepend(icon);
+                }
+            }
+            if (helpText) {
+                helpText.textContent = authMode === 'signup'
+                    ? 'New here? Create your account to unlock GIFTS.'
+                    : 'Already have an account? Log in to continue.';
+            }
+        }
+
+        function getAuthFormValues() {
+            return {
+                firstName: document.getElementById('brevoFirstName')?.value.trim() || '',
+                email: document.getElementById('brevoEmail')?.value.trim() || '',
+                password: document.getElementById('userPassword')?.value || '',
+                gdprChecked: document.getElementById('brevoOptIn')?.checked || false,
+                form: document.getElementById('sib-form'),
+            };
+        }
+
+        async function handleAuthSubmit(event) {
+            event.preventDefault();
+            if (authMode === 'login') {
+                await handleLoginModal();
+                return;
+            }
+            const { firstName, email, password, gdprChecked, form } = getAuthFormValues();
+
+            if (!firstName) {
+                showAuthMessage('Please enter your first name.');
+                return;
+            }
+            if (!email || !email.includes('@') || !email.includes('.')) {
+                showAuthMessage('Please enter a valid email address.');
+                return;
+            }
+            if (!password) {
+                showAuthMessage('Please enter a password.');
+                return;
+            }
+            if (!gdprChecked) {
+                showAuthMessage('Please agree to the Privacy Policy.');
+                return;
+            }
+
+            showAuthMessage('Creating your account...', '#ffd700');
+            const { error } = await supabaseClient.auth.signUp({
+                email,
+                password,
+            });
+
+            if (error) {
+                showAuthMessage(error.message, '#ff1493');
+                return;
+            }
+
+            const formData = form ? new FormData(form) : new FormData();
+            formData.set('firstName', firstName);
+            formData.set('email', email);
+            formData.set('gdprConsent', gdprChecked ? 'true' : 'false');
+            sendToSite(formData);
+            localStorage.setItem('giftsFirstName', firstName);
+            localStorage.setItem('giftsEmail', email);
+
+            try {
+                await fetch(CLOUDFLARE_WORKER_ENDPOINT, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        email,
+                        lang: 'EN',
+                    }),
+                });
+            } catch (error) {
+                // Brevo language update failed; still allow the account to exist.
+            }
+
+            showAuthMessage('Success! Check your email to confirm.', '#ffd700');
+        }
+
+        async function handleLoginModal() {
+            const { email, password } = getAuthFormValues();
+
+            if (!email || !password) {
+                showAuthMessage('Please enter your email and password.', '#ff1493');
+                return;
+            }
+
+            const { error } = await supabaseClient.auth.signInWithPassword({
+                email,
+                password,
+            });
+
+            if (error) {
+                showAuthMessage(`Login error: ${error.message}`, '#ff1493');
+                return;
+            }
+
+            showAuthMessage('Welcome back! You are logged in.', '#ffd700');
+            localStorage.setItem('giftsEmail', email);
+            checkUser();
+            closeEmailModal();
+            const giftsTab = getTabElement('gifts');
+            if (giftsTab) {
+                selectTab(giftsTab, 'gifts');
             }
         }
 
@@ -5846,16 +6040,12 @@ document
         // Tab functionality
         function selectTab(tabElement, tabName, options = {}) {
             const { skipHistory = false } = options;
-            // Check if GIFTS tab is clicked
-            if (tabName === 'gifts') {
-                // Check if user has access
-                if (!checkGiftsAccess()) {
-                    // Show email modal instead of switching tabs
-                    showEmailModal();
-                    return;
-                }
+
+            if (tabName === 'gifts' && !checkGiftsAccess()) {
+                showEmailModal();
+                return;
             }
-            
+
             // Remove active class from all tabs
             const tabs = document.querySelectorAll('.tab');
             tabs.forEach(tab => tab.classList.remove('active'));
@@ -6328,87 +6518,12 @@ document
             document.querySelector('.container').style.display = 'block';
         }
 
-        // GIFTS access functions
-        const GIFTS_ACCESS_VERSION = '7';
-        const GIFTS_PENDING_KEY = 'giftsPendingUntil';
-        const GIFTS_PENDING_WINDOW_MS = 1000 * 60 * 60 * 48; // 48 hours grace before clearing on failed Brevo checks
-        let hasGiftsAccess = false;
-        let brevoCheckPromise = null;
         function checkGiftsAccess() {
-            const access = localStorage.getItem('giftsAccess') === 'true';
-            const savedEmail = (localStorage.getItem('giftsEmail') || '').trim();
-            const accessVersion = localStorage.getItem('giftsAccessVersion');
-            const pendingUntil = parseInt(localStorage.getItem(GIFTS_PENDING_KEY) || '0', 10);
-            const pendingActive = pendingUntil && pendingUntil > Date.now();
-
-            if (access && savedEmail.includes('@') && accessVersion === GIFTS_ACCESS_VERSION) {
-                hasGiftsAccess = true;
-                if (!pendingActive && !brevoCheckPromise) {
-                    brevoCheckPromise = revalidateBrevoAccess(savedEmail).finally(() => {
-                        brevoCheckPromise = null;
-                    });
-                }
-                return true;
-            }
-
-            clearGiftsAccess();
-            return false;
-        }
-        function grantGiftsAccess(firstName = '', email = '') {
-            localStorage.setItem('giftsAccess', 'true');
-            localStorage.setItem('giftsAccessVersion', GIFTS_ACCESS_VERSION);
-            if (email) {
-                localStorage.setItem('giftsEmail', email);
-            }
-            if (firstName) {
-                localStorage.setItem('giftsFirstName', firstName);
-            }
-            const graceUntil = Date.now() + GIFTS_PENDING_WINDOW_MS;
-            localStorage.setItem(GIFTS_PENDING_KEY, `${graceUntil}`);
-            hasGiftsAccess = true;
+            return hasGiftsAccess;
         }
         function clearGiftsAccess() {
-            localStorage.removeItem('giftsAccess');
             localStorage.removeItem('giftsEmail');
             localStorage.removeItem('giftsFirstName');
-            localStorage.removeItem('giftsAccessVersion');
-            localStorage.removeItem(GIFTS_PENDING_KEY);
-            hasGiftsAccess = false;
-        }
-
-        async function revalidateBrevoAccess(email) {
-            const workerEndpoint = (typeof CLOUDFLARE_WORKER_ENDPOINT === 'string' ? CLOUDFLARE_WORKER_ENDPOINT.trim() : '');
-            if (!workerEndpoint || !email) return;
-
-            try {
-                const fd = new FormData();
-                fd.append('action', 'check');
-                fd.append('EMAIL', email);
-                if (BREVO_LIST_ID) {
-                    fd.append('brevoListId', BREVO_LIST_ID);
-                }
-
-                const resp = await fetch(workerEndpoint, { method: 'POST', body: fd, mode: 'cors', credentials: 'omit' });
-                const data = await resp.json().catch(() => ({}));
-                const isSubscribed = resp.ok && data && data.subscribed !== false;
-                const pendingUntil = parseInt(localStorage.getItem(GIFTS_PENDING_KEY) || '0', 10);
-                const pendingActive = pendingUntil && pendingUntil > Date.now();
-
-                if (isSubscribed) {
-                    localStorage.removeItem(GIFTS_PENDING_KEY);
-                    return;
-                }
-
-                if (!pendingActive) {
-                    clearGiftsAccess();
-                    const giftsActive = document.getElementById('gifts-content')?.classList.contains('active');
-                    if (giftsActive) {
-                        showEmailModal();
-                    }
-                }
-            } catch (error) {
-                // If the check fails, keep local state; access will be asked again on next click.
-            }
         }
         // Function to send to the site and (optionally) Cloudflare Worker (używane przez formularz GIFTS)
         function sendToSite(formData) {
@@ -6450,22 +6565,12 @@ document
         }
         
         function accessGifts() {
+            const giftsTab = getTabElement('gifts');
+            if (giftsTab) {
+                selectTab(giftsTab, 'gifts');
+            }
             if (!checkGiftsAccess()) {
                 showEmailModal();
-                return;
-            }
-            // Hide all tab contents
-            const allContents = document.querySelectorAll('.tab-content');
-            allContents.forEach(content => content.classList.remove('active'));
-            // Show gifts content
-            document.getElementById('gifts-content').classList.add('active');
-            // Update tab appearance
-            const allTabs = document.querySelectorAll('.tab');
-            allTabs.forEach(tab => tab.classList.remove('active'));
-            // Activate GIFTS tab
-            const giftsTab = Array.from(allTabs).find(tab => tab.textContent === 'GIFTS');
-            if (giftsTab) {
-                giftsTab.classList.add('active');
             }
         }
         function showEmailModal() {
@@ -6504,51 +6609,6 @@ document
         function closePrivacyModal() {
             document.getElementById('privacyModal').style.display = 'none';
             document.body.style.overflow = 'auto';
-        }
-        function submitEmailModal(event) {
-            event.preventDefault();
-            const form = event.target;
-            const firstNameInput = document.getElementById('brevoFirstName');
-            const emailInput = document.getElementById('brevoEmail');
-            const optIn = document.getElementById('brevoOptIn');
-            const firstName = firstNameInput ? firstNameInput.value.trim() : '';
-            const email = emailInput ? emailInput.value.trim() : '';
-            const gdprChecked = optIn ? optIn.checked : false;
-            const errorMsg = document.getElementById('errorMsg');
-            const submitBtn = document.getElementById('submitEmail');
-
-            if (errorMsg) {
-                errorMsg.textContent = '';
-            }
-            if (!firstName) {
-                errorMsg.textContent = 'Please enter your first name.';
-                return;
-            }
-            if (!email || !email.includes('@') || !email.includes('.')) {
-                errorMsg.textContent = 'Please enter a valid email address.';
-                return;
-            }
-            if (!gdprChecked) {
-                errorMsg.textContent = 'Please agree to the Privacy Policy.';
-                return;
-            }
-
-            submitBtn.textContent = 'Joining...';
-            submitBtn.disabled = true;
-            const formData = new FormData(form);
-            formData.set('firstName', firstName);
-            formData.set('email', email);
-            formData.set('gdprConsent', gdprChecked ? 'true' : 'false');
-            sendToSite(formData);
-
-            setTimeout(() => {
-                grantGiftsAccess(firstName, email);
-                closeEmailModal();
-                showThankYouPage();
-                submitBtn.textContent = 'Join us';
-                submitBtn.disabled = false;
-                form.reset();
-            }, 1500);
         }
         function handleUnsubscribe(event) {
             event.preventDefault();
@@ -6671,6 +6731,14 @@ document
         function openGiftOverlay(key, event) {
             if (event) {
                 event.stopPropagation();
+            }
+            if (!checkGiftsAccess()) {
+                const giftsTab = getTabElement('gifts');
+                if (giftsTab) {
+                    selectTab(giftsTab, 'gifts');
+                }
+                showEmailModal();
+                return;
             }
 
             const html = getGiftHtml(key);
