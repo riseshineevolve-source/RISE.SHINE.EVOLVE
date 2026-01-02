@@ -1457,6 +1457,10 @@
   <div class="container">
    <h1 class="main-title">RISE.SHINE.EVOLVE</h1>
    <p class="subtitle">Empowering Learning Hub</p>
+   <div class="language-switch" aria-label="Language switcher">
+    <button type="button" data-lang="pl" onclick="setLanguage('pl')">🇵🇱 PL</button>
+    <button type="button" data-lang="en" onclick="setLanguage('en')">🇬🇧 EN</button>
+   </div>
    <div class="info-tile" id="dynamic-info-tile">
     <div class="info-text">
      Join us on a journey where every child can <span class="word-rise">RISE</span>,<br>
@@ -1872,19 +1876,36 @@
      </div>
     </div>
     <div id="gifts-content" class="tab-content"><!-- Welcome Box with Golden Border -->
-     <div class="kids-tile" style="border: 3px solid #ffd700; box-shadow: 0 0 35px rgba(255, 215, 0, 0.7), 0 0 60px rgba(255, 215, 0, 0.4); margin: 24px auto; max-width: 520px; padding: 16px 18px;">
-      <div class="kids-text">
-       <h3 style="color: #ffd700; font-size: 1.5rem; margin-bottom: 18px; text-shadow: 0 0 16px rgba(255, 215, 0, 0.8); line-height: 1.25;">Welcome to your<br>
-        exclusive GIFTS section!</h3>
-       <p style="color: #ffffff; font-size: 1.05rem; line-height: 1.6; margin-bottom: 10px;">Free resources to help you</p>
-       <p style="color: #ffffff; font-size: 1.05rem; line-height: 1.6;"><span class="word-rise">RISE</span>, <span class="word-shine">SHINE</span> and <span class="word-evolve">EVOLVE</span>.</p>
+     <div id="auth-section" class="auth-section">
+      <h3 id="auth-title" data-i18n="auth.title" style="color: #ffd700; margin-bottom: 12px;">Join to get GIFTS</h3>
+      <input type="email" id="user-email" data-i18n-placeholder="auth.email" placeholder="E-mail" required>
+      <input type="password" id="user-password" data-i18n-placeholder="auth.password" placeholder="Password" required>
+      <div class="auth-actions">
+       <button type="button" onclick="handleSignUp()" data-i18n="auth.signup">Sign Up</button>
+       <button type="button" onclick="handleLogin()" data-i18n="auth.login">Log In</button>
       </div>
-     </div><!-- Gifts Shelf -->
-     <div class="kids-tile" style="border: 3px solid #8A2BE2; box-shadow: 0 0 35px rgba(138, 43, 226, 0.7), 0 0 60px rgba(138, 43, 226, 0.4); margin: 30px auto; max-width: 1200px; padding: 24px 18px;">
-      <div class="kids-text" style="margin-bottom: 20px;">
-       <h3 style="color: #8A2BE2; font-size: 1.9rem; margin: 0 0 10px 0; text-shadow: 0 0 18px rgba(138, 43, 226, 0.7);">GIFTS LIBRARY</h3>
-       <p style="color: #ffd700; font-size: 1rem; margin: 0;">Explore new resources as they arrive - Calm + Energy Wheel, the 1-Minute Challenge, the Happy Makers mini Word Search and the full Word Search Studio.</p>
+      <p id="status-message" class="auth-status"></p>
+     </div>
+     <div id="gifts-section" style="display: none;">
+      <div class="kids-tile" style="border: 2px solid #8A2BE2; box-shadow: 0 0 18px rgba(138, 43, 226, 0.4); margin: 0 auto 18px auto; max-width: 520px; padding: 12px 16px;">
+       <div class="kids-text" style="display: flex; flex-direction: column; gap: 8px; align-items: center;">
+        <p id="auth-user" style="margin: 0; color: #ffffff; font-size: 0.95rem;">Logged in.</p>
+        <button class="auth-logout" type="button" onclick="handleLogout()" data-i18n="auth.logout">Log Out</button>
+       </div>
       </div>
+      <div class="kids-tile" style="border: 3px solid #ffd700; box-shadow: 0 0 35px rgba(255, 215, 0, 0.7), 0 0 60px rgba(255, 215, 0, 0.4); margin: 24px auto; max-width: 520px; padding: 16px 18px;">
+       <div class="kids-text">
+        <h3 data-i18n="gifts.title" style="color: #ffd700; font-size: 1.5rem; margin-bottom: 18px; text-shadow: 0 0 16px rgba(255, 215, 0, 0.8); line-height: 1.25;">Welcome to your<br>
+         exclusive GIFTS section!</h3>
+        <p data-i18n="gifts.subtitle" style="color: #ffffff; font-size: 1.05rem; line-height: 1.6; margin-bottom: 10px;">Free resources to help you</p>
+        <p data-i18n="gifts.subtitle2" style="color: #ffffff; font-size: 1.05rem; line-height: 1.6;"><span class="word-rise">RISE</span>, <span class="word-shine">SHINE</span> and <span class="word-evolve">EVOLVE</span>.</p>
+       </div>
+      </div><!-- Gifts Shelf -->
+      <div class="kids-tile" style="border: 3px solid #8A2BE2; box-shadow: 0 0 35px rgba(138, 43, 226, 0.7), 0 0 60px rgba(138, 43, 226, 0.4); margin: 30px auto; max-width: 1200px; padding: 24px 18px;">
+       <div class="kids-text" style="margin-bottom: 20px;">
+        <h3 data-i18n="gifts.library" style="color: #8A2BE2; font-size: 1.9rem; margin: 0 0 10px 0; text-shadow: 0 0 18px rgba(138, 43, 226, 0.7);">GIFTS LIBRARY</h3>
+        <p data-i18n="gifts.librarySubtitle" style="color: #ffd700; font-size: 1rem; margin: 0;">Explore new resources as they arrive - Calm + Energy Wheel, the 1-Minute Challenge, the Happy Makers mini Word Search and the full Word Search Studio.</p>
+       </div>
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; padding: 0 10px;">
        <div id="gift-card-calm-energy" onclick="openCalmEnergyWheel(event)" style="background: #000000; border: 3px solid #ffd700; border-radius: 18px; padding: 22px; text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(255, 215, 0, 0.5); position: relative; min-height: 300px; display: flex; flex-direction: column; align-items: center; gap: 12px; cursor: pointer;">
         <div style="position: absolute; top: 12px; left: 12px; background: #8A2BE2; color: #ffffff; font-size: 0.7rem; font-weight: bold; padding: 6px 10px; border-radius: 10px; text-transform: uppercase; box-shadow: 0 0 12px rgba(138, 43, 226, 0.6);">Available</div>
@@ -2661,6 +2682,9 @@
                                     <label class="entry__error entry__error--primary" style="font-size:16px;text-align:left;font-family:Helvetica,sans-serif;color:#661d1d;background-color:#ffeded;border-radius:3px;border-color:#ff4949;"></label>
                                 </div>
                             </div>
+                        </div>
+                        <div style="padding:6px 0 2px 0; text-align:left; font-size:12px; color:#e6e6e6; font-family:Helvetica,sans-serif;">
+                            New here? Click <strong>Create Account</strong>. Already have an account? Click <strong>Log In</strong>.
                         </div>
                         <div style="padding:8px 0;">
                             <div class="sib-form-block" style="text-align:left; display: flex; gap: 10px; flex-wrap: wrap;">
