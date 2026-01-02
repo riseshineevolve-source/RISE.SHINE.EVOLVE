@@ -2688,7 +2688,7 @@
                         <input type="hidden" name="form-name" value="rse-email-list-modal">
                     </form>
                     <div style="padding:10px 0 4px 0;">
-                        <button type="button" id="createAccountBottom" onclick="document.getElementById('sib-form').requestSubmit();" style="width:100%;font-size:14px;text-align:center;font-weight:800;font-family:Helvetica,sans-serif;color:#ffffff;background:linear-gradient(45deg,#8A2BE2,#9932CC);border-radius:12px;border:2px solid #ffd700;padding:10px 12px;cursor:pointer;">
+                        <button type="button" id="authActionBottom" onclick="handleBottomAction()" style="width:100%;font-size:14px;text-align:center;font-weight:800;font-family:Helvetica,sans-serif;color:#ffffff;background:linear-gradient(45deg,#8A2BE2,#9932CC);border-radius:12px;border:2px solid #ffd700;padding:10px 12px;cursor:pointer;">
                             Create Account
                         </button>
                     </div>
@@ -5852,11 +5852,10 @@ document
             const loginBtn = document.getElementById('authModeLogin');
             const signupFields = document.getElementById('signupFields');
             const signupConsent = document.getElementById('signupConsent');
-            const submitBtn = document.getElementById('submitEmail');
             const passwordField = document.getElementById('userPassword');
             const firstNameField = document.getElementById('brevoFirstName');
             const optInField = document.getElementById('brevoOptIn');
-            const bottomSubmit = document.getElementById('createAccountBottom');
+            const bottomSubmit = document.getElementById('authActionBottom');
 
             if (signUpBtn && loginBtn) {
                 const isSignup = authMode === 'signup';
@@ -5881,15 +5880,20 @@ document
             if (passwordField) {
                 passwordField.autocomplete = authMode === 'signup' ? 'new-password' : 'current-password';
             }
-            if (submitBtn) {
-                const icon = submitBtn.querySelector('svg');
-                submitBtn.textContent = authMode === 'signup' ? 'Create Account' : 'Log In';
-                if (icon) {
-                    submitBtn.prepend(icon);
-                }
-            }
             if (bottomSubmit) {
-                bottomSubmit.style.display = authMode === 'signup' ? 'block' : 'none';
+                bottomSubmit.textContent = authMode === 'signup' ? 'Create Account' : 'Log In';
+                bottomSubmit.style.display = 'block';
+            }
+        }
+
+        function handleBottomAction() {
+            if (authMode === 'login') {
+                handleLoginModal();
+                return;
+            }
+            const form = document.getElementById('sib-form');
+            if (form) {
+                form.requestSubmit();
             }
         }
 
