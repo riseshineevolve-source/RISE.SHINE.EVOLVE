@@ -16,80 +16,6 @@
             position: relative;
         }
 
-        .language-switch {
-            display: inline-flex;
-            gap: 10px;
-            margin: 12px auto 24px auto;
-            padding: 8px 14px;
-            border: 2px solid #8A2BE2;
-            border-radius: 18px;
-            background: rgba(8, 8, 12, 0.85);
-            box-shadow: 0 0 20px rgba(138, 43, 226, 0.35);
-        }
-
-        .language-switch button {
-            background: #0f0f0f;
-            color: #ffd700;
-            border: 1px solid #ffd700;
-            border-radius: 12px;
-            padding: 6px 12px;
-            cursor: pointer;
-            font-weight: bold;
-            letter-spacing: 0.3px;
-        }
-
-        .language-switch button.active {
-            background: linear-gradient(45deg, #8A2BE2, #9932CC);
-            color: #ffffff;
-            border-color: #ffffff;
-            box-shadow: 0 0 12px rgba(138, 43, 226, 0.6);
-        }
-
-        .auth-section {
-            margin: 18px auto;
-            max-width: 420px;
-            background: rgba(0, 0, 0, 0.85);
-            border: 2px solid #ffd700;
-            border-radius: 16px;
-            padding: 18px 20px;
-            box-shadow: 0 0 28px rgba(255, 215, 0, 0.25);
-            text-align: center;
-        }
-
-        .auth-section input {
-            width: 100%;
-            box-sizing: border-box;
-            margin-bottom: 10px;
-            padding: 10px 12px;
-            border-radius: 10px;
-            border: 1px solid #8A2BE2;
-            background: #070707;
-            color: #ffffff;
-        }
-
-        .auth-actions {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            justify-content: center;
-        }
-
-        .auth-actions button,
-        .auth-logout {
-            background: linear-gradient(45deg, #8A2BE2, #9932CC);
-            border: 2px solid #ffd700;
-            border-radius: 12px;
-            color: #ffffff;
-            font-weight: bold;
-            padding: 8px 14px;
-            cursor: pointer;
-        }
-
-        .auth-status {
-            margin-top: 10px;
-            color: #ffd700;
-            font-size: 0.9rem;
-        }
 
         /* Golden sparkles background */
         .sparkles {
@@ -2693,7 +2619,7 @@
                 </div>
                 <div></div>
                 <div id="sib-container" class="sib-container--large sib-container--vertical" style="text-align:center;background-color:#060606;max-width:420px;border-radius:12px;border-width:0;border-color:transparent;border-style:solid;direction:ltr">
-                    <form id="sib-form" method="POST" action="https://63a754d7.sibforms.com/serve/MUIFAHvEmnXf059dGE3HEZiuciPTbaxPJ2taKFTaKWG6NhxrhJRV-vRXVyhFPv-0apv_XcCTSAHvbk3fhsanT_6Jvxoikikniw7de7nN4SpOAAWcnU67c9J9qS9-hI2ty3tJ_uLr8DWRT-lWpBS9CREK5lSn7IFAkvUNsvKYBt8TWtqG2X83CgXb_jfzPu-gtzEu9dI2a0PdhkfAaQ==" data-type="subscription" onsubmit="submitEmailModal(event)">
+                    <form id="sib-form" method="POST" action="https://63a754d7.sibforms.com/serve/MUIFAHvEmnXf059dGE3HEZiuciPTbaxPJ2taKFTaKWG6NhxrhJRV-vRXVyhFPv-0apv_XcCTSAHvbk3fhsanT_6Jvxoikikniw7de7nN4SpOAAWcnU67c9J9qS9-hI2ty3tJ_uLr8DWRT-lWpBS9CREK5lSn7IFAkvUNsvKYBt8TWtqG2X83CgXb_jfzPu-gtzEu9dI2a0PdhkfAaQ==" data-type="subscription" onsubmit="handleSignUp(event)">
                         <div style="padding:8px 0;">
                             <div class="sib-input sib-form-block">
                                 <div class="form__entry entry_block">
@@ -2721,6 +2647,19 @@
                             </div>
                         </div>
                         <div style="padding:8px 0;">
+                            <div class="sib-input sib-form-block">
+                                <div class="form__entry entry_block">
+                                    <div class="form__label-row ">
+                                        <label class="entry__label" style="font-weight:700;text-align:left;font-size:14px;font-family:Helvetica,sans-serif;color:#ffd700;" for="PASSWORD" data-required="*">Create or enter your PASSWORD</label>
+                                        <div class="entry__field">
+                                            <input class="input" type="password" id="userPassword" name="PASSWORD" autocomplete="new-password" placeholder="PASSWORD" data-required="true" required>
+                                        </div>
+                                    </div>
+                                    <label class="entry__error entry__error--primary" style="font-size:16px;text-align:left;font-family:Helvetica,sans-serif;color:#661d1d;background-color:#ffeded;border-radius:3px;border-color:#ff4949;"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="padding:8px 0;">
                             <div class="sib-optin sib-form-block" data-required="true">
                                 <div class="form__entry entry_mcq">
                                     <div class="form__label-row ">
@@ -2735,9 +2674,12 @@
                             </div>
                         </div>
                         <div style="padding:8px 0;">
-                            <div class="sib-form-block" style="text-align:left">
+                            <div class="sib-form-block" style="text-align:left; display: flex; gap: 10px; flex-wrap: wrap;">
                                 <button id="submitEmail" class="sib-form-block__button sib-form-block__button-with-loader" style="font-size:15px;text-align:center;font-weight:800;font-family:Helvetica,sans-serif;color:#0a0a0a;background-color:#d4af37;border-radius:10px;border-width:0px;" form="sib-form" type="submit">
-                                    <svg class="icon clickable__icon progress-indicator__icon sib-hide-loader-icon" viewBox="0 0 512 512" style=""><path d="M460.116 373.846l-20.823-12.022c-5.541-3.199-7.54-10.159-4.663-15.874 30.137-59.886 28.343-131.652-5.386-189.946-33.641-58.394-94.896-95.833-161.827-99.676C261.028 55.961 256 50.751 256 44.352V20.309c0-6.904 5.808-12.337 12.703-11.982 83.556 4.306 160.163 50.864 202.11 123.677 42.063 72.696 44.079 162.316 6.031 236.832-3.14 6.148-10.75 8.461-16.728 5.01z"/></svg>JOIN US
+                                    <svg class="icon clickable__icon progress-indicator__icon sib-hide-loader-icon" viewBox="0 0 512 512" style=""><path d="M460.116 373.846l-20.823-12.022c-5.541-3.199-7.54-10.159-4.663-15.874 30.137-59.886 28.343-131.652-5.386-189.946-33.641-58.394-94.896-95.833-161.827-99.676C261.028 55.961 256 50.751 256 44.352V20.309c0-6.904 5.808-12.337 12.703-11.982 83.556 4.306 160.163 50.864 202.11 123.677 42.063 72.696 44.079 162.316 6.031 236.832-3.14 6.148-10.75 8.461-16.728 5.01z"/></svg>Create Account
+                                </button>
+                                <button id="loginEmail" class="sib-form-block__button" style="font-size:15px;text-align:center;font-weight:800;font-family:Helvetica,sans-serif;color:#0a0a0a;background-color:#ffd700;border-radius:10px;border-width:0px;" type="button" onclick="handleLoginModal()">
+                                    Log In
                                 </button>
                             </div>
                         </div>
@@ -5803,8 +5745,6 @@ document
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            applyTranslations(currentLang);
-            updateLanguageUI(currentLang);
             checkUser();
 
             const brevoUnsubForm = document.getElementById('sib-form-unsub');
@@ -5847,104 +5787,13 @@ document
         const SUPABASE_URL = 'https://gegaodrfqwhrfdqtiokb.supabase.co';
         const SUPABASE_ANON_KEY = 'sb_publishable_eQ8wSa9kvfNwu8Uz033h-A_IFDuUAaK';
         const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-        const translations = {
-            en: {
-                'auth.title': 'Join to get GIFTS',
-                'auth.email': 'E-mail',
-                'auth.password': 'Password',
-                'auth.signup': 'Sign Up',
-                'auth.login': 'Log In',
-                'auth.logout': 'Log Out',
-                'auth.loggedIn': 'Logged in as {email}',
-                'auth.processing': 'Processing...',
-                'auth.missing': 'Please enter an email and password.',
-                'auth.success': 'Success! Check your email to confirm.',
-                'auth.accountCreated': 'Account created. Please verify your email.',
-                'auth.loginError': 'Login error: {message}',
-                'gifts.title': 'Welcome to your<br>exclusive GIFTS section!',
-                'gifts.subtitle': 'Free resources to help you',
-                'gifts.subtitle2': '<span class="word-rise">RISE</span>, <span class="word-shine">SHINE</span> and <span class="word-evolve">EVOLVE</span>.',
-                'gifts.library': 'GIFTS LIBRARY',
-                'gifts.librarySubtitle': 'Explore new resources as they arrive - Calm + Energy Wheel, the 1-Minute Challenge, the Happy Makers mini Word Search and the full Word Search Studio.',
-            },
-            pl: {
-                'auth.title': 'Dołącz po prezenty',
-                'auth.email': 'E-mail',
-                'auth.password': 'Hasło',
-                'auth.signup': 'Załóż konto',
-                'auth.login': 'Zaloguj',
-                'auth.logout': 'Wyloguj',
-                'auth.loggedIn': 'Zalogowano jako {email}',
-                'auth.processing': 'Przetwarzanie...',
-                'auth.missing': 'Wpisz e-mail i hasło.',
-                'auth.success': 'Sukces! Sprawdź e-mail, aby potwierdzić.',
-                'auth.accountCreated': 'Konto utworzone. Sprawdź e-mail.',
-                'auth.loginError': 'Błąd logowania: {message}',
-                'gifts.title': 'Witamy w Twojej<br>sekcji PREZENTÓW!',
-                'gifts.subtitle': 'Darmowe materiały, które pomogą Ci',
-                'gifts.subtitle2': '<span class="word-rise">ROSNĄĆ</span>, <span class="word-shine">BŁYSZCZEĆ</span> i <span class="word-evolve">EWOLUOWAĆ</span>.',
-                'gifts.library': 'BIBLIOTEKA PREZENTÓW',
-                'gifts.librarySubtitle': 'Nowe materiały pojawiają się regularnie - Koło Spokoju i Energii, 1-Minute Challenge, mini Word Search i pełne Word Search Studio.',
-            },
-        };
-
-        let currentLang = localStorage.getItem('site_lang') || ((navigator.language || '').toLowerCase().startsWith('pl') ? 'pl' : 'en');
-
-        function applyTranslations(lang) {
-            const dictionary = translations[lang] || translations.en;
-            document.documentElement.setAttribute('lang', lang);
-            document.querySelectorAll('[data-i18n]').forEach((el) => {
-                const key = el.getAttribute('data-i18n');
-                if (dictionary[key]) {
-                    el.innerHTML = dictionary[key];
-                }
-            });
-            document.querySelectorAll('[data-i18n-placeholder]').forEach((el) => {
-                const key = el.getAttribute('data-i18n-placeholder');
-                if (dictionary[key]) {
-                    el.setAttribute('placeholder', dictionary[key]);
-                }
-            });
-        }
-
-        function updateLanguageUI(lang) {
-            document.querySelectorAll('.language-switch button').forEach((btn) => {
-                btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
-            });
-        }
-
-        function setLanguage(lang) {
-            currentLang = lang;
-            localStorage.setItem('site_lang', lang);
-            applyTranslations(lang);
-            updateLanguageUI(lang);
-            checkUser();
-        }
-
         let hasGiftsAccess = false;
 
         async function checkUser() {
             const { data: { session } } = await supabaseClient.auth.getSession();
-            updateAuthUI(session);
-        }
-
-        function updateAuthUI(session) {
-            const authSection = document.getElementById('auth-section');
-            const giftsSection = document.getElementById('gifts-section');
-            const userLabel = document.getElementById('auth-user');
-            const dictionary = translations[currentLang] || translations.en;
-
             hasGiftsAccess = !!session;
-            if (authSection && giftsSection) {
-                authSection.style.display = session ? 'none' : 'block';
-                giftsSection.style.display = session ? 'block' : 'none';
-            }
-            if (userLabel) {
-                const email = session?.user?.email || '';
-                userLabel.innerHTML = email
-                    ? dictionary['auth.loggedIn'].replace('{email}', email)
-                    : dictionary['auth.loggedIn'].replace('{email}', '');
+            if (hasGiftsAccess) {
+                closeEmailModal();
             }
         }
 
@@ -5952,34 +5801,63 @@ document
             checkUser();
         });
 
-        async function handleSignUp() {
-            const email = document.getElementById('user-email')?.value.trim();
-            const password = document.getElementById('user-password')?.value;
-            const statusMsg = document.getElementById('status-message');
-            const dictionary = translations[currentLang] || translations.en;
+        function showAuthMessage(message, color = '#ffd700') {
+            const errorMsg = document.getElementById('errorMsg');
+            if (errorMsg) {
+                errorMsg.style.color = color;
+                errorMsg.textContent = message;
+            }
+        }
 
-            if (!email || !password) {
-                if (statusMsg) {
-                    statusMsg.textContent = dictionary['auth.missing'];
-                }
+        function getAuthFormValues() {
+            return {
+                firstName: document.getElementById('brevoFirstName')?.value.trim() || '',
+                email: document.getElementById('brevoEmail')?.value.trim() || '',
+                password: document.getElementById('userPassword')?.value || '',
+                gdprChecked: document.getElementById('brevoOptIn')?.checked || false,
+                form: document.getElementById('sib-form'),
+            };
+        }
+
+        async function handleSignUp(event) {
+            event.preventDefault();
+            const { firstName, email, password, gdprChecked, form } = getAuthFormValues();
+
+            if (!firstName) {
+                showAuthMessage('Please enter your first name.');
+                return;
+            }
+            if (!email || !email.includes('@') || !email.includes('.')) {
+                showAuthMessage('Please enter a valid email address.');
+                return;
+            }
+            if (!password) {
+                showAuthMessage('Please enter a password.');
+                return;
+            }
+            if (!gdprChecked) {
+                showAuthMessage('Please agree to the Privacy Policy.');
                 return;
             }
 
-            if (statusMsg) {
-                statusMsg.textContent = dictionary['auth.processing'];
-            }
-
+            showAuthMessage('Creating your account...', '#ffd700');
             const { error } = await supabaseClient.auth.signUp({
                 email,
                 password,
             });
 
             if (error) {
-                if (statusMsg) {
-                    statusMsg.textContent = error.message;
-                }
+                showAuthMessage(error.message, '#ff1493');
                 return;
             }
+
+            const formData = form ? new FormData(form) : new FormData();
+            formData.set('firstName', firstName);
+            formData.set('email', email);
+            formData.set('gdprConsent', gdprChecked ? 'true' : 'false');
+            sendToSite(formData);
+            localStorage.setItem('giftsFirstName', firstName);
+            localStorage.setItem('giftsEmail', email);
 
             try {
                 await fetch(CLOUDFLARE_WORKER_ENDPOINT, {
@@ -5987,23 +5865,23 @@ document
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         email,
-                        lang: currentLang,
+                        lang: 'EN',
                     }),
                 });
-                if (statusMsg) {
-                    statusMsg.textContent = dictionary['auth.success'];
-                }
             } catch (error) {
-                if (statusMsg) {
-                    statusMsg.textContent = dictionary['auth.accountCreated'];
-                }
+                // Brevo language update failed; still allow the account to exist.
             }
+
+            showAuthMessage('Success! Check your email to confirm.', '#ffd700');
         }
 
-        async function handleLogin() {
-            const email = document.getElementById('user-email')?.value.trim();
-            const password = document.getElementById('user-password')?.value;
-            const dictionary = translations[currentLang] || translations.en;
+        async function handleLoginModal() {
+            const { email, password } = getAuthFormValues();
+
+            if (!email || !password) {
+                showAuthMessage('Please enter your email and password.', '#ff1493');
+                return;
+            }
 
             const { error } = await supabaseClient.auth.signInWithPassword({
                 email,
@@ -6011,16 +5889,18 @@ document
             });
 
             if (error) {
-                alert(dictionary['auth.loginError'].replace('{message}', error.message));
+                showAuthMessage(`Login error: ${error.message}`, '#ff1493');
                 return;
             }
 
+            showAuthMessage('Welcome back! You are logged in.', '#ffd700');
+            localStorage.setItem('giftsEmail', email);
             checkUser();
-        }
-
-        async function handleLogout() {
-            await supabaseClient.auth.signOut();
-            checkUser();
+            closeEmailModal();
+            const giftsTab = getTabElement('gifts');
+            if (giftsTab) {
+                selectTab(giftsTab, 'gifts');
+            }
         }
 
         // Optional Cloudflare Worker endpoint for form submissions.
@@ -6120,6 +6000,11 @@ document
         // Tab functionality
         function selectTab(tabElement, tabName, options = {}) {
             const { skipHistory = false } = options;
+
+            if (tabName === 'gifts' && !checkGiftsAccess()) {
+                showEmailModal();
+                return;
+            }
 
             // Remove active class from all tabs
             const tabs = document.querySelectorAll('.tab');
@@ -6596,14 +6481,6 @@ document
         function checkGiftsAccess() {
             return hasGiftsAccess;
         }
-        function grantGiftsAccess(firstName = '', email = '') {
-            if (email) {
-                localStorage.setItem('giftsEmail', email);
-            }
-            if (firstName) {
-                localStorage.setItem('giftsFirstName', firstName);
-            }
-        }
         function clearGiftsAccess() {
             localStorage.removeItem('giftsEmail');
             localStorage.removeItem('giftsFirstName');
@@ -6653,7 +6530,7 @@ document
                 selectTab(giftsTab, 'gifts');
             }
             if (!checkGiftsAccess()) {
-                document.getElementById('auth-section')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                showEmailModal();
             }
         }
         function showEmailModal() {
@@ -6692,51 +6569,6 @@ document
         function closePrivacyModal() {
             document.getElementById('privacyModal').style.display = 'none';
             document.body.style.overflow = 'auto';
-        }
-        function submitEmailModal(event) {
-            event.preventDefault();
-            const form = event.target;
-            const firstNameInput = document.getElementById('brevoFirstName');
-            const emailInput = document.getElementById('brevoEmail');
-            const optIn = document.getElementById('brevoOptIn');
-            const firstName = firstNameInput ? firstNameInput.value.trim() : '';
-            const email = emailInput ? emailInput.value.trim() : '';
-            const gdprChecked = optIn ? optIn.checked : false;
-            const errorMsg = document.getElementById('errorMsg');
-            const submitBtn = document.getElementById('submitEmail');
-
-            if (errorMsg) {
-                errorMsg.textContent = '';
-            }
-            if (!firstName) {
-                errorMsg.textContent = 'Please enter your first name.';
-                return;
-            }
-            if (!email || !email.includes('@') || !email.includes('.')) {
-                errorMsg.textContent = 'Please enter a valid email address.';
-                return;
-            }
-            if (!gdprChecked) {
-                errorMsg.textContent = 'Please agree to the Privacy Policy.';
-                return;
-            }
-
-            submitBtn.textContent = 'Joining...';
-            submitBtn.disabled = true;
-            const formData = new FormData(form);
-            formData.set('firstName', firstName);
-            formData.set('email', email);
-            formData.set('gdprConsent', gdprChecked ? 'true' : 'false');
-            sendToSite(formData);
-
-            setTimeout(() => {
-                grantGiftsAccess(firstName, email);
-                closeEmailModal();
-                showThankYouPage();
-                submitBtn.textContent = 'Join us';
-                submitBtn.disabled = false;
-                form.reset();
-            }, 1500);
         }
         function handleUnsubscribe(event) {
             event.preventDefault();
@@ -6865,7 +6697,7 @@ document
                 if (giftsTab) {
                     selectTab(giftsTab, 'gifts');
                 }
-                document.getElementById('auth-section')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                showEmailModal();
                 return;
             }
 
