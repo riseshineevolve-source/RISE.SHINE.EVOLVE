@@ -2594,9 +2594,18 @@
             " onmouseover="this.style.background='rgba(138, 43, 226, 0.3)';" onmouseout="this.style.background='none';">×</span>
     <h3 style="color: #8A2BE2; font-size: 1.8rem; margin-bottom: 10px; text-align: center; text-shadow: 0 0 15px rgba(138, 43, 226, 0.8); animation: colorTransition 3s ease-in-out infinite; line-height: 1.3;">Join Our Community</h3>
     <p style="color: #ffd700; font-size: 1.1rem; margin-bottom: 20px; text-align: center; text-shadow: 0 0 10px rgba(255, 215, 0, 0.6); font-weight: bold;">Get our newsletter &amp; unlock exclusive GIFTS</p>
-    <p style="color: #8A2BE2; font-size: 1rem; margin-bottom: 25px; text-align: center; line-height: 1.5;">Free resources to help you <span style="color: #ff1493; font-weight: bold;">RISE</span>,<br>
+    <p style="color: #8A2BE2; font-size: 1rem; margin-bottom: 18px; text-align: center; line-height: 1.5;">Free resources to help you <span style="color: #ff1493; font-weight: bold;">RISE</span>,<br>
       tools that make you <span style="color: #ffd700; font-weight: bold;">SHINE</span>,<br>
       and materials that help you <span style="color: #9932CC; font-weight: bold;">EVOLVE</span>.</p>
+    <div style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-bottom: 18px;">
+        <button type="button" id="authModeSignUp" onclick="setAuthMode('signup')" style="padding: 8px 16px; border: 2px solid #ffd700; border-radius: 12px; background: linear-gradient(45deg, #8A2BE2, #9932CC); color: #ffffff; font-weight: bold; cursor: pointer; box-shadow: 0 0 12px rgba(138, 43, 226, 0.6);">
+            Create Account
+        </button>
+        <button type="button" id="authModeLogin" onclick="setAuthMode('login')" style="padding: 8px 16px; border: 2px solid #ffd700; border-radius: 12px; background: #0d0d0d; color: #ffd700; font-weight: bold; cursor: pointer; box-shadow: 0 0 12px rgba(255, 215, 0, 0.4);">
+            Log In
+        </button>
+    </div>
+    <p id="authModeHelp" style="color: #e6e6e6; font-size: 0.9rem; text-align: center; margin-bottom: 18px;">New here? Create your account to unlock GIFTS. Already have an account? Log in to continue.</p>
     <div class="brevo-embed" style="margin-top: 6px;">
         <style>
             @font-face{font-display:block;font-family:Roboto;src:url(https://assets.brevo.com/font/Roboto/Latin/normal/normal/7529907e9eaf8ebb5220c5f9850e3811.woff2) format("woff2"),url(https://assets.brevo.com/font/Roboto/Latin/normal/normal/25c678feafdc175a70922a116c9be3e7.woff) format("woff")}@font-face{font-display:fallback;font-family:Roboto;font-weight:600;src:url(https://assets.brevo.com/font/Roboto/Latin/medium/normal/6e9caeeafb1f3491be3e32744bc30440.woff2) format("woff2"),url(https://assets.brevo.com/font/Roboto/Latin/medium/normal/71501f0d8d5aa95960f6475d5487d4c2.woff) format("woff")}@font-face{font-display:fallback;font-family:Roboto;font-weight:700;src:url(https://assets.brevo.com/font/Roboto/Latin/bold/normal/3ef7cf158f310cf752d5ad08cd0e7e60.woff2) format("woff2"),url(https://assets.brevo.com/font/Roboto/Latin/bold/normal/ece3a1d82f18b60bcce0211725c476aa.woff) format("woff")}#sib-container input:-ms-input-placeholder{text-align:left;font-family:Helvetica,sans-serif;color:#c0ccda}#sib-container input::placeholder{text-align:left;font-family:Helvetica,sans-serif;color:#c0ccda}#sib-container textarea::placeholder{text-align:left;font-family:Helvetica,sans-serif;color:#c0ccda}#sib-container a{text-decoration:underline;color:#2BB2FC}
@@ -2619,8 +2628,8 @@
                 </div>
                 <div></div>
                 <div id="sib-container" class="sib-container--large sib-container--vertical" style="text-align:center;background-color:#060606;max-width:420px;border-radius:12px;border-width:0;border-color:transparent;border-style:solid;direction:ltr">
-                    <form id="sib-form" method="POST" action="https://63a754d7.sibforms.com/serve/MUIFAHvEmnXf059dGE3HEZiuciPTbaxPJ2taKFTaKWG6NhxrhJRV-vRXVyhFPv-0apv_XcCTSAHvbk3fhsanT_6Jvxoikikniw7de7nN4SpOAAWcnU67c9J9qS9-hI2ty3tJ_uLr8DWRT-lWpBS9CREK5lSn7IFAkvUNsvKYBt8TWtqG2X83CgXb_jfzPu-gtzEu9dI2a0PdhkfAaQ==" data-type="subscription" onsubmit="handleSignUp(event)">
-                        <div style="padding:8px 0;">
+                    <form id="sib-form" method="POST" action="https://63a754d7.sibforms.com/serve/MUIFAHvEmnXf059dGE3HEZiuciPTbaxPJ2taKFTaKWG6NhxrhJRV-vRXVyhFPv-0apv_XcCTSAHvbk3fhsanT_6Jvxoikikniw7de7nN4SpOAAWcnU67c9J9qS9-hI2ty3tJ_uLr8DWRT-lWpBS9CREK5lSn7IFAkvUNsvKYBt8TWtqG2X83CgXb_jfzPu-gtzEu9dI2a0PdhkfAaQ==" data-type="subscription" onsubmit="handleAuthSubmit(event)">
+                        <div id="signupFields" style="padding:8px 0;">
                             <div class="sib-input sib-form-block">
                                 <div class="form__entry entry_block">
                                     <div class="form__label-row ">
@@ -2650,7 +2659,7 @@
                             <div class="sib-input sib-form-block">
                                 <div class="form__entry entry_block">
                                     <div class="form__label-row ">
-                                        <label class="entry__label" style="font-weight:700;text-align:left;font-size:14px;font-family:Helvetica,sans-serif;color:#ffd700;" for="PASSWORD" data-required="*">Create a PASSWORD (new account) or enter your PASSWORD (log in)</label>
+                                        <label class="entry__label" style="font-weight:700;text-align:left;font-size:14px;font-family:Helvetica,sans-serif;color:#ffd700;" for="PASSWORD" data-required="*">Password</label>
                                         <div class="entry__field">
                                             <input class="input" type="password" id="userPassword" name="PASSWORD" autocomplete="new-password" placeholder="PASSWORD" data-required="true" required>
                                         </div>
@@ -2659,7 +2668,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div style="padding:8px 0;">
+                        <div id="signupConsent" style="padding:8px 0;">
                             <div class="sib-optin sib-form-block" data-required="true">
                                 <div class="form__entry entry_mcq">
                                     <div class="form__label-row ">
@@ -2680,9 +2689,6 @@
                             <div class="sib-form-block" style="text-align:left; display: flex; gap: 10px; flex-wrap: wrap;">
                                 <button id="submitEmail" class="sib-form-block__button sib-form-block__button-with-loader" style="font-size:15px;text-align:center;font-weight:800;font-family:Helvetica,sans-serif;color:#0a0a0a;background-color:#d4af37;border-radius:10px;border-width:0px;" form="sib-form" type="submit">
                                     <svg class="icon clickable__icon progress-indicator__icon sib-hide-loader-icon" viewBox="0 0 512 512" style=""><path d="M460.116 373.846l-20.823-12.022c-5.541-3.199-7.54-10.159-4.663-15.874 30.137-59.886 28.343-131.652-5.386-189.946-33.641-58.394-94.896-95.833-161.827-99.676C261.028 55.961 256 50.751 256 44.352V20.309c0-6.904 5.808-12.337 12.703-11.982 83.556 4.306 160.163 50.864 202.11 123.677 42.063 72.696 44.079 162.316 6.031 236.832-3.14 6.148-10.75 8.461-16.728 5.01z"/></svg>Create Account
-                                </button>
-                                <button id="loginEmail" class="sib-form-block__button" style="font-size:15px;text-align:center;font-weight:800;font-family:Helvetica,sans-serif;color:#0a0a0a;background-color:#ffd700;border-radius:10px;border-width:0px;" type="button" onclick="handleLoginModal()">
-                                    Log In
                                 </button>
                             </div>
                         </div>
@@ -5749,6 +5755,7 @@ document
 
         document.addEventListener('DOMContentLoaded', () => {
             checkUser();
+            setAuthMode('signup');
 
             const brevoUnsubForm = document.getElementById('sib-form-unsub');
             if (brevoUnsubForm) {
@@ -5791,6 +5798,7 @@ document
         const SUPABASE_ANON_KEY = 'sb_publishable_eQ8wSa9kvfNwu8Uz033h-A_IFDuUAaK';
         const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
         let hasGiftsAccess = false;
+        let authMode = 'signup';
 
         async function checkUser() {
             const { data: { session } } = await supabaseClient.auth.getSession();
@@ -5812,6 +5820,55 @@ document
             }
         }
 
+        function setAuthMode(mode) {
+            authMode = mode === 'login' ? 'login' : 'signup';
+            const signUpBtn = document.getElementById('authModeSignUp');
+            const loginBtn = document.getElementById('authModeLogin');
+            const signupFields = document.getElementById('signupFields');
+            const signupConsent = document.getElementById('signupConsent');
+            const submitBtn = document.getElementById('submitEmail');
+            const passwordField = document.getElementById('userPassword');
+            const firstNameField = document.getElementById('brevoFirstName');
+            const optInField = document.getElementById('brevoOptIn');
+            const helpText = document.getElementById('authModeHelp');
+
+            if (signUpBtn && loginBtn) {
+                const isSignup = authMode === 'signup';
+                signUpBtn.style.background = isSignup ? 'linear-gradient(45deg, #8A2BE2, #9932CC)' : '#0d0d0d';
+                signUpBtn.style.color = isSignup ? '#ffffff' : '#ffd700';
+                loginBtn.style.background = isSignup ? '#0d0d0d' : 'linear-gradient(45deg, #8A2BE2, #9932CC)';
+                loginBtn.style.color = isSignup ? '#ffd700' : '#ffffff';
+            }
+
+            if (signupFields) {
+                signupFields.style.display = authMode === 'signup' ? 'block' : 'none';
+            }
+            if (signupConsent) {
+                signupConsent.style.display = authMode === 'signup' ? 'block' : 'none';
+            }
+            if (firstNameField) {
+                firstNameField.required = authMode === 'signup';
+            }
+            if (optInField) {
+                optInField.required = authMode === 'signup';
+            }
+            if (passwordField) {
+                passwordField.autocomplete = authMode === 'signup' ? 'new-password' : 'current-password';
+            }
+            if (submitBtn) {
+                const icon = submitBtn.querySelector('svg');
+                submitBtn.textContent = authMode === 'signup' ? 'Create Account' : 'Log In';
+                if (icon) {
+                    submitBtn.prepend(icon);
+                }
+            }
+            if (helpText) {
+                helpText.textContent = authMode === 'signup'
+                    ? 'New here? Create your account to unlock GIFTS.'
+                    : 'Already have an account? Log in to continue.';
+            }
+        }
+
         function getAuthFormValues() {
             return {
                 firstName: document.getElementById('brevoFirstName')?.value.trim() || '',
@@ -5822,8 +5879,12 @@ document
             };
         }
 
-        async function handleSignUp(event) {
+        async function handleAuthSubmit(event) {
             event.preventDefault();
+            if (authMode === 'login') {
+                await handleLoginModal();
+                return;
+            }
             const { firstName, email, password, gdprChecked, form } = getAuthFormValues();
 
             if (!firstName) {
