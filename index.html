@@ -2567,11 +2567,11 @@
             background: linear-gradient(135deg, #000000, #1a1a1a);
             border: 3px solid #8A2BE2;
             border-radius: 20px;
-            padding: 10px 12px;
-            max-width: 460px;
+            padding: 14px 16px;
+            max-width: 560px;
             width: 92%;
-            max-height: 90vh;
-            overflow-y: hidden;
+            max-height: 92vh;
+            overflow-y: auto;
             box-shadow: 0 0 50px rgba(138, 43, 226, 0.8);
             margin: 0 auto;
         ">
@@ -2628,7 +2628,7 @@
                         </div>
                     </div>
                 <div></div>
-                    <div id="sib-container" class="sib-container--large sib-container--vertical" style="text-align:center;background-color:#060606;max-width:380px;border-radius:12px;border-width:0;border-color:transparent;border-style:solid;direction:ltr">
+                    <div id="sib-container" class="sib-container--large sib-container--vertical" style="text-align:center;background-color:#060606;max-width:520px;border-radius:12px;border-width:0;border-color:transparent;border-style:solid;direction:ltr">
                     <form id="sib-form" method="POST" action="https://63a754d7.sibforms.com/serve/MUIFAHvEmnXf059dGE3HEZiuciPTbaxPJ2taKFTaKWG6NhxrhJRV-vRXVyhFPv-0apv_XcCTSAHvbk3fhsanT_6Jvxoikikniw7de7nN4SpOAAWcnU67c9J9qS9-hI2ty3tJ_uLr8DWRT-lWpBS9CREK5lSn7IFAkvUNsvKYBt8TWtqG2X83CgXb_jfzPu-gtzEu9dI2a0PdhkfAaQ==" data-type="subscription" onsubmit="handleAuthSubmit(event)">
                         <div id="signupFields" style="padding:4px 0;">
                             <div class="sib-input sib-form-block">
@@ -2683,22 +2683,15 @@
                                 </div>
                             </div>
                         </div>
-                        <div style="padding:4px 0;">
-                            <div class="sib-form-block" style="text-align:left; display: flex; gap: 10px; flex-wrap: wrap;">
-                                <button id="submitEmail" class="sib-form-block__button sib-form-block__button-with-loader" style="font-size:13px;text-align:center;font-weight:800;font-family:Helvetica,sans-serif;color:#0a0a0a;background-color:#d4af37;border-radius:10px;border-width:0px;padding:6px 10px;" form="sib-form" type="submit">
-                                    <svg class="icon clickable__icon progress-indicator__icon sib-hide-loader-icon" viewBox="0 0 512 512" style=""><path d="M460.116 373.846l-20.823-12.022c-5.541-3.199-7.54-10.159-4.663-15.874 30.137-59.886 28.343-131.652-5.386-189.946-33.641-58.394-94.896-95.833-161.827-99.676C261.028 55.961 256 50.751 256 44.352V20.309c0-6.904 5.808-12.337 12.703-11.982 83.556 4.306 160.163 50.864 202.11 123.677 42.063 72.696 44.079 162.316 6.031 236.832-3.14 6.148-10.75 8.461-16.728 5.01z"/></svg>Create Account
-                                </button>
-                            </div>
-                        </div>
-                        <div style="padding:6px 0;">
-                            <button type="button" onclick="document.getElementById('sib-form').requestSubmit();" style="width:100%;font-size:13px;text-align:center;font-weight:800;font-family:Helvetica,sans-serif;color:#ffffff;background:linear-gradient(45deg,#8A2BE2,#9932CC);border-radius:12px;border:2px solid #ffd700;padding:8px 10px;cursor:pointer;">
-                                Create Account
-                            </button>
-                        </div>
                         <input type="text" name="email_address_check" value="" class="input--hidden">
                         <input type="hidden" name="locale" value="en">
                         <input type="hidden" name="form-name" value="rse-email-list-modal">
                     </form>
+                    <div style="padding:10px 0 4px 0;">
+                        <button type="button" id="createAccountBottom" onclick="document.getElementById('sib-form').requestSubmit();" style="width:100%;font-size:14px;text-align:center;font-weight:800;font-family:Helvetica,sans-serif;color:#ffffff;background:linear-gradient(45deg,#8A2BE2,#9932CC);border-radius:12px;border:2px solid #ffd700;padding:10px 12px;cursor:pointer;">
+                            Create Account
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -5957,7 +5950,7 @@ document
             localStorage.setItem('giftsFirstName', firstName);
             localStorage.setItem('giftsEmail', email);
 
-            showAuthMessage('Success! Check your email to confirm.', '#ffd700');
+            showAuthMessage('You are ready to unwrap your gifts and stay connected with us! Just check your email and click on verification link.', '#ffd700');
         }
 
         async function handleLoginModal() {
