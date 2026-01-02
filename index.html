@@ -2567,11 +2567,11 @@
             background: linear-gradient(135deg, #000000, #1a1a1a);
             border: 3px solid #8A2BE2;
             border-radius: 20px;
-            padding: 12px;
-            max-width: 420px;
+            padding: 10px;
+            max-width: 400px;
             width: 92%;
-            max-height: 88vh;
-            overflow-y: auto;
+            max-height: 84vh;
+            overflow-y: hidden;
             box-shadow: 0 0 50px rgba(138, 43, 226, 0.8);
             margin: 0 auto;
         ">
@@ -2597,7 +2597,7 @@
     <p style="color: #8A2BE2; font-size: 1rem; margin-bottom: 18px; text-align: center; line-height: 1.5;">Free resources to help you <span style="color: #ff1493; font-weight: bold;">RISE</span>,<br>
       tools that make you <span style="color: #ffd700; font-weight: bold;">SHINE</span>,<br>
       and materials that help you <span style="color: #9932CC; font-weight: bold;">EVOLVE</span>.</p>
-    <div style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-bottom: 8px;">
+    <div style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-bottom: 6px;">
         <button type="button" id="authModeSignUp" onclick="setAuthMode('signup')" style="padding: 8px 16px; border: 2px solid #ffd700; border-radius: 12px; background: linear-gradient(45deg, #8A2BE2, #9932CC); color: #ffffff; font-weight: bold; cursor: pointer; box-shadow: 0 0 12px rgba(138, 43, 226, 0.6);">
             Create Account
         </button>
@@ -2605,7 +2605,8 @@
             Log In
         </button>
     </div>
-    <p style="color: #e6e6e6; font-size: 0.85rem; text-align: center; margin-bottom: 12px;">New here? Click Create Account. Already have an account? Click Log In.</p>
+    <p style="color: #e6e6e6; font-size: 0.82rem; text-align: center; margin: 0 0 2px 0;">New here? Click Create Account.</p>
+    <p style="color: #e6e6e6; font-size: 0.82rem; text-align: center; margin: 0 0 10px 0;">Already have an account? Click Log In.</p>
     <div class="brevo-embed" style="margin-top: 6px;">
         <style>
             @font-face{font-display:block;font-family:Roboto;src:url(https://assets.brevo.com/font/Roboto/Latin/normal/normal/7529907e9eaf8ebb5220c5f9850e3811.woff2) format("woff2"),url(https://assets.brevo.com/font/Roboto/Latin/normal/normal/25c678feafdc175a70922a116c9be3e7.woff) format("woff")}@font-face{font-display:fallback;font-family:Roboto;font-weight:600;src:url(https://assets.brevo.com/font/Roboto/Latin/medium/normal/6e9caeeafb1f3491be3e32744bc30440.woff2) format("woff2"),url(https://assets.brevo.com/font/Roboto/Latin/medium/normal/71501f0d8d5aa95960f6475d5487d4c2.woff) format("woff")}@font-face{font-display:fallback;font-family:Roboto;font-weight:700;src:url(https://assets.brevo.com/font/Roboto/Latin/bold/normal/3ef7cf158f310cf752d5ad08cd0e7e60.woff2) format("woff2"),url(https://assets.brevo.com/font/Roboto/Latin/bold/normal/ece3a1d82f18b60bcce0211725c476aa.woff) format("woff")}#sib-container input:-ms-input-placeholder{text-align:left;font-family:Helvetica,sans-serif;color:#c0ccda}#sib-container input::placeholder{text-align:left;font-family:Helvetica,sans-serif;color:#c0ccda}#sib-container textarea::placeholder{text-align:left;font-family:Helvetica,sans-serif;color:#c0ccda}#sib-container a{text-decoration:underline;color:#2BB2FC}
@@ -5803,8 +5804,32 @@ document
         async function checkUser() {
             const { data: { session } } = await supabaseClient.auth.getSession();
             hasGiftsAccess = !!session;
-            if (hasGiftsAccess) {
-                closeEmailModal();
+            if (!session) {
+                return;
+            }
+            closeEmailModal();
+
+            const user = session.user;
+            const welcomed = user?.user_metadata?.welcomed;
+            if (welcomed) {
+                return;
+            }
+
+            try {
+                await fetch(CLOUDFLARE_WORKER_ENDPOINT, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        email: user.email,
+                        lang: (user?.user_metadata?.lang || 'en'),
+                    }),
+                });
+
+                await supabaseClient.auth.updateUser({
+                    data: { welcomed: true },
+                });
+            } catch (error) {
+                console.error('Brevo welcome send failed:', error);
             }
         }
 
@@ -5902,6 +5927,12 @@ document
             const { error } = await supabaseClient.auth.signUp({
                 email,
                 password,
+                options: {
+                    data: {
+                        lang: 'en',
+                        welcomed: false,
+                    },
+                },
             });
 
             if (error) {
@@ -5916,19 +5947,6 @@ document
             sendToSite(formData);
             localStorage.setItem('giftsFirstName', firstName);
             localStorage.setItem('giftsEmail', email);
-
-            try {
-                await fetch(CLOUDFLARE_WORKER_ENDPOINT, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        email,
-                        lang: 'EN',
-                    }),
-                });
-            } catch (error) {
-                // Brevo language update failed; still allow the account to exist.
-            }
 
             showAuthMessage('Success! Check your email to confirm.', '#ffd700');
         }
