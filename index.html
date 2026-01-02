@@ -2570,7 +2570,7 @@
             padding: 14px 16px;
             max-width: 560px;
             width: 92%;
-            max-height: 92vh;
+            max-height: 96vh;
             overflow-y: auto;
             box-shadow: 0 0 50px rgba(138, 43, 226, 0.8);
             margin: 0 auto;
@@ -5856,6 +5856,7 @@ document
             const passwordField = document.getElementById('userPassword');
             const firstNameField = document.getElementById('brevoFirstName');
             const optInField = document.getElementById('brevoOptIn');
+            const bottomSubmit = document.getElementById('createAccountBottom');
 
             if (signUpBtn && loginBtn) {
                 const isSignup = authMode === 'signup';
@@ -5886,6 +5887,9 @@ document
                 if (icon) {
                     submitBtn.prepend(icon);
                 }
+            }
+            if (bottomSubmit) {
+                bottomSubmit.style.display = authMode === 'signup' ? 'block' : 'none';
             }
         }
 
@@ -5925,6 +5929,9 @@ document
             }
 
             showAuthMessage('Creating your account...', '#ffd700');
+            const redirectUrl = (window.location.origin && window.location.origin.startsWith('http'))
+                ? `${window.location.origin}${window.location.pathname}#gifts`
+                : undefined;
             const { error } = await supabaseClient.auth.signUp({
                 email,
                 password,
@@ -5933,12 +5940,16 @@ document
                         lang: 'en',
                         welcomed: false,
                     },
-                    emailRedirectTo: `${window.location.origin}${window.location.pathname}#gifts`,
+                    ...(redirectUrl ? { emailRedirectTo: redirectUrl } : {}),
                 },
             });
 
             if (error) {
-                showAuthMessage(error.message, '#ff1493');
+                if (String(error.message || '').toLowerCase().includes('confirmation')) {
+                    showAuthMessage('Confirmation email failed. Please verify Supabase SMTP settings and Site URL/redirects.', '#ff1493');
+                } else {
+                    showAuthMessage(error.message, '#ff1493');
+                }
                 return;
             }
 
@@ -5949,6 +5960,7 @@ document
             sendToSite(formData);
             localStorage.setItem('giftsFirstName', firstName);
             localStorage.setItem('giftsEmail', email);
+            localStorage.setItem('giftsRequested', 'true');
 
             showAuthMessage('You are ready to unwrap your gifts and stay connected with us! Just check your email and click on verification link.', '#ffd700');
         }
