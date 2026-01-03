@@ -4714,9 +4714,6 @@
 
     tabIndicator.style.transform = "translateX(0%)";
   </script>
-</body>
-</html>
-
   </template>
 
     <template id="gift-template-word-search-pro">
@@ -4737,8 +4734,6 @@
   <div class="ws-shell">
     <iframe class="ws-frame" src="assets/word-search-studio/index.html" title="Word Search Studio" loading="lazy"></iframe>
   </div>
-</body>
-</html>
   </template>
 
   <template id="gift-template-one-minute">
@@ -5272,10 +5267,6 @@ document
   .getElementById("hm-generate-btn")
   .addEventListener("click", generateChallenge);
 </script>
-
-</body>
-</html>
-
   </template>
 
     <template id="gift-template-word-search">
@@ -6200,6 +6191,24 @@ document
             }
 
             showTabContent();
+        }
+
+        function selectTab(tabElement, tabName, options = {}) {
+            if (tabName === 'gifts') {
+                localStorage.setItem('giftsRequested', 'true');
+                supabaseClient.auth.getSession().then(({ data: { session } }) => {
+                    hasGiftsAccess = !!session;
+                    if (!session) {
+                        showEmailModal();
+                        return;
+                    }
+                    localStorage.removeItem('giftsRequested');
+                    showTabContent(tabElement, tabName, options);
+                });
+                return;
+            }
+
+            showTabContent(tabElement, tabName, options);
         }
 
         function selectTab(tabElement, tabName, options = {}) {
