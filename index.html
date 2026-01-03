@@ -2553,7 +2553,8 @@
       box-sizing: border-box;
     }
 
-    #emailModal.show {
+    #emailModal.show,
+    #welcomeModal.show {
       display: flex;
     }
   </style>
@@ -2697,6 +2698,57 @@
         <script defer src="https://sibforms.com/forms/end-form/build/main.js"></script>
     </div>
     <p id="errorMsg" style="color: #ff1493; text-align: center; margin-top: 15px; font-weight: bold;"></p>
+   </div>
+  </div>
+  <div id="welcomeModal" class="modal" style="display: none;">
+        <div class="modal-content" style="
+            position: relative;
+            background: linear-gradient(135deg, #000000, #1a1a1a);
+            border: 3px solid #ffd700;
+            border-radius: 20px;
+            padding: 20px 22px;
+            max-width: 480px;
+            width: 92%;
+            max-height: 92vh;
+            overflow-y: auto;
+            box-shadow: 0 0 50px rgba(255, 215, 0, 0.6);
+            margin: 0 auto;
+            text-align: center;
+        ">
+    <span class="close" onclick="closeWelcomeModal()" style="
+                position: absolute;
+                top: 12px;
+                right: 12px;
+                background: none;
+                border: none;
+                color: #ffffff;
+                font-size: 1.5rem;
+                cursor: pointer;
+                width: 30px;
+                height: 30px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 50%;
+                transition: all 0.3s ease;
+            " onmouseover="this.style.background='rgba(255, 215, 0, 0.2)';" onmouseout="this.style.background='none';">×</span>
+    <h3 style="color: #ffd700; font-size: 1.6rem; margin-bottom: 10px; text-shadow: 0 0 18px rgba(255, 215, 0, 0.7);">Welcome to GIFTS!</h3>
+    <p style="color: #ffffff; font-size: 1rem; margin-bottom: 18px; line-height: 1.5;">
+        Your login worked perfectly. 🎉 You're ready to unlock the full GIFTS library.
+    </p>
+    <button onclick="accessGiftsFromWelcome()" style="
+        background: linear-gradient(45deg, #8A2BE2, #9932CC);
+        border: 2px solid #ffd700;
+        border-radius: 18px;
+        padding: 12px 18px;
+        color: #ffffff;
+        font-size: 1.05rem;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: 0 0 20px rgba(138, 43, 226, 0.6);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    ">Access GIFTS</button>
    </div>
   </div>
   <div id="privacyModal" class="modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 12000; backdrop-filter: blur(6px);">
@@ -5797,9 +5849,14 @@ document
             closeEmailModal();
             const giftsTab = getTabElement('gifts');
             const requested = localStorage.getItem('giftsRequested') === 'true';
+            const shouldShowWelcome = localStorage.getItem('showGiftsWelcome') === 'true';
             if (giftsTab && (requested || window.location.hash === '#gifts')) {
                 localStorage.removeItem('giftsRequested');
-                selectTab(giftsTab, 'gifts');
+                if (shouldShowWelcome) {
+                    showWelcomeModal();
+                } else {
+                    selectTab(giftsTab, 'gifts');
+                }
             }
 
             const user = session.user;
@@ -5836,6 +5893,33 @@ document
             if (errorMsg) {
                 errorMsg.style.color = color;
                 errorMsg.textContent = message;
+            }
+        }
+
+        function showWelcomeModal() {
+            const modal = document.getElementById('welcomeModal');
+            if (modal) {
+                modal.style.display = 'flex';
+                modal.classList.add('show');
+                document.body.style.overflow = 'hidden';
+                localStorage.removeItem('showGiftsWelcome');
+            }
+        }
+
+        function closeWelcomeModal() {
+            const modal = document.getElementById('welcomeModal');
+            if (modal) {
+                modal.classList.remove('show');
+                modal.style.display = 'none';
+            }
+            document.body.style.overflow = 'auto';
+        }
+
+        function accessGiftsFromWelcome() {
+            closeWelcomeModal();
+            const giftsTab = getTabElement('gifts');
+            if (giftsTab) {
+                selectTab(giftsTab, 'gifts');
             }
         }
 
@@ -5984,12 +6068,9 @@ document
             showAuthMessage('Welcome back! You are logged in.', '#ffd700');
             localStorage.setItem('giftsEmail', email);
             localStorage.setItem('giftsRequested', 'true');
+            localStorage.setItem('showGiftsWelcome', 'true');
             checkUser();
             closeEmailModal();
-            const giftsTab = getTabElement('gifts');
-            if (giftsTab) {
-                selectTab(giftsTab, 'gifts');
-            }
         }
 
         // Optional Cloudflare Worker endpoint for form submissions.
@@ -6188,15 +6269,50 @@ document
             if (!base) return;
             const baseSlug = base.replace(/\s+/g, '-').toLowerCase();
             const baseSpaced = base.replace(/-/g, ' ');
-            const candidates = [
-                ...extensions.map(ext => `assets/images/${base}.${ext}`),
-                ...extensions.map(ext => `assets/images/${baseSpaced}.${ext}`),
-                ...extensions.map(ext => `assets/images/${baseSlug}.${ext}`),
-                ...extensions.map(ext => `assets/images/${base}%20cover.${ext}`),
-                ...extensions.map(ext => `assets/images/${baseSpaced}%20cover.${ext}`),
-                ...extensions.map(ext => `assets/images/cover%20${base}.${ext}`),
-                ...extensions.map(ext => `assets/images/cover%20${baseSpaced}.${ext}`),
+            const baseEncoded = encodeURIComponent(base);
+            const baseSpacedEncoded = encodeURIComponent(baseSpaced);
+            const baseSlugEncoded = encodeURIComponent(baseSlug);
+            const roots = [
+                'assets/images/',
+                './assets/images/',
+                '/assets/images/',
+                imageBaseRemote,
             ];
+
+            const variants = [
+                base,
+                baseSpaced,
+                baseSlug,
+                baseEncoded,
+                baseSpacedEncoded,
+                baseSlugEncoded,
+            ];
+
+            const coverVariants = [
+                `${base}%20cover`,
+                `${baseSpaced}%20cover`,
+                `cover%20${base}`,
+                `cover%20${baseSpaced}`,
+                `${baseEncoded}%20cover`,
+                `${baseSpacedEncoded}%20cover`,
+                `cover%20${baseEncoded}`,
+                `cover%20${baseSpacedEncoded}`,
+            ];
+
+            const candidates = [];
+            roots.forEach((root) => {
+                variants.forEach((variant) => {
+                    extensions.forEach((ext) => {
+                        candidates.push(`${root}${variant}.${ext}`);
+                    });
+                });
+                coverVariants.forEach((variant) => {
+                    extensions.forEach((ext) => {
+                        candidates.push(`${root}${variant}.${ext}`);
+                    });
+                });
+            });
+
             let index = 0;
             const tryNext = () => {
                 if (index >= candidates.length) return;
@@ -6206,6 +6322,7 @@ document
             img.onerror = () => {
                 tryNext();
             };
+            img.style.display = 'block';
             tryNext();
         }
 
@@ -6712,6 +6829,35 @@ document
             document.getElementById('privacyModal').style.display = 'none';
             document.body.style.overflow = 'auto';
         }
+
+        function handleVerificationRedirect() {
+            const hash = window.location.hash || '';
+            const searchParams = new URLSearchParams(window.location.search || '');
+            const hashParams = new URLSearchParams(hash.replace('#', ''));
+            const type = searchParams.get('type') || hashParams.get('type') || '';
+            const hasToken = hash.includes('access_token=');
+            const isVerifyFlow = ['signup', 'invite', 'recovery'].includes(type) || hasToken;
+
+            if (!isVerifyFlow) {
+                return;
+            }
+
+            localStorage.setItem('giftsRequested', 'true');
+            localStorage.setItem('showGiftsWelcome', 'true');
+
+            const giftsTab = getTabElement('gifts');
+            if (giftsTab) {
+                selectTab(giftsTab, 'gifts', { skipHistory: true });
+            }
+
+            setAuthMode('login');
+            showEmailModal();
+            showAuthMessage('Your email is verified! Please log in to unlock GIFTS.', '#ffd700');
+
+            if (!hash.includes('#gifts')) {
+                history.replaceState({ tab: 'gifts' }, '', '#gifts');
+            }
+        }
         function handleUnsubscribe(event) {
             event.preventDefault();
             const form = event.target;
@@ -6742,6 +6888,7 @@ document
         document.addEventListener('DOMContentLoaded', () => {
             applyCharacterPortraits();
             applyCoverImages();
+            handleVerificationRedirect();
 
             const hashTab = (window.location.hash || '').replace('#', '');
             const desiredTab = hashTab && getTabElement(hashTab) ? hashTab : 'main';
@@ -6962,6 +7109,7 @@ document
         window.addEventListener('popstate', (event) => {
             const emailModal = document.getElementById('emailModal');
             const privacyModal = document.getElementById('privacyModal');
+            const welcomeModal = document.getElementById('welcomeModal');
 
             if (privacyModal && privacyModal.style.display === 'block') {
                 closePrivacyModal();
@@ -6970,6 +7118,11 @@ document
 
             if (emailModal && emailModal.style.display === 'block') {
                 closeEmailModal();
+                return;
+            }
+
+            if (welcomeModal && welcomeModal.style.display === 'flex') {
+                closeWelcomeModal();
                 return;
             }
 
