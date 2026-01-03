@@ -914,13 +914,13 @@
         /* Elegant Christmas Floating Box - Dark Sophisticated Design */
         .elegant-christmas-box {
             position: fixed;
-            top: 120px;
-            right: 16px;
-            width: 130px;
+            top: 110px;
+            right: 12px;
+            width: 120px;
             background: linear-gradient(135deg, rgba(0, 0, 0, 0.95), rgba(20, 20, 20, 0.9), rgba(0, 0, 0, 0.95));
             border: 2px solid #ffd700;
             border-radius: 16px;
-            padding: 6px 8px;
+            padding: 6px 7px;
             text-align: center;
             box-shadow: 0 0 30px rgba(255, 215, 0, 0.6), 0 0 70px rgba(255, 215, 0, 0.25), inset 0 0 24px rgba(138, 43, 226, 0.12);
             transform: rotate(2deg);
@@ -947,33 +947,33 @@
             flex-direction: column;
             align-items: center;
             text-align: center;
-            gap: 6px;
+            gap: 4px;
         }
 
         .elegant-crown-icon {
-            width: 28px;
-            height: 28px;
-            margin-bottom: 4px;
+            width: 26px;
+            height: 26px;
+            margin-bottom: 3px;
             filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.8));
         }
 
         .elegant-main-title {
-            font-size: 0.8rem;
+            font-size: 0.76rem;
             font-weight: bold;
             color: #ffd700;
             margin-bottom: 2px;
             text-shadow: 0 0 25px rgba(255, 215, 0, 1);
-            line-height: 1.2;
+            line-height: 1.15;
         }
 
         .elegant-subtitle {
-            font-size: 0.6rem;
+            font-size: 0.56rem;
             color: #8A2BE2;
             text-shadow: 0 0 15px rgba(138, 43, 226, 0.8);
             margin-bottom: 2px;
             font-weight: bold;
             text-transform: uppercase;
-            letter-spacing: 0.4px;
+            letter-spacing: 0.35px;
         }
 
         .elegant-description {
@@ -5722,10 +5722,6 @@ document
 
     loadPuzzle(0);
   </script>
-</body>
-</html>
-
-
   </template>
 
   <script src="assets/word-search-studio/inline.js"></script>
@@ -6190,10 +6186,16 @@ document
             const extensions = ['svg', 'png', 'jpg', 'jpeg'];
             const base = (baseName || '').trim();
             if (!base) return;
+            const baseSlug = base.replace(/\s+/g, '-').toLowerCase();
+            const baseSpaced = base.replace(/-/g, ' ');
             const candidates = [
                 ...extensions.map(ext => `assets/images/${base}.${ext}`),
+                ...extensions.map(ext => `assets/images/${baseSpaced}.${ext}`),
+                ...extensions.map(ext => `assets/images/${baseSlug}.${ext}`),
                 ...extensions.map(ext => `assets/images/${base}%20cover.${ext}`),
+                ...extensions.map(ext => `assets/images/${baseSpaced}%20cover.${ext}`),
                 ...extensions.map(ext => `assets/images/cover%20${base}.${ext}`),
+                ...extensions.map(ext => `assets/images/cover%20${baseSpaced}.${ext}`),
             ];
             let index = 0;
             const tryNext = () => {
