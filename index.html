@@ -6190,11 +6190,15 @@ document
             const extensions = ['svg', 'png', 'jpg', 'jpeg'];
             const base = (baseName || '').trim();
             if (!base) return;
+            const candidates = [
+                ...extensions.map(ext => `assets/images/${base}.${ext}`),
+                ...extensions.map(ext => `assets/images/${base}%20cover.${ext}`),
+                ...extensions.map(ext => `assets/images/cover%20${base}.${ext}`),
+            ];
             let index = 0;
             const tryNext = () => {
-                if (index >= extensions.length) return;
-                const ext = extensions[index];
-                img.src = `assets/images/${base}.${ext}`;
+                if (index >= candidates.length) return;
+                img.src = candidates[index];
                 index += 1;
             };
             img.onerror = () => {
