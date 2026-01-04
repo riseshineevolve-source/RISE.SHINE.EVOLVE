@@ -410,9 +410,8 @@
             }
             .elegant-christmas-box {
                 right: 8px;
-                top: 110px;
-                width: 150px;
-                box-shadow: 0 0 24px rgba(255, 215, 0, 0.5), 0 0 40px rgba(255, 215, 0, 0.2);
+                width: 170px;
+                box-shadow: 0 0 24px rgba(255, 215, 0, 0.5), 0 0 60px rgba(255, 215, 0, 0.2);
             }
             .brevo-embed .sib-container--large {
                 max-width: 320px !important;
@@ -421,7 +420,7 @@
         }
 
         #privacyModal {
-            z-index: 20000 !important;
+            z-index: 15000 !important;
         }
 
         .brevo-embed .sib-form-block {
@@ -500,7 +499,6 @@
             text-shadow: 0 0 8px rgba(255, 215, 0, 0.9), 0 0 16px rgba(255, 215, 0, 0.6);
             font-size: 0.8rem;
         }
-
 
         .character-detail-shell {
             background: linear-gradient(145deg, rgba(0, 0, 0, 0.95), rgba(20, 20, 20, 0.9));
@@ -846,6 +844,9 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            position: relative;
+            z-index: 5;
+            pointer-events: auto;
         }
 
         .tabs {
@@ -854,6 +855,9 @@
             gap: 30px;
             flex-wrap: wrap;
             margin-bottom: 30px;
+            position: relative;
+            z-index: 6;
+            pointer-events: auto;
         }
 
         .tab {
@@ -913,13 +917,13 @@
         /* Elegant Christmas Floating Box - Dark Sophisticated Design */
         .elegant-christmas-box {
             position: fixed;
-            top: 210px;
-            right: 10px;
-            width: 150px;
+            top: 2%;
+            right: 14px;
+            width: 178px;
             background: linear-gradient(135deg, rgba(0, 0, 0, 0.95), rgba(20, 20, 20, 0.9), rgba(0, 0, 0, 0.95));
             border: 2px solid #ffd700;
             border-radius: 20px;
-            padding: 8px 9px;
+            padding: 8px 10px;
             text-align: center;
             box-shadow: 0 0 30px rgba(255, 215, 0, 0.6), 0 0 70px rgba(255, 215, 0, 0.25), inset 0 0 24px rgba(138, 43, 226, 0.12);
             transform: rotate(2deg);
@@ -957,7 +961,7 @@
         }
 
         .elegant-main-title {
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             font-weight: bold;
             color: #ffd700;
             margin-bottom: 4px;
@@ -966,7 +970,7 @@
         }
 
         .elegant-subtitle {
-            font-size: 0.7rem;
+            font-size: 0.68rem;
             color: #8A2BE2;
             text-shadow: 0 0 15px rgba(138, 43, 226, 0.8);
             margin-bottom: 4px;
@@ -1089,9 +1093,9 @@
                 position: relative;
                 right: auto;
                 left: auto;
-                margin: 12px auto 0;
-                width: 88%;
-                max-width: 200px;
+                margin: 16px auto 0;
+                width: 92%;
+                max-width: 240px;
                 transform: rotate(0deg);
                 animation: elegantBoxGlow 6s ease-in-out infinite, elegantBoxFloat 8s ease-in-out infinite;
             }
@@ -1133,9 +1137,9 @@
                 position: relative;
                 top: auto;
                 right: auto;
-                width: 88%;
-                max-width: 200px;
-                margin: 18px auto;
+                width: 90%;
+                max-width: 220px;
+                margin: 20px auto;
                 transform: rotate(0deg);
                 animation: elegantBoxGlow 6s ease-in-out infinite, elegantBoxFloat 8s ease-in-out infinite;
             }
@@ -1150,11 +1154,11 @@
             }
 
             .elegant-main-title {
-                font-size: 0.86rem;
+                font-size: 0.9rem;
             }
 
             .elegant-subtitle {
-                font-size: 0.62rem;
+                font-size: 0.65rem;
             }
 
             .elegant-description {
@@ -1167,284 +1171,6 @@
             }
         }
     </style>
-  <!-- Brevo hosted form assets -->
-  <style>
-  @font-face {
-    font-display: block;
-    font-family: Roboto;
-    src: url(https://assets.brevo.com/font/Roboto/Latin/normal/normal/7529907e9eaf8ebb5220c5f9850e3811.woff2) format("woff2"), url(https://assets.brevo.com/font/Roboto/Latin/normal/normal/25c678feafdc175a70922a116c9be3e7.woff) format("woff");
-  }
-
-  @font-face {
-    font-display: fallback;
-    font-family: Roboto;
-    font-weight: 600;
-    src: url(https://assets.brevo.com/font/Roboto/Latin/medium/normal/6e9caeeafb1f3491be3e32744bc30440.woff2) format("woff2"), url(https://assets.brevo.com/font/Roboto/Latin/medium/normal/71501f0d8d5aa95960f6475d5487d4c2.woff) format("woff");
-  }
-
-  @font-face {
-    font-display: fallback;
-    font-family: Roboto;
-    font-weight: 700;
-    src: url(https://assets.brevo.com/font/Roboto/Latin/bold/normal/3ef7cf158f310cf752d5ad08cd0e7e60.woff2) format("woff2"), url(https://assets.brevo.com/font/Roboto/Latin/bold/normal/ece3a1d82f18b60bcce0211725c476aa.woff) format("woff");
-  }
-
-  #sib-container input:-ms-input-placeholder {
-    text-align: left;
-    font-family: Helvetica, sans-serif;
-    color: #c0ccda;
-  }
-
-  #sib-container input::placeholder {
-    text-align: left;
-    font-family: Helvetica, sans-serif;
-    color: #c0ccda;
-  }
-
-  #sib-container textarea::placeholder {
-    text-align: left;
-    font-family: Helvetica, sans-serif;
-    color: #c0ccda;
-  }
-
-  #sib-container a {
-    text-decoration: underline;
-    color: #2BB2FC;
-  }
-  </style>
-  <style>
-    /* Brevo embed theming to match Rise.Shine.Evolve palette */
-    .brevo-embed {
-      background: transparent;
-      border: none;
-      box-shadow: none;
-      padding: 0;
-      max-width: 560px;
-      width: 100%;
-      text-align: left;
-    }
-
-    .brevo-embed #sib-form-container {
-      background: transparent !important;
-      border: none !important;
-      box-shadow: none !important;
-      padding: 0 !important;
-      margin: 0 !important;
-    }
-
-    .brevo-embed #sib-container {
-      background: transparent !important;
-      border-radius: 12px !important;
-      border: none !important;
-      box-shadow: none !important;
-      padding: 0 !important;
-      margin: 0 !important;
-    }
-
-    .brevo-embed .sib-form-message-panel {
-      border-radius: 10px !important;
-      border: 1px solid rgba(255, 215, 0, 0.38) !important;
-      padding: 10px 12px !important;
-      box-shadow: none !important;
-      background: rgba(12, 12, 18, 0.85) !important;
-      color: #ffd700 !important;
-      width: 100% !important;
-      max-width: none !important;
-    }
-
-    .brevo-embed #success-message {
-      color: #ffd700 !important;
-      background: rgba(12, 18, 12, 0.85) !important;
-      border-color: rgba(255, 215, 0, 0.5) !important;
-    }
-
-    .brevo-embed #error-message {
-      color: #ff9fae !important;
-      background: rgba(32, 8, 16, 0.85) !important;
-      border-color: rgba(255, 105, 180, 0.35) !important;
-    }
-
-    .brevo-embed .entry__label {
-      color: #f4e8ff !important;
-      text-shadow: 0 0 10px rgba(138, 43, 226, 0.4);
-    }
-
-    .brevo-embed .entry__specification {
-      color: #c7bedb !important;
-    }
-
-    .brevo-embed .input,
-    .brevo-embed .entry__choice input[type="checkbox"] {
-      background: rgba(18, 18, 26, 0.9) !important;
-      border: 1px solid rgba(138, 43, 226, 0.6) !important;
-      color: #ffffff !important;
-      border-radius: 12px !important;
-      box-shadow: 0 0 10px rgba(138, 43, 226, 0.25);
-    }
-
-    .brevo-embed .input:focus,
-    .brevo-embed .entry__choice input[type="checkbox"]:focus {
-      outline: none !important;
-      border-color: #ffd700 !important;
-      box-shadow: 0 0 14px rgba(255, 215, 0, 0.35);
-    }
-
-    .brevo-embed .checkbox_tick_positive {
-      border-color: rgba(138, 43, 226, 0.7) !important;
-      background: radial-gradient(circle at 30% 30%, rgba(255, 215, 0, 0.9), rgba(138, 43, 226, 0.65));
-      box-shadow: 0 0 12px rgba(255, 215, 0, 0.45);
-    }
-
-    .brevo-embed .sib-form-block__button {
-      background: linear-gradient(135deg, #ffd700, #f2c200) !important;
-      border: 1px solid #ffd700 !important;
-      border-radius: 14px !important;
-      color: #0a0a0f !important;
-      font-weight: 800 !important;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      box-shadow: 0 0 18px rgba(255, 215, 0, 0.45);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .brevo-embed .sib-form-block__button:hover {
-      transform: translateY(-1px) scale(1.02);
-      box-shadow: 0 0 22px rgba(255, 215, 0, 0.55);
-    }
-
-    .brevo-embed .sib-form-block__button svg path {
-      fill: #0a0a0f !important;
-    }
-
-    .brevo-embed .brevo-inline-actions {
-      margin-top: 6px;
-      text-align: center;
-    }
-
-    .brevo-embed .brevo-verify-btn {
-      background: transparent;
-      border: 1px solid #ffd700;
-      border-radius: 12px;
-      color: #ffd700;
-      padding: 8px 12px;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-      cursor: pointer;
-      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
-      width: 100%;
-    }
-
-    .brevo-embed .brevo-verify-btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 0 14px rgba(255, 215, 0, 0.45);
-      background: rgba(255, 215, 0, 0.08);
-    }
-
-    .brevo-embed .brevo-verify-status {
-      color: #ffd700;
-      font-size: 12px;
-      margin-top: 6px;
-      min-height: 16px;
-    }
-
-    .brevo-frame {
-      margin: 14px auto 0 auto;
-      max-width: 540px;
-      text-align: center;
-      color: #ffd700;
-      font-size: 0.82rem;
-    }
-
-    .brevo-frame__label {
-      display: block;
-      margin-bottom: 10px;
-      color: #ffd700;
-      text-shadow: 0 0 14px rgba(255, 215, 0, 0.55);
-      letter-spacing: 0.5px;
-      font-weight: 700;
-    }
-
-    .brevo-frame__iframe {
-      display: block;
-      margin: 0 auto;
-      max-width: 100%;
-      width: 100%;
-      background: #0d0d0d;
-      border-radius: 12px;
-      border: 2px solid #8A2BE2;
-      box-shadow: 0 0 18px rgba(138, 43, 226, 0.45);
-    }
-
-    #unsubscribeModal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.9);
-      z-index: 10020;
-      backdrop-filter: blur(5px);
-      align-items: center;
-      justify-content: center;
-      padding: 12px;
-      box-sizing: border-box;
-    }
-
-    #unsubscribeModal .modal-content {
-      background: linear-gradient(135deg, #000000, #0f0a1a);
-      border: 3px solid #8A2BE2;
-      border-radius: 20px;
-      padding: 22px;
-      max-width: 560px;
-      width: 92%;
-      box-shadow: 0 0 40px rgba(138, 43, 226, 0.65), 0 0 26px rgba(255, 215, 0, 0.35);
-      position: relative;
-    }
-
-    #unsubscribeModal .close {
-      position: absolute;
-      top: 12px;
-      right: 12px;
-      background: none;
-      border: none;
-      color: #ffffff;
-      font-size: 1.3rem;
-      cursor: pointer;
-      width: 32px;
-      height: 32px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 50%;
-      transition: background 0.2s ease;
-    }
-
-    #unsubscribeModal .close:hover {
-      background: rgba(138, 43, 226, 0.25);
-    }
-
-    .brevo-inline-wrap {
-      text-align: center;
-      margin-top: 18px;
-    }
-
-    .brevo-inline-wrap button {
-      background: linear-gradient(45deg, #8A2BE2, #9932CC);
-      border: 2px solid #ffd700;
-      border-radius: 14px;
-      color: #ffffff;
-      font-weight: bold;
-      padding: 10px 18px;
-      cursor: pointer;
-      text-transform: uppercase;
-      box-shadow: 0 0 18px rgba(138, 43, 226, 0.6);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .brevo-inline-wrap button:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 0 24px rgba(138, 43, 226, 0.75);
-    }
-  </style>
-  <link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css">
   <style>@view-transition { navigation: auto; }</style>
   <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
   <script src="/_sdk/element_sdk.js" type="text/javascript"></script>
@@ -1595,60 +1321,68 @@
                                 "><!-- Confident, Mindful & Happy Me -->
           <div onclick="showBookDetailsFullScreen('confident-adventure')" style="
                                         background: #000000;
-                                        border: 3px solid #8A2BE2;
-                                        border-radius: 16px;
-                                        padding: 16px 14px 60px 14px;
+                                        border: 3px solid #ffd700;
+                                        border-radius: 15px;
+                                        padding: 20px;
                                         text-align: center;
                                         cursor: pointer;
                                         transition: all 0.3s ease;
                                         box-shadow:
                                             0 12px 40px rgba(0, 0, 0, 0.4),
-                                            0 0 0 1px rgba(138, 43, 226, 0.5),
-                                            inset 0 2px 0 rgba(255, 255, 255, 0.05),
-                                            0 0 28px rgba(138, 43, 226, 0.45);
-                                        width: 240px;
-                                        min-height: 340px;
+                                            0 0 0 1px rgba(255, 215, 0, 0.6),
+                                            inset 0 2px 0 rgba(255, 255, 255, 0.08),
+                                            0 0 30px rgba(255, 215, 0, 0.5),
+                                            0 0 60px rgba(255, 215, 0, 0.3);
+                                        width: 250px;
+                                        min-height: 320px;
                                         position: relative;
-                                        overflow: hidden;
-                                    " onmouseover="this.style.transform='translateY(-6px) scale(1.03)'; this.style.boxShadow='0 18px 48px rgba(0, 0, 0, 0.55), 0 0 0 2px rgba(138, 43, 226, 0.7), inset 0 3px 0 rgba(255, 255, 255, 0.12), 0 0 44px rgba(138, 43, 226, 0.6)';" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 12px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(138, 43, 226, 0.5), inset 0 2px 0 rgba(255, 255, 255, 0.05), 0 0 28px rgba(138, 43, 226, 0.45)';">
+                                    " onmouseover="this.style.transform='translateY(-8px) scale(1.05)'; this.style.boxShadow='0 20px 60px rgba(0, 0, 0, 0.5), 0 0 0 2px rgba(255, 215, 0, 0.8), inset 0 3px 0 rgba(255, 255, 255, 0.2), 0 0 50px rgba(255, 215, 0, 0.7), 0 0 100px rgba(255, 215, 0, 0.5)';" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 12px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 215, 0, 0.6), inset 0 2px 0 rgba(255, 255, 255, 0.08), 0 0 30px rgba(255, 215, 0, 0.5), 0 0 60px rgba(255, 215, 0, 0.3)';">
+          <div style="
+                                            position: absolute;
+                                            left: -3px;
+                                            top: 0;
+                                            bottom: 0;
+                                            width: 8px;
+                                            background: linear-gradient(to right, rgba(255, 215, 0, 0.2), transparent);
+                                            border-radius: 15px 0 0 15px;
+                                        "></div>
            <div style="
                                             position: absolute;
                                             top: 10px;
                                             left: 10px;
                                             background: #8A2BE2;
                                             color: #ffffff;
-                                            font-size: 0.62rem;
+                                            font-size: 0.6rem;
                                             font-weight: bold;
-                                            padding: 5px 9px;
-                                            border-radius: 9px;
+                                            padding: 4px 8px;
+                                            border-radius: 8px;
                                             text-transform: uppercase;
                                             box-shadow: 0 0 10px rgba(138, 43, 226, 0.6);
                                         ">
             Available
            </div>
            <div style="
-                                            position: absolute;
-                                            top: 10px;
-                                            right: 10px;
                                             background: #ffd700;
-                                            color: #000000;
-                                            font-size: 0.68rem;
-                                            font-weight: 800;
-                                            padding: 5px 9px;
-                                            border-radius: 9px;
-                                            text-transform: uppercase;
-                                            box-shadow: 0 0 12px rgba(255, 215, 0, 0.7);
+                                            border: 2px solid #ffffff;
+                                            border-radius: 12px;
+                                            padding: 6px 12px;
+                                            margin: 0 auto 12px auto;
+                                            width: fit-content;
+                                            box-shadow: 0 0 14px rgba(255, 215, 0, 0.8);
+                                            color: #000;
+                                            font-weight: bold;
+                                            font-size: 0.9rem;
                                         ">NEW</div>
-           <img src="assets/images/confident-cover.svg" alt="Confident, Mindful &amp; Happy Me cover" style="width: 130px; height: auto; border-radius: 12px; border: 2px solid #ffd700; box-shadow: 0 0 18px rgba(255,215,0,0.35); margin: 34px auto 12px auto; display: block;">
-           <div style="color: #ffd700; font-weight: bold; font-size: 1rem; margin-bottom: 8px; line-height: 1.25; text-shadow: 0 0 15px rgba(255, 215, 0, 0.8);">
+           <img src="assets/images/confident-cover.svg" alt="The Confident, Mindful &amp; Happy Me Adventure cover" style="width: 150px; height: auto; margin: 0 auto 12px auto; display: block; border-radius: 10px; box-shadow: 0 0 18px rgba(255, 215, 0, 0.5);">
+           <div style="color: #ffd700; font-weight: bold; font-size: 1.05rem; margin-bottom: 12px; line-height: 1.2; text-shadow: 0 0 15px rgba(255, 215, 0, 0.8);">
             Confident, Mindful &amp; Happy Me
            </div>
-           <div style="color: #ffffff; font-size: 0.8rem; margin-bottom: 12px; line-height: 1.25;">
+           <div style="color: #ffffff; font-size: 0.85rem; margin-bottom: 15px; line-height: 1.3;">
             31-day adventure to build resilience, confidence, and calm for kids 6-10.
            </div>
            <div style="
                                             position: absolute;
-                                            bottom: 14px;
+                                            bottom: 15px;
                                             left: 50%;
                                             transform: translateX(-50%);
                                             background: #ffd700;
@@ -1667,47 +1401,88 @@
           </div><!-- Christmas Book -->
           <div onclick="showBookDetailsFullScreen('christmas-book')" style="
                                         background: #000000;
-                                        border: 3px solid #8A2BE2;
-                                        border-radius: 16px;
-                                        padding: 16px 14px 60px 14px;
+                                        border: 3px solid #ffd700;
+                                        border-radius: 15px;
+                                        padding: 20px;
                                         text-align: center;
                                         cursor: pointer;
                                         transition: all 0.3s ease;
                                         box-shadow: 
                                             0 12px 40px rgba(0, 0, 0, 0.4),
-                                            0 0 0 1px rgba(138, 43, 226, 0.5),
-                                            inset 0 2px 0 rgba(255, 255, 255, 0.05),
-                                            0 0 28px rgba(138, 43, 226, 0.45);
-                                        width: 240px;
-                                        min-height: 340px;
+                                            0 0 0 1px rgba(255, 215, 0, 0.6),
+                                            inset 0 2px 0 rgba(255, 255, 255, 0.1),
+                                            0 0 30px rgba(255, 215, 0, 0.5),
+                                            0 0 60px rgba(255, 215, 0, 0.3);
+                                        width: 250px;
+                                        min-height: 320px;
                                         position: relative;
-                                        overflow: hidden;
-                                    " onmouseover="this.style.transform='translateY(-6px) scale(1.03)'; this.style.boxShadow='0 18px 48px rgba(0, 0, 0, 0.55), 0 0 0 2px rgba(138, 43, 226, 0.7), inset 0 3px 0 rgba(255, 255, 255, 0.12), 0 0 44px rgba(138, 43, 226, 0.6)';" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 12px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(138, 43, 226, 0.5), inset 0 2px 0 rgba(255, 255, 255, 0.05), 0 0 28px rgba(138, 43, 226, 0.45)';">
+                                    " onmouseover="this.style.transform='translateY(-8px) scale(1.05)'; this.style.boxShadow='0 20px 60px rgba(0, 0, 0, 0.5), 0 0 0 2px rgba(255, 215, 0, 0.8), inset 0 3px 0 rgba(255, 255, 255, 0.2), 0 0 50px rgba(255, 215, 0, 0.7), 0 0 100px rgba(255, 215, 0, 0.5)';" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 12px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 215, 0, 0.6), inset 0 2px 0 rgba(255, 255, 255, 0.1), 0 0 30px rgba(255, 215, 0, 0.5), 0 0 60px rgba(255, 215, 0, 0.3)';"><!-- Book spine effect -->
+           <div style="
+                                            position: absolute;
+                                            left: -3px;
+                                            top: 0;
+                                            bottom: 0;
+                                            width: 8px;
+                                            background: linear-gradient(to right, rgba(0, 0, 0, 0.3), transparent);
+                                            border-radius: 15px 0 0 15px;
+                                        "></div><!-- Available Box - Top Left -->
            <div style="
                                             position: absolute;
                                             top: 10px;
                                             left: 10px;
                                             background: #8A2BE2;
                                             color: #ffffff;
-                                            font-size: 0.62rem;
+                                            font-size: 0.6rem;
                                             font-weight: bold;
-                                            padding: 5px 9px;
-                                            border-radius: 9px;
+                                            padding: 4px 8px;
+                                            border-radius: 8px;
                                             text-transform: uppercase;
                                             box-shadow: 0 0 10px rgba(138, 43, 226, 0.6);
                                         ">
             Available
+           </div><!-- Christmas Tree Icon with Animation -->
+           <div style="
+                                            width: 50px;
+                                            height: 50px;
+                                            border-radius: 50%;
+                                            border: 2px solid #ffd700;
+                                            display: flex;
+                                            align-items: center;
+                                            justify-content: center;
+                                            margin: 20px auto 15px auto;
+                                            box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+                                            animation: christmasGlow 3s ease-in-out infinite;
+                                        ">
+            <svg width="24" height="24" viewbox="0 0 100 100" style="filter: drop-shadow(0 0 8px rgba(138, 43, 226, 0.8));"><!-- Tree layers - Purple with golden glow --> <polygon points="50,15 35,35 65,35" fill="#8A2BE2" stroke="#ffd700" stroke-width="1" /> <polygon points="50,25 30,45 70,45" fill="#9932CC" stroke="#ffd700" stroke-width="1" /> <polygon points="50,35 25,55 75,55" fill="#8A2BE2" stroke="#ffd700" stroke-width="1" /> <!-- Tree trunk --> <rect x="45" y="55" width="10" height="15" fill="#8B4513" stroke="#ffd700" stroke-width="0.5" /> <!-- Golden star on top --> <polygon points="50,5 52,12 59,12 54,17 56,24 50,20 44,24 46,17 41,12 48,12" fill="#ffd700" stroke="#ffffff" stroke-width="0.5">
+              <animate attributename="fill" values="#ffd700;#ffff00;#ffd700" dur="2s" repeatcount="indefinite" />
+             </polygon> <!-- Sparkling ornaments --> <circle cx="42" cy="30" r="2" fill="#ffd700" opacity="0.9">
+              <animate attributename="opacity" values="0.9;0.4;0.9" dur="1.5s" repeatcount="indefinite" />
+             </circle> <circle cx="58" cy="32" r="2" fill="#ff69b4" opacity="0.9">
+              <animate attributename="opacity" values="0.4;0.9;0.4" dur="1.8s" repeatcount="indefinite" />
+             </circle> <circle cx="45" cy="42" r="2" fill="#00ffff" opacity="0.9">
+              <animate attributename="opacity" values="0.9;0.4;0.9" dur="2.2s" repeatcount="indefinite" />
+             </circle> <circle cx="55" cy="44" r="2" fill="#ffd700" opacity="0.9">
+              <animate attributename="opacity" values="0.4;0.9;0.4" dur="1.3s" repeatcount="indefinite" />
+             </circle> <circle cx="38" cy="48" r="2" fill="#ff69b4" opacity="0.9">
+              <animate attributename="opacity" values="0.9;0.4;0.9" dur="1.7s" repeatcount="indefinite" />
+             </circle> <circle cx="62" cy="50" r="2" fill="#00ffff" opacity="0.9">
+              <animate attributename="opacity" values="0.4;0.9;0.4" dur="2s" repeatcount="indefinite" />
+             </circle>
+            </svg>
            </div>
-           <img src="assets/images/gentle-steps-cover.svg" alt="24 Gentle Steps to Christmas cover" style="width: 130px; height: auto; border-radius: 12px; border: 2px solid #ffd700; box-shadow: 0 0 18px rgba(255,215,0,0.35); margin: 28px auto 10px auto; display: block;">
-           <div style="color: #ffd700; font-weight: bold; font-size: 1.05rem; margin-bottom: 10px; line-height: 1.2; text-shadow: 0 0 15px rgba(255, 215, 0, 0.8);">
-            24 Gentle Steps to Christmas
+           <img src="assets/images/gentle-steps-cover.svg" alt="24 Gentle Steps to Christmas cover" style="width: 150px; height: auto; margin: 0 auto 12px auto; display: block; border-radius: 10px; box-shadow: 0 0 18px rgba(255, 215, 0, 0.5);">
+           <div style="color: #ffd700; font-weight: bold; font-size: 1.1rem; margin-bottom: 8px; line-height: 1.1; text-shadow: 0 0 15px rgba(255, 215, 0, 0.8);">
+            24 Gentle Steps
            </div>
-           <div style="color: #ffffff; font-size: 0.82rem; margin-bottom: 14px; line-height: 1.3;">
-            A mindful family journey to togetherness, reflection &amp; the magic of Christmas.
+           <div style="color: #ffd700; font-weight: bold; font-size: 1.1rem; margin-bottom: 15px; line-height: 1.1; text-shadow: 0 0 15px rgba(255, 215, 0, 0.8);">
+            to Christmas
            </div>
+           <div style="color: #ffffff; font-size: 0.85rem; margin-bottom: 15px; line-height: 1.3;">
+            A mindful family journey to togetherness, reflection &amp; the magic of Christmas
+           </div><!-- Explore Book Button - Bottom -->
            <div style="
                                             position: absolute;
-                                            bottom: 14px;
+                                            bottom: 15px;
                                             left: 50%;
                                             transform: translateX(-50%);
                                             background: #8A2BE2;
@@ -1789,8 +1564,9 @@
              </circle> <circle cx="70" cy="60" r="3" fill="#8A2BE2" opacity="0.8">
               <animate attributename="opacity" values="0.8;0.4;0.8" dur="1.5s" repeatcount="indefinite" />
              </circle>
-            </svg>
+           </svg>
            </div>
+           <img src="assets/images/Grandma%20Bibi.png" alt="Grandma Bibi cover" style="width: 150px; height: auto; margin: 0 auto 12px auto; display: block; border-radius: 10px; box-shadow: 0 0 18px rgba(255, 105, 180, 0.5);">
            <div style="color: #ff69b4; font-weight: bold; font-size: 1.1rem; margin-bottom: 8px; line-height: 1.1; text-shadow: 0 0 15px rgba(255, 105, 180, 0.8);">
             GRANDMA'S BIBI
            </div>
@@ -1992,61 +1768,7 @@
        It is time to <span class="word-rise">RISE</span>.<span class="word-shine">SHINE</span>.<span class="word-evolve">EVOLVE</span>
       </div>
      </div>
-    <div id="brevo-unsub" class="unsubscribe-wrapper" style="margin: 14px auto 0 auto; max-width: 520px; text-align: center; color: #ffd700; font-size: 0.75rem;">
-        <div class="brevo-unsub">
-            <style>
-                @font-face{font-display:block;font-family:Roboto;src:url(https://assets.brevo.com/font/Roboto/Latin/normal/normal/7529907e9eaf8ebb5220c5f9850e3811.woff2) format("woff2"),url(https://assets.brevo.com/font/Roboto/Latin/normal/normal/25c678feafdc175a70922a116c9be3e7.woff) format("woff")}@font-face{font-display:fallback;font-family:Roboto;font-weight:600;src:url(https://assets.brevo.com/font/Roboto/Latin/medium/normal/6e9caeeafb1f3491be3e32744bc30440.woff2) format("woff2"),url(https://assets.brevo.com/font/Roboto/Latin/medium/normal/71501f0d8d5aa95960f6475d5487d4c2.woff) format("woff")}@font-face{font-display:fallback;font-family:Roboto;font-weight:700;src:url(https://assets.brevo.com/font/Roboto/Latin/bold/normal/3ef7cf158f310cf752d5ad08cd0e7e60.woff2) format("woff2"),url(https://assets.brevo.com/font/Roboto/Latin/bold/normal/ece3a1d82f18b60bcce0211725c476aa.woff) format("woff")}#sib-container input:-ms-input-placeholder{text-align:left;font-family:Helvetica,sans-serif;color:#c0ccda}#sib-container input::placeholder{text-align:left;font-family:Helvetica,sans-serif;color:#c0ccda}#sib-container textarea::placeholder{text-align:left;font-family:Helvetica,sans-serif;color:#c0ccda}#sib-container a{text-decoration:underline;color:#2BB2FC}
-            </style>
-            <link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css">
-            <div class="sib-form" style="text-align:center;background-color:#0d0d0d;">
-                <div id="sib-form-container-unsub" class="sib-form-container">
-                    <div id="error-message-unsub" class="sib-form-message-panel" style="font-size:14px;text-align:left;font-family:Helvetica,sans-serif;color:#661d1d;background-color:#ffeded;border-radius:3px;border-color:#ff4949;max-width:320px;">
-                        <div class="sib-form-message-panel__text sib-form-message-panel__text--center">
-                            <svg viewBox="0 0 512 512" class="sib-icon sib-notification__icon"><path d="M256 40c118.621 0 216 96.075 216 216 0 119.291-96.61 216-216 216-119.244 0-216-96.562-216-216 0-119.203 96.602-216 216-216m0-32C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm-11.49 120h22.979c6.823 0 12.274 5.682 11.99 12.5l-7 168c-.268 6.428-5.556 11.5-11.99 11.5h-8.979c-6.433 0-11.722-5.073-11.99-11.5l-7-168c-.283-6.818 5.167-12.5 11.99-12.5zM256 340c-15.464 0-28 12.536-28 28s12.536 28 28 28 28-12.536 28-28-12.536-28-28-28z"/></svg>
-                            <span class="sib-form-message-panel__inner-text">Your Unsubscription could not be validated. Please try again.</span>
-                        </div>
-                    </div>
-                    <div></div>
-                    <div id="success-message-unsub" class="sib-form-message-panel" style="font-size:14px;text-align:left;font-family:Helvetica,sans-serif;color:#085229;background-color:#e7faf0;border-radius:3px;border-color:#13ce66;max-width:320px;">
-                        <div class="sib-form-message-panel__text sib-form-message-panel__text--center">
-                            <svg viewBox="0 0 512 512" class="sib-icon sib-notification__icon"><path d="M256 8C119.033 8 8 119.033 8 256s111.033 248 248 248 248-111.033 248-248S392.967 8 256 8zm0 464c-118.664 0-216-96.055-216-216 0-118.663 96.055-216 216-216 118.664 0 216 96.055 216 216 0 118.663-96.055 216-216 216zm141.63-274.961L217.15 376.071c-4.705 4.667-12.303 4.637-16.97-.068l-85.878-86.572c-4.667-4.705-4.637-12.303.068-16.97l8.52-8.451c4.705-4.667 12.303-4.637 16.97.068l68.976 69.533 163.441-162.13c4.705-4.667 12.303-4.637 16.97.068l8.451 8.52c4.668 4.705 4.637 12.303-.068 16.97z"/></svg>
-                            <span class="sib-form-message-panel__inner-text">You have been successfully unsubscribed. Thank you for being part of our community. If you ever need a spark of joy or calm again, our door is always open for you!</span>
-                        </div>
-                    </div>
-                    <div></div>
-                    <div id="sib-container-unsub" class="sib-container--small sib-container--vertical" style="text-align:center;background-color:rgba(255,255,255,1);max-width:220px;border-radius:3px;border-width:1px;border-color:#C0CCD9;border-style:solid;direction:ltr">
-                        <form id="sib-form-unsub" method="POST" action="https://63a754d7.sibforms.com/serve/MUIFAHRBA_Iv3SiSn_XeKSFvIisPlTNG_iRhG8U3Im8rCw3Wvg8wsz0g_d1D_-m0mms0vaPRI4wzpSvtL8tTB42GYzXsPdvqXYbz5ES88Ee2hI3Wi8a3wPFDCeOP6djSEtF-XORDcvuinheDAJltJqqyBUOJsqySeHdR0JXIm8tbj3XtT8O4MUAxH73NZNf0iCLspoq4Luueuc98jA==" data-type="unsubscription">
-                            <div style="padding:8px 0;">
-                                <div class="sib-input sib-form-block">
-                                    <div class="form__entry entry_block">
-                                        <div class="form__label-row ">
-                                            <div class="entry__field">
-                                                <input class="input" type="text" id="EMAIL" name="EMAIL" autocomplete="off" placeholder="EMAIL" data-required="true" required>
-                                            </div>
-                                        </div>
-                                        <label class="entry__error entry__error--primary" style="font-size:16px;text-align:left;font-family:Helvetica,sans-serif;color:#661d1d;background-color:#ffeded;border-radius:3px;border-color:#ff4949;"></label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div style="padding:8px 0;">
-                                <div class="sib-form-block" style="text-align:center">
-                                    <button class="sib-form-block__button sib-form-block__button-with-loader" style="font-size:9px;text-align:center;font-weight:700;font-family:Helvetica,sans-serif;color:#FFFFFF;background-color:#121313;border-radius:6px;border-width:0px;cursor:pointer;padding:5px 8px;" form="sib-form-unsub" type="submit">
-                                        <svg class="icon clickable__icon progress-indicator__icon sib-hide-loader-icon" viewBox="0 0 512 512"><path d="M460.116 373.846l-20.823-12.022c-5.541-3.199-7.54-10.159-4.663-15.874 30.137-59.886 28.343-131.652-5.386-189.946-33.641-58.394-94.896-95.833-161.827-99.676C261.028 55.961 256 50.751 256 44.352V20.309c0-6.904 5.808-12.337 12.703-11.982 83.556 4.306 160.163 50.864 202.11 123.677 42.063 72.696 44.079 162.316 6.031 236.832-3.14 6.148-10.75 8.461-16.728 5.01z"/></svg> UNSUBSCRIBE
-                                    </button>
-                                </div>
-                            </div>
-                            <input type="text" name="email_address_check" value="" class="input--hidden">
-                            <input type="hidden" name="locale" value="en">
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <script>
-                window.REQUIRED_CODE_ERROR_MESSAGE='Please choose a country code';window.LOCALE='en';window.EMAIL_INVALID_MESSAGE=window.SMS_INVALID_MESSAGE="The information provided is invalid. Please review the field format and try again.";window.REQUIRED_ERROR_MESSAGE="This field cannot be left blank. ";window.GENERIC_INVALID_MESSAGE="The information provided is invalid. Please review the field format and try again.";window.translation={common:{selectedList:'{quantity} list selected',selectedLists:'{quantity} lists selected',selectedOption:'{quantity} selected',selectedOptions:'{quantity} selected',}};var AUTOHIDE=Boolean(0);
-            </script>
-            <script defer src="https://sibforms.com/forms/end-form/build/main.js"></script>
-        </div>
-    </div>
+ 
     </div>
     <div id="thank-you-content" class="tab-content">
      <div class="kids-tile" style="border: 3px solid #ffd700; box-shadow: 0 0 35px rgba(255, 215, 0, 0.7), 0 0 60px rgba(255, 215, 0, 0.4);">
@@ -2125,19 +1847,34 @@
             </div>
             <div class="unsubscribe-wrapper" style="margin: 14px auto 0 auto; max-width: 520px; text-align: center; color: #ffd700; font-size: 0.75rem;">
                 <p style="margin-bottom: 8px;">Unsubscribe &amp; remove GIFTS access</p>
-                <button onclick="document.getElementById('brevo-unsub').scrollIntoView({ behavior: 'smooth' });" style="
-                    padding: 8px 14px;
-                    border: 2px solid #ffd700;
-                    border-radius: 12px;
-                    background: #000000;
-                    color: #ffd700;
-                    font-weight: bold;
-                    cursor: pointer;
-                    box-shadow: 0 0 12px rgba(255, 215, 0, 0.4);
-                    font-size: 0.78rem;">
-                    Go to unsubscribe form
-                </button>
+                <form id="unsubscribe-form" style="display: grid; gap: 8px; justify-items: center;">
+                    <input type="email" name="email" placeholder="Enter your email" required style="
+                        width: 100%;
+                        max-width: 320px;
+                        padding: 10px 12px;
+                        border-radius: 10px;
+                        border: 1px solid #ffd700;
+                        background: #0d0d0d;
+                        color: #ffffff;
+                        font-size: 0.85rem;
+                        text-align: center;
+                    ">
+                    <button type="submit" style="
+                        padding: 8px 14px;
+                        border: 2px solid #ffd700;
+                        border-radius: 12px;
+                        background: #000000;
+                        color: #ffd700;
+                        font-weight: bold;
+                        cursor: pointer;
+                        box-shadow: 0 0 12px rgba(255, 215, 0, 0.4);
+                        font-size: 0.78rem;">
+                        Unsubscribe &amp; delete account
+                    </button>
+                    <div class="unsubscribe-message" style="min-height: 16px; color: #ffd700;"></div>
+                </form>
             </div>
+        </div>
         </div>
     </div>
    </div>
@@ -2516,30 +2253,22 @@
     </div>
    </div>
   </div>
-  <style>
-    #emailModal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.9);
-      z-index: 10005;
-      backdrop-filter: blur(6px);
-      margin: 0;
-      align-items: center;
-      justify-content: center;
-      padding: 16px;
-      box-sizing: border-box;
-    }
-
-    #emailModal.show {
-      display: flex;
-    }
-  </style>
-  <div id="emailModal" class="modal">
+  <div id="emailModal" class="modal" style="
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        z-index: 1000;
+        backdrop-filter: blur(5px);
+    ">
    <div class="modal-content" style="
-            position: relative;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             background: linear-gradient(135deg, #000000, #1a1a1a);
             border: 3px solid #8A2BE2;
             border-radius: 20px;
@@ -2549,7 +2278,6 @@
             max-height: 95vh;
             overflow-y: visible;
             box-shadow: 0 0 50px rgba(138, 43, 226, 0.8);
-            margin: 0 auto;
         ">
     <span class="close" onclick="closeEmailModal()" style="
                 position: absolute;
@@ -2568,11 +2296,16 @@
                 border-radius: 50%;
                 transition: all 0.3s ease;
             " onmouseover="this.style.background='rgba(138, 43, 226, 0.3)';" onmouseout="this.style.background='none';">×</span>
-    <h3 style="color: #8A2BE2; font-size: 1.8rem; margin-bottom: 10px; text-align: center; text-shadow: 0 0 15px rgba(138, 43, 226, 0.8); animation: colorTransition 3s ease-in-out infinite; line-height: 1.3;">Join Our Community</h3>
-    <p style="color: #ffd700; font-size: 1.1rem; margin-bottom: 20px; text-align: center; text-shadow: 0 0 10px rgba(255, 215, 0, 0.6); font-weight: bold;">Get our newsletter &amp; unlock exclusive GIFTS</p>
-    <p style="color: #8A2BE2; font-size: 1rem; margin-bottom: 25px; text-align: center; line-height: 1.5;">Free resources to help you <span style="color: #ff1493; font-weight: bold;">RISE</span>,<br>
-      tools that make you <span style="color: #ffd700; font-weight: bold;">SHINE</span>,<br>
-      and materials that help you <span style="color: #9932CC; font-weight: bold;">EVOLVE</span>.</p>
+    <h3 style="color: #ffffff; font-size: 1.4rem; margin-bottom: 6px; text-align: center; text-shadow: 0 0 12px rgba(138, 43, 226, 0.8);">Create your Rise.Shine.Evolve account</h3>
+    <p style="color: #c9b6ff; font-size: 0.9rem; margin-bottom: 12px; text-align: center;">to unlock GIFTS and updates</p>
+    <div style="display: flex; justify-content: center; gap: 10px; margin-bottom: 10px;">
+        <button type="button" id="authModeSignUp" onclick="setAuthMode('signup')" style="padding: 6px 12px; border: 2px solid #ffd700; border-radius: 12px; background: linear-gradient(45deg, #8A2BE2, #9932CC); color: #ffffff; font-weight: bold; cursor: pointer; font-size: 0.85rem;">
+            Sign up
+        </button>
+        <button type="button" id="authModeLogin" onclick="setAuthMode('login')" style="padding: 6px 12px; border: 2px solid #ffd700; border-radius: 12px; background: #0d0d0d; color: #ffd700; font-weight: bold; cursor: pointer; font-size: 0.85rem;">
+            Log in
+        </button>
+    </div>
     <div class="brevo-embed" style="margin-top: 6px;">
         <style>
             @font-face{font-display:block;font-family:Roboto;src:url(https://assets.brevo.com/font/Roboto/Latin/normal/normal/7529907e9eaf8ebb5220c5f9850e3811.woff2) format("woff2"),url(https://assets.brevo.com/font/Roboto/Latin/normal/normal/25c678feafdc175a70922a116c9be3e7.woff) format("woff")}@font-face{font-display:fallback;font-family:Roboto;font-weight:600;src:url(https://assets.brevo.com/font/Roboto/Latin/medium/normal/6e9caeeafb1f3491be3e32744bc30440.woff2) format("woff2"),url(https://assets.brevo.com/font/Roboto/Latin/medium/normal/71501f0d8d5aa95960f6475d5487d4c2.woff) format("woff")}@font-face{font-display:fallback;font-family:Roboto;font-weight:700;src:url(https://assets.brevo.com/font/Roboto/Latin/bold/normal/3ef7cf158f310cf752d5ad08cd0e7e60.woff2) format("woff2"),url(https://assets.brevo.com/font/Roboto/Latin/bold/normal/ece3a1d82f18b60bcce0211725c476aa.woff) format("woff")}#sib-container input:-ms-input-placeholder{text-align:left;font-family:Helvetica,sans-serif;color:#c0ccda}#sib-container input::placeholder{text-align:left;font-family:Helvetica,sans-serif;color:#c0ccda}#sib-container textarea::placeholder{text-align:left;font-family:Helvetica,sans-serif;color:#c0ccda}#sib-container a{text-decoration:underline;color:#2BB2FC}
@@ -2596,33 +2329,46 @@
                 <div></div>
                 <div id="sib-container" class="sib-container--large sib-container--vertical" style="text-align:center;background-color:#060606;max-width:420px;border-radius:12px;border-width:0;border-color:transparent;border-style:solid;direction:ltr">
                     <form id="sib-form" method="POST" action="https://63a754d7.sibforms.com/serve/MUIFAHvEmnXf059dGE3HEZiuciPTbaxPJ2taKFTaKWG6NhxrhJRV-vRXVyhFPv-0apv_XcCTSAHvbk3fhsanT_6Jvxoikikniw7de7nN4SpOAAWcnU67c9J9qS9-hI2ty3tJ_uLr8DWRT-lWpBS9CREK5lSn7IFAkvUNsvKYBt8TWtqG2X83CgXb_jfzPu-gtzEu9dI2a0PdhkfAaQ==" data-type="subscription" onsubmit="submitEmailModal(event)">
-                        <div style="padding:8px 0;">
+                        <div id="signupFields" style="padding:6px 0;">
                             <div class="sib-input sib-form-block">
                                 <div class="form__entry entry_block">
                                     <div class="form__label-row ">
-                                        <label class="entry__label" style="font-weight:700;text-align:left;font-size:14px;font-family:Helvetica,sans-serif;color:#ffd700;" for="FIRSTNAME" data-required="*">Enter your FIRSTNAME</label>
+                                        <label class="entry__label" style="font-weight:700;text-align:left;font-size:12px;font-family:Helvetica,sans-serif;color:#ffd700;" for="FIRSTNAME" data-required="*">First name</label>
                                         <div class="entry__field">
-                                            <input class="input" maxlength="200" type="text" id="brevoFirstName" name="FIRSTNAME" autocomplete="off" placeholder="FIRSTNAME" data-required="true" required>
+                                            <input class="input" maxlength="200" type="text" id="brevoFirstName" name="FIRSTNAME" autocomplete="off" placeholder="First name" data-required="true" required>
                                         </div>
                                     </div>
                                     <label class="entry__error entry__error--primary" style="font-size:16px;text-align:left;font-family:Helvetica,sans-serif;color:#661d1d;background-color:#ffeded;border-radius:3px;border-color:#ff4949;"></label>
                                 </div>
                             </div>
                         </div>
-                        <div style="padding:8px 0;">
+                        <div style="padding:6px 0;">
                             <div class="sib-input sib-form-block">
                                 <div class="form__entry entry_block">
                                     <div class="form__label-row ">
-                                        <label class="entry__label" style="font-weight:700;text-align:left;font-size:14px;font-family:Helvetica,sans-serif;color:#ffd700;" for="EMAIL" data-required="*">Enter your EMAIL</label>
+                                        <label class="entry__label" style="font-weight:700;text-align:left;font-size:12px;font-family:Helvetica,sans-serif;color:#ffd700;" for="EMAIL" data-required="*">Email</label>
                                         <div class="entry__field">
-                                            <input class="input" type="text" id="brevoEmail" name="EMAIL" autocomplete="off" placeholder="EMAIL" data-required="true" required>
+                                            <input class="input" type="text" id="brevoEmail" name="EMAIL" autocomplete="off" placeholder="Email" data-required="true" required>
                                         </div>
                                     </div>
                                     <label class="entry__error entry__error--primary" style="font-size:16px;text-align:left;font-family:Helvetica,sans-serif;color:#661d1d;background-color:#ffeded;border-radius:3px;border-color:#ff4949;"></label>
                                 </div>
                             </div>
                         </div>
-                        <div style="padding:8px 0;">
+                        <div style="padding:6px 0;">
+                            <div class="sib-input sib-form-block">
+                                <div class="form__entry entry_block">
+                                    <div class="form__label-row ">
+                                        <label class="entry__label" style="font-weight:700;text-align:left;font-size:12px;font-family:Helvetica,sans-serif;color:#ffd700;" for="PASSWORD" data-required="*">Password</label>
+                                        <div class="entry__field">
+                                            <input class="input" type="password" id="userPassword" name="PASSWORD" autocomplete="new-password" placeholder="Password" data-required="true" required>
+                                        </div>
+                                    </div>
+                                    <label class="entry__error entry__error--primary" style="font-size:16px;text-align:left;font-family:Helvetica,sans-serif;color:#661d1d;background-color:#ffeded;border-radius:3px;border-color:#ff4949;"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="signupConsent" style="padding:6px 0;">
                             <div class="sib-optin sib-form-block" data-required="true">
                                 <div class="form__entry entry_mcq">
                                     <div class="form__label-row ">
@@ -2636,9 +2382,9 @@
                                 </div>
                             </div>
                         </div>
-                        <div style="padding:8px 0;">
-                            <div class="sib-form-block" style="text-align:left">
-                                <button id="submitEmail" class="sib-form-block__button sib-form-block__button-with-loader" style="font-size:15px;text-align:center;font-weight:800;font-family:Helvetica,sans-serif;color:#0a0a0a;background-color:#d4af37;border-radius:10px;border-width:0px;" form="sib-form" type="submit">
+                        <div style="padding:6px 0;">
+                            <div class="sib-form-block" style="text-align:center">
+                                <button id="submitEmail" class="sib-form-block__button sib-form-block__button-with-loader" style="font-size:14px;text-align:center;font-weight:800;font-family:Helvetica,sans-serif;color:#0a0a0a;background-color:#d4af37;border-radius:10px;border-width:0px;padding:10px 20px;" form="sib-form" type="submit">
                                     <svg class="icon clickable__icon progress-indicator__icon sib-hide-loader-icon" viewBox="0 0 512 512" style=""><path d="M460.116 373.846l-20.823-12.022c-5.541-3.199-7.54-10.159-4.663-15.874 30.137-59.886 28.343-131.652-5.386-189.946-33.641-58.394-94.896-95.833-161.827-99.676C261.028 55.961 256 50.751 256 44.352V20.309c0-6.904 5.808-12.337 12.703-11.982 83.556 4.306 160.163 50.864 202.11 123.677 42.063 72.696 44.079 162.316 6.031 236.832-3.14 6.148-10.75 8.461-16.728 5.01z"/></svg>JOIN US
                                 </button>
                             </div>
@@ -2647,6 +2393,9 @@
                         <input type="hidden" name="locale" value="en">
                         <input type="hidden" name="form-name" value="rse-email-list-modal">
                     </form>
+                    <div style="margin-top: 8px; font-size: 0.82rem; color: #c9b6ff;">
+                        Already have an account? <a href="#" onclick="setAuthMode('login');return false;" style="color:#ffd700;">Log in</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -5712,12 +5461,6 @@ document
                 revalidateBrevoAccess(storedEmail);
             }
 
-            const brevoUnsubForm = document.getElementById('sib-form-unsub');
-            if (brevoUnsubForm) {
-                brevoUnsubForm.addEventListener('submit', () => {
-                    clearGiftsAccess();
-                });
-            }
         });
 
         // Dynamic info tile copy
@@ -5881,6 +5624,7 @@ document
                 history.pushState({ tab: tabName }, '', `#${tabName}`);
             }
         }
+        window.selectTab = selectTab;
 
         // Family Gallery Functions
         function showFamilyGallery() {
@@ -6079,14 +5823,14 @@ document
                         <span style="color: #8A2BE2; font-weight: bold; font-size: 1.6rem; text-shadow: 0 0 20px rgba(138, 43, 226, 0.8);">The Happy-Makers Family Presents:</span>
                     </div>
 
-                    <h2 style="color: #8A2BE2; font-size: 2.5rem; margin-bottom: 12px; text-shadow: 0 0 30px rgba(138, 43, 226, 0.8); text-align: center;">THE CONFIDENT, MINDFUL &amp; HAPPY ME ADVENTURE</h2>
-                    <h3 style="color: #8A2BE2; font-size: 1.35rem; margin-bottom: 20px; text-shadow: 0 0 18px rgba(138, 43, 226, 0.7); text-align: center;">31 Days to Boost Self-Esteem, Master Big Feelings &amp; Unlock Your Inner Superpower</h3>
+                    <h2 style="color: #ffd700; font-size: 2.5rem; margin-bottom: 12px; text-shadow: 0 0 30px rgba(255, 215, 0, 0.8); text-align: center;">THE CONFIDENT, MINDFUL &amp; HAPPY ME ADVENTURE</h2>
+                    <h3 style="color: #ff69b4; font-size: 1.35rem; margin-bottom: 20px; text-shadow: 0 0 18px rgba(255, 105, 180, 0.7); text-align: center;">31 Days to Boost Self-Esteem, Master Big Feelings &amp; Unlock Your Inner Superpower</h3>
 
                     <div style="color: #ffffff; font-size: 1rem; line-height: 1.7; text-align: left; margin-bottom: 30px; max-width: 900px; margin-left: auto; margin-right: auto;">
                         <p style="margin-bottom: 16px; font-weight: bold; color: #8A2BE2;">IF GROWING UP FEELS LIKE A ROLLER COASTER OF BIG FEELINGS… THIS BOOK IS YOUR CHILD'S SAFETY BELT.</p>
                         <p style="margin-bottom: 12px;"><strong style="color: #8A2BE2;">THE PARENTING CHALLENGE</strong> Let’s be honest: growing up is an amazing journey, but sometimes feelings get big and the world gets loud. You see your child struggling with worry, perfectionism, or just finding their voice. You want to help them guide their way through it all with confidence and joy.</p>
                         <p style="margin-bottom: 12px;"><strong style="color: #8A2BE2;">THE HAPPY MAKERS PRESENT SOLUTION:</strong> The Confident, Mindful &amp; Happy Me Adventure! This isn't just a book. It is an interactive roadmap designed to help your child master the wild ride of growing up with courage and a smile.</p>
-                        <p style="margin-bottom: 12px;"><strong style="color: #8A2BE2;">MEET THE GUIDES</strong> Your child won't be doing this alone. They will be led by The Happy Makers Squad, a lovable family of trusted guides and fun-loving companions (Mimi, Luli, Dilo, Alio, and Nini). They are here to show your child that they don't need a superhero cape to be brave. They just need to unlock the superpowers inside to become the best version of themselves. Join the Happy Makers Squad on this journey to discover your kid's inner <span style="color:#8A2BE2; font-weight: 700;">LEGEND</span>.</p>
+                        <p style="margin-bottom: 12px;"><strong style="color: #8A2BE2;">MEET THE GUIDES</strong> Your child won't be doing this alone. They will be led by The Happy Makers Squad, a lovable family of trusted guides and fun-loving companions (Mimi, Luli, Dilo, Alio, and Nini). They are here to show your child that they don't need a superhero cape to be brave. They just need to unlock the superpowers inside to become the best version of themselves. Join the Happy Makers Squad on this journey to discover your kid's inner LEGEND.</p>
                         <p style="margin-bottom: 12px;"><strong style="color: #8A2BE2;">HOW IT WORKS: THE 31-DAY MISSION</strong> This book is designed to fit into real life. No pressure. No perfection. Just 10 minutes of connection and fun a day.</p>
 
                         <p style="margin-top: 18px; font-weight: bold; color: #8A2BE2;">OUR 31-DAY MISSION CHECKLIST:</p>
@@ -6329,20 +6073,57 @@ document
         }
 
         // GIFTS access functions
-        const GIFTS_ACCESS_VERSION = '7';
+        const GIFTS_ACCESS_VERSION = '8';
         const GIFTS_PENDING_KEY = 'giftsPendingUntil';
+        const GIFTS_AUTH_TOKEN_KEY = 'giftsAuthToken';
+        const GIFTS_AUTH_EXPIRES_KEY = 'giftsAuthExpiresAt';
         const GIFTS_PENDING_WINDOW_MS = 1000 * 60 * 60 * 48; // 48 hours grace before clearing on failed Brevo checks
         let hasGiftsAccess = false;
         let brevoCheckPromise = null;
+        let authMode = 'signup';
+
+        function hasValidAuthSession() {
+            const token = localStorage.getItem(GIFTS_AUTH_TOKEN_KEY);
+            const expiresAt = parseInt(localStorage.getItem(GIFTS_AUTH_EXPIRES_KEY) || '0', 10);
+            if (!token) return false;
+            if (!expiresAt) return true;
+            return Date.now() < expiresAt;
+        }
+
+        function storeAuthSession(session, email = '', firstName = '') {
+            if (session?.access_token) {
+                localStorage.setItem(GIFTS_AUTH_TOKEN_KEY, session.access_token);
+            }
+            if (session?.expires_in) {
+                const expiresAt = Date.now() + session.expires_in * 1000;
+                localStorage.setItem(GIFTS_AUTH_EXPIRES_KEY, `${expiresAt}`);
+            }
+            if (email) {
+                localStorage.setItem('giftsEmail', email);
+            }
+            if (firstName) {
+                localStorage.setItem('giftsFirstName', firstName);
+            }
+        }
+
+        function clearAuthSession() {
+            localStorage.removeItem(GIFTS_AUTH_TOKEN_KEY);
+            localStorage.removeItem(GIFTS_AUTH_EXPIRES_KEY);
+        }
+
         function checkGiftsAccess() {
             const access = localStorage.getItem('giftsAccess') === 'true';
             const savedEmail = (localStorage.getItem('giftsEmail') || '').trim();
             const accessVersion = localStorage.getItem('giftsAccessVersion');
             const pendingUntil = parseInt(localStorage.getItem(GIFTS_PENDING_KEY) || '0', 10);
             const pendingActive = pendingUntil && pendingUntil > Date.now();
+            const authValid = hasValidAuthSession();
+            const accessAllowed = authValid || (access && accessVersion === GIFTS_ACCESS_VERSION && pendingActive);
 
-            if (access && savedEmail.includes('@') && accessVersion === GIFTS_ACCESS_VERSION) {
+            if (accessAllowed && savedEmail.includes('@')) {
                 hasGiftsAccess = true;
+                localStorage.setItem('giftsAccess', 'true');
+                localStorage.setItem('giftsAccessVersion', GIFTS_ACCESS_VERSION);
                 if (!pendingActive && !brevoCheckPromise) {
                     brevoCheckPromise = revalidateBrevoAccess(savedEmail).finally(() => {
                         brevoCheckPromise = null;
@@ -6373,6 +6154,7 @@ document
             localStorage.removeItem('giftsFirstName');
             localStorage.removeItem('giftsAccessVersion');
             localStorage.removeItem(GIFTS_PENDING_KEY);
+            clearAuthSession();
             hasGiftsAccess = false;
         }
 
@@ -6381,14 +6163,17 @@ document
             if (!workerEndpoint || !email) return;
 
             try {
-                const fd = new FormData();
-                fd.append('action', 'check');
-                fd.append('EMAIL', email);
-                if (BREVO_LIST_ID) {
-                    fd.append('brevoListId', BREVO_LIST_ID);
-                }
-
-                const resp = await fetch(workerEndpoint, { method: 'POST', body: fd, mode: 'cors', credentials: 'omit' });
+                const resp = await fetch(workerEndpoint, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        action: 'check',
+                        email,
+                        brevoListId: BREVO_LIST_ID || undefined,
+                    }),
+                    mode: 'cors',
+                    credentials: 'omit',
+                });
                 const data = await resp.json().catch(() => ({}));
                 const isSubscribed = resp.ok && data && data.subscribed !== false;
                 const pendingUntil = parseInt(localStorage.getItem(GIFTS_PENDING_KEY) || '0', 10);
@@ -6473,6 +6258,7 @@ document
             if (errorMsg) {
                 errorMsg.textContent = '';
             }
+            setAuthMode(authMode);
             const storedFirst = localStorage.getItem('giftsFirstName') || '';
             const storedEmail = localStorage.getItem('giftsEmail') || '';
             const firstNameField = document.getElementById('brevoFirstName');
@@ -6488,31 +6274,89 @@ document
             history.pushState({ modal: 'email' }, '', window.location.href);
         }
 
+        function setAuthMode(mode) {
+            authMode = mode === 'login' ? 'login' : 'signup';
+            const signUpBtn = document.getElementById('authModeSignUp');
+            const loginBtn = document.getElementById('authModeLogin');
+            const signupFields = document.getElementById('signupFields');
+            const signupConsent = document.getElementById('signupConsent');
+            const firstNameField = document.getElementById('brevoFirstName');
+            const passwordField = document.getElementById('userPassword');
+            const submitBtn = document.getElementById('submitEmail');
+
+            if (signUpBtn && loginBtn) {
+                const isSignup = authMode === 'signup';
+                signUpBtn.style.background = isSignup ? 'linear-gradient(45deg, #8A2BE2, #9932CC)' : '#0d0d0d';
+                signUpBtn.style.color = isSignup ? '#ffffff' : '#ffd700';
+                loginBtn.style.background = isSignup ? '#0d0d0d' : 'linear-gradient(45deg, #8A2BE2, #9932CC)';
+                loginBtn.style.color = isSignup ? '#ffd700' : '#ffffff';
+            }
+
+            if (signupFields) {
+                signupFields.style.display = authMode === 'signup' ? 'block' : 'none';
+            }
+            if (signupConsent) {
+                signupConsent.style.display = authMode === 'signup' ? 'block' : 'none';
+            }
+            if (firstNameField) {
+                firstNameField.required = authMode === 'signup';
+            }
+            if (passwordField) {
+                passwordField.required = true;
+                passwordField.autocomplete = authMode === 'signup' ? 'new-password' : 'current-password';
+            }
+            if (submitBtn) {
+                submitBtn.textContent = authMode === 'signup' ? 'SIGN UP' : 'LOG IN';
+            }
+        }
+
         function openPrivacyPolicy() {
             document.getElementById('privacyModal').style.display = 'block';
             document.body.style.overflow = 'hidden';
             history.pushState({ modal: 'privacy' }, '', window.location.href);
         }
         function closeEmailModal() {
-            const modal = document.getElementById('emailModal');
-            if (modal) {
-                modal.classList.remove('show');
-                modal.style.display = 'none';
-            }
+            document.getElementById('emailModal').style.display = 'none';
             document.body.style.overflow = 'auto';
         }
         function closePrivacyModal() {
             document.getElementById('privacyModal').style.display = 'none';
             document.body.style.overflow = 'auto';
         }
-        function submitEmailModal(event) {
+
+        function getWorkerEndpoint() {
+            return (typeof CLOUDFLARE_WORKER_ENDPOINT === 'string' ? CLOUDFLARE_WORKER_ENDPOINT.trim() : '');
+        }
+
+        async function requestAccountAction(action, payload) {
+            const workerEndpoint = getWorkerEndpoint();
+            if (!workerEndpoint) {
+                throw new Error('Account service is not configured yet.');
+            }
+
+            const response = await fetch(workerEndpoint, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ action, ...payload }),
+                mode: 'cors',
+                credentials: 'omit',
+            });
+            const data = await response.json().catch(() => ({}));
+            if (!response.ok || data.ok === false) {
+                throw new Error(data.error || 'Account request failed.');
+            }
+            return data;
+        }
+        async function submitEmailModal(event) {
             event.preventDefault();
             const form = event.target;
             const firstNameInput = document.getElementById('brevoFirstName');
             const emailInput = document.getElementById('brevoEmail');
+            const passwordInput = document.getElementById('userPassword');
             const optIn = document.getElementById('brevoOptIn');
             const firstName = firstNameInput ? firstNameInput.value.trim() : '';
             const email = emailInput ? emailInput.value.trim() : '';
+            const password = passwordInput ? passwordInput.value : '';
             const gdprChecked = optIn ? optIn.checked : false;
             const errorMsg = document.getElementById('errorMsg');
             const submitBtn = document.getElementById('submitEmail');
@@ -6520,7 +6364,7 @@ document
             if (errorMsg) {
                 errorMsg.textContent = '';
             }
-            if (!firstName) {
+            if (authMode === 'signup' && !firstName) {
                 errorMsg.textContent = 'Please enter your first name.';
                 return;
             }
@@ -6528,32 +6372,55 @@ document
                 errorMsg.textContent = 'Please enter a valid email address.';
                 return;
             }
-            if (!gdprChecked) {
+            if (!password) {
+                errorMsg.textContent = 'Please enter a password.';
+                return;
+            }
+            if (authMode === 'signup' && !gdprChecked) {
                 errorMsg.textContent = 'Please agree to the Privacy Policy.';
                 return;
             }
 
-            submitBtn.textContent = 'Joining...';
+            submitBtn.textContent = authMode === 'signup' ? 'Signing up...' : 'Logging in...';
             submitBtn.disabled = true;
-            const formData = new FormData(form);
-            formData.set('firstName', firstName);
-            formData.set('email', email);
-            formData.set('gdprConsent', gdprChecked ? 'true' : 'false');
-            sendToSite(formData);
 
-            setTimeout(() => {
+            try {
+                const action = authMode === 'signup' ? 'signup' : 'login';
+                const response = await requestAccountAction(action, {
+                    email,
+                    password,
+                    firstName: authMode === 'signup' ? firstName : undefined,
+                    gdprConsent: authMode === 'signup' ? gdprChecked : undefined,
+                    brevoListId: BREVO_LIST_ID || undefined,
+                });
+
+                const session = response.session || response.supabaseSession || null;
+                if (!session || !session.access_token) {
+                    throw new Error(
+                        authMode === 'signup'
+                            ? 'Check your email to confirm your account before logging in.'
+                            : 'Unable to sign in. Please verify your credentials.'
+                    );
+                }
+
+                storeAuthSession(session, email, firstName);
                 grantGiftsAccess(firstName, email);
                 closeEmailModal();
                 showThankYouPage();
-                submitBtn.textContent = 'Join us';
+                submitBtn.textContent = authMode === 'signup' ? 'SIGN UP' : 'LOG IN';
                 submitBtn.disabled = false;
                 form.reset();
-            }, 1500);
+                setAuthMode('login');
+            } catch (error) {
+                errorMsg.textContent = error?.message || 'Unable to complete request.';
+                submitBtn.textContent = authMode === 'signup' ? 'SIGN UP' : 'LOG IN';
+                submitBtn.disabled = false;
+            }
         }
-        function handleUnsubscribe(event) {
+        async function handleUnsubscribe(event) {
             event.preventDefault();
             const form = event.target;
-            const emailInput = form.querySelector('input[type="email"], input[name="EMAIL"]');
+            const emailInput = form.querySelector('input[type="email"], input[name="email"]');
             const messageBox = form.querySelector('.unsubscribe-message');
             if (messageBox) {
                 messageBox.textContent = '';
@@ -6566,16 +6433,22 @@ document
                 }
                 return;
             }
-            const formData = new FormData(form);
-            sendToSite(formData);
-            clearGiftsAccess();
-            if (messageBox) {
-                messageBox.style.color = '#ffd700';
-                messageBox.textContent = 'You have been unsubscribed and GIFTS access was removed.';
+            try {
+                await requestAccountAction('unsubscribe', { email: emailValue });
+                clearGiftsAccess();
+                if (messageBox) {
+                    messageBox.style.color = '#ffd700';
+                    messageBox.textContent = 'Unsubscribed. Your account and contact were removed.';
+                }
+                setTimeout(() => {
+                    selectTab(document.querySelector('.tab'), 'main');
+                }, 1200);
+            } catch (error) {
+                if (messageBox) {
+                    messageBox.style.color = '#ff69b4';
+                    messageBox.textContent = error?.message || 'Unable to unsubscribe. Please try again.';
+                }
             }
-            setTimeout(() => {
-                selectTab(document.querySelector('.tab'), 'main');
-            }, 1200);
         }
         document.addEventListener('DOMContentLoaded', () => {
             applyCharacterPortraits();
@@ -6590,13 +6463,9 @@ document
                 history.pushState({ tab: tabElement.dataset.tab, base: false }, '', `#${tabElement.dataset.tab}`);
             }
 
-            const unsubForm = document.getElementById('sib-form-unsub');
+            const unsubForm = document.getElementById('unsubscribe-form');
             if (unsubForm) {
-                unsubForm.addEventListener('submit', () => {
-                    setTimeout(() => {
-                        clearGiftsAccess();
-                    }, 250);
-                });
+                unsubForm.addEventListener('submit', handleUnsubscribe);
             }
         });
 
@@ -6891,33 +6760,9 @@ document
             }
         }
 
-        function applyEnglishValidationMessages() {
-            const emailMessage = 'Please enter a valid email address.';
-            document.querySelectorAll('input[type="email"]').forEach((input) => {
-                input.addEventListener('invalid', (event) => {
-                    event.target.setCustomValidity(emailMessage);
-                });
-                input.addEventListener('input', (event) => {
-                    event.target.setCustomValidity('');
-                });
-            });
-
-            const gdprCheck = document.getElementById('gdprCheck');
-            if (gdprCheck) {
-                const consentMessage = 'Please agree to the Privacy Policy to continue.';
-                gdprCheck.addEventListener('invalid', (event) => {
-                    event.target.setCustomValidity(consentMessage);
-                });
-                gdprCheck.addEventListener('change', (event) => {
-                    event.target.setCustomValidity('');
-                });
-            }
-        }
-
         // Initialize sparkles when page loads
         document.addEventListener('DOMContentLoaded', createSparkles);
         document.addEventListener('DOMContentLoaded', () => updateInfoTile('main'));
-        document.addEventListener('DOMContentLoaded', applyEnglishValidationMessages);
     </script>
  <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'99ffed4b87077057',t:'MTc2MzM4OTgzNi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
