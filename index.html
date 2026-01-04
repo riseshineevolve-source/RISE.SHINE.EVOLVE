@@ -2483,56 +2483,56 @@
     <p id="errorMsg" style="color: #ff1493; text-align: center; margin-top: 15px; font-weight: bold;"></p>
    </div>
   </div>
-  <div id="welcomeModal" class="modal" style="display: none;">
-        <div class="modal-content" style="
-            position: relative;
-            background: linear-gradient(135deg, #000000, #1a1a1a);
-            border: 3px solid #ffd700;
-            border-radius: 20px;
-            padding: 20px 22px;
-            max-width: 480px;
-            width: 92%;
-            max-height: 92vh;
-            overflow-y: auto;
-            box-shadow: 0 0 50px rgba(255, 215, 0, 0.6);
-            margin: 0 auto;
+  <div id="welcomeModal" class="modal" style="
+        display: none;
+        position: fixed;
+        z-index: 11000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0,0,0,0.7);
+    ">
+    <div class="modal-content" style="
+            background: linear-gradient(135deg, #0b0b0b, #1c0f2b);
+            margin: 10% auto;
+            padding: 24px;
+            border: 2px solid #ffd700;
+            width: 90%;
+            max-width: 420px;
+            border-radius: 18px;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.4);
             text-align: center;
+            position: relative;
         ">
-    <span class="close" onclick="closeWelcomeModal()" style="
+        <span class="close" onclick="closeWelcomeModal()" style="
                 position: absolute;
                 top: 12px;
-                right: 12px;
-                background: none;
-                border: none;
-                color: #ffffff;
-                font-size: 1.5rem;
+                right: 18px;
+                font-size: 28px;
+                font-weight: bold;
+                color: #ffd700;
                 cursor: pointer;
-                width: 30px;
-                height: 30px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
+                padding: 6px 10px;
                 border-radius: 50%;
                 transition: all 0.3s ease;
-            " onmouseover="this.style.background='rgba(255, 215, 0, 0.2)';" onmouseout="this.style.background='none';">×</span>
-    <h3 style="color: #ffd700; font-size: 1.6rem; margin-bottom: 10px; text-shadow: 0 0 18px rgba(255, 215, 0, 0.7);">Welcome to GIFTS!</h3>
-    <p style="color: #ffffff; font-size: 1rem; margin-bottom: 18px; line-height: 1.5;">
-        Your login worked perfectly. 🎉 You're ready to unlock the full GIFTS library.
-    </p>
-    <button onclick="accessGiftsFromWelcome()" style="
-        background: linear-gradient(45deg, #8A2BE2, #9932CC);
-        border: 2px solid #ffd700;
-        border-radius: 18px;
-        padding: 12px 18px;
-        color: #ffffff;
-        font-size: 1.05rem;
-        font-weight: bold;
-        cursor: pointer;
-        box-shadow: 0 0 20px rgba(138, 43, 226, 0.6);
-        text-transform: uppercase;
-        letter-spacing: 1px;
-    ">Access GIFTS</button>
-   </div>
+            " onmouseover="this.style.background='rgba(138, 43, 226, 0.3)';" onmouseout="this.style.background='none';">×</span>
+        <h3 id="welcomeTitle" style="color: #ffffff; font-size: 1.5rem; margin-bottom: 10px; text-shadow: 0 0 12px rgba(138, 43, 226, 0.8);">Welcome!</h3>
+        <p id="welcomeMessage" style="color: #c9b6ff; font-size: 0.95rem; margin-bottom: 18px;">You're all set.</p>
+        <button id="welcomeContinue" type="button" onclick="handleWelcomeContinue()" style="
+                padding: 10px 18px;
+                border: 2px solid #ffd700;
+                border-radius: 12px;
+                background: linear-gradient(45deg, #8A2BE2, #9932CC);
+                color: #ffffff;
+                font-weight: bold;
+                cursor: pointer;
+                font-size: 0.9rem;
+            ">
+            Go to GIFTS
+        </button>
+    </div>
   </div>
   <div id="privacyModal" class="modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 12000; backdrop-filter: blur(6px);">
     <div class="modal-content" style="max-width: 700px; max-height: 80vh; overflow-y: auto; margin: 40px auto; background: #0c0c0c; border: 3px solid #8A2BE2; border-radius: 20px; padding: 25px; position: relative; box-shadow: 0 0 40px rgba(138, 43, 226, 0.7);">
@@ -6798,6 +6798,48 @@ document
             document.getElementById('emailModal').style.display = 'none';
             document.body.style.overflow = 'auto';
         }
+        function showWelcomeModal({ firstName = '', mode = 'login' } = {}) {
+            const title = document.getElementById('welcomeTitle');
+            const message = document.getElementById('welcomeMessage');
+            const continueBtn = document.getElementById('welcomeContinue');
+            const welcomeModal = document.getElementById('welcomeModal');
+
+            if (title) {
+                title.textContent = mode === 'signup'
+                    ? 'Welcome to Rise.Shine.Evolve!'
+                    : 'Welcome back!';
+            }
+            if (message) {
+                const name = firstName ? `${firstName}` : 'Friend';
+                message.textContent = mode === 'signup'
+                    ? `${name}, your account is ready. Let’s unlock your GIFTS.`
+                    : `${name}, you are signed in and ready to go.`;
+            }
+            if (continueBtn) {
+                continueBtn.dataset.next = mode === 'signup' ? 'thank-you' : 'gifts';
+            }
+            if (welcomeModal) {
+                welcomeModal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+            }
+        }
+        function closeWelcomeModal() {
+            const welcomeModal = document.getElementById('welcomeModal');
+            if (welcomeModal) {
+                welcomeModal.style.display = 'none';
+            }
+            document.body.style.overflow = 'auto';
+        }
+        function handleWelcomeContinue() {
+            const continueBtn = document.getElementById('welcomeContinue');
+            const next = continueBtn?.dataset?.next || 'gifts';
+            closeWelcomeModal();
+            if (next === 'thank-you') {
+                showThankYouPage();
+                return;
+            }
+            accessGifts();
+        }
         function closePrivacyModal() {
             document.getElementById('privacyModal').style.display = 'none';
             document.body.style.overflow = 'auto';
@@ -6885,7 +6927,7 @@ document
                 storeAuthSession(session, email, firstName);
                 grantGiftsAccess(firstName, email);
                 closeEmailModal();
-                showThankYouPage();
+                showWelcomeModal({ firstName, mode: authMode });
                 submitBtn.textContent = authMode === 'signup' ? 'SIGN UP' : 'LOG IN';
                 submitBtn.disabled = false;
                 form.reset();
