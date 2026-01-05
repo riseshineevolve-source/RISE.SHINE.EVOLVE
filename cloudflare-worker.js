@@ -5,6 +5,9 @@
 //   2) In Cloudflare Workers > Settings > Variables, add:
 //        - BREVO_API_KEY: your Brevo API key (keep it secret)
 //        - BREVO_LIST_ID: 3  (the numeric id from step 1)
+//        - SUPABASE_URL: your Supabase project URL
+//        - SUPABASE_ANON_KEY: your Supabase anon key (for signup/login)
+//        - SUPABASE_SERVICE_ROLE_KEY: your Supabase service role key (for account deletes)
 //   3) Deploy the worker, then set CLOUDFLARE_WORKER_ENDPOINT in index.html to this worker's URL
 //      (e.g., https://newsletter-endpoint.rise-shine-evolve.workers.dev/).
 // The worker will forward to the site handler and also push to Brevo when both env vars are set.
@@ -16,6 +19,182 @@ export default {
       'Access-Control-Allow-Methods': 'POST,OPTIONS',
       'Access-Control-Allow-Headers': 'Content-Type',
     };
+    const jsonResponse = (payload, status = 200) =>
+      new Response(JSON.stringify(payload), {
+        status,
+        headers: { 'content-type': 'application/json', ...corsHeaders },
+      });
+
+    const supabaseUrl = (env.SUPABASE_URL || '').toString().trim().replace(/\/$/, '');
+    const supabaseAnonKey = (env.SUPABASE_ANON_KEY || '').toString().trim();
+    const supabaseServiceKey = (env.SUPABASE_SERVICE_ROLE_KEY || '').toString().trim();
+
+    const supabaseHeaders = (key) => ({
+      apikey: key,
+      Authorization: `Bearer ${key}`,
+      'Content-Type': 'application/json',
+    });
+
+    const brevoHeaders = {
+      'api-key': env.BREVO_API_KEY || '',
+      'content-type': 'application/json',
+      accept: 'application/json',
+    };
+
+    const requireBrevoKey = () => {
+      if (!env.BREVO_API_KEY) {
+        throw new Error('Missing Brevo API key');
+      }
+    };
+
+    const requireSupabaseAnon = () => {
+      if (!supabaseUrl || !supabaseAnonKey) {
+        throw new Error('Missing Supabase configuration');
+      }
+    };
+
+    const requireSupabaseService = () => {
+      if (!supabaseUrl || !supabaseServiceKey) {
+        throw new Error('Missing Supabase admin configuration');
+      }
+    };
+
+    const resolveListId = (listId) => {
+      const numericListId = Number(listId || env.BREVO_LIST_ID || '');
+      if (!Number.isFinite(numericListId) || numericListId <= 0) {
+        throw new Error('Missing or invalid Brevo list id');
+      }
+      return numericListId;
+    };
+
+    const upsertBrevoContact = async ({ email, firstName, listId }) => {
+      requireBrevoKey();
+      const numericListId = resolveListId(listId);
+
+      const response = await fetch('https://api.brevo.com/v3/contacts', {
+        method: 'POST',
+        headers: brevoHeaders,
+        body: JSON.stringify({
+          email,
+          attributes: firstName ? { FIRSTNAME: firstName } : {},
+          updateEnabled: true,
+          listIds: [numericListId],
+        }),
+      });
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(errorText || 'Brevo rejected the request');
+      }
+      return response.status;
+    };
+
+    const checkBrevoContact = async ({ email, listId }) => {
+      requireBrevoKey();
+      const numericListId = Number(listId || env.BREVO_LIST_ID || '');
+      const contactEndpoint = `https://api.brevo.com/v3/contacts/${encodeURIComponent(email)}`;
+      const brevoResp = await fetch(contactEndpoint, {
+        method: 'GET',
+        headers: {
+          'api-key': env.BREVO_API_KEY,
+          accept: 'application/json',
+        },
+      });
+
+      const bodyText = await brevoResp.text();
+      if (!brevoResp.ok) {
+        throw new Error(bodyText || 'Brevo lookup failed');
+      }
+
+      let parsed = null;
+      try {
+        parsed = JSON.parse(bodyText);
+      } catch (error) {
+        parsed = null;
+      }
+
+      const listIds = Array.isArray(parsed?.listIds) ? parsed.listIds : [];
+      const listMatch = numericListId ? listIds.includes(numericListId) : listIds.length > 0;
+      const notBlacklisted = parsed ? parsed.emailBlacklisted === false : false;
+      const subscribed = listMatch && notBlacklisted;
+
+      return { subscribed, listMatch };
+    };
+
+    const deleteBrevoContact = async (email) => {
+      requireBrevoKey();
+      const response = await fetch(`https://api.brevo.com/v3/contacts/${encodeURIComponent(email)}`, {
+        method: 'DELETE',
+        headers: {
+          'api-key': env.BREVO_API_KEY,
+          accept: 'application/json',
+        },
+      });
+      if (!response.ok && response.status !== 404) {
+        const errorText = await response.text();
+        throw new Error(errorText || 'Brevo delete failed');
+      }
+      return response.status;
+    };
+
+    const supabaseSignUp = async ({ email, password, firstName }) => {
+      requireSupabaseAnon();
+      const response = await fetch(`${supabaseUrl}/auth/v1/signup`, {
+        method: 'POST',
+        headers: supabaseHeaders(supabaseAnonKey),
+        body: JSON.stringify({
+          email,
+          password,
+          data: firstName ? { first_name: firstName } : {},
+        }),
+      });
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok) {
+        throw new Error(data?.error_description || data?.msg || 'Supabase signup failed');
+      }
+      return data;
+    };
+
+    const supabaseLogin = async ({ email, password }) => {
+      requireSupabaseAnon();
+      const response = await fetch(`${supabaseUrl}/auth/v1/token?grant_type=password`, {
+        method: 'POST',
+        headers: supabaseHeaders(supabaseAnonKey),
+        body: JSON.stringify({ email, password }),
+      });
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok) {
+        throw new Error(data?.error_description || data?.msg || 'Supabase login failed');
+      }
+      return data;
+    };
+
+    const supabaseDeleteUserByEmail = async (email) => {
+      requireSupabaseService();
+      const listResp = await fetch(`${supabaseUrl}/auth/v1/admin/users?email=${encodeURIComponent(email)}`, {
+        method: 'GET',
+        headers: supabaseHeaders(supabaseServiceKey),
+      });
+      const listData = await listResp.json().catch(() => ({}));
+      if (!listResp.ok) {
+        throw new Error(listData?.error_description || 'Supabase lookup failed');
+      }
+
+      const users = Array.isArray(listData?.users) ? listData.users : Array.isArray(listData) ? listData : [];
+      const user = users[0];
+      if (!user?.id) {
+        return { deleted: false };
+      }
+
+      const deleteResp = await fetch(`${supabaseUrl}/auth/v1/admin/users/${user.id}`, {
+        method: 'DELETE',
+        headers: supabaseHeaders(supabaseServiceKey),
+      });
+      if (!deleteResp.ok) {
+        const errorText = await deleteResp.text();
+        throw new Error(errorText || 'Supabase delete failed');
+      }
+      return { deleted: true };
+    };
 
     if (request.method === 'OPTIONS') {
       return new Response('ok', { headers: corsHeaders });
@@ -25,14 +204,144 @@ export default {
       return new Response('ready', { headers: corsHeaders });
     }
 
+    const contentType = request.headers.get('content-type') || '';
+    if (contentType.includes('application/json')) {
+      let payload;
+      try {
+        payload = await request.json();
+      } catch (error) {
+        return jsonResponse({ ok: false, error: 'Invalid JSON payload' }, 400);
+      }
+
+      const action = (payload?.action || '').toString().trim().toLowerCase();
+      if (action === 'signup') {
+        const email = (payload?.email || '').toString().trim();
+        const password = (payload?.password || '').toString();
+        const firstName = (payload?.firstName || '').toString().trim();
+        const listId = payload?.brevoListId;
+
+        if (!email || !password) {
+          return jsonResponse({ ok: false, error: 'Missing email or password' }, 400);
+        }
+
+        try {
+          const supabaseData = await supabaseSignUp({ email, password, firstName });
+          await upsertBrevoContact({ email, firstName, listId });
+          return jsonResponse({ ok: true, session: supabaseData?.session || null });
+        } catch (error) {
+          return jsonResponse({ ok: false, error: error?.message || 'Signup failed' }, 400);
+        }
+      }
+
+      if (action === 'login') {
+        const email = (payload?.email || '').toString().trim();
+        const password = (payload?.password || '').toString();
+        const listId = payload?.brevoListId;
+
+        if (!email || !password) {
+          return jsonResponse({ ok: false, error: 'Missing email or password' }, 400);
+        }
+
+        try {
+          const supabaseData = await supabaseLogin({ email, password });
+          const brevoStatus = await checkBrevoContact({ email, listId });
+          if (!brevoStatus.subscribed) {
+            return jsonResponse({ ok: false, error: 'Brevo subscription not found' }, 403);
+          }
+          return jsonResponse({ ok: true, session: supabaseData });
+        } catch (error) {
+          return jsonResponse({ ok: false, error: error?.message || 'Login failed' }, 400);
+        }
+      }
+
+      if (action === 'refresh') {
+        const refreshToken = (payload?.refreshToken || '').toString().trim();
+        if (!refreshToken) {
+          return jsonResponse({ ok: false, error: 'Missing refresh token' }, 400);
+        }
+        try {
+          requireSupabaseAnon();
+          const response = await fetch(`${supabaseUrl}/auth/v1/token?grant_type=refresh_token`, {
+            method: 'POST',
+            headers: supabaseHeaders(supabaseAnonKey),
+            body: JSON.stringify({ refresh_token: refreshToken }),
+          });
+          const data = await response.json().catch(() => ({}));
+          if (!response.ok) {
+            throw new Error(data?.error_description || data?.msg || 'Supabase refresh failed');
+          }
+          return jsonResponse({ ok: true, session: data });
+        } catch (error) {
+          return jsonResponse({ ok: false, error: error?.message || 'Refresh failed' }, 400);
+        }
+      }
+
+      if (action === 'unsubscribe') {
+        const email = (payload?.email || '').toString().trim();
+        if (!email) {
+          return jsonResponse({ ok: false, error: 'Missing email' }, 400);
+        }
+        try {
+          await Promise.all([deleteBrevoContact(email), supabaseDeleteUserByEmail(email)]);
+          return jsonResponse({ ok: true });
+        } catch (error) {
+          return jsonResponse({ ok: false, error: error?.message || 'Unsubscribe failed' }, 400);
+        }
+      }
+
+      if (action === 'check') {
+        const email = (payload?.email || '').toString().trim();
+        const listId = payload?.brevoListId;
+        if (!email) {
+          return jsonResponse({ ok: false, error: 'Missing email' }, 400);
+        }
+        try {
+          const status = await checkBrevoContact({ email, listId });
+          return jsonResponse({ ok: true, subscribed: status.subscribed, listMatch: status.listMatch });
+        } catch (error) {
+          return jsonResponse({ ok: false, error: error?.message || 'Brevo lookup failed' }, 400);
+        }
+      }
+
+      const email = (payload?.email || '').toString().trim();
+      const lang = (payload?.lang || 'EN').toString().trim().toUpperCase() || 'EN';
+
+      if (!email) {
+        return jsonResponse({ ok: false, error: 'Missing email' }, 400);
+      }
+
+      if (!env.BREVO_API_KEY) {
+        return jsonResponse({ ok: false, error: 'Missing Brevo API key' }, 400);
+      }
+
+      const brevoResponse = await fetch('https://api.brevo.com/v3/contacts', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'api-key': env.BREVO_API_KEY,
+        },
+        body: JSON.stringify({
+          email,
+          attributes: {
+            LANG: lang,
+          },
+          updateEnabled: true,
+        }),
+      });
+
+      if (brevoResponse.ok) {
+        return jsonResponse({ ok: true });
+      }
+
+      const errorText = await brevoResponse.text();
+      return jsonResponse({ ok: false, error: errorText }, 400);
+    }
+
     let formData;
     try {
       formData = await request.formData();
     } catch (error) {
-      return new Response(JSON.stringify({ ok: false, error: 'Invalid form data', detail: String(error) }), {
-        status: 400,
-        headers: { 'content-type': 'application/json', ...corsHeaders },
-      });
+      return jsonResponse({ ok: false, error: 'Invalid form data', detail: String(error) }, 400);
     }
 
     const action = (formData.get('action') || '').toString().trim();
