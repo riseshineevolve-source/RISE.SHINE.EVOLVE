@@ -5568,8 +5568,14 @@ document
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            checkUser();
-            setAuthMode('signup');
+            restoreAuthSession().finally(() => {
+                checkGiftsAccess();
+            });
+
+            const storedEmail = (localStorage.getItem('giftsEmail') || '').trim();
+            if (storedEmail) {
+                revalidateBrevoAccess(storedEmail);
+            }
 
         });
 
@@ -6021,6 +6027,7 @@ document
 
             showTabContent(tabElement, tabName, options);
         }
+        window.selectTab = selectTab;
 
         function selectTab(tabElement, tabName, options = {}) {
             if (tabName === 'gifts') {
@@ -6563,6 +6570,7 @@ document
         const GIFTS_PENDING_KEY = 'giftsPendingUntil';
         const GIFTS_AUTH_TOKEN_KEY = 'giftsAuthToken';
         const GIFTS_AUTH_EXPIRES_KEY = 'giftsAuthExpiresAt';
+        const GIFTS_AUTH_REFRESH_KEY = 'giftsAuthRefreshToken';
         const GIFTS_PENDING_WINDOW_MS = 1000 * 60 * 60 * 48; // 48 hours grace before clearing on failed Brevo checks
         let hasGiftsAccess = false;
         let brevoCheckPromise = null;
@@ -6571,14 +6579,19 @@ document
         function hasValidAuthSession() {
             const token = localStorage.getItem(GIFTS_AUTH_TOKEN_KEY);
             const expiresAt = parseInt(localStorage.getItem(GIFTS_AUTH_EXPIRES_KEY) || '0', 10);
+            const refreshToken = localStorage.getItem(GIFTS_AUTH_REFRESH_KEY);
             if (!token) return false;
             if (!expiresAt) return true;
-            return Date.now() < expiresAt;
+            if (Date.now() < expiresAt) return true;
+            return Boolean(refreshToken);
         }
 
         function storeAuthSession(session, email = '', firstName = '') {
             if (session?.access_token) {
                 localStorage.setItem(GIFTS_AUTH_TOKEN_KEY, session.access_token);
+            }
+            if (session?.refresh_token) {
+                localStorage.setItem(GIFTS_AUTH_REFRESH_KEY, session.refresh_token);
             }
             if (session?.expires_in) {
                 const expiresAt = Date.now() + session.expires_in * 1000;
@@ -6595,6 +6608,27 @@ document
         function clearAuthSession() {
             localStorage.removeItem(GIFTS_AUTH_TOKEN_KEY);
             localStorage.removeItem(GIFTS_AUTH_EXPIRES_KEY);
+            localStorage.removeItem(GIFTS_AUTH_REFRESH_KEY);
+        }
+
+        async function restoreAuthSession() {
+            const refreshToken = localStorage.getItem(GIFTS_AUTH_REFRESH_KEY);
+            const expiresAt = parseInt(localStorage.getItem(GIFTS_AUTH_EXPIRES_KEY) || '0', 10);
+            if (!refreshToken || (expiresAt && Date.now() < expiresAt)) {
+                return;
+            }
+
+            try {
+                const response = await requestAccountAction('refresh', { refreshToken });
+                const session = response.session || null;
+                if (session?.access_token) {
+                    storeAuthSession(session);
+                } else {
+                    clearAuthSession();
+                }
+            } catch (error) {
+                clearAuthSession();
+            }
         }
 
         function checkGiftsAccess() {
@@ -6604,7 +6638,7 @@ document
             const pendingUntil = parseInt(localStorage.getItem(GIFTS_PENDING_KEY) || '0', 10);
             const pendingActive = pendingUntil && pendingUntil > Date.now();
             const authValid = hasValidAuthSession();
-            const accessAllowed = authValid || (access && accessVersion === GIFTS_ACCESS_VERSION && pendingActive);
+            const accessAllowed = authValid || (access && accessVersion === GIFTS_ACCESS_VERSION);
 
             if (accessAllowed && savedEmail.includes('@')) {
                 hasGiftsAccess = true;

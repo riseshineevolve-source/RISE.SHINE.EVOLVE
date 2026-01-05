@@ -254,6 +254,28 @@ export default {
         }
       }
 
+      if (action === 'refresh') {
+        const refreshToken = (payload?.refreshToken || '').toString().trim();
+        if (!refreshToken) {
+          return jsonResponse({ ok: false, error: 'Missing refresh token' }, 400);
+        }
+        try {
+          requireSupabaseAnon();
+          const response = await fetch(`${supabaseUrl}/auth/v1/token?grant_type=refresh_token`, {
+            method: 'POST',
+            headers: supabaseHeaders(supabaseAnonKey),
+            body: JSON.stringify({ refresh_token: refreshToken }),
+          });
+          const data = await response.json().catch(() => ({}));
+          if (!response.ok) {
+            throw new Error(data?.error_description || data?.msg || 'Supabase refresh failed');
+          }
+          return jsonResponse({ ok: true, session: data });
+        } catch (error) {
+          return jsonResponse({ ok: false, error: error?.message || 'Refresh failed' }, 400);
+        }
+      }
+
       if (action === 'unsubscribe') {
         const email = (payload?.email || '').toString().trim();
         if (!email) {
