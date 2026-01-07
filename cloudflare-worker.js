@@ -25,6 +25,63 @@ export default {
       return new Response('ready', { headers: corsHeaders });
     }
 
+    const contentType = request.headers.get('content-type') || '';
+    if (contentType.includes('application/json')) {
+      let payload;
+      try {
+        payload = await request.json();
+      } catch (error) {
+        return new Response(JSON.stringify({ ok: false, error: 'Invalid JSON payload' }), {
+          status: 400,
+          headers: { 'content-type': 'application/json', ...corsHeaders },
+        });
+      }
+
+      const email = (payload?.email || '').toString().trim();
+      const lang = (payload?.lang || 'EN').toString().trim().toUpperCase() || 'EN';
+
+      if (!email) {
+        return new Response(JSON.stringify({ ok: false, error: 'Missing email' }), {
+          status: 400,
+          headers: { 'content-type': 'application/json', ...corsHeaders },
+        });
+      }
+
+      if (!env.BREVO_API_KEY) {
+        return new Response(JSON.stringify({ ok: false, error: 'Missing Brevo API key' }), {
+          status: 400,
+          headers: { 'content-type': 'application/json', ...corsHeaders },
+        });
+      }
+
+      const brevoResponse = await fetch('https://api.brevo.com/v3/contacts', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'api-key': env.BREVO_API_KEY,
+        },
+        body: JSON.stringify({
+          email,
+          attributes: {
+            LANG: lang,
+          },
+          updateEnabled: true,
+        }),
+      });
+
+      if (brevoResponse.ok) {
+        return new Response(JSON.stringify({ ok: true }), {
+          headers: { 'content-type': 'application/json', ...corsHeaders },
+        });
+      }
+
+      const errorText = await brevoResponse.text();
+      return new Response(JSON.stringify({ ok: false, error: errorText }), {
+        status: 400,
+        headers: { 'content-type': 'application/json', ...corsHeaders },
+      });
+    }
+
     let formData;
     try {
       formData = await request.formData();
