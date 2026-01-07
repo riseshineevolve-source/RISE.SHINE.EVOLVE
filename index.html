@@ -5609,6 +5609,12 @@ document
             checkUser();
             setAuthMode('signup');
 
+            const brevoUnsubForm = document.getElementById('sib-form-unsub');
+            if (brevoUnsubForm) {
+                brevoUnsubForm.addEventListener('submit', () => {
+                    clearGiftsAccess();
+                });
+            }
         });
 
         // Dynamic info tile copy
@@ -6013,6 +6019,24 @@ document
             }
 
             showTabContent();
+        }
+
+        function selectTab(tabElement, tabName, options = {}) {
+            if (tabName === 'gifts') {
+                localStorage.setItem('giftsRequested', 'true');
+                supabaseClient.auth.getSession().then(({ data: { session } }) => {
+                    hasGiftsAccess = !!session;
+                    if (!session) {
+                        showEmailModal();
+                        return;
+                    }
+                    localStorage.removeItem('giftsRequested');
+                    showTabContent(tabElement, tabName, options);
+                });
+                return;
+            }
+
+            showTabContent(tabElement, tabName, options);
         }
 
         function selectTab(tabElement, tabName, options = {}) {
