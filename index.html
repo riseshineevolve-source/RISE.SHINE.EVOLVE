@@ -5648,18 +5648,7 @@ document
 
         const SUPABASE_URL = 'https://gegaodrfqwhrfdqtiokb.supabase.co';
         const SUPABASE_ANON_KEY = 'sb_publishable_eQ8wSa9kvfNwu8Uz033h-A_IFDuUAaK';
-        const supabaseClient = window.supabase
-            ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
-            : {
-                auth: {
-                    getSession: async () => ({ data: { session: null } }),
-                    onAuthStateChange: () => ({ data: { subscription: { unsubscribe: () => {} } } }),
-                    signUp: async () => ({ error: { message: 'Supabase unavailable' } }),
-                    signInWithPassword: async () => ({ error: { message: 'Supabase unavailable' } }),
-                    updateUser: async () => ({ error: { message: 'Supabase unavailable' } }),
-                    signOut: async () => ({ error: { message: 'Supabase unavailable' } }),
-                },
-            };
+        const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
         let hasGiftsAccess = false;
         let authMode = 'signup';
 
@@ -5742,7 +5731,7 @@ document
             closeWelcomeModal();
             const giftsTab = getTabElement('gifts');
             if (giftsTab) {
-                selectTab(giftsTab, 'gifts');
+                showTabContent(giftsTab, 'gifts');
             }
         }
 
@@ -5994,15 +5983,9 @@ document
         function showTabContent(tabElement, tabName, options = {}) {
             const { skipHistory = false } = options;
 
-            const showTabContent = () => {
-                // Remove active class from all tabs
-                const tabs = document.querySelectorAll('.tab');
-                tabs.forEach(tab => tab.classList.remove('active'));
-
-                // Add active class to clicked tab
-                if (tabElement) {
-                    tabElement.classList.add('active');
-                }
+            // Remove active class from all tabs
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
 
                 // Hide all tab contents
                 const contents = document.querySelectorAll('.tab-content');
@@ -6036,6 +6019,42 @@ document
             }
 
             showTabContent();
+        }
+
+        function selectTab(tabElement, tabName, options = {}) {
+            if (tabName === 'gifts') {
+                localStorage.setItem('giftsRequested', 'true');
+                supabaseClient.auth.getSession().then(({ data: { session } }) => {
+                    hasGiftsAccess = !!session;
+                    if (!session) {
+                        showEmailModal();
+                        return;
+                    }
+                    localStorage.removeItem('giftsRequested');
+                    showTabContent(tabElement, tabName, options);
+                });
+                return;
+            }
+
+            showTabContent(tabElement, tabName, options);
+        }
+
+        function selectTab(tabElement, tabName, options = {}) {
+            if (tabName === 'gifts') {
+                localStorage.setItem('giftsRequested', 'true');
+                supabaseClient.auth.getSession().then(({ data: { session } }) => {
+                    hasGiftsAccess = !!session;
+                    if (!session) {
+                        showEmailModal();
+                        return;
+                    }
+                    localStorage.removeItem('giftsRequested');
+                    showTabContent(tabElement, tabName, options);
+                });
+                return;
+            }
+
+            showTabContent(tabElement, tabName, options);
         }
 
         window.selectTab = selectTab;
@@ -6606,7 +6625,11 @@ document
         function accessGifts() {
             const giftsTab = getTabElement('gifts');
             if (giftsTab) {
-                selectTab(giftsTab, 'gifts');
+                if (checkGiftsAccess()) {
+                    showTabContent(giftsTab, 'gifts');
+                } else {
+                    selectTab(giftsTab, 'gifts');
+                }
             }
             if (!checkGiftsAccess()) {
                 showEmailModal();
