@@ -5648,18 +5648,7 @@ document
 
         const SUPABASE_URL = 'https://gegaodrfqwhrfdqtiokb.supabase.co';
         const SUPABASE_ANON_KEY = 'sb_publishable_eQ8wSa9kvfNwu8Uz033h-A_IFDuUAaK';
-        const supabaseClient = window.supabase
-            ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
-            : {
-                auth: {
-                    getSession: async () => ({ data: { session: null } }),
-                    onAuthStateChange: () => ({ data: { subscription: { unsubscribe: () => {} } } }),
-                    signUp: async () => ({ error: { message: 'Supabase unavailable' } }),
-                    signInWithPassword: async () => ({ error: { message: 'Supabase unavailable' } }),
-                    updateUser: async () => ({ error: { message: 'Supabase unavailable' } }),
-                    signOut: async () => ({ error: { message: 'Supabase unavailable' } }),
-                },
-            };
+        const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
         let hasGiftsAccess = false;
         let authMode = 'signup';
 
