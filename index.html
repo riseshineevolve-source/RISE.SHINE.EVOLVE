@@ -2693,7 +2693,6 @@
                 border-radius: 50%;
                 transition: all 0.3s ease;
             " onmouseover="this.style.background='rgba(255, 215, 0, 0.2)';" onmouseout="this.style.background='none';">×</span>
-    <h3 style="color: #ffd700; font-size: 1.5rem; margin-bottom: 12px; text-shadow: 0 0 18px rgba(255, 215, 0, 0.7);">You're all set!</h3>
     <p style="color: #ffffff; font-size: 1rem; margin: 0; line-height: 1.5;">
         You are ready to unwrap your gifts and stay connected with us! Just check your email and click on verification link.
     </p>
@@ -5842,13 +5841,19 @@ document
             }
 
             try {
+                const formData = new FormData();
+                formData.append('EMAIL', user.email);
+                if (user?.user_metadata?.first_name) {
+                    formData.append('FIRSTNAME', user.user_metadata.first_name);
+                }
+                if (BREVO_LIST_ID) {
+                    formData.append('brevoListId', BREVO_LIST_ID);
+                }
                 await fetch(CLOUDFLARE_WORKER_ENDPOINT, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        email: user.email,
-                        lang: (user?.user_metadata?.lang || 'en'),
-                    }),
+                    body: formData,
+                    mode: 'cors',
+                    credentials: 'omit',
                 });
 
                 await supabaseClient.auth.updateUser({
@@ -6032,7 +6037,7 @@ document
             sendSignupToNewsletter(form);
 
             showSignupConfirmModal();
-            showAuthMessage('You are ready to unwrap your gifts and stay connected with us! Just check your email and click on verification link.', '#ffd700');
+            showAuthMessage('');
         }
 
         async function handleLoginModal() {
