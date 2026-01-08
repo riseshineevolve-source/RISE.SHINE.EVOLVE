@@ -1455,9 +1455,9 @@
   <div class="container">
    <h1 class="main-title">RISE.SHINE.EVOLVE</h1>
    <p class="subtitle">Empowering Learning Hub</p>
-   <div id="logged-in-badge" style="display:none; position: fixed; top: 16px; right: 18px; z-index: 15000; padding: 6px 10px; border-radius: 12px; border: 1px solid #ffd700; color: #ffd700; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; box-shadow: 0 0 10px rgba(255, 215, 0, 0.35); background: rgba(0, 0, 0, 0.6); display: flex; align-items: center; gap: 8px;">
-    <span>You are logged in</span>
-    <button type="button" onclick="handleLogout()" style="background: transparent; border: 1px solid #ffd700; color: #ffd700; font-size: 0.6rem; font-weight: 700; padding: 3px 6px; border-radius: 8px; cursor: pointer;">Log out</button>
+   <div id="auth-action-chip" style="position: fixed; top: 16px; right: 18px; z-index: 15000; padding: 6px 10px; border-radius: 12px; border: 1px solid #ffd700; color: #ffd700; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; box-shadow: 0 0 10px rgba(255, 215, 0, 0.35); background: rgba(0, 0, 0, 0.6); display: flex; align-items: center; gap: 8px;">
+    <span id="auth-action-label">Log In</span>
+    <button type="button" id="auth-action-button" onclick="handleAuthActionClick()" style="background: transparent; border: 1px solid #ffd700; color: #ffd700; font-size: 0.6rem; font-weight: 700; padding: 3px 6px; border-radius: 8px; cursor: pointer;">Log In</button>
    </div>
    <div class="info-tile" id="dynamic-info-tile">
     <div class="info-text">
@@ -5781,10 +5781,23 @@ document
         let authMode = null;
 
         function setLoggedInBadge(isVisible) {
-            const badge = document.getElementById('logged-in-badge');
-            if (badge) {
-                badge.style.display = isVisible ? 'block' : 'none';
+            const label = document.getElementById('auth-action-label');
+            const button = document.getElementById('auth-action-button');
+            if (label) {
+                label.textContent = isVisible ? 'Logged In' : 'Log In';
             }
+            if (button) {
+                button.textContent = isVisible ? 'Log Out' : 'Log In';
+            }
+        }
+
+        function handleAuthActionClick() {
+            if (hasGiftsAccess) {
+                handleLogout();
+                return;
+            }
+            setAuthMode('login');
+            showEmailModal();
         }
 
         async function handleLogout() {
