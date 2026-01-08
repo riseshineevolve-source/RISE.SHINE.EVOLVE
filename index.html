@@ -1455,8 +1455,9 @@
   <div class="container">
    <h1 class="main-title">RISE.SHINE.EVOLVE</h1>
    <p class="subtitle">Empowering Learning Hub</p>
-   <div id="logged-in-badge" style="display:none; margin: 6px auto 18px auto; max-width: 220px; padding: 6px 12px; border-radius: 14px; border: 2px solid #ffd700; color: #ffd700; font-size: 0.75rem; font-weight: bold; text-transform: uppercase; letter-spacing: 0.6px; box-shadow: 0 0 12px rgba(255, 215, 0, 0.45);">
-    You are logged in
+   <div id="logged-in-badge" style="display:none; position: fixed; top: 16px; right: 18px; z-index: 15000; padding: 6px 10px; border-radius: 12px; border: 1px solid #ffd700; color: #ffd700; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; box-shadow: 0 0 10px rgba(255, 215, 0, 0.35); background: rgba(0, 0, 0, 0.6); display: flex; align-items: center; gap: 8px;">
+    <span>You are logged in</span>
+    <button type="button" onclick="handleLogout()" style="background: transparent; border: 1px solid #ffd700; color: #ffd700; font-size: 0.6rem; font-weight: 700; padding: 3px 6px; border-radius: 8px; cursor: pointer;">Log out</button>
    </div>
    <div class="info-tile" id="dynamic-info-tile">
     <div class="info-text">
@@ -5747,6 +5748,17 @@ document
             if (badge) {
                 badge.style.display = isVisible ? 'block' : 'none';
             }
+        }
+
+        async function handleLogout() {
+            if (!supabaseClient) {
+                return;
+            }
+            await supabaseClient.auth.signOut();
+            hasGiftsAccess = false;
+            setLoggedInBadge(false);
+            clearGiftsAccess();
+            selectTab(getTabElement('main'), 'main');
         }
 
         function showAuthFormPanel(shouldShow) {
