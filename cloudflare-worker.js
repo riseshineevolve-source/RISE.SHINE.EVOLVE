@@ -401,11 +401,7 @@ export default {
           { status: 400, headers: { 'content-type': 'application/json', ...corsHeaders } }
         );
       }
-      const welcomeTemplateId = Number(
-        env.BREVO_WELCOME_TEMPLATE_ID ||
-        env.BREVO_TEMPLATE_2 ||
-        '2'
-      );
+      const welcomeTemplateId = Number(env.BREVO_WELCOME_TEMPLATE_ID || '');
 
       const headers = {
         'api-key': env.BREVO_API_KEY,
@@ -459,7 +455,7 @@ export default {
         );
       }
 
-      if (welcomeTemplateId) {
+      if (Number.isFinite(welcomeTemplateId) && welcomeTemplateId > 0) {
         const welcomePayload = {
           to: [{ email, name: firstName || email }],
           templateId: welcomeTemplateId,
