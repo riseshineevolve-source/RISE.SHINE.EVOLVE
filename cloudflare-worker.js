@@ -101,6 +101,9 @@ export default {
       });
 
       const bodyText = await brevoResp.text();
+      if (brevoResp.status === 404) {
+        return { subscribed: false, listMatch: false, exists: false };
+      }
       if (!brevoResp.ok) {
         throw new Error(bodyText || 'Brevo lookup failed');
       }
@@ -117,11 +120,32 @@ export default {
       const notBlacklisted = parsed ? parsed.emailBlacklisted === false : false;
       const subscribed = listMatch && notBlacklisted;
 
-      return { subscribed, listMatch };
+      return { subscribed, listMatch, exists: true };
     };
 
-    const deleteBrevoContact = async (email) => {
+    const deleteBrevoContact = async (email, keepTransactional = true) => {
       requireBrevoKey();
+      if (keepTransactional) {
+        const response = await fetch(`https://api.brevo.com/v3/contacts/${encodeURIComponent(email)}`, {
+          method: 'PUT',
+          headers: {
+            'api-key': env.BREVO_API_KEY,
+            'content-type': 'application/json',
+            accept: 'application/json',
+          },
+          body: JSON.stringify({
+            email,
+            listIds: [],
+            emailBlacklisted: true,
+            updateEnabled: true,
+          }),
+        });
+        if (!response.ok && response.status !== 404) {
+          const errorText = await response.text();
+          throw new Error(errorText || 'Brevo unsubscribe failed');
+        }
+        return response.status;
+      }
       const response = await fetch(`https://api.brevo.com/v3/contacts/${encodeURIComponent(email)}`, {
         method: 'DELETE',
         headers: {
@@ -335,6 +359,45 @@ export default {
       );
     }
 
+    if (action === 'unsubscribe') {
+      if (!email) {
+        return jsonResponse({ ok: false, error: 'Missing email' }, 400);
+      }
+
+      requireBrevoKey();
+      requireSupabaseService();
+
+      let brevoFound = false;
+      let brevoRemoved = false;
+      let supabaseFound = false;
+      let supabaseRemoved = false;
+
+      const brevoStatus = await checkBrevoContact({ email, listId }).catch((error) => {
+        throw new Error(error?.message || 'Brevo lookup failed');
+      });
+      brevoFound = Boolean(brevoStatus?.exists);
+
+      if (brevoFound) {
+        await deleteBrevoContact(email, true);
+        brevoRemoved = true;
+      }
+
+      const supabaseResult = await supabaseDeleteUserByEmail(email);
+      supabaseRemoved = Boolean(supabaseResult?.deleted);
+      supabaseFound = Boolean(supabaseResult?.deleted);
+
+      const found = brevoFound || supabaseFound;
+
+      return jsonResponse({
+        ok: true,
+        found,
+        brevoFound,
+        brevoRemoved,
+        supabaseFound,
+        supabaseRemoved,
+      });
+    }
+
     // Forward to the site handler first to keep existing behavior.
     let siteOk = false;
     try {
@@ -359,11 +422,7 @@ export default {
           { status: 400, headers: { 'content-type': 'application/json', ...corsHeaders } }
         );
       }
-      const welcomeTemplateId = Number(
-        env.BREVO_WELCOME_TEMPLATE_ID ||
-        env.BREVO_TEMPLATE_2 ||
-        '2'
-      );
+      const welcomeTemplateId = Number(env.BREVO_WELCOME_TEMPLATE_ID || '');
 
       const headers = {
         'api-key': env.BREVO_API_KEY,
@@ -386,6 +445,7 @@ export default {
             email,
             attributes: firstName ? { FIRSTNAME: firstName } : {},
             updateEnabled: true,
+            emailBlacklisted: false,
             listIds: numericListId ? [numericListId] : undefined,
           };
 
@@ -417,7 +477,7 @@ export default {
         );
       }
 
-      if (welcomeTemplateId) {
+      if (Number.isFinite(welcomeTemplateId) && welcomeTemplateId > 0) {
         const welcomePayload = {
           to: [{ email, name: firstName || email }],
           templateId: welcomeTemplateId,
