@@ -6010,6 +6010,7 @@ document
                 options: {
                     data: {
                         lang: 'en',
+                        first_name: firstName,
                         welcomed: false,
                     },
                     ...(redirectUrl ? { emailRedirectTo: redirectUrl } : {}),
@@ -6036,6 +6037,7 @@ document
             localStorage.setItem('giftsRequested', 'true');
             sendSignupToNewsletter(form);
 
+            closeEmailModal();
             showSignupConfirmModal();
             showAuthMessage('');
         }
