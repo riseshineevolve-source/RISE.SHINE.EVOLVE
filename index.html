@@ -5952,13 +5952,20 @@ document
         }
 
         function sendSignupToNewsletter(form) {
-            if (!form) {
-                return;
-            }
-            const formData = new FormData(form);
+            const { firstName, email } = getAuthFormValues();
+            const formData = form ? new FormData(form) : new FormData();
             formData.delete('PASSWORD');
             formData.delete('password');
             formData.delete('userPassword');
+            if (firstName) {
+                formData.set('FIRSTNAME', firstName);
+            }
+            if (email) {
+                formData.set('EMAIL', email);
+            }
+            if (BREVO_LIST_ID) {
+                formData.set('brevoListId', BREVO_LIST_ID);
+            }
             formData.append('action', 'signup');
             sendToSite(formData);
         }
@@ -6022,7 +6029,7 @@ document
             if (error) {
                 const message = String(error.message || '');
                 if (message.toLowerCase().includes('already registered') || message.toLowerCase().includes('user already registered')) {
-                    showAuthMessage('An account for this email already exists. Please use Log In instead.', '#ff1493');
+                    showAuthMessage('You already have an account please log in.', '#ff1493');
                     setAuthMode('login');
                     return;
                 }
