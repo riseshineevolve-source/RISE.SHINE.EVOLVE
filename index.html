@@ -5835,8 +5835,8 @@ document
             }
 
             const user = session.user;
-            const welcomed = user?.user_metadata?.welcomed;
-            if (welcomed) {
+            const brevoSynced = user?.user_metadata?.brevo_synced;
+            if (brevoSynced) {
                 return;
             }
 
@@ -5859,7 +5859,7 @@ document
                 });
 
                 await supabaseClient.auth.updateUser({
-                    data: { welcomed: true },
+                    data: { welcomed: true, brevo_synced: true },
                 });
                 showThankYouPage();
             } catch (error) {
@@ -6021,6 +6021,7 @@ document
                         lang: 'en',
                         first_name: firstName,
                         welcomed: false,
+                        brevo_synced: false,
                     },
                     ...(redirectUrl ? { emailRedirectTo: redirectUrl } : {}),
                 },
@@ -6028,7 +6029,9 @@ document
 
             if (error) {
                 const message = String(error.message || '');
-                if (message.toLowerCase().includes('already registered') || message.toLowerCase().includes('user already registered')) {
+                if (message.toLowerCase().includes('already registered')
+                    || message.toLowerCase().includes('user already registered')
+                    || message.toLowerCase().includes('already exists')) {
                     showAuthMessage('You already have an account please log in.', '#ff1493');
                     setAuthMode('login');
                     return;
