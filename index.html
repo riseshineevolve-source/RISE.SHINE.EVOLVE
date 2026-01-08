@@ -389,12 +389,14 @@
             }
             .gift-overlay-inner {
                 width: 100%;
-                height: 68vh;
+                height: 100vh;
                 max-height: none;
+                border-radius: 0;
             }
             .gift-frame {
-                height: 64vh;
-                border-width: 2px;
+                height: 100vh;
+                border-width: 0;
+                border-radius: 0;
             }
             .gift-close-btn {
                 top: 8px;
@@ -4689,7 +4691,7 @@
     .ws-shell { flex: 1; padding: 0; }
     .ws-frame { width: 100%; height: 100vh; border: none; border-radius: 0; display: block; }
     @media (max-width: 720px) {
-      .ws-frame { height: 70vh; }
+      .ws-frame { height: 100vh; }
     }
   </style>
 </head>
@@ -5906,8 +5908,16 @@ document
             }
         }
 
+        function clearAuthMessage() {
+            const errorMsg = document.getElementById('errorMsg');
+            if (errorMsg) {
+                errorMsg.textContent = '';
+            }
+        }
+
         function setAuthMode(mode) {
             authMode = mode === 'login' ? 'login' : 'signup';
+            clearAuthMessage();
             const signUpBtn = document.getElementById('authModeSignUp');
             const loginBtn = document.getElementById('authModeLogin');
             const signupFields = document.getElementById('signupFields');
@@ -6842,6 +6852,7 @@ document
             if (errorMsg) {
                 errorMsg.textContent = '';
             }
+            clearAuthMessage();
             resetAuthPanel();
             localStorage.setItem('giftsRequested', 'true');
             if (window.location.hash === '#gifts') {
@@ -7007,6 +7018,12 @@ document
                         clearGiftsAccess();
                     }, 250);
                 });
+            }
+
+            const authForm = document.getElementById('sib-form');
+            if (authForm) {
+                authForm.addEventListener('input', clearAuthMessage);
+                authForm.addEventListener('focusin', clearAuthMessage);
             }
         });
 

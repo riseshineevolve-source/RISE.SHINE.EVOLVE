@@ -424,6 +424,7 @@ export default {
             email,
             attributes: firstName ? { FIRSTNAME: firstName } : {},
             updateEnabled: true,
+            emailBlacklisted: false,
             listIds: numericListId ? [numericListId] : undefined,
           };
 
