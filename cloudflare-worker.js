@@ -123,8 +123,29 @@ export default {
       return { subscribed, listMatch, exists: true };
     };
 
-    const deleteBrevoContact = async (email) => {
+    const deleteBrevoContact = async (email, keepTransactional = true) => {
       requireBrevoKey();
+      if (keepTransactional) {
+        const response = await fetch(`https://api.brevo.com/v3/contacts/${encodeURIComponent(email)}`, {
+          method: 'PUT',
+          headers: {
+            'api-key': env.BREVO_API_KEY,
+            'content-type': 'application/json',
+            accept: 'application/json',
+          },
+          body: JSON.stringify({
+            email,
+            listIds: [],
+            emailBlacklisted: true,
+            updateEnabled: true,
+          }),
+        });
+        if (!response.ok && response.status !== 404) {
+          const errorText = await response.text();
+          throw new Error(errorText || 'Brevo unsubscribe failed');
+        }
+        return response.status;
+      }
       const response = await fetch(`https://api.brevo.com/v3/contacts/${encodeURIComponent(email)}`, {
         method: 'DELETE',
         headers: {
@@ -357,7 +378,7 @@ export default {
       brevoFound = Boolean(brevoStatus?.exists);
 
       if (brevoFound) {
-        await deleteBrevoContact(email);
+        await deleteBrevoContact(email, true);
         brevoRemoved = true;
       }
 

@@ -1463,10 +1463,10 @@
   <div class="container">
    <h1 class="main-title">RISE.SHINE.EVOLVE</h1>
    <p class="subtitle">Empowering Learning Hub</p>
-    <div id="auth-action-chip" style="position: fixed; top: 16px; right: 18px; z-index: 15000; display: flex; align-items: center; gap: 8px; background: rgba(0, 0, 0, 0.6); border: 1px solid #ffd700; color: #ffd700; font-size: 0.62rem; font-weight: 700; padding: 6px 10px; border-radius: 12px; box-shadow: 0 0 10px rgba(255, 215, 0, 0.35); text-transform: uppercase; letter-spacing: 0.5px;">
-    <span id="auth-action-label">Log In</span>
+   <div id="auth-action-chip" style="position: fixed; top: 16px; right: 18px; z-index: 15000; display: flex; align-items: center; gap: 8px; background: rgba(0, 0, 0, 0.6); border: 1px solid #ffd700; color: #ffd700; font-size: 0.62rem; font-weight: 700; padding: 6px 10px; border-radius: 12px; box-shadow: 0 0 10px rgba(255, 215, 0, 0.35); text-transform: uppercase; letter-spacing: 0.5px;">
+    <span id="auth-action-label" style="display: none;">Log in as</span>
     <button type="button" id="auth-action-button" onclick="handleAuthActionClick()" style="background: transparent; border: 1px solid #ffd700; color: #ffd700; font-size: 0.62rem; font-weight: 700; padding: 3px 8px; border-radius: 9px; cursor: pointer; text-transform: uppercase;">Log In</button>
-    </div>
+   </div>
    <div class="info-tile" id="dynamic-info-tile">
     <div class="info-text">
      Join us on a journey where every child can <span class="word-rise">RISE</span>,<br>
@@ -2810,11 +2810,46 @@
       min-height: 100vh;
     }
 
+    @media (max-width: 720px) {
+      body {
+        height: 100vh;
+        overflow: hidden;
+        align-items: stretch;
+      }
+    }
+
     .hm-page {
       max-width: 1040px;
       width: 100%;
       margin: 14px auto 18px;
       padding: 0 12px;
+    }
+
+    @media (max-width: 720px) {
+      .hm-page {
+        height: 100vh;
+        margin: 0;
+        padding: 8px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .hm-page-header {
+        margin-bottom: 10px;
+      }
+
+      .hm-main-title {
+        font-size: 1.4rem;
+      }
+
+      .hm-main-subtitle {
+        font-size: 0.85rem;
+      }
+
+      .hm-tabs-wrapper {
+        margin: 12px 0 10px;
+      }
     }
 
     .hm-page-header {
@@ -3014,6 +3049,23 @@
       .hm-wheel-note,
       .hm-info-text {
         font-size: 0.9rem;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .hm-page {
+        height: 100vh;
+        overflow: hidden;
+      }
+
+      .hm-panel-inner {
+        max-height: calc(100vh - 220px);
+        overflow: hidden;
+      }
+
+      .hm-wheel-visual {
+        width: 128px;
+        height: 128px;
       }
     }
 
@@ -5342,6 +5394,10 @@ document
       color: var(--gold);
       box-shadow: 0 0 18px rgba(255,215,0,0.55);
     }
+    .word-grid td.hint {
+      background: rgba(138,43,226,0.25);
+      box-shadow: 0 0 18px rgba(138,43,226,0.55);
+    }
     .panel {
       background: rgba(0,0,0,0.65);
       border: 2px solid var(--purple);
@@ -5377,6 +5433,10 @@ document
       text-decoration: line-through;
       background: rgba(255,215,0,0.12);
       box-shadow: 0 0 15px rgba(255,215,0,0.4);
+    }
+    .word-chip.hint {
+      border-color: var(--gold);
+      color: var(--gold);
     }
     .instructions {
       margin-top: 12px;
@@ -5457,6 +5517,24 @@ document
     }
 
     @media (max-width: 900px) { .layout { grid-template-columns: 1fr; } }
+    @media (max-width: 720px) {
+      body {
+        height: 100vh;
+        overflow: hidden;
+        padding: 12px 8px 16px;
+      }
+      .shell {
+        height: 100%;
+        padding: 18px 14px;
+      }
+      .grid-shell {
+        max-height: 58vh;
+        overflow: hidden;
+      }
+      .panel {
+        padding: 12px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -5469,13 +5547,19 @@ document
           <span class="puzzle-name" id="puzzle-name"></span>
           <button class="action-btn ghost" id="nextPuzzleBtn">New words ↻</button>
         </div>
+        <div class="instructions">
+          Tap a starting letter, tap the ending letter in a straight line, and see if you found a hidden word.
+          <br><span style="color:#ffd700;">Words can be written in any direction — forward, backward, up, down, and diagonal.</span>
+        </div>
         <table class="word-grid" id="wordGrid" aria-label="Word search grid"></table>
-        <div class="instructions">Tap a starting letter, tap the ending letter in a straight line, and see if you found a hidden word.</div>
         <div class="status" id="status"></div>
       </div>
       <div class="panel">
         <h2>Find These Words</h2>
         <div class="word-list" id="wordList"></div>
+        <div style="margin-top: 14px; text-align: center;">
+          <button class="action-btn" id="hintBtn">Hint ✶</button>
+        </div>
       </div>
     </div>
   </div>
@@ -5613,6 +5697,47 @@ document
       return cells;
     }
 
+    function findWordPath(target) {
+      const targetUpper = target.toUpperCase();
+      const reversed = targetUpper.split('').reverse().join('');
+      for (let r = 0; r < gridSize; r++) {
+        for (let c = 0; c < gridSize; c++) {
+          for (const [dr, dc] of directions) {
+            const endR = r + dr * (targetUpper.length - 1);
+            const endC = c + dc * (targetUpper.length - 1);
+            if (endR < 0 || endR >= gridSize || endC < 0 || endC >= gridSize) continue;
+            const path = buildPath(r, c, endR, endC);
+            if (!path) continue;
+            const word = path.map(pos => grid[pos.r][pos.c]).join('');
+            if (word === targetUpper || word === reversed) {
+              return path;
+            }
+          }
+        }
+      }
+      return null;
+    }
+
+    function clearHints() {
+      document.querySelectorAll('.word-grid td.hint').forEach(td => td.classList.remove('hint'));
+      document.querySelectorAll('.word-chip.hint').forEach(chip => chip.classList.remove('hint'));
+    }
+
+    function showHint() {
+      clearHints();
+      const remaining = words.filter(word => !foundWords.has(word));
+      if (remaining.length === 0) return;
+      const target = remaining[0];
+      const path = findWordPath(target);
+      if (!path) return;
+      path.forEach(({ r, c }) => {
+        const cell = document.querySelector(`td[data-row="${r}"][data-col="${c}"]`);
+        if (cell) cell.classList.add('hint');
+      });
+      const chip = document.getElementById(`word-${target}`);
+      if (chip) chip.classList.add('hint');
+    }
+
     function markFound(pathCells, word) {
       pathCells.forEach(({ r, c }) => {
         const cell = document.querySelector(`td[data-row="${r}"][data-col="${c}"]`);
@@ -5623,7 +5748,11 @@ document
       });
       foundWords.add(word);
       const chip = document.getElementById(`word-${word}`);
-      if (chip) chip.classList.add('found');
+      if (chip) {
+        chip.classList.add('found');
+        chip.classList.remove('hint');
+      }
+      clearHints();
       updateStatus();
       if (foundWords.size === words.length) {
         celebrate();
@@ -5707,6 +5836,7 @@ document
       words = puzzleSets[activePuzzleIndex].words.map(w => w.replace(/\s+/g, '').toUpperCase());
       foundWords = new Set();
       startCell = null;
+      clearHints();
       grid = buildGrid(words);
       renderGrid();
       renderWords();
@@ -5720,6 +5850,7 @@ document
 
     document.getElementById('nextPuzzleBtn').addEventListener('click', loadNextPuzzle);
     document.getElementById('playAgainBtn').addEventListener('click', loadNextPuzzle);
+    document.getElementById('hintBtn').addEventListener('click', showHint);
 
     loadPuzzle(0);
   </script>
@@ -5795,6 +5926,7 @@ document
             const button = document.getElementById('auth-action-button');
             const label = document.getElementById('auth-action-label');
             if (label) {
+                label.style.display = isVisible ? 'inline' : 'none';
                 label.textContent = isVisible && email ? `Log in as ${email}` : 'Log In';
             }
             if (button) {
@@ -5819,6 +5951,7 @@ document
             hasGiftsAccess = false;
             setLoggedInBadge(false);
             clearGiftsAccess();
+            localStorage.setItem('manualLoggedOut', 'true');
             selectTab(getTabElement('main'), 'main');
         }
 
@@ -5841,6 +5974,11 @@ document
         async function checkUser() {
             if (!supabaseClient) {
                 setLoggedInBadge(false);
+                return;
+            }
+            if (localStorage.getItem('manualLoggedOut') === 'true') {
+                setLoggedInBadge(false);
+                hasGiftsAccess = false;
                 return;
             }
             const { data: { session } } = await supabaseClient.auth.getSession();
