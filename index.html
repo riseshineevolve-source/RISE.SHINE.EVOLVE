@@ -5798,7 +5798,9 @@ document
 
         const SUPABASE_URL = 'https://gegaodrfqwhrfdqtiokb.supabase.co';
         const SUPABASE_ANON_KEY = 'sb_publishable_eQ8wSa9kvfNwu8Uz033h-A_IFDuUAaK';
-        const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        const supabaseClient = window.supabase
+            ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+            : null;
         let hasGiftsAccess = false;
         let authMode = null;
 
@@ -5819,6 +5821,9 @@ document
         }
 
         async function checkUser() {
+            if (!supabaseClient) {
+                return;
+            }
             const { data: { session } } = await supabaseClient.auth.getSession();
             hasGiftsAccess = !!session;
             if (!session) {
@@ -5862,9 +5867,11 @@ document
             }
         }
 
-        supabaseClient.auth.onAuthStateChange(() => {
-            checkUser();
-        });
+        if (supabaseClient) {
+            supabaseClient.auth.onAuthStateChange(() => {
+                checkUser();
+            });
+        }
 
         function showAuthMessage(message, color = '#ffd700') {
             const errorMsg = document.getElementById('errorMsg');
@@ -6004,6 +6011,10 @@ document
             const redirectUrl = (window.location.origin && window.location.origin.startsWith('http'))
                 ? `${window.location.origin}${window.location.pathname}#gifts`
                 : undefined;
+            if (!supabaseClient) {
+                showAuthMessage('Signup is unavailable right now. Please try again later.', '#ff1493');
+                return;
+            }
             const { error } = await supabaseClient.auth.signUp({
                 email,
                 password,
@@ -6047,6 +6058,10 @@ document
                 return;
             }
 
+            if (!supabaseClient) {
+                showAuthMessage('Login is unavailable right now. Please try again later.', '#ff1493');
+                return;
+            }
             const { error } = await supabaseClient.auth.signInWithPassword({
                 email,
                 password,
