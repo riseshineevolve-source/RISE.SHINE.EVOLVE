@@ -101,6 +101,9 @@ export default {
       });
 
       const bodyText = await brevoResp.text();
+      if (brevoResp.status === 404) {
+        return { subscribed: false, listMatch: false, exists: false };
+      }
       if (!brevoResp.ok) {
         throw new Error(bodyText || 'Brevo lookup failed');
       }
@@ -117,7 +120,7 @@ export default {
       const notBlacklisted = parsed ? parsed.emailBlacklisted === false : false;
       const subscribed = listMatch && notBlacklisted;
 
-      return { subscribed, listMatch };
+      return { subscribed, listMatch, exists: true };
     };
 
     const deleteBrevoContact = async (email) => {
@@ -333,6 +336,45 @@ export default {
         }),
         { headers: { 'content-type': 'application/json', ...corsHeaders } }
       );
+    }
+
+    if (action === 'unsubscribe') {
+      if (!email) {
+        return jsonResponse({ ok: false, error: 'Missing email' }, 400);
+      }
+
+      requireBrevoKey();
+      requireSupabaseService();
+
+      let brevoFound = false;
+      let brevoRemoved = false;
+      let supabaseFound = false;
+      let supabaseRemoved = false;
+
+      const brevoStatus = await checkBrevoContact({ email, listId }).catch((error) => {
+        throw new Error(error?.message || 'Brevo lookup failed');
+      });
+      brevoFound = Boolean(brevoStatus?.exists);
+
+      if (brevoFound) {
+        await deleteBrevoContact(email);
+        brevoRemoved = true;
+      }
+
+      const supabaseResult = await supabaseDeleteUserByEmail(email);
+      supabaseRemoved = Boolean(supabaseResult?.deleted);
+      supabaseFound = Boolean(supabaseResult?.deleted);
+
+      const found = brevoFound || supabaseFound;
+
+      return jsonResponse({
+        ok: true,
+        found,
+        brevoFound,
+        brevoRemoved,
+        supabaseFound,
+        supabaseRemoved,
+      });
     }
 
     // Forward to the site handler first to keep existing behavior.
