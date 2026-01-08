@@ -177,8 +177,8 @@
 
         /* Brevo compact embed styling */
         .brevo-embed .sib-container--large {
-            background: #060606 !important;
-            border: 0 !important;
+            background: #000000 !important;
+            border: 2px solid #8A2BE2 !important;
             box-shadow: 0 0 18px rgba(138, 43, 226, 0.5);
             max-width: 330px !important;
             margin: 0 auto !important;
@@ -282,18 +282,18 @@
         .brevo-embed input[type="text"],
         .brevo-embed input[type="email"],
         .brevo-embed .form__entry input {
-            background: #050505 !important;
-            border: 1px solid #8A2BE2 !important;
+            background: #000000 !important;
+            border: 2px solid rgba(138, 43, 226, 0.7) !important;
             color: #ffffff !important;
-            padding: 6px 8px !important;
-            font-size: 0.85rem !important;
-            line-height: 1.25 !important;
-            border-radius: 10px !important;
-            box-shadow: 0 0 10px rgba(138, 43, 226, 0.35);
+            padding: 8px 10px !important;
+            font-size: 0.9rem !important;
+            line-height: 1.3 !important;
+            border-radius: 12px !important;
+            box-shadow: 0 0 14px rgba(138, 43, 226, 0.45);
         }
 
         .brevo-embed .input::placeholder {
-            color: #888 !important;
+            color: #777 !important;
         }
 
         .brevo-embed .sib-form-block__button {
@@ -324,7 +324,7 @@
         .gift-overlay-inner {
             position: relative;
             width: min(1100px, 96vw);
-            height: min(92vh, 760px);
+            height: min(88vh, 700px);
             max-height: calc(100vh - 36px);
             margin: 0 auto;
             display: flex;
@@ -383,11 +383,11 @@
             }
             .gift-overlay-inner {
                 width: 100%;
-                height: 80vh;
+                height: 68vh;
                 max-height: none;
             }
             .gift-frame {
-                height: 74vh;
+                height: 64vh;
                 border-width: 2px;
             }
             .gift-close-btn {
@@ -4681,6 +4681,9 @@
     body { display: flex; align-items: stretch; }
     .ws-shell { flex: 1; padding: 0; }
     .ws-frame { width: 100%; height: 100vh; border: none; border-radius: 0; display: block; }
+    @media (max-width: 720px) {
+      .ws-frame { height: 70vh; }
+    }
   </style>
 </head>
 <body>
