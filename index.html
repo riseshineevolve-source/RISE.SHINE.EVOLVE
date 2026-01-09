@@ -7078,7 +7078,7 @@ document
             }
             if (messageBox) {
                 messageBox.style.color = '#ffd700';
-                messageBox.textContent = 'Processing your request...';
+                messageBox.textContent = 'Processing your unsubscribe request...';
             }
 
             const workerEndpoint = (typeof CLOUDFLARE_WORKER_ENDPOINT === 'string' && CLOUDFLARE_WORKER_ENDPOINT.trim())
@@ -7108,14 +7108,14 @@ document
             })
                 .then(async (response) => {
                     const data = await response.json().catch(() => ({}));
-                    if (!response.ok) {
-                        throw new Error(data?.error || 'Unable to unsubscribe.');
-                    }
                     const found = Boolean(
                         data?.found ||
                         data?.brevoFound ||
                         data?.supabaseFound
                     );
+                    if (!response.ok) {
+                        throw new Error(data?.error || 'Unable to unsubscribe.');
+                    }
                     if (!found) {
                         if (messageBox) {
                             messageBox.style.color = '#ff69b4';
@@ -7126,7 +7126,10 @@ document
                     clearGiftsAccess();
                     if (messageBox) {
                         messageBox.style.color = '#ffd700';
-                        messageBox.textContent = "It's a pity you resign — you can always join back our community.";
+                        const emailSent = Boolean(data?.unsubscribeEmailSent);
+                        messageBox.textContent = emailSent
+                            ? "You're unsubscribed. A confirmation email has been sent."
+                            : "You're unsubscribed. You can rejoin anytime.";
                     }
                     setTimeout(() => {
                         selectTab(document.querySelector('.tab'), 'main');
