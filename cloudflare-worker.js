@@ -519,10 +519,10 @@ export default {
         try {
           const brevoStatus = await checkBrevoContact({ email, listId });
           brevoFound = Boolean(brevoStatus?.exists);
-        if (brevoFound) {
-          await deleteBrevoContact(email, false);
-          brevoRemoved = true;
-        }
+          if (brevoFound) {
+            await deleteBrevoContact(email, false);
+            brevoRemoved = true;
+          }
         } catch (error) {
           brevoError = error?.message || 'Brevo unsubscribe failed';
         }
@@ -550,7 +550,7 @@ export default {
         }
       }
 
-      const ok = !brevoError && !supabaseError ? true : Boolean(brevoRemoved || supabaseRemoved);
+      const ok = !brevoError && !supabaseError && supabaseRemoved;
       return jsonResponse(
         {
           ok,
@@ -561,7 +561,7 @@ export default {
           supabaseRemoved,
           unsubscribeEmailSent,
           brevoError,
-          supabaseError,
+          supabaseError: supabaseError || (supabaseRemoved ? null : 'Supabase account not removed'),
         },
         ok ? 200 : 500
       );

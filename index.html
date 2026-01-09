@@ -2096,7 +2096,15 @@
                             </div>
                             <div></div>
                             <div id="sib-container-unsub" class="sib-container--small sib-container--vertical" style="text-align:center;background-color:rgba(255,255,255,1);max-width:220px;border-radius:3px;border-width:1px;border-color:#C0CCD9;border-style:solid;direction:ltr">
+                                <p class="unsubscribe-message" style="color:#ffd700;font-size:0.8rem;margin:0 0 10px 0;"></p>
                                 <form id="sib-form-unsub" method="POST" action="https://63a754d7.sibforms.com/serve/MUIFAHRBA_Iv3SiSn_XeKSFvIisPlTNG_iRhG8U3Im8rCw3Wvg8wsz0g_d1D_-m0mms0vaPRI4wzpSvtL8tTB42GYzXsPdvqXYbz5ES88Ee2hI3Wi8a3wPFDCeOP6djSEtF-XORDcvuinheDAJltJqqyBUOJsqySeHdR0JXIm8tbj3XtT8O4MUAxH73NZNf0iCLspoq4Luueuc98jA==" data-type="unsubscription" onsubmit="handleUnsubscribe(event)">
+                                    <div style="padding:8px 0;">
+                                        <div class="sib-form-block" style="text-align:center">
+                                            <button class="sib-form-block__button sib-form-block__button-with-loader" style="font-size:9px;text-align:center;font-weight:700;font-family:Helvetica,sans-serif;color:#FFFFFF;background-color:#121313;border-radius:6px;border-width:0px;cursor:pointer;padding:5px 8px;" form="sib-form-unsub" type="submit">
+                                                <svg class="icon clickable__icon progress-indicator__icon sib-hide-loader-icon" viewBox="0 0 512 512"><path d="M460.116 373.846l-20.823-12.022c-5.541-3.199-7.54-10.159-4.663-15.874 30.137-59.886 28.343-131.652-5.386-189.946-33.641-58.394-94.896-95.833-161.827-99.676C261.028 55.961 256 50.751 256 44.352V20.309c0-6.904 5.808-12.337 12.703-11.982 83.556 4.306 160.163 50.864 202.11 123.677 42.063 72.696 44.079 162.316 6.031 236.832-3.14 6.148-10.75 8.461-16.728 5.01z"/></svg> UNSUBSCRIBE &amp; REMOVE THE ACCOUNT
+                                            </button>
+                                        </div>
+                                    </div>
                                     <div style="padding:8px 0;">
                                         <div class="sib-input sib-form-block">
                                             <div class="form__entry entry_block">
@@ -2109,17 +2117,9 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div style="padding:8px 0;">
-                                        <div class="sib-form-block" style="text-align:center">
-                                            <button class="sib-form-block__button sib-form-block__button-with-loader" style="font-size:9px;text-align:center;font-weight:700;font-family:Helvetica,sans-serif;color:#FFFFFF;background-color:#121313;border-radius:6px;border-width:0px;cursor:pointer;padding:5px 8px;" form="sib-form-unsub" type="submit">
-                                                <svg class="icon clickable__icon progress-indicator__icon sib-hide-loader-icon" viewBox="0 0 512 512"><path d="M460.116 373.846l-20.823-12.022c-5.541-3.199-7.54-10.159-4.663-15.874 30.137-59.886 28.343-131.652-5.386-189.946-33.641-58.394-94.896-95.833-161.827-99.676C261.028 55.961 256 50.751 256 44.352V20.309c0-6.904 5.808-12.337 12.703-11.982 83.556 4.306 160.163 50.864 202.11 123.677 42.063 72.696 44.079 162.316 6.031 236.832-3.14 6.148-10.75 8.461-16.728 5.01z"/></svg> UNSUBSCRIBE &amp; REMOVE THE ACCOUNT
-                                            </button>
-                                        </div>
-                                    </div>
                                     <input type="text" name="email_address_check" value="" class="input--hidden">
                                     <input type="hidden" name="locale" value="en">
                                 </form>
-                                <p class="unsubscribe-message" style="color:#ffd700;font-size:0.8rem;margin:6px 0 0 0;"></p>
                             </div>
                         </div>
                     </div>
@@ -5543,11 +5543,12 @@ document
     <p class="subtitle">Your mission is to find every word from the list.</p>
     <div class="layout">
       <div class="grid-shell">
+        <div class="status" id="status"></div>
         <div class="instructions" style="font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.4px;">
           Tap a starting letter, tap the ending letter and see if you found a hidden word.
+          <br><span style="color:#ffd700; font-size: 0.82rem; text-transform: none; letter-spacing: 0.2px;">Words can be written in any direction — forward, backward, up, down, and diagonal.</span>
         </div>
         <table class="word-grid" id="wordGrid" aria-label="Word search grid"></table>
-        <div class="status" id="status"></div>
       </div>
       <div class="panel">
         <div class="puzzle-meta" style="justify-content: center;">
@@ -5710,8 +5711,11 @@ document
             const path = buildPath(r, c, endR, endC);
             if (!path) continue;
             const word = path.map(pos => grid[pos.r][pos.c]).join('');
-            if (word === targetUpper || word === reversed) {
-              return path;
+            if (word === targetUpper) {
+              return { path, reversed: false };
+            }
+            if (word === reversed) {
+              return { path, reversed: true };
             }
           }
         }
@@ -5729,11 +5733,11 @@ document
       const remaining = words.filter(word => !foundWords.has(word));
       if (remaining.length === 0) return;
       const target = remaining[0];
-      const path = findWordPath(target);
-      if (!path) return;
-      const firstCell = path[0];
-      if (firstCell) {
-        const cell = document.querySelector(`td[data-row="${firstCell.r}"][data-col="${firstCell.c}"]`);
+      const result = findWordPath(target);
+      if (!result) return;
+      const hintCell = result.reversed ? result.path[result.path.length - 1] : result.path[0];
+      if (hintCell) {
+        const cell = document.querySelector(`td[data-row="${hintCell.r}"][data-col="${hintCell.c}"]`);
         if (cell) cell.classList.add('hint');
       }
       const chip = document.getElementById(`word-${target}`);
@@ -5790,7 +5794,8 @@ document
 
     function updateStatus() {
       const status = document.getElementById('status');
-      status.textContent = `${foundWords.size}/${words.length} words found • ${puzzleSets[activePuzzleIndex].title}`;
+      if (!status) return;
+      status.textContent = `${foundWords.size}/${words.length} words found`;
     }
 
     function clearConfetti() {
@@ -7133,9 +7138,6 @@ document
                         messageBox.style.color = '#ffd700';
                         messageBox.innerHTML = 'You\u2019ve been unsubscribed.<br><br>We believe in choosing what supports your growth.<br>Whenever you feel ready- Rise.Shine.Evolve. with us again.';
                     }
-                    setTimeout(() => {
-                        selectTab(document.querySelector('.tab'), 'main');
-                    }, 1200);
                 })
                 .catch((error) => {
                     if (messageBox) {
@@ -7161,6 +7163,16 @@ document
 
             const unsubForm = document.getElementById('sib-form-unsub');
             if (unsubForm) {
+                const clearMessage = () => {
+                    const msg = unsubForm.parentElement
+                        ? unsubForm.parentElement.querySelector('.unsubscribe-message')
+                        : document.querySelector('.unsubscribe-message');
+                    if (msg) {
+                        msg.textContent = '';
+                    }
+                };
+                unsubForm.addEventListener('focusin', clearMessage);
+                unsubForm.addEventListener('input', clearMessage);
                 unsubForm.addEventListener('submit', () => {
                     setTimeout(() => {
                         clearGiftsAccess();
