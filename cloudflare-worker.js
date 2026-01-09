@@ -503,7 +503,7 @@ export default {
         supabaseError = error?.message || 'Missing Supabase configuration';
       }
 
-      if (brevoError || supabaseError) {
+      if (brevoError && supabaseError) {
         return jsonResponse(
           {
             ok: false,
@@ -515,23 +515,27 @@ export default {
         );
       }
 
-      try {
-        const brevoStatus = await checkBrevoContact({ email, listId });
-        brevoFound = Boolean(brevoStatus?.exists);
-        if (brevoFound) {
-          await deleteBrevoContact(email, true);
-          brevoRemoved = true;
+      if (!brevoError) {
+        try {
+          const brevoStatus = await checkBrevoContact({ email, listId });
+          brevoFound = Boolean(brevoStatus?.exists);
+          if (brevoFound) {
+            await deleteBrevoContact(email, true);
+            brevoRemoved = true;
+          }
+        } catch (error) {
+          brevoError = error?.message || 'Brevo unsubscribe failed';
         }
-      } catch (error) {
-        brevoError = error?.message || 'Brevo unsubscribe failed';
       }
 
-      try {
-        const supabaseResult = await supabaseDeleteUserByEmail(email);
-        supabaseRemoved = Boolean(supabaseResult?.deleted);
-        supabaseFound = Boolean(supabaseResult?.deleted);
-      } catch (error) {
-        supabaseError = error?.message || 'Supabase delete failed';
+      if (!supabaseError) {
+        try {
+          const supabaseResult = await supabaseDeleteUserByEmail(email);
+          supabaseRemoved = Boolean(supabaseResult?.deleted);
+          supabaseFound = Boolean(supabaseResult?.deleted);
+        } catch (error) {
+          supabaseError = error?.message || 'Supabase delete failed';
+        }
       }
 
       const found = brevoFound || supabaseFound;
@@ -546,7 +550,7 @@ export default {
         }
       }
 
-      const ok = !brevoError && !supabaseError;
+      const ok = !brevoError && !supabaseError ? true : Boolean(brevoRemoved || supabaseRemoved);
       return jsonResponse(
         {
           ok,

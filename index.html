@@ -5302,7 +5302,7 @@ document
     * { box-sizing: border-box; }
     body {
       margin: 0;
-      padding: 30px 12px 50px;
+      padding: 18px 12px 28px;
       background: radial-gradient(circle at 20% 20%, rgba(138,43,226,0.15), transparent 30%),
                   radial-gradient(circle at 80% 10%, rgba(255,215,0,0.18), transparent 32%),
                   radial-gradient(circle at 50% 80%, rgba(138,43,226,0.22), transparent 38%),
@@ -5319,13 +5319,13 @@ document
       background: linear-gradient(145deg, rgba(0,0,0,0.9), rgba(18,18,28,0.9));
       border: 3px solid var(--purple);
       border-radius: 22px;
-      padding: 28px 22px;
+      padding: 20px 18px;
       box-shadow: 0 0 35px rgba(138,43,226,0.55), 0 0 65px rgba(255,215,0,0.25);
     }
     h1 {
       text-align: center;
-      margin: 0 0 8px 0;
-      font-size: 2rem;
+      margin: 0 0 6px 0;
+      font-size: 1.6rem;
       letter-spacing: 1px;
       background: linear-gradient(90deg, var(--purple), #9932CC, var(--gold));
       -webkit-background-clip: text;
@@ -5335,22 +5335,22 @@ document
     }
     .subtitle {
       text-align: center;
-      margin: 0 0 24px 0;
-      color: var(--gold);
+      margin: 0 0 16px 0;
+      color: #ffffff;
       font-weight: bold;
       letter-spacing: 0.3px;
     }
     .layout {
       display: grid;
       grid-template-columns: 2fr 1fr;
-      gap: 22px;
+      gap: 16px;
       align-items: start;
     }
     .grid-shell {
       background: rgba(0,0,0,0.7);
       border: 2px solid var(--gold);
       border-radius: 16px;
-      padding: 16px;
+      padding: 12px;
       box-shadow: inset 0 0 18px rgba(255,215,0,0.25);
     }
     .puzzle-meta {
@@ -5374,8 +5374,8 @@ document
       border: 1px solid rgba(255,215,0,0.35);
       text-align: center;
       font-weight: bold;
-      font-size: 1.05rem;
-      padding: 8px 0;
+      font-size: 0.95rem;
+      padding: 6px 0;
       color: #ffffff;
       cursor: pointer;
       transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
@@ -5439,13 +5439,13 @@ document
       color: var(--gold);
     }
     .instructions {
-      margin-top: 12px;
-      font-size: 0.95rem;
+      margin-top: 10px;
+      font-size: 0.9rem;
       color: #dcdcdc;
       text-align: center;
     }
     .status {
-      margin-top: 14px;
+      margin-top: 10px;
       text-align: center;
       font-weight: bold;
       color: var(--gold);
@@ -5462,7 +5462,7 @@ document
       box-shadow: 0 0 12px rgba(138,43,226,0.45);
       transition: transform 0.2s ease, box-shadow 0.2s ease;
       text-transform: uppercase;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
     }
     .action-btn:hover { transform: translateY(-1px); box-shadow: 0 0 16px rgba(255,215,0,0.45); }
     .action-btn.ghost { background: rgba(0,0,0,0.45); color: var(--gold); }
@@ -5525,10 +5525,10 @@ document
       }
       .shell {
         height: 100%;
-        padding: 18px 14px;
+        padding: 14px 12px;
       }
       .grid-shell {
-        max-height: 58vh;
+        max-height: 52vh;
         overflow: hidden;
       }
       .panel {
@@ -5547,9 +5547,8 @@ document
           <span class="puzzle-name" id="puzzle-name"></span>
           <button class="action-btn ghost" id="nextPuzzleBtn">New words ↻</button>
         </div>
-        <div class="instructions" style="font-size: 1.05rem; text-transform: uppercase; letter-spacing: 0.6px;">
+        <div class="instructions" style="font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.4px;">
           Tap a starting letter, tap the ending letter and see if you found a hidden word.
-          <br><span style="color:#ffd700; font-size: 0.82rem; text-transform: none; letter-spacing: 0.2px;">Words can be written in any direction — forward, backward, up, down, and diagonal.</span>
         </div>
         <table class="word-grid" id="wordGrid" aria-label="Word search grid"></table>
         <div class="status" id="status"></div>
