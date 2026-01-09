@@ -5540,16 +5540,16 @@ document
 <body>
   <div class="shell">
     <h1>The Happy Makers Word Search</h1>
-    <p class="subtitle">Finish a puzzle to unlock fresh Happy Makers words, confetti and a new round automatically.</p>
+    <p class="subtitle">Your mission is to find every word from the list.</p>
     <div class="layout">
       <div class="grid-shell">
         <div class="puzzle-meta">
           <span class="puzzle-name" id="puzzle-name"></span>
           <button class="action-btn ghost" id="nextPuzzleBtn">New words ↻</button>
         </div>
-        <div class="instructions">
+        <div class="instructions" style="font-size: 1.05rem; text-transform: uppercase; letter-spacing: 0.6px;">
           Tap a starting letter, tap the ending letter and see if you found a hidden word.
-          <br><span style="color:#ffd700;">Words can be written in any direction — forward, backward, up, down, and diagonal.</span>
+          <br><span style="color:#ffd700; font-size: 0.82rem; text-transform: none; letter-spacing: 0.2px;">Words can be written in any direction — forward, backward, up, down, and diagonal.</span>
         </div>
         <table class="word-grid" id="wordGrid" aria-label="Word search grid"></table>
         <div class="status" id="status"></div>
@@ -5577,7 +5577,7 @@ document
     const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     const gridSize = 12;
     const puzzleSets = [
-      { title: 'Golden Spark', words: ['RISE','SHINE','EVOLVE','GOLD','PURPLE','SPARK','BRIGHT','ENERGY','CALM','JOY','GLOW','GIFT'] },
+      { title: 'Happy Makers Word Search', words: ['RISE','SHINE','EVOLVE','GOLD','PURPLE','SPARK','BRIGHT','ENERGY','CALM','JOY','GLOW','GIFT'] },
       { title: 'Happy Makers Crew', words: ['MIMI','LULI','DILO','ALIO','NINI','BIBI','MOTHER','FATHER','FAMILY','CREW','LOVE','SMILE'] },
       { title: 'Maker Magic', words: ['HAPPY','MAKERS','MAGIC','PLAY','CREATE','COLOR','LAUGH','HEART','BRAVE','BOLD','KIND','SPIRIT'] },
       { title: 'Adventure Sparks', words: ['TRAVEL','PUZZLE','QUEST','STUDIO','IDEAS','WORDS','HEROES','STARS','MOON','SUN','DREAM','GLOW'] },
@@ -7133,7 +7133,7 @@ document
                 .catch((error) => {
                     if (messageBox) {
                         messageBox.style.color = '#ff69b4';
-                        messageBox.textContent = `Unsubscribe failed: ${error.message || 'Please try again.'}`;
+                        messageBox.textContent = 'Unsubscribe failed. Please try again in a moment.';
                     }
                 });
         }
