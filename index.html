@@ -7068,7 +7068,7 @@ document
             if (messageBox) {
                 messageBox.textContent = '';
             }
-            const emailValue = emailInput ? emailInput.value.trim() : '';
+            const emailValue = emailInput ? emailInput.value.trim().toLowerCase() : '';
             if (!emailValue || !emailValue.includes('@') || !emailValue.includes('.')) {
                 if (messageBox) {
                     messageBox.style.color = '#ff69b4';
@@ -7106,9 +7106,6 @@ document
             })
                 .then(async (response) => {
                     const data = await response.json().catch(() => ({}));
-                    if (!response.ok) {
-                        throw new Error(data?.error || 'Unable to unsubscribe.');
-                    }
                     const found = Boolean(
                         data?.found ||
                         data?.brevoFound ||
@@ -7121,6 +7118,9 @@ document
                         }
                         return;
                     }
+                    if (!response.ok) {
+                        throw new Error(data?.error || 'Unable to unsubscribe.');
+                    }
                     clearGiftsAccess();
                     if (messageBox) {
                         messageBox.style.color = '#ffd700';
@@ -7130,10 +7130,10 @@ document
                         selectTab(document.querySelector('.tab'), 'main');
                     }, 1200);
                 })
-                .catch((error) => {
+                .catch(() => {
                     if (messageBox) {
                         messageBox.style.color = '#ff69b4';
-                        messageBox.textContent = 'Unsubscribe failed. Please try again in a moment.';
+                        messageBox.textContent = 'Unsubscribe is unavailable right now. Please try again later.';
                     }
                 });
         }
