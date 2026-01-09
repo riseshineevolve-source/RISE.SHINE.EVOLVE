@@ -7114,7 +7114,11 @@ document
                         data?.supabaseFound
                     );
                     if (!response.ok) {
-                        throw new Error(data?.error || 'Unable to unsubscribe.');
+                        if (messageBox) {
+                            messageBox.style.color = '#ff69b4';
+                            messageBox.textContent = data?.error || 'Unable to unsubscribe.';
+                        }
+                        return;
                     }
                     if (!found) {
                         if (messageBox) {
@@ -7132,10 +7136,10 @@ document
                         selectTab(document.querySelector('.tab'), 'main');
                     }, 1200);
                 })
-                .catch(() => {
+                .catch((error) => {
                     if (messageBox) {
                         messageBox.style.color = '#ff69b4';
-                        messageBox.textContent = 'Unsubscribe is unavailable right now. Please try again later.';
+                        messageBox.textContent = error?.message || 'Unsubscribe is unavailable right now. Please try again later.';
                     }
                 });
         }
