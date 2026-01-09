@@ -5548,7 +5548,7 @@ document
           <button class="action-btn ghost" id="nextPuzzleBtn">New words ↻</button>
         </div>
         <div class="instructions">
-          Tap a starting letter, tap the ending letter in a straight line, and see if you found a hidden word.
+          Tap a starting letter, tap the ending letter and see if you found a hidden word.
           <br><span style="color:#ffd700;">Words can be written in any direction — forward, backward, up, down, and diagonal.</span>
         </div>
         <table class="word-grid" id="wordGrid" aria-label="Word search grid"></table>
@@ -5577,7 +5577,7 @@ document
     const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     const gridSize = 12;
     const puzzleSets = [
-      { title: 'Rise • Shine • Evolve', words: ['RISE','SHINE','EVOLVE','GOLD','PURPLE','SPARK','BRIGHT','ENERGY','CALM','JOY','GLOW','GIFT'] },
+      { title: 'Golden Spark', words: ['RISE','SHINE','EVOLVE','GOLD','PURPLE','SPARK','BRIGHT','ENERGY','CALM','JOY','GLOW','GIFT'] },
       { title: 'Happy Makers Crew', words: ['MIMI','LULI','DILO','ALIO','NINI','BIBI','MOTHER','FATHER','FAMILY','CREW','LOVE','SMILE'] },
       { title: 'Maker Magic', words: ['HAPPY','MAKERS','MAGIC','PLAY','CREATE','COLOR','LAUGH','HEART','BRAVE','BOLD','KIND','SPIRIT'] },
       { title: 'Adventure Sparks', words: ['TRAVEL','PUZZLE','QUEST','STUDIO','IDEAS','WORDS','HEROES','STARS','MOON','SUN','DREAM','GLOW'] },
@@ -5730,10 +5730,11 @@ document
       const target = remaining[0];
       const path = findWordPath(target);
       if (!path) return;
-      path.forEach(({ r, c }) => {
-        const cell = document.querySelector(`td[data-row="${r}"][data-col="${c}"]`);
+      const firstCell = path[0];
+      if (firstCell) {
+        const cell = document.querySelector(`td[data-row="${firstCell.r}"][data-col="${firstCell.c}"]`);
         if (cell) cell.classList.add('hint');
-      });
+      }
       const chip = document.getElementById(`word-${target}`);
       if (chip) chip.classList.add('hint');
     }
@@ -7061,7 +7062,9 @@ document
             event.preventDefault();
             const form = event.target;
             const emailInput = form.querySelector('input[type="email"], input[name="EMAIL"]');
-            const messageBox = form.parentElement ? form.parentElement.querySelector('.unsubscribe-message') : null;
+            const messageBox = form.parentElement
+                ? form.parentElement.querySelector('.unsubscribe-message')
+                : document.querySelector('.unsubscribe-message');
             if (messageBox) {
                 messageBox.textContent = '';
             }
