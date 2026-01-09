@@ -484,32 +484,60 @@ export default {
         return jsonResponse({ ok: false, error: 'Missing email' }, 400);
       }
 
-      requireBrevoKey();
-      requireSupabaseService();
-
       let brevoFound = false;
       let brevoRemoved = false;
       let supabaseFound = false;
       let supabaseRemoved = false;
+      let brevoError = null;
+      let supabaseError = null;
 
-      const brevoStatus = await checkBrevoContact({ email, listId }).catch((error) => {
-        throw new Error(error?.message || 'Brevo lookup failed');
-      });
-      brevoFound = Boolean(brevoStatus?.exists);
-
-      if (brevoFound) {
-        await deleteBrevoContact(email, true);
-        brevoRemoved = true;
+      try {
+        requireBrevoKey();
+      } catch (error) {
+        brevoError = error?.message || 'Missing Brevo configuration';
       }
 
-      const supabaseResult = await supabaseDeleteUserByEmail(email);
-      supabaseRemoved = Boolean(supabaseResult?.deleted);
-      supabaseFound = Boolean(supabaseResult?.deleted);
+      try {
+        requireSupabaseService();
+      } catch (error) {
+        supabaseError = error?.message || 'Missing Supabase configuration';
+      }
+
+      if (brevoError || supabaseError) {
+        return jsonResponse(
+          {
+            ok: false,
+            error: 'Missing configuration for unsubscribe.',
+            brevoError,
+            supabaseError,
+          },
+          400
+        );
+      }
+
+      try {
+        const brevoStatus = await checkBrevoContact({ email, listId });
+        brevoFound = Boolean(brevoStatus?.exists);
+        if (brevoFound) {
+          await deleteBrevoContact(email, true);
+          brevoRemoved = true;
+        }
+      } catch (error) {
+        brevoError = error?.message || 'Brevo unsubscribe failed';
+      }
+
+      try {
+        const supabaseResult = await supabaseDeleteUserByEmail(email);
+        supabaseRemoved = Boolean(supabaseResult?.deleted);
+        supabaseFound = Boolean(supabaseResult?.deleted);
+      } catch (error) {
+        supabaseError = error?.message || 'Supabase delete failed';
+      }
 
       const found = brevoFound || supabaseFound;
       let unsubscribeEmailSent = false;
 
-      if (found) {
+      if (brevoRemoved) {
         try {
           const result = await sendBrevoUnsubscribeEmail({ email });
           unsubscribeEmailSent = Boolean(result?.sent);
@@ -518,15 +546,21 @@ export default {
         }
       }
 
-      return jsonResponse({
-        ok: true,
-        found,
-        brevoFound,
-        brevoRemoved,
-        supabaseFound,
-        supabaseRemoved,
-        unsubscribeEmailSent,
-      });
+      const ok = !brevoError && !supabaseError;
+      return jsonResponse(
+        {
+          ok,
+          found,
+          brevoFound,
+          brevoRemoved,
+          supabaseFound,
+          supabaseRemoved,
+          unsubscribeEmailSent,
+          brevoError,
+          supabaseError,
+        },
+        ok ? 200 : 500
+      );
     }
 
     // Forward to the site handler first to keep existing behavior.
@@ -543,8 +577,6 @@ export default {
     let welcomeStatus = null;
     let welcomeBody = null;
     if (env.BREVO_API_KEY && email) {
-      const doiTemplateId = Number(env.BREVO_DOI_TEMPLATE_ID || '');
-      const doiRedirect = (env.BREVO_DOI_REDIRECT || '').toString().trim();
       const numericListId = Number(listId || '');
 
       if (!Number.isFinite(numericListId) || numericListId <= 0) {
@@ -561,30 +593,15 @@ export default {
         accept: 'application/json',
       };
 
-      // Prefer DOI when template + redirect are configured, otherwise fall back to contact creation
-      const useDoi = !!(numericListId && doiTemplateId && doiRedirect);
+      const payload = {
+        email,
+        attributes: firstName ? { FIRSTNAME: firstName } : {},
+        updateEnabled: true,
+        emailBlacklisted: false,
+        listIds: numericListId ? [numericListId] : undefined,
+      };
 
-      const payload = useDoi
-        ? {
-            email,
-            includeListIds: [numericListId],
-            templateId: doiTemplateId,
-            redirectionUrl: doiRedirect,
-            attributes: firstName ? { FIRSTNAME: firstName } : {},
-          }
-        : {
-            email,
-            attributes: firstName ? { FIRSTNAME: firstName } : {},
-            updateEnabled: true,
-            emailBlacklisted: false,
-            listIds: numericListId ? [numericListId] : undefined,
-          };
-
-      const endpoint = useDoi
-        ? 'https://api.brevo.com/v3/contacts/doubleOptinConfirmation'
-        : 'https://api.brevo.com/v3/contacts';
-
-      const brevoResp = await fetch(endpoint, {
+      const brevoResp = await fetch('https://api.brevo.com/v3/contacts', {
         method: 'POST',
         headers,
         body: JSON.stringify(payload),

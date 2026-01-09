@@ -7081,7 +7081,9 @@ document
                 messageBox.textContent = 'Processing your request...';
             }
 
-            const workerEndpoint = (typeof CLOUDFLARE_WORKER_ENDPOINT === 'string' ? CLOUDFLARE_WORKER_ENDPOINT.trim() : '');
+            const workerEndpoint = (typeof CLOUDFLARE_WORKER_ENDPOINT === 'string' && CLOUDFLARE_WORKER_ENDPOINT.trim())
+                ? CLOUDFLARE_WORKER_ENDPOINT.trim()
+                : 'https://newsletter-endpoint.rise-shine-evolve.workers.dev/';
             if (!workerEndpoint) {
                 if (messageBox) {
                     messageBox.style.color = '#ff69b4';
@@ -7106,6 +7108,9 @@ document
             })
                 .then(async (response) => {
                     const data = await response.json().catch(() => ({}));
+                    if (!response.ok) {
+                        throw new Error(data?.error || 'Unable to unsubscribe.');
+                    }
                     const found = Boolean(
                         data?.found ||
                         data?.brevoFound ||
@@ -7117,9 +7122,6 @@ document
                             messageBox.textContent = 'This email address is not in our database.';
                         }
                         return;
-                    }
-                    if (!response.ok) {
-                        throw new Error(data?.error || 'Unable to unsubscribe.');
                     }
                     clearGiftsAccess();
                     if (messageBox) {
