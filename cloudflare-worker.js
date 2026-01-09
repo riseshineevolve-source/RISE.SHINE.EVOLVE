@@ -360,7 +360,7 @@ export default {
         });
       }
 
-      const email = (payload?.email || '').toString().trim();
+      const email = (payload?.email || '').toString().trim().toLowerCase();
       const lang = (payload?.lang || 'EN').toString().trim().toUpperCase() || 'EN';
 
       if (!email) {
@@ -418,7 +418,7 @@ export default {
       formData.get('FIRSTNAME') ||
       ''
     ).toString().trim();
-    const email = (formData.get('email') || formData.get('EMAIL') || '').toString().trim();
+    const email = (formData.get('email') || formData.get('EMAIL') || '').toString().trim().toLowerCase();
     const listId = formData.get('brevoListId') || env.BREVO_LIST_ID;
 
     // Quick Brevo contact check flow (no site forwarding)
@@ -519,10 +519,10 @@ export default {
         try {
           const brevoStatus = await checkBrevoContact({ email, listId });
           brevoFound = Boolean(brevoStatus?.exists);
-          if (brevoFound) {
-            await deleteBrevoContact(email, true);
-            brevoRemoved = true;
-          }
+        if (brevoFound) {
+          await deleteBrevoContact(email, false);
+          brevoRemoved = true;
+        }
         } catch (error) {
           brevoError = error?.message || 'Brevo unsubscribe failed';
         }
