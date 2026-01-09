@@ -5928,7 +5928,7 @@ document
             const label = document.getElementById('auth-action-label');
             if (label) {
                 label.style.display = isVisible ? 'inline' : 'none';
-                label.textContent = isVisible && email ? `Log in as ${email}` : 'Log In';
+                label.textContent = isVisible && email ? `Logged in as ${email}` : 'Log In';
             }
             if (button) {
                 button.textContent = isVisible ? 'Log Out' : 'Log In';
@@ -5988,6 +5988,7 @@ document
                 setLoggedInBadge(false);
                 return;
             }
+            localStorage.removeItem('manualLoggedOut');
             setLoggedInBadge(true, session.user?.email || '');
             closeEmailModal();
             const giftsTab = getTabElement('gifts');
@@ -6260,6 +6261,7 @@ document
             showAuthMessage('Welcome back! You are logged in.', '#ffd700');
             localStorage.setItem('giftsEmail', email);
             localStorage.setItem('giftsRequested', 'true');
+            localStorage.removeItem('manualLoggedOut');
             checkUser();
             closeEmailModal();
             const giftsTab = getTabElement('gifts');
@@ -7126,10 +7128,7 @@ document
                     clearGiftsAccess();
                     if (messageBox) {
                         messageBox.style.color = '#ffd700';
-                        const emailSent = Boolean(data?.unsubscribeEmailSent);
-                        messageBox.textContent = emailSent
-                            ? "You're unsubscribed. A confirmation email has been sent."
-                            : "You're unsubscribed. You can rejoin anytime.";
+                        messageBox.textContent = 'Unsubscribed successfully.';
                     }
                     setTimeout(() => {
                         selectTab(document.querySelector('.tab'), 'main');
