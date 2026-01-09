@@ -6,8 +6,10 @@
 //        - BREVO_API_KEY: your Brevo API key (keep it secret)
 //        - BREVO_LIST_ID: 3  (the numeric id from step 1)
 //        - SUPABASE_URL: your Supabase project URL
+//          (legacy SUPABASE_URI is still accepted if already configured)
 //        - SUPABASE_ANON_KEY: your Supabase anon key (for signup/login)
 //        - SUPABASE_SERVICE_ROLE_KEY: your Supabase service role key (for account deletes)
+//        - BREVO_UNSUBSCRIBE_TEMPLATE_ID: template id for unsubscribe follow-up email (optional)
 //   3) Deploy the worker, then set CLOUDFLARE_WORKER_ENDPOINT in index.html to this worker's URL
 //      (e.g., https://newsletter-endpoint.rise-shine-evolve.workers.dev/).
 // The worker will forward to the site handler and also push to Brevo when both env vars are set.
@@ -25,7 +27,10 @@ export default {
         headers: { 'content-type': 'application/json', ...corsHeaders },
       });
 
-    const supabaseUrl = (env.SUPABASE_URL || '').toString().trim().replace(/\/$/, '');
+    const supabaseUrl = (env.SUPABASE_URL || env.SUPABASE_URI || '')
+      .toString()
+      .trim()
+      .replace(/\/$/, '');
     const supabaseAnonKey = (env.SUPABASE_ANON_KEY || '').toString().trim();
     const supabaseServiceKey = (env.SUPABASE_SERVICE_ROLE_KEY || '').toString().trim();
 
@@ -224,7 +229,9 @@ export default {
       requireBrevoKey();
       const senderEmail = (env.BREVO_SENDER_EMAIL || '').toString().trim();
       const senderName = (env.BREVO_SENDER_NAME || 'Rise.Shine.Evolve').toString().trim();
-      if (!senderEmail) {
+      const templateId = Number(env.BREVO_UNSUBSCRIBE_TEMPLATE_ID || '');
+      const useTemplate = Number.isFinite(templateId) && templateId > 0;
+      if (!useTemplate && !senderEmail) {
         return { sent: false, skipped: true, reason: 'Missing sender email' };
       }
       const htmlContent = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -306,6 +313,17 @@ export default {
 </table>
 </body>
 </html>`;
+      const payload = useTemplate
+        ? {
+            to: [{ email }],
+            templateId,
+          }
+        : {
+            sender: { email: senderEmail, name: senderName },
+            to: [{ email }],
+            subject: 'We are sorry to see you go',
+            htmlContent,
+          };
       const response = await fetch('https://api.brevo.com/v3/smtp/email', {
         method: 'POST',
         headers: {
@@ -313,12 +331,7 @@ export default {
           'content-type': 'application/json',
           accept: 'application/json',
         },
-        body: JSON.stringify({
-          sender: { email: senderEmail, name: senderName },
-          to: [{ email }],
-          subject: 'We are sorry to see you go',
-          htmlContent,
-        }),
+        body: JSON.stringify(payload),
       });
       if (!response.ok) {
         const errorText = await response.text();
