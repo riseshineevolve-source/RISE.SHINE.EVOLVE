@@ -2575,6 +2575,11 @@
     <p style="color: #e6e6e6; font-size: 0.78rem; text-align: center; margin: 0 0 2px 0;">New here? Click Create Account.</p>
     <p style="color: #e6e6e6; font-size: 0.78rem; text-align: center; margin: 0 0 8px 0;">Already have an account? Click Log In.</p>
     <p id="errorMsg" style="color: #ff1493; text-align: center; margin: 6px 0 10px 0; font-weight: bold;"></p>
+    <div style="text-align: center; margin: 0 0 8px 0;">
+        <button type="button" id="forgotPasswordLink" onclick="handlePasswordResetRequest()" style="background: none; border: none; color: #ffd700; font-size: 0.78rem; font-weight: 600; cursor: pointer; text-decoration: underline;">
+            Forgot password?
+        </button>
+    </div>
     <div id="authFormPanel" class="brevo-embed" style="margin-top: 6px; display: none;">
         <style>
             @font-face{font-display:block;font-family:Roboto;src:url(https://assets.brevo.com/font/Roboto/Latin/normal/normal/7529907e9eaf8ebb5220c5f9850e3811.woff2) format("woff2"),url(https://assets.brevo.com/font/Roboto/Latin/normal/normal/25c678feafdc175a70922a116c9be3e7.woff) format("woff")}@font-face{font-display:fallback;font-family:Roboto;font-weight:600;src:url(https://assets.brevo.com/font/Roboto/Latin/medium/normal/6e9caeeafb1f3491be3e32744bc30440.woff2) format("woff2"),url(https://assets.brevo.com/font/Roboto/Latin/medium/normal/71501f0d8d5aa95960f6475d5487d4c2.woff) format("woff")}@font-face{font-display:fallback;font-family:Roboto;font-weight:700;src:url(https://assets.brevo.com/font/Roboto/Latin/bold/normal/3ef7cf158f310cf752d5ad08cd0e7e60.woff2) format("woff2"),url(https://assets.brevo.com/font/Roboto/Latin/bold/normal/ece3a1d82f18b60bcce0211725c476aa.woff) format("woff")}#sib-container input:-ms-input-placeholder{text-align:left;font-family:Helvetica,sans-serif;color:#c0ccda}#sib-container input::placeholder{text-align:left;font-family:Helvetica,sans-serif;color:#c0ccda}#sib-container textarea::placeholder{text-align:left;font-family:Helvetica,sans-serif;color:#c0ccda}#sib-container a{text-decoration:underline;color:#2BB2FC}
@@ -6058,6 +6063,43 @@ document
             const errorMsg = document.getElementById('errorMsg');
             if (errorMsg) {
                 errorMsg.textContent = '';
+            }
+        }
+
+        async function handlePasswordResetRequest() {
+            const rawEmail = document.getElementById('brevoEmail')?.value || '';
+            const email = rawEmail.trim().toLowerCase();
+            if (!email || !email.includes('@') || !email.includes('.')) {
+                showAuthMessage('Please enter your email to reset your password.', '#ff1493');
+                return;
+            }
+            const workerEndpoint = (typeof CLOUDFLARE_WORKER_ENDPOINT === 'string' && CLOUDFLARE_WORKER_ENDPOINT.trim())
+                ? CLOUDFLARE_WORKER_ENDPOINT.trim()
+                : 'https://newsletter-endpoint.rise-shine-evolve.workers.dev/';
+            if (!workerEndpoint) {
+                showAuthMessage('Password reset is unavailable right now. Please try again later.', '#ff1493');
+                return;
+            }
+            showAuthMessage('Sending reset link...', '#ffd700');
+            try {
+                const response = await fetch(workerEndpoint, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        type: 'request_password_reset',
+                        email,
+                    }),
+                    mode: 'cors',
+                    credentials: 'omit',
+                });
+                if (!response.ok) {
+                    const data = await response.json().catch(() => ({}));
+                    showAuthMessage(data?.error || 'Unable to request a password reset.', '#ff1493');
+                    return;
+                }
+                showAuthMessage('Check your inbox for a reset link.', '#ffd700');
+            } catch (error) {
+                showAuthMessage(error?.message || 'Unable to request a password reset.', '#ff1493');
             }
         }
 
