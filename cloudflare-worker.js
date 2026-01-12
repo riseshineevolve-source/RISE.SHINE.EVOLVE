@@ -82,7 +82,7 @@ async function sendDeleteConfirmationEmail(body, env, workerOrigin) {
         },
         body: JSON.stringify({
             to: [{ email: email }],
-            templateId: parseInt(env.BREVO_UNSUBSCRIBE_CONFIRM_TEMPLATE_ID),
+            templateId: 18,
             params: {
                 CONFIRM_URL: confirmLink // To wstrzykujemy do przycisku w szablonie
             }
@@ -121,7 +121,7 @@ async function handleConfirmationLink(url, env) {
     });
 
     // B. Usuń z Supabase (Admin API)
-    const supabaseResponse = await fetch(`${env.SUPABASE_URL}/auth/v1/admin/users/${userId}`, {
+    const supabaseResponse = await fetch(`https://gegaodrfqwhrfdqtiokb.supabase.co/auth/v1/admin/users/${userId}`, {
         method: "DELETE",
         headers: {
             "apikey": env.SUPABASE_SERVICE_ROLE_KEY,
