@@ -136,9 +136,9 @@ async function handleConfirmationLink(url, env) {
     return new Response(`
         <html>
             <body style="font-family: sans-serif; text-align: center; padding: 50px;">
-                <h1 style="color: green;">Konto zostało usunięte.</h1>
-                <p>Twoje dane zostały trwale wykasowane z newslettera i naszej bazy.</p>
-                <p>Możesz zamknąć to okno.</p>
+                <h1 style="color: green;">Your account has been successfully deleted.</h1>
+                <p>We are sorry to see you go!</p>
+                <p>Whenever you’re ready to come back again, we’ll be here to Rise. Shine. Evolve.</p>
             </body>
         </html>
     `, { headers: { "Content-Type": "text/html; charset=utf-8" } });
