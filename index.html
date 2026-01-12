@@ -7098,27 +7098,38 @@ document
                 return;
             }
 
-            const formData = new FormData();
-            formData.append('action', 'unsubscribe');
-            formData.append('email', emailValue);
-            formData.append('EMAIL', emailValue);
-            if (BREVO_LIST_ID) {
-                formData.append('brevoListId', BREVO_LIST_ID);
-            }
+            const sendRequest = async () => {
+                let userId = '';
+                if (supabaseClient) {
+                    const { data: { session } } = await supabaseClient.auth.getSession();
+                    if (session?.user?.id && session?.user?.email?.toLowerCase() === emailValue) {
+                        userId = session.user.id;
+                    }
+                }
+                if (!userId) {
+                    if (messageBox) {
+                        messageBox.style.color = '#ff69b4';
+                        messageBox.textContent = 'Please log in with this email to confirm account removal.';
+                    }
+                    return;
+                }
+                return fetch(workerEndpoint, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        type: 'request_delete',
+                        email: emailValue,
+                        userId,
+                    }),
+                    mode: 'cors',
+                    credentials: 'omit',
+                });
+            };
 
-            fetch(workerEndpoint, {
-                method: 'POST',
-                body: formData,
-                mode: 'cors',
-                credentials: 'omit',
-            })
+            sendRequest()
                 .then(async (response) => {
+                    if (!response) return;
                     const data = await response.json().catch(() => ({}));
-                    const found = Boolean(
-                        data?.found ||
-                        data?.brevoFound ||
-                        data?.supabaseFound
-                    );
                     if (!response.ok) {
                         if (messageBox) {
                             messageBox.style.color = '#ff69b4';
@@ -7126,17 +7137,9 @@ document
                         }
                         return;
                     }
-                    if (!found) {
-                        if (messageBox) {
-                            messageBox.style.color = '#ff69b4';
-                            messageBox.textContent = 'This email address is not in our database.';
-                        }
-                        return;
-                    }
-                    clearGiftsAccess();
                     if (messageBox) {
                         messageBox.style.color = '#ffd700';
-                        messageBox.innerHTML = 'You\u2019ve been unsubscribed.<br><br>We believe in choosing what supports your growth.<br>Whenever you feel ready- Rise.Shine.Evolve. with us again.';
+                        messageBox.innerHTML = 'To permanently remove your account and unsubscribe, please click the verification link we emailed to you.';
                     }
                 })
                 .catch((error) => {
