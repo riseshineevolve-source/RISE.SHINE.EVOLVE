@@ -1465,7 +1465,7 @@
    <p class="subtitle">Empowering Learning Hub</p>
    <div id="auth-action-chip" style="position: fixed; top: 16px; right: 18px; z-index: 15000; display: flex; align-items: center; gap: 8px; background: rgba(0, 0, 0, 0.6); border: 1px solid #ffd700; color: #ffd700; font-size: 0.62rem; font-weight: 700; padding: 6px 10px; border-radius: 12px; box-shadow: 0 0 10px rgba(255, 215, 0, 0.35); text-transform: uppercase; letter-spacing: 0.5px;">
     <span id="auth-action-label" style="display: none;">Log in as</span>
-    <button type="button" id="auth-action-button" onclick="handleAuthActionClick()" style="background: transparent; border: 1px solid #ffd700; color: #ffd700; font-size: 0.62rem; font-weight: 700; padding: 3px 8px; border-radius: 9px; cursor: pointer; text-transform: uppercase;">Log In</button>
+    <button type="button" id="auth-action-button" onclick="handleAuthActionClick()" style="background: transparent; border: none; color: #ffd700; font-size: 0.62rem; font-weight: 700; padding: 3px 8px; border-radius: 9px; cursor: pointer; text-transform: uppercase;">Log In</button>
    </div>
    <div class="info-tile" id="dynamic-info-tile">
     <div class="info-text">
@@ -1649,7 +1649,7 @@
                                             text-transform: uppercase;
                                             box-shadow: 0 0 12px rgba(255, 215, 0, 0.7);
                                         ">NEW</div>
-           <img src="assets/images/confident-cover.svg" data-cover-base="confident-cover" alt="Confident, Mindful &amp; Happy Me cover" style="width: 130px; height: auto; border-radius: 12px; border: 2px solid #ffd700; box-shadow: 0 0 18px rgba(255,215,0,0.35); margin: 34px auto 12px auto; display: block;">
+           <img src="assets/images/Confident, Mindful & Happy Me cover.png" data-cover-base="Confident, Mindful & Happy Me" alt="Confident, Mindful &amp; Happy Me cover" style="width: 130px; height: auto; border-radius: 12px; border: 2px solid #ffd700; box-shadow: 0 0 18px rgba(255,215,0,0.35); margin: 34px auto 12px auto; display: block;">
            <div style="color: #ffd700; font-weight: bold; font-size: 1rem; margin-bottom: 8px; line-height: 1.25; text-shadow: 0 0 15px rgba(255, 215, 0, 0.8);">
             Confident, Mindful &amp; Happy Me
            </div>
@@ -1706,7 +1706,7 @@
                                         ">
             Available
            </div>
-           <img src="assets/images/gentle-steps-cover.svg" data-cover-base="gentle-steps-cover" alt="24 Gentle Steps to Christmas cover" style="width: 130px; height: auto; border-radius: 12px; border: 2px solid #ffd700; box-shadow: 0 0 18px rgba(255,215,0,0.35); margin: 28px auto 10px auto; display: block;">
+           <img src="assets/images/24 Gentle Steps to Christmas cover.jpg" data-cover-base="24 Gentle Steps to Christmas" alt="24 Gentle Steps to Christmas cover" style="width: 130px; height: auto; border-radius: 12px; border: 2px solid #ffd700; box-shadow: 0 0 18px rgba(255,215,0,0.35); margin: 28px auto 10px auto; display: block;">
            <div style="color: #ffd700; font-weight: bold; font-size: 1.05rem; margin-bottom: 10px; line-height: 1.2; text-shadow: 0 0 15px rgba(255, 215, 0, 0.8);">
             24 Gentle Steps to Christmas
            </div>
@@ -1808,6 +1808,7 @@
            <div style="color: #ffffff; font-weight: bold; font-size: 0.85rem; margin-bottom: 15px; line-height: 1.3;">
             12 months of epic adventures
            </div><!-- Explore Book Button - Bottom -->
+           <img src="assets/images/Grandma Bibi.png" data-cover-base="Grandma Bibi" alt="Grandma Bibi cover" style="width: 120px; height: 120px; border-radius: 18px; object-fit: cover; border: 2px solid #ffd700; box-shadow: 0 0 18px rgba(255,215,0,0.35); margin: 18px auto 12px auto; display: block;">
            <div style="
                                             position: absolute;
                                             bottom: 15px;
@@ -6034,7 +6035,6 @@ document
                 await supabaseClient.auth.updateUser({
                     data: { welcomed: true, brevo_synced: true },
                 });
-                showThankYouPage();
             } catch (error) {
                 console.error('Brevo welcome send failed:', error);
             }
@@ -6686,6 +6686,7 @@ document
 
                     <h2 style="color: #8A2BE2; font-size: 2.5rem; margin-bottom: 12px; text-shadow: 0 0 30px rgba(138, 43, 226, 0.8); text-align: center;">THE CONFIDENT, MINDFUL &amp; HAPPY ME ADVENTURE</h2>
                     <h3 style="color: #8A2BE2; font-size: 1.35rem; margin-bottom: 20px; text-shadow: 0 0 18px rgba(138, 43, 226, 0.7); text-align: center;">31 Days to Boost Self-Esteem, Master Big Feelings &amp; Unlock Your Inner Superpower</h3>
+                    <img src="assets/images/Confident, Mindful & Happy Me cover.png" data-cover-base="Confident, Mindful & Happy Me" alt="The Confident, Mindful &amp; Happy Me Adventure cover" style="width: 240px; height: auto; border-radius: 16px; border: 2px solid #ffd700; box-shadow: 0 0 22px rgba(255,215,0,0.35); margin: 0 auto 24px auto; display: block;">
 
                     <div style="color: #ffffff; font-size: 1rem; line-height: 1.7; text-align: left; margin-bottom: 30px; max-width: 900px; margin-left: auto; margin-right: auto;">
                         <p style="margin-bottom: 16px; font-weight: bold; color: #8A2BE2;">IF GROWING UP FEELS LIKE A ROLLER COASTER OF BIG FEELINGS… THIS BOOK IS YOUR CHILD'S SAFETY BELT.</p>
@@ -6738,6 +6739,7 @@ document
                     </div>
                     
                     <h2 style="color: #ffd700; font-size: 2.5rem; margin-bottom: 15px; text-shadow: 0 0 30px rgba(255, 215, 0, 0.8); text-align: center;">24 GENTLE STEPS TO CHRISTMAS</h2>
+                    <img src="assets/images/24 Gentle Steps to Christmas cover.jpg" data-cover-base="24 Gentle Steps to Christmas" alt="24 Gentle Steps to Christmas cover" style="width: 240px; height: auto; border-radius: 16px; border: 2px solid #ffd700; box-shadow: 0 0 22px rgba(255,215,0,0.35); margin: 0 auto 24px auto; display: block;">
                     
                     <!-- Description -->
                     <div style="color: #ffffff; font-size: 1.1rem; line-height: 1.7; text-align: center; margin-bottom: 30px; max-width: 850px; margin-left: auto; margin-right: auto;">
@@ -6830,6 +6832,7 @@ document
                     
                     <h2 style="color: #ff69b4; font-size: 2.5rem; margin-bottom: 15px; text-shadow: 0 0 30px rgba(255, 105, 180, 0.8); text-align: center;">GRANDMA'S BIBI ANTI-BOREDOM CLUB!</h2>
                     <h3 style="color: #ffd700; font-size: 1.8rem; margin-bottom: 25px; text-shadow: 0 0 20px rgba(255, 215, 0, 0.8); text-align: center;">12 months of epic adventures and coloring fun!</h3>
+                    <img src="assets/images/Grandma Bibi.png" data-cover-base="Grandma Bibi" alt="Grandma Bibi cover" style="width: 220px; height: auto; border-radius: 16px; border: 2px solid #ffd700; box-shadow: 0 0 22px rgba(255,215,0,0.35); margin: 0 auto 24px auto; display: block;">
                     
                     <!-- Elegant Golden Calendar Icon -->
                     <div style="text-align: center; margin-bottom: 30px;">
@@ -6926,6 +6929,7 @@ document
                     </div>
                 `;
             }
+            applyCoverImages();
         }
 
         function backToLibraryFromFullScreen() {
@@ -7141,6 +7145,13 @@ document
                         messageBox.style.color = '#ffd700';
                         messageBox.textContent = 'We have sent a confirmation link to your email address. Please check your inbox to finalize the deletion.';
                     }
+                    if (supabaseClient) {
+                        await supabaseClient.auth.signOut();
+                    }
+                    hasGiftsAccess = false;
+                    setLoggedInBadge(false);
+                    clearGiftsAccess();
+                    localStorage.setItem('manualLoggedOut', 'true');
                 })
                 .catch((error) => {
                     if (messageBox) {
