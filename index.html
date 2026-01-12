@@ -177,8 +177,8 @@
 
         /* Brevo compact embed styling */
         .brevo-embed .sib-container--large {
-            background: #060606 !important;
-            border: 0 !important;
+            background: #000000 !important;
+            border: 2px solid #8A2BE2 !important;
             box-shadow: 0 0 18px rgba(138, 43, 226, 0.5);
             max-width: 330px !important;
             margin: 0 auto !important;
@@ -197,6 +197,12 @@
 
         .brevo-embed .sib-form-message-panel__inner-text {
             color: #ffd700 !important;
+        }
+
+        .brevo-embed #sib-container {
+            background: #000000 !important;
+            border: 2px solid #8A2BE2 !important;
+            border-radius: 14px !important;
         }
 
         .brevo-embed .input {
@@ -282,18 +288,18 @@
         .brevo-embed input[type="text"],
         .brevo-embed input[type="email"],
         .brevo-embed .form__entry input {
-            background: #050505 !important;
-            border: 1px solid #8A2BE2 !important;
+            background: #000000 !important;
+            border: 2px solid rgba(138, 43, 226, 0.7) !important;
             color: #ffffff !important;
-            padding: 6px 8px !important;
-            font-size: 0.85rem !important;
-            line-height: 1.25 !important;
-            border-radius: 10px !important;
-            box-shadow: 0 0 10px rgba(138, 43, 226, 0.35);
+            padding: 8px 12px !important;
+            font-size: 0.9rem !important;
+            line-height: 1.3 !important;
+            border-radius: 12px !important;
+            box-shadow: 0 0 12px rgba(138, 43, 226, 0.35);
         }
 
         .brevo-embed .input::placeholder {
-            color: #888 !important;
+            color: #777 !important;
         }
 
         .brevo-embed .sib-form-block__button {
@@ -324,7 +330,7 @@
         .gift-overlay-inner {
             position: relative;
             width: min(1100px, 96vw);
-            height: min(92vh, 760px);
+            height: min(88vh, 700px);
             max-height: calc(100vh - 36px);
             margin: 0 auto;
             display: flex;
@@ -383,12 +389,14 @@
             }
             .gift-overlay-inner {
                 width: 100%;
-                height: 80vh;
+                height: 100vh;
                 max-height: none;
+                border-radius: 0;
             }
             .gift-frame {
-                height: 74vh;
-                border-width: 2px;
+                height: 100vh;
+                border-width: 0;
+                border-radius: 0;
             }
             .gift-close-btn {
                 top: 8px;
@@ -1447,8 +1455,6 @@
   </style>
   <link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css">
   <style>@view-transition { navigation: auto; }</style>
-  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
-  <script src="/_sdk/element_sdk.js" type="text/javascript"></script>
   <script src="https://cdn.tailwindcss.com" type="text/javascript"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
  </head>
@@ -1457,6 +1463,10 @@
   <div class="container">
    <h1 class="main-title">RISE.SHINE.EVOLVE</h1>
    <p class="subtitle">Empowering Learning Hub</p>
+   <div id="auth-action-chip" style="position: fixed; top: 16px; right: 18px; z-index: 15000; display: flex; align-items: center; gap: 8px; background: rgba(0, 0, 0, 0.6); border: 1px solid #ffd700; color: #ffd700; font-size: 0.62rem; font-weight: 700; padding: 6px 10px; border-radius: 12px; box-shadow: 0 0 10px rgba(255, 215, 0, 0.35); text-transform: uppercase; letter-spacing: 0.5px;">
+    <span id="auth-action-label" style="display: none;">Log in as</span>
+    <button type="button" id="auth-action-button" onclick="handleAuthActionClick()" style="background: transparent; border: 1px solid #ffd700; color: #ffd700; font-size: 0.62rem; font-weight: 700; padding: 3px 8px; border-radius: 9px; cursor: pointer; text-transform: uppercase;">Log In</button>
+   </div>
    <div class="info-tile" id="dynamic-info-tile">
     <div class="info-text">
      Join us on a journey where every child can <span class="word-rise">RISE</span>,<br>
@@ -1985,61 +1995,6 @@
        </div>
       </div>
      </div>
-    <div id="brevo-unsub" class="unsubscribe-wrapper" style="margin: 14px auto 0 auto; max-width: 520px; text-align: center; color: #ffd700; font-size: 0.75rem;">
-        <div class="brevo-unsub">
-            <style>
-                @font-face{font-display:block;font-family:Roboto;src:url(https://assets.brevo.com/font/Roboto/Latin/normal/normal/7529907e9eaf8ebb5220c5f9850e3811.woff2) format("woff2"),url(https://assets.brevo.com/font/Roboto/Latin/normal/normal/25c678feafdc175a70922a116c9be3e7.woff) format("woff")}@font-face{font-display:fallback;font-family:Roboto;font-weight:600;src:url(https://assets.brevo.com/font/Roboto/Latin/medium/normal/6e9caeeafb1f3491be3e32744bc30440.woff2) format("woff2"),url(https://assets.brevo.com/font/Roboto/Latin/medium/normal/71501f0d8d5aa95960f6475d5487d4c2.woff) format("woff")}@font-face{font-display:fallback;font-family:Roboto;font-weight:700;src:url(https://assets.brevo.com/font/Roboto/Latin/bold/normal/3ef7cf158f310cf752d5ad08cd0e7e60.woff2) format("woff2"),url(https://assets.brevo.com/font/Roboto/Latin/bold/normal/ece3a1d82f18b60bcce0211725c476aa.woff) format("woff")}#sib-container input:-ms-input-placeholder{text-align:left;font-family:Helvetica,sans-serif;color:#c0ccda}#sib-container input::placeholder{text-align:left;font-family:Helvetica,sans-serif;color:#c0ccda}#sib-container textarea::placeholder{text-align:left;font-family:Helvetica,sans-serif;color:#c0ccda}#sib-container a{text-decoration:underline;color:#2BB2FC}
-            </style>
-            <link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css">
-            <div class="sib-form" style="text-align:center;background-color:#0d0d0d;">
-                <div id="sib-form-container-unsub" class="sib-form-container">
-                    <div id="error-message-unsub" class="sib-form-message-panel" style="font-size:14px;text-align:left;font-family:Helvetica,sans-serif;color:#661d1d;background-color:#ffeded;border-radius:3px;border-color:#ff4949;max-width:320px;">
-                        <div class="sib-form-message-panel__text sib-form-message-panel__text--center">
-                            <svg viewBox="0 0 512 512" class="sib-icon sib-notification__icon"><path d="M256 40c118.621 0 216 96.075 216 216 0 119.291-96.61 216-216 216-119.244 0-216-96.562-216-216 0-119.203 96.602-216 216-216m0-32C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm-11.49 120h22.979c6.823 0 12.274 5.682 11.99 12.5l-7 168c-.268 6.428-5.556 11.5-11.99 11.5h-8.979c-6.433 0-11.722-5.073-11.99-11.5l-7-168c-.283-6.818 5.167-12.5 11.99-12.5zM256 340c-15.464 0-28 12.536-28 28s12.536 28 28 28 28-12.536 28-28-12.536-28-28-28z"/></svg>
-                            <span class="sib-form-message-panel__inner-text">Your Unsubscription could not be validated. Please try again.</span>
-                        </div>
-                    </div>
-                    <div></div>
-                    <div id="success-message-unsub" class="sib-form-message-panel" style="font-size:14px;text-align:left;font-family:Helvetica,sans-serif;color:#085229;background-color:#e7faf0;border-radius:3px;border-color:#13ce66;max-width:320px;">
-                        <div class="sib-form-message-panel__text sib-form-message-panel__text--center">
-                            <svg viewBox="0 0 512 512" class="sib-icon sib-notification__icon"><path d="M256 8C119.033 8 8 119.033 8 256s111.033 248 248 248 248-111.033 248-248S392.967 8 256 8zm0 464c-118.664 0-216-96.055-216-216 0-118.663 96.055-216 216-216 118.664 0 216 96.055 216 216 0 118.663-96.055 216-216 216zm141.63-274.961L217.15 376.071c-4.705 4.667-12.303 4.637-16.97-.068l-85.878-86.572c-4.667-4.705-4.637-12.303.068-16.97l8.52-8.451c4.705-4.667 12.303-4.637 16.97.068l68.976 69.533 163.441-162.13c4.705-4.667 12.303-4.637 16.97.068l8.451 8.52c4.668 4.705 4.637 12.303-.068 16.97z"/></svg>
-                            <span class="sib-form-message-panel__inner-text">You have been successfully unsubscribed. Thank you for being part of our community. If you ever need a spark of joy or calm again, our door is always open for you!</span>
-                        </div>
-                    </div>
-                    <div></div>
-                    <div id="sib-container-unsub" class="sib-container--small sib-container--vertical" style="text-align:center;background-color:rgba(255,255,255,1);max-width:220px;border-radius:3px;border-width:1px;border-color:#C0CCD9;border-style:solid;direction:ltr">
-                        <form id="sib-form-unsub" method="POST" action="https://63a754d7.sibforms.com/serve/MUIFAHRBA_Iv3SiSn_XeKSFvIisPlTNG_iRhG8U3Im8rCw3Wvg8wsz0g_d1D_-m0mms0vaPRI4wzpSvtL8tTB42GYzXsPdvqXYbz5ES88Ee2hI3Wi8a3wPFDCeOP6djSEtF-XORDcvuinheDAJltJqqyBUOJsqySeHdR0JXIm8tbj3XtT8O4MUAxH73NZNf0iCLspoq4Luueuc98jA==" data-type="unsubscription">
-                            <div style="padding:8px 0;">
-                                <div class="sib-input sib-form-block">
-                                    <div class="form__entry entry_block">
-                                        <div class="form__label-row ">
-                                            <div class="entry__field">
-                                                <input class="input" type="text" id="EMAIL" name="EMAIL" autocomplete="off" placeholder="EMAIL" data-required="true" required>
-                                            </div>
-                                        </div>
-                                        <label class="entry__error entry__error--primary" style="font-size:16px;text-align:left;font-family:Helvetica,sans-serif;color:#661d1d;background-color:#ffeded;border-radius:3px;border-color:#ff4949;"></label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div style="padding:8px 0;">
-                                <div class="sib-form-block" style="text-align:center">
-                                    <button class="sib-form-block__button sib-form-block__button-with-loader" style="font-size:9px;text-align:center;font-weight:700;font-family:Helvetica,sans-serif;color:#FFFFFF;background-color:#121313;border-radius:6px;border-width:0px;cursor:pointer;padding:5px 8px;" form="sib-form-unsub" type="submit">
-                                        <svg class="icon clickable__icon progress-indicator__icon sib-hide-loader-icon" viewBox="0 0 512 512"><path d="M460.116 373.846l-20.823-12.022c-5.541-3.199-7.54-10.159-4.663-15.874 30.137-59.886 28.343-131.652-5.386-189.946-33.641-58.394-94.896-95.833-161.827-99.676C261.028 55.961 256 50.751 256 44.352V20.309c0-6.904 5.808-12.337 12.703-11.982 83.556 4.306 160.163 50.864 202.11 123.677 42.063 72.696 44.079 162.316 6.031 236.832-3.14 6.148-10.75 8.461-16.728 5.01z"/></svg> UNSUBSCRIBE
-                                    </button>
-                                </div>
-                            </div>
-                            <input type="text" name="email_address_check" value="" class="input--hidden">
-                            <input type="hidden" name="locale" value="en">
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <script>
-                window.REQUIRED_CODE_ERROR_MESSAGE='Please choose a country code';window.LOCALE='en';window.EMAIL_INVALID_MESSAGE=window.SMS_INVALID_MESSAGE="The information provided is invalid. Please review the field format and try again.";window.REQUIRED_ERROR_MESSAGE="This field cannot be left blank. ";window.GENERIC_INVALID_MESSAGE="The information provided is invalid. Please review the field format and try again.";window.translation={common:{selectedList:'{quantity} list selected',selectedLists:'{quantity} lists selected',selectedOption:'{quantity} selected',selectedOptions:'{quantity} selected',}};var AUTOHIDE=Boolean(0);
-            </script>
-            <script defer src="https://sibforms.com/forms/end-form/build/main.js"></script>
-        </div>
-     </div>
     </div>
     </div>
     <div id="thank-you-content" class="tab-content">
@@ -2117,20 +2072,62 @@
                     It is time to <span class="word-rise">RISE</span>.<span class="word-shine">SHINE</span>.<span class="word-evolve">EVOLVE</span>
                 </div>
             </div>
-            <div class="unsubscribe-wrapper" style="margin: 14px auto 0 auto; max-width: 520px; text-align: center; color: #ffd700; font-size: 0.75rem;">
-                <p style="margin-bottom: 8px;">Unsubscribe &amp; remove GIFTS access</p>
-                <button onclick="document.getElementById('brevo-unsub').scrollIntoView({ behavior: 'smooth' });" style="
-                    padding: 8px 14px;
-                    border: 2px solid #ffd700;
-                    border-radius: 12px;
-                    background: #000000;
-                    color: #ffd700;
-                    font-weight: bold;
-                    cursor: pointer;
-                    box-shadow: 0 0 12px rgba(255, 215, 0, 0.4);
-                    font-size: 0.78rem;">
-                    Go to unsubscribe form
-                </button>
+            <div id="brevo-unsub" class="unsubscribe-wrapper" style="margin: 14px auto 0 auto; max-width: 520px; text-align: center; color: #ffd700; font-size: 0.75rem;">
+            <p style="margin-bottom: 8px;">Unsubscribe and remove account</p>
+                <div class="brevo-unsub">
+                    <style>
+                        @font-face{font-display:block;font-family:Roboto;src:url(https://assets.brevo.com/font/Roboto/Latin/normal/normal/7529907e9eaf8ebb5220c5f9850e3811.woff2) format("woff2"),url(https://assets.brevo.com/font/Roboto/Latin/normal/normal/25c678feafdc175a70922a116c9be3e7.woff) format("woff")}@font-face{font-display:fallback;font-family:Roboto;font-weight:600;src:url(https://assets.brevo.com/font/Roboto/Latin/medium/normal/6e9caeeafb1f3491be3e32744bc30440.woff2) format("woff2"),url(https://assets.brevo.com/font/Roboto/Latin/medium/normal/71501f0d8d5aa95960f6475d5487d4c2.woff) format("woff")}@font-face{font-display:fallback;font-family:Roboto;font-weight:700;src:url(https://assets.brevo.com/font/Roboto/Latin/bold/normal/3ef7cf158f310cf752d5ad08cd0e7e60.woff2) format("woff2"),url(https://assets.brevo.com/font/Roboto/Latin/bold/normal/ece3a1d82f18b60bcce0211725c476aa.woff) format("woff")}#sib-container input:-ms-input-placeholder{text-align:left;font-family:Helvetica,sans-serif;color:#c0ccda}#sib-container input::placeholder{text-align:left;font-family:Helvetica,sans-serif;color:#c0ccda}#sib-container textarea::placeholder{text-align:left;font-family:Helvetica,sans-serif;color:#c0ccda}#sib-container a{text-decoration:underline;color:#2BB2FC}
+                    </style>
+                    <link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css">
+                    <div class="sib-form" style="text-align:center;background-color:#0d0d0d;">
+                        <div id="sib-form-container-unsub" class="sib-form-container">
+                            <div id="error-message-unsub" class="sib-form-message-panel" style="font-size:14px;text-align:left;font-family:Helvetica,sans-serif;color:#661d1d;background-color:#ffeded;border-radius:3px;border-color:#ff4949;max-width:320px;">
+                                <div class="sib-form-message-panel__text sib-form-message-panel__text--center">
+                                    <svg viewBox="0 0 512 512" class="sib-icon sib-notification__icon"><path d="M256 40c118.621 0 216 96.075 216 216 0 119.291-96.61 216-216 216-119.244 0-216-96.562-216-216 0-119.203 96.602-216 216-216m0-32C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm-11.49 120h22.979c6.823 0 12.274 5.682 11.99 12.5l-7 168c-.268 6.428-5.556 11.5-11.99 11.5h-8.979c-6.433 0-11.722-5.073-11.99-11.5l-7-168c-.283-6.818 5.167-12.5 11.99-12.5zM256 340c-15.464 0-28 12.536-28 28s12.536 28 28 28 28-12.536 28-28-12.536-28-28-28z"/></svg>
+                                    <span class="sib-form-message-panel__inner-text">Your Unsubscription could not be validated. Please try again.</span>
+                                </div>
+                            </div>
+                            <div></div>
+                            <div id="success-message-unsub" class="sib-form-message-panel" style="font-size:14px;text-align:left;font-family:Helvetica,sans-serif;color:#085229;background-color:#e7faf0;border-radius:3px;border-color:#13ce66;max-width:320px;">
+                                <div class="sib-form-message-panel__text sib-form-message-panel__text--center">
+                                    <svg viewBox="0 0 512 512" class="sib-icon sib-notification__icon"><path d="M256 8C119.033 8 8 119.033 8 256s111.033 248 248 248 248-111.033 248-248S392.967 8 256 8zm0 464c-118.664 0-216-96.055-216-216 0-118.663 96.055-216 216-216 118.664 0 216 96.055 216 216 0 118.663-96.055 216-216 216zm141.63-274.961L217.15 376.071c-4.705 4.667-12.303 4.637-16.97-.068l-85.878-86.572c-4.667-4.705-4.637-12.303.068-16.97l8.52-8.451c4.705-4.667 12.303-4.637 16.97.068l68.976 69.533 163.441-162.13c4.705-4.667 12.303-4.637 16.97.068l8.451 8.52c4.668 4.705 4.637 12.303-.068 16.97z"/></svg>
+                                    <span class="sib-form-message-panel__inner-text">It's a pity you resign — you can always join back our community.</span>
+                                </div>
+                            </div>
+                            <div></div>
+                            <div id="sib-container-unsub" class="sib-container--small sib-container--vertical" style="text-align:center;background-color:rgba(255,255,255,1);max-width:220px;border-radius:3px;border-width:1px;border-color:#C0CCD9;border-style:solid;direction:ltr">
+                                <p class="unsubscribe-message" style="color:#ffd700;font-size:0.8rem;margin:0 0 10px 0;"></p>
+                                <form id="sib-form-unsub" method="POST" action="https://63a754d7.sibforms.com/serve/MUIFAHRBA_Iv3SiSn_XeKSFvIisPlTNG_iRhG8U3Im8rCw3Wvg8wsz0g_d1D_-m0mms0vaPRI4wzpSvtL8tTB42GYzXsPdvqXYbz5ES88Ee2hI3Wi8a3wPFDCeOP6djSEtF-XORDcvuinheDAJltJqqyBUOJsqySeHdR0JXIm8tbj3XtT8O4MUAxH73NZNf0iCLspoq4Luueuc98jA==" data-type="unsubscription" onsubmit="handleUnsubscribe(event)">
+                                    <div style="padding:8px 0;">
+                                        <div class="sib-input sib-form-block">
+                                            <div class="form__entry entry_block">
+                                                <div class="form__label-row ">
+                                                    <div class="entry__field">
+                                                        <input class="input" type="text" id="EMAIL" name="EMAIL" autocomplete="off" placeholder="EMAIL" data-required="true" required>
+                                                    </div>
+                                                </div>
+                                                <label class="entry__error entry__error--primary" style="font-size:16px;text-align:left;font-family:Helvetica,sans-serif;color:#661d1d;background-color:#ffeded;border-radius:3px;border-color:#ff4949;"></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div style="padding:8px 0;">
+                                        <div class="sib-form-block" style="text-align:center">
+                                            <button class="sib-form-block__button sib-form-block__button-with-loader" style="font-size:9px;text-align:center;font-weight:700;font-family:Helvetica,sans-serif;color:#FFFFFF;background-color:#121313;border-radius:6px;border-width:0px;cursor:pointer;padding:5px 8px;" form="sib-form-unsub" type="submit">
+                                                <svg class="icon clickable__icon progress-indicator__icon sib-hide-loader-icon" viewBox="0 0 512 512"><path d="M460.116 373.846l-20.823-12.022c-5.541-3.199-7.54-10.159-4.663-15.874 30.137-59.886 28.343-131.652-5.386-189.946-33.641-58.394-94.896-95.833-161.827-99.676C261.028 55.961 256 50.751 256 44.352V20.309c0-6.904 5.808-12.337 12.703-11.982 83.556 4.306 160.163 50.864 202.11 123.677 42.063 72.696 44.079 162.316 6.031 236.832-3.14 6.148-10.75 8.461-16.728 5.01z"/></svg> UNSUBSCRIBE &amp; REMOVE THE ACCOUNT
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <input type="text" name="email_address_check" value="" class="input--hidden">
+                                    <input type="hidden" name="locale" value="en">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <script>
+                        window.REQUIRED_CODE_ERROR_MESSAGE='Please choose a country code';window.LOCALE='en';window.EMAIL_INVALID_MESSAGE=window.SMS_INVALID_MESSAGE="The information provided is invalid. Please review the field format and try again.";window.REQUIRED_ERROR_MESSAGE="This field cannot be left blank. ";window.GENERIC_INVALID_MESSAGE="The information provided is invalid. Please review the field format and try again.";window.translation={common:{selectedList:'{quantity} list selected',selectedLists:'{quantity} lists selected',selectedOption:'{quantity} selected',selectedOptions:'{quantity} selected',}};var AUTOHIDE=Boolean(0);
+                    </script>
+                    <script defer src="https://sibforms.com/forms/end-form/build/main.js"></script>
+                </div>
             </div>
         </div>
     </div>
@@ -2576,7 +2573,8 @@
     </div>
     <p style="color: #e6e6e6; font-size: 0.78rem; text-align: center; margin: 0 0 2px 0;">New here? Click Create Account.</p>
     <p style="color: #e6e6e6; font-size: 0.78rem; text-align: center; margin: 0 0 8px 0;">Already have an account? Click Log In.</p>
-    <div class="brevo-embed" style="margin-top: 6px;">
+    <p id="errorMsg" style="color: #ff1493; text-align: center; margin: 6px 0 10px 0; font-weight: bold;"></p>
+    <div id="authFormPanel" class="brevo-embed" style="margin-top: 6px; display: none;">
         <style>
             @font-face{font-display:block;font-family:Roboto;src:url(https://assets.brevo.com/font/Roboto/Latin/normal/normal/7529907e9eaf8ebb5220c5f9850e3811.woff2) format("woff2"),url(https://assets.brevo.com/font/Roboto/Latin/normal/normal/25c678feafdc175a70922a116c9be3e7.woff) format("woff")}@font-face{font-display:fallback;font-family:Roboto;font-weight:600;src:url(https://assets.brevo.com/font/Roboto/Latin/medium/normal/6e9caeeafb1f3491be3e32744bc30440.woff2) format("woff2"),url(https://assets.brevo.com/font/Roboto/Latin/medium/normal/71501f0d8d5aa95960f6475d5487d4c2.woff) format("woff")}@font-face{font-display:fallback;font-family:Roboto;font-weight:700;src:url(https://assets.brevo.com/font/Roboto/Latin/bold/normal/3ef7cf158f310cf752d5ad08cd0e7e60.woff2) format("woff2"),url(https://assets.brevo.com/font/Roboto/Latin/bold/normal/ece3a1d82f18b60bcce0211725c476aa.woff) format("woff")}#sib-container input:-ms-input-placeholder{text-align:left;font-family:Helvetica,sans-serif;color:#c0ccda}#sib-container input::placeholder{text-align:left;font-family:Helvetica,sans-serif;color:#c0ccda}#sib-container textarea::placeholder{text-align:left;font-family:Helvetica,sans-serif;color:#c0ccda}#sib-container a{text-decoration:underline;color:#2BB2FC}
         </style>
@@ -2669,17 +2667,16 @@
         </script>
         <script defer src="https://sibforms.com/forms/end-form/build/main.js"></script>
     </div>
-    <p id="errorMsg" style="color: #ff1493; text-align: center; margin-top: 15px; font-weight: bold;"></p>
    </div>
   </div>
-  <div id="welcomeModal" class="modal" style="display: none;">
+  <div id="signupConfirmModal" class="modal" style="display: none; position: fixed; inset: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.9); z-index: 20050; backdrop-filter: blur(6px); align-items: center; justify-content: center; padding: 16px; box-sizing: border-box;">
         <div class="modal-content" style="
             position: relative;
             background: linear-gradient(135deg, #000000, #1a1a1a);
             border: 3px solid #ffd700;
             border-radius: 20px;
             padding: 20px 22px;
-            max-width: 480px;
+            max-width: 520px;
             width: 92%;
             max-height: 92vh;
             overflow-y: auto;
@@ -2687,7 +2684,7 @@
             margin: 0 auto;
             text-align: center;
         ">
-    <span class="close" onclick="closeWelcomeModal()" style="
+    <span class="close" onclick="closeSignupConfirmModal()" style="
                 position: absolute;
                 top: 12px;
                 right: 12px;
@@ -2704,23 +2701,9 @@
                 border-radius: 50%;
                 transition: all 0.3s ease;
             " onmouseover="this.style.background='rgba(255, 215, 0, 0.2)';" onmouseout="this.style.background='none';">×</span>
-    <h3 style="color: #ffd700; font-size: 1.6rem; margin-bottom: 10px; text-shadow: 0 0 18px rgba(255, 215, 0, 0.7);">Welcome to GIFTS!</h3>
-    <p style="color: #ffffff; font-size: 1rem; margin-bottom: 18px; line-height: 1.5;">
-        Your login worked perfectly. 🎉 You're ready to unlock the full GIFTS library.
+    <p style="color: #ffffff; font-size: 1rem; margin: 0; line-height: 1.5;">
+        You are ready to unwrap your gifts and stay connected with us! Just check your email and click on verification link.
     </p>
-    <button onclick="accessGiftsFromWelcome()" style="
-        background: linear-gradient(45deg, #8A2BE2, #9932CC);
-        border: 2px solid #ffd700;
-        border-radius: 18px;
-        padding: 12px 18px;
-        color: #ffffff;
-        font-size: 1.05rem;
-        font-weight: bold;
-        cursor: pointer;
-        box-shadow: 0 0 20px rgba(138, 43, 226, 0.6);
-        text-transform: uppercase;
-        letter-spacing: 1px;
-    ">Access GIFTS</button>
    </div>
   </div>
   <div id="privacyModal" class="modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 12000; backdrop-filter: blur(6px);">
@@ -2827,11 +2810,46 @@
       min-height: 100vh;
     }
 
+    @media (max-width: 720px) {
+      body {
+        height: 100vh;
+        overflow: hidden;
+        align-items: stretch;
+      }
+    }
+
     .hm-page {
       max-width: 1040px;
       width: 100%;
       margin: 14px auto 18px;
       padding: 0 12px;
+    }
+
+    @media (max-width: 720px) {
+      .hm-page {
+        height: 100vh;
+        margin: 0;
+        padding: 8px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .hm-page-header {
+        margin-bottom: 10px;
+      }
+
+      .hm-main-title {
+        font-size: 1.4rem;
+      }
+
+      .hm-main-subtitle {
+        font-size: 0.85rem;
+      }
+
+      .hm-tabs-wrapper {
+        margin: 12px 0 10px;
+      }
     }
 
     .hm-page-header {
@@ -3031,6 +3049,23 @@
       .hm-wheel-note,
       .hm-info-text {
         font-size: 0.9rem;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .hm-page {
+        height: 100vh;
+        overflow: hidden;
+      }
+
+      .hm-panel-inner {
+        max-height: calc(100vh - 220px);
+        overflow: hidden;
+      }
+
+      .hm-wheel-visual {
+        width: 128px;
+        height: 128px;
       }
     }
 
@@ -4707,6 +4742,9 @@
     body { display: flex; align-items: stretch; }
     .ws-shell { flex: 1; padding: 0; }
     .ws-frame { width: 100%; height: 100vh; border: none; border-radius: 0; display: block; }
+    @media (max-width: 720px) {
+      .ws-frame { height: 100vh; }
+    }
   </style>
 </head>
 <body>
@@ -5264,7 +5302,7 @@ document
     * { box-sizing: border-box; }
     body {
       margin: 0;
-      padding: 30px 12px 50px;
+      padding: 18px 12px 28px;
       background: radial-gradient(circle at 20% 20%, rgba(138,43,226,0.15), transparent 30%),
                   radial-gradient(circle at 80% 10%, rgba(255,215,0,0.18), transparent 32%),
                   radial-gradient(circle at 50% 80%, rgba(138,43,226,0.22), transparent 38%),
@@ -5281,13 +5319,13 @@ document
       background: linear-gradient(145deg, rgba(0,0,0,0.9), rgba(18,18,28,0.9));
       border: 3px solid var(--purple);
       border-radius: 22px;
-      padding: 28px 22px;
+      padding: 20px 18px;
       box-shadow: 0 0 35px rgba(138,43,226,0.55), 0 0 65px rgba(255,215,0,0.25);
     }
     h1 {
       text-align: center;
-      margin: 0 0 8px 0;
-      font-size: 2rem;
+      margin: 0 0 6px 0;
+      font-size: 1.6rem;
       letter-spacing: 1px;
       background: linear-gradient(90deg, var(--purple), #9932CC, var(--gold));
       -webkit-background-clip: text;
@@ -5297,22 +5335,22 @@ document
     }
     .subtitle {
       text-align: center;
-      margin: 0 0 24px 0;
-      color: var(--gold);
+      margin: 0 0 16px 0;
+      color: #ffffff;
       font-weight: bold;
       letter-spacing: 0.3px;
     }
     .layout {
       display: grid;
       grid-template-columns: 2fr 1fr;
-      gap: 22px;
+      gap: 16px;
       align-items: start;
     }
     .grid-shell {
       background: rgba(0,0,0,0.7);
       border: 2px solid var(--gold);
       border-radius: 16px;
-      padding: 16px;
+      padding: 12px;
       box-shadow: inset 0 0 18px rgba(255,215,0,0.25);
     }
     .puzzle-meta {
@@ -5336,8 +5374,8 @@ document
       border: 1px solid rgba(255,215,0,0.35);
       text-align: center;
       font-weight: bold;
-      font-size: 1.05rem;
-      padding: 8px 0;
+      font-size: 0.95rem;
+      padding: 6px 0;
       color: #ffffff;
       cursor: pointer;
       transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
@@ -5355,6 +5393,10 @@ document
       background: rgba(255,215,0,0.2);
       color: var(--gold);
       box-shadow: 0 0 18px rgba(255,215,0,0.55);
+    }
+    .word-grid td.hint {
+      background: rgba(138,43,226,0.25);
+      box-shadow: 0 0 18px rgba(138,43,226,0.55);
     }
     .panel {
       background: rgba(0,0,0,0.65);
@@ -5392,14 +5434,18 @@ document
       background: rgba(255,215,0,0.12);
       box-shadow: 0 0 15px rgba(255,215,0,0.4);
     }
+    .word-chip.hint {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
     .instructions {
-      margin-top: 12px;
-      font-size: 0.95rem;
+      margin-top: 10px;
+      font-size: 0.9rem;
       color: #dcdcdc;
       text-align: center;
     }
     .status {
-      margin-top: 14px;
+      margin-top: 12px;
       text-align: center;
       font-weight: bold;
       color: var(--gold);
@@ -5416,7 +5462,7 @@ document
       box-shadow: 0 0 12px rgba(138,43,226,0.45);
       transition: transform 0.2s ease, box-shadow 0.2s ease;
       text-transform: uppercase;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
     }
     .action-btn:hover { transform: translateY(-1px); box-shadow: 0 0 16px rgba(255,215,0,0.45); }
     .action-btn.ghost { background: rgba(0,0,0,0.45); color: var(--gold); }
@@ -5471,25 +5517,48 @@ document
     }
 
     @media (max-width: 900px) { .layout { grid-template-columns: 1fr; } }
+    @media (max-width: 720px) {
+      body {
+        height: 100vh;
+        overflow: hidden;
+        padding: 12px 8px 16px;
+      }
+      .shell {
+        height: 100%;
+        padding: 14px 12px;
+      }
+      .grid-shell {
+        max-height: 52vh;
+        overflow: hidden;
+      }
+      .panel {
+        padding: 12px;
+      }
+    }
   </style>
 </head>
 <body>
   <div class="shell">
-    <h1>The Happy Makers Word Search</h1>
-    <p class="subtitle">Finish a puzzle to unlock fresh Happy Makers words, confetti and a new round automatically.</p>
+    <h1>Happy Makers Word Search</h1>
+    <p class="subtitle">Find every word from the list.</p>
     <div class="layout">
       <div class="grid-shell">
-        <div class="puzzle-meta">
-          <span class="puzzle-name" id="puzzle-name"></span>
-          <button class="action-btn ghost" id="nextPuzzleBtn">New words ↻</button>
+        <div class="instructions" style="font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.4px;">
+          Tap a starting letter, tap the ending letter and see if you found a hidden word.
+          <br><span style="color:#ffd700; font-size: 0.82rem; text-transform: none; letter-spacing: 0.2px;">Words can be written in any direction — forward, backward, up, down, and diagonal.</span>
         </div>
         <table class="word-grid" id="wordGrid" aria-label="Word search grid"></table>
-        <div class="instructions">Tap a starting letter, tap the ending letter in a straight line, and see if you found a hidden word.</div>
-        <div class="status" id="status"></div>
       </div>
       <div class="panel">
+        <div class="puzzle-meta" style="justify-content: center;">
+          <button class="action-btn ghost" id="nextPuzzleBtn">New words ↻</button>
+        </div>
         <h2>Find These Words</h2>
         <div class="word-list" id="wordList"></div>
+        <div class="status" id="status"></div>
+        <div style="margin-top: 14px; text-align: center;">
+          <button class="action-btn" id="hintBtn">Hint ✶</button>
+        </div>
       </div>
     </div>
   </div>
@@ -5507,7 +5576,7 @@ document
     const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     const gridSize = 12;
     const puzzleSets = [
-      { title: 'Rise • Shine • Evolve', words: ['RISE','SHINE','EVOLVE','GOLD','PURPLE','SPARK','BRIGHT','ENERGY','CALM','JOY','GLOW','GIFT'] },
+      { title: 'Happy Makers Word Search', words: ['RISE','SHINE','EVOLVE','GOLD','PURPLE','SPARK','BRIGHT','ENERGY','CALM','JOY','GLOW','GIFT'] },
       { title: 'Happy Makers Crew', words: ['MIMI','LULI','DILO','ALIO','NINI','BIBI','MOTHER','FATHER','FAMILY','CREW','LOVE','SMILE'] },
       { title: 'Maker Magic', words: ['HAPPY','MAKERS','MAGIC','PLAY','CREATE','COLOR','LAUGH','HEART','BRAVE','BOLD','KIND','SPIRIT'] },
       { title: 'Adventure Sparks', words: ['TRAVEL','PUZZLE','QUEST','STUDIO','IDEAS','WORDS','HEROES','STARS','MOON','SUN','DREAM','GLOW'] },
@@ -5604,7 +5673,10 @@ document
         chip.id = `word-${word}`;
         list.appendChild(chip);
       });
-      document.getElementById('puzzle-name').textContent = puzzleSets[activePuzzleIndex].title;
+      const puzzleName = document.getElementById('puzzle-name');
+      if (puzzleName) {
+        puzzleName.textContent = puzzleSets[activePuzzleIndex].title;
+      }
     }
 
     function clearSelections() {
@@ -5627,6 +5699,51 @@ document
       return cells;
     }
 
+    function findWordPath(target) {
+      const targetUpper = target.toUpperCase();
+      const reversed = targetUpper.split('').reverse().join('');
+      for (let r = 0; r < gridSize; r++) {
+        for (let c = 0; c < gridSize; c++) {
+          for (const [dr, dc] of directions) {
+            const endR = r + dr * (targetUpper.length - 1);
+            const endC = c + dc * (targetUpper.length - 1);
+            if (endR < 0 || endR >= gridSize || endC < 0 || endC >= gridSize) continue;
+            const path = buildPath(r, c, endR, endC);
+            if (!path) continue;
+            const word = path.map(pos => grid[pos.r][pos.c]).join('');
+            if (word === targetUpper) {
+              return { path, reversed: false };
+            }
+            if (word === reversed) {
+              return { path, reversed: true };
+            }
+          }
+        }
+      }
+      return null;
+    }
+
+    function clearHints() {
+      document.querySelectorAll('.word-grid td.hint').forEach(td => td.classList.remove('hint'));
+      document.querySelectorAll('.word-chip.hint').forEach(chip => chip.classList.remove('hint'));
+    }
+
+    function showHint() {
+      clearHints();
+      const remaining = words.filter(word => !foundWords.has(word));
+      if (remaining.length === 0) return;
+      const target = remaining[0];
+      const result = findWordPath(target);
+      if (!result) return;
+      const hintCell = result.reversed ? result.path[result.path.length - 1] : result.path[0];
+      if (hintCell) {
+        const cell = document.querySelector(`td[data-row="${hintCell.r}"][data-col="${hintCell.c}"]`);
+        if (cell) cell.classList.add('hint');
+      }
+      const chip = document.getElementById(`word-${target}`);
+      if (chip) chip.classList.add('hint');
+    }
+
     function markFound(pathCells, word) {
       pathCells.forEach(({ r, c }) => {
         const cell = document.querySelector(`td[data-row="${r}"][data-col="${c}"]`);
@@ -5637,7 +5754,11 @@ document
       });
       foundWords.add(word);
       const chip = document.getElementById(`word-${word}`);
-      if (chip) chip.classList.add('found');
+      if (chip) {
+        chip.classList.add('found');
+        chip.classList.remove('hint');
+      }
+      clearHints();
       updateStatus();
       if (foundWords.size === words.length) {
         celebrate();
@@ -5673,7 +5794,8 @@ document
 
     function updateStatus() {
       const status = document.getElementById('status');
-      status.textContent = `${foundWords.size}/${words.length} words found • ${puzzleSets[activePuzzleIndex].title}`;
+      if (!status) return;
+      status.textContent = `${foundWords.size}/${words.length} words found`;
     }
 
     function clearConfetti() {
@@ -5721,6 +5843,7 @@ document
       words = puzzleSets[activePuzzleIndex].words.map(w => w.replace(/\s+/g, '').toUpperCase());
       foundWords = new Set();
       startCell = null;
+      clearHints();
       grid = buildGrid(words);
       renderGrid();
       renderWords();
@@ -5734,6 +5857,7 @@ document
 
     document.getElementById('nextPuzzleBtn').addEventListener('click', loadNextPuzzle);
     document.getElementById('playAgainBtn').addEventListener('click', loadNextPuzzle);
+    document.getElementById('hintBtn').addEventListener('click', showHint);
 
     loadPuzzle(0);
   </script>
@@ -5758,7 +5882,7 @@ document
 
         document.addEventListener('DOMContentLoaded', () => {
             checkUser();
-            setAuthMode('signup');
+            resetAuthPanel();
 
             const brevoUnsubForm = document.getElementById('sib-form-unsub');
             if (brevoUnsubForm) {
@@ -5799,47 +5923,116 @@ document
 
         const SUPABASE_URL = 'https://gegaodrfqwhrfdqtiokb.supabase.co';
         const SUPABASE_ANON_KEY = 'sb_publishable_eQ8wSa9kvfNwu8Uz033h-A_IFDuUAaK';
-        const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        const supabaseClient = window.supabase
+            ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+            : null;
         let hasGiftsAccess = false;
-        let authMode = 'signup';
+        let authMode = null;
+
+        function setLoggedInBadge(isVisible, email = '') {
+            const button = document.getElementById('auth-action-button');
+            const label = document.getElementById('auth-action-label');
+            if (label) {
+                label.style.display = isVisible ? 'inline' : 'none';
+                label.textContent = isVisible && email ? `Logged in as ${email}` : 'Log In';
+            }
+            if (button) {
+                button.textContent = isVisible ? 'Log Out' : 'Log In';
+            }
+        }
+
+        function handleAuthActionClick() {
+            if (hasGiftsAccess) {
+                handleLogout();
+                return;
+            }
+            setAuthMode('login');
+            showEmailModal();
+        }
+
+        async function handleLogout() {
+            if (!supabaseClient) {
+                return;
+            }
+            await supabaseClient.auth.signOut();
+            hasGiftsAccess = false;
+            setLoggedInBadge(false);
+            clearGiftsAccess();
+            localStorage.setItem('manualLoggedOut', 'true');
+            selectTab(getTabElement('main'), 'main');
+        }
+
+        function showAuthFormPanel(shouldShow) {
+            const panel = document.getElementById('authFormPanel');
+            if (panel) {
+                panel.style.display = shouldShow ? 'block' : 'none';
+            }
+        }
+
+        function resetAuthPanel() {
+            authMode = null;
+            showAuthFormPanel(false);
+            const bottomSubmit = document.getElementById('authActionBottom');
+            if (bottomSubmit) {
+                bottomSubmit.style.display = 'none';
+            }
+        }
 
         async function checkUser() {
+            if (!supabaseClient) {
+                setLoggedInBadge(false);
+                return;
+            }
+            if (localStorage.getItem('manualLoggedOut') === 'true') {
+                setLoggedInBadge(false);
+                hasGiftsAccess = false;
+                return;
+            }
             const { data: { session } } = await supabaseClient.auth.getSession();
             hasGiftsAccess = !!session;
             if (!session) {
+                setLoggedInBadge(false);
                 return;
             }
+            localStorage.removeItem('manualLoggedOut');
+            setLoggedInBadge(true, session.user?.email || '');
             closeEmailModal();
             const giftsTab = getTabElement('gifts');
             const requested = localStorage.getItem('giftsRequested') === 'true';
-            const shouldShowWelcome = localStorage.getItem('showGiftsWelcome') === 'true';
             if (giftsTab && (requested || window.location.hash === '#gifts')) {
                 localStorage.removeItem('giftsRequested');
-                if (shouldShowWelcome) {
-                    showWelcomeModal();
-                } else {
-                    selectTab(giftsTab, 'gifts');
-                }
+                selectTab(giftsTab, 'gifts');
             }
 
             const user = session.user;
-            const welcomed = user?.user_metadata?.welcomed;
-            if (welcomed) {
+            if (!user?.email_confirmed_at) {
+                return;
+            }
+            const brevoSynced = user?.user_metadata?.brevo_synced;
+            if (brevoSynced) {
                 return;
             }
 
             try {
+                const storedFirstName = localStorage.getItem('giftsFirstName') || '';
+                const formData = new FormData();
+                formData.append('EMAIL', user.email);
+                const firstName = user?.user_metadata?.first_name || storedFirstName;
+                if (firstName) {
+                    formData.append('FIRSTNAME', firstName);
+                }
+                if (BREVO_LIST_ID) {
+                    formData.append('brevoListId', BREVO_LIST_ID);
+                }
                 await fetch(CLOUDFLARE_WORKER_ENDPOINT, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        email: user.email,
-                        lang: (user?.user_metadata?.lang || 'en'),
-                    }),
+                    body: formData,
+                    mode: 'cors',
+                    credentials: 'omit',
                 });
 
                 await supabaseClient.auth.updateUser({
-                    data: { welcomed: true },
+                    data: { welcomed: true, brevo_synced: true },
                 });
                 showThankYouPage();
             } catch (error) {
@@ -5847,9 +6040,11 @@ document
             }
         }
 
-        supabaseClient.auth.onAuthStateChange(() => {
-            checkUser();
-        });
+        if (supabaseClient) {
+            supabaseClient.auth.onAuthStateChange(() => {
+                checkUser();
+            });
+        }
 
         function showAuthMessage(message, color = '#ffd700') {
             const errorMsg = document.getElementById('errorMsg');
@@ -5859,35 +6054,16 @@ document
             }
         }
 
-        function showWelcomeModal() {
-            const modal = document.getElementById('welcomeModal');
-            if (modal) {
-                modal.style.display = 'flex';
-                modal.classList.add('show');
-                document.body.style.overflow = 'hidden';
-                localStorage.removeItem('showGiftsWelcome');
-            }
-        }
-
-        function closeWelcomeModal() {
-            const modal = document.getElementById('welcomeModal');
-            if (modal) {
-                modal.classList.remove('show');
-                modal.style.display = 'none';
-            }
-            document.body.style.overflow = 'auto';
-        }
-
-        function accessGiftsFromWelcome() {
-            closeWelcomeModal();
-            const giftsTab = getTabElement('gifts');
-            if (giftsTab) {
-                showTabContent(giftsTab, 'gifts');
+        function clearAuthMessage() {
+            const errorMsg = document.getElementById('errorMsg');
+            if (errorMsg) {
+                errorMsg.textContent = '';
             }
         }
 
         function setAuthMode(mode) {
             authMode = mode === 'login' ? 'login' : 'signup';
+            clearAuthMessage();
             const signUpBtn = document.getElementById('authModeSignUp');
             const loginBtn = document.getElementById('authModeLogin');
             const signupFields = document.getElementById('signupFields');
@@ -5897,6 +6073,7 @@ document
             const optInField = document.getElementById('brevoOptIn');
             const bottomSubmit = document.getElementById('authActionBottom');
 
+            showAuthFormPanel(true);
             if (signUpBtn && loginBtn) {
                 const isSignup = authMode === 'signup';
                 signUpBtn.style.background = isSignup ? 'linear-gradient(45deg, #8A2BE2, #9932CC)' : '#0d0d0d';
@@ -5926,6 +6103,24 @@ document
             }
         }
 
+        function showSignupConfirmModal() {
+            const modal = document.getElementById('signupConfirmModal');
+            if (modal) {
+                modal.style.display = 'flex';
+                modal.classList.add('show');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeSignupConfirmModal() {
+            const modal = document.getElementById('signupConfirmModal');
+            if (modal) {
+                modal.classList.remove('show');
+                modal.style.display = 'none';
+            }
+            document.body.style.overflow = 'auto';
+        }
+
         function handleBottomAction() {
             if (authMode === 'login') {
                 handleLoginModal();
@@ -5937,10 +6132,31 @@ document
             }
         }
 
+        function sendSignupToNewsletter(form) {
+            const { firstName, email } = getAuthFormValues();
+            const formData = form ? new FormData(form) : new FormData();
+            formData.delete('PASSWORD');
+            formData.delete('password');
+            formData.delete('userPassword');
+            if (firstName) {
+                formData.set('FIRSTNAME', firstName);
+            }
+            if (email) {
+                formData.set('EMAIL', email);
+            }
+            if (BREVO_LIST_ID) {
+                formData.set('brevoListId', BREVO_LIST_ID);
+            }
+            formData.append('action', 'signup');
+            sendToSite(formData);
+        }
+
         function getAuthFormValues() {
+            const rawEmail = document.getElementById('brevoEmail')?.value || '';
+            const email = rawEmail.trim().toLowerCase();
             return {
                 firstName: document.getElementById('brevoFirstName')?.value.trim() || '',
-                email: document.getElementById('brevoEmail')?.value.trim() || '',
+                email,
                 password: document.getElementById('userPassword')?.value || '',
                 gdprChecked: document.getElementById('brevoOptIn')?.checked || false,
                 form: document.getElementById('sib-form'),
@@ -5976,13 +6192,19 @@ document
             const redirectUrl = (window.location.origin && window.location.origin.startsWith('http'))
                 ? `${window.location.origin}${window.location.pathname}#gifts`
                 : undefined;
-            const { error } = await supabaseClient.auth.signUp({
+            if (!supabaseClient) {
+                showAuthMessage('Signup is unavailable right now. Please try again later.', '#ff1493');
+                return;
+            }
+            const { data, error } = await supabaseClient.auth.signUp({
                 email,
                 password,
                 options: {
                     data: {
                         lang: 'en',
+                        first_name: firstName,
                         welcomed: false,
+                        brevo_synced: false,
                     },
                     ...(redirectUrl ? { emailRedirectTo: redirectUrl } : {}),
                 },
@@ -5990,8 +6212,10 @@ document
 
             if (error) {
                 const message = String(error.message || '');
-                if (message.toLowerCase().includes('already registered') || message.toLowerCase().includes('user already registered')) {
-                    showAuthMessage('An account for this email already exists. Please use Log In instead.', '#ff1493');
+                if (message.toLowerCase().includes('already registered')
+                    || message.toLowerCase().includes('user already registered')
+                    || message.toLowerCase().includes('already exists')) {
+                    showAuthMessage('You already have an account please log in.', '#ff1493');
                     setAuthMode('login');
                     return;
                 }
@@ -6002,12 +6226,18 @@ document
                 }
                 return;
             }
+            if (data?.user?.identities && data.user.identities.length === 0) {
+                showAuthMessage('You already have an account please log in.', '#ff1493');
+                setAuthMode('login');
+                return;
+            }
 
             localStorage.setItem('giftsFirstName', firstName);
             localStorage.setItem('giftsEmail', email);
             localStorage.setItem('giftsRequested', 'true');
-
-            showAuthMessage('You are ready to unwrap your gifts and stay connected with us! Just check your email and click on verification link.', '#ffd700');
+            closeEmailModal();
+            showSignupConfirmModal();
+            showAuthMessage('');
         }
 
         async function handleLoginModal() {
@@ -6018,6 +6248,10 @@ document
                 return;
             }
 
+            if (!supabaseClient) {
+                showAuthMessage('Login is unavailable right now. Please try again later.', '#ff1493');
+                return;
+            }
             const { error } = await supabaseClient.auth.signInWithPassword({
                 email,
                 password,
@@ -6031,9 +6265,13 @@ document
             showAuthMessage('Welcome back! You are logged in.', '#ffd700');
             localStorage.setItem('giftsEmail', email);
             localStorage.setItem('giftsRequested', 'true');
-            localStorage.setItem('showGiftsWelcome', 'true');
+            localStorage.removeItem('manualLoggedOut');
             checkUser();
             closeEmailModal();
+            const giftsTab = getTabElement('gifts');
+            if (giftsTab) {
+                selectTab(giftsTab, 'gifts');
+            }
         }
 
         // Optional Cloudflare Worker endpoint for form submissions.
@@ -6759,6 +6997,8 @@ document
             if (errorMsg) {
                 errorMsg.textContent = '';
             }
+            clearAuthMessage();
+            resetAuthPanel();
             localStorage.setItem('giftsRequested', 'true');
             if (window.location.hash === '#gifts') {
                 setAuthMode('login');
@@ -6810,7 +7050,6 @@ document
             }
 
             localStorage.setItem('giftsRequested', 'true');
-            localStorage.setItem('showGiftsWelcome', 'true');
 
             const giftsTab = getTabElement('gifts');
             if (giftsTab) {
@@ -6829,11 +7068,13 @@ document
             event.preventDefault();
             const form = event.target;
             const emailInput = form.querySelector('input[type="email"], input[name="EMAIL"]');
-            const messageBox = form.querySelector('.unsubscribe-message');
+            const messageBox = form.parentElement
+                ? form.parentElement.querySelector('.unsubscribe-message')
+                : document.querySelector('.unsubscribe-message');
             if (messageBox) {
                 messageBox.textContent = '';
             }
-            const emailValue = emailInput ? emailInput.value.trim() : '';
+            const emailValue = emailInput ? emailInput.value.trim().toLowerCase() : '';
             if (!emailValue || !emailValue.includes('@') || !emailValue.includes('.')) {
                 if (messageBox) {
                     messageBox.style.color = '#ff69b4';
@@ -6841,16 +7082,72 @@ document
                 }
                 return;
             }
-            const formData = new FormData(form);
-            sendToSite(formData);
-            clearGiftsAccess();
             if (messageBox) {
                 messageBox.style.color = '#ffd700';
-                messageBox.textContent = 'You have been unsubscribed and GIFTS access was removed.';
+                messageBox.textContent = 'Processing your unsubscribe request...';
             }
-            setTimeout(() => {
-                selectTab(document.querySelector('.tab'), 'main');
-            }, 1200);
+
+            const workerEndpoint = (typeof CLOUDFLARE_WORKER_ENDPOINT === 'string' && CLOUDFLARE_WORKER_ENDPOINT.trim())
+                ? CLOUDFLARE_WORKER_ENDPOINT.trim()
+                : 'https://newsletter-endpoint.rise-shine-evolve.workers.dev/';
+            if (!workerEndpoint) {
+                if (messageBox) {
+                    messageBox.style.color = '#ff69b4';
+                    messageBox.textContent = 'Unsubscribe is unavailable right now. Please contact support.';
+                }
+                return;
+            }
+
+            const sendRequest = async () => {
+                let userId = '';
+                if (supabaseClient) {
+                    const { data: { session } } = await supabaseClient.auth.getSession();
+                    if (session?.user?.id && session?.user?.email?.toLowerCase() === emailValue) {
+                        userId = session.user.id;
+                    }
+                }
+                if (!userId) {
+                    if (messageBox) {
+                        messageBox.style.color = '#ff69b4';
+                        messageBox.textContent = 'Please log in with this email to confirm account removal.';
+                    }
+                    return;
+                }
+                return fetch(workerEndpoint, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        type: 'request_delete',
+                        email: emailValue,
+                        userId,
+                    }),
+                    mode: 'cors',
+                    credentials: 'omit',
+                });
+            };
+
+            sendRequest()
+                .then(async (response) => {
+                    if (!response) return;
+                    const data = await response.json().catch(() => ({}));
+                    if (!response.ok) {
+                        if (messageBox) {
+                            messageBox.style.color = '#ff69b4';
+                            messageBox.textContent = data?.error || 'Unable to unsubscribe.';
+                        }
+                        return;
+                    }
+                    if (messageBox) {
+                        messageBox.style.color = '#ffd700';
+                        messageBox.textContent = 'We have sent a confirmation link to your email address. Please check your inbox to finalize the deletion.';
+                    }
+                })
+                .catch((error) => {
+                    if (messageBox) {
+                        messageBox.style.color = '#ff69b4';
+                        messageBox.textContent = error?.message || 'Unsubscribe is unavailable right now. Please try again later.';
+                    }
+                });
         }
         document.addEventListener('DOMContentLoaded', () => {
             applyCharacterPortraits();
@@ -6869,11 +7166,27 @@ document
 
             const unsubForm = document.getElementById('sib-form-unsub');
             if (unsubForm) {
+                const clearMessage = () => {
+                    const msg = unsubForm.parentElement
+                        ? unsubForm.parentElement.querySelector('.unsubscribe-message')
+                        : document.querySelector('.unsubscribe-message');
+                    if (msg) {
+                        msg.textContent = '';
+                    }
+                };
+                unsubForm.addEventListener('focusin', clearMessage);
+                unsubForm.addEventListener('input', clearMessage);
                 unsubForm.addEventListener('submit', () => {
                     setTimeout(() => {
                         clearGiftsAccess();
                     }, 250);
                 });
+            }
+
+            const authForm = document.getElementById('sib-form');
+            if (authForm) {
+                authForm.addEventListener('input', clearAuthMessage);
+                authForm.addEventListener('focusin', clearAuthMessage);
             }
         });
 
