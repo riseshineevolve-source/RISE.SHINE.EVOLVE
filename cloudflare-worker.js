@@ -551,9 +551,13 @@ export default {
       }
 
       const ok = !brevoError && !supabaseError && supabaseRemoved;
+      const errorMessage = ok
+        ? null
+        : supabaseError || (supabaseRemoved ? null : 'Supabase account not removed');
       return jsonResponse(
         {
           ok,
+          error: errorMessage,
           found,
           brevoFound,
           brevoRemoved,
@@ -561,7 +565,7 @@ export default {
           supabaseRemoved,
           unsubscribeEmailSent,
           brevoError,
-          supabaseError: supabaseError || (supabaseRemoved ? null : 'Supabase account not removed'),
+          supabaseError: errorMessage,
         },
         ok ? 200 : 500
       );
