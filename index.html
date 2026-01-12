@@ -6069,8 +6069,16 @@ document
         async function handlePasswordResetRequest() {
             const rawEmail = document.getElementById('brevoEmail')?.value || '';
             const email = rawEmail.trim().toLowerCase();
+            if (authMode !== 'login') {
+                setAuthMode('login');
+            }
             if (!email || !email.includes('@') || !email.includes('.')) {
-                showAuthMessage('Please enter your email to reset your password.', '#ff1493');
+                showAuthMessage('Enter your email below to reset your password.', '#ff1493');
+                const emailField = document.getElementById('brevoEmail');
+                if (emailField) {
+                    emailField.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    emailField.focus();
+                }
                 return;
             }
             const workerEndpoint = (typeof CLOUDFLARE_WORKER_ENDPOINT === 'string' && CLOUDFLARE_WORKER_ENDPOINT.trim())
@@ -7176,10 +7184,22 @@ document
                 .then(async (response) => {
                     if (!response) return;
                     const data = await response.json().catch(() => ({}));
+                    const errorText = (data?.error || '').toString().toLowerCase();
+                    const errorCode = (data?.code || '').toString().toLowerCase();
+                    const notFound = errorCode === 'email_not_found'
+                        || errorText.includes('email not found')
+                        || errorText.includes('not found');
                     if (!response.ok) {
                         if (messageBox) {
                             messageBox.style.color = '#ff69b4';
-                            messageBox.textContent = data?.error || 'Unable to unsubscribe.';
+                            messageBox.textContent = notFound ? 'Email not found.' : (data?.error || 'Unable to unsubscribe.');
+                        }
+                        return;
+                    }
+                    if (notFound) {
+                        if (messageBox) {
+                            messageBox.style.color = '#ff69b4';
+                            messageBox.textContent = 'Email not found.';
                         }
                         return;
                     }
