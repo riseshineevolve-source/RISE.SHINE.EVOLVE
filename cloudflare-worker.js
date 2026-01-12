@@ -21,24 +21,35 @@ export default {
 
     // --- SCENARIUSZ B: AKCJE Z FORMULARZA NA STRONIE (POST) ---
     if (request.method === "POST") {
+      const contentType = request.headers.get("content-type") || "";
       try {
-        const body = await request.json();
-        
-        // 1. Prośba o usunięcie (Wysyłamy maila z linkiem)
-        if (body.type === 'request_delete') {
-            return await sendDeleteConfirmationEmail(body, env, url.origin);
-        }
+        if (contentType.includes("application/json")) {
+          const body = await request.json();
+          
+          // 1. Prośba o usunięcie (Wysyłamy maila z linkiem)
+          if (body.type === 'request_delete') {
+              return await sendDeleteConfirmationEmail(body, env, url.origin);
+          }
 
-        // 2. Standardowy zapis (Welcome) - stary kod
-        if (body.email && !body.type) {
-             return await handleSubscription(body, env);
-        }
+          // 2. Standardowy zapis (Welcome) - stary kod
+          if (body.email && !body.type) {
+               return await handleSubscription(body, env);
+          }
 
-        // 3. Sprawdzanie statusu (Bramkarz) - stary kod
-        if (body.type === 'check_status') {
-             return await checkSubscriptionStatus(body, env);
+          // 3. Sprawdzanie statusu (Bramkarz) - stary kod
+          if (body.type === 'check_status') {
+               return await checkSubscriptionStatus(body, env);
+          }
+        } else {
+          const formData = await request.formData();
+          const email = (formData.get("email") || formData.get("EMAIL") || "").toString().trim().toLowerCase();
+          const firstName = (formData.get("firstName") || formData.get("FIRSTNAME") || "").toString().trim();
+          const listId = formData.get("brevoListId") || env.BREVO_LIST_ID || 3;
+          if (!email) {
+            return new Response(JSON.stringify({ error: "Missing email" }), { status: 400 });
+          }
+          return await handleSubscription({ email, firstName, listId }, env);
         }
-
       } catch (error) {
         return new Response(JSON.stringify({ error: error.message }), { status: 500 });
       }
@@ -152,9 +163,10 @@ async function handleSubscription(body, env) {
         headers: { "Content-Type": "application/json", "api-key": env.BREVO_API_KEY },
         body: JSON.stringify({
           email: body.email,
-          listIds: [3], 
+          listIds: [Number(body.listId || 3)], 
           emailBlacklisted: false,
-          updateEnabled: true
+          updateEnabled: true,
+          attributes: body.firstName ? { FIRSTNAME: body.firstName } : undefined
         })
       });
       return new Response(JSON.stringify({ success: updateResponse.ok }), { headers: { "Access-Control-Allow-Origin": "*", "Content-Type": "application/json" } });
