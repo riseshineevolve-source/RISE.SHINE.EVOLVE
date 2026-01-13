@@ -329,9 +329,9 @@
 
         .gift-overlay-inner {
             position: relative;
-            width: min(960px, 92vw);
-            height: min(72vh, 560px);
-            max-height: calc(100vh - 140px);
+            width: min(920px, 92vw);
+            height: min(68vh, 520px);
+            max-height: calc(100vh - 160px);
             margin: 0 auto;
             display: flex;
             align-items: stretch;
@@ -389,8 +389,8 @@
             }
             .gift-overlay-inner {
                 width: 100%;
-                height: calc(100vh - 120px);
-                max-height: calc(100vh - 120px);
+                height: calc(100vh - 140px);
+                max-height: calc(100vh - 140px);
                 border-radius: 0;
             }
             .gift-frame {
@@ -413,6 +413,13 @@
             .container {
                 padding: 28px 16px;
             }
+            .kids-tile {
+                width: 94vw !important;
+                max-width: 94vw !important;
+                padding: 12px 16px;
+                margin: 18px auto;
+                font-size: 0.85rem;
+            }
             .info-tile,
             .kids-tile {
                 box-shadow: 0 0 20px rgba(138, 43, 226, 0.35), 0 0 30px rgba(255, 215, 0, 0.2);
@@ -420,8 +427,8 @@
             .elegant-christmas-box {
                 right: 8px;
                 top: 90px;
-                width: 120px;
-                height: 120px;
+                width: 180px;
+                height: 110px;
                 box-shadow: 0 0 24px rgba(255, 215, 0, 0.5), 0 0 40px rgba(255, 215, 0, 0.2);
             }
             .brevo-embed .sib-container--large {
@@ -816,8 +823,8 @@
             border-radius: 15px;
             padding: 15px 25px;
             margin: 25px auto;
-            width: 450px;
-            max-width: 90%;
+            width: min(520px, 92vw);
+            max-width: 92vw;
             box-shadow: 0 0 35px rgba(138, 43, 226, 0.7), 0 0 60px rgba(138, 43, 226, 0.4);
             color: #ffffff;
             text-align: center;
@@ -856,6 +863,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            width: min(620px, 92vw);
         }
 
         .tabs {
@@ -925,8 +933,8 @@
             position: fixed;
             top: 110px;
             right: 12px;
-            width: 120px;
-            height: 120px;
+            width: 180px;
+            height: 110px;
             background: linear-gradient(135deg, rgba(0, 0, 0, 0.95), rgba(20, 20, 20, 0.9), rgba(0, 0, 0, 0.95));
             border: 2px solid #ffd700;
             border-radius: 14px;
@@ -963,22 +971,23 @@
         }
 
         .elegant-main-title {
-            font-size: 0.76rem;
+            font-size: 0.7rem;
             font-weight: bold;
             color: #ffd700;
             margin-bottom: 2px;
             text-shadow: 0 0 25px rgba(255, 215, 0, 1);
-            line-height: 1.15;
+            line-height: 1.1;
         }
 
         .elegant-subtitle {
-            font-size: 0.52rem;
+            font-size: 0.46rem;
             color: #8A2BE2;
             text-shadow: 0 0 15px rgba(138, 43, 226, 0.8);
             margin-bottom: 2px;
             font-weight: bold;
             text-transform: uppercase;
             letter-spacing: 0.35px;
+            line-height: 1.2;
         }
 
         .elegant-description {
@@ -1101,8 +1110,8 @@
                 right: auto;
                 left: auto;
                 margin: 8px auto 0;
-                width: 120px;
-                height: 120px;
+                width: 180px;
+                height: 110px;
                 transform: rotate(0deg);
                 animation: elegantBoxGlow 6s ease-in-out infinite, elegantBoxFloat 8s ease-in-out infinite;
             }
@@ -1144,8 +1153,8 @@
                 position: relative;
                 top: auto;
                 right: auto;
-                width: 120px;
-                height: 120px;
+                width: 180px;
+                height: 110px;
                 margin: 12px auto;
                 transform: rotate(0deg);
                 animation: elegantBoxGlow 6s ease-in-out infinite, elegantBoxFloat 8s ease-in-out infinite;
@@ -1156,11 +1165,11 @@
             }
 
             .elegant-main-title {
-                font-size: 0.7rem;
+                font-size: 0.66rem;
             }
 
             .elegant-subtitle {
-                font-size: 0.5rem;
+                font-size: 0.44rem;
             }
 
             .elegant-description {
@@ -2834,10 +2843,10 @@
     }
 
     .hm-page {
-      max-width: 1040px;
+      max-width: 960px;
       width: 100%;
-      margin: 14px auto 18px;
-      padding: 0 12px;
+      margin: 8px auto 14px;
+      padding: 0 10px;
     }
 
     @media (max-width: 720px) {
@@ -2869,11 +2878,11 @@
 
     .hm-page-header {
       text-align: center;
-      margin-bottom: 24px;
+      margin-bottom: 16px;
     }
 
     .hm-main-title {
-      font-size: 1.9rem;
+      font-size: 1.6rem;
       font-weight: 800;
       margin: 0 0 6px;
       background: linear-gradient(45deg, #8A2BE2, #9932CC, #ff69b4, #ffb6c1);
@@ -2882,7 +2891,7 @@
     }
 
     .hm-main-subtitle {
-      font-size: 0.98rem;
+      font-size: 0.9rem;
       color: var(--text-muted);
       max-width: 560px;
       margin: 0 auto;
@@ -2895,7 +2904,7 @@
     .hm-tabs-wrapper {
       display: flex;
       justify-content: center;
-      margin: 22px 0 26px;
+      margin: 14px 0 16px;
     }
 
     .hm-tabs {
@@ -2963,11 +2972,11 @@
     /* Panel layout */
 
     .hm-panel-inner {
-      max-width: 980px;
+      max-width: 900px;
       margin: 0 auto;
       display: grid;
-      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.82fr);
-      gap: 10px;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
+      gap: 8px;
       align-items: start;
     }
 
@@ -2991,8 +3000,8 @@
       }
 
       .hm-wheel-visual {
-        width: 152px;
-        height: 152px;
+        width: 140px;
+        height: 140px;
       }
     }
 
@@ -3011,14 +3020,14 @@
       }
 
       .hm-wheel-visual {
-        width: 144px;
-        height: 144px;
+        width: 136px;
+        height: 136px;
       }
 
       .hm-wheel-subtitle,
       .hm-wheel-note,
       .hm-info-text {
-        font-size: 0.88rem;
+        font-size: 0.82rem;
       }
     }
 
@@ -3036,8 +3045,8 @@
       }
 
       .hm-wheel-visual {
-        width: 158px;
-        height: 158px;
+        width: 140px;
+        height: 140px;
       }
     }
 
@@ -3056,14 +3065,14 @@
       }
 
       .hm-wheel-visual {
-        width: 150px;
-        height: 150px;
+        width: 136px;
+        height: 136px;
       }
 
       .hm-wheel-subtitle,
       .hm-wheel-note,
       .hm-info-text {
-        font-size: 0.9rem;
+        font-size: 0.82rem;
       }
     }
 
@@ -3074,13 +3083,13 @@
       }
 
       .hm-panel-inner {
-        max-height: calc(100vh - 220px);
+        max-height: calc(100vh - 190px);
         overflow: hidden;
       }
 
       .hm-wheel-visual {
-        width: 128px;
-        height: 128px;
+        width: 120px;
+        height: 120px;
       }
     }
 
@@ -3098,8 +3107,8 @@
       }
 
       .hm-wheel-visual {
-        width: 158px;
-        height: 158px;
+        width: 140px;
+        height: 140px;
       }
     }
 
@@ -3118,14 +3127,14 @@
       }
 
       .hm-wheel-visual {
-        width: 150px;
-        height: 150px;
+        width: 136px;
+        height: 136px;
       }
 
       .hm-wheel-subtitle,
       .hm-wheel-note,
       .hm-info-text {
-        font-size: 0.9rem;
+        font-size: 0.82rem;
       }
     }
 
@@ -3133,7 +3142,7 @@
 
     .hm-wheel-box {
       border-radius: var(--radius-xl);
-      padding: 10px 10px 12px;
+      padding: 8px 8px 10px;
       background: radial-gradient(circle at top left, rgba(138, 43, 226, 0.18), transparent 55%),
                   radial-gradient(circle at bottom right, rgba(242, 155, 196, 0.16), transparent 55%),
                   rgba(5, 3, 20, 0.92);
@@ -3164,7 +3173,7 @@
     }
 
     .hm-wheel-title {
-      font-size: 1.26rem;
+      font-size: 1.1rem;
       font-weight: 800;
       margin: 4px 0 0;
       text-align: center;
@@ -3188,18 +3197,18 @@
     }
 
     .hm-wheel-subtitle {
-      font-size: 0.92rem;
+      font-size: 0.82rem;
       color: var(--text-muted);
       margin: 2px auto 6px;
       max-width: 640px;
       text-align: justify;
-      line-height: 1.5;
+      line-height: 1.4;
     }
 
     .hm-wheel-layout {
       display: grid;
-      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1fr);
-      gap: 10px;
+      grid-template-columns: minmax(0, 0.85fr) minmax(0, 1fr);
+      gap: 8px;
       align-items: center;
     }
 
@@ -3220,10 +3229,10 @@
 
     .hm-controls-box {
       border-radius: 18px;
-      padding: 12px 14px 14px;
+      padding: 10px 12px 12px;
       background: rgba(8, 5, 26, 0.96);
       border: 2px solid rgba(255, 255, 255, 0.18);
-      margin-bottom: 16px;
+      margin-bottom: 12px;
       text-align: center;
     }
 
@@ -3238,7 +3247,7 @@
     }
 
     .hm-controls-label {
-      font-size: 0.9rem;
+      font-size: 0.8rem;
       color: var(--text-muted);
       margin-bottom: 8px;
       text-align: center;
@@ -3253,11 +3262,11 @@
 
     .hm-filter-btn {
       border: 0;
-      padding: 7px 13px;
+      padding: 6px 10px;
       border-radius: 999px;
       background: rgba(255, 255, 255, 0.04);
       color: var(--text-muted);
-      font-size: 0.82rem;
+      font-size: 0.74rem;
       cursor: pointer;
       transition: all 0.15s ease;
       display: inline-flex;
@@ -3266,7 +3275,7 @@
     }
 
     .hm-filter-btn span {
-      font-size: 0.84rem;
+      font-size: 0.78rem;
     }
 
     .hm-filter-btn.hm-active {
@@ -3297,14 +3306,14 @@
 
     .hm-wheel-pointer {
       position: absolute;
-      top: -4px;
+      top: -2px;
       left: 50%;
       transform: translateX(-50%);
       width: 0;
       height: 0;
-      border-left: 16px solid transparent;
-      border-right: 16px solid transparent;
-      border-top: 24px solid #ffffff;
+      border-left: 14px solid transparent;
+      border-right: 14px solid transparent;
+      border-top: 20px solid #ffffff;
       filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.45));
       z-index: 3;
     }
@@ -3314,8 +3323,8 @@
     }
 
     .hm-wheel-visual {
-      width: 160px;
-      height: 160px;
+      width: 140px;
+      height: 140px;
       border-radius: 50%;
       border: 6px solid #fdf7ff;
       position: relative;
@@ -3454,9 +3463,9 @@
 
     .hm-spin-btn {
       border: 0;
-      padding: 10px 22px;
+      padding: 8px 18px;
       border-radius: 999px;
-      font-size: 0.96rem;
+      font-size: 0.88rem;
       font-weight: 600;
       cursor: pointer;
       color: #ffffff;
@@ -3478,11 +3487,11 @@
     }
 
     .hm-wheel-note {
-      font-size: 0.88rem;
+      font-size: 0.8rem;
       color: var(--text-muted);
       max-width: 100%;
       text-align: justify;
-      line-height: 1.5;
+      line-height: 1.4;
     }
 
     /* Right column */
@@ -3518,16 +3527,16 @@
     }
 
     .hm-info-title {
-      font-size: 0.94rem;
+      font-size: 0.86rem;
       font-weight: 700;
       margin-bottom: 4px;
       text-align: center;
     }
 
     .hm-info-text {
-      font-size: 0.9rem;
+      font-size: 0.82rem;
       color: var(--text-muted);
-      line-height: 1.55;
+      line-height: 1.45;
       text-align: justify;
       margin: 0 auto;
       max-width: 680px;
@@ -5317,7 +5326,7 @@ document
     * { box-sizing: border-box; }
     body {
       margin: 0;
-      padding: 18px 12px 28px;
+      padding: 12px 10px 18px;
       background: radial-gradient(circle at 20% 20%, rgba(138,43,226,0.15), transparent 30%),
                   radial-gradient(circle at 80% 10%, rgba(255,215,0,0.18), transparent 32%),
                   radial-gradient(circle at 50% 80%, rgba(138,43,226,0.22), transparent 38%),
@@ -5329,18 +5338,18 @@ document
       overflow-x: hidden;
     }
     .shell {
-      max-width: 1100px;
+      max-width: 1000px;
       margin: 0 auto;
       background: linear-gradient(145deg, rgba(0,0,0,0.9), rgba(18,18,28,0.9));
-      border: 3px solid var(--purple);
-      border-radius: 22px;
-      padding: 20px 18px;
-      box-shadow: 0 0 35px rgba(138,43,226,0.55), 0 0 65px rgba(255,215,0,0.25);
+      border: none;
+      border-radius: 18px;
+      padding: 16px 14px;
+      box-shadow: 0 0 24px rgba(138,43,226,0.25), 0 0 45px rgba(255,215,0,0.18);
     }
     h1 {
       text-align: center;
-      margin: 0 0 6px 0;
-      font-size: 1.6rem;
+      margin: 0 0 4px 0;
+      font-size: 1.4rem;
       letter-spacing: 1px;
       background: linear-gradient(90deg, var(--purple), #9932CC, var(--gold));
       -webkit-background-clip: text;
@@ -5358,14 +5367,14 @@ document
     .layout {
       display: grid;
       grid-template-columns: 2fr 1fr;
-      gap: 16px;
+      gap: 12px;
       align-items: start;
     }
     .grid-shell {
       background: rgba(0,0,0,0.7);
       border: 2px solid var(--gold);
       border-radius: 16px;
-      padding: 12px;
+      padding: 10px;
       box-shadow: inset 0 0 18px rgba(255,215,0,0.25);
     }
     .puzzle-meta {
@@ -5389,8 +5398,8 @@ document
       border: 1px solid rgba(255,215,0,0.35);
       text-align: center;
       font-weight: bold;
-      font-size: 0.95rem;
-      padding: 6px 0;
+      font-size: 0.85rem;
+      padding: 5px 0;
       color: #ffffff;
       cursor: pointer;
       transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
@@ -5415,14 +5424,14 @@ document
     }
     .panel {
       background: rgba(0,0,0,0.65);
-      border: 2px solid var(--purple);
+      border: 1px solid rgba(138,43,226,0.4);
       border-radius: 16px;
-      padding: 16px;
-      box-shadow: inset 0 0 16px rgba(138,43,226,0.25);
+      padding: 12px;
+      box-shadow: inset 0 0 12px rgba(138,43,226,0.2);
     }
     .panel h2 {
       margin: 0 0 12px 0;
-      font-size: 1.1rem;
+      font-size: 1rem;
       letter-spacing: 0.5px;
       color: var(--gold);
       text-transform: uppercase;
@@ -5430,11 +5439,11 @@ document
     }
     .word-list {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
       gap: 8px;
     }
     .word-chip {
-      padding: 8px 10px;
+      padding: 6px 8px;
       border: 1px solid rgba(255,215,0,0.65);
       border-radius: 10px;
       text-align: center;
@@ -5442,6 +5451,7 @@ document
       color: #ffffff;
       background: rgba(138,43,226,0.18);
       box-shadow: 0 0 12px rgba(138,43,226,0.3);
+      font-size: 0.78rem;
     }
     .word-chip.found {
       color: var(--gold);
@@ -5454,8 +5464,8 @@ document
       color: var(--gold);
     }
     .instructions {
-      margin-top: 10px;
-      font-size: 0.9rem;
+      margin-top: 8px;
+      font-size: 0.82rem;
       color: #dcdcdc;
       text-align: center;
     }
@@ -5469,7 +5479,7 @@ document
     .action-btn {
       border: 2px solid var(--gold);
       border-radius: 12px;
-      padding: 8px 12px;
+      padding: 7px 10px;
       font-weight: bold;
       background: linear-gradient(45deg, var(--purple), #9932CC);
       color: #ffffff;
@@ -5477,7 +5487,7 @@ document
       box-shadow: 0 0 12px rgba(138,43,226,0.45);
       transition: transform 0.2s ease, box-shadow 0.2s ease;
       text-transform: uppercase;
-      font-size: 0.8rem;
+      font-size: 0.74rem;
     }
     .action-btn:hover { transform: translateY(-1px); box-shadow: 0 0 16px rgba(255,215,0,0.45); }
     .action-btn.ghost { background: rgba(0,0,0,0.45); color: var(--gold); }
@@ -5536,18 +5546,18 @@ document
       body {
         height: 100vh;
         overflow: hidden;
-        padding: 12px 8px 16px;
+        padding: 8px 6px 12px;
       }
       .shell {
         height: 100%;
-        padding: 14px 12px;
+        padding: 10px 10px;
       }
       .grid-shell {
-        max-height: 52vh;
+        max-height: 46vh;
         overflow: hidden;
       }
       .panel {
-        padding: 12px;
+        padding: 10px;
       }
     }
   </style>
@@ -6695,7 +6705,7 @@ document
                 image: 'Mimi.png',
                 color: '#ff69b4',
                 description: [
-                    'Mimi is the queen of juggling life - meals, schedules, kids, questions and mysteriously disappearing socks - all at a pace that would exhaust a small army. Peaceful? Not even close. She’s never calm, rarely slow and always somehow impressively effective.',
+                    'Mimi is the queen of juggling life: meals, schedules, kids, questions and mysteriously disappearing socks - all at a pace that would exhaust a small army. Peaceful? Not even close. She’s never calm, rarely slow and always somehow impressively effective.',
                     'As the family’s self-appointed Fashion Police, she guards the family’s sense of style so fiercely you’d think she was protecting a national treasure of personal expression. Chaos is acceptable but clashing colors? Absolutely not on her watch.',
                     'Fast-thinking, witty and armed with a sixth sense for anything out of place, Mimi doesn’t just survive the daily madness - she organizes it, beautifies it and keeps everyone moving. Warm, unstoppable and effortlessly in charge, she’s the heart and high-speed engine of the whole crew.'
                 ],
@@ -6709,8 +6719,8 @@ document
                 traitsHeadingColor: '#8A2BE2',
                 description: [
                     'Luli is creativity wrapped in elegance, a stylish mastermind with a soft spot for detective stories, mystery plots and any book that promises a clever twist sharp enough to make you gasp.',
-                    'With her sleek long hair, sparkling earrings and boldly colorful outfits, she has a style that’s impossible to overlook. And don’t let the elegance fool you - she’s strong, sporty and can outclimb or outrun most boys long before they even realize it’s a competition.',
-                    'When she’s on her aerial silks, she moves with such effortless, fluid confidence that people start wondering if gravity simply treats her better. Calm, confident, effortlessly chic and brilliantly thoughtful - she shines without even trying. Her warm, magnetic spirit doesn’t just lift the vibe - it upgrades the entire atmosphere to premium edition.'
+                    'With her sleek long hair, sparkling earrings and boldly colorful outfits, she has a style that’s impossible to overlook. And don’t let the elegance fool you! She’s strong, sporty and can outclimb or outrun most boys long before they even realize it’s a competition.',
+                    'When she’s on her aerial silks, she moves with such effortless, fluid confidence that people start wondering if gravity simply treats her better. Calm, confident, effortlessly chic and brilliantly thoughtful - she shines without even trying. Her warm, magnetic spirit doesn’t just lift the vibe. It upgrades the entire atmosphere to premium edition.'
                 ],
                 qualities: ['Mystery Brain', 'Style Queen', 'Clue Collector', 'Idea Whisperer', 'Book Diver']
             },
@@ -6720,9 +6730,9 @@ document
                 image: 'Dilo.png',
                 color: '#00bfff',
                 description: [
-                    'Dilo is that rare combo of natural footballer and born gamer - fast feet, fast fingers and even faster opinions. He scores goals with both feet, beats video-game levels like he’s speedrunning life and takes on every challenge with a mix of stubborn determination and surprising generosity.',
+                    'Dilo is that rare combo of natural footballer and born gamer: fast feet, fast fingers and even faster opinions. He scores goals with both feet, beats video-game levels like he’s speedrunning life and takes on every challenge with a mix of stubborn determination and surprising generosity.',
                     'Part soccer king, part tech whiz and part style icon, he’s a powerhouse trio packed into one nine-year-old. His gel-spiked hair stays perfect in any weather (even the kind that defeats umbrellas) and his energy and curiosity brighten everything he joins.',
-                    'With Dilo around, things tend to move a little faster - and get a lot more interesting.'
+                    'With Dilo around, things tend to move a little faster and get a lot more interesting.'
                 ],
                 qualities: ['Goal Goblin', 'Level Crusher', 'Style General', 'Stubborn Star', 'Treat Dealer']
             },
@@ -6733,7 +6743,7 @@ document
                 color: '#32cd32',
                 description: [
                     'Alio operates on 120% pure energy and curiosity with a dash of friendly mischief. He’s always bouncing, building epic block cities, testing or inventing something absolutely essential (at least in his opinion).',
-                    'He also practices his very serious 12-second Kung Fu routine - usually ending in dramatic poses and uncontrollable giggles. If he’s quiet it usually means he’s planning something fun… or slightly chaotic.',
+                    'He also practices his very serious 12-second Kung Fu routine, usually ending in dramatic poses and uncontrollable giggles. If he’s quiet it usually means he’s planning something fun… or slightly chaotic.',
                     'Life is never boring with Alio around.'
                 ],
                 qualities: ['Jump Expert', 'Chaos Starter', 'Game Inventor', 'Snack Sprinter', 'Fun Rocket']
@@ -6744,8 +6754,8 @@ document
                 image: 'Nini.png',
                 color: '#ff69b4',
                 description: [
-                    'Nini is a tiny burst of joy who can brighten any room faster than you can say “snack time.” She sings, dances and giggles her way through the day as if the world were her personal stage - she’s clearly the headliner.',
-                    'She is only 4 but she runs the family cuddle economy with impressive authority (and zero negotiation). With her big eyes and even bigger heart, she spreads happiness the way confetti spreads at a birthday party - generously, enthusiastically and absolutely everywhere.'
+                    'Nini is a tiny burst of joy who can brighten any room faster than you can say “snack time.” She sings, dances and giggles her way through the day as if the world were her personal stage. She’s clearly the headliner.',
+                    'She is only 4 but she runs the family cuddle economy with impressive authority (and zero negotiation). With her big eyes and even bigger heart, she spreads happiness the way confetti spreads at a birthday party: generously, enthusiastically and absolutely everywhere.'
                 ],
                 qualities: ['Hug Machine', 'Giggle Generator', 'Tiny Tornado', 'Dance Button', 'Sunshine Drop']
             },
@@ -6755,9 +6765,9 @@ document
                 image: 'Grandma Bibi.png',
                 color: '#9932CC',
                 description: [
-                    'Bibi is the glamorous whirlwind who treats her age like a minor typo someone should really fix. With her chic short hair, stylish glasses and love for bold, modern outfits, she turns every sidewalk into a runway - often without even noticing.',
-                    'She’s warm, energetic and always ready for an adventure: skiing with the grandkids, baking muffins that mysteriously disappear within minutes or beating everyone at yoga (yes, she absolutely can - and will brag about it with charm).',
-                    'If “cool grandma” had a global ambassador, it would be Bibi - elegant, unstoppable and glowing with queen-level confidence.'
+                    'Bibi is the glamorous whirlwind who treats her age like a minor typo someone should really fix. With her chic short hair, stylish glasses and love for bold, modern outfits, she turns every sidewalk into a runway, often without even noticing.',
+                    'She’s warm, energetic and always ready for an adventure: skiing with the grandkids, baking muffins that mysteriously disappear within minutes or beating everyone at yoga (yes, she absolutely can and will brag about it with charm).',
+                    'If “cool grandma” had a global ambassador, it would be Bibi: elegant, unstoppable and glowing with queen-level confidence.'
                 ],
                 qualities: ['Style Empress', 'Energy Icon', 'Adventure Magnet', 'Chic Dynamo', 'Fun Commander']
             }
@@ -7564,7 +7574,7 @@ document
 
             if (giftOverlayOpen && history.state && history.state.giftOverlay && !fromHistory) {
                 giftOverlayOpen = false;
-                history.back();
+                history.replaceState({ giftOverlay: false }, document.title, window.location.href);
             } else {
                 giftOverlayOpen = false;
             }
