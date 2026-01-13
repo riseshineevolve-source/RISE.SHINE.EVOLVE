@@ -320,7 +320,7 @@
             height: 100%;
             background: rgba(0, 0, 0, 0.95);
             z-index: 10010;
-            overflow: auto;
+            overflow: hidden;
             padding: 12px;
             box-sizing: border-box;
             align-items: center;
@@ -329,9 +329,9 @@
 
         .gift-overlay-inner {
             position: relative;
-            width: min(1100px, 96vw);
-            height: min(88vh, 700px);
-            max-height: calc(100vh - 36px);
+            width: min(960px, 92vw);
+            height: min(72vh, 560px);
+            max-height: calc(100vh - 140px);
             margin: 0 auto;
             display: flex;
             align-items: stretch;
@@ -385,16 +385,16 @@
 
         @media (max-width: 720px) {
             .gift-overlay {
-                padding: 6px;
+                padding: 6px 6px 16px;
             }
             .gift-overlay-inner {
                 width: 100%;
-                height: 100vh;
-                max-height: none;
+                height: calc(100vh - 120px);
+                max-height: calc(100vh - 120px);
                 border-radius: 0;
             }
             .gift-frame {
-                height: 100vh;
+                height: 100%;
                 border-width: 0;
                 border-radius: 0;
             }
@@ -421,6 +421,7 @@
                 right: 8px;
                 top: 90px;
                 width: 120px;
+                height: 120px;
                 box-shadow: 0 0 24px rgba(255, 215, 0, 0.5), 0 0 40px rgba(255, 215, 0, 0.2);
             }
             .brevo-embed .sib-container--large {
@@ -925,10 +926,11 @@
             top: 110px;
             right: 12px;
             width: 120px;
+            height: 120px;
             background: linear-gradient(135deg, rgba(0, 0, 0, 0.95), rgba(20, 20, 20, 0.9), rgba(0, 0, 0, 0.95));
             border: 2px solid #ffd700;
-            border-radius: 16px;
-            padding: 6px 7px;
+            border-radius: 14px;
+            padding: 8px;
             text-align: center;
             box-shadow: 0 0 30px rgba(255, 215, 0, 0.6), 0 0 70px rgba(255, 215, 0, 0.25), inset 0 0 24px rgba(138, 43, 226, 0.12);
             transform: rotate(2deg);
@@ -956,13 +958,8 @@
             align-items: center;
             text-align: center;
             gap: 4px;
-        }
-
-        .elegant-crown-icon {
-            width: 26px;
-            height: 26px;
-            margin-bottom: 3px;
-            filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.8));
+            height: 100%;
+            justify-content: center;
         }
 
         .elegant-main-title {
@@ -975,7 +972,7 @@
         }
 
         .elegant-subtitle {
-            font-size: 0.56rem;
+            font-size: 0.52rem;
             color: #8A2BE2;
             text-shadow: 0 0 15px rgba(138, 43, 226, 0.8);
             margin-bottom: 2px;
@@ -998,9 +995,9 @@
             background-size: 200% 200%;
             border: 2px solid #ffd700;
             border-radius: 15px;
-            padding: 8px 10px;
+            padding: 6px 8px;
             color: #ffffff;
-            font-size: 0.68rem;
+            font-size: 0.6rem;
             font-weight: bold;
             cursor: pointer;
             text-shadow: 0 0 12px rgba(0, 0, 0, 0.8);
@@ -1009,6 +1006,11 @@
             text-transform: uppercase;
             letter-spacing: 0.8px;
             animation: elegantBtnShine 8s ease-in-out infinite;
+            width: 100%;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
         }
 
         .elegant-amazon-btn:hover {
@@ -1099,8 +1101,8 @@
                 right: auto;
                 left: auto;
                 margin: 8px auto 0;
-                width: 88%;
-                max-width: 160px;
+                width: 120px;
+                height: 120px;
                 transform: rotate(0deg);
                 animation: elegantBoxGlow 6s ease-in-out infinite, elegantBoxFloat 8s ease-in-out infinite;
             }
@@ -1142,8 +1144,8 @@
                 position: relative;
                 top: auto;
                 right: auto;
-                width: 88%;
-                max-width: 160px;
+                width: 120px;
+                height: 120px;
                 margin: 12px auto;
                 transform: rotate(0deg);
                 animation: elegantBoxGlow 6s ease-in-out infinite, elegantBoxFloat 8s ease-in-out infinite;
@@ -1153,17 +1155,12 @@
                 transform: rotate(0deg) scale(1.02);
             }
 
-            .elegant-crown-icon {
-                width: 28px;
-                height: 28px;
-            }
-
             .elegant-main-title {
-                font-size: 0.78rem;
+                font-size: 0.7rem;
             }
 
             .elegant-subtitle {
-                font-size: 0.58rem;
+                font-size: 0.5rem;
             }
 
             .elegant-description {
@@ -1171,8 +1168,8 @@
             }
 
             .elegant-amazon-btn {
-                font-size: 0.65rem;
-                padding: 7px 12px;
+                font-size: 0.58rem;
+                padding: 6px 8px;
             }
         }
     </style>
@@ -1476,15 +1473,6 @@
    </div><!-- New Elegant Christmas Box - Dark Sophisticated Design -->
    <div class="elegant-christmas-box" onclick="window.open('https://www.amazon.com/dp/B0G6ZBD7YF/ref=sr_1_1?crid=1JNI65G7Y5W2T&dib=eyJ2IjoiMSJ9.6sPvd45HQ0DwFx7rDVm4GzEvVHvx5Nfyyk4-aOOpL-R9ARZwGRkFwI6K0rPa1EX0ZBKEzsfqQGLw0d4jZ5-ItQ.HHZ--L7lh4LL8MZJqdljxFqBdMTp3g8LL8IgiH3QPb0&dib_tag=se&keywords=the+confident+mindful+%26+happy+me+adventure&qid=1765802239&s=digital-text&sprefix=%2Cdigital-text%2C354&sr=1-1', '_blank', 'noopener,noreferrer')">
     <div class="elegant-box-content">
-     <svg class="elegant-crown-icon" viewBox="0 0 100 100" role="img" aria-hidden="true">
-      <defs>
-       <linearGradient id="treeGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stop-color="#8A2BE2" />
-        <stop offset="100%" stop-color="#ffd700" />
-       </linearGradient>
-      </defs>
-      <polygon points="50,15 35,35 40,35 25,55 30,55 15,75 85,75 70,55 75,55 60,35 65,35" fill="url(#treeGradient)" stroke="#8A2BE2" stroke-width="1.5" />
-     </svg>
      <div class="elegant-main-title" style="text-transform: uppercase;">
       The Confident,<br>
       Mindful &amp; Happy Me<br>
@@ -1493,12 +1481,9 @@
      <div class="elegant-subtitle">
       31 days of confidence, calm, and growth-mindset fun for kids 6-10.
      </div>
-     <button class="elegant-amazon-btn" onclick="event.stopPropagation(); window.open('https://www.amazon.com/dp/B0G6ZBD7YF/ref=sr_1_1?crid=1JNI65G7Y5W2T&dib=eyJ2IjoiMSJ9.6sPvd45HQ0DwFx7rDVm4GzEvVHvx5Nfyyk4-aOOpL-R9ARZwGRkFwI6K0rPa1EX0ZBKEzsfqQGLw0d4jZ5-ItQ.HHZ--L7lh4LL8MZJqdljxFqBdMTp3g8LL8IgiH3QPb0&dib_tag=se&keywords=the+confident+mindful+%26+happy+me+adventure&qid=1765802239&s=digital-text&sprefix=%2Cdigital-text%2C354&sr=1-1', '_blank', 'noopener,noreferrer')">
-      <svg viewBox="0 0 100 100" style="width: 14px; height: 14px; display: inline-block; vertical-align: middle; margin-right: 5px;" aria-hidden="true"></svg>
-      Add to cart on Amazon
-     </button>
+     <button class="elegant-amazon-btn" onclick="event.stopPropagation(); window.open('https://www.amazon.com/dp/B0G6ZBD7YF/ref=sr_1_1?crid=1JNI65G7Y5W2T&dib=eyJ2IjoiMSJ9.6sPvd45HQ0DwFx7rDVm4GzEvVHvx5Nfyyk4-aOOpL-R9ARZwGRkFwI6K0rPa1EX0ZBKEzsfqQGLw0d4jZ5-ItQ.HHZ--L7lh4LL8MZJqdljxFqBdMTp3g8LL8IgiH3QPb0&dib_tag=se&keywords=the+confident+mindful+%26+happy+me+adventure&qid=1765802239&s=digital-text&sprefix=%2Cdigital-text%2C354&sr=1-1', '_blank', 'noopener,noreferrer')">Add to cart on Amazon</button>
     </div>
-   </div>
+  </div>
    <div class="tabs-container">
     <div class="tabs">
      <div class="tab active" data-tab="main" onclick="selectTab(this, 'main')">
@@ -2575,6 +2560,11 @@
     <p style="color: #e6e6e6; font-size: 0.78rem; text-align: center; margin: 0 0 2px 0;">New here? Click Create Account.</p>
     <p style="color: #e6e6e6; font-size: 0.78rem; text-align: center; margin: 0 0 8px 0;">Already have an account? Click Log In.</p>
     <p id="errorMsg" style="color: #ff1493; text-align: center; margin: 6px 0 10px 0; font-weight: bold;"></p>
+    <div style="text-align: center; margin: 0 0 8px 0;">
+        <button type="button" id="forgotPasswordLink" onclick="handlePasswordResetRequest()" style="background: none; border: none; color: #ffd700; font-size: 0.78rem; font-weight: 600; cursor: pointer; text-decoration: underline;">
+            Forgot password?
+        </button>
+    </div>
     <div id="authFormPanel" class="brevo-embed" style="margin-top: 6px; display: none;">
         <style>
             @font-face{font-display:block;font-family:Roboto;src:url(https://assets.brevo.com/font/Roboto/Latin/normal/normal/7529907e9eaf8ebb5220c5f9850e3811.woff2) format("woff2"),url(https://assets.brevo.com/font/Roboto/Latin/normal/normal/25c678feafdc175a70922a116c9be3e7.woff) format("woff")}@font-face{font-display:fallback;font-family:Roboto;font-weight:600;src:url(https://assets.brevo.com/font/Roboto/Latin/medium/normal/6e9caeeafb1f3491be3e32744bc30440.woff2) format("woff2"),url(https://assets.brevo.com/font/Roboto/Latin/medium/normal/71501f0d8d5aa95960f6475d5487d4c2.woff) format("woff")}@font-face{font-display:fallback;font-family:Roboto;font-weight:700;src:url(https://assets.brevo.com/font/Roboto/Latin/bold/normal/3ef7cf158f310cf752d5ad08cd0e7e60.woff2) format("woff2"),url(https://assets.brevo.com/font/Roboto/Latin/bold/normal/ece3a1d82f18b60bcce0211725c476aa.woff) format("woff")}#sib-container input:-ms-input-placeholder{text-align:left;font-family:Helvetica,sans-serif;color:#c0ccda}#sib-container input::placeholder{text-align:left;font-family:Helvetica,sans-serif;color:#c0ccda}#sib-container textarea::placeholder{text-align:left;font-family:Helvetica,sans-serif;color:#c0ccda}#sib-container a{text-decoration:underline;color:#2BB2FC}
@@ -2631,6 +2621,30 @@
                                         <label class="entry__label" style="font-weight:700;text-align:left;font-size:12px;font-family:Helvetica,sans-serif;color:#ffd700;" for="PASSWORD" data-required="*">Password</label>
                                         <div class="entry__field">
                                             <input class="input" type="password" id="userPassword" name="PASSWORD" autocomplete="new-password" placeholder="PASSWORD" data-required="true" required>
+                                        </div>
+                                    </div>
+                                    <label class="entry__error entry__error--primary" style="font-size:16px;text-align:left;font-family:Helvetica,sans-serif;color:#661d1d;background-color:#ffeded;border-radius:3px;border-color:#ff4949;"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="resetPasswordFields" style="padding:4px 0; display: none;">
+                            <div class="sib-input sib-form-block">
+                                <div class="form__entry entry_block">
+                                    <div class="form__label-row ">
+                                        <label class="entry__label" style="font-weight:700;text-align:left;font-size:12px;font-family:Helvetica,sans-serif;color:#ffd700;" for="NEW_PASSWORD" data-required="*">New Password</label>
+                                        <div class="entry__field">
+                                            <input class="input" type="password" id="resetPassword" name="NEW_PASSWORD" autocomplete="new-password" placeholder="NEW PASSWORD" data-required="true">
+                                        </div>
+                                    </div>
+                                    <label class="entry__error entry__error--primary" style="font-size:16px;text-align:left;font-family:Helvetica,sans-serif;color:#661d1d;background-color:#ffeded;border-radius:3px;border-color:#ff4949;"></label>
+                                </div>
+                            </div>
+                            <div class="sib-input sib-form-block" style="margin-top: 8px;">
+                                <div class="form__entry entry_block">
+                                    <div class="form__label-row ">
+                                        <label class="entry__label" style="font-weight:700;text-align:left;font-size:12px;font-family:Helvetica,sans-serif;color:#ffd700;" for="CONFIRM_PASSWORD" data-required="*">Confirm Password</label>
+                                        <div class="entry__field">
+                                            <input class="input" type="password" id="resetPasswordConfirm" name="CONFIRM_PASSWORD" autocomplete="new-password" placeholder="CONFIRM PASSWORD" data-required="true">
                                         </div>
                                     </div>
                                     <label class="entry__error entry__error--primary" style="font-size:16px;text-align:left;font-family:Helvetica,sans-serif;color:#661d1d;background-color:#ffeded;border-radius:3px;border-color:#ff4949;"></label>
@@ -5541,7 +5555,6 @@ document
 <body>
   <div class="shell">
     <h1>Happy Makers Word Search</h1>
-    <p class="subtitle">Find every word from the list.</p>
     <div class="layout">
       <div class="grid-shell">
         <div class="instructions" style="font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.4px;">
@@ -6061,25 +6074,108 @@ document
             }
         }
 
+        async function handlePasswordResetRequest() {
+            const rawEmail = document.getElementById('brevoEmail')?.value || '';
+            const email = rawEmail.trim().toLowerCase();
+            if (authMode !== 'reset') {
+                setAuthMode('reset');
+            }
+            if (!email || !email.includes('@') || !email.includes('.')) {
+                showAuthMessage('Enter your email below to reset your password.', '#ff1493');
+                const emailField = document.getElementById('brevoEmail');
+                if (emailField) {
+                    emailField.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    emailField.focus();
+                }
+                return;
+            }
+            const workerEndpoint = (typeof CLOUDFLARE_WORKER_ENDPOINT === 'string' && CLOUDFLARE_WORKER_ENDPOINT.trim())
+                ? CLOUDFLARE_WORKER_ENDPOINT.trim()
+                : 'https://newsletter-endpoint.rise-shine-evolve.workers.dev/';
+            if (!workerEndpoint) {
+                showAuthMessage('Password reset is unavailable right now. Please try again later.', '#ff1493');
+                return;
+            }
+            try {
+                const response = await fetch(workerEndpoint, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        type: 'request_password_reset',
+                        email,
+                        templateId: 19,
+                    }),
+                    mode: 'cors',
+                    credentials: 'omit',
+                });
+                const data = await response.json().catch(() => ({}));
+                const errorText = (data?.error || '').toString().toLowerCase();
+                const errorCode = (data?.code || '').toString().toLowerCase();
+                const notFound = errorCode === 'email_not_found'
+                    || errorText.includes('email not found')
+                    || errorText.includes('not found');
+                if (!response.ok || notFound) {
+                    showAuthMessage(notFound ? 'Email not found.' : (data?.error || 'Unable to request a password reset.'), '#ff1493');
+                    return;
+                }
+                showAuthMessage('Please check your email for verification link.', '#ffd700');
+            } catch (error) {
+                showAuthMessage(error?.message || 'Unable to request a password reset.', '#ff1493');
+            }
+        }
+
+        async function handleSetNewPassword() {
+            const password = document.getElementById('resetPassword')?.value || '';
+            const confirmPassword = document.getElementById('resetPasswordConfirm')?.value || '';
+            if (!password || !confirmPassword) {
+                showAuthMessage('Please enter and confirm your new password.', '#ff1493');
+                return;
+            }
+            if (password !== confirmPassword) {
+                showAuthMessage('Passwords do not match. Please try again.', '#ff1493');
+                return;
+            }
+            if (!supabaseClient) {
+                showAuthMessage('Password reset is unavailable right now. Please try again later.', '#ff1493');
+                return;
+            }
+            showAuthMessage('Updating your password...', '#ffd700');
+            const { data: { session } } = await supabaseClient.auth.getSession();
+            if (!session) {
+                showAuthMessage('Reset session expired. Please request a new reset link.', '#ff1493');
+                return;
+            }
+            const { error } = await supabaseClient.auth.updateUser({ password });
+            if (error) {
+                showAuthMessage(error.message || 'Unable to update password. Please try again.', '#ff1493');
+                return;
+            }
+            showAuthMessage('Your password has been updated. Please log in.', '#ffd700');
+            setAuthMode('login');
+        }
+
         function setAuthMode(mode) {
-            authMode = mode === 'login' ? 'login' : 'signup';
+            authMode = mode === 'login' ? 'login' : (mode === 'reset' ? 'reset' : (mode === 'set-password' ? 'set-password' : 'signup'));
             clearAuthMessage();
             const signUpBtn = document.getElementById('authModeSignUp');
             const loginBtn = document.getElementById('authModeLogin');
             const signupFields = document.getElementById('signupFields');
             const signupConsent = document.getElementById('signupConsent');
             const passwordField = document.getElementById('userPassword');
+            const resetPasswordFields = document.getElementById('resetPasswordFields');
             const firstNameField = document.getElementById('brevoFirstName');
             const optInField = document.getElementById('brevoOptIn');
             const bottomSubmit = document.getElementById('authActionBottom');
+            const emailField = document.getElementById('brevoEmail');
 
             showAuthFormPanel(true);
             if (signUpBtn && loginBtn) {
                 const isSignup = authMode === 'signup';
+                const isLogin = authMode === 'login';
                 signUpBtn.style.background = isSignup ? 'linear-gradient(45deg, #8A2BE2, #9932CC)' : '#0d0d0d';
                 signUpBtn.style.color = isSignup ? '#ffffff' : '#ffd700';
-                loginBtn.style.background = isSignup ? '#0d0d0d' : 'linear-gradient(45deg, #8A2BE2, #9932CC)';
-                loginBtn.style.color = isSignup ? '#ffd700' : '#ffffff';
+                loginBtn.style.background = isLogin ? 'linear-gradient(45deg, #8A2BE2, #9932CC)' : '#0d0d0d';
+                loginBtn.style.color = isLogin ? '#ffffff' : '#ffd700';
             }
 
             if (signupFields) {
@@ -6094,11 +6190,42 @@ document
             if (optInField) {
                 optInField.required = authMode === 'signup';
             }
+            if (emailField) {
+                const emailBlock = emailField.closest('.sib-input') || emailField.closest('.form__entry');
+                if (emailBlock) {
+                    emailBlock.style.display = authMode === 'set-password' ? 'none' : 'block';
+                }
+                emailField.required = authMode !== 'set-password';
+            }
             if (passwordField) {
+                const passwordBlock = passwordField.closest('.sib-input') || passwordField.closest('.form__entry');
+                if (passwordBlock) {
+                    passwordBlock.style.display = authMode === 'reset' || authMode === 'set-password' ? 'none' : 'block';
+                }
                 passwordField.autocomplete = authMode === 'signup' ? 'new-password' : 'current-password';
+                passwordField.required = authMode !== 'reset' && authMode !== 'set-password';
+            }
+            if (resetPasswordFields) {
+                resetPasswordFields.style.display = authMode === 'set-password' ? 'block' : 'none';
+                const resetPassword = document.getElementById('resetPassword');
+                const resetPasswordConfirm = document.getElementById('resetPasswordConfirm');
+                if (resetPassword) {
+                    resetPassword.required = authMode === 'set-password';
+                }
+                if (resetPasswordConfirm) {
+                    resetPasswordConfirm.required = authMode === 'set-password';
+                }
             }
             if (bottomSubmit) {
-                bottomSubmit.textContent = authMode === 'signup' ? 'Create Account' : 'Log In';
+                if (authMode === 'signup') {
+                    bottomSubmit.textContent = 'Create Account';
+                } else if (authMode === 'reset') {
+                    bottomSubmit.textContent = 'Reset Password';
+                } else if (authMode === 'set-password') {
+                    bottomSubmit.textContent = 'Set New Password';
+                } else {
+                    bottomSubmit.textContent = 'Log In';
+                }
                 bottomSubmit.style.display = 'block';
             }
         }
@@ -6124,6 +6251,14 @@ document
         function handleBottomAction() {
             if (authMode === 'login') {
                 handleLoginModal();
+                return;
+            }
+            if (authMode === 'reset') {
+                handlePasswordResetRequest();
+                return;
+            }
+            if (authMode === 'set-password') {
+                handleSetNewPassword();
                 return;
             }
             const form = document.getElementById('sib-form');
@@ -6167,6 +6302,14 @@ document
             event.preventDefault();
             if (authMode === 'login') {
                 await handleLoginModal();
+                return;
+            }
+            if (authMode === 'reset') {
+                await handlePasswordResetRequest();
+                return;
+            }
+            if (authMode === 'set-password') {
+                await handleSetNewPassword();
                 return;
             }
             const { firstName, email, password, gdprChecked, form } = getAuthFormValues();
@@ -7047,9 +7190,27 @@ document
             const hashParams = new URLSearchParams(hash.replace('#', ''));
             const type = searchParams.get('type') || hashParams.get('type') || '';
             const hasToken = hash.includes('access_token=');
+            const isRecoveryFlow = type === 'recovery';
             const isVerifyFlow = ['signup', 'invite', 'recovery'].includes(type) || hasToken;
 
             if (!isVerifyFlow) {
+                return;
+            }
+
+            if (isRecoveryFlow) {
+                const accessToken = hashParams.get('access_token');
+                const refreshToken = hashParams.get('refresh_token');
+                if (supabaseClient && accessToken && refreshToken) {
+                    supabaseClient.auth.setSession({
+                        access_token: accessToken,
+                        refresh_token: refreshToken,
+                    }).catch(() => {
+                        // ignore session set errors and let updateUser handle failures
+                    });
+                }
+                showEmailModal();
+                setAuthMode('set-password');
+                showAuthMessage('Set your new password below.', '#ffd700');
                 return;
             }
 
@@ -7134,10 +7295,22 @@ document
                 .then(async (response) => {
                     if (!response) return;
                     const data = await response.json().catch(() => ({}));
+                    const errorText = (data?.error || '').toString().toLowerCase();
+                    const errorCode = (data?.code || '').toString().toLowerCase();
+                    const notFound = errorCode === 'email_not_found'
+                        || errorText.includes('email not found')
+                        || errorText.includes('not found');
                     if (!response.ok) {
                         if (messageBox) {
                             messageBox.style.color = '#ff69b4';
-                            messageBox.textContent = data?.error || 'Unable to unsubscribe.';
+                            messageBox.textContent = notFound ? 'Email not found.' : (data?.error || 'Unable to unsubscribe.');
+                        }
+                        return;
+                    }
+                    if (notFound) {
+                        if (messageBox) {
+                            messageBox.style.color = '#ff69b4';
+                            messageBox.textContent = 'Email not found.';
                         }
                         return;
                     }
