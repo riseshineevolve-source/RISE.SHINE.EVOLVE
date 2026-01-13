@@ -151,6 +151,14 @@ async function sendPasswordResetEmail(body, env) {
         });
     }
 
+    const recoveryLink = await generateRecoveryLink(email, env);
+    if (!recoveryLink) {
+        return new Response(JSON.stringify({ error: "Unable to generate recovery link" }), {
+            status: 500,
+            headers: { "Access-Control-Allow-Origin": "*", "Content-Type": "application/json" }
+        });
+    }
+
     const brevoResponse = await fetch("https://api.brevo.com/v3/smtp/email", {
         method: "POST",
         headers: {
@@ -159,7 +167,10 @@ async function sendPasswordResetEmail(body, env) {
         },
         body: JSON.stringify({
             to: [{ email }],
-            templateId
+            templateId,
+            params: {
+                RECOVERY_LINK: recoveryLink
+            }
         })
     });
 
@@ -173,6 +184,34 @@ async function sendPasswordResetEmail(body, env) {
     return new Response(JSON.stringify({ success: true, message: "Email sent" }), {
         headers: { "Access-Control-Allow-Origin": "*", "Content-Type": "application/json" }
     });
+}
+
+async function generateRecoveryLink(email, env) {
+    if (!env.SUPABASE_SERVICE_ROLE_KEY) {
+        return null;
+    }
+    const redirectTo = env.SUPABASE_PASSWORD_RESET_REDIRECT || '';
+    const payload = {
+        type: "recovery",
+        email
+    };
+    if (redirectTo) {
+        payload.redirectTo = redirectTo;
+    }
+    const response = await fetch("https://gegaodrfqwhrfdqtiokb.supabase.co/auth/v1/admin/generate_link", {
+        method: "POST",
+        headers: {
+            "apikey": env.SUPABASE_SERVICE_ROLE_KEY,
+            "Authorization": `Bearer ${env.SUPABASE_SERVICE_ROLE_KEY}`,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload)
+    });
+    if (!response.ok) {
+        return null;
+    }
+    const data = await response.json().catch(() => ({}));
+    return data?.action_link || data?.properties?.action_link || null;
 }
 
 // 2. Kliknięcie w link (Weryfikacja i usuwanie)
