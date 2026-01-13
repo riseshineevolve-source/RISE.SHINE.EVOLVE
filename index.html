@@ -329,9 +329,9 @@
 
         .gift-overlay-inner {
             position: relative;
-            width: min(920px, 92vw);
-            height: min(68vh, 520px);
-            max-height: calc(100vh - 160px);
+            width: min(980px, 92vw);
+            height: min(72vh, 560px);
+            max-height: calc(100vh - 140px);
             margin: 0 auto;
             display: flex;
             align-items: stretch;
@@ -386,11 +386,12 @@
         @media (max-width: 720px) {
             .gift-overlay {
                 padding: 6px 6px 16px;
+                align-items: flex-start;
             }
             .gift-overlay-inner {
                 width: 100%;
-                height: calc(100vh - 140px);
-                max-height: calc(100vh - 140px);
+                height: 100vh;
+                max-height: 100vh;
                 border-radius: 0;
             }
             .gift-frame {
@@ -866,6 +867,22 @@
             width: min(620px, 92vw);
         }
 
+        @media (min-width: 721px) {
+            .tabs-container {
+                width: 100%;
+            }
+
+            .tab-content {
+                max-width: 900px;
+                margin: 0 auto;
+            }
+
+            .kids-tile {
+                width: 520px;
+                max-width: 520px;
+            }
+        }
+
         .tabs {
             display: flex;
             justify-content: center;
@@ -933,8 +950,8 @@
             position: fixed;
             top: 110px;
             right: 12px;
-            width: 180px;
-            height: 110px;
+            width: 240px;
+            height: 120px;
             background: linear-gradient(135deg, rgba(0, 0, 0, 0.95), rgba(20, 20, 20, 0.9), rgba(0, 0, 0, 0.95));
             border: 2px solid #ffd700;
             border-radius: 14px;
@@ -971,7 +988,7 @@
         }
 
         .elegant-main-title {
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             font-weight: bold;
             color: #ffd700;
             margin-bottom: 2px;
@@ -980,7 +997,7 @@
         }
 
         .elegant-subtitle {
-            font-size: 0.46rem;
+            font-size: 0.45rem;
             color: #8A2BE2;
             text-shadow: 0 0 15px rgba(138, 43, 226, 0.8);
             margin-bottom: 2px;
@@ -1110,8 +1127,8 @@
                 right: auto;
                 left: auto;
                 margin: 8px auto 0;
-                width: 180px;
-                height: 110px;
+                width: 220px;
+                height: 120px;
                 transform: rotate(0deg);
                 animation: elegantBoxGlow 6s ease-in-out infinite, elegantBoxFloat 8s ease-in-out infinite;
             }
@@ -1153,8 +1170,8 @@
                 position: relative;
                 top: auto;
                 right: auto;
-                width: 180px;
-                height: 110px;
+                width: 220px;
+                height: 120px;
                 margin: 12px auto;
                 transform: rotate(0deg);
                 animation: elegantBoxGlow 6s ease-in-out infinite, elegantBoxFloat 8s ease-in-out infinite;
@@ -1165,7 +1182,7 @@
             }
 
             .elegant-main-title {
-                font-size: 0.66rem;
+                font-size: 0.7rem;
             }
 
             .elegant-subtitle {
