@@ -140,8 +140,11 @@ async function sendPasswordResetEmail(body, env) {
         });
     }
 
-    const users = await supabaseResp.json().catch(() => []);
-    if (!Array.isArray(users) || users.length === 0) {
+    const supabaseData = await supabaseResp.json().catch(() => ({}));
+    const users = Array.isArray(supabaseData)
+        ? supabaseData
+        : (Array.isArray(supabaseData?.users) ? supabaseData.users : []);
+    if (users.length === 0) {
         return new Response(JSON.stringify({ error: "Email not found", code: "email_not_found" }), {
             status: 404,
             headers: { "Access-Control-Allow-Origin": "*", "Content-Type": "application/json" }
