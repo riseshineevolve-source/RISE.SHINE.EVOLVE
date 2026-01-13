@@ -5988,8 +5988,7 @@ document
                 handleLogout();
                 return;
             }
-            setAuthMode('login');
-            showEmailModal();
+            showEmailModal('login');
         }
 
         async function handleLogout() {
@@ -6572,18 +6571,20 @@ document
         function selectTab(tabElement, tabName, options = {}) {
             if (tabName === 'gifts') {
                 localStorage.setItem('giftsRequested', 'true');
+                showTabContent(tabElement, tabName, options);
                 if (!supabaseClient) {
-                    showEmailModal();
+                    showEmailModal('login');
                     return;
                 }
                 supabaseClient.auth.getSession().then(({ data: { session } }) => {
                     hasGiftsAccess = !!session;
                     if (!session) {
-                        showEmailModal();
+                        showEmailModal('login');
                         return;
                     }
                     localStorage.removeItem('giftsRequested');
-                    showTabContent(tabElement, tabName, options);
+                }).catch(() => {
+                    showEmailModal('login');
                 });
                 return;
             }
@@ -7168,10 +7169,10 @@ document
                 }
             }
             if (!checkGiftsAccess()) {
-                showEmailModal();
+                showEmailModal('login');
             }
         }
-        function showEmailModal() {
+        function showEmailModal(mode = null, message = null, messageColor = '#ffd700') {
             const errorMsg = document.getElementById('errorMsg');
             if (errorMsg) {
                 errorMsg.textContent = '';
@@ -7179,9 +7180,14 @@ document
             clearAuthMessage();
             resetAuthPanel();
             localStorage.setItem('giftsRequested', 'true');
-            if (window.location.hash === '#gifts') {
-                setAuthMode('login');
-                showAuthMessage('Please log in to unlock GIFTS.');
+            const preferredMode = mode || (window.location.hash === '#gifts' ? 'login' : 'signup');
+            if (preferredMode) {
+                setAuthMode(preferredMode);
+            }
+            if (message) {
+                showAuthMessage(message, messageColor);
+            } else if (window.location.hash === '#gifts') {
+                showAuthMessage('Please log in to unlock GIFTS.', '#ffd700');
             }
             const storedFirst = localStorage.getItem('giftsFirstName') || '';
             const storedEmail = localStorage.getItem('giftsEmail') || '';
@@ -7193,7 +7199,11 @@ document
             if (emailField && storedEmail) {
                 emailField.value = storedEmail;
             }
-            document.getElementById('emailModal').style.display = 'block';
+            const modal = document.getElementById('emailModal');
+            if (modal) {
+                modal.classList.add('show');
+                modal.style.display = 'flex';
+            }
             document.body.style.overflow = 'hidden';
             history.pushState({ modal: 'email' }, '', window.location.href);
         }
@@ -7240,9 +7250,7 @@ document
                         // ignore session set errors and let updateUser handle failures
                     });
                 }
-                showEmailModal();
-                setAuthMode('set-password');
-                showAuthMessage('Set your new password below.', '#ffd700');
+                showEmailModal('set-password', 'Set your new password below.', '#ffd700');
                 return;
             }
 
@@ -7253,9 +7261,7 @@ document
                 selectTab(giftsTab, 'gifts', { skipHistory: true });
             }
 
-            setAuthMode('login');
-            showEmailModal();
-            showAuthMessage('Your email is verified! Please log in to unlock GIFTS.', '#ffd700');
+            showEmailModal('login', 'Your email is verified! Please log in to unlock GIFTS.', '#ffd700');
 
             if (!hash.includes('#gifts')) {
                 history.replaceState({ tab: 'gifts' }, '', '#gifts');
@@ -7483,7 +7489,7 @@ document
                 if (giftsTab) {
                     selectTab(giftsTab, 'gifts');
                 }
-                showEmailModal();
+                showEmailModal('login');
                 return;
             }
 
