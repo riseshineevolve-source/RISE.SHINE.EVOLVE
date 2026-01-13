@@ -2539,7 +2539,120 @@
     #welcomeModal.show {
       display: flex;
     }
+
+    #bookPromoModal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.92);
+      z-index: 15000;
+      backdrop-filter: blur(6px);
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      box-sizing: border-box;
+    }
+
+    #bookPromoModal.show {
+      display: flex;
+    }
   </style>
+  <div id="bookPromoModal" class="modal">
+   <div class="modal-content" style="
+            position: relative;
+            background: transparent;
+            border-radius: 20px;
+            padding: 0;
+            max-width: 520px;
+            width: 100%;
+            max-height: 92vh;
+            overflow-y: auto;
+            margin: 0 auto;
+        ">
+    <button type="button" onclick="closeBookPromoModal()" style="
+                position: absolute;
+                top: -14px;
+                right: -14px;
+                background: #000000;
+                border: 2px solid #ffd700;
+                color: #ffd700;
+                font-size: 1.4rem;
+                cursor: pointer;
+                width: 36px;
+                height: 36px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+            ">×</button>
+    <div style="
+                background: #000000;
+                border: 2px solid #8A2BE2;
+                border-radius: 18px;
+                padding: 22px 20px 70px 20px;
+                text-align: center;
+                box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4),
+                    0 0 28px rgba(138, 43, 226, 0.45);
+                position: relative;
+                overflow: hidden;
+            ">
+     <div style="
+                    position: absolute;
+                    top: 14px;
+                    left: 14px;
+                    background: #8A2BE2;
+                    color: #ffffff;
+                    font-size: 0.7rem;
+                    font-weight: bold;
+                    padding: 6px 10px;
+                    border-radius: 10px;
+                    text-transform: uppercase;
+                    box-shadow: 0 0 10px rgba(138, 43, 226, 0.6);
+                ">Available</div>
+     <div style="
+                    position: absolute;
+                    top: 14px;
+                    right: 14px;
+                    background: #ffd700;
+                    color: #000000;
+                    font-size: 0.72rem;
+                    font-weight: 800;
+                    padding: 6px 10px;
+                    border-radius: 10px;
+                    text-transform: uppercase;
+                    box-shadow: 0 0 12px rgba(255, 215, 0, 0.7);
+                ">NEW</div>
+     <img src="assets/images/Confident, Mindful & Happy Me cover.png" data-cover-base="Confident, Mindful & Happy Me" alt="The Confident, Mindful &amp; Happy Me Adventure cover" style="width: 150px; height: auto; border-radius: 12px; border: 2px solid #ffd700; box-shadow: 0 0 18px rgba(255,215,0,0.35); margin: 46px auto 14px auto; display: block;">
+     <div style="color: #ffd700; font-weight: bold; font-size: 1.1rem; margin-bottom: 10px; line-height: 1.25; text-shadow: 0 0 15px rgba(255, 215, 0, 0.8);">
+      The Confident, Mindful &amp; Happy Me Adventure
+     </div>
+     <div style="color: #ffffff; font-size: 0.9rem; margin-bottom: 12px; line-height: 1.4;">
+      31-day adventure to build resilience, confidence, and calm for kids 6-10.
+     </div>
+     <div style="
+                    position: absolute;
+                    bottom: 16px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    background: #ffd700;
+                    color: #000000;
+                    font-size: 0.8rem;
+                    font-weight: bold;
+                    padding: 10px 16px;
+                    border-radius: 12px;
+                    text-transform: uppercase;
+                    box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+                    letter-spacing: 0.5px;
+                    cursor: pointer;
+                " onclick="handleBookPromoExplore(event)">
+      Explore more
+     </div>
+    </div>
+   </div>
+  </div>
   <div id="emailModal" class="modal">
         <div class="modal-content" style="
             position: relative;
@@ -6571,7 +6684,6 @@ document
         function selectTab(tabElement, tabName, options = {}) {
             if (tabName === 'gifts') {
                 localStorage.setItem('giftsRequested', 'true');
-                showTabContent(tabElement, tabName, options);
                 if (!supabaseClient) {
                     showEmailModal('login');
                     return;
@@ -6583,6 +6695,7 @@ document
                         return;
                     }
                     localStorage.removeItem('giftsRequested');
+                    showTabContent(tabElement, tabName, options);
                 }).catch(() => {
                     showEmailModal('login');
                 });
@@ -7208,6 +7321,34 @@ document
             history.pushState({ modal: 'email' }, '', window.location.href);
         }
 
+        function showBookPromoModal() {
+            const modal = document.getElementById('bookPromoModal');
+            if (!modal) {
+                return;
+            }
+            modal.classList.add('show');
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeBookPromoModal() {
+            const modal = document.getElementById('bookPromoModal');
+            if (modal) {
+                modal.classList.remove('show');
+                modal.style.display = 'none';
+            }
+            document.body.style.overflow = 'auto';
+            localStorage.setItem('bookPromoDismissed', 'true');
+        }
+
+        function handleBookPromoExplore(event) {
+            if (event) {
+                event.stopPropagation();
+            }
+            closeBookPromoModal();
+            showBookDetailsFullScreen('confident-adventure');
+        }
+
         function openPrivacyPolicy() {
             document.getElementById('privacyModal').style.display = 'block';
             document.body.style.overflow = 'hidden';
@@ -7409,6 +7550,24 @@ document
             if (authForm) {
                 authForm.addEventListener('input', clearAuthMessage);
                 authForm.addEventListener('focusin', clearAuthMessage);
+            }
+
+            const promoDismissed = localStorage.getItem('bookPromoDismissed') === 'true';
+            if (!promoDismissed) {
+                setTimeout(() => {
+                    const emailModal = document.getElementById('emailModal');
+                    const privacyModal = document.getElementById('privacyModal');
+                    const welcomeModal = document.getElementById('welcomeModal');
+                    const promoModal = document.getElementById('bookPromoModal');
+                    const fullScreenDetails = document.getElementById('full-screen-book-details');
+                    const emailOpen = emailModal && (emailModal.style.display === 'flex' || emailModal.classList.contains('show'));
+                    const privacyOpen = privacyModal && privacyModal.style.display === 'block';
+                    const welcomeOpen = welcomeModal && welcomeModal.style.display === 'flex';
+                    const detailsOpen = fullScreenDetails && fullScreenDetails.style.display === 'block';
+                    if (!emailOpen && !privacyOpen && !welcomeOpen && !detailsOpen && promoModal && !promoModal.classList.contains('show')) {
+                        showBookPromoModal();
+                    }
+                }, 3500);
             }
         });
 
