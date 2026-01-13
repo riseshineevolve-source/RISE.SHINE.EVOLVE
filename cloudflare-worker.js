@@ -151,8 +151,14 @@ async function sendPasswordResetEmail(body, env) {
         });
     }
 
-    const recoveryLink = await generateRecoveryLink(email, env);
-    if (!recoveryLink) {
+    const recoveryResult = await generateRecoveryLink(email, env);
+    if (!recoveryResult?.link) {
+        if (recoveryResult?.status === 400 || recoveryResult?.status === 404) {
+            return new Response(JSON.stringify({ error: "Email not found", code: "email_not_found" }), {
+                status: 404,
+                headers: { "Access-Control-Allow-Origin": "*", "Content-Type": "application/json" }
+            });
+        }
         return new Response(JSON.stringify({ error: "Unable to generate recovery link" }), {
             status: 500,
             headers: { "Access-Control-Allow-Origin": "*", "Content-Type": "application/json" }
@@ -169,7 +175,7 @@ async function sendPasswordResetEmail(body, env) {
             to: [{ email }],
             templateId,
             params: {
-                RECOVERY_LINK: recoveryLink
+                RECOVERY_LINK: recoveryResult.link
             }
         })
     });
@@ -208,10 +214,11 @@ async function generateRecoveryLink(email, env) {
         body: JSON.stringify(payload)
     });
     if (!response.ok) {
-        return null;
+        return { link: null, status: response.status, error: await response.text() };
     }
     const data = await response.json().catch(() => ({}));
-    return data?.action_link || data?.properties?.action_link || null;
+    const link = data?.action_link || data?.properties?.action_link || null;
+    return { link, status: response.status };
 }
 
 // 2. Kliknięcie w link (Weryfikacja i usuwanie)
