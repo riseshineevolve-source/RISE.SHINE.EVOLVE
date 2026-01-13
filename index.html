@@ -390,11 +390,13 @@
             }
             .gift-overlay-inner {
                 width: 100%;
+                height: 100svh;
                 height: 100dvh;
                 max-height: 100dvh;
                 border-radius: 0;
             }
             .gift-frame {
+                height: 100svh;
                 height: 100dvh;
                 min-height: 100dvh;
                 border-width: 0;
@@ -7353,7 +7355,7 @@ document
                 modal.style.display = 'none';
             }
             document.body.style.overflow = 'auto';
-            localStorage.setItem('bookPromoDismissed', 'true');
+            sessionStorage.setItem('bookPromoDismissed', 'true');
         }
 
         function handleBookPromoExplore(event) {
@@ -7567,7 +7569,7 @@ document
                 authForm.addEventListener('focusin', clearAuthMessage);
             }
 
-            const promoDismissed = localStorage.getItem('bookPromoDismissed') === 'true';
+            const promoDismissed = sessionStorage.getItem('bookPromoDismissed') === 'true';
             if (!promoDismissed) {
                 setTimeout(() => {
                     const emailModal = document.getElementById('emailModal');
@@ -7654,17 +7656,27 @@ document
             return '<!doctype html>\n' + tpl.innerHTML;
         }
 
-        function openGiftOverlay(key, event) {
+        async function openGiftOverlay(key, event) {
             if (event) {
                 event.stopPropagation();
             }
             if (!checkGiftsAccess()) {
-                const giftsTab = getTabElement('gifts');
-                if (giftsTab) {
-                    selectTab(giftsTab, 'gifts');
+                if (supabaseClient) {
+                    try {
+                        const { data: { session } } = await supabaseClient.auth.getSession();
+                        hasGiftsAccess = !!session;
+                    } catch (error) {
+                        hasGiftsAccess = false;
+                    }
                 }
-                showEmailModal('login');
-                return;
+                if (!checkGiftsAccess()) {
+                    const giftsTab = getTabElement('gifts');
+                    if (giftsTab) {
+                        selectTab(giftsTab, 'gifts');
+                    }
+                    showEmailModal('login');
+                    return;
+                }
             }
 
             const html = getGiftHtml(key);
