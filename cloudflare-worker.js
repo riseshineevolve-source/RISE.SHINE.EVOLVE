@@ -31,6 +31,10 @@ export default {
               return await sendDeleteConfirmationEmail(body, env, url.origin);
           }
 
+          if (body.type === 'request_password_reset') {
+              return await sendPasswordResetEmail(body, env);
+          }
+
           // 2. Standardowy zapis (Welcome) - stary kod
           if (body.email && !body.type) {
                return await handleSubscription(body, env);
@@ -92,6 +96,81 @@ async function sendDeleteConfirmationEmail(body, env, workerOrigin) {
     if (!brevoResponse.ok) throw new Error("Błąd wysyłki maila Brevo");
 
     return new Response(JSON.stringify({ success: true, message: "Email wysłany" }), {
+        headers: { "Access-Control-Allow-Origin": "*", "Content-Type": "application/json" }
+    });
+}
+
+// 1b. Wysyłanie maila resetującego hasło (template 19)
+async function sendPasswordResetEmail(body, env) {
+    const { email } = body;
+    const templateId = Number(body.templateId || env.BREVO_PASSWORD_RESET_TEMPLATE_ID || 19);
+
+    if (!email) {
+        return new Response(JSON.stringify({ error: "Missing email" }), {
+            status: 400,
+            headers: { "Access-Control-Allow-Origin": "*", "Content-Type": "application/json" }
+        });
+    }
+    if (!env.SUPABASE_SERVICE_ROLE_KEY) {
+        return new Response(JSON.stringify({ error: "Missing Supabase service role key" }), {
+            status: 500,
+            headers: { "Access-Control-Allow-Origin": "*", "Content-Type": "application/json" }
+        });
+    }
+    if (!env.BREVO_API_KEY) {
+        return new Response(JSON.stringify({ error: "Missing Brevo API key" }), {
+            status: 500,
+            headers: { "Access-Control-Allow-Origin": "*", "Content-Type": "application/json" }
+        });
+    }
+
+    const supabaseResp = await fetch(`https://gegaodrfqwhrfdqtiokb.supabase.co/auth/v1/admin/users?email=${encodeURIComponent(email)}`, {
+        method: "GET",
+        headers: {
+            "apikey": env.SUPABASE_SERVICE_ROLE_KEY,
+            "Authorization": `Bearer ${env.SUPABASE_SERVICE_ROLE_KEY}`,
+            "Content-Type": "application/json"
+        }
+    });
+
+    if (!supabaseResp.ok) {
+        return new Response(JSON.stringify({ error: "Unable to verify email", detail: await supabaseResp.text() }), {
+            status: 500,
+            headers: { "Access-Control-Allow-Origin": "*", "Content-Type": "application/json" }
+        });
+    }
+
+    const supabaseData = await supabaseResp.json().catch(() => ({}));
+    const users = Array.isArray(supabaseData)
+        ? supabaseData
+        : (Array.isArray(supabaseData?.users) ? supabaseData.users : []);
+    if (users.length === 0) {
+        return new Response(JSON.stringify({ error: "Email not found", code: "email_not_found" }), {
+            status: 404,
+            headers: { "Access-Control-Allow-Origin": "*", "Content-Type": "application/json" }
+        });
+    }
+
+    const brevoResponse = await fetch("https://api.brevo.com/v3/smtp/email", {
+        method: "POST",
+        headers: {
+            "api-key": env.BREVO_API_KEY,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            to: [{ email }],
+            templateId
+        })
+    });
+
+    if (!brevoResponse.ok) {
+        return new Response(JSON.stringify({ error: "Brevo email send failed", detail: await brevoResponse.text() }), {
+            status: 500,
+            headers: { "Access-Control-Allow-Origin": "*", "Content-Type": "application/json" }
+        });
+    }
+
+    return new Response(JSON.stringify({ success: true, message: "Email sent" }), {
         headers: { "Access-Control-Allow-Origin": "*", "Content-Type": "application/json" }
     });
 }

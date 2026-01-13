@@ -2575,6 +2575,11 @@
     <p style="color: #e6e6e6; font-size: 0.78rem; text-align: center; margin: 0 0 2px 0;">New here? Click Create Account.</p>
     <p style="color: #e6e6e6; font-size: 0.78rem; text-align: center; margin: 0 0 8px 0;">Already have an account? Click Log In.</p>
     <p id="errorMsg" style="color: #ff1493; text-align: center; margin: 6px 0 10px 0; font-weight: bold;"></p>
+    <div style="text-align: center; margin: 0 0 8px 0;">
+        <button type="button" id="forgotPasswordLink" onclick="handlePasswordResetRequest()" style="background: none; border: none; color: #ffd700; font-size: 0.78rem; font-weight: 600; cursor: pointer; text-decoration: underline;">
+            Forgot password?
+        </button>
+    </div>
     <div id="authFormPanel" class="brevo-embed" style="margin-top: 6px; display: none;">
         <style>
             @font-face{font-display:block;font-family:Roboto;src:url(https://assets.brevo.com/font/Roboto/Latin/normal/normal/7529907e9eaf8ebb5220c5f9850e3811.woff2) format("woff2"),url(https://assets.brevo.com/font/Roboto/Latin/normal/normal/25c678feafdc175a70922a116c9be3e7.woff) format("woff")}@font-face{font-display:fallback;font-family:Roboto;font-weight:600;src:url(https://assets.brevo.com/font/Roboto/Latin/medium/normal/6e9caeeafb1f3491be3e32744bc30440.woff2) format("woff2"),url(https://assets.brevo.com/font/Roboto/Latin/medium/normal/71501f0d8d5aa95960f6475d5487d4c2.woff) format("woff")}@font-face{font-display:fallback;font-family:Roboto;font-weight:700;src:url(https://assets.brevo.com/font/Roboto/Latin/bold/normal/3ef7cf158f310cf752d5ad08cd0e7e60.woff2) format("woff2"),url(https://assets.brevo.com/font/Roboto/Latin/bold/normal/ece3a1d82f18b60bcce0211725c476aa.woff) format("woff")}#sib-container input:-ms-input-placeholder{text-align:left;font-family:Helvetica,sans-serif;color:#c0ccda}#sib-container input::placeholder{text-align:left;font-family:Helvetica,sans-serif;color:#c0ccda}#sib-container textarea::placeholder{text-align:left;font-family:Helvetica,sans-serif;color:#c0ccda}#sib-container a{text-decoration:underline;color:#2BB2FC}
@@ -6061,8 +6066,59 @@ document
             }
         }
 
+        async function handlePasswordResetRequest() {
+            const rawEmail = document.getElementById('brevoEmail')?.value || '';
+            const email = rawEmail.trim().toLowerCase();
+            if (authMode !== 'reset') {
+                setAuthMode('reset');
+            }
+            if (!email || !email.includes('@') || !email.includes('.')) {
+                showAuthMessage('Enter your email below to reset your password.', '#ff1493');
+                const emailField = document.getElementById('brevoEmail');
+                if (emailField) {
+                    emailField.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    emailField.focus();
+                }
+                return;
+            }
+            const workerEndpoint = (typeof CLOUDFLARE_WORKER_ENDPOINT === 'string' && CLOUDFLARE_WORKER_ENDPOINT.trim())
+                ? CLOUDFLARE_WORKER_ENDPOINT.trim()
+                : 'https://newsletter-endpoint.rise-shine-evolve.workers.dev/';
+            if (!workerEndpoint) {
+                showAuthMessage('Password reset is unavailable right now. Please try again later.', '#ff1493');
+                return;
+            }
+            showAuthMessage('Sending reset link...', '#ffd700');
+            try {
+                const response = await fetch(workerEndpoint, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        type: 'request_password_reset',
+                        email,
+                        templateId: 19,
+                    }),
+                    mode: 'cors',
+                    credentials: 'omit',
+                });
+                const data = await response.json().catch(() => ({}));
+                const errorText = (data?.error || '').toString().toLowerCase();
+                const errorCode = (data?.code || '').toString().toLowerCase();
+                const notFound = errorCode === 'email_not_found'
+                    || errorText.includes('email not found')
+                    || errorText.includes('not found');
+                if (!response.ok || notFound) {
+                    showAuthMessage(notFound ? 'Email not found.' : (data?.error || 'Unable to request a password reset.'), '#ff1493');
+                    return;
+                }
+                showAuthMessage('Please check your email for verification link.', '#ffd700');
+            } catch (error) {
+                showAuthMessage(error?.message || 'Unable to request a password reset.', '#ff1493');
+            }
+        }
+
         function setAuthMode(mode) {
-            authMode = mode === 'login' ? 'login' : 'signup';
+            authMode = mode === 'login' ? 'login' : (mode === 'reset' ? 'reset' : 'signup');
             clearAuthMessage();
             const signUpBtn = document.getElementById('authModeSignUp');
             const loginBtn = document.getElementById('authModeLogin');
@@ -6076,10 +6132,11 @@ document
             showAuthFormPanel(true);
             if (signUpBtn && loginBtn) {
                 const isSignup = authMode === 'signup';
+                const isLogin = authMode === 'login';
                 signUpBtn.style.background = isSignup ? 'linear-gradient(45deg, #8A2BE2, #9932CC)' : '#0d0d0d';
                 signUpBtn.style.color = isSignup ? '#ffffff' : '#ffd700';
-                loginBtn.style.background = isSignup ? '#0d0d0d' : 'linear-gradient(45deg, #8A2BE2, #9932CC)';
-                loginBtn.style.color = isSignup ? '#ffd700' : '#ffffff';
+                loginBtn.style.background = isLogin ? 'linear-gradient(45deg, #8A2BE2, #9932CC)' : '#0d0d0d';
+                loginBtn.style.color = isLogin ? '#ffffff' : '#ffd700';
             }
 
             if (signupFields) {
@@ -6095,10 +6152,21 @@ document
                 optInField.required = authMode === 'signup';
             }
             if (passwordField) {
+                const passwordBlock = passwordField.closest('.sib-input') || passwordField.closest('.form__entry');
+                if (passwordBlock) {
+                    passwordBlock.style.display = authMode === 'reset' ? 'none' : 'block';
+                }
                 passwordField.autocomplete = authMode === 'signup' ? 'new-password' : 'current-password';
+                passwordField.required = authMode !== 'reset';
             }
             if (bottomSubmit) {
-                bottomSubmit.textContent = authMode === 'signup' ? 'Create Account' : 'Log In';
+                if (authMode === 'signup') {
+                    bottomSubmit.textContent = 'Create Account';
+                } else if (authMode === 'reset') {
+                    bottomSubmit.textContent = 'Reset Password';
+                } else {
+                    bottomSubmit.textContent = 'Log In';
+                }
                 bottomSubmit.style.display = 'block';
             }
         }
@@ -6124,6 +6192,10 @@ document
         function handleBottomAction() {
             if (authMode === 'login') {
                 handleLoginModal();
+                return;
+            }
+            if (authMode === 'reset') {
+                handlePasswordResetRequest();
                 return;
             }
             const form = document.getElementById('sib-form');
@@ -6167,6 +6239,10 @@ document
             event.preventDefault();
             if (authMode === 'login') {
                 await handleLoginModal();
+                return;
+            }
+            if (authMode === 'reset') {
+                await handlePasswordResetRequest();
                 return;
             }
             const { firstName, email, password, gdprChecked, form } = getAuthFormValues();
@@ -7134,10 +7210,22 @@ document
                 .then(async (response) => {
                     if (!response) return;
                     const data = await response.json().catch(() => ({}));
+                    const errorText = (data?.error || '').toString().toLowerCase();
+                    const errorCode = (data?.code || '').toString().toLowerCase();
+                    const notFound = errorCode === 'email_not_found'
+                        || errorText.includes('email not found')
+                        || errorText.includes('not found');
                     if (!response.ok) {
                         if (messageBox) {
                             messageBox.style.color = '#ff69b4';
-                            messageBox.textContent = data?.error || 'Unable to unsubscribe.';
+                            messageBox.textContent = notFound ? 'Email not found.' : (data?.error || 'Unable to unsubscribe.');
+                        }
+                        return;
+                    }
+                    if (notFound) {
+                        if (messageBox) {
+                            messageBox.style.color = '#ff69b4';
+                            messageBox.textContent = 'Email not found.';
                         }
                         return;
                     }
