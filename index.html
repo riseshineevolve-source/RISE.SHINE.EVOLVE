@@ -329,10 +329,10 @@
 
         .gift-overlay-inner {
             position: relative;
-            width: min(980px, 92vw);
-            height: min(72vh, 560px);
-            max-height: calc(100vh - 140px);
-            margin: 0 auto;
+            width: 100%;
+            height: 100%;
+            max-height: none;
+            margin: 0;
             display: flex;
             align-items: stretch;
         }
@@ -567,7 +567,7 @@
             color: #ffffff;
             line-height: 1.7;
             margin: 0 0 16px 0;
-            text-align: justify;
+            text-align: center;
         }
 
         .character-description-box {
@@ -577,6 +577,7 @@
             padding: 18px 20px;
             box-shadow: 0 0 28px rgba(255, 215, 0, 0.25);
             margin-bottom: 26px;
+            text-align: center;
         }
 
         .character-section-heading {
@@ -2103,7 +2104,7 @@
                             <div id="success-message-unsub" class="sib-form-message-panel" style="font-size:14px;text-align:left;font-family:Helvetica,sans-serif;color:#085229;background-color:#e7faf0;border-radius:3px;border-color:#13ce66;max-width:320px;">
                                 <div class="sib-form-message-panel__text sib-form-message-panel__text--center">
                                     <svg viewBox="0 0 512 512" class="sib-icon sib-notification__icon"><path d="M256 8C119.033 8 8 119.033 8 256s111.033 248 248 248 248-111.033 248-248S392.967 8 256 8zm0 464c-118.664 0-216-96.055-216-216 0-118.663 96.055-216 216-216 118.664 0 216 96.055 216 216 0 118.663-96.055 216-216 216zm141.63-274.961L217.15 376.071c-4.705 4.667-12.303 4.637-16.97-.068l-85.878-86.572c-4.667-4.705-4.637-12.303.068-16.97l8.52-8.451c4.705-4.667 12.303-4.637 16.97.068l68.976 69.533 163.441-162.13c4.705-4.667 12.303-4.637 16.97.068l8.451 8.52c4.668 4.705 4.637 12.303-.068 16.97z"/></svg>
-                                    <span class="sib-form-message-panel__inner-text">It's a pity you resign — you can always join back our community.</span>
+                                    <span class="sib-form-message-panel__inner-text">It's a pity you resign - you can always join back our community.</span>
                                 </div>
                             </div>
                             <div></div>
@@ -4799,7 +4800,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<title>Happy Makers – 1-Minute Challenge Generator</title>
+<title>Happy Makers - 1-Minute Challenge Generator</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 <style>
@@ -4890,7 +4891,7 @@ body {
   border-radius: 999px;
 }
 
-/* SUBTITLE – GOLD */
+/* SUBTITLE - GOLD */
 .hm-subtitle {
   font-size: 0.98rem;
   color: var(--gold);
@@ -4920,7 +4921,7 @@ body {
   box-shadow: 0 0 22px rgba(255,105,180,.6);
 }
 
-/* CHALLENGE CARD — SMALLER */
+/* CHALLENGE CARD - SMALLER */
 .hm-card {
   margin: 0 auto;
   margin-top: 12px;
@@ -5131,7 +5132,7 @@ const challenges = [
   },
   {
     title: "Dance Blink Battle",
-    instruction: "Dance for one minute — every big blink changes the move.",
+    instruction: "Dance for one minute - every big blink changes the move.",
     character: "Alio",
     comment: "Alio: \"Blink = chaos unlocked.\"",
     category: "Movement"
@@ -5175,7 +5176,7 @@ const challenges = [
     title: "Balance Challenge",
     instruction: "Balance on one leg for one minute, switching whenever needed.",
     character: "Mimi",
-    comment: "Mimi: \"Grace under pressure — always stylish.\"",
+    comment: "Mimi: \"Grace under pressure - always stylish.\"",
     category: "Movement"
   },
   {
@@ -5276,7 +5277,7 @@ function getAvatarHTML(character) {
   }
 }
 
-/* category icons – subtle variety */
+/* category icons - subtle variety */
 const categoryIcons = ["⭐", "✦", "❖", "✧"];
 
 let remaining = [...challenges];
@@ -5586,7 +5587,7 @@ document
       <div class="grid-shell">
         <div class="instructions" style="font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.4px;">
           Tap a starting letter, tap the ending letter and see if you found a hidden word.
-          <br><span style="color:#ffd700; font-size: 0.82rem; text-transform: none; letter-spacing: 0.2px;">Words can be written in any direction — forward, backward, up, down, and diagonal.</span>
+          <br><span style="color:#ffd700; font-size: 0.82rem; text-transform: none; letter-spacing: 0.2px;">Words can be written in any direction - forward, backward, up, down, and diagonal.</span>
         </div>
         <table class="word-grid" id="wordGrid" aria-label="Word search grid"></table>
       </div>
@@ -6571,6 +6572,10 @@ document
         function selectTab(tabElement, tabName, options = {}) {
             if (tabName === 'gifts') {
                 localStorage.setItem('giftsRequested', 'true');
+                if (!supabaseClient) {
+                    showEmailModal();
+                    return;
+                }
                 supabaseClient.auth.getSession().then(({ data: { session } }) => {
                     hasGiftsAccess = !!session;
                     if (!session) {
@@ -6879,7 +6884,7 @@ document
                         <p style="margin-bottom: 12px;">This is not a passive reading experience. It’s a movement fueled by love, humor, and high-fives! Your child will draw, reflect, breathe, play, and create their way to become Confident, Mindful, and Happy.</p>
 
                         <p style="margin-top: 18px; font-weight: bold; color: #8A2BE2;">THE PROMISE</p>
-                        <p style="margin-bottom: 12px;">The world is waiting for your child's magic. We don't just tell them they are brave—we give them the toolkit to feel resilient, capable, and confident every single day.</p>
+                        <p style="margin-bottom: 12px;">The world is waiting for your child's magic. We don't just tell them they are brave-we give them the toolkit to feel resilient, capable, and confident every single day.</p>
                         <p style="margin-bottom: 12px;">Join us on a journey where every child can RISE, every family can SHINE, and every person can EVOLVE. Ready to unlock true potential? It is time to Rise. Shine. Evolve. TOGETHER!</p>
                     </div>
 
@@ -6940,17 +6945,17 @@ document
                                 <li>Only 10 minutes a day</li>
                                 <li>No prep, no supplies, no chaos</li>
                                 <li>Builds routine, emotional regulation and closeness</li>
-                                <li>Loved by kids ages 4–14 (even the "too cool" ones)</li>
+                                <li>Loved by kids ages 4-14 (even the "too cool" ones)</li>
                                 <li>Makes December feel calmer, cozier and more connected</li>
                             </ul>
 
                             <p class="icon-heading">GUIDED BY THE HAPPY-MAKERS FAMILY</p>
                             <ul class="golden-bullets">
-                                <li>Nini – pocket-sized joy machine</li>
-                                <li>Alio – certified chaos engineer</li>
-                                <li>Dilo – winter sports ace with perfect hair</li>
-                                <li>Luli – elegant detective of holiday magic</li>
-                                <li>Mimi – stylish heart of the home</li>
+                                <li>Nini - pocket-sized joy machine</li>
+                                <li>Alio - certified chaos engineer</li>
+                                <li>Dilo - winter sports ace with perfect hair</li>
+                                <li>Luli - elegant detective of holiday magic</li>
+                                <li>Mimi - stylish heart of the home</li>
                             </ul>
                             <p style="margin-top: 5px;">Their funny, warm notes appear throughout the book.</p>
 
