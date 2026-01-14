@@ -2609,6 +2609,20 @@
      <div style="
                     position: absolute;
                     top: 14px;
+                    right: -48px;
+                    transform: rotate(12deg);
+                    color: #ffd700;
+                    font-size: 0.65rem;
+                    font-weight: 800;
+                    letter-spacing: 0.08rem;
+                    text-transform: uppercase;
+                    text-shadow: 0 0 12px rgba(255, 215, 0, 0.6);
+                ">
+      The Ultimate Kids’ Survival Kit
+     </div>
+     <div style="
+                    position: absolute;
+                    top: 14px;
                     left: 14px;
                     background: #8A2BE2;
                     color: #ffffff;
@@ -7685,6 +7699,17 @@ document
             return true;
         }
 
+        function revealGiftFrameSoon() {
+            requestAnimationFrame(() => {
+                giftFallback.style.display = 'none';
+                giftFrame.style.display = 'block';
+            });
+            setTimeout(() => {
+                giftFallback.style.display = 'none';
+                giftFrame.style.display = 'block';
+            }, 350);
+        }
+
         async function openGiftOverlay(key, event) {
             if (event) {
                 event.stopPropagation();
@@ -7728,6 +7753,7 @@ document
                 if (inlineHtml) {
                     giftFrame.style.display = 'block';
                     setGiftFrameHtml(inlineHtml);
+                    revealGiftFrameSoon();
                 } else if (wordSearchProUrl) {
                     giftFrame.style.display = 'block';
                     giftFallback.innerHTML = '<div style="width:100%;padding:12px 8px;">Loading Word Search Studio…</div>';
@@ -7743,16 +7769,19 @@ document
                     wordSearchProHtmlPromise
                         .then((htmlText) => {
                             setGiftFrameHtml(htmlText);
+                            revealGiftFrameSoon();
                         })
                         .catch(() => {
                             if (html) {
                                 setGiftFrameHtml(html);
+                                revealGiftFrameSoon();
                             } else {
                                 showGiftFallback();
                             }
                         });
                 } else if (html) {
                     setGiftFrameHtml(html);
+                    revealGiftFrameSoon();
                 } else {
                     showGiftFallback();
                     return;
@@ -7763,6 +7792,7 @@ document
                 giftFrame.onerror = () => {
                     if (html) {
                         setGiftFrameHtml(html);
+                        revealGiftFrameSoon();
                     } else {
                         showGiftFallback();
                     }
@@ -7770,6 +7800,7 @@ document
                 giftFrame.src = srcWithCacheBust;
             } else if (html) {
                 setGiftFrameHtml(html);
+                revealGiftFrameSoon();
             } else {
                 showGiftFallback();
                 return;
