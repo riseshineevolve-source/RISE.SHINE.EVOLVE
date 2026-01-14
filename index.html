@@ -7668,7 +7668,8 @@ document
 
         function setGiftFrameHtml(html) {
             if (!html) return false;
-            if ('srcdoc' in giftFrame) {
+            const preferBlob = window.matchMedia && window.matchMedia('(max-width: 720px)').matches;
+            if (!preferBlob && ('srcdoc' in giftFrame)) {
                 giftFrame.srcdoc = html;
                 giftFrame.removeAttribute('src');
                 return true;
