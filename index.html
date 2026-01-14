@@ -6700,15 +6700,11 @@ document
         function selectTab(tabElement, tabName, options = {}) {
             if (tabName === 'gifts') {
                 localStorage.setItem('giftsRequested', 'true');
-                const isMobile = window.matchMedia('(max-width: 720px)').matches;
                 if (hasGiftsAccess) {
                     showTabContent(tabElement, tabName, options);
                     return;
                 }
                 showEmailModal('login');
-                if (isMobile) {
-                    showTabContent(tabElement, tabName, options);
-                }
                 if (!supabaseClient) {
                     return;
                 }
