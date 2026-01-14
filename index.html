@@ -7639,6 +7639,7 @@ document
         const giftFrame = document.getElementById('gift-frame');
         const giftFallback = document.getElementById('gift-fallback');
         let giftOverlayOpen = false;
+        let giftBlobUrl = null;
 
         const giftSources = {
             calmEnergy: null,
@@ -7657,6 +7658,23 @@ document
             const tpl = giftTemplates[key];
             if (!tpl) return null;
             return '<!doctype html>\n' + tpl.innerHTML;
+        }
+
+        function setGiftFrameHtml(html) {
+            if (!html) return false;
+            if ('srcdoc' in giftFrame) {
+                giftFrame.srcdoc = html;
+                giftFrame.removeAttribute('src');
+                return true;
+            }
+            const blob = new Blob([html], { type: 'text/html' });
+            if (giftBlobUrl) {
+                URL.revokeObjectURL(giftBlobUrl);
+            }
+            giftBlobUrl = URL.createObjectURL(blob);
+            giftFrame.removeAttribute('srcdoc');
+            giftFrame.src = giftBlobUrl;
+            return true;
         }
 
         async function openGiftOverlay(key, event) {
@@ -7695,7 +7713,7 @@ document
                 if (inlineHtml) {
                     giftFrame.style.display = 'block';
                     giftFallback.style.display = 'none';
-                    giftFrame.srcdoc = inlineHtml;
+                    setGiftFrameHtml(inlineHtml);
                 } else if (wordSearchProUrl) {
                     giftFrame.style.display = 'block';
                     giftFallback.style.display = 'flex';
@@ -7711,13 +7729,13 @@ document
 
                     wordSearchProHtmlPromise
                         .then((htmlText) => {
-                            giftFrame.srcdoc = htmlText;
+                            setGiftFrameHtml(htmlText);
                             giftFallback.style.display = 'none';
                             giftFrame.style.display = 'block';
                         })
                         .catch(() => {
                             if (html) {
-                                giftFrame.srcdoc = html;
+                                setGiftFrameHtml(html);
                                 giftFallback.style.display = 'none';
                                 giftFrame.style.display = 'block';
                             } else {
@@ -7727,7 +7745,7 @@ document
                 } else if (html) {
                     giftFallback.style.display = 'none';
                     giftFrame.style.display = 'block';
-                    giftFrame.srcdoc = html;
+                    setGiftFrameHtml(html);
                 } else {
                     showGiftFallback();
                     return;
@@ -7753,7 +7771,7 @@ document
             } else if (html) {
                 giftFallback.style.display = 'none';
                 giftFrame.style.display = 'block';
-                giftFrame.srcdoc = html;
+                setGiftFrameHtml(html);
             } else {
                 showGiftFallback();
                 return;
@@ -7788,6 +7806,10 @@ document
             giftFrame.srcdoc = '';
             giftFallback.style.display = 'none';
             document.body.style.overflow = '';
+            if (giftBlobUrl) {
+                URL.revokeObjectURL(giftBlobUrl);
+                giftBlobUrl = null;
+            }
 
             if (giftOverlayOpen && history.state && history.state.giftOverlay && !fromHistory) {
                 giftOverlayOpen = false;
