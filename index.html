@@ -395,6 +395,7 @@
             }
             .gift-overlay-inner {
                 width: 100%;
+                height: 100vh;
                 height: 100svh;
                 height: 100dvh;
                 max-height: 100dvh;
@@ -7714,16 +7715,21 @@ document
             giftFrame.removeAttribute('srcdoc');
             giftFrame.onload = null;
             giftFrame.onerror = null;
+            giftFallback.style.display = 'flex';
+            giftFallback.innerHTML = '<div style="width:100%;padding:12px 8px;">Loading gift…</div>';
+            giftFrame.style.display = 'none';
+            giftFrame.onload = () => {
+                giftFallback.style.display = 'none';
+                giftFrame.style.display = 'block';
+            };
 
             if (key === 'wordSearchPro') {
                 const inlineHtml = (wordSearchProInlineHtml || '').trim();
                 if (inlineHtml) {
                     giftFrame.style.display = 'block';
-                    giftFallback.style.display = 'none';
                     setGiftFrameHtml(inlineHtml);
                 } else if (wordSearchProUrl) {
                     giftFrame.style.display = 'block';
-                    giftFallback.style.display = 'flex';
                     giftFallback.innerHTML = '<div style="width:100%;padding:12px 8px;">Loading Word Search Studio…</div>';
 
                     if (!wordSearchProHtmlPromise) {
@@ -7737,21 +7743,15 @@ document
                     wordSearchProHtmlPromise
                         .then((htmlText) => {
                             setGiftFrameHtml(htmlText);
-                            giftFallback.style.display = 'none';
-                            giftFrame.style.display = 'block';
                         })
                         .catch(() => {
                             if (html) {
                                 setGiftFrameHtml(html);
-                                giftFallback.style.display = 'none';
-                                giftFrame.style.display = 'block';
                             } else {
                                 showGiftFallback();
                             }
                         });
                 } else if (html) {
-                    giftFallback.style.display = 'none';
-                    giftFrame.style.display = 'block';
                     setGiftFrameHtml(html);
                 } else {
                     showGiftFallback();
@@ -7760,24 +7760,15 @@ document
             } else if (source) {
                 const srcWithCacheBust = key === 'wordSearchPro' ? `${source}?v=${Date.now()}` : source;
                 giftFrame.style.display = 'block';
-                giftFallback.style.display = 'none';
-                giftFrame.onload = () => {
-                    giftFallback.style.display = 'none';
-                    giftFrame.style.display = 'block';
-                };
                 giftFrame.onerror = () => {
                     if (html) {
-                        giftFrame.srcdoc = html;
-                        giftFallback.style.display = 'none';
-                        giftFrame.style.display = 'block';
+                        setGiftFrameHtml(html);
                     } else {
                         showGiftFallback();
                     }
                 };
                 giftFrame.src = srcWithCacheBust;
             } else if (html) {
-                giftFallback.style.display = 'none';
-                giftFrame.style.display = 'block';
                 setGiftFrameHtml(html);
             } else {
                 showGiftFallback();
