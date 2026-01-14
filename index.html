@@ -2608,15 +2608,17 @@
             ">
      <div style="
                     position: absolute;
-                    top: 14px;
-                    right: -48px;
+                    top: 18px;
+                    right: 16px;
                     transform: rotate(12deg);
                     color: #ffd700;
-                    font-size: 0.65rem;
+                    font-size: 0.62rem;
                     font-weight: 800;
-                    letter-spacing: 0.08rem;
+                    letter-spacing: 0.06rem;
                     text-transform: uppercase;
                     text-shadow: 0 0 12px rgba(255, 215, 0, 0.6);
+                    max-width: 140px;
+                    text-align: right;
                 ">
       The Ultimate Kids’ Survival Kit
      </div>
@@ -4733,6 +4735,19 @@
       slots[safeIndex].classList.add("hm-selected");
     }
 
+    function addTapListener(element, handler) {
+      if (!element) return;
+      element.addEventListener("click", handler);
+      element.addEventListener(
+        "touchstart",
+        event => {
+          event.preventDefault();
+          handler(event);
+        },
+        { passive: false }
+      );
+    }
+
     function setupWheel(options) {
       const {
         practices,
@@ -4835,12 +4850,12 @@
         }
       }
 
-      spinBtn.addEventListener("click", () => {
+      addTapListener(spinBtn, () => {
         spinStopToggle();
       });
 
       filterButtons.forEach(btn => {
-        btn.addEventListener("click", () => {
+        addTapListener(btn, () => {
           filterButtons.forEach(b => b.classList.remove("hm-active"));
           btn.classList.add("hm-active");
           currentFilter = btn.getAttribute("data-filter");
@@ -4901,8 +4916,8 @@
       }
     }
 
-    calmTabBtn.addEventListener("click", () => activateTab("calm"));
-    energyTabBtn.addEventListener("click", () => activateTab("energy"));
+    addTapListener(calmTabBtn, () => activateTab("calm"));
+    addTapListener(energyTabBtn, () => activateTab("energy"));
 
     tabIndicator.style.transform = "translateX(0%)";
   </script>
