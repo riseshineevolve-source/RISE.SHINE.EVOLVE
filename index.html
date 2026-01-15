@@ -883,6 +883,13 @@
         .floating-boxes .elegant-christmas-box {
             margin: 0;
             flex: 0 0 auto;
+            position: relative;
+            top: auto;
+            right: auto;
+            width: 100%;
+            height: auto;
+            transform: none;
+            animation: none;
         }
 
         /* Tabs */
@@ -1095,6 +1102,15 @@
             }
             75% { 
                 transform: rotate(1.8deg) translateY(-2px);
+            }
+        }
+
+        @media (min-width: 1025px) {
+            .floating-boxes .elegant-christmas-box {
+                position: relative;
+                top: auto;
+                right: auto;
+                transform: none;
             }
         }
 
@@ -2634,7 +2650,7 @@
      <div style="
                     position: absolute;
                     top: 70px;
-                    right: 80px;
+                    right: 120px;
                     transform: rotate(10deg);
                     color: #ffd700;
                     font-size: 0.58rem;
