@@ -870,12 +870,12 @@
 
         .floating-boxes {
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: flex-start;
             gap: 16px;
-            flex-wrap: wrap;
-            margin: 10px auto 24px;
-            width: min(560px, 96vw);
+            flex-wrap: nowrap;
+            margin: 16px auto 24px;
+            width: min(900px, 96vw);
             z-index: 2;
             position: relative;
         }
@@ -886,7 +886,7 @@
             position: relative;
             top: auto;
             right: auto;
-            width: 100%;
+            width: min(180px, 42vw);
             height: auto;
             transform: none;
             animation: none;
@@ -1105,12 +1105,11 @@
             }
         }
 
-        @media (min-width: 1025px) {
-            .floating-boxes .elegant-christmas-box {
-                position: relative;
-                top: auto;
-                right: auto;
-                transform: none;
+        @media (max-width: 768px) {
+            .floating-boxes {
+                justify-content: center;
+                flex-wrap: wrap;
+                width: min(520px, 96vw);
             }
         }
 
@@ -1543,7 +1542,7 @@
    <div class="floating-boxes" style="margin: 10px auto 30px;">
     <div class="elegant-christmas-box" style="max-width: 160px; border-radius: 20px 10px 20px 10px; padding: 10px 10px 12px;" onclick="showFamilyGallery()">
      <div class="elegant-box-content">
-      <img src="assets/images/Happy%20Makers%20floating%20box.png" alt="Happy Makers" style="width: 100%; height: auto; border-radius: 12px; border: 2px solid #ffd700; box-shadow: 0 0 18px rgba(255, 215, 0, 0.35); margin-bottom: 8px;">
+      <img src="assets/images/happy-makers-floating-box.svg" alt="Happy Makers" style="width: 100%; height: auto; border-radius: 12px; border: 2px solid #ffd700; box-shadow: 0 0 18px rgba(255, 215, 0, 0.35); margin-bottom: 8px;">
       <button class="elegant-amazon-btn" style="padding: 5px 8px; font-size: 0.58rem; line-height: 1.15; min-width: unset; display: inline-block; border-radius: 11px; box-shadow: 0 0 12px rgba(138, 43, 226, 0.55);" onclick="event.stopPropagation(); showFamilyGallery();">Meet The Happy-Makers</button>
      </div>
     </div>
@@ -2650,7 +2649,7 @@
      <div style="
                     position: absolute;
                     top: 70px;
-                    right: 120px;
+                    right: 80px;
                     transform: rotate(10deg);
                     color: #ffd700;
                     font-size: 0.58rem;
