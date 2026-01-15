@@ -878,7 +878,7 @@
             width: min(980px, 96vw);
             z-index: 2;
             position: absolute;
-            top: 120px;
+            top: 92px;
             left: 50%;
             transform: translateX(-50%);
         }
@@ -889,10 +889,17 @@
             position: relative;
             top: auto;
             right: auto;
-            width: min(150px, 38vw);
+            width: min(140px, 34vw);
             height: auto;
             transform: none;
             animation: none;
+            border-color: #8A2BE2;
+            box-shadow: 0 0 18px rgba(138, 43, 226, 0.6), 0 0 28px rgba(138, 43, 226, 0.35);
+        }
+
+        .floating-boxes .elegant-amazon-btn {
+            border-color: #8A2BE2;
+            box-shadow: 0 0 16px rgba(138, 43, 226, 0.6);
         }
 
         /* Tabs */
@@ -1546,25 +1553,7 @@
      every family can <span class="word-shine">SHINE</span><br>
      and every person can <span class="word-evolve">EVOLVE</span>.
     </div>
-   </div><!-- Floating Boxes -->
-   <div class="floating-boxes">
-    <div class="elegant-christmas-box" style="max-width: 150px; border-radius: 18px 10px 18px 10px; padding: 8px 8px 10px;" onclick="showFamilyGallery()">
-     <div class="elegant-box-content">
-      <img src="assets/images/Happy%20Makers%20floating%20box.png" alt="Happy Makers" onerror="this.onerror=null;this.src='assets/images/happy-makers-floating-box.svg';" style="width: 100%; height: auto; border-radius: 12px; border: 2px solid #ffd700; box-shadow: 0 0 18px rgba(255, 215, 0, 0.35); margin-bottom: 8px;">
-      <button class="elegant-amazon-btn" style="padding: 5px 8px; font-size: 0.58rem; line-height: 1.15; min-width: unset; display: inline-block; border-radius: 11px; box-shadow: 0 0 12px rgba(138, 43, 226, 0.55);" onclick="event.stopPropagation(); showFamilyGallery();">MEET THE HAPPY-MAKERS</button>
-     </div>
-    </div>
-    <div class="elegant-christmas-box" style="max-width: 150px; border-radius: 18px 8px 18px 8px; padding: 8px 8px 10px;" onclick="window.open('https://www.amazon.com/dp/B0G6ZBD7YF/ref=sr_1_1?crid=1JNI65G7Y5W2T&dib=eyJ2IjoiMSJ9.6sPvd45HQ0DwFx7rDVm4GzEvVHvx5Nfyyk4-aOOpL-R9ARZwGRkFwI6K0rPa1EX0ZBKEzsfqQGLw0d4jZ5-ItQ.HHZ--L7lh4LL8MZJqdljxFqBdMTp3g8LL8IgiH3QPb0&dib_tag=se&keywords=the+confident+mindful+%26+happy+me+adventure&qid=1765802239&s=digital-text&sprefix=%2Cdigital-text%2C354&sr=1-1', '_blank', 'noopener,noreferrer')">
-     <div class="elegant-box-content">
-      <div class="elegant-main-title" style="text-transform: uppercase; font-size: 0.72rem;">
-       The Confident,<br>
-       Mindful &amp; Happy Me<br>
-       Adventure
-      </div>
-      <button class="elegant-amazon-btn" style="padding: 4px 7px; font-size: 0.54rem; line-height: 1.15; min-width: unset; display: inline-block; border-radius: 11px; box-shadow: 0 0 12px rgba(138, 43, 226, 0.55);" onclick="event.stopPropagation(); window.open('https://www.amazon.com/dp/B0G6ZBD7YF/ref=sr_1_1?crid=1JNI65G7Y5W2T&dib=eyJ2IjoiMSJ9.6sPvd45HQ0DwFx7rDVm4GzEvVHvx5Nfyyk4-aOOpL-R9ARZwGRkFwI6K0rPa1EX0ZBKEzsfqQGLw0d4jZ5-ItQ.HHZ--L7lh4LL8MZJqdljxFqBdMTp3g8LL8IgiH3QPb0&dib_tag=se&keywords=the+confident+mindful+%26+happy+me+adventure&qid=1765802239&s=digital-text&sprefix=%2Cdigital-text%2C354&sr=1-1', '_blank', 'noopener,noreferrer')">Add to cart<br>on Amazon</button>
-     </div>
-    </div>
-  </div>
+   </div>
    <div class="tabs-container">
     <div class="tabs">
      <div class="tab active" data-tab="main" onclick="selectTab(this, 'main')">
@@ -1587,6 +1576,21 @@
      </div>
     </div><!-- Tab contents -->
     <div id="main-content" class="tab-content active">
+     <!-- Floating Boxes (Main tab only) -->
+     <div class="floating-boxes">
+      <div class="elegant-christmas-box" style="max-width: 140px; border-radius: 18px 10px 18px 10px; padding: 8px 8px 10px;" onclick="showFamilyGallery()">
+       <div class="elegant-box-content">
+        <img src="https://raw.githubusercontent.com/riseshineevolve-source/RISE.SHINE.EVOLVE/main/assets/images/Happy%20Makers%20floating%20box.png" alt="Happy Makers" onerror="this.onerror=null;this.src='assets/images/happy-makers-floating-box.svg';" style="width: 100%; height: auto; border-radius: 10px; border: 2px solid #8A2BE2; box-shadow: 0 0 14px rgba(138, 43, 226, 0.45); margin-bottom: 8px;">
+        <button class="elegant-amazon-btn" style="padding: 5px 8px; font-size: 0.55rem; line-height: 1.15; min-width: unset; display: inline-block; border-radius: 11px;" onclick="event.stopPropagation(); showFamilyGallery();">MEET THE HAPPY-MAKERS</button>
+       </div>
+      </div>
+      <div class="elegant-christmas-box" style="max-width: 140px; border-radius: 18px 8px 18px 8px; padding: 8px 8px 10px;" onclick="window.open('https://www.amazon.com/dp/B0G6ZBD7YF/ref=sr_1_1?crid=1JNI65G7Y5W2T&dib=eyJ2IjoiMSJ9.6sPvd45HQ0DwFx7rDVm4GzEvVHvx5Nfyyk4-aOOpL-R9ARZwGRkFwI6K0rPa1EX0ZBKEzsfqQGLw0d4jZ5-ItQ.HHZ--L7lh4LL8MZJqdljxFqBdMTp3g8LL8IgiH3QPb0&dib_tag=se&keywords=the+confident+mindful+%26+happy+me+adventure&qid=1765802239&s=digital-text&sprefix=%2Cdigital-text%2C354&sr=1-1', '_blank', 'noopener,noreferrer')">
+       <div class="elegant-box-content">
+        <img src="assets/images/Confident,%20Mindful%20%26%20Happy%20Me%20cover.png" alt="The Confident, Mindful &amp; Happy Me Adventure cover" style="width: 100%; height: auto; border-radius: 10px; border: 2px solid #8A2BE2; box-shadow: 0 0 14px rgba(138, 43, 226, 0.45); margin-bottom: 8px;">
+        <button class="elegant-amazon-btn" style="padding: 5px 8px; font-size: 0.55rem; line-height: 1.15; min-width: unset; display: inline-block; border-radius: 11px;" onclick="event.stopPropagation(); window.open('https://www.amazon.com/dp/B0G6ZBD7YF/ref=sr_1_1?crid=1JNI65G7Y5W2T&dib=eyJ2IjoiMSJ9.6sPvd45HQ0DwFx7rDVm4GzEvVHvx5Nfyyk4-aOOpL-R9ARZwGRkFwI6K0rPa1EX0ZBKEzsfqQGLw0d4jZ5-ItQ.HHZ--L7lh4LL8MZJqdljxFqBdMTp3g8LL8IgiH3QPb0&dib_tag=se&keywords=the+confident+mindful+%26+happy+me+adventure&qid=1765802239&s=digital-text&sprefix=%2Cdigital-text%2C354&sr=1-1', '_blank', 'noopener,noreferrer')">Add to cart<br>on Amazon</button>
+       </div>
+      </div>
+     </div>
      <div class="kids-tile">
       <div class="kids-text">
        You were born to <span class="word-rise">RISE</span>,<br>
