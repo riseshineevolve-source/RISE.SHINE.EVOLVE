@@ -874,12 +874,15 @@
             align-items: flex-start;
             gap: 16px;
             flex-wrap: wrap;
-            margin: 10px auto 20px;
-            width: min(680px, 96vw);
+            margin: 10px auto 24px;
+            width: min(560px, 96vw);
+            z-index: 2;
+            position: relative;
         }
 
         .floating-boxes .elegant-christmas-box {
             margin: 0;
+            flex: 0 0 auto;
         }
 
         /* Tabs */
@@ -1522,13 +1525,13 @@
     </div>
    </div><!-- Floating Boxes -->
    <div class="floating-boxes" style="margin: 10px auto 30px;">
-    <div class="elegant-christmas-box" style="max-width: 170px; border-radius: 20px 10px 20px 10px; padding: 10px 10px 12px;" onclick="showFamilyGallery()">
+    <div class="elegant-christmas-box" style="max-width: 160px; border-radius: 20px 10px 20px 10px; padding: 10px 10px 12px;" onclick="showFamilyGallery()">
      <div class="elegant-box-content">
-      <img src="assets/images/Happy Makers floating box.png" alt="Happy Makers" style="width: 100%; height: auto; border-radius: 12px; border: 2px solid #ffd700; box-shadow: 0 0 18px rgba(255, 215, 0, 0.35); margin-bottom: 8px;">
+      <img src="assets/images/Happy%20Makers%20floating%20box.png" alt="Happy Makers" style="width: 100%; height: auto; border-radius: 12px; border: 2px solid #ffd700; box-shadow: 0 0 18px rgba(255, 215, 0, 0.35); margin-bottom: 8px;">
       <button class="elegant-amazon-btn" style="padding: 5px 8px; font-size: 0.58rem; line-height: 1.15; min-width: unset; display: inline-block; border-radius: 11px; box-shadow: 0 0 12px rgba(138, 43, 226, 0.55);" onclick="event.stopPropagation(); showFamilyGallery();">Meet The Happy-Makers</button>
      </div>
     </div>
-    <div class="elegant-christmas-box" style="max-width: 170px; border-radius: 22px 8px 22px 8px; padding: 10px 10px 12px;" onclick="window.open('https://www.amazon.com/dp/B0G6ZBD7YF/ref=sr_1_1?crid=1JNI65G7Y5W2T&dib=eyJ2IjoiMSJ9.6sPvd45HQ0DwFx7rDVm4GzEvVHvx5Nfyyk4-aOOpL-R9ARZwGRkFwI6K0rPa1EX0ZBKEzsfqQGLw0d4jZ5-ItQ.HHZ--L7lh4LL8MZJqdljxFqBdMTp3g8LL8IgiH3QPb0&dib_tag=se&keywords=the+confident+mindful+%26+happy+me+adventure&qid=1765802239&s=digital-text&sprefix=%2Cdigital-text%2C354&sr=1-1', '_blank', 'noopener,noreferrer')">
+    <div class="elegant-christmas-box" style="max-width: 160px; border-radius: 22px 8px 22px 8px; padding: 10px 10px 12px;" onclick="window.open('https://www.amazon.com/dp/B0G6ZBD7YF/ref=sr_1_1?crid=1JNI65G7Y5W2T&dib=eyJ2IjoiMSJ9.6sPvd45HQ0DwFx7rDVm4GzEvVHvx5Nfyyk4-aOOpL-R9ARZwGRkFwI6K0rPa1EX0ZBKEzsfqQGLw0d4jZ5-ItQ.HHZ--L7lh4LL8MZJqdljxFqBdMTp3g8LL8IgiH3QPb0&dib_tag=se&keywords=the+confident+mindful+%26+happy+me+adventure&qid=1765802239&s=digital-text&sprefix=%2Cdigital-text%2C354&sr=1-1', '_blank', 'noopener,noreferrer')">
      <div class="elegant-box-content">
       <div class="elegant-main-title" style="text-transform: uppercase; font-size: 0.72rem;">
        The Confident,<br>
@@ -2631,7 +2634,7 @@
      <div style="
                     position: absolute;
                     top: 70px;
-                    right: 36px;
+                    right: 80px;
                     transform: rotate(10deg);
                     color: #ffd700;
                     font-size: 0.58rem;
@@ -4940,6 +4943,7 @@
 
     addTapListener(calmTabBtn, () => activateTab("calm"));
     addTapListener(energyTabBtn, () => activateTab("energy"));
+
 
     tabIndicator.style.transform = "translateX(0%)";
   </script>
@@ -7594,6 +7598,7 @@ document
             applyCharacterPortraits();
             applyCoverImages();
             handleVerificationRedirect();
+            initGiftTapListeners();
 
             const hashTab = (window.location.hash || '').replace('#', '');
             const desiredTab = hashTab && getTabElement(hashTab) ? hashTab : 'main';
@@ -7938,6 +7943,45 @@ document
 
         function openWordSearchPro(event) {
             openGiftOverlay('wordSearchPro', event);
+        }
+
+        function addTapListener(element, handler) {
+            if (!element) return;
+            element.addEventListener('click', (event) => {
+                const lastTouch = Number(element.dataset.lastTouch || 0);
+                if (lastTouch && Date.now() - lastTouch < 500) {
+                    return;
+                }
+                handler(event);
+            });
+            element.addEventListener('touchstart', (event) => {
+                element.dataset.lastTouch = String(Date.now());
+                event.preventDefault();
+                handler(event);
+            }, { passive: false });
+        }
+
+        function initGiftTapListeners() {
+            const cards = [
+                { id: 'gift-card-calm-energy', handler: openCalmEnergyWheel },
+                { id: 'gift-card-word-search', handler: openWordSearch },
+                { id: 'gift-card-word-search-pro', handler: openWordSearchPro },
+            ];
+            cards.forEach(({ id, handler }) => {
+                addTapListener(document.getElementById(id), handler);
+            });
+
+            const buttons = [
+                { selector: '[onclick*="openCalmEnergyWheel"]', handler: openCalmEnergyWheel },
+                { selector: '[onclick*="openOneMinuteChallenge"]', handler: openOneMinuteChallenge },
+                { selector: '[onclick*="openWordSearchPro"]', handler: openWordSearchPro },
+                { selector: '[onclick*="openWordSearch"]', handler: openWordSearch },
+            ];
+            buttons.forEach(({ selector, handler }) => {
+                document.querySelectorAll(selector).forEach((btn) => {
+                    addTapListener(btn, handler);
+                });
+            });
         }
 
 // Resource download functionality
