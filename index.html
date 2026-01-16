@@ -6,6 +6,11 @@
   <title>Riseshine Evolve</title>
   <link rel="preload" as="image" href="assets/images/Confident,%20Mindful%20%26%20Happy%20Me%20cover.png">
   <style>
+        html {
+            width: 100%;
+            height: 100%;
+        }
+
         body {
             box-sizing: border-box;
             margin: 0;
@@ -15,6 +20,7 @@
             min-height: 100vh;
             overflow-x: hidden;
             position: relative;
+            width: 100%;
         }
 
 
@@ -49,6 +55,9 @@
             z-index: 2;
             padding: 40px 30px;
             text-align: center;
+            width: 100%;
+            min-height: 100vh;
+            box-sizing: border-box;
         }
 
         /* Main title */
@@ -547,7 +556,8 @@
             margin-bottom: 18px;
         }
 
-        .character-header img {
+        .character-header img,
+        .character-header video {
             width: 160px;
             height: 160px;
             border-radius: 50%;
@@ -1621,7 +1631,7 @@
    <p class="subtitle">Empowering Learning Hub</p>
    <div id="auth-action-chip" style="position: fixed; top: 16px; right: 18px; z-index: 15000; display: flex; align-items: center; gap: 8px; background: rgba(0, 0, 0, 0.6); border: 1px solid #ffd700; color: #ffd700; font-size: 0.62rem; font-weight: 700; padding: 6px 10px; border-radius: 12px; box-shadow: 0 0 10px rgba(255, 215, 0, 0.35); text-transform: uppercase; letter-spacing: 0.5px;">
     <span id="auth-action-label" style="display: none;">Log in as</span>
-    <button type="button" id="auth-action-button" onclick="handleAuthActionClick()" style="background: transparent; border: none; color: #ffd700; font-size: 0.62rem; font-weight: 700; padding: 3px 8px; border-radius: 9px; cursor: pointer; text-transform: uppercase;">Log In</button>
+    <button type="button" id="auth-action-button" style="background: transparent; border: none; color: #ffd700; font-size: 0.62rem; font-weight: 700; padding: 3px 8px; border-radius: 9px; cursor: pointer; text-transform: uppercase;">Log In</button>
    </div>
    <div class="info-tile" id="dynamic-info-tile">
     <div class="info-text">
@@ -1656,7 +1666,10 @@
      <div class="floating-boxes">
       <div class="elegant-christmas-box" style="max-width: 140px; border-radius: 18px 10px 18px 10px; padding: 8px 8px 10px;" onclick="showFamilyGallery()">
        <div class="elegant-box-content">
-        <img src="https://raw.githubusercontent.com/riseshineevolve-source/RISE.SHINE.EVOLVE/main/assets/images/Happy%20Makers%20floating%20box.png" alt="Happy Makers" onerror="this.onerror=null;this.src='assets/images/happy-makers-floating-box.svg';" class="floating-box-image">
+        <video class="floating-box-image" autoplay loop muted playsinline aria-label="Happy Makers dance">
+            <source src="assets/videos/wspolny taniec.mp4" type="video/mp4">
+            <source src="https://raw.githubusercontent.com/riseshineevolve-source/RISE.SHINE.EVOLVE/main/assets/videos/wspolny%20taniec.mp4" type="video/mp4">
+        </video>
        <button class="elegant-amazon-btn floating-box-cta" onclick="event.stopPropagation(); showFamilyGallery();">MEET<br><span style="white-space: nowrap;">THE HAPPY-MAKERS</span></button>
        </div>
       </div>
@@ -2597,6 +2610,21 @@
       <h3 style="color: #8A2BE2; font-size: 2rem; margin-bottom: 15px; text-shadow: 0 0 20px rgba(138, 43, 226, 1); font-weight: bold; text-transform: uppercase; letter-spacing: 1px;">MORE COMING SOON!</h3>
       <p style="color: #ffffff; font-size: 1.05rem; line-height: 1.6; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);">Stay tuned to meet more amazing members of The Happy-Makers Family!</p>
     </div>
+    <div style="max-width: 1100px; margin: 0 auto 40px auto; background: #000000; border: 3px solid #8A2BE2; border-radius: 24px; padding: 28px; box-shadow: 0 0 35px rgba(138, 43, 226, 0.6), 0 0 60px rgba(138, 43, 226, 0.3); text-align: center;">
+     <h3 style="color: #ffd700; font-size: 1.7rem; margin: 0 0 16px 0; text-shadow: 0 0 18px rgba(255, 215, 0, 0.7);">What happens when you mix <span style="color:#ff69b4;font-weight:700;">Mindfulness</span>, <span style="color:#8A2BE2;font-weight:700;">Adventure</span>, and a sprinkle of <span style="color:#ffd700;font-weight:700;">Family Magic</span>?</h3>
+     <p style="color: #ffffff; font-size: 1.05rem; line-height: 1.6; margin: 0 0 14px 0;"><strong style="color:#ffd700;">You get The Happy Makers!</strong></p>
+     <p style="color: #ffffff; font-size: 1.02rem; line-height: 1.6; margin: 0 0 14px 0;">Meet your new best friends: a lovable squad of trusted guides and fun-loving companions on a mission to make being <strong style="color:#ff69b4;">YOU</strong> the greatest adventure of all.</p>
+     <p style="color: #ffffff; font-size: 1.02rem; line-height: 1.6; margin: 0 0 14px 0;">We bring the empowering spirit of the <strong style="color:#8A2BE2;">Rise Shine Evolve Learning Hub</strong> straight into your living room. We craft immersive journeys that turn everyday challenges into opportunities for <strong style="color:#ffd700;">Connection</strong> and <strong style="color:#ffd700;">Growth</strong>.</p>
+     <p style="color: #ffffff; font-size: 1.02rem; line-height: 1.6; margin: 0 0 14px 0;">Whether it’s finding calm in the Christmas rush or discovering inner courage on a Tuesday morning, our squad is here to help you navigate the wild ride of growing up.</p>
+     <p style="color: #ffffff; font-size: 1.02rem; line-height: 1.6; margin: 0 0 14px 0;"><strong style="color:#ff69b4;">The Happy Makers Vibe?</strong> We take emotional growth seriously, but we never take ourselves too seriously.</p>
+     <p style="color: #ffffff; font-size: 1.02rem; line-height: 1.6; margin: 0 0 14px 0;">We believe in <strong style="color:#ffd700;">zero boring lectures</strong> and <strong style="color:#ffd700;">100% fun</strong>. Because let’s be honest: kids learn best when they are laughing and exploring the world.</p>
+     <p style="color: #ffffff; font-size: 1.02rem; line-height: 1.6; margin: 0 0 14px 0;">Join us on a journey where:</p>
+     <p style="color: #ffffff; font-size: 1.02rem; line-height: 1.6; margin: 0 0 8px 0;"><strong style="color:#ff69b4;">Every child can RISE</strong> (without needing a superhero cape).</p>
+     <p style="color: #ffffff; font-size: 1.02rem; line-height: 1.6; margin: 0 0 8px 0;"><strong style="color:#ffd700;">Every family can SHINE</strong> (yes, even on the messy, chaotic days).</p>
+     <p style="color: #ffffff; font-size: 1.02rem; line-height: 1.6; margin: 0 0 14px 0;"><strong style="color:#8A2BE2;">Every person can EVOLVE.</strong></p>
+     <p style="color: #ffffff; font-size: 1.02rem; line-height: 1.6; margin: 0 0 14px 0;">This isn’t just a book series. It’s a movement fueled by <strong style="color:#ffd700;">love</strong>, <strong style="color:#ffd700;">humor</strong> and <strong style="color:#ffd700;">high-fives</strong>!</p>
+     <p style="color: #ffd700; font-size: 1.08rem; line-height: 1.6; margin: 0;"><strong>Ready to unlock true potential?</strong> It is time to <span style="color:#ff69b4;font-weight:700;">Rise.</span> <span style="color:#ffd700;font-weight:700;">Shine.</span> <span style="color:#8A2BE2;font-weight:700;">Evolve.</span> <strong>TOGETHER.</strong></p>
+    </div>
    </div><!-- Back Button Bottom -->
     <div style="text-align: center;"><button onclick="backToLibrary()" style="
                     background: linear-gradient(45deg, #8A2BE2, #9932CC);
@@ -2882,7 +2910,7 @@
     <p style="color: #e6e6e6; font-size: 0.78rem; text-align: center; margin: 0 0 8px 0;">Already have an account? Click Log In.</p>
     <p id="errorMsg" style="color: #ff1493; text-align: center; margin: 6px 0 10px 0; font-weight: bold;"></p>
     <div style="text-align: center; margin: 0 0 8px 0;">
-        <button type="button" id="forgotPasswordLink" onclick="handlePasswordResetRequest()" style="background: none; border: none; color: #ffd700; font-size: 0.78rem; font-weight: 600; cursor: pointer; text-decoration: underline;">
+        <button type="button" id="forgotPasswordLink" onclick="setAuthMode('reset'); showAuthMessage('Enter your email below to reset your password.', '#ff1493');" style="background: none; border: none; color: #ffd700; font-size: 0.78rem; font-weight: 600; cursor: pointer; text-decoration: underline;">
             Forgot password?
         </button>
     </div>
@@ -7100,6 +7128,7 @@ document
                 name: 'Dilo',
                 tagline: 'Pixel Striker',
                 image: 'Dilo.png',
+                video: 'Alio tanczy.mp4',
                 color: '#00bfff',
                 description: [
                     'Dilo is that rare combo of natural footballer and born gamer: fast feet, fast fingers and even faster opinions. He scores goals with both feet, beats video-game levels like he’s speedrunning life and takes on every challenge with a mix of stubborn determination and surprising generosity.',
@@ -7124,6 +7153,7 @@ document
                 name: 'Nini',
                 tagline: 'Joy Spark',
                 image: 'Nini.png',
+                video: 'Nini tanczy.mp4',
                 color: '#ff69b4',
                 description: [
                     'Nini is a tiny burst of joy who can brighten any room faster than you can say “snack time.” She sings, dances and giggles her way through the day as if the world were her personal stage. She’s clearly the headliner.',
@@ -7147,10 +7177,22 @@ document
 
         function buildCharacterDetails(profile) {
             const { localEncoded: localImageSrc, remote: remoteImageSrc, local: unencodedLocal } = buildImageSources(profile.image);
+            const videoName = profile.video ? profile.video.toString() : '';
+            const encodedVideo = videoName ? encodeURIComponent(videoName) : '';
+            const videoMarkup = videoName
+                ? `
+                        <video autoplay loop muted playsinline aria-label="${profile.name} dance">
+                            <source src="assets/videos/${videoName}" type="video/mp4">
+                            <source src="https://raw.githubusercontent.com/riseshineevolve-source/RISE.SHINE.EVOLVE/main/assets/videos/${encodedVideo}" type="video/mp4">
+                        </video>
+                    `
+                : `
+                        <img src="${localImageSrc}" alt="${profile.name}" data-character-img="${profile.image}" onerror="this.onerror=null; this.src='${unencodedLocal}'; this.onerror=()=>{ this.onerror=null; this.src='${remoteImageSrc}';};">
+                    `;
             return `
                 <div class="character-detail-shell">
                     <div class="character-header">
-                        <img src="${localImageSrc}" alt="${profile.name}" data-character-img="${profile.image}" onerror="this.onerror=null; this.src='${unencodedLocal}'; this.onerror=()=>{ this.onerror=null; this.src='${remoteImageSrc}';};">
+                        ${videoMarkup}
                         <div>
                             <h2 style="color: ${profile.color}; font-size: 2.4rem; margin: 0 0 6px 0; text-shadow: 0 0 22px rgba(255, 215, 0, 0.6); letter-spacing: 1px;">${profile.name}</h2>
                             <p class="character-subtitle" style="color: ${profile.color};">${profile.tagline}</p>
@@ -7753,6 +7795,10 @@ document
             applyCoverImages();
             handleVerificationRedirect();
             initGiftTapListeners();
+            const authActionButton = document.getElementById('auth-action-button');
+            if (authActionButton) {
+                addTapListener(authActionButton, handleAuthActionClick);
+            }
 
             const hashTab = (window.location.hash || '').replace('#', '');
             const desiredTab = hashTab && getTabElement(hashTab) ? hashTab : 'main';
