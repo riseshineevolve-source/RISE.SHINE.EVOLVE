@@ -879,7 +879,7 @@
             width: min(980px, 96vw);
             z-index: 2;
             position: absolute;
-            top: 40px;
+            top: 32px;
             left: 50%;
             transform: translateX(-50%);
         }
@@ -921,11 +921,12 @@
             line-height: 1.15;
             display: inline-block;
             border-radius: 11px;
+            min-height: 36px;
         }
 
         @media (min-width: 769px) {
             .floating-boxes .elegant-christmas-box {
-                width: 160px;
+                width: 170px;
             }
         }
 
@@ -6451,6 +6452,9 @@ document
             if (authMode !== 'reset') {
                 setAuthMode('reset');
             }
+            if (handlePasswordResetRequest.inProgress) {
+                return;
+            }
             if (!email || !email.includes('@') || !email.includes('.')) {
                 showAuthMessage('Enter your email below to reset your password.', '#ff1493');
                 const emailField = document.getElementById('brevoEmail');
@@ -6467,6 +6471,7 @@ document
                 showAuthMessage('Password reset is unavailable right now. Please try again later.', '#ff1493');
                 return;
             }
+            handlePasswordResetRequest.inProgress = true;
             try {
                 const response = await fetch(workerEndpoint, {
                     method: 'POST',
@@ -6486,30 +6491,14 @@ document
                     || errorText.includes('email not found')
                     || errorText.includes('not found');
                 if (!response.ok || notFound) {
-                    if (supabaseClient) {
-                        const { error: supaError } = await supabaseClient.auth.resetPasswordForEmail(email, {
-                            redirectTo: window.location.href.split('#')[0],
-                        });
-                        if (!supaError) {
-                            showAuthMessage('Please check your email for verification link.', '#ffd700');
-                            return;
-                        }
-                    }
                     showAuthMessage(notFound ? 'Email not found.' : (data?.error || 'Unable to request a password reset.'), '#ff1493');
                     return;
                 }
-                showAuthMessage('Please check your email for verification link.', '#ffd700');
+                showAuthMessage('Please check your email and click the reset link inside.', '#ffd700');
             } catch (error) {
-                if (supabaseClient) {
-                    const { error: supaError } = await supabaseClient.auth.resetPasswordForEmail(email, {
-                        redirectTo: window.location.href.split('#')[0],
-                    });
-                    if (!supaError) {
-                        showAuthMessage('Please check your email for verification link.', '#ffd700');
-                        return;
-                    }
-                }
                 showAuthMessage(error?.message || 'Unable to request a password reset.', '#ff1493');
+            } finally {
+                handlePasswordResetRequest.inProgress = false;
             }
         }
 
