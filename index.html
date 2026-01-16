@@ -7825,6 +7825,21 @@ document
                 return true;
             }
 
+            if (isRecoveryFlow) {
+                const accessToken = hashParams.get('access_token') || searchParams.get('access_token');
+                const refreshToken = hashParams.get('refresh_token') || searchParams.get('refresh_token');
+                if (supabaseClient && accessToken && refreshToken) {
+                    supabaseClient.auth.setSession({
+                        access_token: accessToken,
+                        refresh_token: refreshToken,
+                    }).catch(() => {
+                        // ignore session set errors and let updateUser handle failures
+                    });
+                }
+                showEmailModal('set-password', 'Set your new password below.', '#ffd700');
+                return;
+            }
+
             localStorage.setItem('giftsRequested', 'true');
 
             const giftsTab = getTabElement('gifts');
@@ -7884,7 +7899,7 @@ document
                 if (!userId) {
                     if (messageBox) {
                         messageBox.style.color = '#ff69b4';
-                        messageBox.textContent = 'Please log in with this email to confirm account removal.';
+                        messageBox.textContent = 'Please open the confirmation email in your inbox to complete your account removal.';
                     }
                     return;
                 }
