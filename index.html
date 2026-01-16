@@ -1697,13 +1697,13 @@
        <p style="margin: 0 0 14px 0;">Let’s be honest: family life is an epic co-op game.<br>Teamwork, surprise levels and some mornings starting on <span style="color:#8A2BE2; font-weight:700;">Hard Mode</span>.</p>
        <p style="margin: 0 0 14px 0;">That’s where <span style="color:#8A2BE2; font-weight:700;">Rise.Shine.Evolve Learning Hub</span> comes in.<br>We turn everyday challenges into simple, usable tools for calm, confidence, connection, and joy.</p>
        <p style="margin: 0 0 14px 0;">Tools kids can actually reach for in the moment.<br>(No lectures, no “perfect kid” pressure.)</p>
-       <p style="margin: 0 0 14px 0;">Think of it as a real-life power-up guide.<br>Helping children unlock the strengths already inside them and grow into the <span style="color:#ffd700; font-weight:700;">best version of themselves</span>.</p>
+       <p style="margin: 0 0 14px 0;">Think of it as a real-life power-up guide.<br>Helping children unlock the strengths already inside them.<br>And grow into the <span style="color:#ffd700; font-weight:700;">best version of themselves</span>.</p>
        <p style="margin: 0 0 14px 0;">Explore our Library of guided journeys and family-friendly experiences designed to build resilience, emotional strength, and self-belief.</p>
        <p style="margin: 0 0 14px 0;">Not just for “good days”.<br>But for the random messy Tuesday, too.</p>
        <p style="margin: 0 0 10px 0;"><strong style="color:#8A2BE2;">Need something fast?</strong></p>
        <p style="margin: 0 0 14px 0;">Head to <span style="color:#ffd700; font-weight:700;">GIFTS</span>.<br>Bite-sized resources like 1-minute challenges and quick calm or energy boosters.</p>
        <p style="margin: 0 0 14px 0;">Because sometimes you don’t need a whole program.<br>You need an instant reset.</p>
-       <p style="margin: 0;">Explore the HUB, grab your GIFTS, and let’s <span class="word-rise">RISE</span>.<br><span class="word-shine">SHINE</span>.<br><span class="word-evolve">EVOLVE</span>.<br><strong>TOGETHER.</strong></p>
+       <p style="margin: 0;">Explore the HUB.<br>Grab your GIFTS.<br>And let’s <span class="word-rise">RISE</span>.<br><span class="word-shine">SHINE</span>.<br><span class="word-evolve">EVOLVE</span>.<br><strong>TOGETHER.</strong></p>
       </div>
      </div>
      <div class="kids-tile" style="margin-top: 20px;">
@@ -5150,7 +5150,7 @@
   <style>
     html, body { margin: 0; padding: 0; width: 100%; min-height: 100%; background: #05040a; }
     body { display: flex; flex-direction: column; align-items: stretch; overflow: auto; }
-    .ws-shell { flex: 1; padding: 0; display: flex; flex-direction: column; }
+    .ws-shell { flex: 1; padding: 0; display: flex; flex-direction: column; min-height: 100dvh; }
     .ws-instructions {
       background: rgba(0, 0, 0, 0.9);
       color: #ffd700;
@@ -5160,9 +5160,9 @@
       border-bottom: 1px solid rgba(255, 215, 0, 0.4);
       text-shadow: 0 0 10px rgba(255, 215, 0, 0.6);
     }
-    .ws-frame { width: 100%; height: 100dvh; border: none; border-radius: 0; display: block; flex: 1; }
+    .ws-frame { width: 100%; height: 100%; border: none; border-radius: 0; display: block; flex: 1; }
     @media (max-width: 720px) {
-      .ws-frame { height: 100dvh; }
+      .ws-frame { height: 100%; }
     }
   </style>
 </head>
@@ -5734,6 +5734,7 @@ document
       min-height: 100vh;
       position: relative;
       overflow-x: hidden;
+      overflow-y: auto;
     }
     .shell {
       max-width: 1000px;
@@ -5953,13 +5954,27 @@ document
       to { transform: translateY(120vh) rotate(340deg); opacity: 0; }
     }
 
-    @media (max-width: 900px) { .layout { grid-template-columns: 1fr; } }
+    @media (max-width: 900px) {
+      .layout { grid-template-columns: 1fr; }
+    }
     @media (max-width: 720px) {
       body {
         min-height: 100vh;
         min-height: 100dvh;
         overflow: auto;
         padding: 8px 6px 12px;
+      }
+      .layout {
+        display: flex;
+        flex-direction: column;
+      }
+      .grid-shell {
+        width: 100%;
+        order: 1;
+      }
+      .panel {
+        width: 100%;
+        order: 2;
       }
       .shell {
         min-height: 100%;
@@ -6945,6 +6960,9 @@ document
         // Tab functionality
         function showTabContent(tabElement, tabName, options = {}) {
             const { skipHistory = false } = options;
+            if (typeof closeGiftOverlay === 'function' && giftOverlayOpen) {
+                closeGiftOverlay(true);
+            }
 
             // Remove active class from all tabs
             const tabs = document.querySelectorAll('.tab');
@@ -7297,7 +7315,7 @@ document
                         <p style="margin-bottom: 12px; text-align: justify; text-align-last: center;"><strong style="color: #8A2BE2;">THE HAPPY MAKERS SOLUTION</strong><br>Welcome to <span style="color:#ffd700; font-weight:700;">The Confident, Mindful &amp; Happy Me Adventure!</span><br>This isn't just a book.<br>It is an interactive Survival Kit and a creative roadmap designed to help your child master the wild ride of growing up with courage and a smile.<br>We turn “I can’t” into “I can,” and boring days into legendary quests.</p>
 
                         <p style="margin-bottom: 12px; text-align: justify; text-align-last: center;"><strong style="color: #8A2BE2;">MEET THE GUIDES</strong><br>Your child won't be doing this alone.<br>They will be led by The Happy Makers Squad, a lovable family of trusted guides and fun-loving co-pilots: Mimi, Luli, Dilo, Alio, and Nini.</p>
-                        <p style="margin-bottom: 12px; text-align: justify; text-align-last: center;">They show your child that they don't need a superhero cape to be brave.<br>They just need to unlock the superpowers already hiding inside to become <span style="color:#ffd700; font-weight:700;">THE BEST VERSION OF THEMSELVES.</span></p>
+                        <p style="margin-bottom: 12px; text-align: justify; text-align-last: center;">They show your child that they don't need a superhero cape to be brave.<br>They just need to unlock the superpowers already hiding inside.<br>To become <span style="color:#ffd700; font-weight:700;">THE BEST VERSION OF THEMSELVES.</span></p>
 
                         <p style="margin-bottom: 12px; text-align: justify; text-align-last: center;"><strong style="color: #8A2BE2;">THE 31-DAY MISSION: READY TO LEVEL UP?</strong><br>This book is designed to fit into real life.<br>No pressure.<br>No perfection.<br>Just 10 minutes of connection and fun a day.</p>
 
@@ -7997,7 +8015,8 @@ document
 
         function openGiftInNewWindow(key, html, source) {
             const preferBlob = window.matchMedia && window.matchMedia('(max-width: 720px)').matches;
-            if (!preferBlob) {
+            const shouldOpenNewWindow = key === 'wordSearchPro' && preferBlob;
+            if (!shouldOpenNewWindow) {
                 return false;
             }
             if (source) {
@@ -8164,8 +8183,10 @@ document
             }
 
             if (giftOverlayOpen && history.state && history.state.giftOverlay && !fromHistory) {
+                const activeTab = document.querySelector('.tab.active');
+                const tabName = activeTab?.dataset?.tab || 'main';
                 giftOverlayOpen = false;
-                history.replaceState({ giftOverlay: false }, document.title, window.location.href);
+                history.replaceState({ tab: tabName }, document.title, `#${tabName}`);
             } else {
                 giftOverlayOpen = false;
             }
@@ -8196,11 +8217,19 @@ document
                 return;
             }
 
+            if (event.state && event.state.tab) {
+                const tabElement = getTabElement(event.state.tab);
+                if (tabElement) {
+                    selectTab(tabElement, event.state.tab, { skipHistory: true });
+                    return;
+                }
+            }
+
             const activeTab = document.querySelector('.tab.active');
             const mainTab = getTabElement('main');
             if ((!event.state || !event.state.tab) && activeTab && mainTab && activeTab.dataset.tab !== 'main') {
                 selectTab(mainTab, 'main', { skipHistory: true });
-                history.pushState({ tab: 'main', base: true }, '', '#main');
+                history.replaceState({ tab: 'main', base: true }, '', '#main');
                 return;
             }
             const targetTab = (event.state && event.state.tab) ? event.state.tab : (activeTab ? activeTab.dataset.tab : 'main');

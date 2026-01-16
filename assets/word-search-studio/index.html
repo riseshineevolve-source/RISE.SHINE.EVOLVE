@@ -15,6 +15,7 @@
             color: #ffffff;
             position: relative;
             overflow-x: hidden;
+            overflow-y: auto;
         }
 
         /* Delikatne złote punkty na ciemnym tle */
@@ -591,6 +592,7 @@
             grid-template-columns: 3fr 1fr;
             gap: 20px;
             align-items: flex-start;
+            width: 100%;
         }
 
         .puzzle-container {
@@ -1445,6 +1447,8 @@
                 order: 2;
                 min-width: 100%;
                 max-width: none;
+                margin-right: 0;
+                margin-left: 0;
             }
 
             .controls {
@@ -1471,8 +1475,9 @@
             }
 
             .word-search {
-                max-width: 95vw;
-                max-height: 65vh;
+                width: 100%;
+                max-width: 100%;
+                max-height: 52vh;
                 padding: clamp(8px, 1.5vw, 15px);
             }
 
@@ -1485,8 +1490,8 @@
 
         @media (max-width: 480px) {
             .word-search {
-                max-width: 98vw;
-                max-height: 60vh;
+                max-width: 100%;
+                max-height: 50vh;
                 padding: 8px;
             }
 
