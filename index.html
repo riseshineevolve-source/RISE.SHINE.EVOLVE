@@ -7138,6 +7138,7 @@ document
                 name: 'Dilo',
                 tagline: 'Pixel Striker',
                 image: 'Dilo.png',
+                video: 'Alio tanczy.mp4',
                 color: '#00bfff',
                 description: [
                     'Dilo is that rare combo of natural footballer and born gamer: fast feet, fast fingers and even faster opinions. He scores goals with both feet, beats video-game levels like he’s speedrunning life and takes on every challenge with a mix of stubborn determination and surprising generosity.',
@@ -7162,6 +7163,7 @@ document
                 name: 'Nini',
                 tagline: 'Joy Spark',
                 image: 'Nini.png',
+                video: 'Nini tanczy.mp4',
                 color: '#ff69b4',
                 description: [
                     'Nini is a tiny burst of joy who can brighten any room faster than you can say “snack time.” She sings, dances and giggles her way through the day as if the world were her personal stage. She’s clearly the headliner.',
@@ -7185,10 +7187,22 @@ document
 
         function buildCharacterDetails(profile) {
             const { localEncoded: localImageSrc, remote: remoteImageSrc, local: unencodedLocal } = buildImageSources(profile.image);
+            const videoName = profile.video ? profile.video.toString() : '';
+            const encodedVideo = videoName ? encodeURIComponent(videoName) : '';
+            const videoMarkup = videoName
+                ? `
+                        <video autoplay loop muted playsinline aria-label="${profile.name} dance">
+                            <source src="assets/videos/${videoName}" type="video/mp4">
+                            <source src="https://raw.githubusercontent.com/riseshineevolve-source/RISE.SHINE.EVOLVE/main/assets/videos/${encodedVideo}" type="video/mp4">
+                        </video>
+                    `
+                : `
+                        <img src="${localImageSrc}" alt="${profile.name}" data-character-img="${profile.image}" onerror="this.onerror=null; this.src='${unencodedLocal}'; this.onerror=()=>{ this.onerror=null; this.src='${remoteImageSrc}';};">
+                    `;
             return `
                 <div class="character-detail-shell">
                     <div class="character-header">
-                        <img src="${localImageSrc}" alt="${profile.name}" data-character-img="${profile.image}" onerror="this.onerror=null; this.src='${unencodedLocal}'; this.onerror=()=>{ this.onerror=null; this.src='${remoteImageSrc}';};">
+                        ${videoMarkup}
                         <div>
                             <h2 style="color: ${profile.color}; font-size: 2.4rem; margin: 0 0 6px 0; text-shadow: 0 0 22px rgba(255, 215, 0, 0.6); letter-spacing: 1px;">${profile.name}</h2>
                             <p class="character-subtitle" style="color: ${profile.color};">${profile.tagline}</p>
@@ -7732,7 +7746,7 @@ document
                 if (!userId) {
                     if (messageBox) {
                         messageBox.style.color = '#ff69b4';
-                        messageBox.textContent = 'Please log in with this email to confirm account removal.';
+                        messageBox.textContent = 'Please open the confirmation email in your inbox to complete your account removal.';
                     }
                     return;
                 }
