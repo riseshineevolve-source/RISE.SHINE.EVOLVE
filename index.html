@@ -7857,7 +7857,7 @@ document
                 if (!userId) {
                     if (messageBox) {
                         messageBox.style.color = '#ff69b4';
-                        messageBox.textContent = 'Please log in with this email to confirm account removal.';
+                        messageBox.textContent = 'Please open the confirmation email in your inbox to complete your account removal.';
                     }
                     return;
                 }
@@ -7948,7 +7948,9 @@ document
                 selectTab(tabElement, tabElement.dataset.tab, { skipHistory: true });
                 const baseState = { tab: tabElement.dataset.tab, base: true };
                 history.replaceState(baseState, '', `#${tabElement.dataset.tab}`);
-                history.pushState({ tab: tabElement.dataset.tab, base: false }, '', `#${tabElement.dataset.tab}`);
+                if (!isMobileViewport()) {
+                    history.pushState({ tab: tabElement.dataset.tab, base: false }, '', `#${tabElement.dataset.tab}`);
+                }
             }
 
             const unsubForm = document.getElementById('sib-form-unsub');
