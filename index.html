@@ -2100,6 +2100,7 @@
       <div class="kids-text" style="margin-bottom: 20px;">
        <h3 style="color: #8A2BE2; font-size: 1.9rem; margin: 0 0 10px 0; text-shadow: 0 0 18px rgba(138, 43, 226, 0.7);">GIFTS LIBRARY</h3>
        <p style="color: #ffd700; font-size: 1rem; margin: 0;">Explore new resources as they arrive - Calm + Energy Wheel, the 1-Minute Challenge, the Happy Makers mini Word Search and the full Word Search Studio.</p>
+       <p style="color: #ffffff; font-size: 0.95rem; margin: 10px 0 0 0;">Tip for smaller screens: GIFTS work best in landscape view, but you can still explore them in portrait mode.</p>
       </div>
       <div class="gifts-library-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; padding: 0 10px;">
        <div id="gift-card-calm-energy" class="gift-card" style="background: #000000; border: 3px solid #ffd700; border-radius: 18px; padding: 22px; text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(255, 215, 0, 0.5); position: relative; min-height: 300px; display: flex; flex-direction: column; align-items: center; gap: 12px;">
@@ -6505,6 +6506,12 @@ document
             setLoggedInBadge(false);
             clearGiftsAccess();
             localStorage.setItem('manualLoggedOut', 'true');
+            if (typeof closeGiftOverlay === 'function') {
+                closeGiftOverlay(true);
+            }
+            if (typeof closeEmailModal === 'function') {
+                closeEmailModal();
+            }
             selectTab(getTabElement('main'), 'main');
         }
 
@@ -7314,6 +7321,7 @@ document
                 name: 'Bibi',
                 tagline: 'Royal Glow',
                 image: 'Grandma Bibi.png',
+                video: 'Bibi tanczy.mp4',
                 color: '#9932CC',
                 description: [
                     'Bibi is the glamorous whirlwind who treats her age like a minor typo someone should really fix. With her chic short hair, stylish glasses and love for bold, modern outfits, she turns every sidewalk into a runway, often without even noticing.',
@@ -7825,21 +7833,6 @@ document
                 return true;
             }
 
-            if (isRecoveryFlow) {
-                const accessToken = hashParams.get('access_token') || searchParams.get('access_token');
-                const refreshToken = hashParams.get('refresh_token') || searchParams.get('refresh_token');
-                if (supabaseClient && accessToken && refreshToken) {
-                    supabaseClient.auth.setSession({
-                        access_token: accessToken,
-                        refresh_token: refreshToken,
-                    }).catch(() => {
-                        // ignore session set errors and let updateUser handle failures
-                    });
-                }
-                showEmailModal('set-password', 'Set your new password below.', '#ffd700');
-                return;
-            }
-
             localStorage.setItem('giftsRequested', 'true');
 
             const giftsTab = getTabElement('gifts');
@@ -8268,6 +8261,7 @@ document
             giftOverlay.style.display = 'none';
             giftFrame.src = 'about:blank';
             giftFrame.srcdoc = '';
+            giftFrame.style.display = 'none';
             giftFallback.style.display = 'none';
             document.body.style.overflow = '';
             if (giftBlobUrl) {
@@ -8282,6 +8276,13 @@ document
                 history.replaceState({ tab: tabName }, document.title, `#${tabName}`);
             } else {
                 giftOverlayOpen = false;
+            }
+            const activeTab = document.querySelector('.tab.active');
+            if (activeTab?.dataset?.tab === 'gifts') {
+                const giftsContent = document.getElementById('gifts-content');
+                if (giftsContent && !giftsContent.classList.contains('active')) {
+                    showTabContent(activeTab, 'gifts', { skipHistory: true });
+                }
             }
         }
 

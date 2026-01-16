@@ -604,6 +604,7 @@
         }
 
         .word-search {
+            order: 1;
             display: grid;
             gap: clamp(0px, 0.1vw, 1px);
             padding: clamp(18px, 2vw, 32px);
@@ -625,6 +626,11 @@
             align-content: center;
             box-sizing: border-box;
             animation: elegantBoxGlow 9s ease-in-out infinite, frame-sparkle 16s ease-in-out infinite;
+        }
+
+        #onlineAnswerButtons {
+            order: 2;
+            width: 100%;
         }
 
         .word-search::before {
