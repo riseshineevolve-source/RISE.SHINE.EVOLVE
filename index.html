@@ -7772,6 +7772,25 @@ document
             return true;
         }
 
+        function openGiftInNewWindow(key, html, source) {
+            const preferBlob = window.matchMedia && window.matchMedia('(max-width: 720px)').matches;
+            if (!preferBlob) {
+                return false;
+            }
+            if (source) {
+                window.open(source, '_blank', 'noopener,noreferrer');
+                return true;
+            }
+            if (!html) {
+                return false;
+            }
+            const blob = new Blob([html], { type: 'text/html' });
+            const blobUrl = URL.createObjectURL(blob);
+            window.open(blobUrl, '_blank', 'noopener,noreferrer');
+            setTimeout(() => URL.revokeObjectURL(blobUrl), 30000);
+            return true;
+        }
+
         function revealGiftFrameSoon() {
             requestAnimationFrame(() => {
                 giftFallback.style.display = 'none';
@@ -7808,6 +7827,10 @@ document
 
             const html = getGiftHtml(key);
             const source = giftSources[key];
+
+            if (openGiftInNewWindow(key, html, source)) {
+                return;
+            }
 
             giftFrame.removeAttribute('src');
             giftFrame.removeAttribute('srcdoc');
