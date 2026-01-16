@@ -67,8 +67,18 @@ export default {
 
 // 1. Wysyłanie maila z podpisanym linkiem
 async function sendDeleteConfirmationEmail(body, env, workerOrigin) {
-    const { email, userId } = body;
-    
+    const { email } = body;
+    let { userId } = body;
+    if (!userId && email) {
+        userId = await lookupSupabaseUserId(email, env);
+    }
+    if (!userId) {
+        return new Response(JSON.stringify({ error: "Email not found" }), {
+            status: 404,
+            headers: { "Access-Control-Allow-Origin": "*", "Content-Type": "application/json" }
+        });
+    }
+
     // Generujemy podpis (HMAC)
     const dataToSign = `${email}:${userId}`;
     const signature = await generateHMAC(dataToSign, env.UNSUBSCRIBE_CONFIRM_SECRET);
@@ -85,6 +95,7 @@ async function sendDeleteConfirmationEmail(body, env, workerOrigin) {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
+            sender: { name: "Rise.Shine.Evolve", email: "hello@rise-shine-evolve-learning-hub.com" },
             to: [{ email: email }],
             templateId: 18,
             params: {
