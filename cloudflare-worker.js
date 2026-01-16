@@ -85,6 +85,7 @@ async function sendDeleteConfirmationEmail(body, env, workerOrigin) {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
+            sender: { name: "Rise.Shine.Evolve", email: "hello@rise-shine-evolve-learning-hub.com" },
             to: [{ email: email }],
             templateId: 18,
             params: {

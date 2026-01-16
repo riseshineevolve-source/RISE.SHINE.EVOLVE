@@ -879,7 +879,7 @@
             width: min(980px, 96vw);
             z-index: 2;
             position: absolute;
-            top: 52px;
+            top: 40px;
             left: 50%;
             transform: translateX(-50%);
         }
@@ -921,6 +921,12 @@
             line-height: 1.15;
             display: inline-block;
             border-radius: 11px;
+        }
+
+        @media (min-width: 769px) {
+            .floating-boxes .elegant-christmas-box {
+                width: 160px;
+            }
         }
 
         .gifts-mobile-instructions {
@@ -6480,11 +6486,29 @@ document
                     || errorText.includes('email not found')
                     || errorText.includes('not found');
                 if (!response.ok || notFound) {
+                    if (supabaseClient) {
+                        const { error: supaError } = await supabaseClient.auth.resetPasswordForEmail(email, {
+                            redirectTo: window.location.href.split('#')[0],
+                        });
+                        if (!supaError) {
+                            showAuthMessage('Please check your email for verification link.', '#ffd700');
+                            return;
+                        }
+                    }
                     showAuthMessage(notFound ? 'Email not found.' : (data?.error || 'Unable to request a password reset.'), '#ff1493');
                     return;
                 }
                 showAuthMessage('Please check your email for verification link.', '#ffd700');
             } catch (error) {
+                if (supabaseClient) {
+                    const { error: supaError } = await supabaseClient.auth.resetPasswordForEmail(email, {
+                        redirectTo: window.location.href.split('#')[0],
+                    });
+                    if (!supaError) {
+                        showAuthMessage('Please check your email for verification link.', '#ffd700');
+                        return;
+                    }
+                }
                 showAuthMessage(error?.message || 'Unable to request a password reset.', '#ff1493');
             }
         }
@@ -7682,7 +7706,7 @@ document
                 if (!userId) {
                     if (messageBox) {
                         messageBox.style.color = '#ff69b4';
-                        messageBox.textContent = 'Go to your inbox and open our email to confirm account removal.';
+                        messageBox.textContent = 'Please open the confirmation email in your inbox to complete your account removal.';
                     }
                     return;
                 }
