@@ -81,9 +81,41 @@ async function sendDeleteConfirmationEmail(body, env, workerOrigin) {
             headers: { "Access-Control-Allow-Origin": "*", "Content-Type": "application/json" }
         });
     }
+    if (!env.SUPABASE_SERVICE_ROLE_KEY) {
+        return new Response(JSON.stringify({ error: "Missing Supabase service role key" }), {
+            status: 500,
+            headers: { "Access-Control-Allow-Origin": "*", "Content-Type": "application/json" }
+        });
+    }
     if (!env.BREVO_API_KEY) {
         return new Response(JSON.stringify({ error: "Missing Brevo API key" }), {
             status: 500,
+            headers: { "Access-Control-Allow-Origin": "*", "Content-Type": "application/json" }
+        });
+    }
+
+    const supabaseUserResp = await fetch(`https://gegaodrfqwhrfdqtiokb.supabase.co/auth/v1/admin/users/${encodeURIComponent(userId)}`, {
+        method: "GET",
+        headers: {
+            "apikey": env.SUPABASE_SERVICE_ROLE_KEY,
+            "Authorization": `Bearer ${env.SUPABASE_SERVICE_ROLE_KEY}`,
+            "Content-Type": "application/json"
+        }
+    });
+
+    if (!supabaseUserResp.ok) {
+        const notFound = supabaseUserResp.status === 404;
+        return new Response(JSON.stringify({ error: notFound ? "Email not found" : "Unable to verify user", code: notFound ? "email_not_found" : "supabase_error" }), {
+            status: notFound ? 404 : 500,
+            headers: { "Access-Control-Allow-Origin": "*", "Content-Type": "application/json" }
+        });
+    }
+
+    const supabaseUser = await supabaseUserResp.json().catch(() => ({}));
+    const userEmail = (supabaseUser?.email || "").toString().trim().toLowerCase();
+    if (!userEmail || userEmail !== email.toLowerCase()) {
+        return new Response(JSON.stringify({ error: "Email not found", code: "email_not_found" }), {
+            status: 404,
             headers: { "Access-Control-Allow-Origin": "*", "Content-Type": "application/json" }
         });
     }
