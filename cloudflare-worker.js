@@ -111,28 +111,6 @@ async function sendDeleteConfirmationEmail(body, env, workerOrigin) {
     });
 }
 
-async function lookupSupabaseUserId(email, env) {
-    if (!env.SUPABASE_SERVICE_ROLE_KEY) {
-        return null;
-    }
-    const supabaseResp = await fetch(`https://gegaodrfqwhrfdqtiokb.supabase.co/auth/v1/admin/users?email=${encodeURIComponent(email)}`, {
-        method: "GET",
-        headers: {
-            "apikey": env.SUPABASE_SERVICE_ROLE_KEY,
-            "Authorization": `Bearer ${env.SUPABASE_SERVICE_ROLE_KEY}`,
-            "Content-Type": "application/json"
-        }
-    });
-    if (!supabaseResp.ok) {
-        return null;
-    }
-    const data = await supabaseResp.json().catch(() => ({}));
-    const users = Array.isArray(data)
-        ? data
-        : (Array.isArray(data?.users) ? data.users : []);
-    return users[0]?.id || null;
-}
-
 // 1b. Wysyłanie maila resetującego hasło (template 19)
 async function sendPasswordResetEmail(body, env) {
     const { email } = body;

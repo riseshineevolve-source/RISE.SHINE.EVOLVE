@@ -6452,9 +6452,6 @@ document
             if (authMode !== 'reset') {
                 setAuthMode('reset');
             }
-            if (handlePasswordResetRequest.inProgress) {
-                return;
-            }
             if (!email || !email.includes('@') || !email.includes('.')) {
                 showAuthMessage('Enter your email below to reset your password.', '#ff1493');
                 const emailField = document.getElementById('brevoEmail');
@@ -6471,7 +6468,6 @@ document
                 showAuthMessage('Password reset is unavailable right now. Please try again later.', '#ff1493');
                 return;
             }
-            handlePasswordResetRequest.inProgress = true;
             try {
                 const response = await fetch(workerEndpoint, {
                     method: 'POST',
@@ -6497,8 +6493,6 @@ document
                 showAuthMessage('Please check your email and click the reset link inside.', '#ffd700');
             } catch (error) {
                 showAuthMessage(error?.message || 'Unable to request a password reset.', '#ff1493');
-            } finally {
-                handlePasswordResetRequest.inProgress = false;
             }
         }
 
@@ -7737,7 +7731,7 @@ document
                     }
                     if (messageBox) {
                         messageBox.style.color = '#ffd700';
-                        messageBox.textContent = 'We have sent a confirmation link to your email address. Please check your inbox to finalize the deletion.';
+                        messageBox.textContent = 'Please open the confirmation email in your inbox to complete your account removal.';
                     }
                     if (supabaseClient) {
                         await supabaseClient.auth.signOut();
