@@ -67,18 +67,27 @@ export default {
 
 // 1. Wysyłanie maila z podpisanym linkiem
 async function sendDeleteConfirmationEmail(body, env, workerOrigin) {
-    const { email } = body;
-    let { userId } = body;
-    if (!userId && email) {
-        userId = await lookupSupabaseUserId(email, env);
-    }
-    if (!userId) {
-        return new Response(JSON.stringify({ error: "Email not found" }), {
-            status: 404,
+    const { email, userId } = body;
+
+    if (!email || !userId) {
+        return new Response(JSON.stringify({ error: "Missing email or userId" }), {
+            status: 400,
             headers: { "Access-Control-Allow-Origin": "*", "Content-Type": "application/json" }
         });
     }
-
+    if (!env.UNSUBSCRIBE_CONFIRM_SECRET) {
+        return new Response(JSON.stringify({ error: "Missing unsubscribe confirmation secret" }), {
+            status: 500,
+            headers: { "Access-Control-Allow-Origin": "*", "Content-Type": "application/json" }
+        });
+    }
+    if (!env.BREVO_API_KEY) {
+        return new Response(JSON.stringify({ error: "Missing Brevo API key" }), {
+            status: 500,
+            headers: { "Access-Control-Allow-Origin": "*", "Content-Type": "application/json" }
+        });
+    }
+    
     // Generujemy podpis (HMAC)
     const dataToSign = `${email}:${userId}`;
     const signature = await generateHMAC(dataToSign, env.UNSUBSCRIBE_CONFIRM_SECRET);
@@ -239,6 +248,12 @@ async function handleConfirmationLink(url, env) {
     const signature = url.searchParams.get("sig");
 
     if (!email || !userId || !signature) return new Response("Błędny link", { status: 400 });
+    if (!env.UNSUBSCRIBE_CONFIRM_SECRET) {
+        return new Response("Missing confirmation secret", { status: 500 });
+    }
+    if (!env.BREVO_API_KEY || !env.SUPABASE_SERVICE_ROLE_KEY) {
+        return new Response("Missing service configuration", { status: 500 });
+    }
 
     // Weryfikujemy podpis
     const dataToSign = `${email}:${userId}`;
