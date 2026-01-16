@@ -8103,19 +8103,19 @@ document
 
         function setGiftFrameHtml(html) {
             if (!html) return false;
-            const preferBlob = window.matchMedia && window.matchMedia('(max-width: 720px)').matches;
-            if (!preferBlob && ('srcdoc' in giftFrame)) {
-                giftFrame.srcdoc = html;
+            const preferDataUrl = window.matchMedia && window.matchMedia('(max-width: 720px)').matches;
+            const baseHref = window.location.origin ? `${window.location.origin}/` : '';
+            const htmlWithBase = baseHref && !html.includes('<base')
+                ? html.replace('<head>', `<head><base href="${baseHref}">`)
+                : html;
+            if (!preferDataUrl && ('srcdoc' in giftFrame)) {
+                giftFrame.srcdoc = htmlWithBase;
                 giftFrame.removeAttribute('src');
                 return true;
             }
-            const blob = new Blob([html], { type: 'text/html' });
-            if (giftBlobUrl) {
-                URL.revokeObjectURL(giftBlobUrl);
-            }
-            giftBlobUrl = URL.createObjectURL(blob);
+            const dataUrl = `data:text/html;charset=utf-8,${encodeURIComponent(htmlWithBase)}`;
             giftFrame.removeAttribute('srcdoc');
-            giftFrame.src = giftBlobUrl;
+            giftFrame.src = dataUrl;
             return true;
         }
 
@@ -8168,6 +8168,7 @@ document
             giftFrame.removeAttribute('srcdoc');
             giftFrame.onload = null;
             giftFrame.onerror = null;
+            giftFrame.setAttribute('loading', 'eager');
             giftFallback.style.display = 'flex';
             giftFallback.innerHTML = '<div style="width:100%;padding:12px 8px;">Loading gift…</div>';
             giftFrame.style.display = 'none';
