@@ -1,0 +1,20 @@
+<svg width="360" height="220" viewBox="0 0 360 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0b0b12"/>
+      <stop offset="50%" stop-color="#22102e"/>
+      <stop offset="100%" stop-color="#0b0b12"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ffd700" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#ff69b4" stop-opacity="0.9"/>
+    </linearGradient>
+  </defs>
+  <rect x="6" y="6" width="348" height="208" rx="22" fill="url(#bg)" stroke="url(#glow)" stroke-width="4"/>
+  <circle cx="70" cy="110" r="40" fill="#8A2BE2" opacity="0.8"/>
+  <circle cx="110" cy="110" r="30" fill="#ffd700" opacity="0.9"/>
+  <circle cx="290" cy="80" r="26" fill="#ff69b4" opacity="0.85"/>
+  <circle cx="270" cy="140" r="32" fill="#32cd32" opacity="0.7"/>
+  <text x="180" y="110" text-anchor="middle" fill="#ffffff" font-size="28" font-family="Arial, sans-serif" font-weight="700" letter-spacing="1">Happy Makers</text>
+  <text x="180" y="140" text-anchor="middle" fill="#ffd700" font-size="14" font-family="Arial, sans-serif" font-weight="600" letter-spacing="2">MEET THE CREW</text>
+</svg>
