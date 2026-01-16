@@ -9,6 +9,7 @@
         html {
             width: 100%;
             height: 100%;
+            min-width: 100vw;
         }
 
         body {
@@ -21,6 +22,7 @@
             overflow-x: hidden;
             position: relative;
             width: 100%;
+            min-width: 100vw;
         }
 
 
@@ -56,6 +58,7 @@
             padding: 40px 30px;
             text-align: center;
             width: 100%;
+            min-width: 100vw;
             min-height: 100vh;
             box-sizing: border-box;
         }
@@ -954,7 +957,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            width: min(620px, 92vw);
+            width: 100%;
         }
 
         @media (min-width: 721px) {
@@ -963,13 +966,13 @@
             }
 
             .tab-content {
-                max-width: 900px;
+                max-width: 1200px;
                 margin: 0 auto;
             }
 
             .kids-tile {
-                width: 520px;
-                max-width: 520px;
+                width: min(720px, 92vw);
+                max-width: 720px;
             }
         }
 
@@ -1735,8 +1738,7 @@
                                 text-shadow: 0 0 10px rgba(138, 43, 226, 0.8);
                             " onmouseover="this.style.transform='translateY(-3px) scale(1.05)'; this.style.boxShadow='0 0 30px rgba(138, 43, 226, 0.8)';" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 0 20px rgba(138, 43, 226, 0.6)';">
          MEET THE HAPPY-MAKERS FAMILY
-        </div><!-- New Text Above Books -->
-        <p style="color: #ffd700; font-size: 1.1rem; margin-top: 25px; margin-bottom: 0; font-weight: bold; text-shadow: 0 0 15px rgba(255, 215, 0, 0.8);">Click on any book below to discover their inspiring stories.</p>
+        </div>
        </div>
       </div><!-- Elegant Library Collection -->
       <div class="kids-tile" style="border: 3px solid #8A2BE2; box-shadow: 0 0 35px rgba(138, 43, 226, 0.7), 0 0 60px rgba(138, 43, 226, 0.4); margin: 30px auto; max-width: 800px; padding: 30px;">
@@ -1749,7 +1751,8 @@
           </circle> <circle cx="75" cy="16" r="1" fill="#ffd700" opacity="0.8">
            <animate attributename="opacity" values="0.8;0.3;0.8" dur="1.8s" repeatcount="indefinite" />
           </circle>
-         </svg> LIBRARY COLLECTION</h3><!-- Bookshelf -->
+         </svg> LIBRARY COLLECTION</h3>
+        <p style="color: #ffd700; font-size: 1.1rem; margin: -10px 0 16px 0; font-weight: bold; text-shadow: 0 0 15px rgba(255, 215, 0, 0.8);">Click on any book below to discover their inspiring stories.</p><!-- Bookshelf -->
         <div style="
                                 margin-bottom: 30px;
                                 padding: 20px;
@@ -2480,7 +2483,10 @@
                         width: 12px;
                         background: linear-gradient(to right, rgba(0, 0, 0, 0.3), transparent);
                         border-radius: 20px 0 0 20px;
-                    "></div><img src="assets/images/Alio.png" data-character-img="Alio.png" alt="Alio" style="display: block; width: 120px; height: 120px; border-radius: 50%; margin: 25px auto 20px auto; object-fit: cover; border: 3px solid #32cd32; box-shadow: 0 0 25px rgba(50, 205, 50, 0.6);">
+                    "></div><video autoplay loop muted playsinline aria-label="Alio dance" style="display: block; width: 120px; height: 120px; border-radius: 50%; margin: 25px auto 20px auto; object-fit: cover; border: 3px solid #32cd32; box-shadow: 0 0 25px rgba(50, 205, 50, 0.6);">
+      <source src="assets/videos/Alio tanczy.mp4" type="video/mp4">
+      <source src="https://raw.githubusercontent.com/riseshineevolve-source/RISE.SHINE.EVOLVE/main/assets/videos/Alio%20tanczy.mp4" type="video/mp4">
+     </video>
       <h4 style="color: #32cd32; margin: 0 0 12px 0; font-size: 1.6rem; text-shadow: 0 0 20px rgba(50, 205, 50, 0.8);">Alio</h4>
       <p style="color: #ffffff; font-size: 1.1rem; margin: 0 0 20px 0; font-weight: bold;">Playful Power</p>
       <div style="
@@ -2523,7 +2529,10 @@
                         width: 12px;
                         background: linear-gradient(to right, rgba(0, 0, 0, 0.3), transparent);
                         border-radius: 20px 0 0 20px;
-                    "></div><img src="assets/images/Nini.png" data-character-img="Nini.png" alt="Little Nini" style="display: block; width: 120px; height: 120px; border-radius: 50%; margin: 25px auto 20px auto; object-fit: cover; border: 3px solid #ff69b4; box-shadow: 0 0 25px rgba(255, 105, 180, 0.6);">
+                    "></div><video autoplay loop muted playsinline aria-label="Nini dance" style="display: block; width: 120px; height: 120px; border-radius: 50%; margin: 25px auto 20px auto; object-fit: cover; border: 3px solid #ff69b4; box-shadow: 0 0 25px rgba(255, 105, 180, 0.6);">
+      <source src="assets/videos/Nini tanczy.mp4" type="video/mp4">
+      <source src="https://raw.githubusercontent.com/riseshineevolve-source/RISE.SHINE.EVOLVE/main/assets/videos/Nini%20tanczy.mp4" type="video/mp4">
+     </video>
       <h4 style="color: #ff69b4; margin: 0 0 12px 0; font-size: 1.6rem; text-shadow: 0 0 20px rgba(255, 105, 180, 0.8);">Little Nini</h4>
       <p style="color: #ffffff; font-size: 1.1rem; margin: 0 0 20px 0; font-weight: bold;">Joy Spark</p>
       <div style="
@@ -2610,7 +2619,8 @@
       <h3 style="color: #8A2BE2; font-size: 2rem; margin-bottom: 15px; text-shadow: 0 0 20px rgba(138, 43, 226, 1); font-weight: bold; text-transform: uppercase; letter-spacing: 1px;">MORE COMING SOON!</h3>
       <p style="color: #ffffff; font-size: 1.05rem; line-height: 1.6; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);">Stay tuned to meet more amazing members of The Happy-Makers Family!</p>
     </div>
-    <div style="max-width: 1100px; margin: 0 auto 40px auto; background: #000000; border: 3px solid #8A2BE2; border-radius: 24px; padding: 28px; box-shadow: 0 0 35px rgba(138, 43, 226, 0.6), 0 0 60px rgba(138, 43, 226, 0.3); text-align: center;">
+   </div>
+    <div style="width: 100%; margin: 30px auto 40px auto; background: #000000; border: 3px solid #8A2BE2; border-radius: 24px; padding: 28px; box-shadow: 0 0 35px rgba(138, 43, 226, 0.6), 0 0 60px rgba(138, 43, 226, 0.3); text-align: center; box-sizing: border-box;">
      <h3 style="color: #ffd700; font-size: 1.7rem; margin: 0 0 16px 0; text-shadow: 0 0 18px rgba(255, 215, 0, 0.7);">What happens when you mix <span style="color:#ff69b4;font-weight:700;">Mindfulness</span>, <span style="color:#8A2BE2;font-weight:700;">Adventure</span>, and a sprinkle of <span style="color:#ffd700;font-weight:700;">Family Magic</span>?</h3>
      <p style="color: #ffffff; font-size: 1.05rem; line-height: 1.6; margin: 0 0 14px 0;"><strong style="color:#ffd700;">You get The Happy Makers!</strong></p>
      <p style="color: #ffffff; font-size: 1.02rem; line-height: 1.6; margin: 0 0 14px 0;">Meet your new best friends: a lovable squad of trusted guides and fun-loving companions on a mission to make being <strong style="color:#ff69b4;">YOU</strong> the greatest adventure of all.</p>
@@ -7256,28 +7266,33 @@ document
                     <img src="assets/images/Confident, Mindful & Happy Me cover.png" data-cover-base="Confident, Mindful & Happy Me" alt="The Confident, Mindful &amp; Happy Me Adventure cover" style="width: 240px; height: auto; border-radius: 16px; border: 2px solid #ffd700; box-shadow: 0 0 22px rgba(255,215,0,0.35); margin: 0 auto 24px auto; display: block;">
 
                     <div style="color: #ffffff; font-size: 1rem; line-height: 1.7; text-align: left; margin-bottom: 30px; max-width: 900px; margin-left: auto; margin-right: auto;">
-                        <p style="margin-bottom: 16px; font-weight: bold; color: #8A2BE2;">IF GROWING UP FEELS LIKE A ROLLER COASTER OF BIG FEELINGS… THIS BOOK IS YOUR CHILD'S SAFETY BELT.</p>
-                        <p style="margin-bottom: 12px;"><strong style="color: #8A2BE2;">THE PARENTING CHALLENGE</strong> Let’s be honest: growing up is an amazing journey, but sometimes feelings get big and the world gets loud. You see your child struggling with worry, perfectionism, or just finding their voice. You want to help them guide their way through it all with confidence and joy.</p>
-                        <p style="margin-bottom: 12px;"><strong style="color: #8A2BE2;">THE HAPPY MAKERS PRESENT SOLUTION:</strong> The Confident, Mindful &amp; Happy Me Adventure! This isn't just a book. It is an interactive roadmap designed to help your child master the wild ride of growing up with courage and a smile.</p>
-                        <p style="margin-bottom: 12px;"><strong style="color: #8A2BE2;">MEET THE GUIDES</strong> Your child won't be doing this alone. They will be led by The Happy Makers Squad, a lovable family of trusted guides and fun-loving companions (Mimi, Luli, Dilo, Alio, and Nini). They are here to show your child that they don't need a superhero cape to be brave. They just need to unlock the superpowers inside to become the best version of themselves. Join the Happy Makers Squad on this journey to discover your kid's inner <span style="color:#8A2BE2; font-weight: 700;">LEGEND</span>.</p>
-                        <p style="margin-bottom: 12px;"><strong style="color: #8A2BE2;">HOW IT WORKS: THE 31-DAY MISSION</strong> This book is designed to fit into real life. No pressure. No perfection. Just 10 minutes of connection and fun a day.</p>
+                        <p style="margin-bottom: 14px; font-weight: 800; color: #ffd700; text-transform: uppercase;">IF GROWING UP FEELS LIKE A ROLLER COASTER OF BIG FEELINGS…</p>
+                        <p style="margin-bottom: 20px; font-weight: 800; color: #ff69b4; text-transform: uppercase;">THIS BOOK IS YOUR CHILD'S SURVIVAL KIT.</p>
 
-                        <p style="margin-top: 18px; font-weight: bold; color: #8A2BE2;">OUR 31-DAY MISSION CHECKLIST:</p>
-                        <ul class="golden-bullets" style="margin-left: 20px;">
-                            <li>Week 1: Build Your Fortress ▶ Feeling Safe &amp; Grounded</li>
-                            <li>Week 2: Tame the Wild Emotions ▶ Mastering Anxiety &amp; Anger</li>
-                            <li>Week 3: Shine Your Light ▶ Building Confidence</li>
-                            <li>Week 4: Assemble Your TEAM ▶ Connection &amp; Kindness</li>
-                            <li>Week 5: Fly High ▶ Launching Your Dreams</li>
-                        </ul>
+                        <p style="margin-bottom: 12px;"><strong style="color: #8A2BE2;">THE PARENTING CHALLENGE</strong><br>Let’s be honest: growing up is an amazing journey, but sometimes it feels like playing a video game on ‘Hard Mode’. The world gets loud, feelings get messy, and the pressure to fit in can be overwhelming.</p>
+                        <p style="margin-bottom: 12px;">You see your child struggling with worry, perfectionism, or just finding their voice. You want to guide them with confidence and joy, but you fear that asking questions feels like an “interrogation” or a “boring lecture.” You are scrambling to find the right tools to calm the storm when emotions take over. Where do you start?</p>
 
-                        <p style="margin-top: 18px; font-weight: bold; color: #8A2BE2;">WHAT MAKES THIS BOOK DIFFERENT?</p>
-                        <p style="margin-bottom: 12px;">We bring the empowering spirit of the Rise Shine Evolve Learning Hub straight into your living room. We craft immersive journeys that turn everyday challenges into opportunities for connection and growth. The Happy Makers vibe? We take emotional growth seriously, but we never take ourselves too seriously. Zero boring lectures and 100% fun. Kids learn best when they are laughing and exploring.</p>
-                        <p style="margin-bottom: 12px;">This is not a passive reading experience. It’s a movement fueled by love, humor, and high-fives! Your child will draw, reflect, breathe, play, and create their way to become Confident, Mindful, and Happy.</p>
+                        <p style="margin-bottom: 12px;"><strong style="color: #8A2BE2;">THE HAPPY MAKERS SOLUTION</strong><br>Welcome to <span style="color:#ffd700; font-weight:700;">The Confident, Mindful &amp; Happy Me Adventure!</span> This isn't just a book. It is an interactive Survival Kit and a creative roadmap designed to help your child master the wild ride of growing up with courage and a smile. We turn “I can’t” into “I can,” and boring days into legendary quests.</p>
+
+                        <p style="margin-bottom: 12px;"><strong style="color: #8A2BE2;">MEET THE GUIDES</strong><br>Your child won't be doing this alone. They will be led by The Happy Makers Squad, a lovable family of trusted guides and fun-loving co-pilots: Mimi, Luli, Dilo, Alio, and Nini.</p>
+                        <p style="margin-bottom: 12px;">They show your child that they don't need a superhero cape to be brave. They just need to unlock the superpowers already hiding inside to become <span style="color:#ffd700; font-weight:700;">THE BEST VERSION OF THEMSELVES.</span></p>
+
+                        <p style="margin-bottom: 12px;"><strong style="color: #8A2BE2;">THE 31-DAY MISSION: READY TO LEVEL UP?</strong><br>This book is designed to fit into real life. No pressure. No perfection. Just 10 minutes of connection and fun a day.</p>
+
+                        <p style="margin-top: 18px; font-weight: 700; color: #ffd700;">The journey is divided into 5 EXCITING LEVELS to build unshakeable resilience:</p>
+                        <p style="margin-bottom: 12px;"><strong style="color:#ff69b4;">WEEK 1: Build Your Fortress (Feeling Safe &amp; Grounded)</strong> We start by building a strong foundation. Your child will learn grounding techniques to feel secure and worthy, no matter what happens around them.</p>
+                        <p style="margin-bottom: 12px;"><strong style="color:#ff69b4;">WEEK 2: Tame the Wild Emotions (Mastering Anxiety &amp; Anger)</strong> Big feelings aren't scary when you know how to handle them. We use fun metaphors to identify emotions, regulate reactions, and turn “monsters” into friends.</p>
+                        <p style="margin-bottom: 12px;"><strong style="color:#ff69b4;">WEEK 3: Shine Your Light (Building Unshakeable Confidence)</strong> This week is about self-esteem. Through creative challenges, your child will discover their unique strengths and learn to stand tall.</p>
+                        <p style="margin-bottom: 12px;"><strong style="color:#ff69b4;">WEEK 4: Assemble Your Team (Connection &amp; Kindness)</strong> Confidence isn't just about “ME” - it’s about “US.” We explore the power of empathy, friendship, setting boundaries, and asking for support.</p>
+                        <p style="margin-bottom: 12px;"><strong style="color:#ff69b4;">WEEK 5: Fly High (Launching Your Dreams)</strong> The grand finale! Integrating all the tools to face the future with excitement, set goals, make dreams come true, and celebrate personal growth.</p>
+
+                        <p style="margin-top: 18px; font-weight: bold; color: #8A2BE2;">AND THE BEST PART?</p>
+                        <p style="margin-bottom: 12px;">The adventure doesn't end on Day 31. Once completed, this book transforms into your child’s personalized Ultimate Survival Kit. Whenever they face a tough moment in the future, they can simply open it like an emotional first-aid box, pick the exact tool they need, and apply it immediately to feel supported and strong again.</p>
 
                         <p style="margin-top: 18px; font-weight: bold; color: #8A2BE2;">THE PROMISE</p>
-                        <p style="margin-bottom: 12px;">The world is waiting for your child's magic. We don't just tell them they are brave-we give them the toolkit to feel resilient, capable, and confident every single day.</p>
-                        <p style="margin-bottom: 12px;">Join us on a journey where every child can RISE, every family can SHINE, and every person can EVOLVE. Ready to unlock true potential? It is time to Rise. Shine. Evolve. TOGETHER!</p>
+                        <p style="margin-bottom: 12px;">The world is waiting for your child's magic. We don't just tell them they are brave, we give them the toolkit to feel resilient, capable, and confident every single day.</p>
+                        <p style="margin-bottom: 12px;">Ready to unlock their true potential?</p>
+                        <p style="margin-bottom: 0; font-weight: 800; color: #ffd700;">IT IS TIME TO RISE. SHINE. EVOLVE. TOGETHER!</p>
                     </div>
 
                     <div style="text-align: center; margin-top: 30px;">
@@ -7650,8 +7665,8 @@ document
             const searchParams = new URLSearchParams(window.location.search || '');
             const hashParams = new URLSearchParams(hash.replace('#', ''));
             const type = searchParams.get('type') || hashParams.get('type') || '';
-            const hasToken = hash.includes('access_token=');
-            const isRecoveryFlow = type === 'recovery';
+            const hasToken = hash.includes('access_token=') || searchParams.has('access_token');
+            const isRecoveryFlow = type === 'recovery' || (!type && hasToken);
             const isVerifyFlow = ['signup', 'invite', 'recovery'].includes(type) || hasToken;
 
             if (!isVerifyFlow) {
@@ -7659,8 +7674,8 @@ document
             }
 
             if (isRecoveryFlow) {
-                const accessToken = hashParams.get('access_token');
-                const refreshToken = hashParams.get('refresh_token');
+                const accessToken = hashParams.get('access_token') || searchParams.get('access_token');
+                const refreshToken = hashParams.get('refresh_token') || searchParams.get('refresh_token');
                 if (supabaseClient && accessToken && refreshToken) {
                     supabaseClient.auth.setSession({
                         access_token: accessToken,
@@ -7799,6 +7814,21 @@ document
             if (authActionButton) {
                 addTapListener(authActionButton, handleAuthActionClick);
             }
+            document.addEventListener('keydown', (event) => {
+                if (event.key !== 'Enter') {
+                    return;
+                }
+                const activeTag = document.activeElement?.tagName?.toLowerCase();
+                if (activeTag === 'textarea') {
+                    return;
+                }
+                const emailModal = document.getElementById('emailModal');
+                const modalOpen = emailModal && (emailModal.style.display === 'flex' || emailModal.classList.contains('show'));
+                if (modalOpen) {
+                    event.preventDefault();
+                    handleBottomAction();
+                }
+            });
 
             const hashTab = (window.location.hash || '').replace('#', '');
             const desiredTab = hashTab && getTabElement(hashTab) ? hashTab : 'main';
