@@ -923,6 +923,14 @@
             border-radius: 11px;
         }
 
+        .gifts-mobile-instructions {
+            display: none;
+        }
+
+        .gift-card-description {
+            margin: 0 0 6px 0;
+        }
+
         /* Tabs */
         .tabs-container {
             margin-top: 20px;
@@ -1146,6 +1154,46 @@
                 left: auto;
                 transform: none;
                 margin: 16px auto 24px;
+            }
+
+            .gifts-mobile-instructions {
+                display: block;
+                margin: 12px auto 20px auto;
+                max-width: 520px;
+                width: 100%;
+                text-align: left;
+                color: #ffffff;
+                font-size: 0.95rem;
+                line-height: 1.5;
+                padding: 0 6px;
+            }
+
+            .gifts-mobile-instructions .gift-instruction {
+                background: rgba(0, 0, 0, 0.7);
+                border: 2px solid #8A2BE2;
+                border-radius: 14px;
+                padding: 12px 14px;
+                margin-bottom: 12px;
+                box-shadow: 0 0 16px rgba(138, 43, 226, 0.4);
+            }
+
+            .gifts-mobile-instructions .gift-instruction h4 {
+                margin: 0 0 6px 0;
+                color: #ffd700;
+                font-size: 1rem;
+            }
+
+            .gifts-library-grid {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .gifts-library-grid .gift-card {
+                min-height: unset;
+            }
+
+            .gift-card-description {
+                display: none;
             }
         }
 
@@ -1602,7 +1650,7 @@
       <div class="elegant-christmas-box" style="max-width: 140px; border-radius: 18px 10px 18px 10px; padding: 8px 8px 10px;" onclick="showFamilyGallery()">
        <div class="elegant-box-content">
         <img src="https://raw.githubusercontent.com/riseshineevolve-source/RISE.SHINE.EVOLVE/main/assets/images/Happy%20Makers%20floating%20box.png" alt="Happy Makers" onerror="this.onerror=null;this.src='assets/images/happy-makers-floating-box.svg';" class="floating-box-image">
-       <button class="elegant-amazon-btn floating-box-cta" onclick="event.stopPropagation(); showFamilyGallery();">MEET<br>THE HAPPY-MAKERS</button>
+       <button class="elegant-amazon-btn floating-box-cta" onclick="event.stopPropagation(); showFamilyGallery();">MEET<br><span style="white-space: nowrap;">THE HAPPY-MAKERS</span></button>
        </div>
       </div>
       <div class="elegant-christmas-box" style="max-width: 140px; border-radius: 18px 8px 18px 8px; padding: 8px 8px 10px; margin-top: -6px;" onclick="window.open('https://www.amazon.com/dp/B0G6ZBD7YF/ref=sr_1_1?crid=1JNI65G7Y5W2T&dib=eyJ2IjoiMSJ9.6sPvd45HQ0DwFx7rDVm4GzEvVHvx5Nfyyk4-aOOpL-R9ARZwGRkFwI6K0rPa1EX0ZBKEzsfqQGLw0d4jZ5-ItQ.HHZ--L7lh4LL8MZJqdljxFqBdMTp3g8LL8IgiH3QPb0&dib_tag=se&keywords=the+confident+mindful+%26+happy+me+adventure&qid=1765802239&s=digital-text&sprefix=%2Cdigital-text%2C354&sr=1-1', '_blank', 'noopener,noreferrer')">
@@ -1983,8 +2031,26 @@
        <h3 style="color: #8A2BE2; font-size: 1.9rem; margin: 0 0 10px 0; text-shadow: 0 0 18px rgba(138, 43, 226, 0.7);">GIFTS LIBRARY</h3>
        <p style="color: #ffd700; font-size: 1rem; margin: 0;">Explore new resources as they arrive - Calm + Energy Wheel, the 1-Minute Challenge, the Happy Makers mini Word Search and the full Word Search Studio.</p>
       </div>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; padding: 0 10px;">
-       <div id="gift-card-calm-energy" onclick="openCalmEnergyWheel(event)" style="background: #000000; border: 3px solid #ffd700; border-radius: 18px; padding: 22px; text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(255, 215, 0, 0.5); position: relative; min-height: 300px; display: flex; flex-direction: column; align-items: center; gap: 12px; cursor: pointer;">
+      <div class="gifts-mobile-instructions">
+       <div class="gift-instruction">
+        <h4>The Happy Makers Calm and Energy Wheel</h4>
+        <p>Two tiny tools for your family: one to slow down and soften, one to wake up and brighten - spin, stop and let the Happy Makers guide you.</p>
+       </div>
+       <div class="gift-instruction">
+        <h4>The Happy Makers 1-Minute Challenge</h4>
+        <p>One click. One tiny mission. One minute of joy, creativity or connection. Powered by your Happy Makers.</p>
+       </div>
+       <div class="gift-instruction">
+        <h4>The Happy Makers Word Search</h4>
+        <p>Tap a starting letter, then tap the ending letter to find each word.</p>
+       </div>
+       <div class="gift-instruction">
+        <h4>Word Search Studio</h4>
+        <p>Select the first letter and then tap each next letter in order until you reach the last letter.</p>
+       </div>
+      </div>
+      <div class="gifts-library-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; padding: 0 10px;">
+       <div id="gift-card-calm-energy" class="gift-card" onclick="openCalmEnergyWheel(event)" style="background: #000000; border: 3px solid #ffd700; border-radius: 18px; padding: 22px; text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(255, 215, 0, 0.5); position: relative; min-height: 300px; display: flex; flex-direction: column; align-items: center; gap: 12px; cursor: pointer;">
         <div style="position: absolute; top: 12px; left: 12px; background: #8A2BE2; color: #ffffff; font-size: 0.7rem; font-weight: bold; padding: 6px 10px; border-radius: 10px; text-transform: uppercase; box-shadow: 0 0 12px rgba(138, 43, 226, 0.6);">Available</div>
         <div style="width: 86px; height: 86px; margin-top: 8px; border-radius: 50%; border: 3px solid #ffd700; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 20px rgba(255,215,0,0.6);">
          <svg width="46" height="46" viewbox="0 0 120 120" aria-hidden="true">
@@ -2006,10 +2072,10 @@
          </svg>
         </div>
         <h4 style="color: #ffd700; margin: 0; font-size: 1.25rem; text-shadow: 0 0 15px rgba(255, 215, 0, 0.7);">The Happy Makers Calm and Energy Wheel</h4>
-        <p style="color: #ffffff; font-size: 0.95rem; line-height: 1.5; margin: 0 0 6px 0;">Two tiny tools for your family: one to slow down and soften, one to wake up and brighten - spin, stop and let the Happy Makers guide you.</p>
+        <p class="gift-card-description" style="color: #ffffff; font-size: 0.95rem; line-height: 1.5;">Two tiny tools for your family: one to slow down and soften, one to wake up and brighten - spin, stop and let the Happy Makers guide you.</p>
         <button onclick="openCalmEnergyWheel(event)" style="background: linear-gradient(45deg, #8A2BE2, #9932CC); border: 2px solid #ffd700; border-radius: 14px; color: #ffffff; font-weight: bold; padding: 10px 16px; cursor: pointer; text-transform: uppercase; box-shadow: 0 0 18px rgba(138, 43, 226, 0.6); margin-top: auto;">Launch the Calm + Energy Wheel</button>
        </div>
-       <div style="background: #000000; border: 3px solid #ffd700; border-radius: 18px; padding: 22px; text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(255, 215, 0, 0.5); position: relative; min-height: 300px; display: flex; flex-direction: column; align-items: center; gap: 12px;">
+       <div class="gift-card" style="background: #000000; border: 3px solid #ffd700; border-radius: 18px; padding: 22px; text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(255, 215, 0, 0.5); position: relative; min-height: 300px; display: flex; flex-direction: column; align-items: center; gap: 12px;">
         <div style="position: absolute; top: 12px; left: 12px; background: #8A2BE2; color: #ffffff; font-size: 0.7rem; font-weight: bold; padding: 6px 10px; border-radius: 10px; text-transform: uppercase; box-shadow: 0 0 12px rgba(138, 43, 226, 0.6);">Available</div>
         <div style="width: 86px; height: 86px; margin-top: 8px; border-radius: 50%; border: 3px solid #ffd700; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 20px rgba(255,215,0,0.6);">
          <svg width="46" height="46" viewbox="0 0 120 120" aria-hidden="true">
@@ -2025,10 +2091,10 @@
          </svg>
         </div>
         <h4 style="color: #ffd700; margin: 0; font-size: 1.25rem; text-shadow: 0 0 15px rgba(255, 215, 0, 0.7);">The Happy Makers 1-Minute Challenge</h4>
-        <p style="color: #ffffff; font-size: 0.95rem; line-height: 1.5; margin: 0 0 6px 0;">One click. One tiny mission. One minute of joy, creativity or connection. Powered by your Happy Makers.</p>
+        <p class="gift-card-description" style="color: #ffffff; font-size: 0.95rem; line-height: 1.5;">One click. One tiny mission. One minute of joy, creativity or connection. Powered by your Happy Makers.</p>
         <button onclick="openOneMinuteChallenge(event)" style="background: linear-gradient(45deg, #8A2BE2, #9932CC); border: 2px solid #ffd700; border-radius: 14px; color: #ffffff; font-weight: bold; padding: 10px 16px; cursor: pointer; text-transform: uppercase; box-shadow: 0 0 18px rgba(138, 43, 226, 0.6); margin-top: auto;">Start the 1-Minute Challenge</button>
        </div>
-        <div id="gift-card-word-search" onclick="openWordSearch(event)" style="background: #000000; border: 3px solid #8A2BE2; border-radius: 18px; padding: 22px; text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(138, 43, 226, 0.4); position: relative; min-height: 260px; display: flex; flex-direction: column; gap: 10px; justify-content: space-between;">
+        <div id="gift-card-word-search" class="gift-card" onclick="openWordSearch(event)" style="background: #000000; border: 3px solid #8A2BE2; border-radius: 18px; padding: 22px; text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(138, 43, 226, 0.4); position: relative; min-height: 260px; display: flex; flex-direction: column; gap: 10px; justify-content: space-between;">
         <div style="position: absolute; top: 12px; left: 12px; background: #8A2BE2; color: #ffffff; font-size: 0.7rem; font-weight: bold; padding: 6px 10px; border-radius: 10px; text-transform: uppercase; box-shadow: 0 0 12px rgba(138, 43, 226, 0.6);">Available</div>
         <div style="width: 86px; height: 86px; margin: 10px auto 6px auto; border-radius: 50%; border: 3px solid #8A2BE2; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 18px rgba(138,43,226,0.5);"><svg width="40" height="40" viewbox="0 0 100 100" aria-hidden="true">
             <rect x="22" y="40" width="56" height="38" rx="6" fill="#8A2BE2" stroke="#ffd700" stroke-width="3"></rect>
@@ -2037,10 +2103,10 @@
             <circle cx="50" cy="34" r="8" fill="#ffd700"></circle>
         </svg></div>
         <h4 style="color: #8A2BE2; margin: 0 0 8px 0; font-size: 1.22rem; text-shadow: 0 0 15px rgba(138, 43, 226, 0.7);">The Happy Makers Word Search</h4>
-        <p style="color: #ffffff; font-size: 0.95rem; line-height: 1.5; margin: 0 0 6px 0;">Find every Happy Maker theme, then celebrate with confetti as the puzzle reloads with brand-new words.</p>
+        <p class="gift-card-description" style="color: #ffffff; font-size: 0.95rem; line-height: 1.5;">Find every Happy Maker theme, then celebrate with confetti as the puzzle reloads with brand-new words.</p>
         <button onclick="openWordSearch(event)" style="background: linear-gradient(45deg, #8A2BE2, #9932CC); border: 2px solid #ffd700; border-radius: 12px; color: #ffffff; font-weight: bold; padding: 10px 14px; cursor: pointer; text-transform: uppercase; box-shadow: 0 0 18px rgba(138, 43, 226, 0.6);">Play</button>
        </div>
-       <div id="gift-card-word-search-pro" onclick="openWordSearchPro(event)" style="background: #000000; border: 3px solid #ffd700; border-radius: 18px; padding: 22px; text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(255, 215, 0, 0.5); position: relative; min-height: 300px; display: flex; flex-direction: column; gap: 12px; justify-content: space-between;">
+       <div id="gift-card-word-search-pro" class="gift-card" onclick="openWordSearchPro(event)" style="background: #000000; border: 3px solid #ffd700; border-radius: 18px; padding: 22px; text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(255, 215, 0, 0.5); position: relative; min-height: 300px; display: flex; flex-direction: column; gap: 12px; justify-content: space-between;">
         <div style="position: absolute; top: 12px; left: 12px; background: #8A2BE2; color: #ffffff; font-size: 0.7rem; font-weight: bold; padding: 6px 10px; border-radius: 10px; text-transform: uppercase; box-shadow: 0 0 12px rgba(138, 43, 226, 0.6);">New</div>
         <div style="width: 86px; height: 86px; margin: 8px auto 6px auto; border-radius: 50%; border: 3px solid #ffd700; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 20px rgba(255,215,0,0.6);">
          <svg width="48" height="48" viewBox="0 0 120 120" aria-hidden="true">
@@ -2062,7 +2128,7 @@
          </svg>
         </div>
         <h4 style="color: #ffd700; margin: 0 0 8px 0; font-size: 1.25rem; text-shadow: 0 0 15px rgba(255, 215, 0, 0.7);">Word Search Studio</h4>
-        <p style="color: #ffffff; font-size: 0.95rem; line-height: 1.5; margin: 0 0 6px 0;">Build full-sized puzzles with selectable shapes, difficulty levels, themes and one-click print / download.</p>
+        <p class="gift-card-description" style="color: #ffffff; font-size: 0.95rem; line-height: 1.5;">Build full-sized puzzles with selectable shapes, difficulty levels, themes and one-click print / download.</p>
         <button onclick="openWordSearchPro(event)" style="background: linear-gradient(45deg, #8A2BE2, #9932CC); border: 2px solid #ffd700; border-radius: 14px; color: #ffffff; font-weight: bold; padding: 10px 16px; cursor: pointer; text-transform: uppercase; box-shadow: 0 0 18px rgba(138, 43, 226, 0.6); margin-top: auto;">Launch Word Search Studio</button>
        </div>
        <div style="background: #000000; border: 3px solid #8A2BE2; border-radius: 18px; padding: 22px; text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(138, 43, 226, 0.4); position: relative; min-height: 260px;">
@@ -5017,9 +5083,18 @@
   <title>Word Search Studio</title>
   <style>
     html, body { margin: 0; padding: 0; width: 100%; min-height: 100%; background: #05040a; }
-    body { display: flex; align-items: stretch; overflow: auto; }
-    .ws-shell { flex: 1; padding: 0; }
-    .ws-frame { width: 100%; height: 100dvh; border: none; border-radius: 0; display: block; }
+    body { display: flex; flex-direction: column; align-items: stretch; overflow: auto; }
+    .ws-shell { flex: 1; padding: 0; display: flex; flex-direction: column; }
+    .ws-instructions {
+      background: rgba(0, 0, 0, 0.9);
+      color: #ffd700;
+      font-size: 0.9rem;
+      text-align: center;
+      padding: 10px 12px;
+      border-bottom: 1px solid rgba(255, 215, 0, 0.4);
+      text-shadow: 0 0 10px rgba(255, 215, 0, 0.6);
+    }
+    .ws-frame { width: 100%; height: 100dvh; border: none; border-radius: 0; display: block; flex: 1; }
     @media (max-width: 720px) {
       .ws-frame { height: 100dvh; }
     }
@@ -5027,6 +5102,7 @@
 </head>
 <body>
   <div class="ws-shell">
+    <div class="ws-instructions">Tap the first letter, then each next letter in order until the last letter to complete a word.</div>
     <iframe class="ws-frame" src="assets/word-search-studio/index.html" title="Word Search Studio" loading="lazy"></iframe>
   </div>
   </template>
