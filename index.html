@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Riseshine Evolve</title>
+  <link rel="preload" as="image" href="assets/images/Confident,%20Mindful%20%26%20Happy%20Me%20cover.png">
   <style>
         body {
             box-sizing: border-box;
@@ -902,6 +903,26 @@
             box-shadow: 0 0 16px rgba(138, 43, 226, 0.6);
         }
 
+        .floating-boxes .floating-box-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto 8px auto;
+            border-radius: 10px;
+            border: 2px solid #8A2BE2;
+            box-shadow: 0 0 14px rgba(138, 43, 226, 0.45);
+        }
+
+        .floating-boxes .floating-box-cta {
+            width: 100%;
+            min-width: 0;
+            padding: 6px 10px;
+            font-size: 0.55rem;
+            line-height: 1.15;
+            display: inline-block;
+            border-radius: 11px;
+        }
+
         /* Tabs */
         .tabs-container {
             margin-top: 20px;
@@ -1580,14 +1601,14 @@
      <div class="floating-boxes">
       <div class="elegant-christmas-box" style="max-width: 140px; border-radius: 18px 10px 18px 10px; padding: 8px 8px 10px;" onclick="showFamilyGallery()">
        <div class="elegant-box-content">
-        <img src="https://raw.githubusercontent.com/riseshineevolve-source/RISE.SHINE.EVOLVE/main/assets/images/Happy%20Makers%20floating%20box.png" alt="Happy Makers" onerror="this.onerror=null;this.src='assets/images/happy-makers-floating-box.svg';" style="width: 90%; height: auto; border-radius: 10px; border: 2px solid #8A2BE2; box-shadow: 0 0 14px rgba(138, 43, 226, 0.45); margin: 0 auto 8px auto; display: block;">
-       <button class="elegant-amazon-btn" style="padding: 6px 10px; font-size: 0.55rem; line-height: 1.15; min-width: 120px; display: inline-block; border-radius: 11px;" onclick="event.stopPropagation(); showFamilyGallery();">MEET<br>THE HAPPY-MAKERS</button>
+        <img src="https://raw.githubusercontent.com/riseshineevolve-source/RISE.SHINE.EVOLVE/main/assets/images/Happy%20Makers%20floating%20box.png" alt="Happy Makers" onerror="this.onerror=null;this.src='assets/images/happy-makers-floating-box.svg';" class="floating-box-image">
+       <button class="elegant-amazon-btn floating-box-cta" onclick="event.stopPropagation(); showFamilyGallery();">MEET<br>THE HAPPY-MAKERS</button>
        </div>
       </div>
       <div class="elegant-christmas-box" style="max-width: 140px; border-radius: 18px 8px 18px 8px; padding: 8px 8px 10px; margin-top: -6px;" onclick="window.open('https://www.amazon.com/dp/B0G6ZBD7YF/ref=sr_1_1?crid=1JNI65G7Y5W2T&dib=eyJ2IjoiMSJ9.6sPvd45HQ0DwFx7rDVm4GzEvVHvx5Nfyyk4-aOOpL-R9ARZwGRkFwI6K0rPa1EX0ZBKEzsfqQGLw0d4jZ5-ItQ.HHZ--L7lh4LL8MZJqdljxFqBdMTp3g8LL8IgiH3QPb0&dib_tag=se&keywords=the+confident+mindful+%26+happy+me+adventure&qid=1765802239&s=digital-text&sprefix=%2Cdigital-text%2C354&sr=1-1', '_blank', 'noopener,noreferrer')">
        <div class="elegant-box-content">
-        <img src="assets/images/Confident,%20Mindful%20%26%20Happy%20Me%20cover.png" alt="The Confident, Mindful &amp; Happy Me Adventure cover" style="width: 90%; height: auto; border-radius: 10px; border: 2px solid #8A2BE2; box-shadow: 0 0 14px rgba(138, 43, 226, 0.45); margin: 0 auto 8px auto; display: block;">
-        <button class="elegant-amazon-btn" style="padding: 6px 10px; font-size: 0.55rem; line-height: 1.15; min-width: 120px; display: inline-block; border-radius: 11px;" onclick="event.stopPropagation(); window.open('https://www.amazon.com/dp/B0G6ZBD7YF/ref=sr_1_1?crid=1JNI65G7Y5W2T&dib=eyJ2IjoiMSJ9.6sPvd45HQ0DwFx7rDVm4GzEvVHvx5Nfyyk4-aOOpL-R9ARZwGRkFwI6K0rPa1EX0ZBKEzsfqQGLw0d4jZ5-ItQ.HHZ--L7lh4LL8MZJqdljxFqBdMTp3g8LL8IgiH3QPb0&dib_tag=se&keywords=the+confident+mindful+%26+happy+me+adventure&qid=1765802239&s=digital-text&sprefix=%2Cdigital-text%2C354&sr=1-1', '_blank', 'noopener,noreferrer')">Add to cart<br>on Amazon</button>
+        <img src="assets/images/Confident,%20Mindful%20%26%20Happy%20Me%20cover.png" alt="The Confident, Mindful &amp; Happy Me Adventure cover" class="floating-box-image">
+        <button class="elegant-amazon-btn floating-box-cta" onclick="event.stopPropagation(); window.open('https://www.amazon.com/dp/B0G6ZBD7YF/ref=sr_1_1?crid=1JNI65G7Y5W2T&dib=eyJ2IjoiMSJ9.6sPvd45HQ0DwFx7rDVm4GzEvVHvx5Nfyyk4-aOOpL-R9ARZwGRkFwI6K0rPa1EX0ZBKEzsfqQGLw0d4jZ5-ItQ.HHZ--L7lh4LL8MZJqdljxFqBdMTp3g8LL8IgiH3QPb0&dib_tag=se&keywords=the+confident+mindful+%26+happy+me+adventure&qid=1765802239&s=digital-text&sprefix=%2Cdigital-text%2C354&sr=1-1', '_blank', 'noopener,noreferrer')">Add to cart<br>on Amazon</button>
        </div>
       </div>
      </div>
@@ -2616,6 +2637,16 @@
     #bookPromoModal.show {
       display: flex;
     }
+
+    @media (max-width: 720px) {
+      #emailModal,
+      #bookPromoModal,
+      #signupConfirmModal {
+        align-items: flex-start;
+        justify-content: center;
+        padding-top: 24px;
+      }
+    }
   </style>
   <div id="bookPromoModal" class="modal">
     <div class="modal-content" style="
@@ -2700,7 +2731,7 @@
                     text-transform: uppercase;
                     box-shadow: 0 0 12px rgba(255, 215, 0, 0.7);
                 ">NEW</div>
-     <img src="assets/images/Confident, Mindful & Happy Me cover.png" data-cover-base="Confident, Mindful & Happy Me" alt="The Confident, Mindful &amp; Happy Me Adventure cover" style="width: 150px; height: auto; border-radius: 12px; border: 2px solid #ffd700; box-shadow: 0 0 18px rgba(255,215,0,0.35); margin: 46px auto 14px auto; display: block;">
+     <img src="assets/images/Confident, Mindful & Happy Me cover.png" data-cover-base="Confident, Mindful & Happy Me" alt="The Confident, Mindful &amp; Happy Me Adventure cover" loading="eager" fetchpriority="high" decoding="async" style="width: 150px; height: auto; border-radius: 12px; border: 2px solid #ffd700; box-shadow: 0 0 18px rgba(255,215,0,0.35); margin: 46px auto 14px auto; display: block;">
      <div style="color: #ffd700; font-weight: bold; font-size: 1.1rem; margin-bottom: 10px; line-height: 1.25; text-shadow: 0 0 15px rgba(255, 215, 0, 0.8);">
       The Confident, Mindful &amp; Happy Me Adventure
      </div>
@@ -6241,6 +6272,10 @@ document
             }
         }
 
+        function isMobileViewport() {
+            return window.matchMedia && window.matchMedia('(max-width: 720px)').matches;
+        }
+
         async function checkUser() {
             if (!supabaseClient) {
                 setLoggedInBadge(false);
@@ -6262,7 +6297,12 @@ document
             closeEmailModal();
             const giftsTab = getTabElement('gifts');
             const requested = localStorage.getItem('giftsRequested') === 'true';
-            if (giftsTab && (requested || window.location.hash === '#gifts')) {
+            const hashRequested = window.location.hash === '#gifts';
+            const shouldAutoOpenGifts = !isMobileViewport() && (requested || hashRequested);
+            if (isMobileViewport() && hashRequested) {
+                history.replaceState({ tab: 'main' }, '', '#main');
+            }
+            if (giftsTab && shouldAutoOpenGifts) {
                 localStorage.removeItem('giftsRequested');
                 selectTab(giftsTab, 'gifts');
             }
@@ -7511,13 +7551,13 @@ document
             localStorage.setItem('giftsRequested', 'true');
 
             const giftsTab = getTabElement('gifts');
-            if (giftsTab) {
+            if (!isMobileViewport() && giftsTab) {
                 selectTab(giftsTab, 'gifts', { skipHistory: true });
             }
 
             showEmailModal('login', 'Your email is verified! Please log in to unlock GIFTS.', '#ffd700');
 
-            if (!hash.includes('#gifts')) {
+            if (!isMobileViewport() && !hash.includes('#gifts')) {
                 history.replaceState({ tab: 'gifts' }, '', '#gifts');
             }
         }
@@ -7778,17 +7818,21 @@ document
                 return false;
             }
             if (source) {
-                window.open(source, '_blank', 'noopener,noreferrer');
-                return true;
+                const popup = window.open(source, '_blank', 'noopener,noreferrer');
+                return !!popup;
             }
             if (!html) {
                 return false;
             }
             const blob = new Blob([html], { type: 'text/html' });
             const blobUrl = URL.createObjectURL(blob);
-            window.open(blobUrl, '_blank', 'noopener,noreferrer');
-            setTimeout(() => URL.revokeObjectURL(blobUrl), 30000);
-            return true;
+            const popup = window.open(blobUrl, '_blank', 'noopener,noreferrer');
+            if (popup) {
+                setTimeout(() => URL.revokeObjectURL(blobUrl), 30000);
+                return true;
+            }
+            URL.revokeObjectURL(blobUrl);
+            return false;
         }
 
         function revealGiftFrameSoon() {
