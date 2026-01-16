@@ -936,6 +936,7 @@
             display: inline-block;
             border-radius: 11px;
             min-height: 36px;
+            margin-top: auto;
         }
 
         @media (min-width: 769px) {
@@ -989,6 +990,13 @@
             .kids-tile {
                 width: min(720px, 92vw);
                 max-width: 720px;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .gifts-library-grid {
+                display: flex !important;
+                flex-direction: column !important;
             }
         }
 
@@ -2585,7 +2593,10 @@
                         width: 12px;
                         background: linear-gradient(to right, rgba(0, 0, 0, 0.3), transparent);
                         border-radius: 20px 0 0 20px;
-                    "></div><img src="assets/images/Grandma%20Bibi.png" data-character-img="Grandma Bibi.png" alt="Grandma Bibi" style="display: block; width: 120px; height: 120px; border-radius: 50%; margin: 25px auto 20px auto; object-fit: cover; border: 3px solid #9932CC; box-shadow: 0 0 25px rgba(153, 50, 204, 0.6);">
+                    "></div><video autoplay loop muted playsinline aria-label="Grandma Bibi dance" style="display: block; width: 120px; height: 120px; border-radius: 50%; margin: 25px auto 20px auto; object-fit: cover; border: 3px solid #9932CC; box-shadow: 0 0 25px rgba(153, 50, 204, 0.6);">
+      <source src="assets/videos/Bibi tanczy.mp4" type="video/mp4">
+      <source src="https://raw.githubusercontent.com/riseshineevolve-source/RISE.SHINE.EVOLVE/main/assets/videos/Bibi%20tanczy.mp4" type="video/mp4">
+     </video>
       <h4 style="color: #9932CC; margin: 0 0 12px 0; font-size: 1.6rem; text-shadow: 0 0 20px rgba(153, 50, 204, 0.8);">Grandma Bibi</h4>
       <p style="color: #ffffff; font-size: 1.1rem; margin: 0 0 20px 0; font-weight: bold;">Royal Glow</p>
       <div style="
@@ -2644,7 +2655,7 @@
      <p style="color: #ffffff; font-size: 1.12rem; line-height: 1.6; margin: 0 0 8px 0; text-align: justify; text-align-last: center;"><strong style="color:#ffd700;">Every family can SHINE</strong> (yes, even on the messy, chaotic days).</p>
      <p style="color: #ffffff; font-size: 1.12rem; line-height: 1.6; margin: 0 0 14px 0; text-align: justify; text-align-last: center;"><strong style="color:#8A2BE2;">Every person can EVOLVE.</strong></p>
      <p style="color: #ffffff; font-size: 1.12rem; line-height: 1.6; margin: 0 0 14px 0; text-align: justify; text-align-last: center;">This isn’t just a book series.<br>It’s a movement fueled by <strong style="color:#ffd700;">love</strong>, <strong style="color:#ffd700;">humor</strong> and <strong style="color:#ffd700;">high-fives</strong>!</p>
-     <p style="color: #ffd700; font-size: 1.18rem; line-height: 1.6; margin: 0; text-align: justify; text-align-last: center;"><strong>Ready to unlock true potential?</strong><br>It is time to Rise. Shine. Evolve.<br><strong>TOGETHER.</strong></p>
+     <p style="color: #ffd700; font-size: 1.18rem; line-height: 1.6; margin: 0; text-align: justify; text-align-last: center;"><strong>Ready to unlock true potential?</strong><br>It is time to <span class="word-rise">Rise</span>. <span class="word-shine">Shine</span>. <span class="word-evolve">Evolve</span>.<br><strong>TOGETHER.</strong></p>
     </div>
    </div><!-- Back Button Bottom -->
     <div style="text-align: center;"><button onclick="backToLibrary()" style="
@@ -3087,7 +3098,8 @@
                 transition: all 0.3s ease;
             " onmouseover="this.style.background='rgba(255, 215, 0, 0.2)';" onmouseout="this.style.background='none';">×</span>
     <p style="color: #ffffff; font-size: 1rem; margin: 0; line-height: 1.5;">
-        You are ready to unwrap your gifts and stay connected with us! Just check your email and click on verification link.
+        You are ready to unwrap your gifts and stay connected with us! Just check your email and click on verification link.<br>
+        If you don’t see it within a few minutes, check your spam folder or try again.
     </p>
    </div>
   </div>
@@ -3440,18 +3452,30 @@
 
     @media (max-width: 720px) {
       .hm-page {
-        height: 100vh;
-        overflow: hidden;
+        height: auto;
+        overflow: visible;
       }
 
       .hm-panel-inner {
-        max-height: calc(100vh - 190px);
-        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        max-height: none;
+        overflow: visible;
+      }
+
+      .hm-wheel-box {
+        width: 100%;
+        padding: 14px;
+      }
+
+      .hm-text-column {
+        max-width: 100%;
+        width: 100%;
       }
 
       .hm-wheel-visual {
-        width: 120px;
-        height: 120px;
+        width: 220px;
+        height: 220px;
       }
     }
 
@@ -6071,6 +6095,9 @@ document
           <span>Words can be written in any direction - forward, backward, up, down, and diagonal.</span>
         </div>
         <table class="word-grid" id="wordGrid" aria-label="Word search grid"></table>
+        <div style="margin-top: 14px; text-align: center;">
+          <button class="action-btn" id="hintBtn">Hint ✶</button>
+        </div>
       </div>
       <div class="panel">
         <div class="puzzle-meta" style="justify-content: center;">
@@ -6079,9 +6106,6 @@ document
         <h2>Find These Words</h2>
         <div class="word-list" id="wordList"></div>
         <div class="status" id="status"></div>
-        <div style="margin-top: 14px; text-align: center;">
-          <button class="action-btn" id="hintBtn">Hint ✶</button>
-        </div>
       </div>
     </div>
   </div>
@@ -6522,7 +6546,9 @@ document
             }
             localStorage.removeItem('manualLoggedOut');
             setLoggedInBadge(true, session.user?.email || '');
-            closeEmailModal();
+            if (authMode !== 'set-password') {
+                closeEmailModal();
+            }
             const giftsTab = getTabElement('gifts');
             const requested = localStorage.getItem('giftsRequested') === 'true';
             const hashRequested = window.location.hash === '#gifts';
@@ -7781,7 +7807,22 @@ document
             const isVerifyFlow = ['signup', 'invite', 'recovery'].includes(type) || hasToken;
 
             if (!isVerifyFlow) {
-                return;
+                return false;
+            }
+
+            if (isRecoveryFlow) {
+                const accessToken = hashParams.get('access_token') || searchParams.get('access_token');
+                const refreshToken = hashParams.get('refresh_token') || searchParams.get('refresh_token');
+                if (supabaseClient && accessToken && refreshToken) {
+                    supabaseClient.auth.setSession({
+                        access_token: accessToken,
+                        refresh_token: refreshToken,
+                    }).catch(() => {
+                        // ignore session set errors and let updateUser handle failures
+                    });
+                }
+                showEmailModal('set-password', 'Set your new password below.', '#ffd700');
+                return true;
             }
 
             if (isRecoveryFlow) {
@@ -7811,6 +7852,7 @@ document
             if (!isMobileViewport() && !hash.includes('#gifts')) {
                 history.replaceState({ tab: 'gifts' }, '', '#gifts');
             }
+            return true;
         }
         function handleUnsubscribe(event) {
             event.preventDefault();
@@ -7919,7 +7961,7 @@ document
         document.addEventListener('DOMContentLoaded', () => {
             applyCharacterPortraits();
             applyCoverImages();
-            handleVerificationRedirect();
+            const verificationHandled = handleVerificationRedirect();
             initGiftTapListeners();
             const authActionButton = document.getElementById('auth-action-button');
             if (authActionButton) {
@@ -7941,14 +7983,14 @@ document
                 }
             });
 
-            const hashTab = (window.location.hash || '').replace('#', '');
-            const desiredTab = hashTab && getTabElement(hashTab) ? hashTab : 'main';
-            const tabElement = getTabElement(desiredTab) || getTabElement('main');
-            if (tabElement) {
-                selectTab(tabElement, tabElement.dataset.tab, { skipHistory: true });
-                const baseState = { tab: tabElement.dataset.tab, base: true };
-                history.replaceState(baseState, '', `#${tabElement.dataset.tab}`);
-                if (!isMobileViewport()) {
+            if (!verificationHandled) {
+                const hashTab = (window.location.hash || '').replace('#', '');
+                const desiredTab = hashTab && getTabElement(hashTab) ? hashTab : 'main';
+                const tabElement = getTabElement(desiredTab) || getTabElement('main');
+                if (tabElement) {
+                    selectTab(tabElement, tabElement.dataset.tab, { skipHistory: true });
+                    const baseState = { tab: tabElement.dataset.tab, base: true };
+                    history.replaceState(baseState, '', `#${tabElement.dataset.tab}`);
                     history.pushState({ tab: tabElement.dataset.tab, base: false }, '', `#${tabElement.dataset.tab}`);
                 }
             }
