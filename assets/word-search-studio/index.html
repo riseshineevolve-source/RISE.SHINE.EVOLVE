@@ -1435,7 +1435,8 @@
 
         @media (max-width: 768px) {
             .game-area {
-                grid-template-columns: 1fr;
+                display: flex;
+                flex-direction: column;
                 gap: 20px;
             }
             
@@ -1449,6 +1450,7 @@
                 max-width: none;
                 margin-right: 0;
                 margin-left: 0;
+                margin-top: 10px;
             }
 
             .controls {
@@ -1477,7 +1479,7 @@
             .word-search {
                 width: 100%;
                 max-width: 100%;
-                max-height: 52vh;
+                max-height: 46vh;
                 padding: clamp(8px, 1.5vw, 15px);
             }
 
@@ -1491,7 +1493,7 @@
         @media (max-width: 480px) {
             .word-search {
                 max-width: 100%;
-                max-height: 50vh;
+                max-height: 42vh;
                 padding: 8px;
             }
 
