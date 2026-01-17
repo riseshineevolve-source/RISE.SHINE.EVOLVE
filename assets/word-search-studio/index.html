@@ -15,6 +15,7 @@
             color: #ffffff;
             position: relative;
             overflow-x: hidden;
+            overflow-y: auto;
         }
 
         /* Delikatne złote punkty na ciemnym tle */
@@ -591,6 +592,7 @@
             grid-template-columns: 3fr 1fr;
             gap: 20px;
             align-items: flex-start;
+            width: 100%;
         }
 
         .puzzle-container {
@@ -602,6 +604,7 @@
         }
 
         .word-search {
+            order: 1;
             display: grid;
             gap: clamp(0px, 0.1vw, 1px);
             padding: clamp(18px, 2vw, 32px);
@@ -621,8 +624,13 @@
             aspect-ratio: 1;
             justify-content: center;
             align-content: center;
-            box-sizing: content-box;
+            box-sizing: border-box;
             animation: elegantBoxGlow 9s ease-in-out infinite, frame-sparkle 16s ease-in-out infinite;
+        }
+
+        #onlineAnswerButtons {
+            order: 2;
+            width: 100%;
         }
 
         .word-search::before {
@@ -1433,7 +1441,8 @@
 
         @media (max-width: 768px) {
             .game-area {
-                grid-template-columns: 1fr;
+                display: flex;
+                flex-direction: column;
                 gap: 20px;
             }
             
@@ -1445,6 +1454,9 @@
                 order: 2;
                 min-width: 100%;
                 max-width: none;
+                margin-right: 0;
+                margin-left: 0;
+                margin-top: 10px;
             }
 
             .controls {
@@ -1471,9 +1483,11 @@
             }
 
             .word-search {
-                max-width: 95vw;
-                max-height: 65vh;
-                padding: clamp(8px, 1.5vw, 15px);
+                width: 100%;
+                max-width: 100%;
+                height: auto;
+                max-height: 42vh;
+                padding: clamp(6px, 1.2vw, 12px);
             }
 
             .cell {
@@ -1481,12 +1495,39 @@
                 height: clamp(18px, 3.5vw, 28px);
                 font-size: clamp(10px, 1.8vw, 16px);
             }
+
+            .control-group {
+                padding: 14px;
+                border-radius: 18px;
+            }
+
+            .control-group h3 {
+                font-size: 1.05rem;
+                margin-bottom: 12px;
+            }
+
+            #wordPresets,
+            input[type="text"] {
+                font-size: 0.9rem;
+                padding: 10px;
+                border-radius: 14px;
+            }
+
+            .button-group {
+                gap: 6px;
+            }
+
+            .btn {
+                padding: 10px 18px;
+                border-radius: 20px;
+                font-size: 0.85rem;
+            }
         }
 
         @media (max-width: 480px) {
             .word-search {
-                max-width: 98vw;
-                max-height: 60vh;
+                max-width: 100%;
+                max-height: 42vh;
                 padding: 8px;
             }
 
@@ -1498,8 +1539,8 @@
             }
 
             .container {
-                padding: 20px;
-                margin: 10px;
+                padding: 14px;
+                margin: 8px;
             }
         }
     </style>
