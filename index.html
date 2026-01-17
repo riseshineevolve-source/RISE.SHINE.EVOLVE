@@ -1943,7 +1943,7 @@
            <animate attributename="opacity" values="0.8;0.3;0.8" dur="1.8s" repeatcount="indefinite" />
           </circle>
          </svg> LIBRARY COLLECTION</h3>
-        <p style="color: #ffd700; font-size: 1.1rem; margin: -10px 0 16px 0; font-weight: bold; text-shadow: 0 0 15px rgba(255, 215, 0, 0.8);">Explore the Library<br>Tap a cover for the full journey, details, and a closer look.</p><!-- Bookshelf -->
+       <p style="color: #ffd700; font-size: 1.1rem; margin: -10px 0 16px 0; font-weight: bold; text-shadow: 0 0 15px rgba(255, 215, 0, 0.8);">Explore the Library<br>Tap a cover for the full overview and what to expect.</p><!-- Bookshelf -->
         <div style="
                                 margin-bottom: 30px;
                                 padding: 20px;
@@ -8300,6 +8300,13 @@ document
                         }
                         return;
                     }
+                    if (data?.error) {
+                        if (messageBox) {
+                            messageBox.style.color = '#ff69b4';
+                            messageBox.textContent = data.error;
+                        }
+                        return;
+                    }
                     if (messageBox) {
                         messageBox.style.color = '#ffd700';
                         messageBox.textContent = 'Please open the confirmation email in your inbox to complete your account removal.';
@@ -8556,6 +8563,12 @@ document
             }
             const html = getGiftHtml(key);
             const source = giftSources[key];
+            const preferBlob = window.matchMedia
+                && (window.matchMedia('(max-width: 720px)').matches || window.matchMedia('(orientation: portrait)').matches);
+
+            if (openGiftInNewWindow(key, html, source)) {
+                return;
+            }
 
             if (openGiftInNewWindow(key, html, source)) {
                 return;
@@ -8574,6 +8587,20 @@ document
             };
 
             if (key === 'wordSearchPro') {
+                if (preferBlob && html) {
+                    setGiftFrameHtml(html);
+                    revealGiftFrameSoon();
+                    giftOverlay.style.display = 'flex';
+                    document.body.style.overflow = 'hidden';
+
+                    if (!giftOverlayOpen) {
+                        const activeTab = document.querySelector('.tab.active');
+                        giftOverlayReturnTab = activeTab?.dataset?.tab || 'main';
+                        history.pushState({ giftOverlay: true }, document.title, window.location.href);
+                        giftOverlayOpen = true;
+                    }
+                    return;
+                }
                 const inlineHtml = (wordSearchProInlineHtml || '').trim();
                 if (inlineHtml) {
                     giftFrame.style.display = 'block';
