@@ -5947,6 +5947,17 @@ function getAvatarHTML(character) {
   }
 }
 
+function getPortraitSources(name) {
+  if (!name) return null;
+  const baseName = `${name}.png`;
+  const primary = `assets/images/${baseName}`;
+  const fallback = name === 'Bibi' ? 'assets/images/Grandma Bibi.png' : null;
+  return {
+    primary: encodeURI(primary),
+    fallback: fallback ? encodeURI(fallback) : null,
+  };
+}
+
 function getChallengePortrait(character) {
   const portraitSources = getPortraitSources(character);
   return portraitSources || null;
@@ -8282,6 +8293,13 @@ document
                         }
                         return;
                     }
+                    if (data?.error) {
+                        if (messageBox) {
+                            messageBox.style.color = '#ff69b4';
+                            messageBox.textContent = data.error;
+                        }
+                        return;
+                    }
                     if (messageBox) {
                         messageBox.style.color = '#ffd700';
                         messageBox.textContent = 'Please open the confirmation email in your inbox to complete your account removal.';
@@ -8461,7 +8479,7 @@ document
                 && (window.matchMedia('(max-width: 720px)').matches || window.matchMedia('(orientation: portrait)').matches);
             const baseHref = window.location.origin ? `${window.location.origin}/` : '';
             const htmlWithBase = baseHref && !html.includes('<base')
-                ? html.replace('<head>', `<head><base href="${baseHref}">`)
+                ? html.replace(/<head([^>]*)>/i, `<head$1><base href="${baseHref}">`)
                 : html;
             if (!preferBlob && ('srcdoc' in giftFrame)) {
                 giftFrame.srcdoc = htmlWithBase;
