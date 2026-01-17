@@ -218,6 +218,55 @@
             border-radius: 14px !important;
         }
 
+        #auth-action-chip {
+            position: absolute;
+            top: 16px;
+            right: 18px;
+            z-index: 15000;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid #ffd700;
+            color: #ffd700;
+            font-size: 0.62rem;
+            font-weight: 700;
+            padding: 6px 10px;
+            border-radius: 12px;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.35);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            max-width: 70vw;
+        }
+
+        #auth-action-button {
+            background: transparent;
+            border: none;
+            color: #ffd700;
+            font-size: 0.62rem;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 9px;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+
+        @media (max-width: 600px) {
+            #auth-action-chip {
+                top: 8px;
+                right: 10px;
+                font-size: 0.5rem;
+                padding: 4px 8px;
+                gap: 6px;
+                max-width: 62vw;
+            }
+
+            #auth-action-button {
+                font-size: 0.5rem;
+                padding: 2px 6px;
+            }
+        }
+
         .brevo-embed .input {
             background: #0a0a0a !important;
             color: #ffffff !important;
@@ -323,6 +372,17 @@
             padding: 8px 10px !important;
             font-size: 0.92rem !important;
             border-radius: 10px !important;
+        }
+
+        .password-toggle {
+            background: none;
+            border: none;
+            color: #ffd700;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            padding: 2px 0;
+            text-decoration: underline;
         }
 
         .gift-overlay {
@@ -903,6 +963,9 @@
             position: relative;
             top: auto;
             right: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
             width: 140px;
             min-height: 210px;
             height: auto;
@@ -922,6 +985,7 @@
             height: auto;
             display: block;
             margin: 0 auto 8px auto;
+            flex-shrink: 0;
             border-radius: 10px;
             border: 2px solid #8A2BE2;
             box-shadow: 0 0 14px rgba(138, 43, 226, 0.45);
@@ -1215,6 +1279,16 @@
                 white-space: pre-line;
             }
 
+            .kids-text .word-rise,
+            .kids-text .word-shine,
+            .kids-text .word-evolve {
+                display: block;
+            }
+
+            .kids-text span[style*="color"] {
+                display: block;
+            }
+
             .gifts-mobile-instructions {
                 display: block;
                 margin: 12px auto 20px auto;
@@ -1253,6 +1327,23 @@
 
             .gift-card-description {
                 display: none;
+            }
+
+            .hm-wheel-title {
+                font-size: 1.3rem;
+            }
+
+            .hm-wheel-subtitle {
+                font-size: 0.95rem;
+                text-align: center;
+            }
+
+            .hm-info-text {
+                font-size: 0.95rem;
+            }
+
+            .hm-result-main-title {
+                font-size: 1.2rem;
             }
         }
 
@@ -1671,10 +1762,10 @@
   <div class="container">
    <h1 class="main-title">RISE.SHINE.EVOLVE</h1>
    <p class="subtitle">Empowering Learning Hub</p>
-   <div id="auth-action-chip" style="position: fixed; top: 16px; right: 18px; z-index: 15000; display: flex; align-items: center; gap: 8px; background: rgba(0, 0, 0, 0.6); border: 1px solid #ffd700; color: #ffd700; font-size: 0.62rem; font-weight: 700; padding: 6px 10px; border-radius: 12px; box-shadow: 0 0 10px rgba(255, 215, 0, 0.35); text-transform: uppercase; letter-spacing: 0.5px;">
+  <div id="auth-action-chip">
     <span id="auth-action-label" style="display: none;">Log in as</span>
-    <button type="button" id="auth-action-button" style="background: transparent; border: none; color: #ffd700; font-size: 0.62rem; font-weight: 700; padding: 3px 8px; border-radius: 9px; cursor: pointer; text-transform: uppercase;">Log In</button>
-   </div>
+    <button type="button" id="auth-action-button">Log In</button>
+  </div>
    <div class="info-tile" id="dynamic-info-tile">
     <div class="info-text">
      Join us on a journey where every child can <span class="word-rise">RISE</span>,<br>
@@ -2117,7 +2208,7 @@
        <p style="color: #ffffff; font-size: 0.95rem; margin: 10px 0 0 0;">Tip for smaller screens: GIFTS work best in landscape view, but you can still explore them in portrait mode.</p>
       </div>
       <div class="gifts-library-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; padding: 0 10px;">
-       <div id="gift-card-calm-energy" class="gift-card" onclick="openCalmEnergyWheel(event)" style="background: #000000; border: 3px solid #ffd700; border-radius: 18px; padding: 22px; text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(255, 215, 0, 0.5); position: relative; min-height: 300px; display: flex; flex-direction: column; align-items: center; gap: 12px; cursor: pointer;">
+       <div id="gift-card-calm-energy" class="gift-card" style="background: #000000; border: 3px solid #ffd700; border-radius: 18px; padding: 22px; text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(255, 215, 0, 0.5); position: relative; min-height: 300px; display: flex; flex-direction: column; align-items: center; gap: 12px;">
         <div style="position: absolute; top: 12px; left: 12px; background: #8A2BE2; color: #ffffff; font-size: 0.7rem; font-weight: bold; padding: 6px 10px; border-radius: 10px; text-transform: uppercase; box-shadow: 0 0 12px rgba(138, 43, 226, 0.6);">Available</div>
         <div style="width: 86px; height: 86px; margin-top: 8px; border-radius: 50%; border: 3px solid #ffd700; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 20px rgba(255,215,0,0.6);">
          <svg width="46" height="46" viewbox="0 0 120 120" aria-hidden="true">
@@ -2161,7 +2252,7 @@
         <p class="gift-card-description" style="color: #ffffff; font-size: 0.95rem; line-height: 1.5;">One click. One tiny mission. One minute of joy, creativity or connection. Powered by your Happy Makers.</p>
         <button onclick="openOneMinuteChallenge(event)" style="background: linear-gradient(45deg, #8A2BE2, #9932CC); border: 2px solid #ffd700; border-radius: 14px; color: #ffffff; font-weight: bold; padding: 10px 16px; cursor: pointer; text-transform: uppercase; box-shadow: 0 0 18px rgba(138, 43, 226, 0.6); margin-top: auto;">Start the 1-Minute Challenge</button>
        </div>
-        <div id="gift-card-word-search" class="gift-card" onclick="openWordSearch(event)" style="background: #000000; border: 3px solid #8A2BE2; border-radius: 18px; padding: 22px; text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(138, 43, 226, 0.4); position: relative; min-height: 260px; display: flex; flex-direction: column; gap: 10px; justify-content: space-between;">
+        <div id="gift-card-word-search" class="gift-card" style="background: #000000; border: 3px solid #8A2BE2; border-radius: 18px; padding: 22px; text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(138, 43, 226, 0.4); position: relative; min-height: 260px; display: flex; flex-direction: column; gap: 10px; justify-content: space-between;">
         <div style="position: absolute; top: 12px; left: 12px; background: #8A2BE2; color: #ffffff; font-size: 0.7rem; font-weight: bold; padding: 6px 10px; border-radius: 10px; text-transform: uppercase; box-shadow: 0 0 12px rgba(138, 43, 226, 0.6);">Available</div>
         <div style="width: 86px; height: 86px; margin: 10px auto 6px auto; border-radius: 50%; border: 3px solid #8A2BE2; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 18px rgba(138,43,226,0.5);"><svg width="40" height="40" viewbox="0 0 100 100" aria-hidden="true">
             <rect x="22" y="40" width="56" height="38" rx="6" fill="#8A2BE2" stroke="#ffd700" stroke-width="3"></rect>
@@ -2173,7 +2264,7 @@
         <p class="gift-card-description" style="color: #ffffff; font-size: 0.95rem; line-height: 1.5;">Find every Happy Maker theme, then celebrate with confetti as the puzzle reloads with brand-new words.</p>
         <button onclick="openWordSearch(event)" style="background: linear-gradient(45deg, #8A2BE2, #9932CC); border: 2px solid #ffd700; border-radius: 12px; color: #ffffff; font-weight: bold; padding: 10px 14px; cursor: pointer; text-transform: uppercase; box-shadow: 0 0 18px rgba(138, 43, 226, 0.6);">Play</button>
        </div>
-       <div id="gift-card-word-search-pro" class="gift-card" onclick="openWordSearchPro(event)" style="background: #000000; border: 3px solid #ffd700; border-radius: 18px; padding: 22px; text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(255, 215, 0, 0.5); position: relative; min-height: 300px; display: flex; flex-direction: column; gap: 12px; justify-content: space-between;">
+       <div id="gift-card-word-search-pro" class="gift-card" style="background: #000000; border: 3px solid #ffd700; border-radius: 18px; padding: 22px; text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(255, 215, 0, 0.5); position: relative; min-height: 300px; display: flex; flex-direction: column; gap: 12px; justify-content: space-between;">
         <div style="position: absolute; top: 12px; left: 12px; background: #8A2BE2; color: #ffffff; font-size: 0.7rem; font-weight: bold; padding: 6px 10px; border-radius: 10px; text-transform: uppercase; box-shadow: 0 0 12px rgba(138, 43, 226, 0.6);">New</div>
         <div style="width: 86px; height: 86px; margin: 8px auto 6px auto; border-radius: 50%; border: 3px solid #ffd700; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 20px rgba(255,215,0,0.6);">
          <svg width="48" height="48" viewBox="0 0 120 120" aria-hidden="true">
@@ -2263,6 +2354,12 @@
             <div class="kids-tile" style="width: 150px; padding: 8px 15px;">
                 <div class="kids-text">
                     <a href="https://www.tiktok.com/@rise.shine.evolve" target="_blank" rel="noopener noreferrer" style="color: #ff1493; text-decoration: none; text-shadow: 0 0 15px rgba(255, 20, 147, 0.8); font-size: 0.9rem;"><strong>TikTok</strong></a>
+                </div>
+            </div>
+
+            <div class="kids-tile" style="width: 150px; padding: 8px 15px;">
+                <div class="kids-text">
+                    <a href="https://www.youtube.com/@Rise.Shine.Evolve" target="_blank" rel="noopener noreferrer" style="color: #ff0000; text-decoration: none; text-shadow: 0 0 15px rgba(255, 0, 0, 0.6); font-size: 0.9rem;"><strong>YouTube</strong></a>
                 </div>
             </div>
             
@@ -3022,6 +3119,36 @@
                                     <label class="entry__error entry__error--primary" style="font-size:16px;text-align:left;font-family:Helvetica,sans-serif;color:#661d1d;background-color:#ffeded;border-radius:3px;border-color:#ff4949;"></label>
                                 </div>
                             </div>
+                            <div style="text-align: right; margin-top: 4px;">
+                                <button type="button" class="password-toggle" onclick="togglePasswordVisibility(['userPassword'], this)">Show password</button>
+                            </div>
+                        </div>
+                        <div id="resetPasswordFields" style="padding:4px 0; display: none;">
+                            <div class="sib-input sib-form-block">
+                                <div class="form__entry entry_block">
+                                    <div class="form__label-row ">
+                                        <label class="entry__label" style="font-weight:700;text-align:left;font-size:12px;font-family:Helvetica,sans-serif;color:#ffd700;" for="NEW_PASSWORD" data-required="*">New Password</label>
+                                        <div class="entry__field">
+                                            <input class="input" type="password" id="resetPassword" name="NEW_PASSWORD" autocomplete="new-password" placeholder="NEW PASSWORD" data-required="true">
+                                        </div>
+                                    </div>
+                                    <label class="entry__error entry__error--primary" style="font-size:16px;text-align:left;font-family:Helvetica,sans-serif;color:#661d1d;background-color:#ffeded;border-radius:3px;border-color:#ff4949;"></label>
+                                </div>
+                            </div>
+                            <div class="sib-input sib-form-block" style="margin-top: 8px;">
+                                <div class="form__entry entry_block">
+                                    <div class="form__label-row ">
+                                        <label class="entry__label" style="font-weight:700;text-align:left;font-size:12px;font-family:Helvetica,sans-serif;color:#ffd700;" for="CONFIRM_PASSWORD" data-required="*">Confirm Password</label>
+                                        <div class="entry__field">
+                                            <input class="input" type="password" id="resetPasswordConfirm" name="CONFIRM_PASSWORD" autocomplete="new-password" placeholder="CONFIRM PASSWORD" data-required="true">
+                                        </div>
+                                    </div>
+                                    <label class="entry__error entry__error--primary" style="font-size:16px;text-align:left;font-family:Helvetica,sans-serif;color:#661d1d;background-color:#ffeded;border-radius:3px;border-color:#ff4949;"></label>
+                                </div>
+                            </div>
+                            <div style="text-align: right; margin-top: 4px;">
+                                <button type="button" class="password-toggle" onclick="togglePasswordVisibility(['resetPassword','resetPasswordConfirm'], this)">Show passwords</button>
+                            </div>
                         </div>
                         <div id="resetPasswordFields" style="padding:4px 0; display: none;">
                             <div class="sib-input sib-form-block">
@@ -3617,6 +3744,33 @@
       .hm-wheel-layout {
         grid-template-columns: 1fr;
       }
+
+      .hm-wheel-info-stack {
+        order: 1;
+      }
+
+      .hm-wheel-visual-stack {
+        order: 2;
+      }
+
+      .hm-wheel-visual {
+        width: 210px;
+        height: 210px;
+      }
+
+      .hm-wheel-pointer {
+        border-left-width: 16px;
+        border-right-width: 16px;
+        border-top-width: 24px;
+      }
+    }
+
+    .hm-wheel-visual-stack {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
 
       .hm-wheel-info-stack {
         order: 1;
@@ -6638,6 +6792,25 @@ document
             }
         }
 
+        function togglePasswordVisibility(fieldIds, button) {
+            if (!Array.isArray(fieldIds)) {
+                return;
+            }
+            let isVisible = false;
+            fieldIds.forEach((id) => {
+                const input = document.getElementById(id);
+                if (!input) return;
+                const nextType = input.type === 'password' ? 'text' : 'password';
+                input.type = nextType;
+                if (nextType === 'text') {
+                    isVisible = true;
+                }
+            });
+            if (button) {
+                button.textContent = isVisible ? 'Hide password' : 'Show password';
+            }
+        }
+
         async function handlePasswordResetRequest() {
             const rawEmail = document.getElementById('brevoEmail')?.value || '';
             const email = rawEmail.trim().toLowerCase();
@@ -6844,6 +7017,29 @@ document
                 textNodes.forEach((node) => {
                     node.nodeValue = node.nodeValue.replace(/([.:])\s+/g, '$1\n');
                 });
+            });
+        }
+
+        function adjustWheelMobileLayout() {
+            if (!isMobileViewport()) {
+                return;
+            }
+            ['calm', 'energy'].forEach((mode) => {
+                const panel = document.getElementById(`${mode}-panel`);
+                if (!panel) return;
+                const wheelBox = panel.querySelector('.hm-wheel-box');
+                const wheelLayout = panel.querySelector('.hm-wheel-layout');
+                const infoBar = panel.querySelector('.hm-info-bar');
+                const resultBox = panel.querySelector('.hm-result-box');
+                if (wheelBox && infoBar && wheelLayout && !wheelBox.contains(infoBar)) {
+                    wheelBox.insertBefore(infoBar, wheelLayout);
+                }
+                if (wheelBox && resultBox && !wheelBox.contains(resultBox)) {
+                    wheelBox.appendChild(resultBox);
+                }
+                if (wheelBox) {
+                    wheelBox.style.textAlign = 'center';
+                }
             });
         }
 
@@ -8005,6 +8201,7 @@ document
             applyCoverImages();
             const verificationHandled = handleVerificationRedirect();
             applyMobileLineBreaks();
+            adjustWheelMobileLayout();
             initGiftTapListeners();
             const authActionButton = document.getElementById('auth-action-button');
             if (authActionButton) {
@@ -8154,12 +8351,16 @@ document
         function setGiftFrameHtml(html) {
             if (!html) return false;
             const preferBlob = window.matchMedia && window.matchMedia('(max-width: 720px)').matches;
+            const baseHref = window.location.origin ? `${window.location.origin}/` : '';
+            const htmlWithBase = baseHref && !html.includes('<base')
+                ? html.replace('<head>', `<head><base href="${baseHref}">`)
+                : html;
             if (!preferBlob && ('srcdoc' in giftFrame)) {
-                giftFrame.srcdoc = html;
+                giftFrame.srcdoc = htmlWithBase;
                 giftFrame.removeAttribute('src');
                 return true;
             }
-            const blob = new Blob([html], { type: 'text/html' });
+            const blob = new Blob([htmlWithBase], { type: 'text/html' });
             if (giftBlobUrl) {
                 URL.revokeObjectURL(giftBlobUrl);
             }
@@ -8388,6 +8589,15 @@ document
                 }
             }
 
+            if (isMobileViewport()) {
+                const mainTab = getTabElement('main');
+                if (mainTab) {
+                    selectTab(mainTab, 'main', { skipHistory: true });
+                    history.pushState({ tab: 'main', base: true }, '', '#main');
+                }
+                return;
+            }
+
             const activeTab = document.querySelector('.tab.active');
             const mainTab = getTabElement('main');
             if ((!event.state || !event.state.tab) && activeTab && mainTab && activeTab.dataset.tab !== 'main') {
@@ -8435,15 +8645,6 @@ document
         }
 
         function initGiftTapListeners() {
-            const cards = [
-                { id: 'gift-card-calm-energy', handler: openCalmEnergyWheel },
-                { id: 'gift-card-word-search', handler: openWordSearch },
-                { id: 'gift-card-word-search-pro', handler: openWordSearchPro },
-            ];
-            cards.forEach(({ id, handler }) => {
-                addTapListener(document.getElementById(id), handler);
-            });
-
             const buttons = [
                 { selector: '[onclick*="openCalmEnergyWheel"]', handler: openCalmEnergyWheel },
                 { selector: '[onclick*="openOneMinuteChallenge"]', handler: openOneMinuteChallenge },
