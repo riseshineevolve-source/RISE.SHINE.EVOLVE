@@ -589,9 +589,13 @@
                 font-size: 0.95rem;
             }
             .info-tile {
-                max-width: 340px;
-                padding: 10px 14px;
-                font-size: 0.78rem;
+                max-width: 520px;
+                width: min(520px, 96vw);
+                padding: 8px 12px;
+                font-size: 0.75rem;
+            }
+            .info-text .info-line {
+                font-size: 0.7rem;
             }
             .info-text .info-line {
                 font-size: 0.72rem;
@@ -1294,15 +1298,15 @@
             }
 
             .floating-boxes .elegant-christmas-box {
-                width: 150px;
-                min-height: 240px;
+                width: 165px;
+                min-height: 260px;
                 justify-content: flex-end;
             }
 
             .floating-boxes .floating-box-image {
-                height: 120px;
+                height: 140px;
                 object-fit: contain;
-                object-position: center;
+                object-position: center top;
             }
 
             .mobile-line-breaks {
@@ -1356,7 +1360,9 @@
             }
 
             .gift-card-description {
-                display: none;
+                display: block;
+                font-size: 0.9rem;
+                margin: 0 0 10px 0;
             }
 
             .hm-wheel-title {
@@ -1800,9 +1806,9 @@
   </div>
    <div class="info-tile" id="dynamic-info-tile">
     <div class="info-text">
-     Join us on a journey where every child can <span class="word-rise">RISE</span>,<br>
-     every family can <span class="word-shine">SHINE</span><br>
-     and every person can <span class="word-evolve">EVOLVE</span>.
+     <span class="info-line">Step into a journey where every child can <span class="word-rise">RISE</span>,</span>
+     <span class="info-line">every family can <span class="word-shine">SHINE</span>,</span>
+     <span class="info-line">and every person can <span class="word-evolve">EVOLVE</span>.</span>
     </div>
    </div>
    <div class="tabs-container">
@@ -8141,6 +8147,26 @@ document
             }
             return true;
         }
+
+        function ensureRecoveryModalVisible() {
+            if (!isMobileViewport()) {
+                return;
+            }
+            const hash = window.location.hash || '';
+            const searchParams = new URLSearchParams(window.location.search || '');
+            const hashParams = new URLSearchParams(hash.replace('#', ''));
+            const type = searchParams.get('type') || hashParams.get('type') || '';
+            const hasToken = hash.includes('access_token=') || searchParams.has('access_token');
+            const isRecoveryFlow = type === 'recovery' || (!type && hasToken);
+            if (!isRecoveryFlow) {
+                return;
+            }
+            const modal = document.getElementById('emailModal');
+            const modalOpen = modal && (modal.style.display === 'flex' || modal.classList.contains('show'));
+            if (!modalOpen) {
+                showEmailModal('set-password', 'Set your new password below.', '#ffd700');
+            }
+        }
         function handleUnsubscribe(event) {
             event.preventDefault();
             const form = event.target;
@@ -8233,6 +8259,13 @@ document
                         }
                         return;
                     }
+                    if (data?.error) {
+                        if (messageBox) {
+                            messageBox.style.color = '#ff69b4';
+                            messageBox.textContent = data.error;
+                        }
+                        return;
+                    }
                     if (messageBox) {
                         messageBox.style.color = '#ffd700';
                         messageBox.textContent = 'Please open the confirmation email in your inbox to complete your account removal.';
@@ -8256,6 +8289,7 @@ document
             applyCharacterPortraits();
             applyCoverImages();
             const verificationHandled = handleVerificationRedirect();
+            ensureRecoveryModalVisible();
             applyMobileLineBreaks();
             adjustWheelMobileLayout();
             initGiftTapListeners();
