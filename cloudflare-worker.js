@@ -239,6 +239,12 @@ async function handleConfirmationLink(url, env) {
     const signature = url.searchParams.get("sig");
 
     if (!email || !userId || !signature) return new Response("Błędny link", { status: 400 });
+    if (!env.UNSUBSCRIBE_CONFIRM_SECRET) {
+        return new Response("Missing confirmation secret", { status: 500 });
+    }
+    if (!env.BREVO_API_KEY || !env.SUPABASE_SERVICE_ROLE_KEY) {
+        return new Response("Missing service configuration", { status: 500 });
+    }
 
     // Weryfikujemy podpis
     const dataToSign = `${email}:${userId}`;
@@ -274,7 +280,7 @@ async function handleConfirmationLink(url, env) {
             <body style="font-family: sans-serif; text-align: center; padding: 50px;">
                 <h1 style="color: green;">Your account has been successfully deleted.</h1>
                 <p>We are sorry to see you go!</p>
-                <p>Whenever you’re ready to come back again, we’ll be here to Rise. Shine. Evolve.</p>
+                <p>Whenever you’re ready to return, we’ll be here - to Rise. Shine. Evolve.</p>
             </body>
         </html>
     `, { headers: { "Content-Type": "text/html; charset=utf-8" } });
