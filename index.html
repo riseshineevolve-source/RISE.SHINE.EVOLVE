@@ -218,6 +218,15 @@
             border-radius: 14px !important;
         }
 
+        .mobile-only {
+            display: none;
+        }
+
+        .info-text .info-line {
+            display: block;
+            white-space: nowrap;
+        }
+
         #auth-action-chip {
             position: absolute;
             top: 16px;
@@ -237,6 +246,14 @@
             text-transform: uppercase;
             letter-spacing: 0.5px;
             max-width: 70vw;
+        }
+
+        #auth-action-label {
+            display: inline-block;
+            max-width: 40vw;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
 
         #auth-action-button {
@@ -264,6 +281,10 @@
             #auth-action-button {
                 font-size: 0.5rem;
                 padding: 2px 6px;
+            }
+
+            #auth-action-label {
+                max-width: 48vw;
             }
         }
 
@@ -571,6 +592,9 @@
                 max-width: 340px;
                 padding: 10px 14px;
                 font-size: 0.78rem;
+            }
+            .info-text .info-line {
+                font-size: 0.72rem;
             }
             .kids-tile {
                 padding: 14px 16px !important;
@@ -1254,6 +1278,10 @@
         }
 
         @media (max-width: 768px) {
+            .mobile-only {
+                display: block;
+            }
+
             .floating-boxes {
                 justify-content: center;
                 flex-wrap: wrap;
@@ -1273,8 +1301,8 @@
 
             .floating-boxes .floating-box-image {
                 height: 96px;
-                object-fit: cover;
-                object-position: bottom;
+                object-fit: contain;
+                object-position: center;
             }
 
             .mobile-line-breaks {
@@ -1346,6 +1374,14 @@
 
             .hm-result-main-title {
                 font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 768px) and (orientation: landscape) {
+            .gifts-library-grid {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 16px;
             }
         }
 
@@ -1825,9 +1861,9 @@
      <div class="kids-tile" style="border: 3px solid #8A2BE2; box-shadow: 0 0 35px rgba(138, 43, 226, 0.7), 0 0 60px rgba(138, 43, 226, 0.4); margin: 26px auto; max-width: 900px;">
       <div class="kids-text" style="font-size: 1.05rem; line-height: 1.7; text-align: justify; text-align-last: center;">
        <p style="margin: 0 0 14px 0;">Let’s be honest: family life is an epic co-op game.<br>Teamwork, surprise levels and some mornings starting on <span style="color:#8A2BE2; font-weight:700;">Hard Mode</span>.</p>
-       <p style="margin: 0 0 14px 0;">That’s where <span style="color:#8A2BE2; font-weight:700;">Rise.Shine.Evolve Learning Hub</span> comes in.<br>We turn everyday challenges into simple,<br>usable tools for calm, confidence, connection, and joy.</p>
+       <p style="margin: 0 0 14px 0;">That’s where<br class="mobile-only"><span style="color:#8A2BE2; font-weight:700;">Rise.Shine.Evolve Learning Hub</span> comes in.<br>We turn everyday challenges into simple,<br>usable tools for calm, confidence, connection, and joy.</p>
        <p style="margin: 0 0 14px 0;">Tools kids can actually reach for in the moment.<br>(No lectures, no “perfect kid” pressure.)</p>
-       <p style="margin: 0 0 14px 0;">Think of it as a real-life power-up guide.<br>Helping children unlock the strengths already inside them.<br>And grow into the <span style="color:#ffd700; font-weight:700;">best version of themselves</span>.</p>
+       <p style="margin: 0 0 14px 0;">Think of it as a real-life power-up guide.<br>Helping children unlock the strengths already inside them.<br>And grow into<br class="mobile-only"><span style="color:#ffd700; font-weight:700;">the best version of themselves</span>.</p>
        <p style="margin: 0 0 14px 0;">Explore our Library of guided journeys and family-friendly experiences designed to build resilience, emotional strength, and self-belief.</p>
        <p style="margin: 0 0 14px 0;">Not just for “good days”.<br>But for the random messy Tuesday, too.</p>
        <p style="margin: 0 0 10px 0;"><strong style="color:#8A2BE2;">Need something fast?</strong></p>
@@ -1906,7 +1942,7 @@
            <animate attributename="opacity" values="0.8;0.3;0.8" dur="1.8s" repeatcount="indefinite" />
           </circle>
          </svg> LIBRARY COLLECTION</h3>
-        <p style="color: #ffd700; font-size: 1.1rem; margin: -10px 0 16px 0; font-weight: bold; text-shadow: 0 0 15px rgba(255, 215, 0, 0.8);">Explore the Library<br>Tap a cover for the full journey, details.</p><!-- Bookshelf -->
+        <p style="color: #ffd700; font-size: 1.1rem; margin: -10px 0 16px 0; font-weight: bold; text-shadow: 0 0 15px rgba(255, 215, 0, 0.8);">Explore the Library<br>Tap a cover for the full journey, details, and a closer look.</p><!-- Bookshelf -->
         <div style="
                                 margin-bottom: 30px;
                                 padding: 20px;
@@ -2207,7 +2243,7 @@
       <div class="kids-text" style="margin-bottom: 20px;">
        <h3 style="color: #8A2BE2; font-size: 1.9rem; margin: 0 0 10px 0; text-shadow: 0 0 18px rgba(138, 43, 226, 0.7);">GIFTS LIBRARY</h3>
        <p style="color: #ffd700; font-size: 1rem; margin: 0;">Explore new resources as they arrive - Calm + Energy Wheel, the 1-Minute Challenge, the Happy Makers mini Word Search and the full Word Search Studio.</p>
-       <p style="color: #ffffff; font-size: 0.95rem; margin: 10px 0 0 0;">Tip for smaller screens: GIFTS work best in landscape view, but you can still explore them in portrait mode.</p>
+       <p style="color: #ffffff; font-size: 0.95rem; margin: 10px 0 0 0;">Tip for smaller screens: GIFTS work in both portrait and landscape views.</p>
       </div>
       <div class="gifts-library-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; padding: 0 10px;">
        <div id="gift-card-calm-energy" class="gift-card" style="background: #000000; border: 3px solid #ffd700; border-radius: 18px; padding: 22px; text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(255, 215, 0, 0.5); position: relative; min-height: 300px; display: flex; flex-direction: column; align-items: center; gap: 12px;">
@@ -3123,6 +3159,34 @@
                             </div>
                         <div id="passwordToggleContainer" style="text-align: right; margin-top: 4px;">
                             <button type="button" class="password-toggle" onclick="togglePasswordVisibility(['userPassword'], this)">Show password</button>
+                        </div>
+                        </div>
+                        <div id="resetPasswordFields" style="padding:4px 0; display: none;">
+                            <div class="sib-input sib-form-block">
+                                <div class="form__entry entry_block">
+                                    <div class="form__label-row ">
+                                        <label class="entry__label" style="font-weight:700;text-align:left;font-size:12px;font-family:Helvetica,sans-serif;color:#ffd700;" for="NEW_PASSWORD" data-required="*">New Password</label>
+                                        <div class="entry__field">
+                                            <input class="input" type="password" id="resetPassword" name="NEW_PASSWORD" autocomplete="new-password" placeholder="NEW PASSWORD" data-required="true">
+                                        </div>
+                                    </div>
+                                    <label class="entry__error entry__error--primary" style="font-size:16px;text-align:left;font-family:Helvetica,sans-serif;color:#661d1d;background-color:#ffeded;border-radius:3px;border-color:#ff4949;"></label>
+                                </div>
+                            </div>
+                            <div class="sib-input sib-form-block" style="margin-top: 8px;">
+                                <div class="form__entry entry_block">
+                                    <div class="form__label-row ">
+                                        <label class="entry__label" style="font-weight:700;text-align:left;font-size:12px;font-family:Helvetica,sans-serif;color:#ffd700;" for="CONFIRM_PASSWORD" data-required="*">Confirm Password</label>
+                                        <div class="entry__field">
+                                            <input class="input" type="password" id="resetPasswordConfirm" name="CONFIRM_PASSWORD" autocomplete="new-password" placeholder="CONFIRM PASSWORD" data-required="true">
+                                        </div>
+                                    </div>
+                                    <label class="entry__error entry__error--primary" style="font-size:16px;text-align:left;font-family:Helvetica,sans-serif;color:#661d1d;background-color:#ffeded;border-radius:3px;border-color:#ff4949;"></label>
+                                </div>
+                            </div>
+                            <div style="text-align: right; margin-top: 4px;">
+                                <button type="button" class="password-toggle" onclick="togglePasswordVisibility(['resetPassword','resetPasswordConfirm'], this)">Show passwords</button>
+                            </div>
                         </div>
                         </div>
                         <div id="resetPasswordFields" style="padding:4px 0; display: none;">
@@ -6606,24 +6670,24 @@ document
 
         // Dynamic info tile copy
         const infoMessages = {
-            main: `Join us on a journey where every child can <span class="word-rise">RISE</span>,<br>
-                every family can <span class="word-shine">SHINE</span><br>
-                and every person can <span class="word-evolve">EVOLVE</span>.`,
-            kids: `Watch your child <span class="word-rise">RISE</span> to new adventures,<br>
-                see their natural curiosity <span class="word-shine">SHINE</span> bright<br>
-                and together you'll <span class="word-evolve">EVOLVE</span> into an unstoppable team!`,
-            teenagers: `Navigate your journey to <span class="word-rise">RISE</span> above challenges,<br>
-                discover your unique way to <span class="word-shine">SHINE</span><br>
-                and embrace the power within you to <span class="word-evolve">EVOLVE</span>.`,
-            adults: `It's never too late to <span class="word-rise">RISE</span>,<br>
-                your experience helps you <span class="word-shine">SHINE</span> brighter<br>
-                and you can embrace the power within you to <span class="word-evolve">EVOLVE</span>.`,
-            gifts: `Free resources to help you <span class="word-rise">RISE</span>,<br>
-                tools that make you <span class="word-shine">SHINE</span><br>
-                and materials that help you <span class="word-evolve">EVOLVE</span>.`,
-            contact: `Ready to <span class="word-rise">RISE</span> together?<br>
-                Let's help you <span class="word-shine">SHINE</span><br>
-                and connect with us to <span class="word-evolve">EVOLVE</span>.`
+            main: `<span class="info-line">Every child can <span class="word-rise">RISE</span>.</span>
+                <span class="info-line">Every family can <span class="word-shine">SHINE</span>.</span>
+                <span class="info-line">Every soul can <span class="word-evolve">EVOLVE</span>.</span>`,
+            kids: `<span class="info-line">Watch them <span class="word-rise">RISE</span>.</span>
+                <span class="info-line">Help them <span class="word-shine">SHINE</span>.</span>
+                <span class="info-line">Grow as you <span class="word-evolve">EVOLVE</span>.</span>`,
+            teenagers: `<span class="info-line">Find strength to <span class="word-rise">RISE</span>.</span>
+                <span class="info-line">Own the way you <span class="word-shine">SHINE</span>.</span>
+                <span class="info-line">Step forward and <span class="word-evolve">EVOLVE</span>.</span>`,
+            adults: `<span class="info-line">It's never too late to <span class="word-rise">RISE</span>.</span>
+                <span class="info-line">Let experience help you <span class="word-shine">SHINE</span>.</span>
+                <span class="info-line">Keep growing and <span class="word-evolve">EVOLVE</span>.</span>`,
+            gifts: `<span class="info-line">Free resources to help you <span class="word-rise">RISE</span>.</span>
+                <span class="info-line">Tools that make you <span class="word-shine">SHINE</span>.</span>
+                <span class="info-line">And materials that help you <span class="word-evolve">EVOLVE</span>.</span>`,
+            contact: `<span class="info-line">Ready to <span class="word-rise">RISE</span> together?</span>
+                <span class="info-line">Let's help you <span class="word-shine">SHINE</span>.</span>
+                <span class="info-line">Connect and <span class="word-evolve">EVOLVE</span>.</span>`
         };
 
         function updateInfoTile(tabName) {
@@ -7642,6 +7706,9 @@ document
             bookDetailsWrapper.style.display = 'block';
             bookDetailsWrapper.scrollTop = 0;
             window.scrollTo(0, 0);
+            if (!history.state || history.state.modal !== 'book') {
+                history.pushState({ modal: 'book' }, '', window.location.href);
+            }
 
             const detailsContent = document.getElementById('full-screen-book-details-content');
             detailsContent.scrollTop = 0;
@@ -7657,12 +7724,12 @@ document
                         <p style="margin-bottom: 12px; text-align: justify; text-align-last: center;"><strong style="color: #8A2BE2;">THE PARENTING CHALLENGE</strong><br>Let’s be honest: growing up is an amazing journey.<br>But sometimes it feels like playing a video game on ‘Hard Mode’.<br>The world gets loud, feelings get messy, and the pressure to fit in can be overwhelming.</p>
                         <p style="margin-bottom: 12px; text-align: justify; text-align-last: center;">You see your child struggling with worry, perfectionism, or just finding their voice.<br>You want to guide them with confidence and joy, but you fear that asking questions feels like an “interrogation” or a “boring lecture.” You are scrambling to find the right tools to calm the storm when emotions take over.<br>Where do you start?</p>
 
-                        <p style="margin-bottom: 12px; text-align: justify; text-align-last: center;"><strong style="color: #8A2BE2;">THE HAPPY MAKERS SOLUTION</strong><br>Welcome to <span style="color:#ffd700; font-weight:700;">The Confident, Mindful &amp; Happy Me Adventure!</span><br>This isn't just a book.<br>It is an interactive Survival Kit and a creative roadmap designed to help your child master the wild ride of growing up with courage and a smile.<br>We turn “I can’t” into “I can,” and boring days into legendary quests.</p>
+                        <p style="margin-bottom: 12px; text-align: justify; text-align-last: center;"><strong style="color: #8A2BE2;">THE HAPPY MAKERS SOLUTION</strong><br>Welcome to<br class="mobile-only"><span style="color:#ffd700; font-weight:700;">The Confident, Mindful &amp; Happy Me</span><br class="mobile-only"><span style="color:#ffd700; font-weight:700;">Adventure!</span><br>This isn't just a book.<br>It is an interactive Survival Kit and a creative roadmap designed to help your child master the wild ride of growing up with courage and a smile.<br>We turn “I can’t” into “I can,” and boring days into legendary quests.</p>
 
                         <p style="margin-bottom: 12px; text-align: justify; text-align-last: center;"><strong style="color: #8A2BE2;">MEET THE GUIDES</strong><br>Your child won't be doing this alone.<br>They will be led by The Happy Makers Squad, a lovable family of trusted guides and fun-loving co-pilots: Mimi, Luli, Dilo, Alio, and Nini.</p>
-                        <p style="margin-bottom: 12px; text-align: justify; text-align-last: center;">They show your child that they don't need a superhero cape to be brave.<br>They just need to unlock the superpowers already hiding inside.<br>To become <span style="color:#ffd700; font-weight:700;">THE BEST VERSION OF THEMSELVES.</span></p>
+                        <p style="margin-bottom: 12px; text-align: justify; text-align-last: center;">They show your child that they don't need a superhero cape to be brave.<br>They just need to unlock the superpowers already hiding inside.<br>To become<br class="mobile-only"><span style="color:#ffd700; font-weight:700;">THE BEST VERSION OF THEMSELVES.</span></p>
 
-                        <p style="margin-bottom: 12px; text-align: justify; text-align-last: center;"><strong style="color: #8A2BE2;">THE 31-DAY MISSION: READY TO LEVEL UP?</strong><br>This book is designed to fit into real life.<br>No pressure.<br>No perfection.<br>Just 10 minutes of connection and fun a day.</p>
+                        <p style="margin-bottom: 12px; text-align: justify; text-align-last: center;"><strong style="color: #8A2BE2;">THE 31-DAY MISSION: READY TO LEVEL UP?</strong><br>This book is designed to fit into real life.<br>No pressure.<br>No perfection.<br>Just 10 minutes of connection<br class="mobile-only">and fun a day.</p>
 
                         <p style="margin-top: 18px; font-weight: 700; color: #ffd700;">The journey is divided into 5 EXCITING LEVELS to build unshakeable resilience:</p>
                         <p style="margin-bottom: 12px; text-align: justify; text-align-last: center;"><strong style="color:#8A2BE2;">WEEK 1: Build Your Fortress (Feeling Safe &amp; Grounded)</strong><br><span style="color: #ffffff;">We start by building a strong foundation.</span><br><span style="color: #ffffff;">Your child will learn grounding techniques to feel secure and worthy, no matter what happens around them.</span></p>
@@ -7707,7 +7774,7 @@ document
                 detailsContent.innerHTML = `
                     <!-- Brand Name -->
                     <div style="text-align: center; margin-bottom: 25px;">
-                        <span style="color: #8A2BE2; font-weight: bold; font-size: 1.6rem; text-shadow: 0 0 20px rgba(138, 43, 226, 0.8);">The Happy-Makers Family Presents:</span>
+                        <span style="color: #8A2BE2; font-weight: bold; font-size: 1.6rem; text-shadow: 0 0 20px rgba(138, 43, 226, 0.8);">The Happy-Makers Present:</span>
                     </div>
                     
                     <h2 style="color: #ffd700; font-size: 2.5rem; margin-bottom: 15px; text-shadow: 0 0 30px rgba(255, 215, 0, 0.8); text-align: center;">24 GENTLE STEPS TO CHRISTMAS</h2>
@@ -7904,9 +7971,12 @@ document
             applyCoverImages();
         }
 
-        function backToLibraryFromFullScreen() {
+        function backToLibraryFromFullScreen(fromHistory = false) {
             document.getElementById('full-screen-book-details').style.display = 'none';
             document.querySelector('.container').style.display = 'block';
+            if (!fromHistory && history.state && history.state.modal === 'book') {
+                history.back();
+            }
         }
 
         function checkGiftsAccess() {
@@ -8343,12 +8413,11 @@ document
 
         function setGiftFrameHtml(html) {
             if (!html) return false;
-            const preferBlob = window.matchMedia && window.matchMedia('(max-width: 720px)').matches;
             const baseHref = window.location.origin ? `${window.location.origin}/` : '';
             const htmlWithBase = baseHref && !html.includes('<base')
-                ? html.replace('<head>', `<head><base href="${baseHref}">`)
+                ? html.replace(/<head([^>]*)>/i, `<head$1><base href="${baseHref}">`)
                 : html;
-            if (!preferBlob && ('srcdoc' in giftFrame)) {
+            if ('srcdoc' in giftFrame) {
                 giftFrame.srcdoc = htmlWithBase;
                 giftFrame.removeAttribute('src');
                 return true;
@@ -8361,29 +8430,6 @@ document
             giftFrame.removeAttribute('srcdoc');
             giftFrame.src = giftBlobUrl;
             return true;
-        }
-
-        function openGiftInNewWindow(key, html, source) {
-            const preferBlob = window.matchMedia && window.matchMedia('(max-width: 720px)').matches;
-            if (!preferBlob) {
-                return false;
-            }
-            if (source) {
-                const popup = window.open(source, '_blank', 'noopener,noreferrer');
-                return !!popup;
-            }
-            if (!html) {
-                return false;
-            }
-            const blob = new Blob([html], { type: 'text/html' });
-            const blobUrl = URL.createObjectURL(blob);
-            const popup = window.open(blobUrl, '_blank', 'noopener,noreferrer');
-            if (popup) {
-                setTimeout(() => URL.revokeObjectURL(blobUrl), 30000);
-                return true;
-            }
-            URL.revokeObjectURL(blobUrl);
-            return false;
         }
 
         function revealGiftFrameSoon() {
@@ -8553,6 +8599,7 @@ document
             const emailModal = document.getElementById('emailModal');
             const privacyModal = document.getElementById('privacyModal');
             const welcomeModal = document.getElementById('welcomeModal');
+            const bookDetails = document.getElementById('full-screen-book-details');
 
             if (privacyModal && privacyModal.style.display === 'block') {
                 closePrivacyModal();
@@ -8566,6 +8613,11 @@ document
 
             if (welcomeModal && welcomeModal.style.display === 'flex') {
                 closeWelcomeModal();
+                return;
+            }
+
+            if (bookDetails && bookDetails.style.display === 'block') {
+                backToLibraryFromFullScreen(true);
                 return;
             }
 
