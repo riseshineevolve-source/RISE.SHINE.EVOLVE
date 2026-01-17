@@ -7941,7 +7941,7 @@ document
                 if (!userId) {
                     if (messageBox) {
                         messageBox.style.color = '#ff69b4';
-                        messageBox.textContent = 'Please log in with this email to confirm account removal.';
+                        messageBox.textContent = 'Please open the confirmation email in your inbox to complete your account removal.';
                     }
                     return;
                 }
@@ -8339,10 +8339,19 @@ document
             }
 
             if (giftOverlayOpen && history.state && history.state.giftOverlay && !fromHistory) {
+                const activeTab = document.querySelector('.tab.active');
+                const tabName = activeTab?.dataset?.tab || 'main';
                 giftOverlayOpen = false;
                 history.replaceState({ giftOverlay: false }, document.title, window.location.href);
             } else {
                 giftOverlayOpen = false;
+            }
+            const activeTab = document.querySelector('.tab.active');
+            if (activeTab?.dataset?.tab === 'gifts') {
+                const giftsContent = document.getElementById('gifts-content');
+                if (giftsContent && !giftsContent.classList.contains('active')) {
+                    showTabContent(activeTab, 'gifts', { skipHistory: true });
+                }
             }
         }
 
@@ -8371,11 +8380,19 @@ document
                 return;
             }
 
+            if (event.state && event.state.tab) {
+                const tabElement = getTabElement(event.state.tab);
+                if (tabElement) {
+                    selectTab(tabElement, event.state.tab, { skipHistory: true });
+                    return;
+                }
+            }
+
             const activeTab = document.querySelector('.tab.active');
             const mainTab = getTabElement('main');
             if ((!event.state || !event.state.tab) && activeTab && mainTab && activeTab.dataset.tab !== 'main') {
                 selectTab(mainTab, 'main', { skipHistory: true });
-                history.pushState({ tab: 'main', base: true }, '', '#main');
+                history.replaceState({ tab: 'main', base: true }, '', '#main');
                 return;
             }
             const targetTab = (event.state && event.state.tab) ? event.state.tab : (activeTab ? activeTab.dataset.tab : 'main');
