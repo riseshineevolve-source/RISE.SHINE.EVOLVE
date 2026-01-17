@@ -1268,24 +1268,26 @@
             .floating-boxes .elegant-christmas-box {
                 width: 150px;
                 min-height: 220px;
+                justify-content: flex-end;
             }
 
             .floating-boxes .floating-box-image {
                 height: 96px;
                 object-fit: cover;
+                object-position: bottom;
             }
 
             .mobile-line-breaks {
                 white-space: pre-line;
             }
 
-            .kids-text .word-rise,
-            .kids-text .word-shine,
-            .kids-text .word-evolve {
+            .mobile-line-breaks .word-rise,
+            .mobile-line-breaks .word-shine,
+            .mobile-line-breaks .word-evolve {
                 display: block;
             }
 
-            .kids-text span[style*="color"] {
+            .mobile-line-breaks span[style*="color"] {
                 display: block;
             }
 
@@ -3595,6 +3597,36 @@
         width: 220px;
         height: 220px;
       }
+
+      .hm-wheel-title {
+        font-size: 1.35rem;
+      }
+
+      .hm-wheel-subtitle {
+        font-size: 1rem;
+        text-align: center;
+      }
+
+      .hm-controls-label {
+        font-size: 0.95rem;
+      }
+
+      .hm-filter-btn {
+        font-size: 0.85rem;
+      }
+
+      .hm-filter-btn span {
+        font-size: 0.88rem;
+      }
+
+      .hm-info-text {
+        font-size: 0.95rem;
+        text-align: center;
+      }
+
+      .hm-result-main-title {
+        font-size: 1.25rem;
+      }
     }
 
     @media (max-width: 1024px) {
@@ -3719,14 +3751,19 @@
     @media (max-width: 720px) {
       .hm-wheel-layout {
         grid-template-columns: 1fr;
+        justify-items: center;
       }
 
       .hm-wheel-info-stack {
         order: 1;
+        width: 100%;
+        align-items: center;
       }
 
       .hm-wheel-visual-stack {
         order: 2;
+        width: 100%;
+        align-items: center;
       }
 
       .hm-wheel-visual {
@@ -3738,6 +3775,16 @@
         border-left-width: 16px;
         border-right-width: 16px;
         border-top-width: 24px;
+      }
+
+      .hm-info-bar {
+        text-align: center;
+        margin: 0 auto;
+      }
+
+      .hm-result-box {
+        width: 100%;
+        text-align: center;
       }
     }
 
@@ -6950,7 +6997,6 @@ document
                 return;
             }
             const selectors = [
-                '.kids-text',
                 '.story-text',
                 '.character-description p',
                 '.book-details-view p',
@@ -8494,9 +8540,16 @@ document
                 const activeTab = document.querySelector('.tab.active');
                 const tabName = activeTab?.dataset?.tab || 'main';
                 giftOverlayOpen = false;
-                history.replaceState({ giftOverlay: false }, document.title, window.location.href);
-            } else {
-                giftOverlayOpen = false;
+                history.back();
+                return;
+            }
+            giftOverlayOpen = false;
+            const activeTab = document.querySelector('.tab.active');
+            if (activeTab?.dataset?.tab === 'gifts') {
+                const giftsContent = document.getElementById('gifts-content');
+                if (giftsContent && !giftsContent.classList.contains('active')) {
+                    showTabContent(activeTab, 'gifts', { skipHistory: true });
+                }
             }
             const activeTab = document.querySelector('.tab.active');
             if (activeTab?.dataset?.tab === 'gifts') {
