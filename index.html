@@ -597,9 +597,6 @@
             .info-text .info-line {
                 font-size: 0.7rem;
             }
-            .info-text .info-line {
-                font-size: 0.72rem;
-            }
             .kids-tile {
                 padding: 14px 16px !important;
             }
@@ -1058,6 +1055,10 @@
             box-shadow: 0 0 18px rgba(138, 43, 226, 0.6);
             margin-top: auto;
             width: fit-content;
+            position: relative;
+            z-index: 1;
+            pointer-events: auto;
+            touch-action: manipulation;
         }
 
         /* Tabs */
@@ -2246,7 +2247,7 @@
        <p style="color: #ffffff; font-size: 0.95rem; margin: 10px 0 0 0;">Tip for smaller screens: GIFTS work beautifully in both portrait and landscape.</p>
       </div>
       <div class="gifts-library-grid" style="display: flex; flex-direction: column; gap: 24px; padding: 0 10px;">
-       <div id="gift-card-calm-energy" class="gift-card" style="background: #000000; border: 3px solid #ffd700; border-radius: 18px; padding: 22px; text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(255, 215, 0, 0.5); position: relative; min-height: 300px; display: flex; flex-direction: column; align-items: center; gap: 12px;">
+       <div id="gift-card-calm-energy" class="gift-card" data-gift="calmEnergy" style="background: #000000; border: 3px solid #ffd700; border-radius: 18px; padding: 22px; text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(255, 215, 0, 0.5); position: relative; min-height: 300px; display: flex; flex-direction: column; align-items: center; gap: 12px;">
         <div style="position: absolute; top: 12px; left: 12px; background: #8A2BE2; color: #ffffff; font-size: 0.7rem; font-weight: bold; padding: 6px 10px; border-radius: 10px; text-transform: uppercase; box-shadow: 0 0 12px rgba(138, 43, 226, 0.6);">Available</div>
         <div style="width: 86px; height: 86px; margin-top: 8px; border-radius: 50%; border: 3px solid #ffd700; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 20px rgba(255,215,0,0.6);">
          <svg width="46" height="46" viewbox="0 0 120 120" aria-hidden="true">
@@ -2269,9 +2270,9 @@
         </div>
         <h4 style="color: #ffd700; margin: 0; font-size: 1.25rem; text-shadow: 0 0 15px rgba(255, 215, 0, 0.7);">Calm + Energy Wheel</h4>
         <p class="gift-card-description" style="color: #ffffff; font-size: 0.95rem; line-height: 1.5;">Two tiny spins for your family: one to soften and slow down, one to brighten and wake up. Spin, stop and let The Happy-Makers guide you.</p>
-        <button data-gift="calmEnergy" onclick="openCalmEnergyWheel(event)" style="background: linear-gradient(45deg, #8A2BE2, #9932CC); border: 2px solid #ffd700; border-radius: 14px; color: #ffffff; font-weight: bold; padding: 10px 16px; cursor: pointer; text-transform: uppercase; box-shadow: 0 0 18px rgba(138, 43, 226, 0.6); margin-top: auto;">SPIN THE WHEEL</button>
+        <button type="button" class="gift-open-btn" data-gift="calmEnergy" onclick="openCalmEnergyWheel(event)" style="background: linear-gradient(45deg, #8A2BE2, #9932CC); border: 2px solid #ffd700; border-radius: 14px; color: #ffffff; font-weight: bold; padding: 10px 16px; cursor: pointer; text-transform: uppercase; box-shadow: 0 0 18px rgba(138, 43, 226, 0.6); margin-top: auto;">SPIN THE WHEEL</button>
        </div>
-       <div class="gift-card" style="background: #000000; border: 3px solid #ffd700; border-radius: 18px; padding: 22px; text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(255, 215, 0, 0.5); position: relative; min-height: 300px; display: flex; flex-direction: column; align-items: center; gap: 12px;">
+       <div class="gift-card" data-gift="oneMinute" style="background: #000000; border: 3px solid #ffd700; border-radius: 18px; padding: 22px; text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(255, 215, 0, 0.5); position: relative; min-height: 300px; display: flex; flex-direction: column; align-items: center; gap: 12px;">
         <div style="position: absolute; top: 12px; left: 12px; background: #8A2BE2; color: #ffffff; font-size: 0.7rem; font-weight: bold; padding: 6px 10px; border-radius: 10px; text-transform: uppercase; box-shadow: 0 0 12px rgba(138, 43, 226, 0.6);">Available</div>
         <div style="width: 86px; height: 86px; margin-top: 8px; border-radius: 50%; border: 3px solid #ffd700; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 20px rgba(255,215,0,0.6);">
          <svg width="46" height="46" viewbox="0 0 120 120" aria-hidden="true">
@@ -2288,9 +2289,9 @@
         </div>
         <h4 style="color: #ffd700; margin: 0; font-size: 1.25rem; text-shadow: 0 0 15px rgba(255, 215, 0, 0.7);">1-Minute Challenge</h4>
         <p class="gift-card-description" style="color: #ffffff; font-size: 0.95rem; line-height: 1.5;">One click. One tiny mission. One minute of joy, creativity, or connection. Powered by your Happy-Makers.</p>
-        <button data-gift="oneMinute" onclick="openOneMinuteChallenge(event)" style="background: linear-gradient(45deg, #8A2BE2, #9932CC); border: 2px solid #ffd700; border-radius: 14px; color: #ffffff; font-weight: bold; padding: 10px 16px; cursor: pointer; text-transform: uppercase; box-shadow: 0 0 18px rgba(138, 43, 226, 0.6); margin-top: auto;">START THE CHALLENGE</button>
+        <button type="button" class="gift-open-btn" data-gift="oneMinute" onclick="openOneMinuteChallenge(event)" style="background: linear-gradient(45deg, #8A2BE2, #9932CC); border: 2px solid #ffd700; border-radius: 14px; color: #ffffff; font-weight: bold; padding: 10px 16px; cursor: pointer; text-transform: uppercase; box-shadow: 0 0 18px rgba(138, 43, 226, 0.6); margin-top: auto;">START THE CHALLENGE</button>
        </div>
-        <div id="gift-card-word-search" class="gift-card" style="background: #000000; border: 3px solid #8A2BE2; border-radius: 18px; padding: 22px; text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(138, 43, 226, 0.4); position: relative; min-height: 260px; display: flex; flex-direction: column; gap: 10px; justify-content: space-between;">
+        <div id="gift-card-word-search" class="gift-card" data-gift="wordSearch" style="background: #000000; border: 3px solid #8A2BE2; border-radius: 18px; padding: 22px; text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(138, 43, 226, 0.4); position: relative; min-height: 260px; display: flex; flex-direction: column; gap: 10px; justify-content: space-between;">
         <div style="position: absolute; top: 12px; left: 12px; background: #8A2BE2; color: #ffffff; font-size: 0.7rem; font-weight: bold; padding: 6px 10px; border-radius: 10px; text-transform: uppercase; box-shadow: 0 0 12px rgba(138, 43, 226, 0.6);">Available</div>
         <div style="width: 86px; height: 86px; margin: 10px auto 6px auto; border-radius: 50%; border: 3px solid #8A2BE2; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 18px rgba(138,43,226,0.5);"><svg width="40" height="40" viewbox="0 0 100 100" aria-hidden="true">
             <rect x="22" y="40" width="56" height="38" rx="6" fill="#8A2BE2" stroke="#ffd700" stroke-width="3"></rect>
@@ -2300,9 +2301,9 @@
         </svg></div>
         <h4 style="color: #8A2BE2; margin: 0 0 8px 0; font-size: 1.22rem; text-shadow: 0 0 15px rgba(138, 43, 226, 0.7);">Happy Makers Word Hunt</h4>
         <p class="gift-card-description" style="color: #ffffff; font-size: 0.95rem; line-height: 1.5;">Hunt for words inspired by Rise.Shine.Evolve and the Happy Makers, celebrate with confetti, then reload for a fresh round.</p>
-        <button data-gift="wordSearch" onclick="openWordSearch(event)" style="background: linear-gradient(45deg, #8A2BE2, #9932CC); border: 2px solid #ffd700; border-radius: 12px; color: #ffffff; font-weight: bold; padding: 10px 14px; cursor: pointer; text-transform: uppercase; box-shadow: 0 0 18px rgba(138, 43, 226, 0.6);">PLAY WORD HUNT</button>
+        <button type="button" class="gift-open-btn" data-gift="wordSearch" onclick="openWordSearch(event)" style="background: linear-gradient(45deg, #8A2BE2, #9932CC); border: 2px solid #ffd700; border-radius: 12px; color: #ffffff; font-weight: bold; padding: 10px 14px; cursor: pointer; text-transform: uppercase; box-shadow: 0 0 18px rgba(138, 43, 226, 0.6);">PLAY WORD HUNT</button>
        </div>
-       <div id="gift-card-word-search-pro" class="gift-card" style="background: #000000; border: 3px solid #ffd700; border-radius: 18px; padding: 22px; text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(255, 215, 0, 0.5); position: relative; min-height: 300px; display: flex; flex-direction: column; gap: 12px; justify-content: space-between;">
+       <div id="gift-card-word-search-pro" class="gift-card" data-gift="wordSearchPro" style="background: #000000; border: 3px solid #ffd700; border-radius: 18px; padding: 22px; text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(255, 215, 0, 0.5); position: relative; min-height: 300px; display: flex; flex-direction: column; gap: 12px; justify-content: space-between;">
         <div style="position: absolute; top: 12px; left: 12px; background: #8A2BE2; color: #ffffff; font-size: 0.7rem; font-weight: bold; padding: 6px 10px; border-radius: 10px; text-transform: uppercase; box-shadow: 0 0 12px rgba(138, 43, 226, 0.6);">New</div>
         <div style="width: 86px; height: 86px; margin: 8px auto 6px auto; border-radius: 50%; border: 3px solid #ffd700; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 20px rgba(255,215,0,0.6);">
          <svg width="48" height="48" viewBox="0 0 120 120" aria-hidden="true">
@@ -2325,7 +2326,7 @@
         </div>
         <h4 style="color: #ffd700; margin: 0 0 8px 0; font-size: 1.25rem; text-shadow: 0 0 15px rgba(255, 215, 0, 0.7);">Word Search Studio</h4>
         <p class="gift-card-description" style="color: #ffffff; font-size: 0.95rem; line-height: 1.5;">Build full-sized puzzles with selectable themes, shapes, and difficulty levels. Print or download in one click.</p>
-        <button data-gift="wordSearchPro" onclick="openWordSearchPro(event)" style="background: linear-gradient(45deg, #8A2BE2, #9932CC); border: 2px solid #ffd700; border-radius: 14px; color: #ffffff; font-weight: bold; padding: 10px 16px; cursor: pointer; text-transform: uppercase; box-shadow: 0 0 18px rgba(138, 43, 226, 0.6); margin-top: auto;">OPEN THE STUDIO</button>
+        <button type="button" class="gift-open-btn" data-gift="wordSearchPro" onclick="openWordSearchPro(event)" style="background: linear-gradient(45deg, #8A2BE2, #9932CC); border: 2px solid #ffd700; border-radius: 14px; color: #ffffff; font-weight: bold; padding: 10px 16px; cursor: pointer; text-transform: uppercase; box-shadow: 0 0 18px rgba(138, 43, 226, 0.6); margin-top: auto;">OPEN THE STUDIO</button>
        </div>
        <div class="gift-card" style="background: #000000; border: 3px dashed #ffd700; border-radius: 18px; padding: 22px; text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.35), 0 0 22px rgba(255, 215, 0, 0.4); position: relative; min-height: 220px; display: flex; flex-direction: column; align-items: center; gap: 12px;">
         <div style="position: absolute; top: 12px; left: 12px; background: #ffd700; color: #000000; font-size: 0.7rem; font-weight: bold; padding: 6px 10px; border-radius: 10px; text-transform: uppercase; box-shadow: 0 0 12px rgba(255, 215, 0, 0.6);">Coming Soon</div>
@@ -7049,7 +7050,6 @@ document
                 '.story-text',
                 '.character-description p',
                 '.book-details-view p',
-                '#dynamic-info-tile .info-text',
             ];
             const elements = document.querySelectorAll(selectors.join(','));
             elements.forEach((el) => {
@@ -8249,6 +8249,13 @@ document
                         if (messageBox) {
                             messageBox.style.color = '#ff69b4';
                             messageBox.textContent = 'Email not found.';
+                        }
+                        return;
+                    }
+                    if (data?.error) {
+                        if (messageBox) {
+                            messageBox.style.color = '#ff69b4';
+                            messageBox.textContent = data.error;
                         }
                         return;
                     }
