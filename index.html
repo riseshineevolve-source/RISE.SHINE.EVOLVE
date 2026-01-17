@@ -6965,14 +6965,35 @@ document
             if (signupFields) {
                 signupFields.style.display = authMode === 'signup' ? 'block' : 'none';
             }
-            if (signupConsent) {
-                signupConsent.style.display = authMode === 'signup' ? 'block' : 'none';
+            let isVisible = false;
+            fieldIds.forEach((id) => {
+                const input = document.getElementById(id);
+                if (!input) return;
+                const nextType = input.type === 'password' ? 'text' : 'password';
+                input.type = nextType;
+                if (nextType === 'text') {
+                    isVisible = true;
+                }
+            });
+            if (button) {
+                button.textContent = isVisible ? 'Hide password' : 'Show password';
             }
-            if (firstNameField) {
-                firstNameField.required = authMode === 'signup';
+        }
+
+        async function handlePasswordResetRequest() {
+            const rawEmail = document.getElementById('brevoEmail')?.value || '';
+            const email = rawEmail.trim().toLowerCase();
+            if (authMode !== 'reset') {
+                setAuthMode('reset');
             }
-            if (optInField) {
-                optInField.required = authMode === 'signup';
+            if (!email || !email.includes('@') || !email.includes('.')) {
+                showAuthMessage('Enter your email below to reset your password.', '#ff1493');
+                const emailField = document.getElementById('brevoEmail');
+                if (emailField) {
+                    emailField.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    emailField.focus();
+                }
+                return;
             }
             if (emailField) {
                 const emailBlock = emailField.closest('.sib-input') || emailField.closest('.form__entry');
@@ -8322,6 +8343,13 @@ document
                         }
                         return;
                     }
+                    if (data?.error) {
+                        if (messageBox) {
+                            messageBox.style.color = '#ff69b4';
+                            messageBox.textContent = data.error;
+                        }
+                        return;
+                    }
                     if (messageBox) {
                         messageBox.style.color = '#ffd700';
                         messageBox.textContent = 'Please open the confirmation email in your inbox to complete your account removal.';
@@ -8500,7 +8528,8 @@ document
             const preferBlob = window.matchMedia
                 && (window.matchMedia('(max-width: 720px)').matches
                     || window.matchMedia('(orientation: portrait)').matches
-                    || window.matchMedia('(pointer: coarse)').matches);
+                    || window.matchMedia('(pointer: coarse)').matches
+                    || isMobileViewport());
             const baseHref = window.location.origin ? `${window.location.origin}/` : '';
             const htmlWithBase = baseHref && !html.includes('<base')
                 ? html.replace(/<head([^>]*)>/i, `<head$1><base href="${baseHref}">`)
@@ -8602,50 +8631,17 @@ document
             };
 
             if (key === 'wordSearchPro') {
-                if (preferBlob && html) {
-                    setGiftFrameHtml(html);
-                    revealGiftFrameSoon();
-                    giftOverlay.style.display = 'flex';
-                    document.body.style.overflow = 'hidden';
-
-                    if (!giftOverlayOpen) {
-                        const activeTab = document.querySelector('.tab.active');
-                        giftOverlayReturnTab = activeTab?.dataset?.tab || 'main';
-                        history.pushState({ giftOverlay: true }, document.title, window.location.href);
-                        giftOverlayOpen = true;
-                    }
-                    return;
-                }
-                const inlineHtml = (wordSearchProInlineHtml || '').trim();
-                if (inlineHtml) {
+                if (wordSearchProUrl) {
                     giftFrame.style.display = 'block';
-                    setGiftFrameHtml(inlineHtml);
-                    revealGiftFrameSoon();
-                } else if (wordSearchProUrl) {
-                    giftFrame.style.display = 'block';
-                    giftFallback.innerHTML = '<div style="width:100%;padding:12px 8px;">Loading Word Search Studio…</div>';
-
-                    if (!wordSearchProHtmlPromise) {
-                        wordSearchProHtmlPromise = fetch(`${wordSearchProUrl}?v=${Date.now()}`, { cache: 'no-cache' })
-                            .then((resp) => {
-                                if (!resp.ok) throw new Error('Failed to load Word Search Studio');
-                                return resp.text();
-                            });
-                    }
-
-                    wordSearchProHtmlPromise
-                        .then((htmlText) => {
-                            setGiftFrameHtml(htmlText);
+                    giftFrame.onerror = () => {
+                        if (html) {
+                            setGiftFrameHtml(html);
                             revealGiftFrameSoon();
-                        })
-                        .catch(() => {
-                            if (html) {
-                                setGiftFrameHtml(html);
-                                revealGiftFrameSoon();
-                            } else {
-                                showGiftFallback();
-                            }
-                        });
+                        } else {
+                            showGiftFallback();
+                        }
+                    };
+                    giftFrame.src = `${wordSearchProUrl}?v=${Date.now()}`;
                 } else if (html) {
                     setGiftFrameHtml(html);
                     revealGiftFrameSoon();
