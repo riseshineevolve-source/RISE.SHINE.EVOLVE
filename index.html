@@ -8215,7 +8215,14 @@ document
                     if (!response.ok) {
                         if (messageBox) {
                             messageBox.style.color = '#ff69b4';
-                            messageBox.textContent = data?.error || 'Unable to unsubscribe.';
+                            messageBox.textContent = notFound ? 'Email not found.' : (data?.error || 'Unable to unsubscribe.');
+                        }
+                        return;
+                    }
+                    if (notFound) {
+                        if (messageBox) {
+                            messageBox.style.color = '#ff69b4';
+                            messageBox.textContent = 'Email not found.';
                         }
                         return;
                     }
@@ -8436,6 +8443,10 @@ document
             const html = getGiftHtml(key);
             const source = giftSources[key];
 
+            if (openGiftInNewWindow(key, html, source)) {
+                return;
+            }
+
             giftFrame.removeAttribute('src');
             giftFrame.removeAttribute('srcdoc');
             giftFrame.onload = null;
@@ -8542,6 +8553,8 @@ document
             }
 
             if (giftOverlayOpen && history.state && history.state.giftOverlay && !fromHistory) {
+                const activeTab = document.querySelector('.tab.active');
+                const tabName = activeTab?.dataset?.tab || 'main';
                 giftOverlayOpen = false;
                 history.back();
                 return;
@@ -8608,7 +8621,7 @@ document
             const mainTab = getTabElement('main');
             if ((!event.state || !event.state.tab) && activeTab && mainTab && activeTab.dataset.tab !== 'main') {
                 selectTab(mainTab, 'main', { skipHistory: true });
-                history.pushState({ tab: 'main', base: true }, '', '#main');
+                history.replaceState({ tab: 'main', base: true }, '', '#main');
                 return;
             }
             const targetTab = (event.state && event.state.tab) ? event.state.tab : (activeTab ? activeTab.dataset.tab : 'main');
