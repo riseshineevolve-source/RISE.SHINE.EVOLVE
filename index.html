@@ -222,10 +222,10 @@
             display: none;
         }
 
-        .info-text .info-line {
-            display: block;
-            white-space: nowrap;
-        }
+            .info-text .info-line {
+                display: block;
+                white-space: nowrap;
+            }
 
         #auth-action-chip {
             position: absolute;
@@ -1295,12 +1295,12 @@
 
             .floating-boxes .elegant-christmas-box {
                 width: 150px;
-                min-height: 220px;
+                min-height: 240px;
                 justify-content: flex-end;
             }
 
             .floating-boxes .floating-box-image {
-                height: 96px;
+                height: 120px;
                 object-fit: contain;
                 object-position: center;
             }
@@ -1377,13 +1377,7 @@
             }
         }
 
-        @media (max-width: 768px) and (orientation: landscape) {
-            .gifts-library-grid {
-                display: grid;
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-                gap: 16px;
-            }
-        }
+        
 
         @keyframes elegantBoxGlow {
             0%, 100% { 
@@ -1863,7 +1857,7 @@
        <p style="margin: 0 0 14px 0;">Let’s be honest: family life is an epic co-op game.<br>Teamwork, surprise levels and some mornings starting on <span style="color:#8A2BE2; font-weight:700;">Hard Mode</span>.</p>
        <p style="margin: 0 0 14px 0;">That’s where<br class="mobile-only"><span style="color:#8A2BE2; font-weight:700;">Rise.Shine.Evolve Learning Hub</span> comes in.<br>We turn everyday challenges into simple,<br>usable tools for calm, confidence, connection, and joy.</p>
        <p style="margin: 0 0 14px 0;">Tools kids can actually reach for in the moment.<br>(No lectures, no “perfect kid” pressure.)</p>
-       <p style="margin: 0 0 14px 0;">Think of it as a real-life power-up guide.<br>Helping children unlock the strengths already inside them.<br>And grow into<br class="mobile-only"><span style="color:#ffd700; font-weight:700;">the best version of themselves</span>.</p>
+       <p style="margin: 0 0 14px 0;">Think of it as a real-life power-up guide.<br>Helping children unlock the strengths already inside them.<br>And grow into <br class="mobile-only"><span style="color:#ffd700; font-weight:700;">the best version of themselves</span>.</p>
        <p style="margin: 0 0 14px 0;">Explore our Library of guided journeys and family-friendly experiences designed to build resilience, emotional strength, and self-belief.</p>
        <p style="margin: 0 0 14px 0;">Not just for “good days”.<br>But for the random messy Tuesday, too.</p>
        <p style="margin: 0 0 10px 0;"><strong style="color:#8A2BE2;">Need something fast?</strong></p>
@@ -2242,10 +2236,10 @@
      <div class="kids-tile" style="border: 3px solid #8A2BE2; box-shadow: 0 0 35px rgba(138, 43, 226, 0.7), 0 0 60px rgba(138, 43, 226, 0.4); margin: 30px auto; max-width: 1200px; padding: 24px 18px;">
       <div class="kids-text" style="margin-bottom: 20px;">
        <h3 style="color: #8A2BE2; font-size: 1.9rem; margin: 0 0 10px 0; text-shadow: 0 0 18px rgba(138, 43, 226, 0.7);">GIFTS LIBRARY</h3>
-       <p style="color: #ffd700; font-size: 1rem; margin: 0;">Explore new resources as they arrive - Calm + Energy Wheel, the 1-Minute Challenge, the Happy Makers mini Word Search and the full Word Search Studio.</p>
-       <p style="color: #ffffff; font-size: 0.95rem; margin: 10px 0 0 0;">Tip for smaller screens: GIFTS work in both portrait and landscape views.</p>
+       <p style="color: #ffd700; font-size: 1rem; margin: 0;">A pocket-sized library of free resources: calm tools, mini challenges, and word games made for family growth.<br>New GIFTS drop regularly.</p>
+       <p style="color: #ffffff; font-size: 0.95rem; margin: 10px 0 0 0;">Tip for smaller screens: GIFTS work beautifully in both portrait and landscape.</p>
       </div>
-      <div class="gifts-library-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; padding: 0 10px;">
+      <div class="gifts-library-grid" style="display: flex; flex-direction: column; gap: 24px; padding: 0 10px;">
        <div id="gift-card-calm-energy" class="gift-card" style="background: #000000; border: 3px solid #ffd700; border-radius: 18px; padding: 22px; text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(255, 215, 0, 0.5); position: relative; min-height: 300px; display: flex; flex-direction: column; align-items: center; gap: 12px;">
         <div style="position: absolute; top: 12px; left: 12px; background: #8A2BE2; color: #ffffff; font-size: 0.7rem; font-weight: bold; padding: 6px 10px; border-radius: 10px; text-transform: uppercase; box-shadow: 0 0 12px rgba(138, 43, 226, 0.6);">Available</div>
         <div style="width: 86px; height: 86px; margin-top: 8px; border-radius: 50%; border: 3px solid #ffd700; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 20px rgba(255,215,0,0.6);">
@@ -2267,9 +2261,9 @@
           </g>
          </svg>
         </div>
-        <h4 style="color: #ffd700; margin: 0; font-size: 1.25rem; text-shadow: 0 0 15px rgba(255, 215, 0, 0.7);">The Happy Makers Calm and Energy Wheel</h4>
-        <p class="gift-card-description" style="color: #ffffff; font-size: 0.95rem; line-height: 1.5;">Two tiny tools for your family: one to slow down and soften, one to wake up and brighten - spin, stop and let the Happy Makers guide you.</p>
-        <button onclick="openCalmEnergyWheel(event)" style="background: linear-gradient(45deg, #8A2BE2, #9932CC); border: 2px solid #ffd700; border-radius: 14px; color: #ffffff; font-weight: bold; padding: 10px 16px; cursor: pointer; text-transform: uppercase; box-shadow: 0 0 18px rgba(138, 43, 226, 0.6); margin-top: auto;">Launch the Calm + Energy Wheel</button>
+        <h4 style="color: #ffd700; margin: 0; font-size: 1.25rem; text-shadow: 0 0 15px rgba(255, 215, 0, 0.7);">Calm + Energy Wheel</h4>
+        <p class="gift-card-description" style="color: #ffffff; font-size: 0.95rem; line-height: 1.5;">Two tiny spins for your family: one to soften and slow down, one to brighten and wake up. Spin, stop and let The Happy-Makers guide you.</p>
+        <button onclick="openCalmEnergyWheel(event)" style="background: linear-gradient(45deg, #8A2BE2, #9932CC); border: 2px solid #ffd700; border-radius: 14px; color: #ffffff; font-weight: bold; padding: 10px 16px; cursor: pointer; text-transform: uppercase; box-shadow: 0 0 18px rgba(138, 43, 226, 0.6); margin-top: auto;">SPIN THE WHEEL</button>
        </div>
        <div class="gift-card" style="background: #000000; border: 3px solid #ffd700; border-radius: 18px; padding: 22px; text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(255, 215, 0, 0.5); position: relative; min-height: 300px; display: flex; flex-direction: column; align-items: center; gap: 12px;">
         <div style="position: absolute; top: 12px; left: 12px; background: #8A2BE2; color: #ffffff; font-size: 0.7rem; font-weight: bold; padding: 6px 10px; border-radius: 10px; text-transform: uppercase; box-shadow: 0 0 12px rgba(138, 43, 226, 0.6);">Available</div>
@@ -2286,9 +2280,9 @@
           <circle cx="60" cy="80" r="10" fill="#ffd700" stroke="#8A2BE2" stroke-width="3" />
          </svg>
         </div>
-        <h4 style="color: #ffd700; margin: 0; font-size: 1.25rem; text-shadow: 0 0 15px rgba(255, 215, 0, 0.7);">The Happy Makers 1-Minute Challenge</h4>
-        <p class="gift-card-description" style="color: #ffffff; font-size: 0.95rem; line-height: 1.5;">One click. One tiny mission. One minute of joy, creativity or connection. Powered by your Happy Makers.</p>
-        <button onclick="openOneMinuteChallenge(event)" style="background: linear-gradient(45deg, #8A2BE2, #9932CC); border: 2px solid #ffd700; border-radius: 14px; color: #ffffff; font-weight: bold; padding: 10px 16px; cursor: pointer; text-transform: uppercase; box-shadow: 0 0 18px rgba(138, 43, 226, 0.6); margin-top: auto;">Start the 1-Minute Challenge</button>
+        <h4 style="color: #ffd700; margin: 0; font-size: 1.25rem; text-shadow: 0 0 15px rgba(255, 215, 0, 0.7);">1-Minute Challenge</h4>
+        <p class="gift-card-description" style="color: #ffffff; font-size: 0.95rem; line-height: 1.5;">One click. One tiny mission. One minute of joy, creativity, or connection. Powered by your Happy-Makers.</p>
+        <button onclick="openOneMinuteChallenge(event)" style="background: linear-gradient(45deg, #8A2BE2, #9932CC); border: 2px solid #ffd700; border-radius: 14px; color: #ffffff; font-weight: bold; padding: 10px 16px; cursor: pointer; text-transform: uppercase; box-shadow: 0 0 18px rgba(138, 43, 226, 0.6); margin-top: auto;">START THE CHALLENGE</button>
        </div>
         <div id="gift-card-word-search" class="gift-card" style="background: #000000; border: 3px solid #8A2BE2; border-radius: 18px; padding: 22px; text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(138, 43, 226, 0.4); position: relative; min-height: 260px; display: flex; flex-direction: column; gap: 10px; justify-content: space-between;">
         <div style="position: absolute; top: 12px; left: 12px; background: #8A2BE2; color: #ffffff; font-size: 0.7rem; font-weight: bold; padding: 6px 10px; border-radius: 10px; text-transform: uppercase; box-shadow: 0 0 12px rgba(138, 43, 226, 0.6);">Available</div>
@@ -2298,9 +2292,9 @@
             <rect x="46" y="34" width="8" height="50" fill="#ffd700"></rect>
             <circle cx="50" cy="34" r="8" fill="#ffd700"></circle>
         </svg></div>
-        <h4 style="color: #8A2BE2; margin: 0 0 8px 0; font-size: 1.22rem; text-shadow: 0 0 15px rgba(138, 43, 226, 0.7);">The Happy Makers Word Search</h4>
-        <p class="gift-card-description" style="color: #ffffff; font-size: 0.95rem; line-height: 1.5;">Find every Happy Maker theme, then celebrate with confetti as the puzzle reloads with brand-new words.</p>
-        <button onclick="openWordSearch(event)" style="background: linear-gradient(45deg, #8A2BE2, #9932CC); border: 2px solid #ffd700; border-radius: 12px; color: #ffffff; font-weight: bold; padding: 10px 14px; cursor: pointer; text-transform: uppercase; box-shadow: 0 0 18px rgba(138, 43, 226, 0.6);">Play</button>
+        <h4 style="color: #8A2BE2; margin: 0 0 8px 0; font-size: 1.22rem; text-shadow: 0 0 15px rgba(138, 43, 226, 0.7);">Happy Makers Word Hunt</h4>
+        <p class="gift-card-description" style="color: #ffffff; font-size: 0.95rem; line-height: 1.5;">Hunt for words inspired by Rise.Shine.Evolve and the Happy Makers, celebrate with confetti, then reload for a fresh round.</p>
+        <button onclick="openWordSearch(event)" style="background: linear-gradient(45deg, #8A2BE2, #9932CC); border: 2px solid #ffd700; border-radius: 12px; color: #ffffff; font-weight: bold; padding: 10px 14px; cursor: pointer; text-transform: uppercase; box-shadow: 0 0 18px rgba(138, 43, 226, 0.6);">PLAY WORD HUNT</button>
        </div>
        <div id="gift-card-word-search-pro" class="gift-card" style="background: #000000; border: 3px solid #ffd700; border-radius: 18px; padding: 22px; text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(255, 215, 0, 0.5); position: relative; min-height: 300px; display: flex; flex-direction: column; gap: 12px; justify-content: space-between;">
         <div style="position: absolute; top: 12px; left: 12px; background: #8A2BE2; color: #ffffff; font-size: 0.7rem; font-weight: bold; padding: 6px 10px; border-radius: 10px; text-transform: uppercase; box-shadow: 0 0 12px rgba(138, 43, 226, 0.6);">New</div>
@@ -2324,8 +2318,20 @@
          </svg>
         </div>
         <h4 style="color: #ffd700; margin: 0 0 8px 0; font-size: 1.25rem; text-shadow: 0 0 15px rgba(255, 215, 0, 0.7);">Word Search Studio</h4>
-        <p class="gift-card-description" style="color: #ffffff; font-size: 0.95rem; line-height: 1.5;">Build full-sized puzzles with selectable shapes, difficulty levels, themes and one-click print / download.</p>
-        <button onclick="openWordSearchPro(event)" style="background: linear-gradient(45deg, #8A2BE2, #9932CC); border: 2px solid #ffd700; border-radius: 14px; color: #ffffff; font-weight: bold; padding: 10px 16px; cursor: pointer; text-transform: uppercase; box-shadow: 0 0 18px rgba(138, 43, 226, 0.6); margin-top: auto;">Launch Word Search Studio</button>
+        <p class="gift-card-description" style="color: #ffffff; font-size: 0.95rem; line-height: 1.5;">Build full-sized puzzles with selectable themes, shapes, and difficulty levels. Print or download in one click.</p>
+        <button onclick="openWordSearchPro(event)" style="background: linear-gradient(45deg, #8A2BE2, #9932CC); border: 2px solid #ffd700; border-radius: 14px; color: #ffffff; font-weight: bold; padding: 10px 16px; cursor: pointer; text-transform: uppercase; box-shadow: 0 0 18px rgba(138, 43, 226, 0.6); margin-top: auto;">OPEN THE STUDIO</button>
+       </div>
+       <div class="gift-card" style="background: #000000; border: 3px dashed #ffd700; border-radius: 18px; padding: 22px; text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.35), 0 0 22px rgba(255, 215, 0, 0.4); position: relative; min-height: 220px; display: flex; flex-direction: column; align-items: center; gap: 12px;">
+        <div style="position: absolute; top: 12px; left: 12px; background: #ffd700; color: #000000; font-size: 0.7rem; font-weight: bold; padding: 6px 10px; border-radius: 10px; text-transform: uppercase; box-shadow: 0 0 12px rgba(255, 215, 0, 0.6);">Coming Soon</div>
+        <div style="font-size: 2.4rem; margin-top: 12px;">🎁</div>
+        <h4 style="color: #ffd700; margin: 0; font-size: 1.2rem;">More Happy-Makers GIFTS</h4>
+        <p class="gift-card-description" style="color: #ffffff; font-size: 0.95rem; line-height: 1.5;">New surprises are on the way to keep your family growing together.</p>
+       </div>
+       <div class="gift-card" style="background: #000000; border: 3px dashed #8A2BE2; border-radius: 18px; padding: 22px; text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.35), 0 0 22px rgba(138, 43, 226, 0.4); position: relative; min-height: 220px; display: flex; flex-direction: column; align-items: center; gap: 12px;">
+        <div style="position: absolute; top: 12px; left: 12px; background: #8A2BE2; color: #ffffff; font-size: 0.7rem; font-weight: bold; padding: 6px 10px; border-radius: 10px; text-transform: uppercase; box-shadow: 0 0 12px rgba(138, 43, 226, 0.6);">Coming Soon</div>
+        <div style="font-size: 2.4rem; margin-top: 12px;">✨</div>
+        <h4 style="color: #8A2BE2; margin: 0; font-size: 1.2rem;">New family challenges</h4>
+        <p class="gift-card-description" style="color: #ffffff; font-size: 0.95rem; line-height: 1.5;">Fresh activities are coming soon to keep the joy flowing.</p>
        </div>
       </div>
      </div>
@@ -2804,8 +2810,8 @@
      <p style="color: #ffffff; font-size: 1.12rem; line-height: 1.6; margin: 0 0 8px 0; text-align: justify; text-align-last: center;"><strong style="color:#8A2BE2;">Every child can RISE</strong> (without needing a superhero cape).</p>
      <p style="color: #ffffff; font-size: 1.12rem; line-height: 1.6; margin: 0 0 8px 0; text-align: justify; text-align-last: center;"><strong style="color:#ffd700;">Every family can SHINE</strong> (yes, even on the messy, chaotic days).</p>
      <p style="color: #ffffff; font-size: 1.12rem; line-height: 1.6; margin: 0 0 14px 0; text-align: justify; text-align-last: center;"><strong style="color:#8A2BE2;">Every person can EVOLVE.</strong></p>
-     <p style="color: #ffffff; font-size: 1.12rem; line-height: 1.6; margin: 0 0 14px 0; text-align: justify; text-align-last: center;">This isn’t just a book series.<br>It’s a movement fueled by <strong style="color:#ffd700;">love</strong>, <strong style="color:#ffd700;">humor</strong> and <strong style="color:#ffd700;">high-fives</strong>!</p>
-     <p style="color: #ffd700; font-size: 1.18rem; line-height: 1.6; margin: 0; text-align: justify; text-align-last: center;"><strong>Ready to unlock true potential?</strong><br>It is time to <span class="word-rise">Rise</span>. <span class="word-shine">Shine</span>. <span class="word-evolve">Evolve</span>.<br><strong>TOGETHER.</strong></p>
+     <p style="color: #8A2BE2; font-size: 1.12rem; line-height: 1.6; margin: 0 0 14px 0; text-align: justify; text-align-last: center;">This isn’t just a book series.<br>It’s a movement fueled by <strong style="color:#8A2BE2;">love</strong>, <strong style="color:#8A2BE2;">humor</strong> and <strong style="color:#8A2BE2;">high-fives</strong>!</p>
+     <p style="color: #ffffff; font-size: 1.18rem; line-height: 1.6; margin: 0; text-align: justify; text-align-last: center;"><strong style="color:#ffffff;">Ready to unlock true potential?</strong><br>It is time to <span class="word-rise">Rise</span>. <span class="word-shine">Shine</span>. <span class="word-evolve">Evolve</span>.<br><strong style="color:#ffd700;">TOGETHER.</strong></p>
     </div>
    </div><!-- Back Button Bottom -->
     <div style="text-align: center;"><button onclick="backToLibrary()" style="
@@ -3159,34 +3165,6 @@
                             </div>
                         <div id="passwordToggleContainer" style="text-align: right; margin-top: 4px;">
                             <button type="button" class="password-toggle" onclick="togglePasswordVisibility(['userPassword'], this)">Show password</button>
-                        </div>
-                        </div>
-                        <div id="resetPasswordFields" style="padding:4px 0; display: none;">
-                            <div class="sib-input sib-form-block">
-                                <div class="form__entry entry_block">
-                                    <div class="form__label-row ">
-                                        <label class="entry__label" style="font-weight:700;text-align:left;font-size:12px;font-family:Helvetica,sans-serif;color:#ffd700;" for="NEW_PASSWORD" data-required="*">New Password</label>
-                                        <div class="entry__field">
-                                            <input class="input" type="password" id="resetPassword" name="NEW_PASSWORD" autocomplete="new-password" placeholder="NEW PASSWORD" data-required="true">
-                                        </div>
-                                    </div>
-                                    <label class="entry__error entry__error--primary" style="font-size:16px;text-align:left;font-family:Helvetica,sans-serif;color:#661d1d;background-color:#ffeded;border-radius:3px;border-color:#ff4949;"></label>
-                                </div>
-                            </div>
-                            <div class="sib-input sib-form-block" style="margin-top: 8px;">
-                                <div class="form__entry entry_block">
-                                    <div class="form__label-row ">
-                                        <label class="entry__label" style="font-weight:700;text-align:left;font-size:12px;font-family:Helvetica,sans-serif;color:#ffd700;" for="CONFIRM_PASSWORD" data-required="*">Confirm Password</label>
-                                        <div class="entry__field">
-                                            <input class="input" type="password" id="resetPasswordConfirm" name="CONFIRM_PASSWORD" autocomplete="new-password" placeholder="CONFIRM PASSWORD" data-required="true">
-                                        </div>
-                                    </div>
-                                    <label class="entry__error entry__error--primary" style="font-size:16px;text-align:left;font-family:Helvetica,sans-serif;color:#661d1d;background-color:#ffeded;border-radius:3px;border-color:#ff4949;"></label>
-                                </div>
-                            </div>
-                            <div style="text-align: right; margin-top: 4px;">
-                                <button type="button" class="password-toggle" onclick="togglePasswordVisibility(['resetPassword','resetPasswordConfirm'], this)">Show passwords</button>
-                            </div>
                         </div>
                         </div>
                         <div id="resetPasswordFields" style="padding:4px 0; display: none;">
@@ -6670,24 +6648,24 @@ document
 
         // Dynamic info tile copy
         const infoMessages = {
-            main: `<span class="info-line">Every child can <span class="word-rise">RISE</span>.</span>
-                <span class="info-line">Every family can <span class="word-shine">SHINE</span>.</span>
-                <span class="info-line">Every soul can <span class="word-evolve">EVOLVE</span>.</span>`,
-            kids: `<span class="info-line">Watch them <span class="word-rise">RISE</span>.</span>
-                <span class="info-line">Help them <span class="word-shine">SHINE</span>.</span>
-                <span class="info-line">Grow as you <span class="word-evolve">EVOLVE</span>.</span>`,
-            teenagers: `<span class="info-line">Find strength to <span class="word-rise">RISE</span>.</span>
-                <span class="info-line">Own the way you <span class="word-shine">SHINE</span>.</span>
-                <span class="info-line">Step forward and <span class="word-evolve">EVOLVE</span>.</span>`,
-            adults: `<span class="info-line">It's never too late to <span class="word-rise">RISE</span>.</span>
-                <span class="info-line">Let experience help you <span class="word-shine">SHINE</span>.</span>
-                <span class="info-line">Keep growing and <span class="word-evolve">EVOLVE</span>.</span>`,
-            gifts: `<span class="info-line">Free resources to help you <span class="word-rise">RISE</span>.</span>
-                <span class="info-line">Tools that make you <span class="word-shine">SHINE</span>.</span>
-                <span class="info-line">And materials that help you <span class="word-evolve">EVOLVE</span>.</span>`,
-            contact: `<span class="info-line">Ready to <span class="word-rise">RISE</span> together?</span>
-                <span class="info-line">Let's help you <span class="word-shine">SHINE</span>.</span>
-                <span class="info-line">Connect and <span class="word-evolve">EVOLVE</span>.</span>`
+            main: '<span class="info-line">Step into a journey where every child can <span class="word-rise">RISE</span>,</span>' +
+                '<span class="info-line">every family can <span class="word-shine">SHINE</span>,</span>' +
+                '<span class="info-line">and every person can <span class="word-evolve">EVOLVE</span>.</span>',
+            kids: '<span class="info-line">Watch your child <span class="word-rise">RISE</span> to new adventures,</span>' +
+                '<span class="info-line">see their natural curiosity <span class="word-shine">SHINE</span> bright</span>' +
+                '<span class="info-line">and together you\'ll <span class="word-evolve">EVOLVE</span> into an unstoppable team!</span>',
+            teenagers: '<span class="info-line">Navigate your journey to <span class="word-rise">RISE</span> above challenges,</span>' +
+                '<span class="info-line">discover your unique way to <span class="word-shine">SHINE</span></span>' +
+                '<span class="info-line">and embrace the power within you to <span class="word-evolve">EVOLVE</span>.</span>',
+            adults: '<span class="info-line">It\'s never too late to <span class="word-rise">RISE</span>,</span>' +
+                '<span class="info-line">your experience helps you <span class="word-shine">SHINE</span> brighter</span>' +
+                '<span class="info-line">and you can embrace the power within you to <span class="word-evolve">EVOLVE</span>.</span>',
+            gifts: '<span class="info-line">Free resources to help you <span class="word-rise">RISE</span>.</span>' +
+                '<span class="info-line">Tools that make you <span class="word-shine">SHINE</span>.</span>' +
+                '<span class="info-line">And materials that help you <span class="word-evolve">EVOLVE</span>.</span>',
+            contact: '<span class="info-line">Ready to <span class="word-rise">RISE</span> together?</span>' +
+                '<span class="info-line">Let\'s help you <span class="word-shine">SHINE</span></span>' +
+                '<span class="info-line">and connect with us to <span class="word-evolve">EVOLVE</span>.</span>'
         };
 
         function updateInfoTile(tabName) {
@@ -7724,12 +7702,12 @@ document
                         <p style="margin-bottom: 12px; text-align: justify; text-align-last: center;"><strong style="color: #8A2BE2;">THE PARENTING CHALLENGE</strong><br>Let’s be honest: growing up is an amazing journey.<br>But sometimes it feels like playing a video game on ‘Hard Mode’.<br>The world gets loud, feelings get messy, and the pressure to fit in can be overwhelming.</p>
                         <p style="margin-bottom: 12px; text-align: justify; text-align-last: center;">You see your child struggling with worry, perfectionism, or just finding their voice.<br>You want to guide them with confidence and joy, but you fear that asking questions feels like an “interrogation” or a “boring lecture.” You are scrambling to find the right tools to calm the storm when emotions take over.<br>Where do you start?</p>
 
-                        <p style="margin-bottom: 12px; text-align: justify; text-align-last: center;"><strong style="color: #8A2BE2;">THE HAPPY MAKERS SOLUTION</strong><br>Welcome to<br class="mobile-only"><span style="color:#ffd700; font-weight:700;">The Confident, Mindful &amp; Happy Me</span><br class="mobile-only"><span style="color:#ffd700; font-weight:700;">Adventure!</span><br>This isn't just a book.<br>It is an interactive Survival Kit and a creative roadmap designed to help your child master the wild ride of growing up with courage and a smile.<br>We turn “I can’t” into “I can,” and boring days into legendary quests.</p>
+                        <p style="margin-bottom: 12px; text-align: justify; text-align-last: center;"><strong style="color: #8A2BE2;">THE HAPPY MAKERS SOLUTION</strong><br>Welcome to <br class="mobile-only"><span style="color:#ffd700; font-weight:700;">The Confident, Mindful &amp; Happy Me </span><br class="mobile-only"><span style="color:#ffd700; font-weight:700;">Adventure!</span><br>This isn't just a book.<br>It is an interactive Survival Kit and a creative roadmap designed to help your child master the wild ride of growing up with courage and a smile.<br>We turn “I can’t” into “I can,” and boring days into legendary quests.</p>
 
                         <p style="margin-bottom: 12px; text-align: justify; text-align-last: center;"><strong style="color: #8A2BE2;">MEET THE GUIDES</strong><br>Your child won't be doing this alone.<br>They will be led by The Happy Makers Squad, a lovable family of trusted guides and fun-loving co-pilots: Mimi, Luli, Dilo, Alio, and Nini.</p>
-                        <p style="margin-bottom: 12px; text-align: justify; text-align-last: center;">They show your child that they don't need a superhero cape to be brave.<br>They just need to unlock the superpowers already hiding inside.<br>To become<br class="mobile-only"><span style="color:#ffd700; font-weight:700;">THE BEST VERSION OF THEMSELVES.</span></p>
+                        <p style="margin-bottom: 12px; text-align: justify; text-align-last: center;">They show your child that they don't need a superhero cape to be brave.<br>They just need to unlock the superpowers already hiding inside.<br>To become <br class="mobile-only"><span style="color:#ffd700; font-weight:700;">THE BEST VERSION OF THEMSELVES.</span></p>
 
-                        <p style="margin-bottom: 12px; text-align: justify; text-align-last: center;"><strong style="color: #8A2BE2;">THE 31-DAY MISSION: READY TO LEVEL UP?</strong><br>This book is designed to fit into real life.<br>No pressure.<br>No perfection.<br>Just 10 minutes of connection<br class="mobile-only">and fun a day.</p>
+                        <p style="margin-bottom: 12px; text-align: justify; text-align-last: center;"><strong style="color: #8A2BE2;">THE 31-DAY MISSION: READY TO LEVEL UP?</strong><br>This book is designed to fit into real life.<br>No pressure.<br>No perfection.<br>Just 10 minutes of connection <br class="mobile-only">and fun a day.</p>
 
                         <p style="margin-top: 18px; font-weight: 700; color: #ffd700;">The journey is divided into 5 EXCITING LEVELS to build unshakeable resilience:</p>
                         <p style="margin-bottom: 12px; text-align: justify; text-align-last: center;"><strong style="color:#8A2BE2;">WEEK 1: Build Your Fortress (Feeling Safe &amp; Grounded)</strong><br><span style="color: #ffffff;">We start by building a strong foundation.</span><br><span style="color: #ffffff;">Your child will learn grounding techniques to feel secure and worthy, no matter what happens around them.</span></p>
@@ -8462,7 +8440,6 @@ document
                         selectTab(giftsTab, 'gifts');
                     }
                     showEmailModal('login');
-                    return;
                 }
             }
 
