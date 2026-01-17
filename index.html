@@ -3188,6 +3188,34 @@
                                 <button type="button" class="password-toggle" onclick="togglePasswordVisibility(['resetPassword','resetPasswordConfirm'], this)">Show passwords</button>
                             </div>
                         </div>
+                        </div>
+                        <div id="resetPasswordFields" style="padding:4px 0; display: none;">
+                            <div class="sib-input sib-form-block">
+                                <div class="form__entry entry_block">
+                                    <div class="form__label-row ">
+                                        <label class="entry__label" style="font-weight:700;text-align:left;font-size:12px;font-family:Helvetica,sans-serif;color:#ffd700;" for="NEW_PASSWORD" data-required="*">New Password</label>
+                                        <div class="entry__field">
+                                            <input class="input" type="password" id="resetPassword" name="NEW_PASSWORD" autocomplete="new-password" placeholder="NEW PASSWORD" data-required="true">
+                                        </div>
+                                    </div>
+                                    <label class="entry__error entry__error--primary" style="font-size:16px;text-align:left;font-family:Helvetica,sans-serif;color:#661d1d;background-color:#ffeded;border-radius:3px;border-color:#ff4949;"></label>
+                                </div>
+                            </div>
+                            <div class="sib-input sib-form-block" style="margin-top: 8px;">
+                                <div class="form__entry entry_block">
+                                    <div class="form__label-row ">
+                                        <label class="entry__label" style="font-weight:700;text-align:left;font-size:12px;font-family:Helvetica,sans-serif;color:#ffd700;" for="CONFIRM_PASSWORD" data-required="*">Confirm Password</label>
+                                        <div class="entry__field">
+                                            <input class="input" type="password" id="resetPasswordConfirm" name="CONFIRM_PASSWORD" autocomplete="new-password" placeholder="CONFIRM PASSWORD" data-required="true">
+                                        </div>
+                                    </div>
+                                    <label class="entry__error entry__error--primary" style="font-size:16px;text-align:left;font-family:Helvetica,sans-serif;color:#661d1d;background-color:#ffeded;border-radius:3px;border-color:#ff4949;"></label>
+                                </div>
+                            </div>
+                            <div style="text-align: right; margin-top: 4px;">
+                                <button type="button" class="password-toggle" onclick="togglePasswordVisibility(['resetPassword','resetPasswordConfirm'], this)">Show passwords</button>
+                            </div>
+                        </div>
                         <div id="signupConsent" style="padding:4px 0;">
                             <div class="sib-optin sib-form-block" data-required="true">
                                 <div class="form__entry entry_mcq">
@@ -8441,6 +8469,10 @@ document
             const html = getGiftHtml(key);
             const source = giftSources[key];
 
+            if (openGiftInNewWindow(key, html, source)) {
+                return;
+            }
+
             giftFrame.removeAttribute('src');
             giftFrame.removeAttribute('srcdoc');
             giftFrame.onload = null;
@@ -8547,6 +8579,8 @@ document
             }
 
             if (giftOverlayOpen && history.state && history.state.giftOverlay && !fromHistory) {
+                const activeTab = document.querySelector('.tab.active');
+                const tabName = activeTab?.dataset?.tab || 'main';
                 giftOverlayOpen = false;
                 history.back();
                 return;
@@ -8613,7 +8647,7 @@ document
             const mainTab = getTabElement('main');
             if ((!event.state || !event.state.tab) && activeTab && mainTab && activeTab.dataset.tab !== 'main') {
                 selectTab(mainTab, 'main', { skipHistory: true });
-                history.pushState({ tab: 'main', base: true }, '', '#main');
+                history.replaceState({ tab: 'main', base: true }, '', '#main');
                 return;
             }
             const targetTab = (event.state && event.state.tab) ? event.state.tab : (activeTab ? activeTab.dataset.tab : 'main');
