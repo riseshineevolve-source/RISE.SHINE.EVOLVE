@@ -1201,6 +1201,20 @@
                 margin: 16px auto 24px;
             }
 
+            .floating-boxes .elegant-christmas-box {
+                width: 150px;
+                min-height: 220px;
+            }
+
+            .floating-boxes .floating-box-image {
+                height: 96px;
+                object-fit: cover;
+            }
+
+            .mobile-line-breaks {
+                white-space: pre-line;
+            }
+
             .gifts-mobile-instructions {
                 display: block;
                 margin: 12px auto 20px auto;
@@ -2103,7 +2117,7 @@
        <p style="color: #ffffff; font-size: 0.95rem; margin: 10px 0 0 0;">Tip for smaller screens: GIFTS work best in landscape view, but you can still explore them in portrait mode.</p>
       </div>
       <div class="gifts-library-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; padding: 0 10px;">
-       <div id="gift-card-calm-energy" class="gift-card" style="background: #000000; border: 3px solid #ffd700; border-radius: 18px; padding: 22px; text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(255, 215, 0, 0.5); position: relative; min-height: 300px; display: flex; flex-direction: column; align-items: center; gap: 12px;">
+       <div id="gift-card-calm-energy" class="gift-card" onclick="openCalmEnergyWheel(event)" style="background: #000000; border: 3px solid #ffd700; border-radius: 18px; padding: 22px; text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(255, 215, 0, 0.5); position: relative; min-height: 300px; display: flex; flex-direction: column; align-items: center; gap: 12px; cursor: pointer;">
         <div style="position: absolute; top: 12px; left: 12px; background: #8A2BE2; color: #ffffff; font-size: 0.7rem; font-weight: bold; padding: 6px 10px; border-radius: 10px; text-transform: uppercase; box-shadow: 0 0 12px rgba(138, 43, 226, 0.6);">Available</div>
         <div style="width: 86px; height: 86px; margin-top: 8px; border-radius: 50%; border: 3px solid #ffd700; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 20px rgba(255,215,0,0.6);">
          <svg width="46" height="46" viewbox="0 0 120 120" aria-hidden="true">
@@ -2126,7 +2140,7 @@
         </div>
         <h4 style="color: #ffd700; margin: 0; font-size: 1.25rem; text-shadow: 0 0 15px rgba(255, 215, 0, 0.7);">The Happy Makers Calm and Energy Wheel</h4>
         <p class="gift-card-description" style="color: #ffffff; font-size: 0.95rem; line-height: 1.5;">Two tiny tools for your family: one to slow down and soften, one to wake up and brighten - spin, stop and let the Happy Makers guide you.</p>
-        <button id="gift-calm-energy-btn" class="gift-open-btn" type="button">Explore more</button>
+        <button onclick="openCalmEnergyWheel(event)" style="background: linear-gradient(45deg, #8A2BE2, #9932CC); border: 2px solid #ffd700; border-radius: 14px; color: #ffffff; font-weight: bold; padding: 10px 16px; cursor: pointer; text-transform: uppercase; box-shadow: 0 0 18px rgba(138, 43, 226, 0.6); margin-top: auto;">Launch the Calm + Energy Wheel</button>
        </div>
        <div class="gift-card" style="background: #000000; border: 3px solid #ffd700; border-radius: 18px; padding: 22px; text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(255, 215, 0, 0.5); position: relative; min-height: 300px; display: flex; flex-direction: column; align-items: center; gap: 12px;">
         <div style="position: absolute; top: 12px; left: 12px; background: #8A2BE2; color: #ffffff; font-size: 0.7rem; font-weight: bold; padding: 6px 10px; border-radius: 10px; text-transform: uppercase; box-shadow: 0 0 12px rgba(138, 43, 226, 0.6);">Available</div>
@@ -2145,9 +2159,9 @@
         </div>
         <h4 style="color: #ffd700; margin: 0; font-size: 1.25rem; text-shadow: 0 0 15px rgba(255, 215, 0, 0.7);">The Happy Makers 1-Minute Challenge</h4>
         <p class="gift-card-description" style="color: #ffffff; font-size: 0.95rem; line-height: 1.5;">One click. One tiny mission. One minute of joy, creativity or connection. Powered by your Happy Makers.</p>
-        <button id="gift-one-minute-btn" class="gift-open-btn" type="button">Explore more</button>
+        <button onclick="openOneMinuteChallenge(event)" style="background: linear-gradient(45deg, #8A2BE2, #9932CC); border: 2px solid #ffd700; border-radius: 14px; color: #ffffff; font-weight: bold; padding: 10px 16px; cursor: pointer; text-transform: uppercase; box-shadow: 0 0 18px rgba(138, 43, 226, 0.6); margin-top: auto;">Start the 1-Minute Challenge</button>
        </div>
-        <div id="gift-card-word-search" class="gift-card" style="background: #000000; border: 3px solid #8A2BE2; border-radius: 18px; padding: 22px; text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(138, 43, 226, 0.4); position: relative; min-height: 260px; display: flex; flex-direction: column; gap: 10px; justify-content: space-between;">
+        <div id="gift-card-word-search" class="gift-card" onclick="openWordSearch(event)" style="background: #000000; border: 3px solid #8A2BE2; border-radius: 18px; padding: 22px; text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(138, 43, 226, 0.4); position: relative; min-height: 260px; display: flex; flex-direction: column; gap: 10px; justify-content: space-between;">
         <div style="position: absolute; top: 12px; left: 12px; background: #8A2BE2; color: #ffffff; font-size: 0.7rem; font-weight: bold; padding: 6px 10px; border-radius: 10px; text-transform: uppercase; box-shadow: 0 0 12px rgba(138, 43, 226, 0.6);">Available</div>
         <div style="width: 86px; height: 86px; margin: 10px auto 6px auto; border-radius: 50%; border: 3px solid #8A2BE2; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 18px rgba(138,43,226,0.5);"><svg width="40" height="40" viewbox="0 0 100 100" aria-hidden="true">
             <rect x="22" y="40" width="56" height="38" rx="6" fill="#8A2BE2" stroke="#ffd700" stroke-width="3"></rect>
@@ -2157,9 +2171,9 @@
         </svg></div>
         <h4 style="color: #8A2BE2; margin: 0 0 8px 0; font-size: 1.22rem; text-shadow: 0 0 15px rgba(138, 43, 226, 0.7);">The Happy Makers Word Search</h4>
         <p class="gift-card-description" style="color: #ffffff; font-size: 0.95rem; line-height: 1.5;">Find every Happy Maker theme, then celebrate with confetti as the puzzle reloads with brand-new words.</p>
-        <button id="gift-word-search-btn" class="gift-open-btn" type="button">Explore more</button>
+        <button onclick="openWordSearch(event)" style="background: linear-gradient(45deg, #8A2BE2, #9932CC); border: 2px solid #ffd700; border-radius: 12px; color: #ffffff; font-weight: bold; padding: 10px 14px; cursor: pointer; text-transform: uppercase; box-shadow: 0 0 18px rgba(138, 43, 226, 0.6);">Play</button>
        </div>
-       <div id="gift-card-word-search-pro" class="gift-card" style="background: #000000; border: 3px solid #ffd700; border-radius: 18px; padding: 22px; text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(255, 215, 0, 0.5); position: relative; min-height: 300px; display: flex; flex-direction: column; gap: 12px; justify-content: space-between;">
+       <div id="gift-card-word-search-pro" class="gift-card" onclick="openWordSearchPro(event)" style="background: #000000; border: 3px solid #ffd700; border-radius: 18px; padding: 22px; text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(255, 215, 0, 0.5); position: relative; min-height: 300px; display: flex; flex-direction: column; gap: 12px; justify-content: space-between;">
         <div style="position: absolute; top: 12px; left: 12px; background: #8A2BE2; color: #ffffff; font-size: 0.7rem; font-weight: bold; padding: 6px 10px; border-radius: 10px; text-transform: uppercase; box-shadow: 0 0 12px rgba(138, 43, 226, 0.6);">New</div>
         <div style="width: 86px; height: 86px; margin: 8px auto 6px auto; border-radius: 50%; border: 3px solid #ffd700; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 20px rgba(255,215,0,0.6);">
          <svg width="48" height="48" viewBox="0 0 120 120" aria-hidden="true">
@@ -2182,7 +2196,7 @@
         </div>
         <h4 style="color: #ffd700; margin: 0 0 8px 0; font-size: 1.25rem; text-shadow: 0 0 15px rgba(255, 215, 0, 0.7);">Word Search Studio</h4>
         <p class="gift-card-description" style="color: #ffffff; font-size: 0.95rem; line-height: 1.5;">Build full-sized puzzles with selectable shapes, difficulty levels, themes and one-click print / download.</p>
-        <button id="gift-word-search-pro-btn" class="gift-open-btn" type="button">Explore more</button>
+        <button onclick="openWordSearchPro(event)" style="background: linear-gradient(45deg, #8A2BE2, #9932CC); border: 2px solid #ffd700; border-radius: 14px; color: #ffffff; font-weight: bold; padding: 10px 16px; cursor: pointer; text-transform: uppercase; box-shadow: 0 0 18px rgba(138, 43, 226, 0.6); margin-top: auto;">Launch Word Search Studio</button>
        </div>
       </div>
      </div>
@@ -6785,6 +6799,13 @@ document
             if (modal) {
                 modal.style.display = 'flex';
                 modal.classList.add('show');
+                modal.style.visibility = 'visible';
+                const content = modal.querySelector('.modal-content');
+                if (content) {
+                    content.style.display = 'block';
+                    content.scrollTop = 0;
+                }
+                modal.scrollTop = 0;
                 document.body.style.overflow = 'hidden';
             }
         }
@@ -6796,6 +6817,34 @@ document
                 modal.style.display = 'none';
             }
             document.body.style.overflow = 'auto';
+        }
+
+        function applyMobileLineBreaks() {
+            if (!isMobileViewport()) {
+                return;
+            }
+            const selectors = [
+                '.kids-text',
+                '.story-text',
+                '.character-description p',
+                '.book-details-view p',
+                '#dynamic-info-tile .info-text',
+            ];
+            const elements = document.querySelectorAll(selectors.join(','));
+            elements.forEach((el) => {
+                el.classList.add('mobile-line-breaks');
+                const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+                const textNodes = [];
+                while (walker.nextNode()) {
+                    const node = walker.currentNode;
+                    if (node.nodeValue && /[.:]\s+/.test(node.nodeValue)) {
+                        textNodes.push(node);
+                    }
+                }
+                textNodes.forEach((node) => {
+                    node.nodeValue = node.nodeValue.replace(/([.:])\s+/g, '$1\n');
+                });
+            });
         }
 
         function handleBottomAction() {
@@ -7955,6 +8004,7 @@ document
             applyCharacterPortraits();
             applyCoverImages();
             const verificationHandled = handleVerificationRedirect();
+            applyMobileLineBreaks();
             initGiftTapListeners();
             const authActionButton = document.getElementById('auth-action-button');
             if (authActionButton) {
@@ -8103,23 +8153,42 @@ document
 
         function setGiftFrameHtml(html) {
             if (!html) return false;
-            const preferDataUrl = window.matchMedia && window.matchMedia('(max-width: 720px)').matches;
-            const baseHref = window.location.origin ? `${window.location.origin}/` : '';
-            const htmlWithBase = baseHref && !html.includes('<base')
-                ? html.replace('<head>', `<head><base href="${baseHref}">`)
-                : html;
-            if (!preferDataUrl && ('srcdoc' in giftFrame)) {
-                giftFrame.srcdoc = htmlWithBase;
+            const preferBlob = window.matchMedia && window.matchMedia('(max-width: 720px)').matches;
+            if (!preferBlob && ('srcdoc' in giftFrame)) {
+                giftFrame.srcdoc = html;
                 giftFrame.removeAttribute('src');
                 return true;
             }
-            const dataUrl = `data:text/html;charset=utf-8,${encodeURIComponent(htmlWithBase)}`;
+            const blob = new Blob([html], { type: 'text/html' });
+            if (giftBlobUrl) {
+                URL.revokeObjectURL(giftBlobUrl);
+            }
+            giftBlobUrl = URL.createObjectURL(blob);
             giftFrame.removeAttribute('srcdoc');
-            giftFrame.src = dataUrl;
+            giftFrame.src = giftBlobUrl;
             return true;
         }
 
         function openGiftInNewWindow(key, html, source) {
+            const preferBlob = window.matchMedia && window.matchMedia('(max-width: 720px)').matches;
+            if (!preferBlob) {
+                return false;
+            }
+            if (source) {
+                const popup = window.open(source, '_blank', 'noopener,noreferrer');
+                return !!popup;
+            }
+            if (!html) {
+                return false;
+            }
+            const blob = new Blob([html], { type: 'text/html' });
+            const blobUrl = URL.createObjectURL(blob);
+            const popup = window.open(blobUrl, '_blank', 'noopener,noreferrer');
+            if (popup) {
+                setTimeout(() => URL.revokeObjectURL(blobUrl), 30000);
+                return true;
+            }
+            URL.revokeObjectURL(blobUrl);
             return false;
         }
 
@@ -8168,7 +8237,6 @@ document
             giftFrame.removeAttribute('srcdoc');
             giftFrame.onload = null;
             giftFrame.onerror = null;
-            giftFrame.setAttribute('loading', 'eager');
             giftFallback.style.display = 'flex';
             giftFallback.innerHTML = '<div style="width:100%;padding:12px 8px;">Loading gift…</div>';
             giftFrame.style.display = 'none';
@@ -8274,7 +8342,7 @@ document
                 const activeTab = document.querySelector('.tab.active');
                 const tabName = activeTab?.dataset?.tab || 'main';
                 giftOverlayOpen = false;
-                history.replaceState({ tab: tabName }, document.title, `#${tabName}`);
+                history.replaceState({ giftOverlay: false }, document.title, window.location.href);
             } else {
                 giftOverlayOpen = false;
             }
@@ -8367,14 +8435,25 @@ document
         }
 
         function initGiftTapListeners() {
-            const buttons = [
-                { id: 'gift-calm-energy-btn', handler: openCalmEnergyWheel },
-                { id: 'gift-one-minute-btn', handler: openOneMinuteChallenge },
-                { id: 'gift-word-search-btn', handler: openWordSearch },
-                { id: 'gift-word-search-pro-btn', handler: openWordSearchPro },
+            const cards = [
+                { id: 'gift-card-calm-energy', handler: openCalmEnergyWheel },
+                { id: 'gift-card-word-search', handler: openWordSearch },
+                { id: 'gift-card-word-search-pro', handler: openWordSearchPro },
             ];
-            buttons.forEach(({ id, handler }) => {
+            cards.forEach(({ id, handler }) => {
                 addTapListener(document.getElementById(id), handler);
+            });
+
+            const buttons = [
+                { selector: '[onclick*="openCalmEnergyWheel"]', handler: openCalmEnergyWheel },
+                { selector: '[onclick*="openOneMinuteChallenge"]', handler: openOneMinuteChallenge },
+                { selector: '[onclick*="openWordSearchPro"]', handler: openWordSearchPro },
+                { selector: '[onclick*="openWordSearch(event)"]', handler: openWordSearch },
+            ];
+            buttons.forEach(({ selector, handler }) => {
+                document.querySelectorAll(selector).forEach((btn) => {
+                    addTapListener(btn, handler);
+                });
             });
         }
 

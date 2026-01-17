@@ -67,59 +67,18 @@ export default {
 
 // 1. Wysyłanie maila z podpisanym linkiem
 async function sendDeleteConfirmationEmail(body, env, workerOrigin) {
-    const { email, userId } = body;
-
-    if (!email || !userId) {
-        return new Response(JSON.stringify({ error: "Missing email or userId" }), {
-            status: 400,
-            headers: { "Access-Control-Allow-Origin": "*", "Content-Type": "application/json" }
-        });
+    const { email } = body;
+    let { userId } = body;
+    if (!userId && email) {
+        userId = await lookupSupabaseUserId(email, env);
     }
-    if (!env.UNSUBSCRIBE_CONFIRM_SECRET) {
-        return new Response(JSON.stringify({ error: "Missing unsubscribe confirmation secret" }), {
-            status: 500,
-            headers: { "Access-Control-Allow-Origin": "*", "Content-Type": "application/json" }
-        });
-    }
-    if (!env.SUPABASE_SERVICE_ROLE_KEY) {
-        return new Response(JSON.stringify({ error: "Missing Supabase service role key" }), {
-            status: 500,
-            headers: { "Access-Control-Allow-Origin": "*", "Content-Type": "application/json" }
-        });
-    }
-    if (!env.BREVO_API_KEY) {
-        return new Response(JSON.stringify({ error: "Missing Brevo API key" }), {
-            status: 500,
-            headers: { "Access-Control-Allow-Origin": "*", "Content-Type": "application/json" }
-        });
-    }
-
-    const supabaseUserResp = await fetch(`https://gegaodrfqwhrfdqtiokb.supabase.co/auth/v1/admin/users/${encodeURIComponent(userId)}`, {
-        method: "GET",
-        headers: {
-            "apikey": env.SUPABASE_SERVICE_ROLE_KEY,
-            "Authorization": `Bearer ${env.SUPABASE_SERVICE_ROLE_KEY}`,
-            "Content-Type": "application/json"
-        }
-    });
-
-    if (!supabaseUserResp.ok) {
-        const notFound = supabaseUserResp.status === 404;
-        return new Response(JSON.stringify({ error: notFound ? "Email not found" : "Unable to verify user", code: notFound ? "email_not_found" : "supabase_error" }), {
-            status: notFound ? 404 : 500,
-            headers: { "Access-Control-Allow-Origin": "*", "Content-Type": "application/json" }
-        });
-    }
-
-    const supabaseUser = await supabaseUserResp.json().catch(() => ({}));
-    const userEmail = (supabaseUser?.email || "").toString().trim().toLowerCase();
-    if (!userEmail || userEmail !== email.toLowerCase()) {
-        return new Response(JSON.stringify({ error: "Email not found", code: "email_not_found" }), {
+    if (!userId) {
+        return new Response(JSON.stringify({ error: "Email not found" }), {
             status: 404,
             headers: { "Access-Control-Allow-Origin": "*", "Content-Type": "application/json" }
         });
     }
-    
+
     // Generujemy podpis (HMAC)
     const dataToSign = `${email}:${userId}`;
     const signature = await generateHMAC(dataToSign, env.UNSUBSCRIBE_CONFIRM_SECRET);
@@ -336,6 +295,29 @@ async function generateHMAC(message, secret) {
     
     // Konwersja na hex string
     return Array.from(new Uint8Array(signature)).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+async function lookupSupabaseUserId(email, env) {
+    if (!env.SUPABASE_SERVICE_ROLE_KEY) {
+        return '';
+    }
+    const response = await fetch(`https://gegaodrfqwhrfdqtiokb.supabase.co/auth/v1/admin/users?email=${encodeURIComponent(email)}`, {
+        method: "GET",
+        headers: {
+            "apikey": env.SUPABASE_SERVICE_ROLE_KEY,
+            "Authorization": `Bearer ${env.SUPABASE_SERVICE_ROLE_KEY}`,
+            "Content-Type": "application/json"
+        }
+    });
+    if (!response.ok) {
+        return '';
+    }
+    const data = await response.json().catch(() => ({}));
+    const users = Array.isArray(data) ? data : (Array.isArray(data?.users) ? data.users : []);
+    if (!users.length) {
+        return '';
+    }
+    return users[0]?.id || '';
 }
 
 // 4. Stare funkcje (Zapis i Status - skrócone dla czytelności, wklej tu swoje pełne wersje jeśli modyfikowałaś)
