@@ -1833,7 +1833,7 @@
        <p style="margin: 0 0 10px 0;"><strong style="color:#8A2BE2;">Need something fast?</strong></p>
        <p style="margin: 0 0 14px 0;">Head to <span style="color:#ffd700; font-weight:700;">GIFTS</span>.<br>Bite-sized resources like 1-minute challenges and quick calm or energy boosters.</p>
        <p style="margin: 0 0 14px 0;">Because sometimes you don’t need a whole program.<br>You need an instant reset.</p>
-       <p style="margin: 0;">Explore the <strong style="color:#8A2BE2;">HUB</strong>.<br>Grab your <strong style="color:#8A2BE2;">GIFTS</strong>.<br>And let’s<br><span class="word-rise">RISE</span>.<br><span class="word-shine">SHINE</span>.<br><span class="word-evolve">EVOLVE</span>.<br><strong>TOGETHER.</strong></p>
+      <p style="margin: 0;">Explore the <strong style="color:#8A2BE2;">HUB</strong><br>Grab your <strong style="color:#8A2BE2;">GIFTS</strong><br>And let’s<br><span class="word-rise">RISE</span><br><span class="word-shine">SHINE</span><br><span class="word-evolve">EVOLVE</span><br><strong>TOGETHER</strong></p>
       </div>
      </div>
      <div class="kids-tile" style="margin-top: 20px;">
@@ -8544,13 +8544,6 @@ document
                 return;
             }
             giftOverlayOpen = false;
-            const activeTab = document.querySelector('.tab.active');
-            if (activeTab?.dataset?.tab === 'gifts') {
-                const giftsContent = document.getElementById('gifts-content');
-                if (giftsContent && !giftsContent.classList.contains('active')) {
-                    showTabContent(activeTab, 'gifts', { skipHistory: true });
-                }
-            }
             const activeTab = document.querySelector('.tab.active');
             if (activeTab?.dataset?.tab === 'gifts') {
                 const giftsContent = document.getElementById('gifts-content');
