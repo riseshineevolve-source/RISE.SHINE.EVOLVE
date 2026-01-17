@@ -5164,18 +5164,15 @@
 
     /* ---------- WHEEL LOGIC ---------- */
 
-    const practicePortraits = {
-      Mimi: 'assets/images/Mimi.png',
-      Luli: 'assets/images/Luli.png',
-      Dilo: 'assets/images/Dilo.png',
-      Alio: 'assets/images/Alio.png',
-      Nini: 'assets/images/Nini.png',
-      Bibi: 'assets/images/Grandma Bibi.png'
-    };
-
-    function getPracticePortrait(name) {
-      const src = practicePortraits[name];
-      return src ? encodeURI(src) : null;
+    function getPortraitSources(name) {
+      if (!name) return null;
+      const baseName = `${name}.png`;
+      const primary = `assets/images/${baseName}`;
+      const fallback = name === 'Bibi' ? 'assets/images/Grandma Bibi.png' : null;
+      return {
+        primary: encodeURI(primary),
+        fallback: fallback ? encodeURI(fallback) : null,
+      };
     }
 
     function renderPracticeCard(practice, targetElement, theme) {
@@ -5192,9 +5189,9 @@
       const speaker = (speakerRaw || "").trim();
       const quote = quoteParts.join(":").trim();
 
-      const portrait = getPracticePortrait(practice.character);
-      const portraitHtml = portrait
-        ? `<img class="hm-result-portrait" src="${portrait}" alt="${practice.character} portrait">`
+      const portraitSources = getPortraitSources(practice.character);
+      const portraitHtml = portraitSources
+        ? `<img class="hm-result-portrait" src="${portraitSources.primary}" alt="${practice.character} portrait"${portraitSources.fallback ? ` onerror="this.onerror=null; this.src='${portraitSources.fallback}';"` : ''}>`
         : '';
 
       targetElement.innerHTML = `
@@ -5950,18 +5947,9 @@ function getAvatarHTML(character) {
   }
 }
 
-const challengePortraits = {
-  Mimi: 'assets/images/Mimi.png',
-  Luli: 'assets/images/Luli.png',
-  Dilo: 'assets/images/Dilo.png',
-  Alio: 'assets/images/Alio.png',
-  Nini: 'assets/images/Nini.png',
-  Bibi: 'assets/images/Grandma Bibi.png'
-};
-
 function getChallengePortrait(character) {
-  const src = challengePortraits[character];
-  return src ? encodeURI(src) : null;
+  const portraitSources = getPortraitSources(character);
+  return portraitSources || null;
 }
 
 /* category icons - subtle variety */
@@ -5980,9 +5968,9 @@ function pickChallenge() {
 /* RENDERING */
 function renderChallenge(c) {
   const avatar = document.getElementById("hm-avatar");
-  const portrait = getChallengePortrait(c.character);
-  avatar.innerHTML = portrait
-    ? `<img src="${portrait}" alt="${c.character} portrait">`
+  const portraitSources = getChallengePortrait(c.character);
+  avatar.innerHTML = portraitSources
+    ? `<img src="${portraitSources.primary}" alt="${c.character} portrait"${portraitSources.fallback ? ` onerror="this.onerror=null; this.src='${portraitSources.fallback}';"` : ''}>`
     : getAvatarHTML(c.character);
 
   document.getElementById("challenge-title").textContent = c.title;
@@ -8287,6 +8275,13 @@ document
                         }
                         return;
                     }
+                    if (data?.error) {
+                        if (messageBox) {
+                            messageBox.style.color = '#ff69b4';
+                            messageBox.textContent = data.error;
+                        }
+                        return;
+                    }
                     if (messageBox) {
                         messageBox.style.color = '#ffd700';
                         messageBox.textContent = 'Please open the confirmation email in your inbox to complete your account removal.';
@@ -8462,7 +8457,8 @@ document
 
         function setGiftFrameHtml(html) {
             if (!html) return false;
-            const preferBlob = window.matchMedia && window.matchMedia('(max-width: 720px)').matches;
+            const preferBlob = window.matchMedia
+                && (window.matchMedia('(max-width: 720px)').matches || window.matchMedia('(orientation: portrait)').matches);
             const baseHref = window.location.origin ? `${window.location.origin}/` : '';
             const htmlWithBase = baseHref && !html.includes('<base')
                 ? html.replace('<head>', `<head><base href="${baseHref}">`)
