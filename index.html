@@ -3119,9 +3119,9 @@
                                     <label class="entry__error entry__error--primary" style="font-size:16px;text-align:left;font-family:Helvetica,sans-serif;color:#661d1d;background-color:#ffeded;border-radius:3px;border-color:#ff4949;"></label>
                                 </div>
                             </div>
-                            <div style="text-align: right; margin-top: 4px;">
-                                <button type="button" class="password-toggle" onclick="togglePasswordVisibility(['userPassword'], this)">Show password</button>
-                            </div>
+                        <div id="passwordToggleContainer" style="text-align: right; margin-top: 4px;">
+                            <button type="button" class="password-toggle" onclick="togglePasswordVisibility(['userPassword'], this)">Show password</button>
+                        </div>
                         </div>
                         <div id="resetPasswordFields" style="padding:4px 0; display: none;">
                             <div class="sib-input sib-form-block">
@@ -3148,30 +3148,6 @@
                             </div>
                             <div style="text-align: right; margin-top: 4px;">
                                 <button type="button" class="password-toggle" onclick="togglePasswordVisibility(['resetPassword','resetPasswordConfirm'], this)">Show passwords</button>
-                            </div>
-                        </div>
-                        <div id="resetPasswordFields" style="padding:4px 0; display: none;">
-                            <div class="sib-input sib-form-block">
-                                <div class="form__entry entry_block">
-                                    <div class="form__label-row ">
-                                        <label class="entry__label" style="font-weight:700;text-align:left;font-size:12px;font-family:Helvetica,sans-serif;color:#ffd700;" for="NEW_PASSWORD" data-required="*">New Password</label>
-                                        <div class="entry__field">
-                                            <input class="input" type="password" id="resetPassword" name="NEW_PASSWORD" autocomplete="new-password" placeholder="NEW PASSWORD" data-required="true">
-                                        </div>
-                                    </div>
-                                    <label class="entry__error entry__error--primary" style="font-size:16px;text-align:left;font-family:Helvetica,sans-serif;color:#661d1d;background-color:#ffeded;border-radius:3px;border-color:#ff4949;"></label>
-                                </div>
-                            </div>
-                            <div class="sib-input sib-form-block" style="margin-top: 8px;">
-                                <div class="form__entry entry_block">
-                                    <div class="form__label-row ">
-                                        <label class="entry__label" style="font-weight:700;text-align:left;font-size:12px;font-family:Helvetica,sans-serif;color:#ffd700;" for="CONFIRM_PASSWORD" data-required="*">Confirm Password</label>
-                                        <div class="entry__field">
-                                            <input class="input" type="password" id="resetPasswordConfirm" name="CONFIRM_PASSWORD" autocomplete="new-password" placeholder="CONFIRM PASSWORD" data-required="true">
-                                        </div>
-                                    </div>
-                                    <label class="entry__error entry__error--primary" style="font-size:16px;text-align:left;font-family:Helvetica,sans-serif;color:#661d1d;background-color:#ffeded;border-radius:3px;border-color:#ff4949;"></label>
-                                </div>
                             </div>
                         </div>
                         <div id="signupConsent" style="padding:4px 0;">
@@ -3744,33 +3720,6 @@
       .hm-wheel-layout {
         grid-template-columns: 1fr;
       }
-
-      .hm-wheel-info-stack {
-        order: 1;
-      }
-
-      .hm-wheel-visual-stack {
-        order: 2;
-      }
-
-      .hm-wheel-visual {
-        width: 210px;
-        height: 210px;
-      }
-
-      .hm-wheel-pointer {
-        border-left-width: 16px;
-        border-right-width: 16px;
-        border-top-width: 24px;
-      }
-    }
-
-    .hm-wheel-visual-stack {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-    }
 
       .hm-wheel-info-stack {
         order: 1;
@@ -6900,6 +6849,7 @@ document
             const signupConsent = document.getElementById('signupConsent');
             const passwordField = document.getElementById('userPassword');
             const resetPasswordFields = document.getElementById('resetPasswordFields');
+            const passwordToggleContainer = document.getElementById('passwordToggleContainer');
             const firstNameField = document.getElementById('brevoFirstName');
             const optInField = document.getElementById('brevoOptIn');
             const bottomSubmit = document.getElementById('authActionBottom');
@@ -6941,6 +6891,9 @@ document
                 }
                 passwordField.autocomplete = authMode === 'signup' ? 'new-password' : 'current-password';
                 passwordField.required = authMode !== 'reset' && authMode !== 'set-password';
+            }
+            if (passwordToggleContainer) {
+                passwordToggleContainer.style.display = authMode === 'reset' || authMode === 'set-password' ? 'none' : 'block';
             }
             if (resetPasswordFields) {
                 resetPasswordFields.style.display = authMode === 'set-password' ? 'block' : 'none';
@@ -7682,7 +7635,12 @@ document
                         <p style="margin-top: 18px; font-weight: bold; color: #8A2BE2;">THE PROMISE</p>
                         <p style="margin-bottom: 12px; text-align: justify; text-align-last: center;">The world is waiting for your child's magic.<br>We don't just tell them they are brave, we give them the toolkit to feel resilient, capable, and confident every single day.</p>
                         <p style="margin-bottom: 12px;">Ready to unlock their true potential?</p>
-                        <p style="margin-bottom: 0; font-weight: 800; color: #ffd700;">IT IS TIME TO RISE. SHINE. EVOLVE. TOGETHER!</p>
+                        <p style="margin-bottom: 0; font-weight: 800;">
+                            IT IS TIME TO <span class="word-rise">RISE</span>.
+                            <span class="word-shine">SHINE</span>.
+                            <span class="word-evolve">EVOLVE</span>.
+                            TOGETHER!
+                        </p>
                     </div>
 
                     <div style="text-align: center; margin-top: 30px;">
@@ -8133,13 +8091,6 @@ document
                     if (session?.user?.id && session?.user?.email?.toLowerCase() === emailValue) {
                         userId = session.user.id;
                     }
-                }
-                if (!userId) {
-                    if (messageBox) {
-                        messageBox.style.color = '#ff69b4';
-                        messageBox.textContent = 'Please open the confirmation email in your inbox to complete your account removal.';
-                    }
-                    return;
                 }
                 return fetch(workerEndpoint, {
                     method: 'POST',
