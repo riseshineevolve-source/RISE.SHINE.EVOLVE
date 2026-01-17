@@ -5451,7 +5451,7 @@
 <body>
   <div class="ws-shell">
     <div class="ws-instructions">Tap the first letter, then each next letter in order until the last letter to complete a word.</div>
-    <iframe class="ws-frame" src="assets/word-search-studio/index.html" title="Word Search Studio" loading="lazy"></iframe>
+    <iframe class="ws-frame" src="/assets/word-search-studio/index.html" title="Word Search Studio"></iframe>
   </div>
   </template>
 
@@ -5949,12 +5949,13 @@ function getAvatarHTML(character) {
 
 function getPortraitSources(name) {
   if (!name) return null;
-  const baseName = `${name}.png`;
-  const primary = `assets/images/${baseName}`;
-  const fallback = name === 'Bibi' ? 'assets/images/Grandma Bibi.png' : null;
+  const portraitRemoteBase = 'https://raw.githubusercontent.com/riseshineevolve-source/RISE.SHINE.EVOLVE/main/assets/images/';
+  const fileName = name === 'Bibi' ? 'Grandma Bibi.png' : `${name}.png`;
+  const primary = `assets/images/${fileName}`;
+  const fallback = `${portraitRemoteBase}${encodeURIComponent(fileName)}`;
   return {
     primary: encodeURI(primary),
-    fallback: fallback ? encodeURI(fallback) : null,
+    fallback,
   };
 }
 
@@ -8248,6 +8249,13 @@ document
                         if (messageBox) {
                             messageBox.style.color = '#ff69b4';
                             messageBox.textContent = 'Email not found.';
+                        }
+                        return;
+                    }
+                    if (data?.error) {
+                        if (messageBox) {
+                            messageBox.style.color = '#ff69b4';
+                            messageBox.textContent = data.error;
                         }
                         return;
                     }
