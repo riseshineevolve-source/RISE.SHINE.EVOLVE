@@ -4,7 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Riseshine Evolve</title>
+  <link rel="preload" as="image" href="assets/images/Confident,%20Mindful%20%26%20Happy%20Me%20cover.png">
   <style>
+        html {
+            width: 100%;
+            height: 100%;
+            min-width: 100vw;
+        }
+
         body {
             box-sizing: border-box;
             margin: 0;
@@ -14,6 +21,8 @@
             min-height: 100vh;
             overflow-x: hidden;
             position: relative;
+            width: 100%;
+            min-width: 100vw;
         }
 
 
@@ -48,6 +57,10 @@
             z-index: 2;
             padding: 40px 30px;
             text-align: center;
+            width: 100%;
+            min-width: 100vw;
+            min-height: 100vh;
+            box-sizing: border-box;
         }
 
         /* Main title */
@@ -205,6 +218,76 @@
             border-radius: 14px !important;
         }
 
+        .mobile-only {
+            display: none;
+        }
+
+            .info-text .info-line {
+                display: block;
+                white-space: nowrap;
+            }
+
+        #auth-action-chip {
+            position: absolute;
+            top: 16px;
+            right: 18px;
+            z-index: 15000;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid #ffd700;
+            color: #ffd700;
+            font-size: 0.62rem;
+            font-weight: 700;
+            padding: 6px 10px;
+            border-radius: 12px;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.35);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            max-width: 70vw;
+        }
+
+        #auth-action-label {
+            display: inline-block;
+            max-width: 40vw;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        #auth-action-button {
+            background: transparent;
+            border: none;
+            color: #ffd700;
+            font-size: 0.62rem;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 9px;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+
+        @media (max-width: 600px) {
+            #auth-action-chip {
+                top: 8px;
+                right: 10px;
+                font-size: 0.5rem;
+                padding: 4px 8px;
+                gap: 6px;
+                max-width: 62vw;
+            }
+
+            #auth-action-button {
+                font-size: 0.5rem;
+                padding: 2px 6px;
+            }
+
+            #auth-action-label {
+                max-width: 48vw;
+            }
+        }
+
         .brevo-embed .input {
             background: #0a0a0a !important;
             color: #ffffff !important;
@@ -312,6 +395,17 @@
             border-radius: 10px !important;
         }
 
+        .password-toggle {
+            background: none;
+            border: none;
+            color: #ffd700;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            padding: 2px 0;
+            text-decoration: underline;
+        }
+
         .gift-overlay {
             display: none;
             position: fixed;
@@ -320,7 +414,7 @@
             height: 100%;
             background: rgba(0, 0, 0, 0.95);
             z-index: 10010;
-            overflow: auto;
+            overflow: hidden;
             padding: 12px;
             box-sizing: border-box;
             align-items: center;
@@ -329,12 +423,15 @@
 
         .gift-overlay-inner {
             position: relative;
-            width: min(1100px, 96vw);
-            height: min(88vh, 700px);
-            max-height: calc(100vh - 36px);
-            margin: 0 auto;
+            width: 100%;
+            height: 100%;
+            max-height: none;
+            margin: 0;
             display: flex;
             align-items: stretch;
+            justify-content: stretch;
+            flex: 1;
+            min-height: 0;
         }
 
         .gift-close-btn {
@@ -357,6 +454,8 @@
             display: block;
             width: 100%;
             height: 100%;
+            flex: 1;
+            min-height: 0;
             margin: 0 auto;
             border: 3px solid #8A2BE2;
             border-radius: 16px;
@@ -385,16 +484,21 @@
 
         @media (max-width: 720px) {
             .gift-overlay {
-                padding: 6px;
+                padding: 0;
+                align-items: flex-start;
             }
             .gift-overlay-inner {
                 width: 100%;
                 height: 100vh;
-                max-height: none;
+                height: 100svh;
+                height: 100dvh;
+                max-height: 100dvh;
                 border-radius: 0;
+                min-height: 0;
             }
             .gift-frame {
-                height: 100vh;
+                height: 100%;
+                min-height: 100%;
                 border-width: 0;
                 border-radius: 0;
             }
@@ -413,6 +517,13 @@
             .container {
                 padding: 28px 16px;
             }
+            .kids-tile {
+                width: 94vw !important;
+                max-width: 94vw !important;
+                padding: 12px 16px;
+                margin: 18px auto;
+                font-size: 0.85rem;
+            }
             .info-tile,
             .kids-tile {
                 box-shadow: 0 0 20px rgba(138, 43, 226, 0.35), 0 0 30px rgba(255, 215, 0, 0.2);
@@ -420,7 +531,8 @@
             .elegant-christmas-box {
                 right: 8px;
                 top: 90px;
-                width: 120px;
+                width: 180px;
+                height: 110px;
                 box-shadow: 0 0 24px rgba(255, 215, 0, 0.5), 0 0 40px rgba(255, 215, 0, 0.2);
             }
             .brevo-embed .sib-container--large {
@@ -477,9 +589,13 @@
                 font-size: 0.95rem;
             }
             .info-tile {
-                max-width: 340px;
-                padding: 10px 14px;
-                font-size: 0.78rem;
+                max-width: 520px;
+                width: min(520px, 96vw);
+                padding: 8px 12px;
+                font-size: 0.75rem;
+            }
+            .info-text .info-line {
+                font-size: 0.7rem;
             }
             .kids-tile {
                 padding: 14px 16px !important;
@@ -528,7 +644,8 @@
             margin-bottom: 18px;
         }
 
-        .character-header img {
+        .character-header img,
+        .character-header video {
             width: 160px;
             height: 160px;
             border-radius: 50%;
@@ -558,7 +675,7 @@
             color: #ffffff;
             line-height: 1.7;
             margin: 0 0 16px 0;
-            text-align: justify;
+            text-align: center;
         }
 
         .character-description-box {
@@ -568,6 +685,7 @@
             padding: 18px 20px;
             box-shadow: 0 0 28px rgba(255, 215, 0, 0.25);
             margin-bottom: 26px;
+            text-align: center;
         }
 
         .character-section-heading {
@@ -815,8 +933,8 @@
             border-radius: 15px;
             padding: 15px 25px;
             margin: 25px auto;
-            width: 450px;
-            max-width: 90%;
+            width: min(520px, 92vw);
+            max-width: 92vw;
             box-shadow: 0 0 35px rgba(138, 43, 226, 0.7), 0 0 60px rgba(138, 43, 226, 0.4);
             color: #ffffff;
             text-align: center;
@@ -849,12 +967,130 @@
             animation: evolveGlow 8s infinite ease-in-out;
         }
 
+        .floating-boxes {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 16px;
+            flex-wrap: nowrap;
+            margin: 0 auto;
+            width: min(980px, 96vw);
+            z-index: 2;
+            position: absolute;
+            top: 32px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .floating-boxes .elegant-christmas-box {
+            margin: 0;
+            flex: 0 0 auto;
+            position: relative;
+            top: auto;
+            right: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            width: 140px;
+            min-height: 210px;
+            height: auto;
+            transform: none;
+            animation: none;
+            border-color: #8A2BE2;
+            box-shadow: 0 0 18px rgba(138, 43, 226, 0.6), 0 0 28px rgba(138, 43, 226, 0.35);
+        }
+
+        .floating-boxes .elegant-amazon-btn {
+            border-color: #8A2BE2;
+            box-shadow: 0 0 16px rgba(138, 43, 226, 0.6);
+        }
+
+        .floating-boxes .floating-box-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto 8px auto;
+            flex-shrink: 0;
+            border-radius: 10px;
+            border: 2px solid #8A2BE2;
+            box-shadow: 0 0 14px rgba(138, 43, 226, 0.45);
+        }
+
+        .floating-boxes .floating-box-cta {
+            width: 100%;
+            min-width: 0;
+            padding: 6px 10px;
+            font-size: 0.55rem;
+            line-height: 1.15;
+            display: inline-block;
+            border-radius: 11px;
+            min-height: 36px;
+            margin-top: auto;
+        }
+
+        @media (min-width: 769px) {
+            .floating-boxes .elegant-christmas-box {
+                width: 160px;
+                min-height: 220px;
+            }
+        }
+
+        .gifts-mobile-instructions {
+            display: none;
+        }
+
+        .gift-card-description {
+            margin: 0 0 6px 0;
+        }
+
+        .gift-open-btn {
+            background: linear-gradient(45deg, #8A2BE2, #9932CC);
+            border: 2px solid #ffd700;
+            border-radius: 14px;
+            color: #ffffff;
+            font-weight: bold;
+            padding: 10px 16px;
+            cursor: pointer;
+            text-transform: uppercase;
+            box-shadow: 0 0 18px rgba(138, 43, 226, 0.6);
+            margin-top: auto;
+            width: fit-content;
+            position: relative;
+            z-index: 1;
+            pointer-events: auto;
+            touch-action: manipulation;
+        }
+
         /* Tabs */
         .tabs-container {
             margin-top: 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
+            width: 100%;
+        }
+
+        @media (min-width: 721px) {
+            .tabs-container {
+                width: 100%;
+            }
+
+            .tab-content {
+                max-width: 1200px;
+                margin: 0 auto;
+            }
+
+            .kids-tile {
+                width: min(720px, 92vw);
+                max-width: 720px;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .gifts-library-grid {
+                display: flex !important;
+                flex-direction: column !important;
+            }
         }
 
         .tabs {
@@ -924,11 +1160,12 @@
             position: fixed;
             top: 110px;
             right: 12px;
-            width: 120px;
+            width: 240px;
+            height: 120px;
             background: linear-gradient(135deg, rgba(0, 0, 0, 0.95), rgba(20, 20, 20, 0.9), rgba(0, 0, 0, 0.95));
             border: 2px solid #ffd700;
-            border-radius: 16px;
-            padding: 6px 7px;
+            border-radius: 14px;
+            padding: 8px;
             text-align: center;
             box-shadow: 0 0 30px rgba(255, 215, 0, 0.6), 0 0 70px rgba(255, 215, 0, 0.25), inset 0 0 24px rgba(138, 43, 226, 0.12);
             transform: rotate(2deg);
@@ -956,32 +1193,29 @@
             align-items: center;
             text-align: center;
             gap: 4px;
-        }
-
-        .elegant-crown-icon {
-            width: 26px;
-            height: 26px;
-            margin-bottom: 3px;
-            filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.8));
+            height: 100%;
+            justify-content: space-between;
+            padding-bottom: 4px;
         }
 
         .elegant-main-title {
-            font-size: 0.76rem;
+            font-size: 0.75rem;
             font-weight: bold;
             color: #ffd700;
             margin-bottom: 2px;
             text-shadow: 0 0 25px rgba(255, 215, 0, 1);
-            line-height: 1.15;
+            line-height: 1.1;
         }
 
         .elegant-subtitle {
-            font-size: 0.56rem;
+            font-size: 0.45rem;
             color: #8A2BE2;
             text-shadow: 0 0 15px rgba(138, 43, 226, 0.8);
             margin-bottom: 2px;
             font-weight: bold;
             text-transform: uppercase;
             letter-spacing: 0.35px;
+            line-height: 1.2;
         }
 
         .elegant-description {
@@ -998,9 +1232,9 @@
             background-size: 200% 200%;
             border: 2px solid #ffd700;
             border-radius: 15px;
-            padding: 8px 10px;
+            padding: 6px 8px;
             color: #ffffff;
-            font-size: 0.68rem;
+            font-size: 0.6rem;
             font-weight: bold;
             cursor: pointer;
             text-shadow: 0 0 12px rgba(0, 0, 0, 0.8);
@@ -1009,6 +1243,11 @@
             text-transform: uppercase;
             letter-spacing: 0.8px;
             animation: elegantBtnShine 8s ease-in-out infinite;
+            width: 100%;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
         }
 
         .elegant-amazon-btn:hover {
@@ -1042,6 +1281,110 @@
                 transform: rotate(1.8deg) translateY(-2px);
             }
         }
+
+        @media (max-width: 768px) {
+            .mobile-only {
+                display: block;
+            }
+
+            .floating-boxes {
+                justify-content: center;
+                flex-wrap: wrap;
+                width: min(520px, 96vw);
+                position: relative;
+                top: auto;
+                left: auto;
+                transform: none;
+                margin: 16px auto 24px;
+            }
+
+            .floating-boxes .elegant-christmas-box {
+                width: 165px;
+                min-height: 260px;
+                justify-content: flex-end;
+            }
+
+            .floating-boxes .floating-box-image {
+                height: 140px;
+                object-fit: contain;
+                object-position: center top;
+            }
+
+            .mobile-line-breaks {
+                white-space: pre-line;
+            }
+
+            .mobile-line-breaks .word-rise,
+            .mobile-line-breaks .word-shine,
+            .mobile-line-breaks .word-evolve {
+                display: block;
+            }
+
+            .mobile-line-breaks span[style*="color"] {
+                display: block;
+            }
+
+            .gifts-mobile-instructions {
+                display: block;
+                margin: 12px auto 20px auto;
+                max-width: 520px;
+                width: 100%;
+                text-align: left;
+                color: #ffffff;
+                font-size: 0.95rem;
+                line-height: 1.5;
+                padding: 0 6px;
+            }
+
+            .gifts-mobile-instructions .gift-instruction {
+                background: rgba(0, 0, 0, 0.7);
+                border: 2px solid #8A2BE2;
+                border-radius: 14px;
+                padding: 12px 14px;
+                margin-bottom: 12px;
+                box-shadow: 0 0 16px rgba(138, 43, 226, 0.4);
+            }
+
+            .gifts-mobile-instructions .gift-instruction h4 {
+                margin: 0 0 6px 0;
+                color: #ffd700;
+                font-size: 1rem;
+            }
+
+            .gifts-library-grid {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .gifts-library-grid .gift-card {
+                min-height: unset;
+            }
+
+            .gift-card-description {
+                display: block;
+                font-size: 0.9rem;
+                margin: 0 0 10px 0;
+            }
+
+            .hm-wheel-title {
+                font-size: 1.3rem;
+            }
+
+            .hm-wheel-subtitle {
+                font-size: 0.95rem;
+                text-align: center;
+            }
+
+            .hm-info-text {
+                font-size: 0.95rem;
+            }
+
+            .hm-result-main-title {
+                font-size: 1.2rem;
+            }
+        }
+
+        
 
         @keyframes elegantBoxGlow {
             0%, 100% { 
@@ -1099,8 +1442,8 @@
                 right: auto;
                 left: auto;
                 margin: 8px auto 0;
-                width: 88%;
-                max-width: 160px;
+                width: 220px;
+                height: 120px;
                 transform: rotate(0deg);
                 animation: elegantBoxGlow 6s ease-in-out infinite, elegantBoxFloat 8s ease-in-out infinite;
             }
@@ -1142,8 +1485,8 @@
                 position: relative;
                 top: auto;
                 right: auto;
-                width: 88%;
-                max-width: 160px;
+                width: 220px;
+                height: 120px;
                 margin: 12px auto;
                 transform: rotate(0deg);
                 animation: elegantBoxGlow 6s ease-in-out infinite, elegantBoxFloat 8s ease-in-out infinite;
@@ -1153,17 +1496,12 @@
                 transform: rotate(0deg) scale(1.02);
             }
 
-            .elegant-crown-icon {
-                width: 28px;
-                height: 28px;
-            }
-
             .elegant-main-title {
-                font-size: 0.78rem;
+                font-size: 0.7rem;
             }
 
             .elegant-subtitle {
-                font-size: 0.58rem;
+                font-size: 0.44rem;
             }
 
             .elegant-description {
@@ -1171,8 +1509,8 @@
             }
 
             .elegant-amazon-btn {
-                font-size: 0.65rem;
-                padding: 7px 12px;
+                font-size: 0.58rem;
+                padding: 6px 8px;
             }
         }
     </style>
@@ -1463,40 +1801,15 @@
   <div class="container">
    <h1 class="main-title">RISE.SHINE.EVOLVE</h1>
    <p class="subtitle">Empowering Learning Hub</p>
-   <div id="auth-action-chip" style="position: fixed; top: 16px; right: 18px; z-index: 15000; display: flex; align-items: center; gap: 8px; background: rgba(0, 0, 0, 0.6); border: 1px solid #ffd700; color: #ffd700; font-size: 0.62rem; font-weight: 700; padding: 6px 10px; border-radius: 12px; box-shadow: 0 0 10px rgba(255, 215, 0, 0.35); text-transform: uppercase; letter-spacing: 0.5px;">
+  <div id="auth-action-chip">
     <span id="auth-action-label" style="display: none;">Log in as</span>
-    <button type="button" id="auth-action-button" onclick="handleAuthActionClick()" style="background: transparent; border: none; color: #ffd700; font-size: 0.62rem; font-weight: 700; padding: 3px 8px; border-radius: 9px; cursor: pointer; text-transform: uppercase;">Log In</button>
-   </div>
+    <button type="button" id="auth-action-button">Log In</button>
+  </div>
    <div class="info-tile" id="dynamic-info-tile">
     <div class="info-text">
-     Join us on a journey where every child can <span class="word-rise">RISE</span>,<br>
-     every family can <span class="word-shine">SHINE</span><br>
-     and every person can <span class="word-evolve">EVOLVE</span>.
-    </div>
-   </div><!-- New Elegant Christmas Box - Dark Sophisticated Design -->
-   <div class="elegant-christmas-box" onclick="window.open('https://www.amazon.com/dp/B0G6ZBD7YF/ref=sr_1_1?crid=1JNI65G7Y5W2T&dib=eyJ2IjoiMSJ9.6sPvd45HQ0DwFx7rDVm4GzEvVHvx5Nfyyk4-aOOpL-R9ARZwGRkFwI6K0rPa1EX0ZBKEzsfqQGLw0d4jZ5-ItQ.HHZ--L7lh4LL8MZJqdljxFqBdMTp3g8LL8IgiH3QPb0&dib_tag=se&keywords=the+confident+mindful+%26+happy+me+adventure&qid=1765802239&s=digital-text&sprefix=%2Cdigital-text%2C354&sr=1-1', '_blank', 'noopener,noreferrer')">
-    <div class="elegant-box-content">
-     <svg class="elegant-crown-icon" viewBox="0 0 100 100" role="img" aria-hidden="true">
-      <defs>
-       <linearGradient id="treeGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stop-color="#8A2BE2" />
-        <stop offset="100%" stop-color="#ffd700" />
-       </linearGradient>
-      </defs>
-      <polygon points="50,15 35,35 40,35 25,55 30,55 15,75 85,75 70,55 75,55 60,35 65,35" fill="url(#treeGradient)" stroke="#8A2BE2" stroke-width="1.5" />
-     </svg>
-     <div class="elegant-main-title" style="text-transform: uppercase;">
-      The Confident,<br>
-      Mindful &amp; Happy Me<br>
-      Adventure
-     </div>
-     <div class="elegant-subtitle">
-      31 days of confidence, calm, and growth-mindset fun for kids 6-10.
-     </div>
-     <button class="elegant-amazon-btn" onclick="event.stopPropagation(); window.open('https://www.amazon.com/dp/B0G6ZBD7YF/ref=sr_1_1?crid=1JNI65G7Y5W2T&dib=eyJ2IjoiMSJ9.6sPvd45HQ0DwFx7rDVm4GzEvVHvx5Nfyyk4-aOOpL-R9ARZwGRkFwI6K0rPa1EX0ZBKEzsfqQGLw0d4jZ5-ItQ.HHZ--L7lh4LL8MZJqdljxFqBdMTp3g8LL8IgiH3QPb0&dib_tag=se&keywords=the+confident+mindful+%26+happy+me+adventure&qid=1765802239&s=digital-text&sprefix=%2Cdigital-text%2C354&sr=1-1', '_blank', 'noopener,noreferrer')">
-      <svg viewBox="0 0 100 100" style="width: 14px; height: 14px; display: inline-block; vertical-align: middle; margin-right: 5px;" aria-hidden="true"></svg>
-      Add to cart on Amazon
-     </button>
+     <span class="info-line">Step into a journey where every child can <span class="word-rise">RISE</span>,</span>
+     <span class="info-line">every family can <span class="word-shine">SHINE</span>,</span>
+     <span class="info-line">and every person can <span class="word-evolve">EVOLVE</span>.</span>
     </div>
    </div>
    <div class="tabs-container">
@@ -1521,11 +1834,43 @@
      </div>
     </div><!-- Tab contents -->
     <div id="main-content" class="tab-content active">
+     <!-- Floating Boxes (Main tab only) -->
+     <div class="floating-boxes">
+      <div class="elegant-christmas-box" style="max-width: 140px; border-radius: 18px 10px 18px 10px; padding: 8px 8px 10px;" onclick="showFamilyGallery()">
+       <div class="elegant-box-content">
+        <video class="floating-box-image" autoplay loop muted playsinline aria-label="Happy Makers dance">
+            <source src="assets/videos/wspolny taniec.mp4" type="video/mp4">
+            <source src="https://raw.githubusercontent.com/riseshineevolve-source/RISE.SHINE.EVOLVE/main/assets/videos/wspolny%20taniec.mp4" type="video/mp4">
+        </video>
+       <button class="elegant-amazon-btn floating-box-cta" onclick="event.stopPropagation(); showFamilyGallery();">MEET<br><span style="white-space: nowrap;">THE HAPPY-MAKERS</span></button>
+       </div>
+      </div>
+      <div class="elegant-christmas-box" style="max-width: 140px; border-radius: 18px 8px 18px 8px; padding: 8px 8px 10px;" onclick="window.open('https://www.amazon.com/dp/B0G6ZBD7YF/ref=sr_1_1?crid=1JNI65G7Y5W2T&dib=eyJ2IjoiMSJ9.6sPvd45HQ0DwFx7rDVm4GzEvVHvx5Nfyyk4-aOOpL-R9ARZwGRkFwI6K0rPa1EX0ZBKEzsfqQGLw0d4jZ5-ItQ.HHZ--L7lh4LL8MZJqdljxFqBdMTp3g8LL8IgiH3QPb0&dib_tag=se&keywords=the+confident+mindful+%26+happy+me+adventure&qid=1765802239&s=digital-text&sprefix=%2Cdigital-text%2C354&sr=1-1', '_blank', 'noopener,noreferrer')">
+       <div class="elegant-box-content">
+        <img src="assets/images/Confident,%20Mindful%20%26%20Happy%20Me%20cover.png" alt="The Confident, Mindful &amp; Happy Me Adventure cover" class="floating-box-image">
+       <button class="elegant-amazon-btn floating-box-cta" onclick="event.stopPropagation(); window.open('https://www.amazon.com/dp/B0G6ZBD7YF/ref=sr_1_1?crid=1JNI65G7Y5W2T&dib=eyJ2IjoiMSJ9.6sPvd45HQ0DwFx7rDVm4GzEvVHvx5Nfyyk4-aOOpL-R9ARZwGRkFwI6K0rPa1EX0ZBKEzsfqQGLw0d4jZ5-ItQ.HHZ--L7lh4LL8MZJqdljxFqBdMTp3g8LL8IgiH3QPb0&dib_tag=se&keywords=the+confident+mindful+%26+happy+me+adventure&qid=1765802239&s=digital-text&sprefix=%2Cdigital-text%2C354&sr=1-1', '_blank', 'noopener,noreferrer')">Add to cart<br>on Amazon</button>
+       </div>
+      </div>
+     </div>
      <div class="kids-tile">
       <div class="kids-text">
        You were born to <span class="word-rise">RISE</span>,<br>
-       your inner potential gives you the power to <span class="word-shine">SHINE</span><br>
+       your inner potential gives you the power to <span class="word-shine">SHINE</span>,<br>
        and when you embrace that power you're ready to <span class="word-evolve">EVOLVE</span>.
+      </div>
+     </div>
+     <div class="kids-tile" style="border: 3px solid #8A2BE2; box-shadow: 0 0 35px rgba(138, 43, 226, 0.7), 0 0 60px rgba(138, 43, 226, 0.4); margin: 26px auto; max-width: 900px;">
+      <div class="kids-text" style="font-size: 1.05rem; line-height: 1.7; text-align: justify; text-align-last: center;">
+       <p style="margin: 0 0 14px 0;">Let’s be honest: family life is an epic co-op game.<br>Teamwork, surprise levels and some mornings starting on <span style="color:#8A2BE2; font-weight:700;">Hard Mode</span>.</p>
+       <p style="margin: 0 0 14px 0;">That’s where <br class="mobile-only"><span style="color:#8A2BE2; font-weight:700;">Rise.Shine.Evolve Learning Hub</span> comes in.<br>We turn everyday challenges into simple,<br>usable tools for calm, confidence, connection, and joy.</p>
+       <p style="margin: 0 0 14px 0;">Tools kids can actually reach for in the moment.<br>(No lectures, no “perfect kid” pressure.)</p>
+       <p style="margin: 0 0 14px 0;">Think of it as a real-life power-up guide.<br>Helping children unlock the strengths already inside them.<br>And grow into <br class="mobile-only"><span style="color:#ffd700; font-weight:700;">the best version of themselves</span>.</p>
+       <p style="margin: 0 0 14px 0;">Explore our Library of guided journeys and family-friendly experiences designed to build resilience, emotional strength, and self-belief.</p>
+       <p style="margin: 0 0 14px 0;">Not just for “good days”.<br>But for the random messy Tuesday, too.</p>
+       <p style="margin: 0 0 10px 0;"><strong style="color:#8A2BE2;">Need something fast?</strong></p>
+       <p style="margin: 0 0 14px 0;">Head to <span style="color:#ffd700; font-weight:700;">GIFTS</span>.<br>Bite-sized resources like 1-minute challenges and quick calm or energy boosters.</p>
+       <p style="margin: 0 0 14px 0;">Because sometimes you don’t need a whole program.<br>You need an instant reset.</p>
+      <p style="margin: 0;">Explore the <strong style="color:#8A2BE2;">HUB</strong><br>Grab your <strong style="color:#8A2BE2;">GIFTS</strong><br>And let’s<br><span class="word-rise">RISE</span><br><span class="word-shine">SHINE</span><br><span class="word-evolve">EVOLVE</span><br><strong>TOGETHER</strong></p>
       </div>
      </div>
      <div class="kids-tile" style="margin-top: 20px;">
@@ -1558,9 +1903,17 @@
                             "><span style="color: #000000; font-size: 1rem; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;">NEW SERIES PREMIERE</span>
         </div>
         <p style="color: #8A2BE2; font-size: 1.2rem; line-height: 1.4; margin-bottom: 15px; font-weight: bold; text-shadow: 0 0 15px rgba(138, 43, 226, 0.6);">The Happy-Makers Family!</p>
-        <p style="color: #ffffff; font-size: 1rem; line-height: 1.5; margin-bottom: 20px;">Join 4 siblings: Luli, Dilo, Alio, little Nini<br>
+        <p style="color: #ffffff; font-size: 1rem; line-height: 1.5; margin-bottom: 16px;">Join 4 siblings: Luli, Dilo, Alio, little Nini<br>
           and other family members in their amazing adventures<br>
-          of growth and discovery!</p><!-- Click to Meet Button -->
+          of growth and discovery!</p>
+        <div style="display: flex; justify-content: center; margin: 0 auto 18px auto;">
+         <div style="width: 160px; height: 160px; border-radius: 18px; overflow: hidden; border: 2px solid #ffd700; box-shadow: 0 0 18px rgba(255, 215, 0, 0.6);">
+          <video autoplay loop muted playsinline aria-label="Happy Makers dance" style="width: 100%; height: 100%; object-fit: cover; transform: scale(1.12);">
+           <source src="assets/videos/wspolny taniec 1.mp4" type="video/mp4">
+           <source src="https://raw.githubusercontent.com/riseshineevolve-source/RISE.SHINE.EVOLVE/main/assets/videos/wspolny%20taniec%201.mp4" type="video/mp4">
+          </video>
+         </div>
+        </div><!-- Click to Meet Button -->
         <div onclick="showFamilyGallery()" style="
                                 display: inline-block;
                                 background: linear-gradient(45deg, #8A2BE2, #9932CC);
@@ -1576,8 +1929,7 @@
                                 text-shadow: 0 0 10px rgba(138, 43, 226, 0.8);
                             " onmouseover="this.style.transform='translateY(-3px) scale(1.05)'; this.style.boxShadow='0 0 30px rgba(138, 43, 226, 0.8)';" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 0 20px rgba(138, 43, 226, 0.6)';">
          MEET THE HAPPY-MAKERS FAMILY
-        </div><!-- New Text Above Books -->
-        <p style="color: #ffd700; font-size: 1.1rem; margin-top: 25px; margin-bottom: 0; font-weight: bold; text-shadow: 0 0 15px rgba(255, 215, 0, 0.8);">Click on any book below to discover their inspiring stories.</p>
+        </div>
        </div>
       </div><!-- Elegant Library Collection -->
       <div class="kids-tile" style="border: 3px solid #8A2BE2; box-shadow: 0 0 35px rgba(138, 43, 226, 0.7), 0 0 60px rgba(138, 43, 226, 0.4); margin: 30px auto; max-width: 800px; padding: 30px;">
@@ -1590,20 +1942,21 @@
           </circle> <circle cx="75" cy="16" r="1" fill="#ffd700" opacity="0.8">
            <animate attributename="opacity" values="0.8;0.3;0.8" dur="1.8s" repeatcount="indefinite" />
           </circle>
-         </svg> LIBRARY COLLECTION</h3><!-- Bookshelf -->
+         </svg> LIBRARY COLLECTION</h3>
+        <p style="color: #ffd700; font-size: 1.1rem; margin: -10px 0 16px 0; font-weight: bold; text-shadow: 0 0 15px rgba(255, 215, 0, 0.8);">Explore the Library<br>Tap a cover for the full journey, details, and a closer look.</p><!-- Bookshelf -->
         <div style="
                                 margin-bottom: 30px;
                                 padding: 20px;
                                 border: 2px solid rgba(138, 43, 226, 0.3);
                                 border-radius: 15px;
                                 background: rgba(138, 43, 226, 0.05);
-                            "><!-- First Row of Books -->
+                                "><!-- First Row of Books -->
          <div style="
                                     display: flex;
-                                    justify-content: center;
-                                    gap: 20px;
+                                    flex-direction: column;
+                                    align-items: center;
+                                    gap: 24px;
                                     margin-bottom: 25px;
-                                    flex-wrap: wrap;
                                 "><!-- Confident, Mindful & Happy Me -->
           <div onclick="showBookDetailsFullScreen('confident-adventure')" style="
                                 background: #000000;
@@ -1890,10 +2243,11 @@
      <div class="kids-tile" style="border: 3px solid #8A2BE2; box-shadow: 0 0 35px rgba(138, 43, 226, 0.7), 0 0 60px rgba(138, 43, 226, 0.4); margin: 30px auto; max-width: 1200px; padding: 24px 18px;">
       <div class="kids-text" style="margin-bottom: 20px;">
        <h3 style="color: #8A2BE2; font-size: 1.9rem; margin: 0 0 10px 0; text-shadow: 0 0 18px rgba(138, 43, 226, 0.7);">GIFTS LIBRARY</h3>
-       <p style="color: #ffd700; font-size: 1rem; margin: 0;">Explore new resources as they arrive - Calm + Energy Wheel, the 1-Minute Challenge, the Happy Makers mini Word Search and the full Word Search Studio.</p>
+       <p style="color: #ffd700; font-size: 1rem; margin: 0;">A pocket-sized library of free resources: calm tools, mini challenges, and word games made for family growth.<br>New GIFTS drop regularly.</p>
+       <p style="color: #ffffff; font-size: 0.95rem; margin: 10px 0 0 0;">Tip for smaller screens: GIFTS work beautifully in both portrait and landscape.</p>
       </div>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; padding: 0 10px;">
-       <div id="gift-card-calm-energy" onclick="openCalmEnergyWheel(event)" style="background: #000000; border: 3px solid #ffd700; border-radius: 18px; padding: 22px; text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(255, 215, 0, 0.5); position: relative; min-height: 300px; display: flex; flex-direction: column; align-items: center; gap: 12px; cursor: pointer;">
+      <div class="gifts-library-grid" style="display: flex; flex-direction: column; gap: 24px; padding: 0 10px;">
+       <div id="gift-card-calm-energy" class="gift-card" style="background: #000000; border: 3px solid #ffd700; border-radius: 18px; padding: 22px; text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(255, 215, 0, 0.5); position: relative; min-height: 300px; display: flex; flex-direction: column; align-items: center; gap: 12px;">
         <div style="position: absolute; top: 12px; left: 12px; background: #8A2BE2; color: #ffffff; font-size: 0.7rem; font-weight: bold; padding: 6px 10px; border-radius: 10px; text-transform: uppercase; box-shadow: 0 0 12px rgba(138, 43, 226, 0.6);">Available</div>
         <div style="width: 86px; height: 86px; margin-top: 8px; border-radius: 50%; border: 3px solid #ffd700; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 20px rgba(255,215,0,0.6);">
          <svg width="46" height="46" viewbox="0 0 120 120" aria-hidden="true">
@@ -1914,11 +2268,11 @@
           </g>
          </svg>
         </div>
-        <h4 style="color: #ffd700; margin: 0; font-size: 1.25rem; text-shadow: 0 0 15px rgba(255, 215, 0, 0.7);">The Happy Makers Calm and Energy Wheel</h4>
-        <p style="color: #ffffff; font-size: 0.95rem; line-height: 1.5; margin: 0 0 6px 0;">Two tiny tools for your family: one to slow down and soften, one to wake up and brighten - spin, stop and let the Happy Makers guide you.</p>
-        <button onclick="openCalmEnergyWheel(event)" style="background: linear-gradient(45deg, #8A2BE2, #9932CC); border: 2px solid #ffd700; border-radius: 14px; color: #ffffff; font-weight: bold; padding: 10px 16px; cursor: pointer; text-transform: uppercase; box-shadow: 0 0 18px rgba(138, 43, 226, 0.6); margin-top: auto;">Launch the Calm + Energy Wheel</button>
+        <h4 style="color: #ffd700; margin: 0; font-size: 1.25rem; text-shadow: 0 0 15px rgba(255, 215, 0, 0.7);">Calm + Energy Wheel</h4>
+        <p class="gift-card-description" style="color: #ffffff; font-size: 0.95rem; line-height: 1.5;">Two tiny spins for your family: one to soften and slow down, one to brighten and wake up. Spin, stop and let The Happy-Makers guide you.</p>
+        <button onclick="openCalmEnergyWheel(event)" style="background: linear-gradient(45deg, #8A2BE2, #9932CC); border: 2px solid #ffd700; border-radius: 14px; color: #ffffff; font-weight: bold; padding: 10px 16px; cursor: pointer; text-transform: uppercase; box-shadow: 0 0 18px rgba(138, 43, 226, 0.6); margin-top: auto;">SPIN THE WHEEL</button>
        </div>
-       <div style="background: #000000; border: 3px solid #ffd700; border-radius: 18px; padding: 22px; text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(255, 215, 0, 0.5); position: relative; min-height: 300px; display: flex; flex-direction: column; align-items: center; gap: 12px;">
+       <div class="gift-card" style="background: #000000; border: 3px solid #ffd700; border-radius: 18px; padding: 22px; text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(255, 215, 0, 0.5); position: relative; min-height: 300px; display: flex; flex-direction: column; align-items: center; gap: 12px;">
         <div style="position: absolute; top: 12px; left: 12px; background: #8A2BE2; color: #ffffff; font-size: 0.7rem; font-weight: bold; padding: 6px 10px; border-radius: 10px; text-transform: uppercase; box-shadow: 0 0 12px rgba(138, 43, 226, 0.6);">Available</div>
         <div style="width: 86px; height: 86px; margin-top: 8px; border-radius: 50%; border: 3px solid #ffd700; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 20px rgba(255,215,0,0.6);">
          <svg width="46" height="46" viewbox="0 0 120 120" aria-hidden="true">
@@ -1933,11 +2287,11 @@
           <circle cx="60" cy="80" r="10" fill="#ffd700" stroke="#8A2BE2" stroke-width="3" />
          </svg>
         </div>
-        <h4 style="color: #ffd700; margin: 0; font-size: 1.25rem; text-shadow: 0 0 15px rgba(255, 215, 0, 0.7);">The Happy Makers 1-Minute Challenge</h4>
-        <p style="color: #ffffff; font-size: 0.95rem; line-height: 1.5; margin: 0 0 6px 0;">One click. One tiny mission. One minute of joy, creativity or connection. Powered by your Happy Makers.</p>
-        <button onclick="openOneMinuteChallenge(event)" style="background: linear-gradient(45deg, #8A2BE2, #9932CC); border: 2px solid #ffd700; border-radius: 14px; color: #ffffff; font-weight: bold; padding: 10px 16px; cursor: pointer; text-transform: uppercase; box-shadow: 0 0 18px rgba(138, 43, 226, 0.6); margin-top: auto;">Start the 1-Minute Challenge</button>
+        <h4 style="color: #ffd700; margin: 0; font-size: 1.25rem; text-shadow: 0 0 15px rgba(255, 215, 0, 0.7);">1-Minute Challenge</h4>
+        <p class="gift-card-description" style="color: #ffffff; font-size: 0.95rem; line-height: 1.5;">One click. One tiny mission. One minute of joy, creativity, or connection. Powered by your Happy-Makers.</p>
+        <button onclick="openOneMinuteChallenge(event)" style="background: linear-gradient(45deg, #8A2BE2, #9932CC); border: 2px solid #ffd700; border-radius: 14px; color: #ffffff; font-weight: bold; padding: 10px 16px; cursor: pointer; text-transform: uppercase; box-shadow: 0 0 18px rgba(138, 43, 226, 0.6); margin-top: auto;">START THE CHALLENGE</button>
        </div>
-        <div id="gift-card-word-search" onclick="openWordSearch(event)" style="background: #000000; border: 3px solid #8A2BE2; border-radius: 18px; padding: 22px; text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(138, 43, 226, 0.4); position: relative; min-height: 260px; display: flex; flex-direction: column; gap: 10px; justify-content: space-between;">
+        <div id="gift-card-word-search" class="gift-card" style="background: #000000; border: 3px solid #8A2BE2; border-radius: 18px; padding: 22px; text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(138, 43, 226, 0.4); position: relative; min-height: 260px; display: flex; flex-direction: column; gap: 10px; justify-content: space-between;">
         <div style="position: absolute; top: 12px; left: 12px; background: #8A2BE2; color: #ffffff; font-size: 0.7rem; font-weight: bold; padding: 6px 10px; border-radius: 10px; text-transform: uppercase; box-shadow: 0 0 12px rgba(138, 43, 226, 0.6);">Available</div>
         <div style="width: 86px; height: 86px; margin: 10px auto 6px auto; border-radius: 50%; border: 3px solid #8A2BE2; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 18px rgba(138,43,226,0.5);"><svg width="40" height="40" viewbox="0 0 100 100" aria-hidden="true">
             <rect x="22" y="40" width="56" height="38" rx="6" fill="#8A2BE2" stroke="#ffd700" stroke-width="3"></rect>
@@ -1945,11 +2299,11 @@
             <rect x="46" y="34" width="8" height="50" fill="#ffd700"></rect>
             <circle cx="50" cy="34" r="8" fill="#ffd700"></circle>
         </svg></div>
-        <h4 style="color: #8A2BE2; margin: 0 0 8px 0; font-size: 1.22rem; text-shadow: 0 0 15px rgba(138, 43, 226, 0.7);">The Happy Makers Word Search</h4>
-        <p style="color: #ffffff; font-size: 0.95rem; line-height: 1.5; margin: 0 0 6px 0;">Find every Happy Maker theme, then celebrate with confetti as the puzzle reloads with brand-new words.</p>
-        <button onclick="openWordSearch(event)" style="background: linear-gradient(45deg, #8A2BE2, #9932CC); border: 2px solid #ffd700; border-radius: 12px; color: #ffffff; font-weight: bold; padding: 10px 14px; cursor: pointer; text-transform: uppercase; box-shadow: 0 0 18px rgba(138, 43, 226, 0.6);">Play</button>
+        <h4 style="color: #8A2BE2; margin: 0 0 8px 0; font-size: 1.22rem; text-shadow: 0 0 15px rgba(138, 43, 226, 0.7);">Happy Makers Word Hunt</h4>
+        <p class="gift-card-description" style="color: #ffffff; font-size: 0.95rem; line-height: 1.5;">Hunt for words inspired by Rise.Shine.Evolve and the Happy Makers, celebrate with confetti, then reload for a fresh round.</p>
+        <button onclick="openWordSearch(event)" style="background: linear-gradient(45deg, #8A2BE2, #9932CC); border: 2px solid #ffd700; border-radius: 12px; color: #ffffff; font-weight: bold; padding: 10px 14px; cursor: pointer; text-transform: uppercase; box-shadow: 0 0 18px rgba(138, 43, 226, 0.6);">PLAY WORD HUNT</button>
        </div>
-       <div id="gift-card-word-search-pro" onclick="openWordSearchPro(event)" style="background: #000000; border: 3px solid #ffd700; border-radius: 18px; padding: 22px; text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(255, 215, 0, 0.5); position: relative; min-height: 300px; display: flex; flex-direction: column; gap: 12px; justify-content: space-between;">
+       <div id="gift-card-word-search-pro" class="gift-card" style="background: #000000; border: 3px solid #ffd700; border-radius: 18px; padding: 22px; text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(255, 215, 0, 0.5); position: relative; min-height: 300px; display: flex; flex-direction: column; gap: 12px; justify-content: space-between;">
         <div style="position: absolute; top: 12px; left: 12px; background: #8A2BE2; color: #ffffff; font-size: 0.7rem; font-weight: bold; padding: 6px 10px; border-radius: 10px; text-transform: uppercase; box-shadow: 0 0 12px rgba(138, 43, 226, 0.6);">New</div>
         <div style="width: 86px; height: 86px; margin: 8px auto 6px auto; border-radius: 50%; border: 3px solid #ffd700; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 20px rgba(255,215,0,0.6);">
          <svg width="48" height="48" viewBox="0 0 120 120" aria-hidden="true">
@@ -1971,28 +2325,20 @@
          </svg>
         </div>
         <h4 style="color: #ffd700; margin: 0 0 8px 0; font-size: 1.25rem; text-shadow: 0 0 15px rgba(255, 215, 0, 0.7);">Word Search Studio</h4>
-        <p style="color: #ffffff; font-size: 0.95rem; line-height: 1.5; margin: 0 0 6px 0;">Build full-sized puzzles with selectable shapes, difficulty levels, themes and one-click print / download.</p>
-        <button onclick="openWordSearchPro(event)" style="background: linear-gradient(45deg, #8A2BE2, #9932CC); border: 2px solid #ffd700; border-radius: 14px; color: #ffffff; font-weight: bold; padding: 10px 16px; cursor: pointer; text-transform: uppercase; box-shadow: 0 0 18px rgba(138, 43, 226, 0.6); margin-top: auto;">Launch Word Search Studio</button>
+        <p class="gift-card-description" style="color: #ffffff; font-size: 0.95rem; line-height: 1.5;">Build full-sized puzzles with selectable themes, shapes, and difficulty levels. Print or download in one click.</p>
+        <button onclick="openWordSearchPro(event)" style="background: linear-gradient(45deg, #8A2BE2, #9932CC); border: 2px solid #ffd700; border-radius: 14px; color: #ffffff; font-weight: bold; padding: 10px 16px; cursor: pointer; text-transform: uppercase; box-shadow: 0 0 18px rgba(138, 43, 226, 0.6); margin-top: auto;">OPEN THE STUDIO</button>
        </div>
-       <div style="background: #000000; border: 3px solid #8A2BE2; border-radius: 18px; padding: 22px; text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(138, 43, 226, 0.4); position: relative; min-height: 260px;">
-        <div style="width: 86px; height: 86px; margin: 10px auto 18px auto; border-radius: 50%; border: 3px solid #8A2BE2; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 18px rgba(138,43,226,0.5);"><svg width="40" height="40" viewbox="0 0 100 100" aria-hidden="true">
-            <rect x="22" y="40" width="56" height="38" rx="6" fill="#8A2BE2" stroke="#ffd700" stroke-width="3"></rect>
-            <rect x="18" y="54" width="64" height="8" fill="#ffd700"></rect>
-            <rect x="46" y="34" width="8" height="50" fill="#ffd700"></rect>
-            <circle cx="50" cy="34" r="8" fill="#ffd700"></circle>
-        </svg></div>
-        <h4 style="color: #8A2BE2; margin: 0 0 12px 0; font-size: 1.3rem; text-shadow: 0 0 15px rgba(138, 43, 226, 0.7);">Gift Coming Soon</h4>
-        <p style="color: #ffffff; font-size: 0.95rem; line-height: 1.5; margin: 0;">Watch this space for the next drop.</p>
+       <div class="gift-card" style="background: #000000; border: 3px dashed #ffd700; border-radius: 18px; padding: 22px; text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.35), 0 0 22px rgba(255, 215, 0, 0.4); position: relative; min-height: 220px; display: flex; flex-direction: column; align-items: center; gap: 12px;">
+        <div style="position: absolute; top: 12px; left: 12px; background: #ffd700; color: #000000; font-size: 0.7rem; font-weight: bold; padding: 6px 10px; border-radius: 10px; text-transform: uppercase; box-shadow: 0 0 12px rgba(255, 215, 0, 0.6);">Coming Soon</div>
+        <div style="font-size: 2.4rem; margin-top: 12px;">🎁</div>
+        <h4 style="color: #ffd700; margin: 0; font-size: 1.2rem;">More Happy-Makers GIFTS</h4>
+        <p class="gift-card-description" style="color: #ffffff; font-size: 0.95rem; line-height: 1.5;">New surprises are on the way to keep your family growing together.</p>
        </div>
-       <div style="background: #000000; border: 3px solid #8A2BE2; border-radius: 18px; padding: 22px; text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(138, 43, 226, 0.4); position: relative; min-height: 260px;">
-        <div style="width: 86px; height: 86px; margin: 10px auto 18px auto; border-radius: 50%; border: 3px solid #8A2BE2; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 18px rgba(138,43,226,0.5);"><svg width="40" height="40" viewbox="0 0 100 100" aria-hidden="true">
-            <rect x="22" y="40" width="56" height="38" rx="6" fill="#8A2BE2" stroke="#ffd700" stroke-width="3"></rect>
-            <rect x="18" y="54" width="64" height="8" fill="#ffd700"></rect>
-            <rect x="46" y="34" width="8" height="50" fill="#ffd700"></rect>
-            <circle cx="50" cy="34" r="8" fill="#ffd700"></circle>
-        </svg></div>
-        <h4 style="color: #8A2BE2; margin: 0 0 12px 0; font-size: 1.3rem; text-shadow: 0 0 15px rgba(138, 43, 226, 0.7);">Gift Coming Soon</h4>
-        <p style="color: #ffffff; font-size: 0.95rem; line-height: 1.5; margin: 0;">Fresh learning magic is on the way.</p>
+       <div class="gift-card" style="background: #000000; border: 3px dashed #8A2BE2; border-radius: 18px; padding: 22px; text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.35), 0 0 22px rgba(138, 43, 226, 0.4); position: relative; min-height: 220px; display: flex; flex-direction: column; align-items: center; gap: 12px;">
+        <div style="position: absolute; top: 12px; left: 12px; background: #8A2BE2; color: #ffffff; font-size: 0.7rem; font-weight: bold; padding: 6px 10px; border-radius: 10px; text-transform: uppercase; box-shadow: 0 0 12px rgba(138, 43, 226, 0.6);">Coming Soon</div>
+        <div style="font-size: 2.4rem; margin-top: 12px;">✨</div>
+        <h4 style="color: #8A2BE2; margin: 0; font-size: 1.2rem;">New family challenges</h4>
+        <p class="gift-card-description" style="color: #ffffff; font-size: 0.95rem; line-height: 1.5;">Fresh activities are coming soon to keep the joy flowing.</p>
        </div>
       </div>
      </div>
@@ -2061,6 +2407,12 @@
                     <a href="https://www.tiktok.com/@rise.shine.evolve" target="_blank" rel="noopener noreferrer" style="color: #ff1493; text-decoration: none; text-shadow: 0 0 15px rgba(255, 20, 147, 0.8); font-size: 0.9rem;"><strong>TikTok</strong></a>
                 </div>
             </div>
+
+            <div class="kids-tile" style="width: 150px; padding: 8px 15px;">
+                <div class="kids-text">
+                    <a href="https://www.youtube.com/@Rise.Shine.Evolve" target="_blank" rel="noopener noreferrer" style="color: #ff0000; text-decoration: none; text-shadow: 0 0 15px rgba(255, 0, 0, 0.6); font-size: 0.9rem;"><strong>YouTube</strong></a>
+                </div>
+            </div>
             
             <div class="kids-tile" style="width: 150px; padding: 8px 15px;">
                 <div class="kids-text">
@@ -2092,7 +2444,7 @@
                             <div id="success-message-unsub" class="sib-form-message-panel" style="font-size:14px;text-align:left;font-family:Helvetica,sans-serif;color:#085229;background-color:#e7faf0;border-radius:3px;border-color:#13ce66;max-width:320px;">
                                 <div class="sib-form-message-panel__text sib-form-message-panel__text--center">
                                     <svg viewBox="0 0 512 512" class="sib-icon sib-notification__icon"><path d="M256 8C119.033 8 8 119.033 8 256s111.033 248 248 248 248-111.033 248-248S392.967 8 256 8zm0 464c-118.664 0-216-96.055-216-216 0-118.663 96.055-216 216-216 118.664 0 216 96.055 216 216 0 118.663-96.055 216-216 216zm141.63-274.961L217.15 376.071c-4.705 4.667-12.303 4.637-16.97-.068l-85.878-86.572c-4.667-4.705-4.637-12.303.068-16.97l8.52-8.451c4.705-4.667 12.303-4.637 16.97.068l68.976 69.533 163.441-162.13c4.705-4.667 12.303-4.637 16.97.068l8.451 8.52c4.668 4.705 4.637 12.303-.068 16.97z"/></svg>
-                                    <span class="sib-form-message-panel__inner-text">It's a pity you resign — you can always join back our community.</span>
+                                    <span class="sib-form-message-panel__inner-text">It's a pity you resign - you can always join back our community.</span>
                                 </div>
                             </div>
                             <div></div>
@@ -2174,7 +2526,10 @@
         width: 12px;
         background: linear-gradient(to right, rgba(0, 0, 0, 0.3), transparent);
         border-radius: 20px 0 0 20px;
-                    "></div><!-- Obrazek (zdjęcie profilowe) --> <img src="assets/images/Mimi.png" data-character-img="Mimi.png" alt="Mimi" style="display: block; width: 120px; height: 120px; border-radius: 50%; margin: 25px auto 20px auto; object-fit: cover; border: 3px solid #ff69b4; box-shadow: 0 0 25px rgba(255, 105, 180, 0.6);"> <!-- Tytuł i opis -->
+                    "></div><!-- Obrazek (zdjęcie profilowe) --> <video autoplay loop muted playsinline aria-label="Mimi dance" style="display: block; width: 120px; height: 120px; border-radius: 50%; margin: 25px auto 20px auto; object-fit: cover; border: 3px solid #ff69b4; box-shadow: 0 0 25px rgba(255, 105, 180, 0.6); transform: scale(1.12);">
+      <source src="assets/videos/Mimi tanczy 1.mp4" type="video/mp4">
+      <source src="https://raw.githubusercontent.com/riseshineevolve-source/RISE.SHINE.EVOLVE/main/assets/videos/Mimi%20tanczy%201.mp4" type="video/mp4">
+     </video> <!-- Tytuł i opis -->
       <h4 style="color: #ff69b4; margin: 0 0 12px 0; font-size: 1.6rem; text-shadow: 0 0 20px rgba(255, 105, 180, 0.8);">Mimi</h4>
       <p style="color: #ffffff; font-size: 1.1rem; margin: 0 0 20px 0; font-weight: bold;">Chaos Queen</p><!-- Przycisk "Learn More" na dole -->
       <div style="
@@ -2217,7 +2572,10 @@
                         width: 12px;
                         background: linear-gradient(to right, rgba(0, 0, 0, 0.3), transparent);
                         border-radius: 20px 0 0 20px;
-                    "></div><img src="assets/images/Luli.png" data-character-img="Luli.png" alt="Luli" style="display: block; width: 120px; height: 120px; border-radius: 50%; margin: 25px auto 20px auto; object-fit: cover; border: 3px solid #ffd700; box-shadow: 0 0 25px rgba(255, 215, 0, 0.6);">
+                    "></div><video autoplay loop muted playsinline aria-label="Luli dance" style="display: block; width: 120px; height: 120px; border-radius: 50%; margin: 25px auto 20px auto; object-fit: cover; border: 3px solid #ffd700; box-shadow: 0 0 25px rgba(255, 215, 0, 0.6); transform: scale(1.12);">
+      <source src="assets/videos/Luli tanczy 1.mp4" type="video/mp4">
+      <source src="https://raw.githubusercontent.com/riseshineevolve-source/RISE.SHINE.EVOLVE/main/assets/videos/Luli%20tanczy%201.mp4" type="video/mp4">
+     </video>
       <h4 style="color: #ffd700; margin: 0 0 12px 0; font-size: 1.6rem; text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);">Luli</h4>
       <p style="color: #ffffff; font-size: 1.1rem; margin: 0 0 20px 0; font-weight: bold;">Creative Glow</p>
       <div style="
@@ -2260,7 +2618,10 @@
                         width: 12px;
                         background: linear-gradient(to right, rgba(0, 0, 0, 0.3), transparent);
                         border-radius: 20px 0 0 20px;
-                    "></div><img src="assets/images/Dilo.png" data-character-img="Dilo.png" alt="Dilo" style="display: block; width: 120px; height: 120px; border-radius: 50%; margin: 25px auto 20px auto; object-fit: cover; border: 3px solid #00bfff; box-shadow: 0 0 25px rgba(0, 191, 255, 0.6);">
+                    "></div><video autoplay loop muted playsinline aria-label="Dilo dance" style="display: block; width: 120px; height: 120px; border-radius: 50%; margin: 25px auto 20px auto; object-fit: cover; border: 3px solid #00bfff; box-shadow: 0 0 25px rgba(0, 191, 255, 0.6); transform: scale(1.12);">
+      <source src="assets/videos/Dilo tanczy 3.mp4" type="video/mp4">
+      <source src="https://raw.githubusercontent.com/riseshineevolve-source/RISE.SHINE.EVOLVE/main/assets/videos/Dilo%20tanczy%203.mp4" type="video/mp4">
+     </video>
       <h4 style="color: #00bfff; margin: 0 0 12px 0; font-size: 1.6rem; text-shadow: 0 0 20px rgba(0, 191, 255, 0.8);">Dilo</h4>
       <p style="color: #ffffff; font-size: 1.1rem; margin: 0 0 20px 0; font-weight: bold;">Pixel Striker</p>
       <div style="
@@ -2303,7 +2664,10 @@
                         width: 12px;
                         background: linear-gradient(to right, rgba(0, 0, 0, 0.3), transparent);
                         border-radius: 20px 0 0 20px;
-                    "></div><img src="assets/images/Alio.png" data-character-img="Alio.png" alt="Alio" style="display: block; width: 120px; height: 120px; border-radius: 50%; margin: 25px auto 20px auto; object-fit: cover; border: 3px solid #32cd32; box-shadow: 0 0 25px rgba(50, 205, 50, 0.6);">
+                    "></div><video autoplay loop muted playsinline aria-label="Alio dance" style="display: block; width: 120px; height: 120px; border-radius: 50%; margin: 25px auto 20px auto; object-fit: cover; border: 3px solid #32cd32; box-shadow: 0 0 25px rgba(50, 205, 50, 0.6);">
+      <source src="assets/videos/Alio tanczy.mp4" type="video/mp4">
+      <source src="https://raw.githubusercontent.com/riseshineevolve-source/RISE.SHINE.EVOLVE/main/assets/videos/Alio%20tanczy.mp4" type="video/mp4">
+     </video>
       <h4 style="color: #32cd32; margin: 0 0 12px 0; font-size: 1.6rem; text-shadow: 0 0 20px rgba(50, 205, 50, 0.8);">Alio</h4>
       <p style="color: #ffffff; font-size: 1.1rem; margin: 0 0 20px 0; font-weight: bold;">Playful Power</p>
       <div style="
@@ -2346,7 +2710,10 @@
                         width: 12px;
                         background: linear-gradient(to right, rgba(0, 0, 0, 0.3), transparent);
                         border-radius: 20px 0 0 20px;
-                    "></div><img src="assets/images/Nini.png" data-character-img="Nini.png" alt="Little Nini" style="display: block; width: 120px; height: 120px; border-radius: 50%; margin: 25px auto 20px auto; object-fit: cover; border: 3px solid #ff69b4; box-shadow: 0 0 25px rgba(255, 105, 180, 0.6);">
+                    "></div><video autoplay loop muted playsinline aria-label="Nini dance" style="display: block; width: 120px; height: 120px; border-radius: 50%; margin: 25px auto 20px auto; object-fit: cover; border: 3px solid #ff69b4; box-shadow: 0 0 25px rgba(255, 105, 180, 0.6);">
+      <source src="assets/videos/Nini tanczy.mp4" type="video/mp4">
+      <source src="https://raw.githubusercontent.com/riseshineevolve-source/RISE.SHINE.EVOLVE/main/assets/videos/Nini%20tanczy.mp4" type="video/mp4">
+     </video>
       <h4 style="color: #ff69b4; margin: 0 0 12px 0; font-size: 1.6rem; text-shadow: 0 0 20px rgba(255, 105, 180, 0.8);">Little Nini</h4>
       <p style="color: #ffffff; font-size: 1.1rem; margin: 0 0 20px 0; font-weight: bold;">Joy Spark</p>
       <div style="
@@ -2389,7 +2756,10 @@
                         width: 12px;
                         background: linear-gradient(to right, rgba(0, 0, 0, 0.3), transparent);
                         border-radius: 20px 0 0 20px;
-                    "></div><img src="assets/images/Grandma%20Bibi.png" data-character-img="Grandma Bibi.png" alt="Grandma Bibi" style="display: block; width: 120px; height: 120px; border-radius: 50%; margin: 25px auto 20px auto; object-fit: cover; border: 3px solid #9932CC; box-shadow: 0 0 25px rgba(153, 50, 204, 0.6);">
+                    "></div><video autoplay loop muted playsinline aria-label="Grandma Bibi dance" style="display: block; width: 120px; height: 120px; border-radius: 50%; margin: 25px auto 20px auto; object-fit: cover; border: 3px solid #9932CC; box-shadow: 0 0 25px rgba(153, 50, 204, 0.6);">
+      <source src="assets/videos/Bibi tanczy.mp4" type="video/mp4">
+      <source src="https://raw.githubusercontent.com/riseshineevolve-source/RISE.SHINE.EVOLVE/main/assets/videos/Bibi%20tanczy.mp4" type="video/mp4">
+     </video>
       <h4 style="color: #9932CC; margin: 0 0 12px 0; font-size: 1.6rem; text-shadow: 0 0 20px rgba(153, 50, 204, 0.8);">Grandma Bibi</h4>
       <p style="color: #ffffff; font-size: 1.1rem; margin: 0 0 20px 0; font-weight: bold;">Royal Glow</p>
       <div style="
@@ -2432,6 +2802,24 @@
       </div>
       <h3 style="color: #8A2BE2; font-size: 2rem; margin-bottom: 15px; text-shadow: 0 0 20px rgba(138, 43, 226, 1); font-weight: bold; text-transform: uppercase; letter-spacing: 1px;">MORE COMING SOON!</h3>
       <p style="color: #ffffff; font-size: 1.05rem; line-height: 1.6; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);">Stay tuned to meet more amazing members of The Happy-Makers Family!</p>
+    </div>
+   </div>
+    <div style="width: 100%; margin: 30px auto 40px auto; background: #000000; border: 3px solid #8A2BE2; border-radius: 24px; padding: 28px; box-shadow: 0 0 35px rgba(138, 43, 226, 0.6), 0 0 60px rgba(138, 43, 226, 0.3); text-align: center; box-sizing: border-box;">
+     <h3 style="color: #ffd700; font-size: 1.85rem; margin: 0 0 16px 0; text-shadow: 0 0 18px rgba(255, 215, 0, 0.7);">What happens when you mix Mindfulness, Adventure, and a sprinkle of <span style="color:#8A2BE2;font-weight:700;">Family Magic</span>?</h3>
+     <p style="color: #ffffff; font-size: 1.15rem; line-height: 1.6; margin: 0 0 14px 0; text-align: justify; text-align-last: center;"><strong style="color:#ffd700;">You get The Happy Makers!</strong></p>
+     <p style="color: #ffffff; font-size: 1.12rem; line-height: 1.6; margin: 0 0 14px 0; text-align: justify; text-align-last: center;">Meet your new best friends.<br>A lovable squad of trusted guides and fun-loving companions on a mission to make being YOU the greatest adventure of all.</p>
+     <p style="color: #ffffff; font-size: 1.12rem; line-height: 1.6; margin: 0 0 14px 0; text-align: justify; text-align-last: center;">We bring the empowering spirit of the <strong style="color:#8A2BE2;">Rise Shine Evolve Learning Hub</strong> straight into your living room.</p>
+     <p style="color: #ffffff; font-size: 1.12rem; line-height: 1.6; margin: 0 0 14px 0; text-align: justify; text-align-last: center;">We craft immersive journeys that turn everyday challenges into opportunities for <strong style="color:#ffd700;">Connection</strong> and <strong style="color:#ffd700;">Growth</strong>.</p>
+     <p style="color: #ffffff; font-size: 1.12rem; line-height: 1.6; margin: 0 0 14px 0; text-align: justify; text-align-last: center;">Whether it’s finding calm in the Christmas rush or discovering inner courage on a Tuesday morning.<br>Our squad is here to help you navigate the wild ride of growing up.</p>
+     <p style="color: #ffffff; font-size: 1.12rem; line-height: 1.6; margin: 0 0 14px 0; text-align: justify; text-align-last: center;"><strong style="color:#8A2BE2;">The Happy Makers Vibe?</strong><br>We take emotional growth seriously.<br>But we never take ourselves too seriously.</p>
+     <p style="color: #ffffff; font-size: 1.12rem; line-height: 1.6; margin: 0 0 14px 0; text-align: justify; text-align-last: center;">We believe in <strong style="color:#ffd700;">zero boring lectures</strong> and <strong style="color:#ffd700;">100% fun</strong>.<br>Because let’s be honest: kids learn best when they are laughing and exploring the world.</p>
+     <p style="color: #ffffff; font-size: 1.12rem; line-height: 1.6; margin: 0 0 14px 0; text-align: justify; text-align-last: center;">Join us on a journey where:</p>
+     <p style="color: #ffffff; font-size: 1.12rem; line-height: 1.6; margin: 0 0 8px 0; text-align: justify; text-align-last: center;"><strong style="color:#ff69b4;">Every child can RISE</strong> <span style="color:#ffffff;">(no superhero cape required).</span></p>
+     <p style="color: #ffffff; font-size: 1.12rem; line-height: 1.6; margin: 0 0 8px 0; text-align: justify; text-align-last: center;"><strong style="color:#ffd700;">Every family can SHINE</strong> <span style="color:#ffffff;">(yes, even on the messy, chaotic days).</span></p>
+     <p style="color: #ffffff; font-size: 1.12rem; line-height: 1.6; margin: 0 0 14px 0; text-align: justify; text-align-last: center;"><strong style="color:#8A2BE2;">Every person can EVOLVE</strong> <span style="color:#ffffff;">(one small step at a time).</span></p>
+     <p style="color: #ffffff; font-size: 1.12rem; line-height: 1.6; margin: 0 0 14px 0; text-align: justify; text-align-last: center;">This isn’t just a book series.</p>
+     <p style="color: #ffd700; font-size: 1.12rem; line-height: 1.6; margin: 0 0 14px 0; text-align: justify; text-align-last: center; text-transform: uppercase; font-weight: 700;">It’s a movement fueled by love, humor and high-fives!</p>
+     <p style="color: #ffffff; font-size: 1.18rem; line-height: 1.6; margin: 0; text-align: justify; text-align-last: center;"><strong style="color:#ffffff;">Ready to unlock true potential?</strong><br>It is time to <span class="word-rise">Rise</span>. <span class="word-shine">Shine</span>. <span class="word-evolve">Evolve</span>.<br><strong style="color:#ffd700;">TOGETHER.</strong></p>
     </div>
    </div><!-- Back Button Bottom -->
     <div style="text-align: center;"><button onclick="backToLibrary()" style="
@@ -2527,7 +2915,149 @@
     #welcomeModal.show {
       display: flex;
     }
+
+    #bookPromoModal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.92);
+      z-index: 15000;
+      backdrop-filter: blur(6px);
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      box-sizing: border-box;
+    }
+
+    #bookPromoModal.show {
+      display: flex;
+    }
+
+    @media (max-width: 720px) {
+      #emailModal,
+      #bookPromoModal,
+      #signupConfirmModal {
+        align-items: flex-start;
+        justify-content: center;
+        padding-top: 24px;
+      }
+    }
   </style>
+  <div id="bookPromoModal" class="modal">
+    <div class="modal-content" style="
+            position: relative;
+            background: transparent;
+            border-radius: 20px;
+            padding: 0;
+            max-width: 520px;
+            width: 100%;
+            max-height: 90vh;
+            overflow: hidden;
+            margin: 0 auto;
+        ">
+    <button type="button" onclick="closeBookPromoModal()" style="
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                background: #000000;
+                border: 2px solid #ffd700;
+                color: #ffd700;
+                font-size: 1.4rem;
+                cursor: pointer;
+                width: 36px;
+                height: 36px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+                z-index: 3;
+            ">×</button>
+    <div style="
+                background: #000000;
+                border: 2px solid #8A2BE2;
+                border-radius: 18px;
+                padding: 54px 20px 70px 20px;
+                text-align: center;
+                box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4),
+                    0 0 28px rgba(138, 43, 226, 0.45);
+                position: relative;
+                overflow: hidden;
+            ">
+     <div style="
+                    position: absolute;
+                    top: 60px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    color: #ffd700;
+                    font-size: 0.58rem;
+                    font-weight: 800;
+                    letter-spacing: 0.05rem;
+                    text-transform: uppercase;
+                    text-shadow: 0 0 12px rgba(255, 215, 0, 0.6);
+                    max-width: 140px;
+                    text-align: center;
+                ">
+      The Ultimate Kids’<br>Survival Kit
+     </div>
+     <div style="
+                    position: absolute;
+                    top: 14px;
+                    left: 14px;
+                    background: #8A2BE2;
+                    color: #ffffff;
+                    font-size: 0.7rem;
+                    font-weight: bold;
+                    padding: 6px 10px;
+                    border-radius: 10px;
+                    text-transform: uppercase;
+                    box-shadow: 0 0 10px rgba(138, 43, 226, 0.6);
+                ">Available</div>
+                <div style="
+                    position: absolute;
+                    top: 58px;
+                    right: 14px;
+                    background: #ffd700;
+                    color: #000000;
+                    font-size: 0.72rem;
+                    font-weight: 800;
+                    padding: 6px 10px;
+                    border-radius: 10px;
+                    text-transform: uppercase;
+                    box-shadow: 0 0 12px rgba(255, 215, 0, 0.7);
+                ">NEW</div>
+     <img src="assets/images/Confident, Mindful & Happy Me cover.png" data-cover-base="Confident, Mindful & Happy Me" alt="The Confident, Mindful &amp; Happy Me Adventure cover" loading="eager" fetchpriority="high" decoding="async" style="width: 150px; height: auto; border-radius: 12px; border: 2px solid #ffd700; box-shadow: 0 0 18px rgba(255,215,0,0.35); margin: 46px auto 14px auto; display: block;">
+     <div style="color: #ffd700; font-weight: bold; font-size: 1.1rem; margin-bottom: 10px; line-height: 1.25; text-shadow: 0 0 15px rgba(255, 215, 0, 0.8);">
+      The Confident, Mindful &amp; Happy Me Adventure
+     </div>
+     <div style="color: #ffffff; font-size: 0.9rem; margin-bottom: 12px; line-height: 1.5;">
+      31 Days to Boost Self-Esteem,<br>
+      Master Big Feelings &amp; Unlock Inner Superpower.<br>
+      A Fun Growth Mindset Journey for Kids 6-10.
+     </div>
+     <div style="
+                    position: absolute;
+                    bottom: 16px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    background: #ffd700;
+                    color: #000000;
+                    font-size: 0.8rem;
+                    font-weight: bold;
+                    padding: 10px 16px;
+                    border-radius: 12px;
+                    text-transform: uppercase;
+                    box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+                    letter-spacing: 0.5px;
+                    cursor: pointer;
+                " onclick="handleBookPromoExplore(event)">
+      Explore more
+     </div>
+    </div>
+   </div>
+  </div>
   <div id="emailModal" class="modal">
         <div class="modal-content" style="
             position: relative;
@@ -2575,6 +3105,11 @@
     <p style="color: #e6e6e6; font-size: 0.78rem; text-align: center; margin: 0 0 2px 0;">New here? Click Create Account.</p>
     <p style="color: #e6e6e6; font-size: 0.78rem; text-align: center; margin: 0 0 8px 0;">Already have an account? Click Log In.</p>
     <p id="errorMsg" style="color: #ff1493; text-align: center; margin: 6px 0 10px 0; font-weight: bold;"></p>
+    <div style="text-align: center; margin: 0 0 8px 0;">
+        <button type="button" id="forgotPasswordLink" onclick="setAuthMode('reset'); showAuthMessage('Enter your email below to reset your password.', '#ff1493');" style="background: none; border: none; color: #ffd700; font-size: 0.78rem; font-weight: 600; cursor: pointer; text-decoration: underline;">
+            Forgot password?
+        </button>
+    </div>
     <div id="authFormPanel" class="brevo-embed" style="margin-top: 6px; display: none;">
         <style>
             @font-face{font-display:block;font-family:Roboto;src:url(https://assets.brevo.com/font/Roboto/Latin/normal/normal/7529907e9eaf8ebb5220c5f9850e3811.woff2) format("woff2"),url(https://assets.brevo.com/font/Roboto/Latin/normal/normal/25c678feafdc175a70922a116c9be3e7.woff) format("woff")}@font-face{font-display:fallback;font-family:Roboto;font-weight:600;src:url(https://assets.brevo.com/font/Roboto/Latin/medium/normal/6e9caeeafb1f3491be3e32744bc30440.woff2) format("woff2"),url(https://assets.brevo.com/font/Roboto/Latin/medium/normal/71501f0d8d5aa95960f6475d5487d4c2.woff) format("woff")}@font-face{font-display:fallback;font-family:Roboto;font-weight:700;src:url(https://assets.brevo.com/font/Roboto/Latin/bold/normal/3ef7cf158f310cf752d5ad08cd0e7e60.woff2) format("woff2"),url(https://assets.brevo.com/font/Roboto/Latin/bold/normal/ece3a1d82f18b60bcce0211725c476aa.woff) format("woff")}#sib-container input:-ms-input-placeholder{text-align:left;font-family:Helvetica,sans-serif;color:#c0ccda}#sib-container input::placeholder{text-align:left;font-family:Helvetica,sans-serif;color:#c0ccda}#sib-container textarea::placeholder{text-align:left;font-family:Helvetica,sans-serif;color:#c0ccda}#sib-container a{text-decoration:underline;color:#2BB2FC}
@@ -2635,6 +3170,36 @@
                                     </div>
                                     <label class="entry__error entry__error--primary" style="font-size:16px;text-align:left;font-family:Helvetica,sans-serif;color:#661d1d;background-color:#ffeded;border-radius:3px;border-color:#ff4949;"></label>
                                 </div>
+                            </div>
+                        <div id="passwordToggleContainer" style="text-align: right; margin-top: 4px;">
+                            <button type="button" class="password-toggle" onclick="togglePasswordVisibility(['userPassword'], this)">Show password</button>
+                        </div>
+                        </div>
+                        <div id="resetPasswordFields" style="padding:4px 0; display: none;">
+                            <div class="sib-input sib-form-block">
+                                <div class="form__entry entry_block">
+                                    <div class="form__label-row ">
+                                        <label class="entry__label" style="font-weight:700;text-align:left;font-size:12px;font-family:Helvetica,sans-serif;color:#ffd700;" for="NEW_PASSWORD" data-required="*">New Password</label>
+                                        <div class="entry__field">
+                                            <input class="input" type="password" id="resetPassword" name="NEW_PASSWORD" autocomplete="new-password" placeholder="NEW PASSWORD" data-required="true">
+                                        </div>
+                                    </div>
+                                    <label class="entry__error entry__error--primary" style="font-size:16px;text-align:left;font-family:Helvetica,sans-serif;color:#661d1d;background-color:#ffeded;border-radius:3px;border-color:#ff4949;"></label>
+                                </div>
+                            </div>
+                            <div class="sib-input sib-form-block" style="margin-top: 8px;">
+                                <div class="form__entry entry_block">
+                                    <div class="form__label-row ">
+                                        <label class="entry__label" style="font-weight:700;text-align:left;font-size:12px;font-family:Helvetica,sans-serif;color:#ffd700;" for="CONFIRM_PASSWORD" data-required="*">Confirm Password</label>
+                                        <div class="entry__field">
+                                            <input class="input" type="password" id="resetPasswordConfirm" name="CONFIRM_PASSWORD" autocomplete="new-password" placeholder="CONFIRM PASSWORD" data-required="true">
+                                        </div>
+                                    </div>
+                                    <label class="entry__error entry__error--primary" style="font-size:16px;text-align:left;font-family:Helvetica,sans-serif;color:#661d1d;background-color:#ffeded;border-radius:3px;border-color:#ff4949;"></label>
+                                </div>
+                            </div>
+                            <div style="text-align: right; margin-top: 4px;">
+                                <button type="button" class="password-toggle" onclick="togglePasswordVisibility(['resetPassword','resetPasswordConfirm'], this)">Show passwords</button>
                             </div>
                         </div>
                         <div id="signupConsent" style="padding:4px 0;">
@@ -2703,7 +3268,8 @@
                 transition: all 0.3s ease;
             " onmouseover="this.style.background='rgba(255, 215, 0, 0.2)';" onmouseout="this.style.background='none';">×</span>
     <p style="color: #ffffff; font-size: 1rem; margin: 0; line-height: 1.5;">
-        You are ready to unwrap your gifts and stay connected with us! Just check your email and click on verification link.
+        You are ready to unwrap your gifts and stay connected with us! Just check your email and click on verification link.<br>
+        If you don’t see it within a few minutes, check your spam folder or try again.
     </p>
    </div>
   </div>
@@ -2813,22 +3379,23 @@
 
     @media (max-width: 720px) {
       body {
-        height: 100vh;
-        overflow: hidden;
+        min-height: 100vh;
+        min-height: 100dvh;
+        overflow: auto;
         align-items: stretch;
       }
     }
 
     .hm-page {
-      max-width: 1040px;
+      max-width: 960px;
       width: 100%;
-      margin: 14px auto 18px;
-      padding: 0 12px;
+      margin: 8px auto 14px;
+      padding: 0 10px;
     }
 
     @media (max-width: 720px) {
       .hm-page {
-        height: 100vh;
+        min-height: 100dvh;
         margin: 0;
         padding: 8px;
         display: flex;
@@ -2855,11 +3422,11 @@
 
     .hm-page-header {
       text-align: center;
-      margin-bottom: 24px;
+      margin-bottom: 16px;
     }
 
     .hm-main-title {
-      font-size: 1.9rem;
+      font-size: 1.6rem;
       font-weight: 800;
       margin: 0 0 6px;
       background: linear-gradient(45deg, #8A2BE2, #9932CC, #ff69b4, #ffb6c1);
@@ -2868,7 +3435,7 @@
     }
 
     .hm-main-subtitle {
-      font-size: 0.98rem;
+      font-size: 0.9rem;
       color: var(--text-muted);
       max-width: 560px;
       margin: 0 auto;
@@ -2881,7 +3448,7 @@
     .hm-tabs-wrapper {
       display: flex;
       justify-content: center;
-      margin: 22px 0 26px;
+      margin: 14px 0 16px;
     }
 
     .hm-tabs {
@@ -2949,11 +3516,11 @@
     /* Panel layout */
 
     .hm-panel-inner {
-      max-width: 980px;
+      max-width: 900px;
       margin: 0 auto;
       display: grid;
-      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.82fr);
-      gap: 10px;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
+      gap: 8px;
       align-items: start;
     }
 
@@ -2977,8 +3544,8 @@
       }
 
       .hm-wheel-visual {
-        width: 152px;
-        height: 152px;
+        width: 140px;
+        height: 140px;
       }
     }
 
@@ -2997,14 +3564,14 @@
       }
 
       .hm-wheel-visual {
-        width: 144px;
-        height: 144px;
+        width: 136px;
+        height: 136px;
       }
 
       .hm-wheel-subtitle,
       .hm-wheel-note,
       .hm-info-text {
-        font-size: 0.88rem;
+        font-size: 0.82rem;
       }
     }
 
@@ -3022,8 +3589,8 @@
       }
 
       .hm-wheel-visual {
-        width: 158px;
-        height: 158px;
+        width: 140px;
+        height: 140px;
       }
     }
 
@@ -3042,31 +3609,73 @@
       }
 
       .hm-wheel-visual {
-        width: 150px;
-        height: 150px;
+        width: 136px;
+        height: 136px;
       }
 
       .hm-wheel-subtitle,
       .hm-wheel-note,
       .hm-info-text {
-        font-size: 0.9rem;
+        font-size: 0.82rem;
       }
     }
 
     @media (max-width: 720px) {
       .hm-page {
-        height: 100vh;
-        overflow: hidden;
+        height: auto;
+        overflow: visible;
       }
 
       .hm-panel-inner {
-        max-height: calc(100vh - 220px);
-        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        max-height: none;
+        overflow: visible;
+      }
+
+      .hm-wheel-box {
+        width: 100%;
+        padding: 14px;
+      }
+
+      .hm-text-column {
+        max-width: 100%;
+        width: 100%;
       }
 
       .hm-wheel-visual {
-        width: 128px;
-        height: 128px;
+        width: 260px;
+        height: 260px;
+      }
+
+      .hm-wheel-title {
+        font-size: 1.35rem;
+      }
+
+      .hm-wheel-subtitle {
+        font-size: 1rem;
+        text-align: center;
+      }
+
+      .hm-controls-label {
+        font-size: 0.95rem;
+      }
+
+      .hm-filter-btn {
+        font-size: 0.85rem;
+      }
+
+      .hm-filter-btn span {
+        font-size: 0.88rem;
+      }
+
+      .hm-info-text {
+        font-size: 0.95rem;
+        text-align: center;
+      }
+
+      .hm-result-main-title {
+        font-size: 1.25rem;
       }
     }
 
@@ -3084,8 +3693,8 @@
       }
 
       .hm-wheel-visual {
-        width: 158px;
-        height: 158px;
+        width: 140px;
+        height: 140px;
       }
     }
 
@@ -3104,14 +3713,14 @@
       }
 
       .hm-wheel-visual {
-        width: 150px;
-        height: 150px;
+        width: 136px;
+        height: 136px;
       }
 
       .hm-wheel-subtitle,
       .hm-wheel-note,
       .hm-info-text {
-        font-size: 0.9rem;
+        font-size: 0.82rem;
       }
     }
 
@@ -3119,7 +3728,7 @@
 
     .hm-wheel-box {
       border-radius: var(--radius-xl);
-      padding: 10px 10px 12px;
+      padding: 8px 8px 10px;
       background: radial-gradient(circle at top left, rgba(138, 43, 226, 0.18), transparent 55%),
                   radial-gradient(circle at bottom right, rgba(242, 155, 196, 0.16), transparent 55%),
                   rgba(5, 3, 20, 0.92);
@@ -3150,7 +3759,7 @@
     }
 
     .hm-wheel-title {
-      font-size: 1.26rem;
+      font-size: 1.1rem;
       font-weight: 800;
       margin: 4px 0 0;
       text-align: center;
@@ -3174,19 +3783,59 @@
     }
 
     .hm-wheel-subtitle {
-      font-size: 0.92rem;
+      font-size: 0.82rem;
       color: var(--text-muted);
       margin: 2px auto 6px;
       max-width: 640px;
       text-align: justify;
-      line-height: 1.5;
+      line-height: 1.4;
     }
 
     .hm-wheel-layout {
       display: grid;
-      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1fr);
-      gap: 10px;
+      grid-template-columns: minmax(0, 0.85fr) minmax(0, 1fr);
+      gap: 8px;
       align-items: center;
+    }
+
+    @media (max-width: 720px) {
+      .hm-wheel-layout {
+        grid-template-columns: 1fr;
+        justify-items: center;
+      }
+
+      .hm-wheel-info-stack {
+        order: 1;
+        width: 100%;
+        align-items: center;
+      }
+
+      .hm-wheel-visual-stack {
+        order: 2;
+        width: 100%;
+        align-items: center;
+      }
+
+      .hm-wheel-visual {
+        width: 210px;
+        height: 210px;
+      }
+
+      .hm-wheel-pointer {
+        border-left-width: 16px;
+        border-right-width: 16px;
+        border-top-width: 24px;
+      }
+
+      .hm-info-bar {
+        text-align: center;
+        margin: 0 auto;
+      }
+
+      .hm-result-box {
+        width: 100%;
+        text-align: center;
+      }
     }
 
     .hm-wheel-visual-stack {
@@ -3206,10 +3855,10 @@
 
     .hm-controls-box {
       border-radius: 18px;
-      padding: 12px 14px 14px;
+      padding: 10px 12px 12px;
       background: rgba(8, 5, 26, 0.96);
       border: 2px solid rgba(255, 255, 255, 0.18);
-      margin-bottom: 16px;
+      margin-bottom: 12px;
       text-align: center;
     }
 
@@ -3224,7 +3873,7 @@
     }
 
     .hm-controls-label {
-      font-size: 0.9rem;
+      font-size: 0.8rem;
       color: var(--text-muted);
       margin-bottom: 8px;
       text-align: center;
@@ -3239,11 +3888,11 @@
 
     .hm-filter-btn {
       border: 0;
-      padding: 7px 13px;
+      padding: 6px 10px;
       border-radius: 999px;
       background: rgba(255, 255, 255, 0.04);
       color: var(--text-muted);
-      font-size: 0.82rem;
+      font-size: 0.74rem;
       cursor: pointer;
       transition: all 0.15s ease;
       display: inline-flex;
@@ -3252,7 +3901,7 @@
     }
 
     .hm-filter-btn span {
-      font-size: 0.84rem;
+      font-size: 0.78rem;
     }
 
     .hm-filter-btn.hm-active {
@@ -3283,14 +3932,14 @@
 
     .hm-wheel-pointer {
       position: absolute;
-      top: -4px;
+      top: -2px;
       left: 50%;
       transform: translateX(-50%);
       width: 0;
       height: 0;
-      border-left: 16px solid transparent;
-      border-right: 16px solid transparent;
-      border-top: 24px solid #ffffff;
+      border-left: 14px solid transparent;
+      border-right: 14px solid transparent;
+      border-top: 20px solid #ffffff;
       filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.45));
       z-index: 3;
     }
@@ -3300,8 +3949,8 @@
     }
 
     .hm-wheel-visual {
-      width: 160px;
-      height: 160px;
+      width: 140px;
+      height: 140px;
       border-radius: 50%;
       border: 6px solid #fdf7ff;
       position: relative;
@@ -3440,9 +4089,9 @@
 
     .hm-spin-btn {
       border: 0;
-      padding: 10px 22px;
+      padding: 8px 18px;
       border-radius: 999px;
-      font-size: 0.96rem;
+      font-size: 0.88rem;
       font-weight: 600;
       cursor: pointer;
       color: #ffffff;
@@ -3464,11 +4113,11 @@
     }
 
     .hm-wheel-note {
-      font-size: 0.88rem;
+      font-size: 0.8rem;
       color: var(--text-muted);
       max-width: 100%;
       text-align: justify;
-      line-height: 1.5;
+      line-height: 1.4;
     }
 
     /* Right column */
@@ -3504,16 +4153,16 @@
     }
 
     .hm-info-title {
-      font-size: 0.94rem;
+      font-size: 0.86rem;
       font-weight: 700;
       margin-bottom: 4px;
       text-align: center;
     }
 
     .hm-info-text {
-      font-size: 0.9rem;
+      font-size: 0.82rem;
       color: var(--text-muted);
-      line-height: 1.55;
+      line-height: 1.45;
       text-align: justify;
       margin: 0 auto;
       max-width: 680px;
@@ -3540,6 +4189,17 @@
       border-radius: 18px;
       padding: 14px 14px 16px;
       background: #000000;
+    }
+
+    .hm-result-portrait {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      border: 2px solid rgba(255, 215, 0, 0.8);
+      object-fit: cover;
+      box-shadow: 0 0 16px rgba(138, 43, 226, 0.55);
+      margin: 10px auto 12px;
+      display: block;
     }
 
     .hm-result-card--calm {
@@ -4504,6 +5164,20 @@
 
     /* ---------- WHEEL LOGIC ---------- */
 
+    const practicePortraits = {
+      Mimi: 'assets/images/Mimi.png',
+      Luli: 'assets/images/Luli.png',
+      Dilo: 'assets/images/Dilo.png',
+      Alio: 'assets/images/Alio.png',
+      Nini: 'assets/images/Nini.png',
+      Bibi: 'assets/images/Grandma Bibi.png'
+    };
+
+    function getPracticePortrait(name) {
+      const src = practicePortraits[name];
+      return src ? encodeURI(src) : null;
+    }
+
     function renderPracticeCard(practice, targetElement, theme) {
       if (!practice) {
         targetElement.innerHTML =
@@ -4518,12 +5192,18 @@
       const speaker = (speakerRaw || "").trim();
       const quote = quoteParts.join(":").trim();
 
+      const portrait = getPracticePortrait(practice.character);
+      const portraitHtml = portrait
+        ? `<img class="hm-result-portrait" src="${portrait}" alt="${practice.character} portrait">`
+        : '';
+
       targetElement.innerHTML = `
         <article class="${themeClass}">
           <div class="hm-pill-row">
             <div class="hm-pill">${practice.category}</div>
             <div class="hm-pill hm-pill-character">With ${practice.character}</div>
           </div>
+          ${portraitHtml}
           <h2 class="hm-result-title">${practice.title}</h2>
           <div class="hm-result-type">Family micro-practice</div>
           <p class="hm-result-instruction">${practice.instruction}</p>
@@ -4554,6 +5234,19 @@
       const safeIndex = Math.max(0, Math.min(index, slots.length - 1));
       clearSelectedIcon(wheelEl);
       slots[safeIndex].classList.add("hm-selected");
+    }
+
+    function addTapListener(element, handler) {
+      if (!element) return;
+      element.addEventListener("click", handler);
+      element.addEventListener(
+        "touchstart",
+        event => {
+          event.preventDefault();
+          handler(event);
+        },
+        { passive: false }
+      );
     }
 
     function setupWheel(options) {
@@ -4658,12 +5351,12 @@
         }
       }
 
-      spinBtn.addEventListener("click", () => {
+      addTapListener(spinBtn, () => {
         spinStopToggle();
       });
 
       filterButtons.forEach(btn => {
-        btn.addEventListener("click", () => {
+        addTapListener(btn, () => {
           filterButtons.forEach(b => b.classList.remove("hm-active"));
           btn.classList.add("hm-active");
           currentFilter = btn.getAttribute("data-filter");
@@ -4724,8 +5417,9 @@
       }
     }
 
-    calmTabBtn.addEventListener("click", () => activateTab("calm"));
-    energyTabBtn.addEventListener("click", () => activateTab("energy"));
+    addTapListener(calmTabBtn, () => activateTab("calm"));
+    addTapListener(energyTabBtn, () => activateTab("energy"));
+
 
     tabIndicator.style.transform = "translateX(0%)";
   </script>
@@ -4739,17 +5433,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Word Search Studio</title>
   <style>
-    html, body { margin: 0; padding: 0; width: 100%; height: 100%; background: #05040a; }
-    body { display: flex; align-items: stretch; }
-    .ws-shell { flex: 1; padding: 0; }
-    .ws-frame { width: 100%; height: 100vh; border: none; border-radius: 0; display: block; }
+    html, body { margin: 0; padding: 0; width: 100%; min-height: 100%; background: #05040a; }
+    body { display: flex; flex-direction: column; align-items: stretch; overflow: auto; }
+    .ws-shell { flex: 1; padding: 0; display: flex; flex-direction: column; min-height: 100dvh; }
+    .ws-instructions {
+      background: rgba(0, 0, 0, 0.9);
+      color: #ffd700;
+      font-size: 0.9rem;
+      text-align: center;
+      padding: 10px 12px;
+      border-bottom: 1px solid rgba(255, 215, 0, 0.4);
+      text-shadow: 0 0 10px rgba(255, 215, 0, 0.6);
+    }
+    .ws-frame { width: 100%; height: 100%; border: none; border-radius: 0; display: block; flex: 1; }
     @media (max-width: 720px) {
-      .ws-frame { height: 100vh; }
+      .ws-frame { height: 100%; }
     }
   </style>
 </head>
 <body>
   <div class="ws-shell">
+    <div class="ws-instructions">Tap the first letter, then each next letter in order until the last letter to complete a word.</div>
     <iframe class="ws-frame" src="assets/word-search-studio/index.html" title="Word Search Studio" loading="lazy"></iframe>
   </div>
   </template>
@@ -4759,7 +5463,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<title>Happy Makers – 1-Minute Challenge Generator</title>
+<title>Happy Makers - 1-Minute Challenge Generator</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 <style>
@@ -4784,8 +5488,10 @@ body {
   padding: 14px 10px;
   display: flex;
   justify-content: center;
-  min-height: 0;
+  min-height: 100vh;
+  min-height: 100dvh;
   overflow-x: hidden;
+  overflow-y: auto;
   position: relative;
 }
 
@@ -4850,7 +5556,7 @@ body {
   border-radius: 999px;
 }
 
-/* SUBTITLE – GOLD */
+/* SUBTITLE - GOLD */
 .hm-subtitle {
   font-size: 0.98rem;
   color: var(--gold);
@@ -4880,7 +5586,7 @@ body {
   box-shadow: 0 0 22px rgba(255,105,180,.6);
 }
 
-/* CHALLENGE CARD — SMALLER */
+/* CHALLENGE CARD - SMALLER */
 .hm-card {
   margin: 0 auto;
   margin-top: 12px;
@@ -4941,6 +5647,14 @@ body {
 .hm-avatar svg {
   width: 20px;
   height: 20px;
+  display: block;
+}
+
+.hm-avatar img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
   display: block;
 }
 
@@ -5091,7 +5805,7 @@ const challenges = [
   },
   {
     title: "Dance Blink Battle",
-    instruction: "Dance for one minute — every big blink changes the move.",
+    instruction: "Dance for one minute - every big blink changes the move.",
     character: "Alio",
     comment: "Alio: \"Blink = chaos unlocked.\"",
     category: "Movement"
@@ -5135,7 +5849,7 @@ const challenges = [
     title: "Balance Challenge",
     instruction: "Balance on one leg for one minute, switching whenever needed.",
     character: "Mimi",
-    comment: "Mimi: \"Grace under pressure — always stylish.\"",
+    comment: "Mimi: \"Grace under pressure - always stylish.\"",
     category: "Movement"
   },
   {
@@ -5236,7 +5950,21 @@ function getAvatarHTML(character) {
   }
 }
 
-/* category icons – subtle variety */
+const challengePortraits = {
+  Mimi: 'assets/images/Mimi.png',
+  Luli: 'assets/images/Luli.png',
+  Dilo: 'assets/images/Dilo.png',
+  Alio: 'assets/images/Alio.png',
+  Nini: 'assets/images/Nini.png',
+  Bibi: 'assets/images/Grandma Bibi.png'
+};
+
+function getChallengePortrait(character) {
+  const src = challengePortraits[character];
+  return src ? encodeURI(src) : null;
+}
+
+/* category icons - subtle variety */
 const categoryIcons = ["⭐", "✦", "❖", "✧"];
 
 let remaining = [...challenges];
@@ -5252,7 +5980,10 @@ function pickChallenge() {
 /* RENDERING */
 function renderChallenge(c) {
   const avatar = document.getElementById("hm-avatar");
-  avatar.innerHTML = getAvatarHTML(c.character);
+  const portrait = getChallengePortrait(c.character);
+  avatar.innerHTML = portrait
+    ? `<img src="${portrait}" alt="${c.character} portrait">`
+    : getAvatarHTML(c.character);
 
   document.getElementById("challenge-title").textContent = c.title;
   document.getElementById("challenge-instruction").textContent = c.instruction;
@@ -5303,7 +6034,7 @@ document
     * { box-sizing: border-box; }
     body {
       margin: 0;
-      padding: 18px 12px 28px;
+      padding: 12px 10px 18px;
       background: radial-gradient(circle at 20% 20%, rgba(138,43,226,0.15), transparent 30%),
                   radial-gradient(circle at 80% 10%, rgba(255,215,0,0.18), transparent 32%),
                   radial-gradient(circle at 50% 80%, rgba(138,43,226,0.22), transparent 38%),
@@ -5313,20 +6044,21 @@ document
       min-height: 100vh;
       position: relative;
       overflow-x: hidden;
+      overflow-y: auto;
     }
     .shell {
-      max-width: 1100px;
+      max-width: 1000px;
       margin: 0 auto;
       background: linear-gradient(145deg, rgba(0,0,0,0.9), rgba(18,18,28,0.9));
-      border: 3px solid var(--purple);
-      border-radius: 22px;
-      padding: 20px 18px;
-      box-shadow: 0 0 35px rgba(138,43,226,0.55), 0 0 65px rgba(255,215,0,0.25);
+      border: none;
+      border-radius: 18px;
+      padding: 16px 14px;
+      box-shadow: 0 0 24px rgba(138,43,226,0.25), 0 0 45px rgba(255,215,0,0.18);
     }
     h1 {
       text-align: center;
-      margin: 0 0 6px 0;
-      font-size: 1.6rem;
+      margin: 0 0 4px 0;
+      font-size: 1.4rem;
       letter-spacing: 1px;
       background: linear-gradient(90deg, var(--purple), #9932CC, var(--gold));
       -webkit-background-clip: text;
@@ -5344,14 +6076,14 @@ document
     .layout {
       display: grid;
       grid-template-columns: 2fr 1fr;
-      gap: 16px;
+      gap: 12px;
       align-items: start;
     }
     .grid-shell {
       background: rgba(0,0,0,0.7);
       border: 2px solid var(--gold);
       border-radius: 16px;
-      padding: 12px;
+      padding: 10px;
       box-shadow: inset 0 0 18px rgba(255,215,0,0.25);
     }
     .puzzle-meta {
@@ -5375,8 +6107,8 @@ document
       border: 1px solid rgba(255,215,0,0.35);
       text-align: center;
       font-weight: bold;
-      font-size: 0.95rem;
-      padding: 6px 0;
+      font-size: 0.85rem;
+      padding: 5px 0;
       color: #ffffff;
       cursor: pointer;
       transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
@@ -5401,14 +6133,14 @@ document
     }
     .panel {
       background: rgba(0,0,0,0.65);
-      border: 2px solid var(--purple);
+      border: 1px solid rgba(138,43,226,0.4);
       border-radius: 16px;
-      padding: 16px;
-      box-shadow: inset 0 0 16px rgba(138,43,226,0.25);
+      padding: 12px;
+      box-shadow: inset 0 0 12px rgba(138,43,226,0.2);
     }
     .panel h2 {
       margin: 0 0 12px 0;
-      font-size: 1.1rem;
+      font-size: 1rem;
       letter-spacing: 0.5px;
       color: var(--gold);
       text-transform: uppercase;
@@ -5416,11 +6148,11 @@ document
     }
     .word-list {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
       gap: 8px;
     }
     .word-chip {
-      padding: 8px 10px;
+      padding: 6px 8px;
       border: 1px solid rgba(255,215,0,0.65);
       border-radius: 10px;
       text-align: center;
@@ -5428,6 +6160,7 @@ document
       color: #ffffff;
       background: rgba(138,43,226,0.18);
       box-shadow: 0 0 12px rgba(138,43,226,0.3);
+      font-size: 0.78rem;
     }
     .word-chip.found {
       color: var(--gold);
@@ -5440,10 +6173,24 @@ document
       color: var(--gold);
     }
     .instructions {
-      margin-top: 10px;
+      margin: 8px 0 16px;
       font-size: 0.9rem;
-      color: #dcdcdc;
+      color: #f0e6ff;
       text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      font-weight: 600;
+      text-shadow: 0 0 12px rgba(138,43,226,0.45);
+    }
+    .instructions span {
+      display: block;
+      margin-top: 8px;
+      color: #ffd700;
+      font-size: 0.78rem;
+      text-transform: none;
+      letter-spacing: 0.2px;
+      font-weight: 600;
+      text-shadow: 0 0 10px rgba(255,215,0,0.45);
     }
     .status {
       margin-top: 12px;
@@ -5455,7 +6202,7 @@ document
     .action-btn {
       border: 2px solid var(--gold);
       border-radius: 12px;
-      padding: 8px 12px;
+      padding: 7px 10px;
       font-weight: bold;
       background: linear-gradient(45deg, var(--purple), #9932CC);
       color: #ffffff;
@@ -5463,7 +6210,7 @@ document
       box-shadow: 0 0 12px rgba(138,43,226,0.45);
       transition: transform 0.2s ease, box-shadow 0.2s ease;
       text-transform: uppercase;
-      font-size: 0.8rem;
+      font-size: 0.74rem;
     }
     .action-btn:hover { transform: translateY(-1px); box-shadow: 0 0 16px rgba(255,215,0,0.45); }
     .action-btn.ghost { background: rgba(0,0,0,0.45); color: var(--gold); }
@@ -5517,23 +6264,38 @@ document
       to { transform: translateY(120vh) rotate(340deg); opacity: 0; }
     }
 
-    @media (max-width: 900px) { .layout { grid-template-columns: 1fr; } }
+    @media (max-width: 900px) {
+      .layout { grid-template-columns: 1fr; }
+    }
     @media (max-width: 720px) {
       body {
-        height: 100vh;
-        overflow: hidden;
-        padding: 12px 8px 16px;
+        min-height: 100vh;
+        min-height: 100dvh;
+        overflow: auto;
+        padding: 8px 6px 12px;
       }
-      .shell {
-        height: 100%;
-        padding: 14px 12px;
+      .layout {
+        display: flex;
+        flex-direction: column;
       }
       .grid-shell {
-        max-height: 52vh;
-        overflow: hidden;
+        width: 100%;
+        order: 1;
       }
       .panel {
-        padding: 12px;
+        width: 100%;
+        order: 2;
+      }
+      .shell {
+        min-height: 100%;
+        padding: 10px 10px;
+      }
+      .grid-shell {
+        max-height: none;
+        overflow: visible;
+      }
+      .panel {
+        padding: 10px;
       }
     }
   </style>
@@ -5541,14 +6303,16 @@ document
 <body>
   <div class="shell">
     <h1>Happy Makers Word Search</h1>
-    <p class="subtitle">Find every word from the list.</p>
     <div class="layout">
       <div class="grid-shell">
-        <div class="instructions" style="font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.4px;">
+        <div class="instructions">
           Tap a starting letter, tap the ending letter and see if you found a hidden word.
-          <br><span style="color:#ffd700; font-size: 0.82rem; text-transform: none; letter-spacing: 0.2px;">Words can be written in any direction — forward, backward, up, down, and diagonal.</span>
+          <span>Words can be written in any direction - forward, backward, up, down, and diagonal.</span>
         </div>
         <table class="word-grid" id="wordGrid" aria-label="Word search grid"></table>
+        <div style="margin-top: 14px; text-align: center;">
+          <button class="action-btn" id="hintBtn">Hint ✶</button>
+        </div>
       </div>
       <div class="panel">
         <div class="puzzle-meta" style="justify-content: center;">
@@ -5557,9 +6321,6 @@ document
         <h2>Find These Words</h2>
         <div class="word-list" id="wordList"></div>
         <div class="status" id="status"></div>
-        <div style="margin-top: 14px; text-align: center;">
-          <button class="action-btn" id="hintBtn">Hint ✶</button>
-        </div>
       </div>
     </div>
   </div>
@@ -5895,24 +6656,24 @@ document
 
         // Dynamic info tile copy
         const infoMessages = {
-            main: `Join us on a journey where every child can <span class="word-rise">RISE</span>,<br>
-                every family can <span class="word-shine">SHINE</span><br>
-                and every person can <span class="word-evolve">EVOLVE</span>.`,
-            kids: `Watch your child <span class="word-rise">RISE</span> to new adventures,<br>
-                see their natural curiosity <span class="word-shine">SHINE</span> bright<br>
-                and together you'll <span class="word-evolve">EVOLVE</span> into an unstoppable team!`,
-            teenagers: `Navigate your journey to <span class="word-rise">RISE</span> above challenges,<br>
-                discover your unique way to <span class="word-shine">SHINE</span><br>
-                and embrace the power within you to <span class="word-evolve">EVOLVE</span>.`,
-            adults: `It's never too late to <span class="word-rise">RISE</span>,<br>
-                your experience helps you <span class="word-shine">SHINE</span> brighter<br>
-                and you can embrace the power within you to <span class="word-evolve">EVOLVE</span>.`,
-            gifts: `Free resources to help you <span class="word-rise">RISE</span>,<br>
-                tools that make you <span class="word-shine">SHINE</span><br>
-                and materials that help you <span class="word-evolve">EVOLVE</span>.`,
-            contact: `Ready to <span class="word-rise">RISE</span> together?<br>
-                Let's help you <span class="word-shine">SHINE</span><br>
-                and connect with us to <span class="word-evolve">EVOLVE</span>.`
+            main: '<span class="info-line">Step into a journey where every child can <span class="word-rise">RISE</span>,</span>' +
+                '<span class="info-line">every family can <span class="word-shine">SHINE</span>,</span>' +
+                '<span class="info-line">and every person can <span class="word-evolve">EVOLVE</span>.</span>',
+            kids: '<span class="info-line">Watch your child <span class="word-rise">RISE</span> to new adventures,</span>' +
+                '<span class="info-line">see their natural curiosity <span class="word-shine">SHINE</span> bright</span>' +
+                '<span class="info-line">and together you\'ll <span class="word-evolve">EVOLVE</span> into an unstoppable team!</span>',
+            teenagers: '<span class="info-line">Navigate your journey to <span class="word-rise">RISE</span> above challenges,</span>' +
+                '<span class="info-line">discover your unique way to <span class="word-shine">SHINE</span></span>' +
+                '<span class="info-line">and embrace the power within you to <span class="word-evolve">EVOLVE</span>.</span>',
+            adults: '<span class="info-line">It\'s never too late to <span class="word-rise">RISE</span>,</span>' +
+                '<span class="info-line">your experience helps you <span class="word-shine">SHINE</span> brighter</span>' +
+                '<span class="info-line">and you can embrace the power within you to <span class="word-evolve">EVOLVE</span>.</span>',
+            gifts: '<span class="info-line">Free resources to help you <span class="word-rise">RISE</span>.</span>' +
+                '<span class="info-line">Tools that make you <span class="word-shine">SHINE</span>.</span>' +
+                '<span class="info-line">And materials that help you <span class="word-evolve">EVOLVE</span>.</span>',
+            contact: '<span class="info-line">Ready to <span class="word-rise">RISE</span> together?</span>' +
+                '<span class="info-line">Let\'s help you <span class="word-shine">SHINE</span></span>' +
+                '<span class="info-line">and connect with us to <span class="word-evolve">EVOLVE</span>.</span>'
         };
 
         function updateInfoTile(tabName) {
@@ -5947,8 +6708,7 @@ document
                 handleLogout();
                 return;
             }
-            setAuthMode('login');
-            showEmailModal();
+            showEmailModal('login');
         }
 
         async function handleLogout() {
@@ -5960,6 +6720,12 @@ document
             setLoggedInBadge(false);
             clearGiftsAccess();
             localStorage.setItem('manualLoggedOut', 'true');
+            if (typeof closeGiftOverlay === 'function') {
+                closeGiftOverlay(true);
+            }
+            if (typeof closeEmailModal === 'function') {
+                closeEmailModal();
+            }
             selectTab(getTabElement('main'), 'main');
         }
 
@@ -5977,6 +6743,10 @@ document
             if (bottomSubmit) {
                 bottomSubmit.style.display = 'none';
             }
+        }
+
+        function isMobileViewport() {
+            return window.matchMedia && window.matchMedia('(max-width: 720px)').matches;
         }
 
         async function checkUser() {
@@ -5997,10 +6767,17 @@ document
             }
             localStorage.removeItem('manualLoggedOut');
             setLoggedInBadge(true, session.user?.email || '');
-            closeEmailModal();
+            if (authMode !== 'set-password') {
+                closeEmailModal();
+            }
             const giftsTab = getTabElement('gifts');
             const requested = localStorage.getItem('giftsRequested') === 'true';
-            if (giftsTab && (requested || window.location.hash === '#gifts')) {
+            const hashRequested = window.location.hash === '#gifts';
+            const shouldAutoOpenGifts = !isMobileViewport() && (requested || hashRequested);
+            if (isMobileViewport() && hashRequested) {
+                history.replaceState({ tab: 'main' }, '', '#main');
+            }
+            if (giftsTab && shouldAutoOpenGifts) {
                 localStorage.removeItem('giftsRequested');
                 selectTab(giftsTab, 'gifts');
             }
@@ -6061,25 +6838,128 @@ document
             }
         }
 
+        function togglePasswordVisibility(fieldIds, button) {
+            if (!Array.isArray(fieldIds)) {
+                return;
+            }
+            let isVisible = false;
+            fieldIds.forEach((id) => {
+                const input = document.getElementById(id);
+                if (!input) return;
+                const nextType = input.type === 'password' ? 'text' : 'password';
+                input.type = nextType;
+                if (nextType === 'text') {
+                    isVisible = true;
+                }
+            });
+            if (button) {
+                button.textContent = isVisible ? 'Hide password' : 'Show password';
+            }
+        }
+
+        async function handlePasswordResetRequest() {
+            const rawEmail = document.getElementById('brevoEmail')?.value || '';
+            const email = rawEmail.trim().toLowerCase();
+            if (authMode !== 'reset') {
+                setAuthMode('reset');
+            }
+            if (!email || !email.includes('@') || !email.includes('.')) {
+                showAuthMessage('Enter your email below to reset your password.', '#ff1493');
+                const emailField = document.getElementById('brevoEmail');
+                if (emailField) {
+                    emailField.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    emailField.focus();
+                }
+                return;
+            }
+            const workerEndpoint = (typeof CLOUDFLARE_WORKER_ENDPOINT === 'string' && CLOUDFLARE_WORKER_ENDPOINT.trim())
+                ? CLOUDFLARE_WORKER_ENDPOINT.trim()
+                : 'https://newsletter-endpoint.rise-shine-evolve.workers.dev/';
+            if (!workerEndpoint) {
+                showAuthMessage('Password reset is unavailable right now. Please try again later.', '#ff1493');
+                return;
+            }
+            try {
+                const response = await fetch(workerEndpoint, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        type: 'request_password_reset',
+                        email,
+                        templateId: 19,
+                    }),
+                    mode: 'cors',
+                    credentials: 'omit',
+                });
+                const data = await response.json().catch(() => ({}));
+                const errorText = (data?.error || '').toString().toLowerCase();
+                const errorCode = (data?.code || '').toString().toLowerCase();
+                const notFound = errorCode === 'email_not_found'
+                    || errorText.includes('email not found')
+                    || errorText.includes('not found');
+                if (!response.ok || notFound) {
+                    showAuthMessage(notFound ? 'Email not found.' : (data?.error || 'Unable to request a password reset.'), '#ff1493');
+                    return;
+                }
+                showAuthMessage('Please check your email and click the reset link inside.', '#ffd700');
+            } catch (error) {
+                showAuthMessage(error?.message || 'Unable to request a password reset.', '#ff1493');
+            }
+        }
+
+        async function handleSetNewPassword() {
+            const password = document.getElementById('resetPassword')?.value || '';
+            const confirmPassword = document.getElementById('resetPasswordConfirm')?.value || '';
+            if (!password || !confirmPassword) {
+                showAuthMessage('Please enter and confirm your new password.', '#ff1493');
+                return;
+            }
+            if (password !== confirmPassword) {
+                showAuthMessage('Passwords do not match. Please try again.', '#ff1493');
+                return;
+            }
+            if (!supabaseClient) {
+                showAuthMessage('Password reset is unavailable right now. Please try again later.', '#ff1493');
+                return;
+            }
+            showAuthMessage('Updating your password...', '#ffd700');
+            const { data: { session } } = await supabaseClient.auth.getSession();
+            if (!session) {
+                showAuthMessage('Reset session expired. Please request a new reset link.', '#ff1493');
+                return;
+            }
+            const { error } = await supabaseClient.auth.updateUser({ password });
+            if (error) {
+                showAuthMessage(error.message || 'Unable to update password. Please try again.', '#ff1493');
+                return;
+            }
+            showAuthMessage('Your password has been updated. Please log in.', '#ffd700');
+            setAuthMode('login');
+        }
+
         function setAuthMode(mode) {
-            authMode = mode === 'login' ? 'login' : 'signup';
+            authMode = mode === 'login' ? 'login' : (mode === 'reset' ? 'reset' : (mode === 'set-password' ? 'set-password' : 'signup'));
             clearAuthMessage();
             const signUpBtn = document.getElementById('authModeSignUp');
             const loginBtn = document.getElementById('authModeLogin');
             const signupFields = document.getElementById('signupFields');
             const signupConsent = document.getElementById('signupConsent');
             const passwordField = document.getElementById('userPassword');
+            const resetPasswordFields = document.getElementById('resetPasswordFields');
+            const passwordToggleContainer = document.getElementById('passwordToggleContainer');
             const firstNameField = document.getElementById('brevoFirstName');
             const optInField = document.getElementById('brevoOptIn');
             const bottomSubmit = document.getElementById('authActionBottom');
+            const emailField = document.getElementById('brevoEmail');
 
             showAuthFormPanel(true);
             if (signUpBtn && loginBtn) {
                 const isSignup = authMode === 'signup';
+                const isLogin = authMode === 'login';
                 signUpBtn.style.background = isSignup ? 'linear-gradient(45deg, #8A2BE2, #9932CC)' : '#0d0d0d';
                 signUpBtn.style.color = isSignup ? '#ffffff' : '#ffd700';
-                loginBtn.style.background = isSignup ? '#0d0d0d' : 'linear-gradient(45deg, #8A2BE2, #9932CC)';
-                loginBtn.style.color = isSignup ? '#ffd700' : '#ffffff';
+                loginBtn.style.background = isLogin ? 'linear-gradient(45deg, #8A2BE2, #9932CC)' : '#0d0d0d';
+                loginBtn.style.color = isLogin ? '#ffffff' : '#ffd700';
             }
 
             if (signupFields) {
@@ -6094,11 +6974,45 @@ document
             if (optInField) {
                 optInField.required = authMode === 'signup';
             }
+            if (emailField) {
+                const emailBlock = emailField.closest('.sib-input') || emailField.closest('.form__entry');
+                if (emailBlock) {
+                    emailBlock.style.display = authMode === 'set-password' ? 'none' : 'block';
+                }
+                emailField.required = authMode !== 'set-password';
+            }
             if (passwordField) {
+                const passwordBlock = passwordField.closest('.sib-input') || passwordField.closest('.form__entry');
+                if (passwordBlock) {
+                    passwordBlock.style.display = authMode === 'reset' || authMode === 'set-password' ? 'none' : 'block';
+                }
                 passwordField.autocomplete = authMode === 'signup' ? 'new-password' : 'current-password';
+                passwordField.required = authMode !== 'reset' && authMode !== 'set-password';
+            }
+            if (passwordToggleContainer) {
+                passwordToggleContainer.style.display = authMode === 'reset' || authMode === 'set-password' ? 'none' : 'block';
+            }
+            if (resetPasswordFields) {
+                resetPasswordFields.style.display = authMode === 'set-password' ? 'block' : 'none';
+                const resetPassword = document.getElementById('resetPassword');
+                const resetPasswordConfirm = document.getElementById('resetPasswordConfirm');
+                if (resetPassword) {
+                    resetPassword.required = authMode === 'set-password';
+                }
+                if (resetPasswordConfirm) {
+                    resetPasswordConfirm.required = authMode === 'set-password';
+                }
             }
             if (bottomSubmit) {
-                bottomSubmit.textContent = authMode === 'signup' ? 'Create Account' : 'Log In';
+                if (authMode === 'signup') {
+                    bottomSubmit.textContent = 'Create Account';
+                } else if (authMode === 'reset') {
+                    bottomSubmit.textContent = 'Reset Password';
+                } else if (authMode === 'set-password') {
+                    bottomSubmit.textContent = 'Set New Password';
+                } else {
+                    bottomSubmit.textContent = 'Log In';
+                }
                 bottomSubmit.style.display = 'block';
             }
         }
@@ -6108,6 +7022,13 @@ document
             if (modal) {
                 modal.style.display = 'flex';
                 modal.classList.add('show');
+                modal.style.visibility = 'visible';
+                const content = modal.querySelector('.modal-content');
+                if (content) {
+                    content.style.display = 'block';
+                    content.scrollTop = 0;
+                }
+                modal.scrollTop = 0;
                 document.body.style.overflow = 'hidden';
             }
         }
@@ -6121,9 +7042,66 @@ document
             document.body.style.overflow = 'auto';
         }
 
+        function applyMobileLineBreaks() {
+            if (!isMobileViewport()) {
+                return;
+            }
+            const selectors = [
+                '.story-text',
+                '.character-description p',
+                '.book-details-view p',
+            ];
+            const elements = document.querySelectorAll(selectors.join(','));
+            elements.forEach((el) => {
+                el.classList.add('mobile-line-breaks');
+                const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+                const textNodes = [];
+                while (walker.nextNode()) {
+                    const node = walker.currentNode;
+                    if (node.nodeValue && /[.:]\s+/.test(node.nodeValue)) {
+                        textNodes.push(node);
+                    }
+                }
+                textNodes.forEach((node) => {
+                    node.nodeValue = node.nodeValue.replace(/([.:])\s+/g, '$1\n');
+                });
+            });
+        }
+
+        function adjustWheelMobileLayout() {
+            if (!isMobileViewport()) {
+                return;
+            }
+            ['calm', 'energy'].forEach((mode) => {
+                const panel = document.getElementById(`${mode}-panel`);
+                if (!panel) return;
+                const wheelBox = panel.querySelector('.hm-wheel-box');
+                const wheelLayout = panel.querySelector('.hm-wheel-layout');
+                const infoBar = panel.querySelector('.hm-info-bar');
+                const resultBox = panel.querySelector('.hm-result-box');
+                if (wheelBox && infoBar && wheelLayout && !wheelBox.contains(infoBar)) {
+                    wheelBox.insertBefore(infoBar, wheelLayout);
+                }
+                if (wheelBox && resultBox && !wheelBox.contains(resultBox)) {
+                    wheelBox.appendChild(resultBox);
+                }
+                if (wheelBox) {
+                    wheelBox.style.textAlign = 'center';
+                }
+            });
+        }
+
         function handleBottomAction() {
             if (authMode === 'login') {
                 handleLoginModal();
+                return;
+            }
+            if (authMode === 'reset') {
+                handlePasswordResetRequest();
+                return;
+            }
+            if (authMode === 'set-password') {
+                handleSetNewPassword();
                 return;
             }
             const form = document.getElementById('sib-form');
@@ -6167,6 +7145,14 @@ document
             event.preventDefault();
             if (authMode === 'login') {
                 await handleLoginModal();
+                return;
+            }
+            if (authMode === 'reset') {
+                await handlePasswordResetRequest();
+                return;
+            }
+            if (authMode === 'set-password') {
+                await handleSetNewPassword();
                 return;
             }
             const { firstName, email, password, gdprChecked, form } = getAuthFormValues();
@@ -6371,6 +7357,9 @@ document
         // Tab functionality
         function showTabContent(tabElement, tabName, options = {}) {
             const { skipHistory = false } = options;
+            if (typeof closeGiftOverlay === 'function' && giftOverlayOpen) {
+                closeGiftOverlay(true);
+            }
 
             // Remove active class from all tabs
             const tabs = document.querySelectorAll('.tab');
@@ -6401,14 +7390,24 @@ document
         function selectTab(tabElement, tabName, options = {}) {
             if (tabName === 'gifts') {
                 localStorage.setItem('giftsRequested', 'true');
+                if (hasGiftsAccess) {
+                    showTabContent(tabElement, tabName, options);
+                    return;
+                }
+                showEmailModal('login');
+                if (!supabaseClient) {
+                    return;
+                }
                 supabaseClient.auth.getSession().then(({ data: { session } }) => {
                     hasGiftsAccess = !!session;
                     if (!session) {
-                        showEmailModal();
                         return;
                     }
                     localStorage.removeItem('giftsRequested');
+                    closeEmailModal();
                     showTabContent(tabElement, tabName, options);
+                }).catch(() => {
+                    // keep login modal visible
                 });
                 return;
             }
@@ -6550,9 +7549,10 @@ document
                 name: 'Mimi',
                 tagline: 'Chaos Queen',
                 image: 'Mimi.png',
+                video: 'Mimi tanczy 1.mp4',
                 color: '#ff69b4',
                 description: [
-                    'Mimi is the queen of juggling life - meals, schedules, kids, questions and mysteriously disappearing socks - all at a pace that would exhaust a small army. Peaceful? Not even close. She’s never calm, rarely slow and always somehow impressively effective.',
+                    'Mimi is the queen of juggling life: meals, schedules, kids, questions and mysteriously disappearing socks - all at a pace that would exhaust a small army. Peaceful? Not even close. She’s never calm, rarely slow and always somehow impressively effective.',
                     'As the family’s self-appointed Fashion Police, she guards the family’s sense of style so fiercely you’d think she was protecting a national treasure of personal expression. Chaos is acceptable but clashing colors? Absolutely not on her watch.',
                     'Fast-thinking, witty and armed with a sixth sense for anything out of place, Mimi doesn’t just survive the daily madness - she organizes it, beautifies it and keeps everyone moving. Warm, unstoppable and effortlessly in charge, she’s the heart and high-speed engine of the whole crew.'
                 ],
@@ -6562,12 +7562,13 @@ document
                 name: 'Luli',
                 tagline: 'Creative Glow',
                 image: 'Luli.png',
+                video: 'Luli tanczy 1.mp4',
                 color: '#ffd700',
                 traitsHeadingColor: '#8A2BE2',
                 description: [
                     'Luli is creativity wrapped in elegance, a stylish mastermind with a soft spot for detective stories, mystery plots and any book that promises a clever twist sharp enough to make you gasp.',
-                    'With her sleek long hair, sparkling earrings and boldly colorful outfits, she has a style that’s impossible to overlook. And don’t let the elegance fool you - she’s strong, sporty and can outclimb or outrun most boys long before they even realize it’s a competition.',
-                    'When she’s on her aerial silks, she moves with such effortless, fluid confidence that people start wondering if gravity simply treats her better. Calm, confident, effortlessly chic and brilliantly thoughtful - she shines without even trying. Her warm, magnetic spirit doesn’t just lift the vibe - it upgrades the entire atmosphere to premium edition.'
+                    'With her sleek long hair, sparkling earrings and boldly colorful outfits, she has a style that’s impossible to overlook. And don’t let the elegance fool you! She’s strong, sporty and can outclimb or outrun most boys long before they even realize it’s a competition.',
+                    'When she’s on her aerial silks, she moves with such effortless, fluid confidence that people start wondering if gravity simply treats her better. Calm, confident, effortlessly chic and brilliantly thoughtful - she shines without even trying. Her warm, magnetic spirit doesn’t just lift the vibe. It upgrades the entire atmosphere to premium edition.'
                 ],
                 qualities: ['Mystery Brain', 'Style Queen', 'Clue Collector', 'Idea Whisperer', 'Book Diver']
             },
@@ -6575,11 +7576,12 @@ document
                 name: 'Dilo',
                 tagline: 'Pixel Striker',
                 image: 'Dilo.png',
+                video: 'Dilo tanczy 3.mp4',
                 color: '#00bfff',
                 description: [
-                    'Dilo is that rare combo of natural footballer and born gamer - fast feet, fast fingers and even faster opinions. He scores goals with both feet, beats video-game levels like he’s speedrunning life and takes on every challenge with a mix of stubborn determination and surprising generosity.',
+                    'Dilo is that rare combo of natural footballer and born gamer: fast feet, fast fingers and even faster opinions. He scores goals with both feet, beats video-game levels like he’s speedrunning life and takes on every challenge with a mix of stubborn determination and surprising generosity.',
                     'Part soccer king, part tech whiz and part style icon, he’s a powerhouse trio packed into one nine-year-old. His gel-spiked hair stays perfect in any weather (even the kind that defeats umbrellas) and his energy and curiosity brighten everything he joins.',
-                    'With Dilo around, things tend to move a little faster - and get a lot more interesting.'
+                    'With Dilo around, things tend to move a little faster and get a lot more interesting.'
                 ],
                 qualities: ['Goal Goblin', 'Level Crusher', 'Style General', 'Stubborn Star', 'Treat Dealer']
             },
@@ -6587,10 +7589,11 @@ document
                 name: 'Alio',
                 tagline: 'Playful Power',
                 image: 'Alio.png',
+                video: 'Alio tanczy.mp4',
                 color: '#32cd32',
                 description: [
                     'Alio operates on 120% pure energy and curiosity with a dash of friendly mischief. He’s always bouncing, building epic block cities, testing or inventing something absolutely essential (at least in his opinion).',
-                    'He also practices his very serious 12-second Kung Fu routine - usually ending in dramatic poses and uncontrollable giggles. If he’s quiet it usually means he’s planning something fun… or slightly chaotic.',
+                    'He also practices his very serious 12-second Kung Fu routine, usually ending in dramatic poses and uncontrollable giggles. If he’s quiet it usually means he’s planning something fun… or slightly chaotic.',
                     'Life is never boring with Alio around.'
                 ],
                 qualities: ['Jump Expert', 'Chaos Starter', 'Game Inventor', 'Snack Sprinter', 'Fun Rocket']
@@ -6599,10 +7602,11 @@ document
                 name: 'Nini',
                 tagline: 'Joy Spark',
                 image: 'Nini.png',
+                video: 'Nini tanczy.mp4',
                 color: '#ff69b4',
                 description: [
-                    'Nini is a tiny burst of joy who can brighten any room faster than you can say “snack time.” She sings, dances and giggles her way through the day as if the world were her personal stage - she’s clearly the headliner.',
-                    'She is only 4 but she runs the family cuddle economy with impressive authority (and zero negotiation). With her big eyes and even bigger heart, she spreads happiness the way confetti spreads at a birthday party - generously, enthusiastically and absolutely everywhere.'
+                    'Nini is a tiny burst of joy who can brighten any room faster than you can say “snack time.” She sings, dances and giggles her way through the day as if the world were her personal stage. She’s clearly the headliner.',
+                    'She is only 4 but she runs the family cuddle economy with impressive authority (and zero negotiation). With her big eyes and even bigger heart, she spreads happiness the way confetti spreads at a birthday party: generously, enthusiastically and absolutely everywhere.'
                 ],
                 qualities: ['Hug Machine', 'Giggle Generator', 'Tiny Tornado', 'Dance Button', 'Sunshine Drop']
             },
@@ -6610,11 +7614,12 @@ document
                 name: 'Bibi',
                 tagline: 'Royal Glow',
                 image: 'Grandma Bibi.png',
+                video: 'Bibi tanczy.mp4',
                 color: '#9932CC',
                 description: [
-                    'Bibi is the glamorous whirlwind who treats her age like a minor typo someone should really fix. With her chic short hair, stylish glasses and love for bold, modern outfits, she turns every sidewalk into a runway - often without even noticing.',
-                    'She’s warm, energetic and always ready for an adventure: skiing with the grandkids, baking muffins that mysteriously disappear within minutes or beating everyone at yoga (yes, she absolutely can - and will brag about it with charm).',
-                    'If “cool grandma” had a global ambassador, it would be Bibi - elegant, unstoppable and glowing with queen-level confidence.'
+                    'Bibi is the glamorous whirlwind who treats her age like a minor typo someone should really fix. With her chic short hair, stylish glasses and love for bold, modern outfits, she turns every sidewalk into a runway, often without even noticing.',
+                    'She’s warm, energetic and always ready for an adventure: skiing with the grandkids, baking muffins that mysteriously disappear within minutes or beating everyone at yoga (yes, she absolutely can and will brag about it with charm).',
+                    'If “cool grandma” had a global ambassador, it would be Bibi: elegant, unstoppable and glowing with queen-level confidence.'
                 ],
                 qualities: ['Style Empress', 'Energy Icon', 'Adventure Magnet', 'Chic Dynamo', 'Fun Commander']
             }
@@ -6622,10 +7627,22 @@ document
 
         function buildCharacterDetails(profile) {
             const { localEncoded: localImageSrc, remote: remoteImageSrc, local: unencodedLocal } = buildImageSources(profile.image);
+            const videoName = profile.video ? profile.video.toString() : '';
+            const encodedVideo = videoName ? encodeURIComponent(videoName) : '';
+            const videoMarkup = videoName
+                ? `
+                        <video autoplay loop muted playsinline aria-label="${profile.name} dance" style="transform: scale(1.12);">
+                            <source src="assets/videos/${videoName}" type="video/mp4">
+                            <source src="https://raw.githubusercontent.com/riseshineevolve-source/RISE.SHINE.EVOLVE/main/assets/videos/${encodedVideo}" type="video/mp4">
+                        </video>
+                    `
+                : `
+                        <img src="${localImageSrc}" alt="${profile.name}" data-character-img="${profile.image}" onerror="this.onerror=null; this.src='${unencodedLocal}'; this.onerror=()=>{ this.onerror=null; this.src='${remoteImageSrc}';};">
+                    `;
             return `
                 <div class="character-detail-shell">
                     <div class="character-header">
-                        <img src="${localImageSrc}" alt="${profile.name}" data-character-img="${profile.image}" onerror="this.onerror=null; this.src='${unencodedLocal}'; this.onerror=()=>{ this.onerror=null; this.src='${remoteImageSrc}';};">
+                        ${videoMarkup}
                         <div>
                             <h2 style="color: ${profile.color}; font-size: 2.4rem; margin: 0 0 6px 0; text-shadow: 0 0 22px rgba(255, 215, 0, 0.6); letter-spacing: 1px;">${profile.name}</h2>
                             <p class="character-subtitle" style="color: ${profile.color};">${profile.tagline}</p>
@@ -6674,43 +7691,50 @@ document
             bookDetailsWrapper.style.display = 'block';
             bookDetailsWrapper.scrollTop = 0;
             window.scrollTo(0, 0);
+            if (!history.state || history.state.modal !== 'book') {
+                history.pushState({ modal: 'book' }, '', window.location.href);
+            }
 
             const detailsContent = document.getElementById('full-screen-book-details-content');
             detailsContent.scrollTop = 0;
 
             if (bookType === 'confident-adventure') {
                 detailsContent.innerHTML = `
-                    <div style="text-align: center; margin-bottom: 25px;">
-                        <span style="color: #8A2BE2; font-weight: bold; font-size: 1.6rem; text-shadow: 0 0 20px rgba(138, 43, 226, 0.8);">The Happy-Makers Family Presents:</span>
-                    </div>
-
-                    <h2 style="color: #8A2BE2; font-size: 2.5rem; margin-bottom: 12px; text-shadow: 0 0 30px rgba(138, 43, 226, 0.8); text-align: center;">THE CONFIDENT, MINDFUL &amp; HAPPY ME ADVENTURE</h2>
-                    <h3 style="color: #8A2BE2; font-size: 1.35rem; margin-bottom: 20px; text-shadow: 0 0 18px rgba(138, 43, 226, 0.7); text-align: center;">31 Days to Boost Self-Esteem, Master Big Feelings &amp; Unlock Your Inner Superpower</h3>
+                    <p style="margin: 0 auto 18px auto; text-align: center;">
+                        <span style="display: block; color: #ffd700; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;">IF GROWING UP FEELS LIKE A ROLLER COASTER OF BIG FEELINGS… THIS BOOK IS YOUR CHILD'S SURVIVAL KIT.</span>
+                    </p>
                     <img src="assets/images/Confident, Mindful & Happy Me cover.png" data-cover-base="Confident, Mindful & Happy Me" alt="The Confident, Mindful &amp; Happy Me Adventure cover" style="width: 240px; height: auto; border-radius: 16px; border: 2px solid #ffd700; box-shadow: 0 0 22px rgba(255,215,0,0.35); margin: 0 auto 24px auto; display: block;">
 
-                    <div style="color: #ffffff; font-size: 1rem; line-height: 1.7; text-align: left; margin-bottom: 30px; max-width: 900px; margin-left: auto; margin-right: auto;">
-                        <p style="margin-bottom: 16px; font-weight: bold; color: #8A2BE2;">IF GROWING UP FEELS LIKE A ROLLER COASTER OF BIG FEELINGS… THIS BOOK IS YOUR CHILD'S SAFETY BELT.</p>
-                        <p style="margin-bottom: 12px;"><strong style="color: #8A2BE2;">THE PARENTING CHALLENGE</strong> Let’s be honest: growing up is an amazing journey, but sometimes feelings get big and the world gets loud. You see your child struggling with worry, perfectionism, or just finding their voice. You want to help them guide their way through it all with confidence and joy.</p>
-                        <p style="margin-bottom: 12px;"><strong style="color: #8A2BE2;">THE HAPPY MAKERS PRESENT SOLUTION:</strong> The Confident, Mindful &amp; Happy Me Adventure! This isn't just a book. It is an interactive roadmap designed to help your child master the wild ride of growing up with courage and a smile.</p>
-                        <p style="margin-bottom: 12px;"><strong style="color: #8A2BE2;">MEET THE GUIDES</strong> Your child won't be doing this alone. They will be led by The Happy Makers Squad, a lovable family of trusted guides and fun-loving companions (Mimi, Luli, Dilo, Alio, and Nini). They are here to show your child that they don't need a superhero cape to be brave. They just need to unlock the superpowers inside to become the best version of themselves. Join the Happy Makers Squad on this journey to discover your kid's inner <span style="color:#8A2BE2; font-weight: 700;">LEGEND</span>.</p>
-                        <p style="margin-bottom: 12px;"><strong style="color: #8A2BE2;">HOW IT WORKS: THE 31-DAY MISSION</strong> This book is designed to fit into real life. No pressure. No perfection. Just 10 minutes of connection and fun a day.</p>
+                    <div style="color: #ffffff; font-size: 1.12rem; line-height: 1.7; text-align: center; margin-bottom: 30px; max-width: 900px; margin-left: auto; margin-right: auto;">
+                        <p style="margin-bottom: 12px; text-align: justify; text-align-last: center;"><strong style="color: #8A2BE2;">THE PARENTING CHALLENGE</strong><br>Let’s be honest: growing up is an amazing journey.<br>But sometimes it feels like playing a video game on ‘Hard Mode’.<br>The world gets loud, feelings get messy, and the pressure to fit in can be overwhelming.</p>
+                        <p style="margin-bottom: 12px; text-align: justify; text-align-last: center;">You see your child struggling with worry, perfectionism, or just finding their voice.<br>You want to guide them with confidence and joy, but you fear that asking questions feels like an “interrogation” or a “boring lecture.” You are scrambling to find the right tools to calm the storm when emotions take over.<br>Where do you start?</p>
 
-                        <p style="margin-top: 18px; font-weight: bold; color: #8A2BE2;">OUR 31-DAY MISSION CHECKLIST:</p>
-                        <ul class="golden-bullets" style="margin-left: 20px;">
-                            <li>Week 1: Build Your Fortress ▶ Feeling Safe &amp; Grounded</li>
-                            <li>Week 2: Tame the Wild Emotions ▶ Mastering Anxiety &amp; Anger</li>
-                            <li>Week 3: Shine Your Light ▶ Building Confidence</li>
-                            <li>Week 4: Assemble Your TEAM ▶ Connection &amp; Kindness</li>
-                            <li>Week 5: Fly High ▶ Launching Your Dreams</li>
-                        </ul>
+                        <p style="margin-bottom: 12px; text-align: justify; text-align-last: center;"><strong style="color: #8A2BE2;">THE HAPPY MAKERS SOLUTION</strong><br>Welcome to <br class="mobile-only"><span style="color:#ffd700; font-weight:700;">The Confident, Mindful &amp; Happy Me </span><br class="mobile-only"><span style="color:#ffd700; font-weight:700;">Adventure!</span><br>This isn't just a book.<br>It is an interactive Survival Kit and a creative roadmap designed to help your child master the wild ride of growing up with courage and a smile.<br>We turn “I can’t” into “I can,” and boring days into legendary quests.</p>
 
-                        <p style="margin-top: 18px; font-weight: bold; color: #8A2BE2;">WHAT MAKES THIS BOOK DIFFERENT?</p>
-                        <p style="margin-bottom: 12px;">We bring the empowering spirit of the Rise Shine Evolve Learning Hub straight into your living room. We craft immersive journeys that turn everyday challenges into opportunities for connection and growth. The Happy Makers vibe? We take emotional growth seriously, but we never take ourselves too seriously. Zero boring lectures and 100% fun. Kids learn best when they are laughing and exploring.</p>
-                        <p style="margin-bottom: 12px;">This is not a passive reading experience. It’s a movement fueled by love, humor, and high-fives! Your child will draw, reflect, breathe, play, and create their way to become Confident, Mindful, and Happy.</p>
+                        <p style="margin-bottom: 12px; text-align: justify; text-align-last: center;"><strong style="color: #8A2BE2;">MEET THE GUIDES</strong><br>Your child won't be doing this alone.<br>They will be led by The Happy Makers Squad, a lovable family of trusted guides and fun-loving co-pilots: Mimi, Luli, Dilo, Alio, and Nini.</p>
+                        <p style="margin-bottom: 12px; text-align: justify; text-align-last: center;">They show your child that they don't need a superhero cape to be brave.<br>They just need to unlock the superpowers already hiding inside.<br>To become <br class="mobile-only"><span style="color:#ffd700; font-weight:700;">THE BEST VERSION OF THEMSELVES.</span></p>
+
+                        <p style="margin-bottom: 12px; text-align: justify; text-align-last: center;"><strong style="color: #8A2BE2;">THE 31-DAY MISSION: READY TO LEVEL UP?</strong><br>This book is designed to fit into real life.<br>No pressure.<br>No perfection.<br>Just 10 minutes of connection <br class="mobile-only">and fun a day.</p>
+
+                        <p style="margin-top: 18px; font-weight: 700; color: #ffd700;">The journey is divided into 5 EXCITING LEVELS to build unshakeable resilience:</p>
+                        <p style="margin-bottom: 12px; text-align: justify; text-align-last: center;"><strong style="color:#8A2BE2;">WEEK 1: Build Your Fortress (Feeling Safe &amp; Grounded)</strong><br><span style="color: #ffffff;">We start by building a strong foundation.</span><br><span style="color: #ffffff;">Your child will learn grounding techniques to feel secure and worthy, no matter what happens around them.</span></p>
+                        <p style="margin-bottom: 12px; text-align: justify; text-align-last: center;"><strong style="color:#8A2BE2;">WEEK 2: Tame the Wild Emotions (Mastering Anxiety &amp; Anger)</strong><br><span style="color: #ffffff;">Big feelings aren't scary when you know how to handle them.</span><br><span style="color: #ffffff;">We use fun metaphors to identify emotions, regulate reactions, and turn “monsters” into friends.</span></p>
+                        <p style="margin-bottom: 12px; text-align: justify; text-align-last: center;"><strong style="color:#8A2BE2;">WEEK 3: Shine Your Light (Building Unshakeable Confidence)</strong><br><span style="color: #ffffff;">This week is about self-esteem.</span><br><span style="color: #ffffff;">Through creative challenges, your child will discover their unique strengths and learn to stand tall.</span></p>
+                        <p style="margin-bottom: 12px; text-align: justify; text-align-last: center;"><strong style="color:#8A2BE2;">WEEK 4: Assemble Your Team (Connection &amp; Kindness)</strong><br><span style="color: #ffffff;">Confidence isn't just about “ME” - it’s about “US.”</span><br><span style="color: #ffffff;">We explore the power of empathy, friendship, setting boundaries, and asking for support.</span></p>
+                        <p style="margin-bottom: 12px; text-align: justify; text-align-last: center;"><strong style="color:#8A2BE2;">WEEK 5: Fly High (Launching Your Dreams)</strong><br><span style="color: #ffffff;">The grand finale!</span><br><span style="color: #ffffff;">Integrating all the tools to face the future with excitement, set goals, make dreams come true, and celebrate personal growth.</span></p>
+
+                        <p style="margin-top: 18px; font-weight: bold; color: #8A2BE2;">AND THE BEST PART?</p>
+                        <p style="margin-bottom: 12px; text-align: justify; text-align-last: center;">The adventure doesn't end on Day 31.<br>Once completed, this book transforms into your child’s personalized <span style="color:#ffd700; font-weight:700; text-transform: uppercase;">Ultimate Survival Kit</span>.<br>Whenever they face a tough moment in the future, they can simply open it like an emotional first-aid box, pick the exact tool they need, and apply it immediately to feel supported and strong again.</p>
 
                         <p style="margin-top: 18px; font-weight: bold; color: #8A2BE2;">THE PROMISE</p>
-                        <p style="margin-bottom: 12px;">The world is waiting for your child's magic. We don't just tell them they are brave—we give them the toolkit to feel resilient, capable, and confident every single day.</p>
-                        <p style="margin-bottom: 12px;">Join us on a journey where every child can RISE, every family can SHINE, and every person can EVOLVE. Ready to unlock true potential? It is time to Rise. Shine. Evolve. TOGETHER!</p>
+                        <p style="margin-bottom: 12px; text-align: justify; text-align-last: center;">The world is waiting for your child's magic.<br>We don't just tell them they are brave, we give them the toolkit to feel resilient, capable, and confident every single day.</p>
+                        <p style="margin-bottom: 12px; color:#ffd700; font-weight:700;">Ready to unlock their true potential?</p>
+                        <p style="margin-bottom: 0; font-weight: 800;">
+                            IT IS TIME TO <span class="word-rise">RISE</span>.
+                            <span class="word-shine">SHINE</span>.
+                            <span class="word-evolve">EVOLVE</span>.
+                            <span style="color:#ffd700; font-weight:700;">TOGETHER!</span>
+                        </p>
                     </div>
 
                     <div style="text-align: center; margin-top: 30px;">
@@ -6735,7 +7759,7 @@ document
                 detailsContent.innerHTML = `
                     <!-- Brand Name -->
                     <div style="text-align: center; margin-bottom: 25px;">
-                        <span style="color: #8A2BE2; font-weight: bold; font-size: 1.6rem; text-shadow: 0 0 20px rgba(138, 43, 226, 0.8);">The Happy-Makers Family Presents:</span>
+                        <span style="color: #8A2BE2; font-weight: bold; font-size: 1.6rem; text-shadow: 0 0 20px rgba(138, 43, 226, 0.8);">The Happy-Makers Present:</span>
                     </div>
                     
                     <h2 style="color: #ffd700; font-size: 2.5rem; margin-bottom: 15px; text-shadow: 0 0 30px rgba(255, 215, 0, 0.8); text-align: center;">24 GENTLE STEPS TO CHRISTMAS</h2>
@@ -6770,17 +7794,17 @@ document
                                 <li>Only 10 minutes a day</li>
                                 <li>No prep, no supplies, no chaos</li>
                                 <li>Builds routine, emotional regulation and closeness</li>
-                                <li>Loved by kids ages 4–14 (even the "too cool" ones)</li>
+                                <li>Loved by kids ages 4-14 (even the "too cool" ones)</li>
                                 <li>Makes December feel calmer, cozier and more connected</li>
                             </ul>
 
                             <p class="icon-heading">GUIDED BY THE HAPPY-MAKERS FAMILY</p>
                             <ul class="golden-bullets">
-                                <li>Nini – pocket-sized joy machine</li>
-                                <li>Alio – certified chaos engineer</li>
-                                <li>Dilo – winter sports ace with perfect hair</li>
-                                <li>Luli – elegant detective of holiday magic</li>
-                                <li>Mimi – stylish heart of the home</li>
+                                <li>Nini - pocket-sized joy machine</li>
+                                <li>Alio - certified chaos engineer</li>
+                                <li>Dilo - winter sports ace with perfect hair</li>
+                                <li>Luli - elegant detective of holiday magic</li>
+                                <li>Mimi - stylish heart of the home</li>
                             </ul>
                             <p style="margin-top: 5px;">Their funny, warm notes appear throughout the book.</p>
 
@@ -6932,9 +7956,12 @@ document
             applyCoverImages();
         }
 
-        function backToLibraryFromFullScreen() {
+        function backToLibraryFromFullScreen(fromHistory = false) {
             document.getElementById('full-screen-book-details').style.display = 'none';
             document.querySelector('.container').style.display = 'block';
+            if (!fromHistory && history.state && history.state.modal === 'book') {
+                history.back();
+            }
         }
 
         function checkGiftsAccess() {
@@ -6993,10 +8020,10 @@ document
                 }
             }
             if (!checkGiftsAccess()) {
-                showEmailModal();
+                showEmailModal('login');
             }
         }
-        function showEmailModal() {
+        function showEmailModal(mode = null, message = null, messageColor = '#ffd700') {
             const errorMsg = document.getElementById('errorMsg');
             if (errorMsg) {
                 errorMsg.textContent = '';
@@ -7004,9 +8031,14 @@ document
             clearAuthMessage();
             resetAuthPanel();
             localStorage.setItem('giftsRequested', 'true');
-            if (window.location.hash === '#gifts') {
-                setAuthMode('login');
-                showAuthMessage('Please log in to unlock GIFTS.');
+            const preferredMode = mode || (window.location.hash === '#gifts' ? 'login' : 'signup');
+            if (preferredMode) {
+                setAuthMode(preferredMode);
+            }
+            if (message) {
+                showAuthMessage(message, messageColor);
+            } else if (window.location.hash === '#gifts') {
+                showAuthMessage('Please log in to unlock GIFTS.', '#ffd700');
             }
             const storedFirst = localStorage.getItem('giftsFirstName') || '';
             const storedEmail = localStorage.getItem('giftsEmail') || '';
@@ -7018,9 +8050,41 @@ document
             if (emailField && storedEmail) {
                 emailField.value = storedEmail;
             }
-            document.getElementById('emailModal').style.display = 'block';
+            const modal = document.getElementById('emailModal');
+            if (modal) {
+                modal.classList.add('show');
+                modal.style.display = 'flex';
+            }
             document.body.style.overflow = 'hidden';
             history.pushState({ modal: 'email' }, '', window.location.href);
+        }
+
+        function showBookPromoModal() {
+            const modal = document.getElementById('bookPromoModal');
+            if (!modal) {
+                return;
+            }
+            modal.classList.add('show');
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeBookPromoModal() {
+            const modal = document.getElementById('bookPromoModal');
+            if (modal) {
+                modal.classList.remove('show');
+                modal.style.display = 'none';
+            }
+            document.body.style.overflow = 'auto';
+            sessionStorage.setItem('bookPromoDismissed', 'true');
+        }
+
+        function handleBookPromoExplore(event) {
+            if (event) {
+                event.stopPropagation();
+            }
+            closeBookPromoModal();
+            showBookDetailsFullScreen('confident-adventure');
         }
 
         function openPrivacyPolicy() {
@@ -7046,26 +8110,61 @@ document
             const searchParams = new URLSearchParams(window.location.search || '');
             const hashParams = new URLSearchParams(hash.replace('#', ''));
             const type = searchParams.get('type') || hashParams.get('type') || '';
-            const hasToken = hash.includes('access_token=');
+            const hasToken = hash.includes('access_token=') || searchParams.has('access_token');
+            const isRecoveryFlow = type === 'recovery' || (!type && hasToken);
             const isVerifyFlow = ['signup', 'invite', 'recovery'].includes(type) || hasToken;
 
             if (!isVerifyFlow) {
-                return;
+                return false;
+            }
+
+            if (isRecoveryFlow) {
+                const accessToken = hashParams.get('access_token') || searchParams.get('access_token');
+                const refreshToken = hashParams.get('refresh_token') || searchParams.get('refresh_token');
+                if (supabaseClient && accessToken && refreshToken) {
+                    supabaseClient.auth.setSession({
+                        access_token: accessToken,
+                        refresh_token: refreshToken,
+                    }).catch(() => {
+                        // ignore session set errors and let updateUser handle failures
+                    });
+                }
+                showEmailModal('set-password', 'Set your new password below.', '#ffd700');
+                return true;
             }
 
             localStorage.setItem('giftsRequested', 'true');
 
             const giftsTab = getTabElement('gifts');
-            if (giftsTab) {
+            if (!isMobileViewport() && giftsTab) {
                 selectTab(giftsTab, 'gifts', { skipHistory: true });
             }
 
-            setAuthMode('login');
-            showEmailModal();
-            showAuthMessage('Your email is verified! Please log in to unlock GIFTS.', '#ffd700');
+            showEmailModal('login', 'Your email is verified! Please log in to unlock GIFTS.', '#ffd700');
 
-            if (!hash.includes('#gifts')) {
+            if (!isMobileViewport() && !hash.includes('#gifts')) {
                 history.replaceState({ tab: 'gifts' }, '', '#gifts');
+            }
+            return true;
+        }
+
+        function ensureRecoveryModalVisible() {
+            if (!isMobileViewport()) {
+                return;
+            }
+            const hash = window.location.hash || '';
+            const searchParams = new URLSearchParams(window.location.search || '');
+            const hashParams = new URLSearchParams(hash.replace('#', ''));
+            const type = searchParams.get('type') || hashParams.get('type') || '';
+            const hasToken = hash.includes('access_token=') || searchParams.has('access_token');
+            const isRecoveryFlow = type === 'recovery' || (!type && hasToken);
+            if (!isRecoveryFlow) {
+                return;
+            }
+            const modal = document.getElementById('emailModal');
+            const modalOpen = modal && (modal.style.display === 'flex' || modal.classList.contains('show'));
+            if (!modalOpen) {
+                showEmailModal('set-password', 'Set your new password below.', '#ffd700');
             }
         }
         function handleUnsubscribe(event) {
@@ -7110,13 +8209,6 @@ document
                         userId = session.user.id;
                     }
                 }
-                if (!userId) {
-                    if (messageBox) {
-                        messageBox.style.color = '#ff69b4';
-                        messageBox.textContent = 'Please log in with this email to confirm account removal.';
-                    }
-                    return;
-                }
                 return fetch(workerEndpoint, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -7134,6 +8226,18 @@ document
                 .then(async (response) => {
                     if (!response) return;
                     const data = await response.json().catch(() => ({}));
+                    const errorText = (data?.error || '').toString().toLowerCase();
+                    const errorCode = (data?.code || '').toString().toLowerCase();
+                    const notFound = errorCode === 'email_not_found'
+                        || errorText.includes('email not found')
+                        || errorText.includes('not found');
+                    if (notFound) {
+                        if (messageBox) {
+                            messageBox.style.color = '#ff69b4';
+                            messageBox.textContent = 'Email not found.';
+                        }
+                        return;
+                    }
                     if (!response.ok) {
                         if (messageBox) {
                             messageBox.style.color = '#ff69b4';
@@ -7141,9 +8245,16 @@ document
                         }
                         return;
                     }
+                    if (data?.error) {
+                        if (messageBox) {
+                            messageBox.style.color = '#ff69b4';
+                            messageBox.textContent = data.error;
+                        }
+                        return;
+                    }
                     if (messageBox) {
                         messageBox.style.color = '#ffd700';
-                        messageBox.textContent = 'We have sent a confirmation link to your email address. Please check your inbox to finalize the deletion.';
+                        messageBox.textContent = 'Please open the confirmation email in your inbox to complete your account removal.';
                     }
                     if (supabaseClient) {
                         await supabaseClient.auth.signOut();
@@ -7163,16 +8274,41 @@ document
         document.addEventListener('DOMContentLoaded', () => {
             applyCharacterPortraits();
             applyCoverImages();
-            handleVerificationRedirect();
+            const verificationHandled = handleVerificationRedirect();
+            ensureRecoveryModalVisible();
+            applyMobileLineBreaks();
+            adjustWheelMobileLayout();
+            initGiftTapListeners();
+            const authActionButton = document.getElementById('auth-action-button');
+            if (authActionButton) {
+                addTapListener(authActionButton, handleAuthActionClick);
+            }
+            document.addEventListener('keydown', (event) => {
+                if (event.key !== 'Enter') {
+                    return;
+                }
+                const activeTag = document.activeElement?.tagName?.toLowerCase();
+                if (activeTag === 'textarea') {
+                    return;
+                }
+                const emailModal = document.getElementById('emailModal');
+                const modalOpen = emailModal && (emailModal.style.display === 'flex' || emailModal.classList.contains('show'));
+                if (modalOpen) {
+                    event.preventDefault();
+                    handleBottomAction();
+                }
+            });
 
-            const hashTab = (window.location.hash || '').replace('#', '');
-            const desiredTab = hashTab && getTabElement(hashTab) ? hashTab : 'main';
-            const tabElement = getTabElement(desiredTab) || getTabElement('main');
-            if (tabElement) {
-                selectTab(tabElement, tabElement.dataset.tab, { skipHistory: true });
-                const baseState = { tab: tabElement.dataset.tab, base: true };
-                history.replaceState(baseState, '', `#${tabElement.dataset.tab}`);
-                history.pushState({ tab: tabElement.dataset.tab, base: false }, '', `#${tabElement.dataset.tab}`);
+            if (!verificationHandled) {
+                const hashTab = (window.location.hash || '').replace('#', '');
+                const desiredTab = hashTab && getTabElement(hashTab) ? hashTab : 'main';
+                const tabElement = getTabElement(desiredTab) || getTabElement('main');
+                if (tabElement) {
+                    selectTab(tabElement, tabElement.dataset.tab, { skipHistory: true });
+                    const baseState = { tab: tabElement.dataset.tab, base: true };
+                    history.replaceState(baseState, '', `#${tabElement.dataset.tab}`);
+                    history.pushState({ tab: tabElement.dataset.tab, base: false }, '', `#${tabElement.dataset.tab}`);
+                }
             }
 
             const unsubForm = document.getElementById('sib-form-unsub');
@@ -7198,6 +8334,24 @@ document
             if (authForm) {
                 authForm.addEventListener('input', clearAuthMessage);
                 authForm.addEventListener('focusin', clearAuthMessage);
+            }
+
+            const promoDismissed = sessionStorage.getItem('bookPromoDismissed') === 'true';
+            if (!promoDismissed) {
+                setTimeout(() => {
+                    const emailModal = document.getElementById('emailModal');
+                    const privacyModal = document.getElementById('privacyModal');
+                    const welcomeModal = document.getElementById('welcomeModal');
+                    const promoModal = document.getElementById('bookPromoModal');
+                    const fullScreenDetails = document.getElementById('full-screen-book-details');
+                    const emailOpen = emailModal && (emailModal.style.display === 'flex' || emailModal.classList.contains('show'));
+                    const privacyOpen = privacyModal && privacyModal.style.display === 'block';
+                    const welcomeOpen = welcomeModal && welcomeModal.style.display === 'flex';
+                    const detailsOpen = fullScreenDetails && fullScreenDetails.style.display === 'block';
+                    if (!emailOpen && !privacyOpen && !welcomeOpen && !detailsOpen && promoModal && !promoModal.classList.contains('show')) {
+                        showBookPromoModal();
+                    }
+                }, 2500);
             }
         });
 
@@ -7249,6 +8403,8 @@ document
         const giftFrame = document.getElementById('gift-frame');
         const giftFallback = document.getElementById('gift-fallback');
         let giftOverlayOpen = false;
+        let giftBlobUrl = null;
+        let giftOverlayReturnTab = null;
 
         const giftSources = {
             calmEnergy: null,
@@ -7269,36 +8425,93 @@ document
             return '<!doctype html>\n' + tpl.innerHTML;
         }
 
-        function openGiftOverlay(key, event) {
+        function setGiftFrameHtml(html) {
+            if (!html) return false;
+            const preferBlob = window.matchMedia && window.matchMedia('(max-width: 720px)').matches;
+            const baseHref = window.location.origin ? `${window.location.origin}/` : '';
+            const htmlWithBase = baseHref && !html.includes('<base')
+                ? html.replace('<head>', `<head><base href="${baseHref}">`)
+                : html;
+            if (!preferBlob && ('srcdoc' in giftFrame)) {
+                giftFrame.srcdoc = htmlWithBase;
+                giftFrame.removeAttribute('src');
+                return true;
+            }
+            const blob = new Blob([htmlWithBase], { type: 'text/html' });
+            if (giftBlobUrl) {
+                URL.revokeObjectURL(giftBlobUrl);
+            }
+            giftBlobUrl = URL.createObjectURL(blob);
+            giftFrame.removeAttribute('srcdoc');
+            giftFrame.src = giftBlobUrl;
+            return true;
+        }
+
+        function openGiftInNewWindow() {
+            return false;
+        }
+
+        function revealGiftFrameSoon() {
+            requestAnimationFrame(() => {
+                giftFallback.style.display = 'none';
+                giftFrame.style.display = 'block';
+            });
+            setTimeout(() => {
+                giftFallback.style.display = 'none';
+                giftFrame.style.display = 'block';
+            }, 350);
+        }
+
+        async function openGiftOverlay(key, event) {
             if (event) {
                 event.stopPropagation();
             }
             if (!checkGiftsAccess()) {
-                const giftsTab = getTabElement('gifts');
-                if (giftsTab) {
-                    selectTab(giftsTab, 'gifts');
+                if (supabaseClient) {
+                    try {
+                        const { data: { session } } = await supabaseClient.auth.getSession();
+                        hasGiftsAccess = !!session;
+                    } catch (error) {
+                        hasGiftsAccess = false;
+                    }
                 }
-                showEmailModal();
-                return;
+                if (!checkGiftsAccess()) {
+                    const giftsTab = getTabElement('gifts');
+                    if (giftsTab) {
+                        selectTab(giftsTab, 'gifts');
+                    }
+                    showEmailModal('login');
+                    return;
+                }
             }
 
             const html = getGiftHtml(key);
             const source = giftSources[key];
 
+            if (openGiftInNewWindow(key, html, source)) {
+                return;
+            }
+
             giftFrame.removeAttribute('src');
             giftFrame.removeAttribute('srcdoc');
             giftFrame.onload = null;
             giftFrame.onerror = null;
+            giftFallback.style.display = 'flex';
+            giftFallback.innerHTML = '<div style="width:100%;padding:12px 8px;">Loading gift…</div>';
+            giftFrame.style.display = 'none';
+            giftFrame.onload = () => {
+                giftFallback.style.display = 'none';
+                giftFrame.style.display = 'block';
+            };
 
             if (key === 'wordSearchPro') {
                 const inlineHtml = (wordSearchProInlineHtml || '').trim();
                 if (inlineHtml) {
                     giftFrame.style.display = 'block';
-                    giftFallback.style.display = 'none';
-                    giftFrame.srcdoc = inlineHtml;
+                    setGiftFrameHtml(inlineHtml);
+                    revealGiftFrameSoon();
                 } else if (wordSearchProUrl) {
                     giftFrame.style.display = 'block';
-                    giftFallback.style.display = 'flex';
                     giftFallback.innerHTML = '<div style="width:100%;padding:12px 8px;">Loading Word Search Studio…</div>';
 
                     if (!wordSearchProHtmlPromise) {
@@ -7311,23 +8524,20 @@ document
 
                     wordSearchProHtmlPromise
                         .then((htmlText) => {
-                            giftFrame.srcdoc = htmlText;
-                            giftFallback.style.display = 'none';
-                            giftFrame.style.display = 'block';
+                            setGiftFrameHtml(htmlText);
+                            revealGiftFrameSoon();
                         })
                         .catch(() => {
                             if (html) {
-                                giftFrame.srcdoc = html;
-                                giftFallback.style.display = 'none';
-                                giftFrame.style.display = 'block';
+                                setGiftFrameHtml(html);
+                                revealGiftFrameSoon();
                             } else {
                                 showGiftFallback();
                             }
                         });
                 } else if (html) {
-                    giftFallback.style.display = 'none';
-                    giftFrame.style.display = 'block';
-                    giftFrame.srcdoc = html;
+                    setGiftFrameHtml(html);
+                    revealGiftFrameSoon();
                 } else {
                     showGiftFallback();
                     return;
@@ -7335,25 +8545,18 @@ document
             } else if (source) {
                 const srcWithCacheBust = key === 'wordSearchPro' ? `${source}?v=${Date.now()}` : source;
                 giftFrame.style.display = 'block';
-                giftFallback.style.display = 'none';
-                giftFrame.onload = () => {
-                    giftFallback.style.display = 'none';
-                    giftFrame.style.display = 'block';
-                };
                 giftFrame.onerror = () => {
                     if (html) {
-                        giftFrame.srcdoc = html;
-                        giftFallback.style.display = 'none';
-                        giftFrame.style.display = 'block';
+                        setGiftFrameHtml(html);
+                        revealGiftFrameSoon();
                     } else {
                         showGiftFallback();
                     }
                 };
                 giftFrame.src = srcWithCacheBust;
             } else if (html) {
-                giftFallback.style.display = 'none';
-                giftFrame.style.display = 'block';
-                giftFrame.srcdoc = html;
+                setGiftFrameHtml(html);
+                revealGiftFrameSoon();
             } else {
                 showGiftFallback();
                 return;
@@ -7363,6 +8566,8 @@ document
             document.body.style.overflow = 'hidden';
 
             if (!giftOverlayOpen) {
+                const activeTab = document.querySelector('.tab.active');
+                giftOverlayReturnTab = activeTab?.dataset?.tab || 'main';
                 history.pushState({ giftOverlay: true }, document.title, window.location.href);
                 giftOverlayOpen = true;
             }
@@ -7386,21 +8591,38 @@ document
             giftOverlay.style.display = 'none';
             giftFrame.src = 'about:blank';
             giftFrame.srcdoc = '';
+            giftFrame.style.display = 'none';
             giftFallback.style.display = 'none';
             document.body.style.overflow = '';
+            if (giftBlobUrl) {
+                URL.revokeObjectURL(giftBlobUrl);
+                giftBlobUrl = null;
+            }
 
             if (giftOverlayOpen && history.state && history.state.giftOverlay && !fromHistory) {
+                const activeTab = document.querySelector('.tab.active');
+                const tabName = activeTab?.dataset?.tab || 'main';
                 giftOverlayOpen = false;
                 history.back();
-            } else {
-                giftOverlayOpen = false;
+                return;
             }
+            giftOverlayOpen = false;
+            const activeTab = document.querySelector('.tab.active');
+            if (activeTab?.dataset?.tab === 'gifts' || giftOverlayReturnTab === 'gifts') {
+                const giftsContent = document.getElementById('gifts-content');
+                const giftsTab = getTabElement('gifts');
+                if (giftsTab && giftsContent && !giftsContent.classList.contains('active')) {
+                    showTabContent(giftsTab, 'gifts', { skipHistory: true });
+                }
+            }
+            giftOverlayReturnTab = null;
         }
 
         window.addEventListener('popstate', (event) => {
             const emailModal = document.getElementById('emailModal');
             const privacyModal = document.getElementById('privacyModal');
             const welcomeModal = document.getElementById('welcomeModal');
+            const bookDetails = document.getElementById('full-screen-book-details');
 
             if (privacyModal && privacyModal.style.display === 'block') {
                 closePrivacyModal();
@@ -7417,8 +8639,30 @@ document
                 return;
             }
 
+            if (bookDetails && bookDetails.style.display === 'block') {
+                backToLibraryFromFullScreen(true);
+                return;
+            }
+
             if (giftOverlayOpen) {
                 closeGiftOverlay(true);
+                return;
+            }
+
+            if (event.state && event.state.tab) {
+                const tabElement = getTabElement(event.state.tab);
+                if (tabElement) {
+                    selectTab(tabElement, event.state.tab, { skipHistory: true });
+                    return;
+                }
+            }
+
+            if (isMobileViewport()) {
+                const mainTab = getTabElement('main');
+                if (mainTab) {
+                    selectTab(mainTab, 'main', { skipHistory: true });
+                    history.pushState({ tab: 'main', base: true }, '', '#main');
+                }
                 return;
             }
 
@@ -7450,6 +8694,36 @@ document
 
         function openWordSearchPro(event) {
             openGiftOverlay('wordSearchPro', event);
+        }
+
+        function addTapListener(element, handler) {
+            if (!element) return;
+            element.addEventListener('click', (event) => {
+                const lastTouch = Number(element.dataset.lastTouch || 0);
+                if (lastTouch && Date.now() - lastTouch < 500) {
+                    return;
+                }
+                handler(event);
+            });
+            element.addEventListener('touchstart', (event) => {
+                element.dataset.lastTouch = String(Date.now());
+                event.preventDefault();
+                handler(event);
+            }, { passive: false });
+        }
+
+        function initGiftTapListeners() {
+            const buttons = [
+                { selector: '[onclick*="openCalmEnergyWheel"]', handler: openCalmEnergyWheel },
+                { selector: '[onclick*="openOneMinuteChallenge"]', handler: openOneMinuteChallenge },
+                { selector: '[onclick*="openWordSearchPro"]', handler: openWordSearchPro },
+                { selector: '[onclick*="openWordSearch(event)"]', handler: openWordSearch },
+            ];
+            buttons.forEach(({ selector, handler }) => {
+                document.querySelectorAll(selector).forEach((btn) => {
+                    addTapListener(btn, handler);
+                });
+            });
         }
 
 // Resource download functionality
