@@ -8307,6 +8307,13 @@ document
                         }
                         return;
                     }
+                    if (data?.error) {
+                        if (messageBox) {
+                            messageBox.style.color = '#ff69b4';
+                            messageBox.textContent = data.error;
+                        }
+                        return;
+                    }
                     if (messageBox) {
                         messageBox.style.color = '#ffd700';
                         messageBox.textContent = 'Please open the confirmation email in your inbox to complete your account removal.';
@@ -8483,7 +8490,9 @@ document
         function setGiftFrameHtml(html) {
             if (!html) return false;
             const preferBlob = window.matchMedia
-                && (window.matchMedia('(max-width: 720px)').matches || window.matchMedia('(orientation: portrait)').matches);
+                && (window.matchMedia('(max-width: 720px)').matches
+                    || window.matchMedia('(orientation: portrait)').matches
+                    || window.matchMedia('(pointer: coarse)').matches);
             const baseHref = window.location.origin ? `${window.location.origin}/` : '';
             const htmlWithBase = baseHref && !html.includes('<base')
                 ? html.replace(/<head([^>]*)>/i, `<head$1><base href="${baseHref}">`)
@@ -8564,11 +8573,9 @@ document
             const html = getGiftHtml(key);
             const source = giftSources[key];
             const preferBlob = window.matchMedia
-                && (window.matchMedia('(max-width: 720px)').matches || window.matchMedia('(orientation: portrait)').matches);
-
-            if (openGiftInNewWindow(key, html, source)) {
-                return;
-            }
+                && (window.matchMedia('(max-width: 720px)').matches
+                    || window.matchMedia('(orientation: portrait)').matches
+                    || window.matchMedia('(pointer: coarse)').matches);
 
             if (openGiftInNewWindow(key, html, source)) {
                 return;
