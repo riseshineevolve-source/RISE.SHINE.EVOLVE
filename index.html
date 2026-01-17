@@ -8240,7 +8240,70 @@ document
                     if (!response.ok) {
                         if (messageBox) {
                             messageBox.style.color = '#ff69b4';
-                            messageBox.textContent = data?.error || 'Unable to unsubscribe.';
+                            messageBox.textContent = notFound ? 'Email not found.' : (data?.error || 'Unable to unsubscribe.');
+                        }
+                        return;
+                    }
+                    if (notFound) {
+                        if (messageBox) {
+                            messageBox.style.color = '#ff69b4';
+                            messageBox.textContent = 'Email not found.';
+                        }
+                        return;
+                    }
+                    if (data?.error) {
+                        if (messageBox) {
+                            messageBox.style.color = '#ff69b4';
+                            messageBox.textContent = data.error;
+                        }
+                        return;
+                    }
+                    if (data?.error) {
+                        if (messageBox) {
+                            messageBox.style.color = '#ff69b4';
+                            messageBox.textContent = data.error;
+                        }
+                        return;
+                    }
+                    if (data?.error) {
+                        if (messageBox) {
+                            messageBox.style.color = '#ff69b4';
+                            messageBox.textContent = data.error;
+                        }
+                        return;
+                    }
+                    if (data?.error) {
+                        if (messageBox) {
+                            messageBox.style.color = '#ff69b4';
+                            messageBox.textContent = data.error;
+                        }
+                        return;
+                    }
+                    if (data?.error) {
+                        if (messageBox) {
+                            messageBox.style.color = '#ff69b4';
+                            messageBox.textContent = data.error;
+                        }
+                        return;
+                    }
+                    if (data?.error) {
+                        if (messageBox) {
+                            messageBox.style.color = '#ff69b4';
+                            messageBox.textContent = data.error;
+                        }
+                        return;
+                    }
+                    if (data?.error) {
+                        if (messageBox) {
+                            messageBox.style.color = '#ff69b4';
+                            messageBox.textContent = data.error;
+                        }
+                        return;
+                    }
+                    if (data?.error) {
+                        if (messageBox) {
+                            messageBox.style.color = '#ff69b4';
+                            messageBox.textContent = data.error;
                         }
                         return;
                     }
@@ -8486,7 +8549,27 @@ document
                     return;
                 }
             }
+            giftBlobUrl = URL.createObjectURL(blob);
+            giftFrame.removeAttribute('srcdoc');
+            giftFrame.src = giftBlobUrl;
+            return true;
+        }
 
+        function revealGiftFrameSoon() {
+            requestAnimationFrame(() => {
+                giftFallback.style.display = 'none';
+                giftFrame.style.display = 'block';
+            });
+            setTimeout(() => {
+                giftFallback.style.display = 'none';
+                giftFrame.style.display = 'block';
+            }, 350);
+        }
+
+        async function openGiftOverlay(key, event) {
+            if (event) {
+                event.stopPropagation();
+            }
             const html = getGiftHtml(key);
             const source = giftSources[key];
             const preferBlob = window.matchMedia
@@ -8690,7 +8773,7 @@ document
             const mainTab = getTabElement('main');
             if ((!event.state || !event.state.tab) && activeTab && mainTab && activeTab.dataset.tab !== 'main') {
                 selectTab(mainTab, 'main', { skipHistory: true });
-                history.pushState({ tab: 'main', base: true }, '', '#main');
+                history.replaceState({ tab: 'main', base: true }, '', '#main');
                 return;
             }
             const targetTab = (event.state && event.state.tab) ? event.state.tab : (activeTab ? activeTab.dataset.tab : 'main');
