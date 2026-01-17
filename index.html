@@ -1855,7 +1855,7 @@
      <div class="kids-tile" style="border: 3px solid #8A2BE2; box-shadow: 0 0 35px rgba(138, 43, 226, 0.7), 0 0 60px rgba(138, 43, 226, 0.4); margin: 26px auto; max-width: 900px;">
       <div class="kids-text" style="font-size: 1.05rem; line-height: 1.7; text-align: justify; text-align-last: center;">
        <p style="margin: 0 0 14px 0;">Let’s be honest: family life is an epic co-op game.<br>Teamwork, surprise levels and some mornings starting on <span style="color:#8A2BE2; font-weight:700;">Hard Mode</span>.</p>
-       <p style="margin: 0 0 14px 0;">That’s where<br class="mobile-only"><span style="color:#8A2BE2; font-weight:700;">Rise.Shine.Evolve Learning Hub</span> comes in.<br>We turn everyday challenges into simple,<br>usable tools for calm, confidence, connection, and joy.</p>
+       <p style="margin: 0 0 14px 0;">That’s where <br class="mobile-only"><span style="color:#8A2BE2; font-weight:700;">Rise.Shine.Evolve Learning Hub</span> comes in.<br>We turn everyday challenges into simple,<br>usable tools for calm, confidence, connection, and joy.</p>
        <p style="margin: 0 0 14px 0;">Tools kids can actually reach for in the moment.<br>(No lectures, no “perfect kid” pressure.)</p>
        <p style="margin: 0 0 14px 0;">Think of it as a real-life power-up guide.<br>Helping children unlock the strengths already inside them.<br>And grow into <br class="mobile-only"><span style="color:#ffd700; font-weight:700;">the best version of themselves</span>.</p>
        <p style="margin: 0 0 14px 0;">Explore our Library of guided journeys and family-friendly experiences designed to build resilience, emotional strength, and self-belief.</p>
@@ -2807,10 +2807,11 @@
      <p style="color: #ffffff; font-size: 1.12rem; line-height: 1.6; margin: 0 0 14px 0; text-align: justify; text-align-last: center;"><strong style="color:#8A2BE2;">The Happy Makers Vibe?</strong><br>We take emotional growth seriously.<br>But we never take ourselves too seriously.</p>
      <p style="color: #ffffff; font-size: 1.12rem; line-height: 1.6; margin: 0 0 14px 0; text-align: justify; text-align-last: center;">We believe in <strong style="color:#ffd700;">zero boring lectures</strong> and <strong style="color:#ffd700;">100% fun</strong>.<br>Because let’s be honest: kids learn best when they are laughing and exploring the world.</p>
      <p style="color: #ffffff; font-size: 1.12rem; line-height: 1.6; margin: 0 0 14px 0; text-align: justify; text-align-last: center;">Join us on a journey where:</p>
-     <p style="color: #ffffff; font-size: 1.12rem; line-height: 1.6; margin: 0 0 8px 0; text-align: justify; text-align-last: center;"><strong style="color:#8A2BE2;">Every child can RISE</strong> (without needing a superhero cape).</p>
-     <p style="color: #ffffff; font-size: 1.12rem; line-height: 1.6; margin: 0 0 8px 0; text-align: justify; text-align-last: center;"><strong style="color:#ffd700;">Every family can SHINE</strong> (yes, even on the messy, chaotic days).</p>
-     <p style="color: #ffffff; font-size: 1.12rem; line-height: 1.6; margin: 0 0 14px 0; text-align: justify; text-align-last: center;"><strong style="color:#8A2BE2;">Every person can EVOLVE.</strong></p>
-     <p style="color: #8A2BE2; font-size: 1.12rem; line-height: 1.6; margin: 0 0 14px 0; text-align: justify; text-align-last: center;">This isn’t just a book series.<br>It’s a movement fueled by <strong style="color:#8A2BE2;">love</strong>, <strong style="color:#8A2BE2;">humor</strong> and <strong style="color:#8A2BE2;">high-fives</strong>!</p>
+     <p style="color: #ffffff; font-size: 1.12rem; line-height: 1.6; margin: 0 0 8px 0; text-align: justify; text-align-last: center;"><strong style="color:#ff69b4;">Every child can RISE</strong> <span style="color:#ffffff;">(no superhero cape required).</span></p>
+     <p style="color: #ffffff; font-size: 1.12rem; line-height: 1.6; margin: 0 0 8px 0; text-align: justify; text-align-last: center;"><strong style="color:#ffd700;">Every family can SHINE</strong> <span style="color:#ffffff;">(yes, even on the messy, chaotic days).</span></p>
+     <p style="color: #ffffff; font-size: 1.12rem; line-height: 1.6; margin: 0 0 14px 0; text-align: justify; text-align-last: center;"><strong style="color:#8A2BE2;">Every person can EVOLVE</strong> <span style="color:#ffffff;">(one small step at a time).</span></p>
+     <p style="color: #ffffff; font-size: 1.12rem; line-height: 1.6; margin: 0 0 14px 0; text-align: justify; text-align-last: center;">This isn’t just a book series.</p>
+     <p style="color: #ffd700; font-size: 1.12rem; line-height: 1.6; margin: 0 0 14px 0; text-align: justify; text-align-last: center; text-transform: uppercase; font-weight: 700;">It’s a movement fueled by love, humor and high-fives!</p>
      <p style="color: #ffffff; font-size: 1.18rem; line-height: 1.6; margin: 0; text-align: justify; text-align-last: center;"><strong style="color:#ffffff;">Ready to unlock true potential?</strong><br>It is time to <span class="word-rise">Rise</span>. <span class="word-shine">Shine</span>. <span class="word-evolve">Evolve</span>.<br><strong style="color:#ffd700;">TOGETHER.</strong></p>
     </div>
    </div><!-- Back Button Bottom -->
@@ -8425,24 +8426,6 @@ document
             if (event) {
                 event.stopPropagation();
             }
-            if (!checkGiftsAccess()) {
-                if (supabaseClient) {
-                    try {
-                        const { data: { session } } = await supabaseClient.auth.getSession();
-                        hasGiftsAccess = !!session;
-                    } catch (error) {
-                        hasGiftsAccess = false;
-                    }
-                }
-                if (!checkGiftsAccess()) {
-                    const giftsTab = getTabElement('gifts');
-                    if (giftsTab) {
-                        selectTab(giftsTab, 'gifts');
-                    }
-                    showEmailModal('login');
-                }
-            }
-
             const html = getGiftHtml(key);
             const source = giftSources[key];
 
