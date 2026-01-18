@@ -1483,10 +1483,10 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
             }
 
             .word-search {
-                width: 100%;
-                max-width: 100%;
+                width: min(92vw, 360px);
+                max-width: min(92vw, 360px);
                 height: auto;
-                max-height: 42vh;
+                max-height: min(38vh, 320px);
                 padding: clamp(6px, 1.2vw, 12px);
             }
 
@@ -1526,8 +1526,9 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
 
         @media (max-width: 480px) {
             .word-search {
-                max-width: 100%;
-                max-height: 42vh;
+                width: min(94vw, 320px);
+                max-width: min(94vw, 320px);
+                max-height: min(34vh, 280px);
                 padding: 8px;
             }
 
