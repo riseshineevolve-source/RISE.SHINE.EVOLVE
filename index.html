@@ -8292,7 +8292,8 @@ document
                     const data = await response.json().catch(() => ({}));
                     const errorText = (data?.error || '').toString().toLowerCase();
                     const errorCode = (data?.code || '').toString().toLowerCase();
-                    const notFound = errorCode === 'email_not_found'
+                    const notFound = response.status === 404
+                        || errorCode === 'email_not_found'
                         || errorText.includes('email not found')
                         || errorText.includes('not found');
                     if (notFound) {
@@ -8312,7 +8313,7 @@ document
                     if (!data?.success) {
                         if (messageBox) {
                             messageBox.style.color = '#ff69b4';
-                            messageBox.textContent = data?.error || 'Unable to unsubscribe.';
+                            messageBox.textContent = notFound ? 'Email not found.' : (data?.error || 'Unable to unsubscribe.');
                         }
                         return;
                     }
