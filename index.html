@@ -1122,6 +1122,23 @@
             }
         }
 
+        @media (max-width: 900px) and (orientation: landscape) {
+            #gifts-content .gifts-library-grid {
+                flex-direction: row !important;
+                flex-wrap: wrap !important;
+                justify-content: center !important;
+                gap: 18px !important;
+            }
+
+            #gifts-content .gifts-library-grid .gift-card {
+                width: min(320px, 46vw) !important;
+            }
+
+            #gifts-content .gift-card-description {
+                display: block !important;
+            }
+        }
+
         .tabs {
             display: flex;
             justify-content: center;
