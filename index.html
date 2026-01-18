@@ -541,6 +541,30 @@
             }
         }
 
+        @media (max-width: 900px) and (orientation: landscape) {
+            .gift-overlay {
+                padding: 0;
+                align-items: flex-start;
+            }
+
+            .gift-overlay-inner {
+                width: 100%;
+                height: 100vh;
+                height: 100svh;
+                height: 100dvh;
+                max-height: 100dvh;
+                border-radius: 0;
+                min-height: 0;
+            }
+
+            .gift-frame {
+                height: 100%;
+                min-height: 100%;
+                border-width: 0;
+                border-radius: 0;
+            }
+        }
+
         #privacyModal {
             z-index: 20000 !important;
         }
@@ -1086,10 +1110,25 @@
             }
         }
 
+        .gifts-library-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            padding: 0 10px;
+        }
+
         @media (max-width: 900px) {
-            .gifts-library-grid {
-                display: flex !important;
-                flex-direction: column !important;
+            #gifts-content .gifts-library-grid {
+                width: 100%;
+                align-items: stretch;
+            }
+
+            #gifts-content .gift-card {
+                width: 100%;
+            }
+
+            #gifts-content .gift-card {
+                min-height: unset !important;
             }
         }
 
@@ -1360,10 +1399,12 @@
                 min-height: unset;
             }
 
-            .gift-card-description {
-                display: block;
-                font-size: 0.9rem;
-                margin: 0 0 10px 0;
+            #gifts-content .gift-card-description {
+                display: none;
+            }
+
+            #gifts-content .kids-text h3 {
+                font-size: 1.5rem;
             }
 
             .hm-wheel-title {
@@ -2246,7 +2287,7 @@
        <p style="color: #ffd700; font-size: 1rem; margin: 0;">A pocket-sized library of free resources: calm tools, mini challenges, and word games made for family growth.<br>New GIFTS drop regularly.</p>
        <p style="color: #ffffff; font-size: 0.95rem; margin: 10px 0 0 0;">Tip for smaller screens: GIFTS work beautifully in both portrait and landscape.</p>
       </div>
-      <div class="gifts-library-grid" style="display: flex; flex-direction: column; gap: 24px; padding: 0 10px;">
+      <div class="gifts-library-grid">
        <div id="gift-card-calm-energy" class="gift-card" style="background: #000000; border: 3px solid #ffd700; border-radius: 18px; padding: 22px; text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(255, 215, 0, 0.5); position: relative; min-height: 300px; display: flex; flex-direction: column; align-items: center; gap: 12px;">
         <div style="position: absolute; top: 12px; left: 12px; background: #8A2BE2; color: #ffffff; font-size: 0.7rem; font-weight: bold; padding: 6px 10px; border-radius: 10px; text-transform: uppercase; box-shadow: 0 0 12px rgba(138, 43, 226, 0.6);">Available</div>
         <div style="width: 86px; height: 86px; margin-top: 8px; border-radius: 50%; border: 3px solid #ffd700; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 20px rgba(255,215,0,0.6);">
@@ -3346,6 +3387,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Happy Makers Calm & Energy Wheels</title>
   <style>
     :root {
@@ -3408,11 +3450,11 @@
       }
 
       .hm-main-title {
-        font-size: 1.4rem;
+        font-size: 1.6rem;
       }
 
       .hm-main-subtitle {
-        font-size: 0.85rem;
+        font-size: 0.95rem;
       }
 
       .hm-tabs-wrapper {
@@ -3649,11 +3691,11 @@
       }
 
       .hm-wheel-title {
-        font-size: 1.35rem;
+        font-size: 1.5rem;
       }
 
       .hm-wheel-subtitle {
-        font-size: 1rem;
+        font-size: 1.05rem;
         text-align: center;
       }
 
@@ -6749,6 +6791,12 @@ document
             return window.matchMedia && window.matchMedia('(max-width: 720px)').matches;
         }
 
+        function isGiftMobileViewport() {
+            return window.matchMedia
+                && (window.matchMedia('(max-width: 900px)').matches
+                    || window.matchMedia('(pointer: coarse)').matches);
+        }
+
         async function checkUser() {
             if (!supabaseClient) {
                 setLoggedInBadge(false);
@@ -8482,13 +8530,6 @@ document
             wordSearchPro: 'assets/word-search-studio/index.html',
         };
 
-        const wordSearchProInlineHtml =
-            (typeof window !== 'undefined' && window.WORD_SEARCH_STUDIO_HTML)
-                ? window.WORD_SEARCH_STUDIO_HTML
-                : null;
-        const wordSearchProUrl = giftSources.wordSearchPro;
-        let wordSearchProHtmlPromise = null;
-
         function getGiftHtml(key) {
             const tpl = giftTemplates[key];
             if (!tpl) return null;
@@ -8497,10 +8538,8 @@ document
 
         function setGiftFrameHtml(html) {
             if (!html) return false;
-            const preferBlob = window.matchMedia
-                && (window.matchMedia('(max-width: 720px)').matches
-                    || window.matchMedia('(orientation: portrait)').matches
-                    || window.matchMedia('(pointer: coarse)').matches);
+            const preferBlob = isGiftMobileViewport()
+                || (window.matchMedia && window.matchMedia('(orientation: portrait)').matches);
             const baseHref = window.location.origin ? `${window.location.origin}/` : '';
             const htmlWithBase = baseHref && !html.includes('<base')
                 ? html.replace(/<head([^>]*)>/i, `<head$1><base href="${baseHref}">`)
@@ -8557,33 +8596,14 @@ document
                     return;
                 }
             }
-            giftBlobUrl = URL.createObjectURL(blob);
-            giftFrame.removeAttribute('srcdoc');
-            giftFrame.src = giftBlobUrl;
-            return true;
-        }
-
-        function revealGiftFrameSoon() {
-            requestAnimationFrame(() => {
-                giftFallback.style.display = 'none';
-                giftFrame.style.display = 'block';
-            });
-            setTimeout(() => {
-                giftFallback.style.display = 'none';
-                giftFrame.style.display = 'block';
-            }, 350);
-        }
-
-        async function openGiftOverlay(key, event) {
-            if (event) {
-                event.stopPropagation();
+            const isMobileGift = isGiftMobileViewport();
+            const isLandscape = window.matchMedia && window.matchMedia('(orientation: landscape)').matches;
+            if (isMobileGift && isLandscape) {
+                showGiftFallback('Please rotate your phone to portrait mode to open this gift.');
+                return;
             }
             const html = getGiftHtml(key);
             const source = giftSources[key];
-            const preferBlob = window.matchMedia
-                && (window.matchMedia('(max-width: 720px)').matches
-                    || window.matchMedia('(orientation: portrait)').matches
-                    || window.matchMedia('(pointer: coarse)').matches);
 
             if (openGiftInNewWindow(key, html, source)) {
                 return;
@@ -8601,60 +8621,8 @@ document
                 giftFrame.style.display = 'block';
             };
 
-            if (key === 'wordSearchPro') {
-                if (preferBlob && html) {
-                    setGiftFrameHtml(html);
-                    revealGiftFrameSoon();
-                    giftOverlay.style.display = 'flex';
-                    document.body.style.overflow = 'hidden';
-
-                    if (!giftOverlayOpen) {
-                        const activeTab = document.querySelector('.tab.active');
-                        giftOverlayReturnTab = activeTab?.dataset?.tab || 'main';
-                        history.pushState({ giftOverlay: true }, document.title, window.location.href);
-                        giftOverlayOpen = true;
-                    }
-                    return;
-                }
-                const inlineHtml = (wordSearchProInlineHtml || '').trim();
-                if (inlineHtml) {
-                    giftFrame.style.display = 'block';
-                    setGiftFrameHtml(inlineHtml);
-                    revealGiftFrameSoon();
-                } else if (wordSearchProUrl) {
-                    giftFrame.style.display = 'block';
-                    giftFallback.innerHTML = '<div style="width:100%;padding:12px 8px;">Loading Word Search Studio…</div>';
-
-                    if (!wordSearchProHtmlPromise) {
-                        wordSearchProHtmlPromise = fetch(`${wordSearchProUrl}?v=${Date.now()}`, { cache: 'no-cache' })
-                            .then((resp) => {
-                                if (!resp.ok) throw new Error('Failed to load Word Search Studio');
-                                return resp.text();
-                            });
-                    }
-
-                    wordSearchProHtmlPromise
-                        .then((htmlText) => {
-                            setGiftFrameHtml(htmlText);
-                            revealGiftFrameSoon();
-                        })
-                        .catch(() => {
-                            if (html) {
-                                setGiftFrameHtml(html);
-                                revealGiftFrameSoon();
-                            } else {
-                                showGiftFallback();
-                            }
-                        });
-                } else if (html) {
-                    setGiftFrameHtml(html);
-                    revealGiftFrameSoon();
-                } else {
-                    showGiftFallback();
-                    return;
-                }
-            } else if (source) {
-                const srcWithCacheBust = key === 'wordSearchPro' ? `${source}?v=${Date.now()}` : source;
+            if (key === 'wordSearchPro' && source) {
+                const srcWithCacheBust = `${source}?v=${Date.now()}`;
                 giftFrame.style.display = 'block';
                 giftFrame.onerror = () => {
                     if (html) {
@@ -8668,6 +8636,12 @@ document
             } else if (html) {
                 setGiftFrameHtml(html);
                 revealGiftFrameSoon();
+            } else if (source) {
+                giftFrame.style.display = 'block';
+                giftFrame.onerror = () => {
+                    showGiftFallback();
+                };
+                giftFrame.src = source;
             } else {
                 showGiftFallback();
                 return;

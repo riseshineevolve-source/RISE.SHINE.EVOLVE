@@ -603,6 +603,14 @@
             width: 100%;
         }
 
+        .word-search-instruction {
+            text-align: center;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #f4f1ff;
+            margin: 0;
+        }
+
         .word-search {
             order: 1;
             display: grid;
@@ -1486,14 +1494,14 @@
                 width: 100%;
                 max-width: 100%;
                 height: auto;
-                max-height: 38vh;
-                padding: clamp(4px, 1vw, 10px);
+                max-height: 42vh;
+                padding: clamp(6px, 1.2vw, 12px);
             }
 
             .cell {
-                width: clamp(16px, 3vw, 24px);
-                height: clamp(16px, 3vw, 24px);
-                font-size: clamp(9px, 1.6vw, 14px);
+                width: clamp(18px, 3.5vw, 28px);
+                height: clamp(18px, 3.5vw, 28px);
+                font-size: clamp(10px, 1.8vw, 16px);
             }
 
             .control-group {
@@ -1508,8 +1516,8 @@
 
             #wordPresets,
             input[type="text"] {
-                font-size: 0.82rem;
-                padding: 8px;
+                font-size: 0.9rem;
+                padding: 10px;
                 border-radius: 14px;
             }
 
@@ -1605,6 +1613,7 @@
 
         <div class="game-area" id="gameArea" style="display: none;">
             <div class="puzzle-container">
+                <p class="word-search-instruction">Click the first letter and each following letter until the last.</p>
                 <div class="word-search" id="wordSearch"></div>
                 <div style="text-align: center; margin-top: 20px;" id="onlineAnswerButtons">
                     <button class="btn btn-secondary" id="showAnswersBtn" style="display: none;">Show Hint</button>
