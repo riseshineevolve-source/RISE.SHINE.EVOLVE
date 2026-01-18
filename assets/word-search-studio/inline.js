@@ -601,6 +601,14 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
             width: 100%;
         }
 
+        .word-search-instruction {
+            text-align: center;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #f4f1ff;
+            margin: 0;
+        }
+
         .word-search {
             display: grid;
             gap: clamp(0px, 0.1vw, 1px);
@@ -1433,7 +1441,8 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
 
         @media (max-width: 768px) {
             .game-area {
-                grid-template-columns: 1fr;
+                display: flex;
+                flex-direction: column;
                 gap: 20px;
             }
             
@@ -1445,6 +1454,9 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
                 order: 2;
                 min-width: 100%;
                 max-width: none;
+                margin-right: 0;
+                margin-left: 0;
+                margin-top: 10px;
             }
 
             .controls {
@@ -1471,9 +1483,11 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
             }
 
             .word-search {
-                max-width: 95vw;
-                max-height: 65vh;
-                padding: clamp(8px, 1.5vw, 15px);
+                width: 100%;
+                max-width: 100%;
+                height: auto;
+                max-height: 42vh;
+                padding: clamp(6px, 1.2vw, 12px);
             }
 
             .cell {
@@ -1481,12 +1495,39 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
                 height: clamp(18px, 3.5vw, 28px);
                 font-size: clamp(10px, 1.8vw, 16px);
             }
+
+            .control-group {
+                padding: 14px;
+                border-radius: 18px;
+            }
+
+            .control-group h3 {
+                font-size: 1.05rem;
+                margin-bottom: 12px;
+            }
+
+            #wordPresets,
+            input[type="text"] {
+                font-size: 0.9rem;
+                padding: 10px;
+                border-radius: 14px;
+            }
+
+            .button-group {
+                gap: 6px;
+            }
+
+            .btn {
+                padding: 10px 18px;
+                border-radius: 20px;
+                font-size: 0.85rem;
+            }
         }
 
         @media (max-width: 480px) {
             .word-search {
-                max-width: 98vw;
-                max-height: 60vh;
+                max-width: 100%;
+                max-height: 42vh;
                 padding: 8px;
             }
 
@@ -1498,8 +1539,8 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
             }
 
             .container {
-                padding: 20px;
-                margin: 10px;
+                padding: 14px;
+                margin: 8px;
             }
         }
     </style>
@@ -1564,6 +1605,7 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
 
         <div class="game-area" id="gameArea" style="display: none;">
             <div class="puzzle-container">
+                <p class="word-search-instruction">Click the first letter and each following letter until the last.</p>
                 <div class="word-search" id="wordSearch"></div>
                 <div style="text-align: center; margin-top: 20px;" id="onlineAnswerButtons">
                     <button class="btn btn-secondary" id="showAnswersBtn" style="display: none;">Show Hint</button>
