@@ -148,7 +148,7 @@ body {
   <div id="result-card" class="hm-card">
     <div class="hm-card-header">
       <div class="hm-avatar" id="hm-avatar">
-        <video id="hm-avatar-video" class="hm-avatar-video" autoplay muted loop playsinline preload="auto"></video>
+        <video id="hm-avatar-video" class="hm-avatar-video" autoplay muted loop playsinline preload="auto" webkit-playsinline></video>
         <div id="hm-avatar-fallback" class="hm-avatar-fallback" aria-hidden="true"></div>
       </div>
       <div style="max-width: 440px;">
@@ -531,6 +531,12 @@ function setAvatar(character){
     return;
   }
 
+  video.muted = true;
+  video.playsInline = true;
+  video.autoplay = true;
+  video.setAttribute('muted', '');
+  video.setAttribute('playsinline', '');
+  video.setAttribute('webkit-playsinline', '');
   fallback.style.display = 'none';
   video.style.display = 'block';
   video.src = toSrc(file);

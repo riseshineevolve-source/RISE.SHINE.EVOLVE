@@ -4065,61 +4065,6 @@
       opacity: 0.85;
     }
 
-    .hm-result-avatar {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      overflow: hidden;
-      border: 2px solid rgba(255, 255, 255, 0.6);
-      box-shadow: 0 0 12px rgba(0, 0, 0, 0.35);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(255, 255, 255, 0.08);
-    }
-
-    .hm-result-avatar--calm {
-      border-color: rgba(138, 43, 226, 0.8);
-      box-shadow: 0 0 12px rgba(138, 43, 226, 0.45);
-    }
-
-    .hm-result-avatar--energy {
-      border-color: rgba(255, 88, 199, 0.8);
-      box-shadow: 0 0 12px rgba(255, 88, 199, 0.35);
-    }
-
-    .hm-result-avatar-card {
-      width: 96px;
-      height: 96px;
-      position: absolute;
-      top: 50%;
-      right: 16px;
-      transform: translateY(-50%);
-    }
-
-    .hm-result-card-header {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .hm-result-video {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    .hm-result-fallback {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 22px;
-      opacity: 0.85;
-    }
-
     .hm-wheel-symbol-slot.hm-selected {
       font-size: 1.4rem;
       text-shadow:
@@ -5688,7 +5633,7 @@ body {
   <div id="result-card" class="hm-card">
     <div class="hm-card-header">
       <div class="hm-avatar" id="hm-avatar">
-        <video id="hm-avatar-video" class="hm-avatar-video" autoplay muted loop playsinline preload="auto"></video>
+        <video id="hm-avatar-video" class="hm-avatar-video" autoplay muted loop playsinline preload="auto" webkit-playsinline></video>
         <div id="hm-avatar-fallback" class="hm-avatar-fallback" aria-hidden="true"></div>
       </div>
       <div style="max-width: 440px;">
@@ -6071,6 +6016,12 @@ function setAvatar(character){
     return;
   }
 
+  video.muted = true;
+  video.playsInline = true;
+  video.autoplay = true;
+  video.setAttribute('muted', '');
+  video.setAttribute('playsinline', '');
+  video.setAttribute('webkit-playsinline', '');
   fallback.style.display = 'none';
   video.style.display = 'block';
   video.src = toSrc(file);
