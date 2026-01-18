@@ -8595,7 +8595,8 @@ document
             }
             const html = getGiftHtml(key);
             const source = giftSources[key];
-            const preferBlob = isGiftMobileViewport()
+            const isMobileGift = isGiftMobileViewport();
+            const preferBlob = isMobileGift
                 || (window.matchMedia && window.matchMedia('(orientation: portrait)').matches);
 
             if (openGiftInNewWindow(key, html, source)) {
@@ -8613,6 +8614,27 @@ document
                 giftFallback.style.display = 'none';
                 giftFrame.style.display = 'block';
             };
+
+            if (isMobileGift) {
+                if (html) {
+                    setGiftFrameHtml(html);
+                    revealGiftFrameSoon();
+                } else {
+                    showGiftFallback();
+                    return;
+                }
+
+                giftOverlay.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+
+                if (!giftOverlayOpen) {
+                    const activeTab = document.querySelector('.tab.active');
+                    giftOverlayReturnTab = activeTab?.dataset?.tab || 'main';
+                    history.pushState({ giftOverlay: true }, document.title, window.location.href);
+                    giftOverlayOpen = true;
+                }
+                return;
+            }
 
             if (key === 'wordSearchPro') {
                 if (preferBlob && html) {
