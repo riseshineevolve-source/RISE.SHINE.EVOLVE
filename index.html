@@ -1090,21 +1090,6 @@
             .gifts-library-grid {
                 display: flex !important;
                 flex-direction: column !important;
-                gap: 24px !important;
-            }
-
-            .gift-card {
-                min-height: unset !important;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .gift-card-description {
-                display: none !important;
-            }
-
-            .kids-text h3 {
-                font-size: 1.5rem !important;
             }
         }
 
@@ -2980,121 +2965,6 @@
                 border: 2px solid #ffd700;
                 color: #ffd700;
                 font-size: 1.4rem;
-                cursor: pointer;
-                width: 36px;
-                height: 36px;
-                border-radius: 50%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
-                z-index: 3;
-            ">×</button>
-    <div style="
-                background: #000000;
-                border: 2px solid #8A2BE2;
-                border-radius: 18px;
-                padding: 54px 20px 70px 20px;
-                text-align: center;
-                box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4),
-                    0 0 28px rgba(138, 43, 226, 0.45);
-                position: relative;
-                overflow: hidden;
-            ">
-     <div style="
-                    position: absolute;
-                    top: 60px;
-                    left: 50%;
-                    transform: translateX(-50%);
-                    color: #ffd700;
-                    font-size: 0.58rem;
-                    font-weight: 800;
-                    letter-spacing: 0.05rem;
-                    text-transform: uppercase;
-                    text-shadow: 0 0 12px rgba(255, 215, 0, 0.6);
-                    max-width: 140px;
-                    text-align: center;
-                ">
-      The Ultimate Kids’<br>Survival Kit
-     </div>
-     <div style="
-                    position: absolute;
-                    top: 14px;
-                    left: 14px;
-                    background: #8A2BE2;
-                    color: #ffffff;
-                    font-size: 0.7rem;
-                    font-weight: bold;
-                    padding: 6px 10px;
-                    border-radius: 10px;
-                    text-transform: uppercase;
-                    box-shadow: 0 0 10px rgba(138, 43, 226, 0.6);
-                ">Available</div>
-                <div style="
-                    position: absolute;
-                    top: 58px;
-                    right: 14px;
-                    background: #ffd700;
-                    color: #000000;
-                    font-size: 0.72rem;
-                    font-weight: 800;
-                    padding: 6px 10px;
-                    border-radius: 10px;
-                    text-transform: uppercase;
-                    box-shadow: 0 0 12px rgba(255, 215, 0, 0.7);
-                ">NEW</div>
-     <img src="assets/images/Confident, Mindful & Happy Me cover.png" data-cover-base="Confident, Mindful & Happy Me" alt="The Confident, Mindful &amp; Happy Me Adventure cover" loading="eager" fetchpriority="high" decoding="async" style="width: 150px; height: auto; border-radius: 12px; border: 2px solid #ffd700; box-shadow: 0 0 18px rgba(255,215,0,0.35); margin: 46px auto 14px auto; display: block;">
-     <div style="color: #ffd700; font-weight: bold; font-size: 1.1rem; margin-bottom: 10px; line-height: 1.25; text-shadow: 0 0 15px rgba(255, 215, 0, 0.8);">
-      The Confident, Mindful &amp; Happy Me Adventure
-     </div>
-     <div style="color: #ffffff; font-size: 0.9rem; margin-bottom: 12px; line-height: 1.5;">
-      31 Days to Boost Self-Esteem,<br>
-      Master Big Feelings &amp; Unlock Inner Superpower.<br>
-      A Fun Growth Mindset Journey for Kids 6-10.
-     </div>
-     <div style="
-                    position: absolute;
-                    bottom: 16px;
-                    left: 50%;
-                    transform: translateX(-50%);
-                    background: #ffd700;
-                    color: #000000;
-                    font-size: 0.8rem;
-                    font-weight: bold;
-                    padding: 10px 16px;
-                    border-radius: 12px;
-                    text-transform: uppercase;
-                    box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
-                    letter-spacing: 0.5px;
-                    cursor: pointer;
-                " onclick="handleBookPromoExplore(event)">
-      Explore more
-     </div>
-    </div>
-   </div>
-  </div>
-  <div id="emailModal" class="modal">
-        <div class="modal-content" style="
-            position: relative;
-            background: linear-gradient(135deg, #000000, #1a1a1a);
-            border: 3px solid #8A2BE2;
-            border-radius: 20px;
-            padding: 14px 16px;
-            max-width: 560px;
-            width: 92%;
-            max-height: 96vh;
-            overflow-y: auto;
-            box-shadow: 0 0 50px rgba(138, 43, 226, 0.8);
-            margin: 0 auto;
-        ">
-    <span class="close" onclick="closeEmailModal()" style="
-                position: absolute;
-                top: 15px;
-                right: 15px;
-                background: none;
-                border: none;
-                color: #ffffff;
-                font-size: 1.5rem;
                 cursor: pointer;
                 width: 36px;
                 height: 36px;
@@ -7095,35 +6965,14 @@ document
             if (signupFields) {
                 signupFields.style.display = authMode === 'signup' ? 'block' : 'none';
             }
-            let isVisible = false;
-            fieldIds.forEach((id) => {
-                const input = document.getElementById(id);
-                if (!input) return;
-                const nextType = input.type === 'password' ? 'text' : 'password';
-                input.type = nextType;
-                if (nextType === 'text') {
-                    isVisible = true;
-                }
-            });
-            if (button) {
-                button.textContent = isVisible ? 'Hide password' : 'Show password';
+            if (signupConsent) {
+                signupConsent.style.display = authMode === 'signup' ? 'block' : 'none';
             }
-        }
-
-        async function handlePasswordResetRequest() {
-            const rawEmail = document.getElementById('brevoEmail')?.value || '';
-            const email = rawEmail.trim().toLowerCase();
-            if (authMode !== 'reset') {
-                setAuthMode('reset');
+            if (firstNameField) {
+                firstNameField.required = authMode === 'signup';
             }
-            if (!email || !email.includes('@') || !email.includes('.')) {
-                showAuthMessage('Enter your email below to reset your password.', '#ff1493');
-                const emailField = document.getElementById('brevoEmail');
-                if (emailField) {
-                    emailField.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    emailField.focus();
-                }
-                return;
+            if (optInField) {
+                optInField.required = authMode === 'signup';
             }
             if (emailField) {
                 const emailBlock = emailField.closest('.sib-input') || emailField.closest('.form__entry');
@@ -8473,13 +8322,6 @@ document
                         }
                         return;
                     }
-                    if (data?.error) {
-                        if (messageBox) {
-                            messageBox.style.color = '#ff69b4';
-                            messageBox.textContent = data.error;
-                        }
-                        return;
-                    }
                     if (messageBox) {
                         messageBox.style.color = '#ffd700';
                         messageBox.textContent = 'Please open the confirmation email in your inbox to complete your account removal.';
@@ -8634,6 +8476,19 @@ document
         let giftBlobUrl = null;
         let giftOverlayReturnTab = null;
 
+        const giftSources = {
+            calmEnergy: null,
+            wordSearch: null,
+            wordSearchPro: 'assets/word-search-studio/index.html',
+        };
+
+        const wordSearchProInlineHtml =
+            (typeof window !== 'undefined' && window.WORD_SEARCH_STUDIO_HTML)
+                ? window.WORD_SEARCH_STUDIO_HTML
+                : null;
+        const wordSearchProUrl = giftSources.wordSearchPro;
+        let wordSearchProHtmlPromise = null;
+
         function getGiftHtml(key) {
             const tpl = giftTemplates[key];
             if (!tpl) return null;
@@ -8642,10 +8497,19 @@ document
 
         function setGiftFrameHtml(html) {
             if (!html) return false;
+            const preferBlob = window.matchMedia
+                && (window.matchMedia('(max-width: 720px)').matches
+                    || window.matchMedia('(orientation: portrait)').matches
+                    || window.matchMedia('(pointer: coarse)').matches);
             const baseHref = window.location.origin ? `${window.location.origin}/` : '';
             const htmlWithBase = baseHref && !html.includes('<base')
                 ? html.replace(/<head([^>]*)>/i, `<head$1><base href="${baseHref}">`)
                 : html;
+            if (!preferBlob && ('srcdoc' in giftFrame)) {
+                giftFrame.srcdoc = htmlWithBase;
+                giftFrame.removeAttribute('src');
+                return true;
+            }
             const blob = new Blob([htmlWithBase], { type: 'text/html' });
             if (giftBlobUrl) {
                 URL.revokeObjectURL(giftBlobUrl);
@@ -8715,8 +8579,13 @@ document
                 event.stopPropagation();
             }
             const html = getGiftHtml(key);
+            const source = giftSources[key];
+            const preferBlob = window.matchMedia
+                && (window.matchMedia('(max-width: 720px)').matches
+                    || window.matchMedia('(orientation: portrait)').matches
+                    || window.matchMedia('(pointer: coarse)').matches);
 
-            if (openGiftInNewWindow(key, html)) {
+            if (openGiftInNewWindow(key, html, source)) {
                 return;
             }
 
@@ -8727,13 +8596,76 @@ document
             giftFallback.style.display = 'flex';
             giftFallback.innerHTML = '<div style="width:100%;padding:12px 8px;">Loading gift…</div>';
             giftFrame.style.display = 'none';
-
             giftFrame.onload = () => {
                 giftFallback.style.display = 'none';
                 giftFrame.style.display = 'block';
             };
 
-            if (html) {
+            if (key === 'wordSearchPro') {
+                if (preferBlob && html) {
+                    setGiftFrameHtml(html);
+                    revealGiftFrameSoon();
+                    giftOverlay.style.display = 'flex';
+                    document.body.style.overflow = 'hidden';
+
+                    if (!giftOverlayOpen) {
+                        const activeTab = document.querySelector('.tab.active');
+                        giftOverlayReturnTab = activeTab?.dataset?.tab || 'main';
+                        history.pushState({ giftOverlay: true }, document.title, window.location.href);
+                        giftOverlayOpen = true;
+                    }
+                    return;
+                }
+                const inlineHtml = (wordSearchProInlineHtml || '').trim();
+                if (inlineHtml) {
+                    giftFrame.style.display = 'block';
+                    setGiftFrameHtml(inlineHtml);
+                    revealGiftFrameSoon();
+                } else if (wordSearchProUrl) {
+                    giftFrame.style.display = 'block';
+                    giftFallback.innerHTML = '<div style="width:100%;padding:12px 8px;">Loading Word Search Studio…</div>';
+
+                    if (!wordSearchProHtmlPromise) {
+                        wordSearchProHtmlPromise = fetch(`${wordSearchProUrl}?v=${Date.now()}`, { cache: 'no-cache' })
+                            .then((resp) => {
+                                if (!resp.ok) throw new Error('Failed to load Word Search Studio');
+                                return resp.text();
+                            });
+                    }
+
+                    wordSearchProHtmlPromise
+                        .then((htmlText) => {
+                            setGiftFrameHtml(htmlText);
+                            revealGiftFrameSoon();
+                        })
+                        .catch(() => {
+                            if (html) {
+                                setGiftFrameHtml(html);
+                                revealGiftFrameSoon();
+                            } else {
+                                showGiftFallback();
+                            }
+                        });
+                } else if (html) {
+                    setGiftFrameHtml(html);
+                    revealGiftFrameSoon();
+                } else {
+                    showGiftFallback();
+                    return;
+                }
+            } else if (source) {
+                const srcWithCacheBust = key === 'wordSearchPro' ? `${source}?v=${Date.now()}` : source;
+                giftFrame.style.display = 'block';
+                giftFrame.onerror = () => {
+                    if (html) {
+                        setGiftFrameHtml(html);
+                        revealGiftFrameSoon();
+                    } else {
+                        showGiftFallback();
+                    }
+                };
+                giftFrame.src = srcWithCacheBust;
+            } else if (html) {
                 setGiftFrameHtml(html);
                 revealGiftFrameSoon();
             } else {
