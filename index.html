@@ -3450,11 +3450,11 @@
       }
 
       .hm-main-title {
-        font-size: 1.4rem;
+        font-size: 1.6rem;
       }
 
       .hm-main-subtitle {
-        font-size: 0.85rem;
+        font-size: 0.95rem;
       }
 
       .hm-tabs-wrapper {
@@ -3691,11 +3691,11 @@
       }
 
       .hm-wheel-title {
-        font-size: 1.35rem;
+        font-size: 1.5rem;
       }
 
       .hm-wheel-subtitle {
-        font-size: 1rem;
+        font-size: 1.05rem;
         text-align: center;
       }
 
@@ -8595,6 +8595,12 @@ document
                     showEmailModal('login');
                     return;
                 }
+            }
+            const isMobileGift = isGiftMobileViewport();
+            const isLandscape = window.matchMedia && window.matchMedia('(orientation: landscape)').matches;
+            if (isMobileGift && isLandscape) {
+                showGiftFallback('Please rotate your phone to portrait mode to open this gift.');
+                return;
             }
             const html = getGiftHtml(key);
             const source = giftSources[key];
