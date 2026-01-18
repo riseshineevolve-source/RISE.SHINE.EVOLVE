@@ -541,6 +541,30 @@
             }
         }
 
+        @media (max-width: 900px) and (orientation: landscape) {
+            .gift-overlay {
+                padding: 0;
+                align-items: flex-start;
+            }
+
+            .gift-overlay-inner {
+                width: 100%;
+                height: 100vh;
+                height: 100svh;
+                height: 100dvh;
+                max-height: 100dvh;
+                border-radius: 0;
+                min-height: 0;
+            }
+
+            .gift-frame {
+                height: 100%;
+                min-height: 100%;
+                border-width: 0;
+                border-radius: 0;
+            }
+        }
+
         #privacyModal {
             z-index: 20000 !important;
         }
@@ -6756,6 +6780,12 @@ document
             return window.matchMedia && window.matchMedia('(max-width: 720px)').matches;
         }
 
+        function isGiftMobileViewport() {
+            return window.matchMedia
+                && (window.matchMedia('(max-width: 900px)').matches
+                    || window.matchMedia('(pointer: coarse)').matches);
+        }
+
         async function checkUser() {
             if (!supabaseClient) {
                 setLoggedInBadge(false);
@@ -8504,10 +8534,8 @@ document
 
         function setGiftFrameHtml(html) {
             if (!html) return false;
-            const preferBlob = window.matchMedia
-                && (window.matchMedia('(max-width: 720px)').matches
-                    || window.matchMedia('(orientation: portrait)').matches
-                    || window.matchMedia('(pointer: coarse)').matches);
+            const preferBlob = isGiftMobileViewport()
+                || (window.matchMedia && window.matchMedia('(orientation: portrait)').matches);
             const baseHref = window.location.origin ? `${window.location.origin}/` : '';
             const htmlWithBase = baseHref && !html.includes('<base')
                 ? html.replace(/<head([^>]*)>/i, `<head$1><base href="${baseHref}">`)
@@ -8566,10 +8594,8 @@ document
             }
             const html = getGiftHtml(key);
             const source = giftSources[key];
-            const preferBlob = window.matchMedia
-                && (window.matchMedia('(max-width: 720px)').matches
-                    || window.matchMedia('(orientation: portrait)').matches
-                    || window.matchMedia('(pointer: coarse)').matches);
+            const preferBlob = isGiftMobileViewport()
+                || (window.matchMedia && window.matchMedia('(orientation: portrait)').matches);
 
             if (openGiftInNewWindow(key, html, source)) {
                 return;
