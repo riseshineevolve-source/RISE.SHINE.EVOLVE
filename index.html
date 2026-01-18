@@ -8290,7 +8290,7 @@ document
                 .then(async (response) => {
                     if (!response) return;
                     const data = await response.json().catch(() => ({}));
-                    const errorText = (data?.error || '').toString().toLowerCase();
+                    const errorText = `${data?.error || ''} ${data?.message || ''}`.toString().toLowerCase();
                     const errorCode = (data?.code || '').toString().toLowerCase();
                     const notFound = response.status === 404
                         || errorCode === 'email_not_found'
