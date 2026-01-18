@@ -237,6 +237,186 @@
       gap: 10px;
     }
 
+    .hm-wheel-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(0, 1fr);
+      gap: 14px;
+      align-items: center;
+    }
+
+    .hm-wheel-visual-stack {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .hm-wheel-info-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .hm-wheel-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(0, 1fr);
+      gap: 14px;
+      align-items: center;
+    }
+
+    .hm-wheel-visual-stack {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .hm-wheel-info-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .hm-wheel-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(0, 1fr);
+      gap: 14px;
+      align-items: center;
+    }
+
+    .hm-wheel-visual-stack {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .hm-wheel-info-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .hm-wheel-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(0, 1fr);
+      gap: 14px;
+      align-items: center;
+    }
+
+    .hm-wheel-visual-stack {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .hm-wheel-info-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .hm-wheel-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(0, 1fr);
+      gap: 14px;
+      align-items: center;
+    }
+
+    .hm-wheel-visual-stack {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .hm-wheel-info-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .hm-wheel-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(0, 1fr);
+      gap: 14px;
+      align-items: center;
+    }
+
+    .hm-wheel-visual-stack {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .hm-wheel-info-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .hm-wheel-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(0, 1fr);
+      gap: 14px;
+      align-items: center;
+    }
+
+    .hm-wheel-visual-stack {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .hm-wheel-info-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .hm-wheel-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(0, 1fr);
+      gap: 14px;
+      align-items: center;
+    }
+
+    .hm-wheel-visual-stack {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .hm-wheel-info-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .hm-wheel-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(0, 1fr);
+      gap: 14px;
+      align-items: center;
+    }
+
+    .hm-wheel-visual-stack {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .hm-wheel-info-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
     /* Controls (filters) inside wheel box */
 
     .hm-controls-box {
@@ -383,12 +563,17 @@
     }
 
     .hm-wheel-center-dot {
-      width: 18px;
-      height: 18px;
+      width: 86px;
+      height: 86px;
       border-radius: 50%;
-      background: #fdf7ff;
-      box-shadow: 0 0 12px rgba(255, 255, 255, 0.9);
+      background: radial-gradient(circle at top, rgba(255,255,255,0.95), rgba(255,255,255,0.7));
+      border: 1px solid rgba(255,215,0,0.45);
+      box-shadow: 0 0 18px rgba(255, 215, 0, 0.18), 0 0 40px rgba(138, 43, 226, 0.16);
+      overflow: hidden;
       z-index: 3;
+      display:flex;
+      align-items:center;
+      justify-content:center;
     }
 
     .hm-wheel-ring {
@@ -445,6 +630,9 @@
     .hm-wheel-symbols .hm-wheel-symbol-slot:nth-child(6) {
       transform: translate(-50%, -50%) rotate(300deg) translate(0, -68px) rotate(calc(-300deg - var(--wheel-rotation, 0deg)));
     }
+
+    .hm-center-video { width:100%; height:100%; object-fit: cover; display:block; }
+    .hm-center-fallback { font-size: 28px; opacity: 0.85; }
 
     .hm-wheel-symbol-slot.hm-selected {
       font-size: 1.4rem;
@@ -577,18 +765,6 @@
       background: #000000;
     }
 
-    .hm-result-portrait {
-      width: 72px;
-      height: 72px;
-      border-radius: 50%;
-      border: 2px solid rgba(255, 215, 0, 0.8);
-      object-fit: cover;
-      background: #000000;
-      box-shadow: 0 0 16px rgba(138, 43, 226, 0.55);
-      margin: 10px auto 12px;
-      display: block;
-    }
-
     .hm-result-card--calm {
       border: 3px solid var(--purple-main);
       box-shadow:
@@ -631,6 +807,90 @@
       margin: 0 0 4px;
       text-align: center;
       background: linear-gradient(45deg, #8A2BE2, #ff69b4);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hm-result-card--energy .hm-result-title {
+      background: linear-gradient(45deg, var(--pink-bright), var(--pink-main), #efd8a0);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hm-result-card--energy .hm-result-title {
+      background: linear-gradient(45deg, var(--pink-bright), var(--pink-main), #efd8a0);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hm-result-card--energy .hm-result-title {
+      background: linear-gradient(45deg, var(--pink-bright), var(--pink-main), #efd8a0);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hm-result-card--energy .hm-result-title {
+      background: linear-gradient(45deg, var(--pink-bright), var(--pink-main), #efd8a0);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hm-result-card--energy .hm-result-title {
+      background: linear-gradient(45deg, var(--pink-bright), var(--pink-main), #efd8a0);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hm-result-card--energy .hm-result-title {
+      background: linear-gradient(45deg, var(--pink-bright), var(--pink-main), #efd8a0);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hm-result-card--energy .hm-result-title {
+      background: linear-gradient(45deg, var(--pink-bright), var(--pink-main), #efd8a0);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hm-result-card--energy .hm-result-title {
+      background: linear-gradient(45deg, #ff69b4, #f4dce6, #efd8a0);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hm-result-card--energy .hm-result-title {
+      background: linear-gradient(45deg, #ff69b4, #f4dce6, #efd8a0);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hm-result-card--energy .hm-result-title {
+      background: linear-gradient(45deg, #f4dce6, #d46c8d, #efd8a0);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hm-result-card--energy .hm-result-title {
+      background: linear-gradient(45deg, #f4dce6, #d46c8d, #efd8a0);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hm-result-card--energy .hm-result-title {
+      background: linear-gradient(45deg, #f2b5d6, #e667a3);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hm-result-card--energy .hm-result-title {
+      background: linear-gradient(45deg, #f2b5d6, #e667a3);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hm-result-card--energy .hm-result-title {
+      background: linear-gradient(45deg, #f2b5d6, #e667a3);
       -webkit-background-clip: text;
       color: transparent;
     }
@@ -748,7 +1008,10 @@
                     <div class="hm-wheel-symbol-slot" data-character="Mimi">✨</div>
                     <div class="hm-wheel-symbol-slot" data-character="Bibi">👑</div>
                   </div>
-                  <div class="hm-wheel-center-dot"></div>
+                  <div class="hm-wheel-center-dot">
+                    <video class="hm-center-video" id="calm-center-video" autoplay muted loop playsinline></video>
+                    <div class="hm-center-fallback" id="calm-center-fallback" aria-hidden="true">✨</div>
+                  </div>
                 </div>
               </div>
               <button class="hm-spin-btn" id="calm-spin-btn">
@@ -762,17 +1025,14 @@
                   <button class="hm-filter-btn hm-filter-btn--calm hm-active" data-filter="all">
                     <span>All types</span>
                   </button>
-                  <button class="hm-filter-btn hm-filter-btn--calm" data-filter="1-minute practice">
-                    <span>1-minute</span>
+                  <button class="hm-filter-btn hm-filter-btn--calm" data-filter="Movement">
+                    <span>Movement</span>
                   </button>
-                  <button class="hm-filter-btn hm-filter-btn--calm" data-filter="Micro-movement">
-                    <span>Micro-movement</span>
+                  <button class="hm-filter-btn hm-filter-btn--calm" data-filter="Breath">
+                    <span>Breath</span>
                   </button>
-                  <button class="hm-filter-btn hm-filter-btn--calm" data-filter="Micro-breath">
-                    <span>Micro-breath</span>
-                  </button>
-                  <button class="hm-filter-btn hm-filter-btn--calm" data-filter="Micro-connection">
-                    <span>Micro-connection</span>
+                  <button class="hm-filter-btn hm-filter-btn--calm" data-filter="Connection">
+                    <span>Connection</span>
                   </button>
                 </div>
               </div>
@@ -829,7 +1089,10 @@
                     <div class="hm-wheel-symbol-slot" data-character="Mimi">✨</div>
                     <div class="hm-wheel-symbol-slot" data-character="Bibi">👑</div>
                   </div>
-                  <div class="hm-wheel-center-dot"></div>
+                  <div class="hm-wheel-center-dot">
+                    <video class="hm-center-video" id="energy-center-video" autoplay muted loop playsinline></video>
+                    <div class="hm-center-fallback" id="energy-center-fallback" aria-hidden="true">⚡</div>
+                  </div>
                 </div>
               </div>
               <button class="hm-spin-btn hm-spin-btn--energy" id="energy-spin-btn">
@@ -843,17 +1106,14 @@
                   <button class="hm-filter-btn hm-filter-btn--energy hm-active" data-filter="all">
                     <span>All types</span>
                   </button>
-                  <button class="hm-filter-btn hm-filter-btn--energy" data-filter="1-minute practice">
-                    <span>1-minute</span>
+                  <button class="hm-filter-btn hm-filter-btn--energy" data-filter="Movement">
+                    <span>Movement</span>
                   </button>
-                  <button class="hm-filter-btn hm-filter-btn--energy" data-filter="Micro-movement">
-                    <span>Micro-movement</span>
+                  <button class="hm-filter-btn hm-filter-btn--energy" data-filter="Breath">
+                    <span>Breath</span>
                   </button>
-                  <button class="hm-filter-btn hm-filter-btn--energy" data-filter="Micro-breath">
-                    <span>Micro-breath</span>
-                  </button>
-                  <button class="hm-filter-btn hm-filter-btn--energy" data-filter="Micro-connection">
-                    <span>Micro-connection</span>
+                  <button class="hm-filter-btn hm-filter-btn--energy" data-filter="Connection">
+                    <span>Connection</span>
                   </button>
                 </div>
               </div>
@@ -889,690 +1149,546 @@
   <script>
     /* ---------- DATA: CALM PRACTICES ---------- */
     const calmPractices = [
-      // 1-minute practice
-      {
-        id: 1,
-        category: "1-minute practice",
-        title: "Quiet Detective Minute",
-        instruction: `Sit or stand together and stay completely silent for one minute. Just notice what you feel in your body and what tiny details you can see or hear.`,
-        character: "Luli",
-        comment: `Luli's Note: "One quiet minute = at least three new clues about your own mood."`
-      },
-      {
-        id: 2,
-        category: "1-minute practice",
-        title: "Window of Calm",
-        instruction: `Look out of the window (or at one spot in the room) and quietly find three things you have never noticed properly before.`,
-        character: "Dilo",
-        comment: `Dilo's Note: "Level up your focus: new details are like hidden Easter eggs for your brain."`
-      },
-      {
-        id: 3,
-        category: "1-minute practice",
-        title: "Head-to-Toe Scan",
-        instruction: `Close your eyes and gently move your attention from the top of your head down to your toes, relaxing each part as you go.`,
-        character: "Mimi",
-        comment: `Mimi's Note: "Upgrade to deluxe mode: release tension like you are uninstalling old apps."`
-      },
-      {
-        id: 4,
-        category: "1-minute practice",
-        title: "Sound Layers Minute",
-        instruction: `Sit still and listen for: 1) sounds close to you, 2) sounds farther away, 3) the quiet space in between.`,
-        character: "Bibi",
-        comment: `Bibi's Note: "Grandma trick: when I listen carefully, my brain stops shouting and starts sipping tea."`
-      },
-      {
-        id: 5,
-        category: "1-minute practice",
-        title: "Gratitude Glow",
-        instruction: `Everyone silently chooses one thing they are grateful for and just holds that feeling gently for one minute.`,
-        character: "Nini",
-        comment: `Nini's Note: "Tiny secret: grateful hearts make the best cuddle spots."`
-      },
-      {
-        id: 6,
-        category: "1-minute practice",
-        title: "Invisible Snow Globe",
-        instruction: `Close your eyes and imagine your thoughts like glitter swirling in a snow globe. Watch them slowly fall and settle.`,
-        character: "Alio",
-        comment: `Alio's Note: "No shaking allowed. Today we are calm snow, not a snow storm."`
-      },
-      {
-        id: 7,
-        category: "1-minute practice",
-        title: "Sip & Pause",
-        instruction: `Take a small sip of water or tea. For one minute, focus only on taste, warmth and the feeling of the cup in your hand.`,
-        character: "Mimi",
-        comment: `Mimi's Note: "Multitasking is cancelled. For sixty seconds, you and your drink are the main event."`
-      },
-      {
-        id: 8,
-        category: "1-minute practice",
-        title: "Supported by the Floor",
-        instruction: `Sit or lie down and feel how the floor, chair or sofa is holding your body. Let yourself sink a tiny bit deeper into that support.`,
-        character: "Luli",
-        comment: `Luli's Note: "Plot twist: the ground has been your quiet bodyguard this whole time."`
-      },
-      {
-        id: 9,
-        category: "1-minute practice",
-        title: "Blink & Rest",
-        instruction: `Soften your gaze or close your eyes. For one minute, give your eyes a break: slow blinking, no screens, just gentle looking.`,
-        character: "Dilo",
-        comment: `Dilo's Note: "Pro tip: even heroes and gamers need an eye cooldown."`
-      },
-      {
-        id: 10,
-        category: "1-minute practice",
-        title: "Inside Weather Check",
-        instruction: `Ask yourself: "If my feelings were weather right now, what would they be?" Just notice the answer without changing it.`,
-        character: "Bibi",
-        comment: `Bibi's Note: "Rain, sun or tiny emotional tornado - all weather is allowed here."`
-      },
-
-      // Micro-movement
-      {
-        id: 11,
-        category: "Micro-movement",
-        title: "Shoulder Cloud Roll",
-        instruction: `Slowly roll your shoulders up, back and down 5-8 times while breathing calmly.`,
-        character: "Mimi",
-        comment: `Mimi's Note: "Goodbye, 'I carry the world on my shoulders' posture."`
-      },
-      {
-        id: 12,
-        category: "Micro-movement",
-        title: "Cat Wake-Up Stretch",
-        instruction: `Reach your arms up as high as you can, then gently to the sides, like a cat doing a luxurious morning stretch.`,
-        character: "Luli",
-        comment: `Luli's Note: "Stretch as if you had nine lives and one minute to enjoy each."`
-      },
-      {
-        id: 13,
-        category: "Micro-movement",
-        title: "Gentle Shake-Out",
-        instruction: `For 10-15 seconds, gently shake your hands, then arms, then legs. Slow and soft, not wild.`,
-        character: "Alio",
-        comment: `Alio's Note: "This is the low-chaos version of my usual energy."`
-      },
-      {
-        id: 14,
-        category: "Micro-movement",
-        title: "Invisible Wall Push",
-        instruction: `Place your palms in front of you and pretend to push a heavy wall away for 5 slow breaths.`,
-        character: "Dilo",
-        comment: `Dilo's Note: "You are not just pushing the wall. You are pushing the stress back into its box."`
-      },
-      {
-        id: 15,
-        category: "Micro-movement",
-        title: "Jelly Face Reset",
-        instruction: `Scrunch up your whole face tight, hold for 3 seconds, then relax completely like jelly. Repeat 3 times.`,
-        character: "Nini",
-        comment: `Nini's Note: "Warning: may cause giggles and slightly ridiculous faces."`
-      },
-      {
-        id: 16,
-        category: "Micro-movement",
-        title: "Tree Trunk Legs",
-        instruction: `Stand with feet firmly on the ground, knees soft. Imagine roots growing from your feet into the earth for 5-8 breaths.`,
-        character: "Bibi",
-        comment: `Bibi's Note: "Strong roots, soft heart - best combo."`
-      },
-      {
-        id: 17,
-        category: "Micro-movement",
-        title: "Neck Rainbow",
-        instruction: `Gently move your head to look right, then left, then slowly down and up - like drawing a slow rainbow with your nose.`,
-        character: "Mimi",
-        comment: `Mimi's Note: "Slow motion only. This is spa mode, not action movie mode."`
-      },
-      {
-        id: 18,
-        category: "Micro-movement",
-        title: "Star & Hug",
-        instruction: `Stretch arms and legs out wide like a star for 3 breaths, then wrap your arms around yourself for a mini self-hug. Repeat twice.`,
-        character: "Nini",
-        comment: `Nini's Note: "Shine big, then hug the star you are."`
-      },
-      {
-        id: 19,
-        category: "Micro-movement",
-        title: "Slow-March Reset",
-        instruction: `March in place very slowly for 20-30 seconds, feeling each foot roll from heel to toes.`,
-        character: "Dilo",
-        comment: `Dilo's Note: "Like walking to a big match... but in super chill mode."`
-      },
-      {
-        id: 20,
-        category: "Micro-movement",
-        title: "Tiny Toes & Fingers Dance",
-        instruction: `Wiggle your toes and fingers gently for 10-20 seconds, paying attention to each little movement.`,
-        character: "Alio",
-        comment: `Alio's Note: "Even tiny body parts like to party a bit."`
-      },
-
-      // Micro-breath
-      {
-        id: 21,
-        category: "Micro-breath",
-        title: "4-6 Calm Breath",
-        instruction: `Inhale through the nose for a count of 4, exhale slowly for a count of 6. Repeat for 5-8 breaths.`,
-        character: "Luli",
-        comment: `Luli's Note: "Longer exhale = secret code for 'Dear nervous system, relax please'."`
-      },
-      {
-        id: 22,
-        category: "Micro-breath",
-        title: "Box Breath",
-        instruction: `Inhale 4 counts, hold 4, exhale 4, hold 4. Repeat 4 rounds.`,
-        character: "Mimi",
-        comment: `Mimi's Note: "Perfect little square of calm - no geometry homework required."`
-      },
-      {
-        id: 23,
-        category: "Micro-breath",
-        title: "Flower & Candle Breath",
-        instruction: `Pretend you smell a flower (inhale through the nose), then gently blow out a candle (soft exhale through the mouth). Repeat 6-8 times.`,
-        character: "Nini",
-        comment: `Nini's Note: "Pretty smell in, cozy candle out. Very serious science, obviously."`
-      },
-      {
-        id: 24,
-        category: "Micro-breath",
-        title: "Shoulder Wave Breath",
-        instruction: `Inhale and lift your shoulders slightly; exhale and let them melt down. Repeat 6-10 times.`,
-        character: "Alio",
-        comment: `Alio's Note: "Mini rollercoaster, maximum calm."`
-      },
-      {
-        id: 25,
-        category: "Micro-breath",
-        title: "Heart Hand Breath",
-        instruction: `Place one hand on your chest and feel it rise and fall with each breath for 30-60 seconds.`,
-        character: "Bibi",
-        comment: `Bibi's Note: "Your heart has been working overtime. This is its tiny coffee break."`
-      },
-      {
-        id: 26,
-        category: "Micro-breath",
-        title: "Color-In, Grey-Out Breath",
-        instruction: `Choose a calm color. Inhale imagining that color filling you; exhale imagining grey stress leaving your body.`,
-        character: "Luli",
-        comment: `Luli's Note: "Paint your insides in your favorite calm."`
-      },
-      {
-        id: 27,
-        category: "Micro-breath",
-        title: "Three Soft Sighs",
-        instruction: `Inhale gently, then exhale with a long soft sigh. Repeat 3 times.`,
-        character: "Mimi",
-        comment: `Mimi's Note: "Designer sighs only - dramatic but kind to your nervous system."`
-      },
-      {
-        id: 28,
-        category: "Micro-breath",
-        title: "Snake Breath",
-        instruction: `Inhale through the nose, then exhale slowly with a long "ssssss" sound. Repeat 4-6 times.`,
-        character: "Dilo",
-        comment: `Dilo's Note: "Welcome to Level Snake: stealthy calm unlocked."`
-      },
-      {
-        id: 29,
-        category: "Micro-breath",
-        title: "Balloon Belly Breath",
-        instruction: `Put your hands on your belly. Inhale to puff it out like a balloon, exhale to let it gently deflate. Repeat 6-8 times.`,
-        character: "Nini",
-        comment: `Nini's Note: "Important rule: balloon belly is cute, not silly."`
-      },
-      {
-        id: 30,
-        category: "Micro-breath",
-        title: "5-4-3-2-1 Breath",
-        instruction: `Inhale to a comfortable count of 5, exhale to 4. Next breath in 4, out 3, then 3-2, 2-1.`,
-        character: "Alio",
-        comment: `Alio's Note: "Countdown, but instead of rockets, we launch calm."`
-      },
-
-      // Micro-connection
-      {
-        id: 31,
-        category: "Micro-connection",
-        title: "Smile & Eyes High-Five",
-        instruction: `Turn to someone, look into their eyes for 3-5 seconds and share a gentle smile.`,
-        character: "Nini",
-        comment: `Nini's Note: "Warning: strong chance of instant warm fuzzies."`
-      },
-      {
-        id: 32,
-        category: "Micro-connection",
-        title: "Hand Squeeze Signal",
-        instruction: `Hold someone's hand and give one slow squeeze that means "I am here with you".`,
-        character: "Mimi",
-        comment: `Mimi's Note: "Zero words. Maximum message."`
-      },
-      {
-        id: 33,
-        category: "Micro-connection",
-        title: "One-Word Compliment Toss",
-        instruction: `Each person says one word they admire about someone else in the room.`,
-        character: "Luli",
-        comment: `Luli's Note: "Like throwing tiny golden stickers on each other's hearts."`
-      },
-      {
-        id: 34,
-        category: "Micro-connection",
-        title: "Back-to-Back Breathing",
-        instruction: `Sit back-to-back and breathe slowly, feeling the other person's back move with each breath.`,
-        character: "Dilo",
-        comment: `Dilo's Note: "Two spines, one shared rhythm. Very advanced teamwork."`
-      },
-      {
-        id: 35,
-        category: "Micro-connection",
-        title: "Thank-You Look",
-        instruction: `Choose one person and give them a soft, grateful look for 3 seconds, thinking of one thing you appreciate about them.`,
-        character: "Bibi",
-        comment: `Bibi's Note: "Grandma tip: a thankful look often says more than a long speech."`
-      },
-      {
-        id: 36,
-        category: "Micro-connection",
-        title: "High-Five of the Moment",
-        instruction: `Give someone a gentle high-five and say: "We made it to this moment".`,
-        character: "Alio",
-        comment: `Alio's Note: "Instant team upgrade: unlocked."`
-      },
-      {
-        id: 37,
-        category: "Micro-connection",
-        title: "Now-Moment Share",
-        instruction: `Each person finishes the sentence: "Right now I like that..." and names something small in this moment.`,
-        character: "Luli",
-        comment: `Luli's Note: "Tiny honest sentence = big clarity boost."`
-      },
-      {
-        id: 38,
-        category: "Micro-connection",
-        title: "Heart Weather Share",
-        instruction: `Go around and let everyone say one "weather word" for their heart (sunny, cloudy, breezy, stormy...). No fixing, just listening.`,
-        character: "Nini",
-        comment: `Nini's Note: "All heart weather is welcome, even emotional drizzle."`
-      },
-      {
-        id: 39,
-        category: "Micro-connection",
-        title: "Hands-In Stack",
-        instruction: `Everyone puts one hand in the middle, stack-style. Take one deep breath together, then gently release.`,
-        character: "Mimi",
-        comment: `Mimi's Note: "Like a team huddle, but softer and without the shouting."`
-      },
-      {
-        id: 40,
-        category: "Micro-connection",
-        title: "Tiny Sorry, Tiny Repair",
-        instruction: `If someone feels ready, they say one short "I'm sorry for..." about something from today. The group responds with a simple "Thank you".`,
-        character: "Bibi",
-        comment: `Bibi's Note: "Small apology, big courage. That is real strength."`
-      }
-    ];
+{
+  id: 1,
+  category: "Breath",
+  title: "Safety Receipts",
+  instruction: `For one minute, silently list three signs your body is safe right now and let your brain accept the proof.`,
+  character: "Bibi",
+  comment: `Bibi's Note: "Facts calm faster. Receipts only."`
+},
+{
+  id: 2,
+  category: "Breath",
+  title: "Mind Volume Knob",
+  instruction: `For one minute, imagine turning down the volume of your thoughts one notch with every exhale.`,
+  character: "Mimi",
+  comment: `Mimi's Note: "Less noise, more you."`
+},
+{
+  id: 3,
+  category: "Movement",
+  title: "Soft Focus Reset",
+  instruction: `For one minute, soften your gaze and widen your view, because tunnel vision is stress fuel.`,
+  character: "Luli",
+  comment: `Luli's Note: "Zooming out is medicine."`
+},
+{
+  id: 4,
+  category: "Breath",
+  title: "Permission to Soften",
+  instruction: `For one minute, repeat silently "I'm allowed to soften" and relax one body part per breath.`,
+  character: "Bibi",
+  comment: `Bibi's Note: "Permission is powerful. Use it generously."`
+},
+{
+  id: 5,
+  category: "Breath",
+  title: "Boring Breath (In a Good Way)",
+  instruction: `For one minute, breathe as steadily as possible, because predictable rhythm tells your nervous system it can stop panicking.`,
+  character: "Mimi",
+  comment: `Mimi's Note: "Boring breath wins. Legendary, actually."`
+},
+{
+  id: 6,
+  category: "Connection",
+  title: "Gratitude, Felt Not Listed",
+  instruction: `For one minute, hold one grateful thought and feel it physically, like warmth spreading quietly.`,
+  character: "Nini",
+  comment: `Nini's Note: "Let it land. No PowerPoint needed."`
+},
+{
+  id: 7,
+  category: "Connection",
+  title: "Emotion Weather (Silent)",
+  instruction: `For one minute, name your emotion as weather and breathe like weather passes on its own schedule.`,
+  character: "Luli",
+  comment: `Luli's Note: "Storms move. You don't have to chase them."`
+},
+{
+  id: 8,
+  category: "Breath",
+  title: "Truth Anchor Line",
+  instruction: `For one minute, hold one true sentence ("I'm here", "We're safe", "This will pass") and breathe into it.`,
+  character: "Bibi",
+  comment: `Bibi's Note: "Truth steadies. Drama hates that."`
+},
+{
+  id: 9,
+  category: "Movement",
+  title: "Shoulder Melt Rolls",
+  instruction: `For one minute, roll your shoulders slowly and exhale as they drop like heavy curtains closing.`,
+  character: "Mimi",
+  comment: `Mimi's Note: "Instant softness. Your neck will send a thank-you note."`
+},
+{
+  id: 10,
+  category: "Movement",
+  title: "Wall-Press Calm",
+  instruction: `For one minute, gently press your palms into a wall on the exhale and release on the inhale to ground your body fast.`,
+  character: "Dilo",
+  comment: `Dilo's Note: "Wall = stress assistant. Very reliable."`
+},
+{
+  id: 11,
+  category: "Movement",
+  title: "Rooted Stand",
+  instruction: `For one minute, stand with soft knees and imagine roots in your feet while breathing long exhales.`,
+  character: "Bibi",
+  comment: `Bibi's Note: "Steady on purpose. Like a calm oak."`
+},
+{
+  id: 12,
+  category: "Movement",
+  title: "Hand Release Cycle",
+  instruction: `For one minute, softly clench your hands for two seconds and open for four seconds, teaching your body that release is safe.`,
+  character: "Bibi",
+  comment: `Bibi's Note: "Let-go training. Premium and effective."`
+},
+{
+  id: 13,
+  category: "Movement",
+  title: "Neck Yes/No (Slow)",
+  instruction: `For one minute, gently move your head yes and no with steady breath, like your body is agreeing to calm.`,
+  character: "Luli",
+  comment: `Luli's Note: "Consent for peace. Iconic."`
+},
+{
+  id: 14,
+  category: "Movement",
+  title: "Self-Hug Regulation",
+  instruction: `For one minute, hold a self-hug and breathe longer exhales, signaling safety through gentle pressure.`,
+  character: "Nini",
+  comment: `Nini's Note: "Hug, but private. Cozy stealth mode."`
+},
+{
+  id: 15,
+  category: "Movement",
+  title: "Jaw-Tongue Luxury Release",
+  instruction: `For one minute, relax your jaw and let your tongue rest, because this one move often lowers stress instantly.`,
+  character: "Bibi",
+  comment: `Bibi's Note: "Designer calm. Your jaw was overworking."`
+},
+{
+  id: 16,
+  category: "Breath",
+  title: "Long Exhale Rule",
+  instruction: `For one minute, inhale normally and exhale longer, because your exhale is your built-in calm button.`,
+  character: "Mimi",
+  comment: `Mimi's Note: "Exhale does the job. No negotiations."`
+},
+{
+  id: 17,
+  category: "Breath",
+  title: "Silent 'Haa' Release",
+  instruction: `For one minute, exhale like a silent "haa" to release pressure without counting.`,
+  character: "Bibi",
+  comment: `Bibi's Note: "Quiet, classy, effective."`
+},
+{
+  id: 18,
+  category: "Breath",
+  title: "Humming Settle",
+  instruction: `For one minute, hum gently on each exhale and let vibration calm your chest.`,
+  character: "Mimi",
+  comment: `Mimi's Note: "Science in disguise. Very cozy."`
+},
+{
+  id: 19,
+  category: "Breath",
+  title: "Soup-Cool Breath",
+  instruction: `For one minute, exhale as if cooling soup until your shoulders stop climbing.`,
+  character: "Nini",
+  comment: `Nini's Note: "Soup breath supremacy. Works every time."`
+},
+{
+  id: 20,
+  category: "Breath",
+  title: "Box Breath Lite",
+  instruction: `For one minute, breathe 3-3-3-3 (inhale-hold-exhale-hold) to create a predictable rhythm.`,
+  character: "Luli",
+  comment: `Luli's Note: "Order feels safe. Mystery solved."`
+},
+{
+  id: 21,
+  category: "Breath",
+  title: "Soft Sigh Reset",
+  instruction: `For one minute, use gentle sighs to teach your body that release is allowed (no dramatic performance required).`,
+  character: "Bibi",
+  comment: `Bibi's Note: "Designer sighs only."`
+},
+{
+  id: 22,
+  category: "Breath",
+  title: "Hand-on-Heart Breath",
+  instruction: `For one minute, keep a hand on your chest while breathing slowly to send a safety signal through touch.`,
+  character: "Bibi",
+  comment: `Bibi's Note: "Touch speaks calm. Loudly."`
+},
+{
+  id: 23,
+  category: "Breath",
+  title: "Snake Exhale",
+  instruction: `For one minute, exhale with a soft "ssss" to slow your breathing without math.`,
+  character: "Dilo",
+  comment: `Dilo's Note: "Stealth calm. Ninja-level."`
+},
+{
+  id: 24,
+  category: "Connection",
+  title: "Regulate Side-by-Side",
+  instruction: `For one minute, sit or stand near your family and breathe slowly, letting calm be contagious without conversation.`,
+  character: "Mimi",
+  comment: `Mimi's Note: "Co-regulation, but chic."`
+},
+{
+  id: 25,
+  category: "Connection",
+  title: "Kind-Eyes Minute",
+  instruction: `For one minute, offer one person a soft kind look, then return to neutral, like sending a quiet "I'm with you".`,
+  character: "Nini",
+  comment: `Nini's Note: "No speeches needed. Just sparkle."`
+},
+{
+  id: 26,
+  category: "Connection",
+  title: "Warm Presence Practice",
+  instruction: `For one minute, keep an open, relaxed posture (uncrossed arms, soft hands) to make the space feel safer.`,
+  character: "Bibi",
+  comment: `Bibi's Note: "Body language is loud. Make it kind."`
+},
+{
+  id: 27,
+  category: "Connection",
+  title: "Same-Team Intention",
+  instruction: `For one minute, breathe slowly while holding the intention "same team" like a shared internal playlist.`,
+  character: "Dilo",
+  comment: `Dilo's Note: "Co-op mode: stable."`
+},
+{
+  id: 28,
+  category: "Connection",
+  title: "Space-Respect Calm",
+  instruction: `For one minute, give everyone slightly more personal space than usual and breathe, because space lowers friction fast.`,
+  character: "Mimi",
+  comment: `Mimi's Note: "Space is kindness in 4K."`
+},
+{
+  id: 29,
+  category: "Connection",
+  title: "Restart Posture Signal",
+  instruction: `For one minute, practice a shared restart posture (soft face, shoulders down) so your family learns a calm cue.`,
+  character: "Bibi",
+  comment: `Bibi's Note: "Silent reset protocol. Very premium."`
+},
+{
+  id: 30,
+  category: "Connection",
+  title: "Quiet Huddle Calm",
+  instruction: `For one minute, stand in a loose huddle and breathe slowly, letting closeness feel safe and gentle.`,
+  character: "Nini",
+  comment: `Nini's Note: "Family aura upgraded."`
+}
+        ];
 
     /* ---------- DATA: ENERGY PRACTICES ---------- */
     const energyPractices = [
-      // 1-minute practice
-      {
-        id: 1,
-        category: "1-minute practice",
-        title: "Light-Up Minute",
-        instruction: `Stand tall, take one energizing breath and imagine switching on a bright inner light from head to toe.`,
-        character: "Bibi",
-        comment: `Bibi's Note: "Shine, darling. Even lamps need a moment to switch on."`
-      },
-      {
-        id: 2,
-        category: "1-minute practice",
-        title: "Happy Jump Start",
-        instruction: `Do tiny, soft hops in place for about 20 seconds - just enough to wake up your energy without getting exhausted.`,
-        character: "Alio",
-        comment: `Alio's Note: "Mini jumps, maximum zoom."`
-      },
-      {
-        id: 3,
-        category: "1-minute practice",
-        title: "Wake Up My Brain Clap",
-        instruction: `Clap once in front, once behind your back, once above your head. Repeat this pattern three times in a row.`,
-        character: "Mimi",
-        comment: `Mimi's Note: "Brain activated. You are welcome."`
-      },
-      {
-        id: 4,
-        category: "1-minute practice",
-        title: "Rainbow Refresh",
-        instruction: `Picture a rainbow sweeping through your body from head to toes, bringing bright, playful energy as it moves.`,
-        character: "Luli",
-        comment: `Luli's Note: "Color therapy... simplified."`
-      },
-      {
-        id: 5,
-        category: "1-minute practice",
-        title: "Spark Scan",
-        instruction: `Scan your body and find one place that feels sleepy. Imagine sending a tiny burst of light and breath into that spot.`,
-        character: "Dilo",
-        comment: `Dilo's Note: "Internal Wi-Fi: reconnecting..."`
-      },
-      {
-        id: 6,
-        category: "1-minute practice",
-        title: "Energy Wink",
-        instruction: `Wink at someone, exchange a smile and add a tiny celebratory finger snap or wiggle.`,
-        character: "Nini",
-        comment: `Nini's Note: "Warning: may cause giggles."`
-      },
-      {
-        id: 7,
-        category: "1-minute practice",
-        title: "Brain Switch Flip",
-        instruction: `Close your eyes, inhale deeply, open your eyes quickly and say one energizing word out loud.`,
-        character: "Alio",
-        comment: `Alio's Note: "Choose a powerful word... like 'ZOOM!'."`
-      },
-      {
-        id: 8,
-        category: "1-minute practice",
-        title: "Posture Pop-Up",
-        instruction: `Sit or stand up tall like a superhero, shoulders back, chin gently lifted, for 20-30 seconds.`,
-        character: "Mimi",
-        comment: `Mimi's Note: "Instant upgrade: activated."`
-      },
-      {
-        id: 9,
-        category: "1-minute practice",
-        title: "Light-Feet Shuffle",
-        instruction: `Shuffle your feet quickly left-right-left-right for about 10 seconds, keeping your steps light.`,
-        character: "Dilo",
-        comment: `Dilo's Note: "Good footwork. Coach approves."`
-      },
-      {
-        id: 10,
-        category: "1-minute practice",
-        title: "Minute of Boldness",
-        instruction: `For one minute, imagine you are 10% braver. Let that shape your posture, your face or one small choice.`,
-        character: "Luli",
-        comment: `Luli's Note: "Confidence: downloaded."`
-      },
+{
+  id: 1,
+  category: "Movement",
+  title: "10% Braver Body",
+  instruction: `For one minute, stand a little taller and breathe steadily like you're brave and polite at the same time.`,
+  character: "Luli",
+  comment: `Luli's Note: "Brave, not loud. That's premium."`
+},
+{
+  id: 2,
+  category: "Connection",
+  title: "Momentum Preview",
+  instruction: `For one minute, visualize starting your next tiny action smoothly, so your brain treats it as already doable.`,
+  character: "Mimi",
+  comment: `Mimi's Note: "Resistance melts when you pre-load success."`
+},
+{
+  id: 3,
+  category: "Movement",
+  title: "Victory Pose Circuit",
+  instruction: `For one minute, rotate through three calm victory poses, breathing steadily as if progress is your default setting.`,
+  character: "Dilo",
+  comment: `Dilo's Note: "XP confirmed. No capes required."`
+},
+{
+  id: 4,
+  category: "Movement",
+  title: "Joy Micro-Switch",
+  instruction: `For one minute, keep a soft smile and add one tiny movement (sway, bounce, shoulder pop), because motion invites mood.`,
+  character: "Nini",
+  comment: `Nini's Note: "Tiny joy, big fuel. It's unfair how well it works."`
+},
+{
+  id: 5,
+  category: "Breath",
+  title: "Bright Attention Wake-Up",
+  instruction: `For one minute, widen your vision and breathe in a steady rhythm to wake focus without turning anxious.`,
+  character: "Bibi",
+  comment: `Bibi's Note: "Alert, not anxious. Classy energy."`
+},
+{
+  id: 6,
+  category: "Breath",
+  title: "Silent Power Phrase",
+  instruction: `For one minute, silently mouth a power phrase while standing tall, letting your body and words sync.`,
+  character: "Mimi",
+  comment: `Mimi's Note: "Internal mic check: strong and kind."`
+},
+{
+  id: 7,
+  category: "Breath",
+  title: "Confidence Through Stillness",
+  instruction: `For one minute, stay still with tall posture and calm breath, proving to your brain you're in control.`,
+  character: "Bibi",
+  comment: `Bibi's Note: "Quiet confidence hits hard."`
+},
+{
+  id: 8,
+  category: "Breath",
+  title: "Start-Now Ritual",
+  instruction: `For one minute, repeat silently "Starting now" on each exhale to turn intention into motion.`,
+  character: "Mimi",
+  comment: `Mimi's Note: "Start beats perfect. Every time."`
+},
+{
+  id: 9,
+  category: "Movement",
+  title: "Steady March Boost",
+  instruction: `For one minute, march in place with swinging arms at a steady rhythm to wake the brain kindly.`,
+  character: "Mimi",
+  comment: `Mimi's Note: "Classic for a reason. Unbeatable."`
+},
+{
+  id: 10,
+  category: "Movement",
+  title: "Cross-Crawl Focus Builder",
+  instruction: `For one minute, tap right hand to left knee and switch smoothly to energize coordination and attention.`,
+  character: "Luli",
+  comment: `Luli's Note: "Brain bridge online. Smooth operator."`
+},
+{
+  id: 11,
+  category: "Movement",
+  title: "Rocket Arms (Controlled)",
+  instruction: `For one minute, swing your arms like gentle boosters, staying smooth and grounded.`,
+  character: "Alio",
+  comment: `Alio's Note: "Launch approved… but keep it elegant."`
+},
+{
+  id: 12,
+  category: "Movement",
+  title: "Twist-Out Fog",
+  instruction: `For one minute, twist your torso slowly and exhale through each twist to clear mental fog with movement.`,
+  character: "Bibi",
+  comment: `Bibi's Note: "Fog, please leave. Thank you."`
+},
+{
+  id: 13,
+  category: "Movement",
+  title: "Light Feet Shuffle",
+  instruction: `For one minute, shuffle lightly like a warm-up, keeping it playful and quiet.`,
+  character: "Dilo",
+  comment: `Dilo's Note: "Footwork upgrade. Coach smiles."`
+},
+{
+  id: 14,
+  category: "Movement",
+  title: "Chest-Open Shine",
+  instruction: `For one minute, roll shoulders back and lift your chest slightly on the inhale to feel instantly more capable.`,
+  character: "Mimi",
+  comment: `Mimi's Note: "Posture = sparkle. Verified."`
+},
+{
+  id: 15,
+  category: "Movement",
+  title: "Fast Fingers Focus",
+  instruction: `For one minute, tap each finger to your thumb quickly to energize without bouncing off the walls.`,
+  character: "Dilo",
+  comment: `Dilo's Note: "Stealth energy. Quiet but powerful."`
+},
+{
+  id: 16,
+  category: "Movement",
+  title: "Grounded Power Stomp",
+  instruction: `For one minute, do controlled stomps with soft knees, channeling energy into the floor, not into chaos.`,
+  character: "Bibi",
+  comment: `Bibi's Note: "Strong, calm, done."`
+},
+{
+  id: 17,
+  category: "Breath",
+  title: "Confetti Exhale Pulses",
+  instruction: `For one minute, exhale in tiny pulses like soft confetti to spark energy playfully.`,
+  character: "Nini",
+  comment: `Nini's Note: "Micro fireworks. No cleanup needed."`
+},
+{
+  id: 18,
+  category: "Breath",
+  title: "Cool Breeze Breath",
+  instruction: `For one minute, inhale through your nose and exhale cool air like you're refreshing your brain.`,
+  character: "Alio",
+  comment: `Alio's Note: "Fresh mode activated."`
+},
+{
+  id: 19,
+  category: "Breath",
+  title: "One Lion Exhale + Calm",
+  instruction: `For one minute, do one bold "HAA" exhale, then return to steady breathing to reboot energy safely.`,
+  character: "Alio",
+  comment: `Alio's Note: "Rawr… politely."`
+},
+{
+  id: 20,
+  category: "Breath",
+  title: "Rhythm Breath 3-3",
+  instruction: `For one minute, breathe in for three and out for three to energize through rhythm, not stress.`,
+  character: "Dilo",
+  comment: `Dilo's Note: "Beat locked. Let's go."`
+},
+{
+  id: 21,
+  category: "Breath",
+  title: "Power In, Calm Out",
+  instruction: `For one minute, inhale "power" and exhale "calm" to stay energized without tipping into frantic.`,
+  character: "Mimi",
+  comment: `Mimi's Note: "Balanced boost. Premium fuel."`
+},
+{
+  id: 22,
+  category: "Breath",
+  title: "Humming Lift",
+  instruction: `For one minute, hum on each exhale to lift energy while staying regulated.`,
+  character: "Bibi",
+  comment: `Bibi's Note: "Old-school upgrade. Works annoyingly well."`
+},
+{
+  id: 23,
+  category: "Breath",
+  title: "Wake-Up Sips",
+  instruction: `For one minute, take small light inhales and one longer exhale, keeping it gentle and steady.`,
+  character: "Luli",
+  comment: `Luli's Note: "Turbo, but safe. Detective approved."`
+},
+{
+  id: 24,
+  category: "Connection",
+  title: "Sync Sway Energy",
+  instruction: `For one minute, sway gently in the same rhythm as the group to create energy through shared movement.`,
+  character: "Mimi",
+  comment: `Mimi's Note: "Together = fuel. No speeches."`
+},
+{
+  id: 25,
+  category: "Connection",
+  title: "Silent Admiration Boost",
+  instruction: `For one minute, silently choose one admirable quality in the people you see and let warmth energize you.`,
+  character: "Nini",
+  comment: `Nini's Note: "Warmth is fuel. Secretly the best one."`
+},
+{
+  id: 26,
+  category: "Connection",
+  title: "Shared Identity Minute",
+  instruction: `For one minute, hold a family cheer in your mind and move with that "we've got this" identity.`,
+  character: "Mimi",
+  comment: `Mimi's Note: "Iconic, even silently."`
+},
+{
+  id: 27,
+  category: "Connection",
+  title: "Wordless Smile Relay",
+  instruction: `For one minute, pass a small smile around the group without speaking, like a gentle energy baton.`,
+  character: "Alio",
+  comment: `Alio's Note: "No words, all power. Very sneaky."`
+},
+{
+  id: 28,
+  category: "Connection",
+  title: "Meaning = Energy",
+  instruction: `For one minute, silently appreciate one helpful thing happening right now, because meaning boosts energy longer than sugar.`,
+  character: "Bibi",
+  comment: `Bibi's Note: "Energy with roots. The good kind."`
+},
+{
+  id: 29,
+  category: "Connection",
+  title: "Quiet Co-Op Commitment",
+  instruction: `For one minute, each person privately chooses one tiny next action and holds it, creating shared forward momentum.`,
+  character: "Mimi",
+  comment: `Mimi's Note: "Silent teamwork. Surprisingly elite."`
+},
+{
+  id: 30,
+  category: "Connection",
+  title: "Co-Op Courage Stand",
+  instruction: `For one minute, stand tall near each other and breathe steady, letting togetherness make bravery easier.`,
+  character: "Dilo",
+  comment: `Dilo's Note: "Squad strength unlocked."`
+}
+        ];
 
-      // Micro-movement
-      {
-        id: 11,
-        category: "Micro-movement",
-        title: "Rocket Arms",
-        instruction: `Swing your arms gently back and forth, gradually a bit faster, for about 15 seconds while staying relaxed.`,
-        character: "Alio",
-        comment: `Alio's Note: "This is pre-launch."`
-      },
-      {
-        id: 12,
-        category: "Micro-movement",
-        title: "Wake-Up Twist",
-        instruction: `Turn your upper body slowly left and right while keeping your hips facing forward.`,
-        character: "Bibi",
-        comment: `Bibi's Note: "Twist like you are checking who took the last cookie."`
-      },
-      {
-        id: 13,
-        category: "Micro-movement",
-        title: "Shoulder Pop",
-        instruction: `Lift one shoulder up and let it drop, then the other. Make a gentle rhythm out of it.`,
-        character: "Nini",
-        comment: `Nini's Note: "Shoulders dancing = mood dancing."`
-      },
-      {
-        id: 14,
-        category: "Micro-movement",
-        title: "High-Reach Stretch",
-        instruction: `Reach both arms up to the sky, maybe stand on your tiptoes, then relax your arms down.`,
-        character: "Mimi",
-        comment: `Mimi's Note: "Stretch like your dreams are stored on the top shelf."`
-      },
-      {
-        id: 15,
-        category: "Micro-movement",
-        title: "Happy Core Wiggle",
-        instruction: `Gently wiggle your hips in a small circle or side to side, starting slow and maybe a little faster.`,
-        character: "Alio",
-        comment: `Alio's Note: "This is advanced silliness. Excellent form."`
-      },
-      {
-        id: 16,
-        category: "Micro-movement",
-        title: "Fast Fingers",
-        instruction: `Tap each finger to your thumb quickly on both hands for 10-20 seconds.`,
-        character: "Dilo",
-        comment: `Dilo's Note: "Finger speed training: level unlocked."`
-      },
-      {
-        id: 17,
-        category: "Micro-movement",
-        title: "Power Stomp",
-        instruction: `Do two firm but controlled stomps with your feet to wake your legs up.`,
-        character: "Bibi",
-        comment: `Bibi's Note: "Walk like you mean business."`
-      },
-      {
-        id: 18,
-        category: "Micro-movement",
-        title: "Side-Step Shuffle",
-        instruction: `Step side-to-side in a quick but easy rhythm for about 15 seconds.`,
-        character: "Luli",
-        comment: `Luli's Note: "Left-right-left... beautiful choreography."`
-      },
-      {
-        id: 19,
-        category: "Micro-movement",
-        title: "Sunshine Chest Open",
-        instruction: `Pull your shoulders gently back, open your chest and take one big energizing breath.`,
-        character: "Mimi",
-        comment: `Mimi's Note: "A confident chest is the best accessory."`
-      },
-      {
-        id: 20,
-        category: "Micro-movement",
-        title: "Energy Snap Circle",
-        instruction: `Snap your fingers (or gently tap your fingers) in a circle around your body like you are waking up your space.`,
-        character: "Nini",
-        comment: `Nini's Note: "Snap like you found something exciting!"`
-      },
+    
+    const VIDEO_BASE = "assets/videos/";
 
-      // Micro-breath
-      {
-        id: 21,
-        category: "Micro-breath",
-        title: "Firefly Breath",
-        instruction: `Inhale normally, then exhale in tiny upbeat pulses, like "t-t-t-t-t", as if sending out little sparks of light.`,
-        character: "Nini",
-        comment: `Nini's Note: "Little sparks everywhere!"`
-      },
-      {
-        id: 22,
-        category: "Micro-breath",
-        title: "Energizing Lion Breath",
-        instruction: `Inhale deeply, then exhale with a playful "HAAA" while opening your mouth wide and widening your eyes.`,
-        character: "Alio",
-        comment: `Alio's Note: "Rawr = energy."`
-      },
-      {
-        id: 23,
-        category: "Micro-breath",
-        title: "Power Nose Breath",
-        instruction: `Take short sharp inhales and sharp exhales through your nose 10 times in a row, then rest.`,
-        character: "Dilo",
-        comment: `Dilo's Note: "Fast breath, fast focus."`
-      },
-      {
-        id: 24,
-        category: "Micro-breath",
-        title: "Balloon Boost Breath",
-        instruction: `Inhale and puff your cheeks out, hold for a moment, then blow the air out like a small power burst.`,
-        character: "Bibi",
-        comment: `Bibi's Note: "Graceful? No. Effective? Yes."`
-      },
-      {
-        id: 25,
-        category: "Micro-breath",
-        title: "Color Pop Breath",
-        instruction: `Choose a bright color; inhale imagining it entering your body, exhale imagining that color lighting you up from inside.`,
-        character: "Luli",
-        comment: `Luli's Note: "Internal fireworks... the gentle kind."`
-      },
-      {
-        id: 26,
-        category: "Micro-breath",
-        title: "Sharp 'Yes!' Breath",
-        instruction: `Inhale deeply, exhale while saying a quiet but confident "Yes" and feel it in your body.`,
-        character: "Mimi",
-        comment: `Mimi's Note: "Confidence exhaled."`
-      },
-      {
-        id: 27,
-        category: "Micro-breath",
-        title: "Alert Breath",
-        instruction: `Take one short inhale and a longer, slightly faster exhale. Repeat 6 times, staying relaxed.`,
-        character: "Alio",
-        comment: `Alio's Note: "Like blowing dust off your energy."`
-      },
-      {
-        id: 28,
-        category: "Micro-breath",
-        title: "Warm Hands Breath",
-        instruction: `Rub your hands together quickly while breathing steadily until they feel warm.`,
-        character: "Nini",
-        comment: `Nini's Note: "Magic hands activated."`
-      },
-      {
-        id: 29,
-        category: "Micro-breath",
-        title: "Smile Breath",
-        instruction: `Inhale normally; on the exhale, let a small gentle smile appear on your face.`,
-        character: "Bibi",
-        comment: `Bibi's Note: "Smiling is basically emotional caffeine."`
-      },
-      {
-        id: 30,
-        category: "Micro-breath",
-        title: "Triple Boost Breath",
-        instruction: `Take three quick mini inhales in a row, then one long exhale. Repeat a few times.`,
-        character: "Dilo",
-        comment: `Dilo's Note: "Turbo mode engaged."`
-      },
+    const DANCE_VIDEO_MAP = {
+      Mimi: "Mimi tanczy 1.mp4",
+      Luli: "Luli tanczy 1.mp4",
+      Dilo: "Dilo tanczy 3.mp4",
+      Alio: "Alio tanczy.mp4",
+      Nini: "Nini tanczy.mp4",
+      Bibi: "Bibi tanczy.mp4"
+    };
 
-      // Micro-connection
-      {
-        id: 31,
-        category: "Micro-connection",
-        title: "Power Compliment",
-        instruction: `Give someone one warm, energetic compliment about something they did or how they are.`,
-        character: "Nini",
-        comment: `Nini's Note: "Instant sparkle delivery."`
-      },
-      {
-        id: 32,
-        category: "Micro-connection",
-        title: "3-Second Cheer",
-        instruction: `Cheer loudly and joyfully for someone in the room for exactly three seconds.`,
-        character: "Alio",
-        comment: `Alio's Note: "YES! That is the spirit!"`
-      },
-      {
-        id: 33,
-        category: "Micro-connection",
-        title: "Energy Mirror",
-        instruction: `One person makes a short energetic move; the others copy it like a mirror.`,
-        character: "Mimi",
-        comment: `Mimi's Note: "Copy wisely."`
-      },
-      {
-        id: 34,
-        category: "Micro-connection",
-        title: "High-Five Chain",
-        instruction: `Everyone high-fives everyone else once. Extra points for eye contact and smiles.`,
-        character: "Dilo",
-        comment: `Dilo's Note: "Team energy upgraded."`
-      },
-      {
-        id: 35,
-        category: "Micro-connection",
-        title: "Victory Pose Together",
-        instruction: `Stand tall with feet strong, hands up, superhero style and hold for 5 seconds.`,
-        character: "Luli",
-        comment: `Luli's Note: "Confidence shared multiplies."`
-      },
-      {
-        id: 36,
-        category: "Micro-connection",
-        title: "Synchronized Clap",
-        instruction: `Count "1-2-3" together, then clap at exactly the same time.`,
-        character: "Bibi",
-        comment: `Bibi's Note: "Perfect timing = perfect family jazz."`
-      },
-      {
-        id: 37,
-        category: "Micro-connection",
-        title: "Micro Celebration",
-        instruction: `Make a tiny celebration move or gesture for something you did well today.`,
-        character: "Nini",
-        comment: `Nini's Note: "Mini win = mini dance."`
-      },
-      {
-        id: 38,
-        category: "Micro-connection",
-        title: "Cheer Circle",
-        instruction: `One person says something brave they did today; everyone gives them a short cheer.`,
-        character: "Alio",
-        comment: `Alio's Note: "Applause is fuel."`
-      },
-      {
-        id: 39,
-        category: "Micro-connection",
-        title: "Shared Smile Boost",
-        instruction: `Everyone smiles at the same time for three seconds, then relaxes and notices how it feels.`,
-        character: "Mimi",
-        comment: `Mimi's Note: "Group sparkle: activated."`
-      },
-      {
-        id: 40,
-        category: "Micro-connection",
-        title: "'We Got This' Moment",
-        instruction: `Everyone puts one hand in the middle and says together: "We got this!".`,
-        character: "Dilo",
-        comment: `Dilo's Note: "Energy teamwork: complete."`
+    const CALM_VIDEO_MAP = {
+      Mimi: "Mimi calm.mp4",
+      Luli: "Luli calm.mp4",
+      Dilo: "Dilo calm.mp4",
+      Alio: "Alio calm.mp4",
+      Nini: "Nini calm.mp4",
+      Bibi: "Bibi calm.mp4"
+    };
+
+    function toSrc(filename){
+      return VIDEO_BASE + encodeURIComponent(filename).replace(/%2F/g, "/");
+    }
+
+    function setCenterVideo(theme, character){
+      const isEnergy = theme === 'energy';
+      const video = document.getElementById(isEnergy ? 'energy-center-video' : 'calm-center-video');
+      const fallback = document.getElementById(isEnergy ? 'energy-center-fallback' : 'calm-center-fallback');
+      if (!video || !fallback) return;
+
+      const map = isEnergy ? DANCE_VIDEO_MAP : CALM_VIDEO_MAP;
+      const file = map[character];
+      if (!file) {
+        video.removeAttribute('src');
+        video.style.display = 'none';
+        fallback.style.display = 'block';
+        return;
       }
-    ];
 
-    /* ---------- WHEEL LOGIC ---------- */
+      fallback.style.display = 'none';
+      video.style.display = 'block';
+      video.src = toSrc(file);
+      video.load();
+      const p = video.play();
+      if (p && typeof p.catch === 'function') p.catch(()=>{});
 
-    function getVideoSources(name, theme) {
-      if (!name) return null;
-      const remoteBase = 'https://raw.githubusercontent.com/riseshineevolve-source/RISE.SHINE.EVOLVE/main/assets/videos/';
-      const calmFile = `${name} calm.mp4`;
-      const energyFiles = {
-        Luli: 'Luli tanczy 1.mp4',
-        Dilo: 'Dilo tanczy 3.mp4',
-        Alio: 'Alio tanczy.mp4',
-        Nini: 'Nini tanczy.mp4',
-        Mimi: 'Mimi tanczy 1.mp4',
-        Bibi: 'Bibi tanczy.mp4',
-      };
-      const fileName = theme === 'calm'
-        ? calmFile
-        : (energyFiles[name] || `${name} tanczy.mp4`);
-      const primary = `assets/videos/${fileName}`;
-      const fallback = `${remoteBase}${encodeURIComponent(fileName)}`;
-      return {
-        primary: encodeURI(primary),
-        fallback,
+      video.onerror = () => {
+        video.style.display = 'none';
+        fallback.style.display = 'block';
       };
     }
+
+/* ---------- WHEEL LOGIC ---------- */
 
     function renderPracticeCard(practice, targetElement, theme) {
       if (!practice) {
@@ -1588,21 +1704,12 @@
       const speaker = (speakerRaw || "").trim();
       const quote = quoteParts.join(":").trim();
 
-      const videoSources = getVideoSources(practice.character, theme);
-      const videoHtml = videoSources
-        ? `<video class="hm-result-portrait hm-result-portrait--video" autoplay loop muted playsinline aria-label="${practice.character} ${theme} video">
-            <source src="${videoSources.primary}" type="video/mp4">
-            <source src="${videoSources.fallback}" type="video/mp4">
-          </video>`
-        : '';
-
       targetElement.innerHTML = `
         <article class="${themeClass}">
           <div class="hm-pill-row">
             <div class="hm-pill">${practice.category}</div>
             <div class="hm-pill hm-pill-character">With ${practice.character}</div>
           </div>
-          ${videoHtml}
           <h2 class="hm-result-title">${practice.title}</h2>
           <div class="hm-result-type">Family micro-practice</div>
           <p class="hm-result-instruction">${practice.instruction}</p>
@@ -1732,6 +1839,9 @@
           highlightIconAtIndex(wheelEl, slotIndex);
           renderPracticeCard(chosenPractice, resultEl, theme);
 
+          // Update the premium character video in the wheel center
+          setCenterVideo(theme, chosenPractice.character);
+
           spinBtn.textContent =
             theme === "energy" ? "⚡ Start spinning" : "🎡 Start spinning";
         }
@@ -1759,7 +1869,11 @@
       });
     }
 
-    setupWheel({
+        // Default character visuals
+    setCenterVideo("calm", "Mimi");
+    setCenterVideo("energy", "Dilo");
+
+setupWheel({
       practices: calmPractices,
       spinButtonId: "calm-spin-btn",
       resultContainerId: "calm-result",
