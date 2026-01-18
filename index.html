@@ -4043,18 +4043,18 @@
     }
 
     .hm-result-avatar-card {
-      width: 72px;
-      height: 72px;
+      width: 96px;
+      height: 96px;
       position: absolute;
-      top: 12px;
-      right: 12px;
+      top: 50%;
+      right: 16px;
+      transform: translateY(-50%);
     }
 
     .hm-result-card-header {
       display: flex;
       flex-direction: column;
       gap: 8px;
-      padding-right: 84px;
     }
 
     .hm-result-video {
@@ -4201,7 +4201,7 @@
 
     .hm-result-card {
       border-radius: 18px;
-      padding: 14px 14px 16px;
+      padding: 14px 120px 16px 14px;
       background: #000000;
       position: relative;
       overflow: hidden;
@@ -4404,10 +4404,13 @@
       }
 
       .hm-result-avatar-card {
-        width: 64px;
-        height: 64px;
-        top: 10px;
-        right: 10px;
+        width: 80px;
+        height: 80px;
+        right: 12px;
+      }
+
+      .hm-result-card {
+        padding-right: 104px;
       }
     }
   </style>
@@ -5582,7 +5585,7 @@ body {
   <div id="result-card" class="hm-card">
     <div class="hm-card-header">
       <div class="hm-avatar" id="hm-avatar">
-        <video id="hm-avatar-video" class="hm-avatar-video" autoplay muted loop playsinline></video>
+        <video id="hm-avatar-video" class="hm-avatar-video" autoplay muted loop playsinline preload="auto"></video>
         <div id="hm-avatar-fallback" class="hm-avatar-fallback" aria-hidden="true"></div>
       </div>
       <div style="max-width: 440px;">
@@ -5810,6 +5813,76 @@ const challenges = [
   character: "Bibi",
   comment: "Bibi: \"That\u2019s the vibe.\"",
   category: "Presence"
+},
+{
+  title: "Legend Focus Lock",
+  instruction: "For one minute, pick one spot in the room, keep your body still, and breathe slowly while you lock your attention on it like a striker aiming at the goal.",
+  character: "Dilo",
+  comment: "Dilo: \"Focus is a superpower - and yes, it can be trained.\"",
+  category: "Mindfulness"
+},
+{
+  title: "Pressure-to-Power Stance",
+  instruction: "For one minute, stand grounded with feet steady, chest open, and shoulders relaxed, then breathe like pressure is fuel you\u2019re turning into calm confidence.",
+  character: "Dilo",
+  comment: "Dilo: \"Same pressure, different player.\"",
+  category: "Courage"
+},
+{
+  title: "Silent Victory Replay",
+  instruction: "For one minute, picture one moment you want to handle well today, and rehearse yourself doing it with a steady breath, steady face, and steady choices.",
+  character: "Dilo",
+  comment: "Dilo: \"Practice in your head. Perform in real life.\"",
+  category: "Mindfulness"
+},
+{
+  title: "Energy Into the Floor",
+  instruction: "For one minute, press your feet gently into the ground on each exhale, as if you\u2019re charging your body from the floor like a calm, powerful battery.",
+  character: "Dilo",
+  comment: "Dilo: \"Grounded energy hits different.\"",
+  category: "Mindfulness"
+},
+{
+  title: "Micro-Discipline Minute",
+  instruction: "For one minute, choose one tiny rule for yourself (slow breath, soft shoulders, calm hands) and keep it perfectly, because self-control builds real confidence fast.",
+  character: "Dilo",
+  comment: "Dilo: \"One minute of control = big confidence later.\"",
+  category: "Courage"
+},
+{
+  title: "Calm Designer Mode",
+  instruction: "For one minute, breathe slowly and imagine you\u2019re designing calm like a pro, smoothing the air around you with each exhale like polishing a glass screen.",
+  character: "Alio",
+  comment: "Alio: \"Same brain. Better settings.\"",
+  category: "Mindfulness"
+},
+{
+  title: "Silent Giggle Mission",
+  instruction: "For one minute, try to make yourself smile using only your face, like you\u2019re running a stealth joy mission with zero sound and maximum style.",
+  character: "Alio",
+  comment: "Alio: \"Silent giggles are elite.\"",
+  category: "Fun"
+},
+{
+  title: "Spark-to-Steady Switch",
+  instruction: "For one minute, breathe out longer than you breathe in, and on every exhale soften one tiny alarm in your body (brows, jaw, hands, shoulders) until the system settles.",
+  character: "Alio",
+  comment: "Alio: \"I can be dramatic\u2026 but I can also be regulated.\"",
+  category: "Mindfulness"
+},
+{
+  title: "Curiosity Upgrade",
+  instruction: "For one minute, scan the room and silently notice three details you\u2019ve never paid attention to before, like you\u2019re exploring a brand-new world.",
+  character: "Alio",
+  comment: "Alio: \"Curiosity is calm wearing a cool jacket.\"",
+  category: "Mindfulness"
+},
+{
+  title: "Exhale Advantage Countdown",
+  instruction: "For one minute, count only your exhales from 1 to 6 and start again, keeping your face relaxed like you\u2019ve got a secret advantage.",
+  character: "Alio",
+  comment: "Alio: \"Counting exhales = instant brain refresh.\"",
+  category: "Mindfulness"
 }
 ];
 
