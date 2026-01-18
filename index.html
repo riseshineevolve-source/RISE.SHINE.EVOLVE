@@ -8596,12 +8596,6 @@ document
                     return;
                 }
             }
-            const isMobileGift = isGiftMobileViewport();
-            const isLandscape = window.matchMedia && window.matchMedia('(orientation: landscape)').matches;
-            if (isMobileGift && isLandscape) {
-                showGiftFallback('Please rotate your phone to portrait mode to open this gift.');
-                return;
-            }
             const html = getGiftHtml(key);
             const source = giftSources[key];
 
