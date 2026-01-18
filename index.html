@@ -8606,11 +8606,8 @@ document
                 giftFrame.style.display = 'block';
             };
 
-            if (html) {
-                setGiftFrameHtml(html);
-                revealGiftFrameSoon();
-            } else if (source) {
-                const srcWithCacheBust = key === 'wordSearchPro' ? `${source}?v=${Date.now()}` : source;
+            if (key === 'wordSearchPro' && source) {
+                const srcWithCacheBust = `${source}?v=${Date.now()}`;
                 giftFrame.style.display = 'block';
                 giftFrame.onerror = () => {
                     if (html) {
@@ -8621,6 +8618,15 @@ document
                     }
                 };
                 giftFrame.src = srcWithCacheBust;
+            } else if (html) {
+                setGiftFrameHtml(html);
+                revealGiftFrameSoon();
+            } else if (source) {
+                giftFrame.style.display = 'block';
+                giftFrame.onerror = () => {
+                    showGiftFallback();
+                };
+                giftFrame.src = source;
             } else {
                 showGiftFallback();
                 return;
