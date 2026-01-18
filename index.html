@@ -4042,6 +4042,52 @@
       box-shadow: 0 0 12px rgba(255, 88, 199, 0.35);
     }
 
+    .hm-result-card-header {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .hm-result-video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .hm-result-fallback {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      opacity: 0.85;
+    }
+
+    .hm-result-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 2px solid rgba(255, 255, 255, 0.6);
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .hm-result-avatar--calm {
+      border-color: rgba(138, 43, 226, 0.8);
+      box-shadow: 0 0 12px rgba(138, 43, 226, 0.45);
+    }
+
+    .hm-result-avatar--energy {
+      border-color: rgba(255, 88, 199, 0.8);
+      box-shadow: 0 0 12px rgba(255, 88, 199, 0.35);
+    }
+
     .hm-result-avatar-card {
       width: 96px;
       height: 96px;
@@ -4201,10 +4247,37 @@
 
     .hm-result-card {
       border-radius: 18px;
-      padding: 14px 120px 16px 14px;
+      padding: 14px 140px 16px 14px;
       background: #000000;
       position: relative;
       overflow: hidden;
+    }
+
+    .hm-result-video-circle {
+      width: 120px;
+      height: 120px;
+      position: absolute;
+      top: 50%;
+      right: 16px;
+      transform: translateY(-50%);
+      border-radius: 50%;
+      overflow: hidden;
+      border: 2px solid rgba(255, 255, 255, 0.6);
+      box-shadow: 0 0 16px rgba(0, 0, 0, 0.4);
+      background: rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hm-result-video-circle--calm {
+      border-color: rgba(138, 43, 226, 0.9);
+      box-shadow: 0 0 18px rgba(138, 43, 226, 0.55);
+    }
+
+    .hm-result-video-circle--energy {
+      border-color: rgba(255, 88, 199, 0.9);
+      box-shadow: 0 0 18px rgba(255, 88, 199, 0.45);
     }
 
     .hm-result-card--calm {
@@ -4403,14 +4476,14 @@
         max-width: 100%;
       }
 
-      .hm-result-avatar-card {
-        width: 80px;
-        height: 80px;
-        right: 12px;
+      .hm-result-card {
+        padding-right: 116px;
       }
 
-      .hm-result-card {
-        padding-right: 104px;
+      .hm-result-video-circle {
+        width: 96px;
+        height: 96px;
+        right: 12px;
       }
     }
   </style>
@@ -5163,8 +5236,10 @@
 
       const themeClass =
         theme === "energy" ? "hm-result-card hm-result-card--energy" : "hm-result-card hm-result-card--calm";
-      const avatarClass =
-        theme === "energy" ? "hm-result-avatar hm-result-avatar--energy hm-result-avatar-card" : "hm-result-avatar hm-result-avatar--calm hm-result-avatar-card";
+      const circleClass =
+        theme === "energy"
+          ? "hm-result-video-circle hm-result-video-circle--energy"
+          : "hm-result-video-circle hm-result-video-circle--calm";
       const videoId = theme === "energy" ? "energy-result-video" : "calm-result-video";
       const fallbackId = theme === "energy" ? "energy-result-fallback" : "calm-result-fallback";
       const fallbackIcon = theme === "energy" ? "⚡" : "✨";
@@ -5181,7 +5256,7 @@
               <div class="hm-pill hm-pill-character">With ${practice.character}</div>
             </div>
           </div>
-          <div class="${avatarClass}">
+          <div class="${circleClass}">
             <video class="hm-result-video" id="${videoId}" autoplay muted loop playsinline></video>
             <div class="hm-result-fallback" id="${fallbackId}" aria-hidden="true">${fallbackIcon}</div>
           </div>
@@ -5217,6 +5292,15 @@
       slots[safeIndex].classList.add("hm-selected");
     }
 
+    function shuffleArray(list) {
+      const arr = [...list];
+      for (let i = arr.length - 1; i > 0; i -= 1) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
     function setupWheel(options) {
       const {
         practices,
@@ -5230,6 +5314,7 @@
       let currentFilter = "all";
       let isSpinning = false;
       const slotCharacters = ["Luli", "Dilo", "Alio", "Nini", "Mimi", "Bibi"];
+      let characterQueue = shuffleArray(slotCharacters);
 
       const spinBtn = document.getElementById(spinButtonId);
       const resultEl = document.getElementById(resultContainerId);
@@ -5277,8 +5362,26 @@
 
           const slotCount = slotCharacters.length || 1;
           const degreesPerSlot = 360 / slotCount;
-          const slotIndex = Math.floor(Math.random() * slotCount);
-          const characterName = slotCharacters[slotIndex] || slotCharacters[0];
+          const availableCharacters = new Set(filteredList.map(practice => practice.character));
+          let characterName = null;
+          let slotIndex = 0;
+
+          if (availableCharacters.size) {
+            for (let i = 0; i < characterQueue.length; i += 1) {
+              const candidate = characterQueue[i];
+              if (availableCharacters.has(candidate)) {
+                characterName = candidate;
+                slotIndex = slotCharacters.indexOf(candidate);
+                characterQueue = characterQueue.slice(i + 1).concat(characterQueue.slice(0, i + 1));
+                break;
+              }
+            }
+          }
+
+          if (!characterName) {
+            slotIndex = Math.floor(Math.random() * slotCount);
+            characterName = slotCharacters[slotIndex] || slotCharacters[0];
+          }
 
           const characterMatches = filteredList.filter(
             practice => practice.character === characterName
@@ -5984,14 +6087,77 @@ function setAvatar(character){
   };
 }
 
-const categoryIcons = ["⭐", "✦", "❖", "✧"]; 
+const categoryIcons = ["⭐", "✦", "❖", "✧"];
 let remaining = [...challenges];
+let lastCharacter = null;
+let characterQueue = [];
+let challengesByCharacter = new Map();
 
-function pickChallenge(){
-  if (!remaining.length) remaining = [...challenges];
-  const i = Math.floor(Math.random() * remaining.length);
-  return remaining.splice(i, 1)[0];
+function shuffleArray(list) {
+  const arr = [...list];
+  for (let i = arr.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
 }
+
+function resetChallengePools() {
+  remaining = [...challenges];
+  challengesByCharacter = new Map();
+  for (const challenge of remaining) {
+    if (!challengesByCharacter.has(challenge.character)) {
+      challengesByCharacter.set(challenge.character, []);
+    }
+    challengesByCharacter.get(challenge.character).push(challenge);
+  }
+  for (const [character, list] of challengesByCharacter.entries()) {
+    challengesByCharacter.set(character, shuffleArray(list));
+  }
+  characterQueue = shuffleArray([...challengesByCharacter.keys()]);
+}
+
+function pickChallenge() {
+  if (!remaining.length || !characterQueue.length) {
+    resetChallengePools();
+  }
+
+  let selectedCharacter = null;
+  for (let i = 0; i < characterQueue.length; i += 1) {
+    const candidate = characterQueue[i];
+    const pool = challengesByCharacter.get(candidate) || [];
+    if (pool.length && candidate !== lastCharacter) {
+      selectedCharacter = candidate;
+      characterQueue = characterQueue.slice(i + 1).concat(characterQueue.slice(0, i + 1));
+      break;
+    }
+  }
+
+  if (!selectedCharacter) {
+    for (let i = 0; i < characterQueue.length; i += 1) {
+      const candidate = characterQueue[i];
+      const pool = challengesByCharacter.get(candidate) || [];
+      if (pool.length) {
+        selectedCharacter = candidate;
+        characterQueue = characterQueue.slice(i + 1).concat(characterQueue.slice(0, i + 1));
+        break;
+      }
+    }
+  }
+
+  if (!selectedCharacter) {
+    resetChallengePools();
+    return pickChallenge();
+  }
+
+  const pool = challengesByCharacter.get(selectedCharacter);
+  const picked = pool.shift();
+  remaining = remaining.filter(item => item !== picked);
+  lastCharacter = picked.character;
+  return picked;
+}
+
+resetChallengePools();
 
 function renderChallenge(c){
   setAvatar(c.character);

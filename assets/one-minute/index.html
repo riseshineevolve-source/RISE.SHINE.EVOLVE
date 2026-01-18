@@ -547,14 +547,77 @@ function setAvatar(character){
   };
 }
 
-const categoryIcons = ["⭐", "✦", "❖", "✧"]; 
+const categoryIcons = ["⭐", "✦", "❖", "✧"];
 let remaining = [...challenges];
+let lastCharacter = null;
+let characterQueue = [];
+let challengesByCharacter = new Map();
 
-function pickChallenge(){
-  if (!remaining.length) remaining = [...challenges];
-  const i = Math.floor(Math.random() * remaining.length);
-  return remaining.splice(i, 1)[0];
+function shuffleArray(list) {
+  const arr = [...list];
+  for (let i = arr.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
 }
+
+function resetChallengePools() {
+  remaining = [...challenges];
+  challengesByCharacter = new Map();
+  for (const challenge of remaining) {
+    if (!challengesByCharacter.has(challenge.character)) {
+      challengesByCharacter.set(challenge.character, []);
+    }
+    challengesByCharacter.get(challenge.character).push(challenge);
+  }
+  for (const [character, list] of challengesByCharacter.entries()) {
+    challengesByCharacter.set(character, shuffleArray(list));
+  }
+  characterQueue = shuffleArray([...challengesByCharacter.keys()]);
+}
+
+function pickChallenge() {
+  if (!remaining.length || !characterQueue.length) {
+    resetChallengePools();
+  }
+
+  let selectedCharacter = null;
+  for (let i = 0; i < characterQueue.length; i += 1) {
+    const candidate = characterQueue[i];
+    const pool = challengesByCharacter.get(candidate) || [];
+    if (pool.length && candidate !== lastCharacter) {
+      selectedCharacter = candidate;
+      characterQueue = characterQueue.slice(i + 1).concat(characterQueue.slice(0, i + 1));
+      break;
+    }
+  }
+
+  if (!selectedCharacter) {
+    for (let i = 0; i < characterQueue.length; i += 1) {
+      const candidate = characterQueue[i];
+      const pool = challengesByCharacter.get(candidate) || [];
+      if (pool.length) {
+        selectedCharacter = candidate;
+        characterQueue = characterQueue.slice(i + 1).concat(characterQueue.slice(0, i + 1));
+        break;
+      }
+    }
+  }
+
+  if (!selectedCharacter) {
+    resetChallengePools();
+    return pickChallenge();
+  }
+
+  const pool = challengesByCharacter.get(selectedCharacter);
+  const picked = pool.shift();
+  remaining = remaining.filter(item => item !== picked);
+  lastCharacter = picked.character;
+  return picked;
+}
+
+resetChallengePools();
 
 function renderChallenge(c){
   setAvatar(c.character);
