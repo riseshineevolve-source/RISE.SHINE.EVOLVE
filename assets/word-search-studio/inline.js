@@ -601,6 +601,14 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
             width: 100%;
         }
 
+        .word-search-instruction {
+            text-align: center;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #f4f1ff;
+            margin: 0;
+        }
+
         .word-search {
             display: grid;
             gap: clamp(0px, 0.1vw, 1px);
@@ -1564,6 +1572,7 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
 
         <div class="game-area" id="gameArea" style="display: none;">
             <div class="puzzle-container">
+                <p class="word-search-instruction">Click the first letter and each following letter until the last.</p>
                 <div class="word-search" id="wordSearch"></div>
                 <div style="text-align: center; margin-top: 20px;" id="onlineAnswerButtons">
                     <button class="btn btn-secondary" id="showAnswersBtn" style="display: none;">Show Hint</button>
