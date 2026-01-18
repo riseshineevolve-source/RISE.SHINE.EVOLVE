@@ -1110,6 +1110,13 @@
             }
         }
 
+        .gifts-library-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 24px;
+            padding: 0 10px;
+        }
+
         @media (max-width: 900px) {
             #gifts-content .gifts-library-grid {
                 display: flex !important;
@@ -2294,7 +2301,7 @@
        <p style="color: #ffd700; font-size: 1rem; margin: 0;">A pocket-sized library of free resources: calm tools, mini challenges, and word games made for family growth.<br>New GIFTS drop regularly.</p>
        <p style="color: #ffffff; font-size: 0.95rem; margin: 10px 0 0 0;">Tip for smaller screens: GIFTS work beautifully in both portrait and landscape.</p>
       </div>
-      <div class="gifts-library-grid" style="display: flex; flex-direction: column; gap: 24px; padding: 0 10px;">
+      <div class="gifts-library-grid">
        <div id="gift-card-calm-energy" class="gift-card" style="background: #000000; border: 3px solid #ffd700; border-radius: 18px; padding: 22px; text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(255, 215, 0, 0.5); position: relative; min-height: 300px; display: flex; flex-direction: column; align-items: center; gap: 12px;">
         <div style="position: absolute; top: 12px; left: 12px; background: #8A2BE2; color: #ffffff; font-size: 0.7rem; font-weight: bold; padding: 6px 10px; border-radius: 10px; text-transform: uppercase; box-shadow: 0 0 12px rgba(138, 43, 226, 0.6);">Available</div>
         <div style="width: 86px; height: 86px; margin-top: 8px; border-radius: 50%; border: 3px solid #ffd700; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 20px rgba(255,215,0,0.6);">
@@ -8537,13 +8544,6 @@ document
             wordSearchPro: 'assets/word-search-studio/index.html',
         };
 
-        const wordSearchProInlineHtml =
-            (typeof window !== 'undefined' && window.WORD_SEARCH_STUDIO_HTML)
-                ? window.WORD_SEARCH_STUDIO_HTML
-                : null;
-        const wordSearchProUrl = giftSources.wordSearchPro;
-        let wordSearchProHtmlPromise = null;
-
         function getGiftHtml(key) {
             const tpl = giftTemplates[key];
             if (!tpl) return null;
@@ -8612,9 +8612,6 @@ document
             }
             const html = getGiftHtml(key);
             const source = giftSources[key];
-            const isMobileGift = isGiftMobileViewport();
-            const preferBlob = isMobileGift
-                || (window.matchMedia && window.matchMedia('(orientation: portrait)').matches);
 
             if (openGiftInNewWindow(key, html, source)) {
                 return;
@@ -8632,79 +8629,9 @@ document
                 giftFrame.style.display = 'block';
             };
 
-            if (isMobileGift) {
-                if (html) {
-                    setGiftFrameHtml(html);
-                    revealGiftFrameSoon();
-                } else {
-                    showGiftFallback();
-                    return;
-                }
-
-                giftOverlay.style.display = 'flex';
-                document.body.style.overflow = 'hidden';
-
-                if (!giftOverlayOpen) {
-                    const activeTab = document.querySelector('.tab.active');
-                    giftOverlayReturnTab = activeTab?.dataset?.tab || 'main';
-                    history.pushState({ giftOverlay: true }, document.title, window.location.href);
-                    giftOverlayOpen = true;
-                }
-                return;
-            }
-
-            if (key === 'wordSearchPro') {
-                if (preferBlob && html) {
-                    setGiftFrameHtml(html);
-                    revealGiftFrameSoon();
-                    giftOverlay.style.display = 'flex';
-                    document.body.style.overflow = 'hidden';
-
-                    if (!giftOverlayOpen) {
-                        const activeTab = document.querySelector('.tab.active');
-                        giftOverlayReturnTab = activeTab?.dataset?.tab || 'main';
-                        history.pushState({ giftOverlay: true }, document.title, window.location.href);
-                        giftOverlayOpen = true;
-                    }
-                    return;
-                }
-                const inlineHtml = (wordSearchProInlineHtml || '').trim();
-                if (inlineHtml) {
-                    giftFrame.style.display = 'block';
-                    setGiftFrameHtml(inlineHtml);
-                    revealGiftFrameSoon();
-                } else if (wordSearchProUrl) {
-                    giftFrame.style.display = 'block';
-                    giftFallback.innerHTML = '<div style="width:100%;padding:12px 8px;">Loading Word Search Studio…</div>';
-
-                    if (!wordSearchProHtmlPromise) {
-                        wordSearchProHtmlPromise = fetch(`${wordSearchProUrl}?v=${Date.now()}`, { cache: 'no-cache' })
-                            .then((resp) => {
-                                if (!resp.ok) throw new Error('Failed to load Word Search Studio');
-                                return resp.text();
-                            });
-                    }
-
-                    wordSearchProHtmlPromise
-                        .then((htmlText) => {
-                            setGiftFrameHtml(htmlText);
-                            revealGiftFrameSoon();
-                        })
-                        .catch(() => {
-                            if (html) {
-                                setGiftFrameHtml(html);
-                                revealGiftFrameSoon();
-                            } else {
-                                showGiftFallback();
-                            }
-                        });
-                } else if (html) {
-                    setGiftFrameHtml(html);
-                    revealGiftFrameSoon();
-                } else {
-                    showGiftFallback();
-                    return;
-                }
+            if (html) {
+                setGiftFrameHtml(html);
+                revealGiftFrameSoon();
             } else if (source) {
                 const srcWithCacheBust = key === 'wordSearchPro' ? `${source}?v=${Date.now()}` : source;
                 giftFrame.style.display = 'block';
@@ -8717,9 +8644,6 @@ document
                     }
                 };
                 giftFrame.src = srcWithCacheBust;
-            } else if (html) {
-                setGiftFrameHtml(html);
-                revealGiftFrameSoon();
             } else {
                 showGiftFallback();
                 return;
