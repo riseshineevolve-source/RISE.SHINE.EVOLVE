@@ -8521,6 +8521,7 @@ document
         const giftFrame = document.getElementById('gift-frame');
         const giftFallback = document.getElementById('gift-fallback');
         let giftOverlayOpen = false;
+        let giftOverlayOriginTab = null;
         let giftBlobUrl = null;
 
         const giftSources = {
@@ -8602,6 +8603,8 @@ document
             if (event) {
                 event.stopPropagation();
             }
+            const activeTab = document.querySelector('.tab.active');
+            giftOverlayOriginTab = activeTab?.dataset?.tab || 'gifts';
             if (!checkGiftsAccess()) {
                 if (supabaseClient) {
                     try {
@@ -8741,13 +8744,13 @@ document
                 return;
             }
             giftOverlayOpen = false;
-            const activeTab = document.querySelector('.tab.active');
-            if (activeTab?.dataset?.tab === 'gifts') {
-                const giftsContent = document.getElementById('gifts-content');
-                if (giftsContent && !giftsContent.classList.contains('active')) {
-                    showTabContent(activeTab, 'gifts', { skipHistory: true });
-                }
+            const originTab = giftOverlayOriginTab || 'gifts';
+            const originTabElement = getTabElement(originTab);
+            const originContent = document.getElementById(`${originTab}-content`);
+            if (originTabElement && originContent && !originContent.classList.contains('active')) {
+                showTabContent(originTabElement, originTab, { skipHistory: true });
             }
+            giftOverlayOriginTab = null;
         }
 
         window.addEventListener('popstate', (event) => {
