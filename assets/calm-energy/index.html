@@ -634,15 +634,6 @@
       transform: translate(-50%, -50%) rotate(300deg) translate(0, -68px) rotate(calc(-300deg - var(--wheel-rotation, 0deg)));
     }
 
-    .hm-result-header {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      margin-bottom: 10px;
-      flex-wrap: wrap;
-    }
-
     .hm-result-avatar {
       width: 44px;
       height: 44px;
@@ -664,6 +655,18 @@
     .hm-result-avatar--energy {
       border-color: rgba(255, 88, 199, 0.8);
       box-shadow: 0 0 12px rgba(255, 88, 199, 0.35);
+    }
+
+    .hm-result-avatar-card {
+      width: 64px;
+      height: 64px;
+    }
+
+    .hm-result-card-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
     }
 
     .hm-result-video {
@@ -812,6 +815,7 @@
       border-radius: 18px;
       padding: 14px 14px 16px;
       background: #000000;
+      position: relative;
     }
 
     .hm-result-card--calm {
@@ -1008,6 +1012,11 @@
       }
       .hm-result-box {
         max-width: 100%;
+      }
+
+      .hm-result-avatar-card {
+        width: 56px;
+        height: 56px;
       }
     }
   </style>
@@ -1754,6 +1763,11 @@
 
       const themeClass =
         theme === "energy" ? "hm-result-card hm-result-card--energy" : "hm-result-card hm-result-card--calm";
+      const avatarClass =
+        theme === "energy" ? "hm-result-avatar hm-result-avatar--energy hm-result-avatar-card" : "hm-result-avatar hm-result-avatar--calm hm-result-avatar-card";
+      const videoId = theme === "energy" ? "energy-result-video" : "calm-result-video";
+      const fallbackId = theme === "energy" ? "energy-result-fallback" : "calm-result-fallback";
+      const fallbackIcon = theme === "energy" ? "⚡" : "✨";
 
       const [speakerRaw, ...quoteParts] = practice.comment.split(":");
       const speaker = (speakerRaw || "").trim();
@@ -1761,9 +1775,15 @@
 
       targetElement.innerHTML = `
         <article class="${themeClass}">
-          <div class="hm-pill-row">
-            <div class="hm-pill">${practice.category}</div>
-            <div class="hm-pill hm-pill-character">With ${practice.character}</div>
+          <div class="hm-result-card-header">
+            <div class="hm-pill-row">
+              <div class="hm-pill">${practice.category}</div>
+              <div class="hm-pill hm-pill-character">With ${practice.character}</div>
+            </div>
+            <div class="${avatarClass}">
+              <video class="hm-result-video" id="${videoId}" autoplay muted loop playsinline></video>
+              <div class="hm-result-fallback" id="${fallbackId}" aria-hidden="true">${fallbackIcon}</div>
+            </div>
           </div>
           <h2 class="hm-result-title">${practice.title}</h2>
           <div class="hm-result-type">Family micro-practice</div>
