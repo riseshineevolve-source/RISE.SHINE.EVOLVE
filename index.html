@@ -1111,38 +1111,15 @@
         }
 
         .gifts-library-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            display: flex;
+            flex-direction: column;
             gap: 24px;
             padding: 0 10px;
         }
 
         @media (max-width: 900px) {
-            #gifts-content .gifts-library-grid {
-                display: flex !important;
-                flex-direction: column !important;
-                gap: 24px !important;
-            }
-
             #gifts-content .gift-card {
                 min-height: unset !important;
-            }
-        }
-
-        @media (max-width: 900px) and (orientation: landscape) {
-            #gifts-content .gifts-library-grid {
-                flex-direction: row !important;
-                flex-wrap: wrap !important;
-                justify-content: center !important;
-                gap: 18px !important;
-            }
-
-            #gifts-content .gifts-library-grid .gift-card {
-                width: min(320px, 46vw) !important;
-            }
-
-            #gifts-content .gift-card-description {
-                display: block !important;
             }
         }
 
