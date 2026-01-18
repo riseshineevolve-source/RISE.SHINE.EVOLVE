@@ -8510,7 +8510,7 @@ document
             document.body.appendChild(messageDiv);
         }
 
-        const giftTemplates = {
+         const giftTemplates = {
             calmEnergy: document.getElementById('gift-template-calm-energy'),
             oneMinute: document.getElementById('gift-template-one-minute'),
             wordSearch: document.getElementById('gift-template-word-search'),
@@ -8522,13 +8522,19 @@ document
         const giftFallback = document.getElementById('gift-fallback');
         let giftOverlayOpen = false;
         let giftBlobUrl = null;
-        let giftOverlayReturnTab = null;
 
         const giftSources = {
             calmEnergy: null,
             wordSearch: null,
             wordSearchPro: 'assets/word-search-studio/index.html',
         };
+
+        const wordSearchProInlineHtml =
+            (typeof window !== 'undefined' && window.WORD_SEARCH_STUDIO_HTML)
+                ? window.WORD_SEARCH_STUDIO_HTML
+                : null;
+        const wordSearchProUrl = giftSources.wordSearchPro;
+        let wordSearchProHtmlPromise = null;
 
         function getGiftHtml(key) {
             const tpl = giftTemplates[key];
@@ -8538,11 +8544,10 @@ document
 
         function setGiftFrameHtml(html) {
             if (!html) return false;
-            const preferBlob = isGiftMobileViewport()
-                || (window.matchMedia && window.matchMedia('(orientation: portrait)').matches);
+            const preferBlob = window.matchMedia && window.matchMedia('(max-width: 720px)').matches;
             const baseHref = window.location.origin ? `${window.location.origin}/` : '';
             const htmlWithBase = baseHref && !html.includes('<base')
-                ? html.replace(/<head([^>]*)>/i, `<head$1><base href="${baseHref}">`)
+                ? html.replace('<head>', `<head><base href="${baseHref}">`)
                 : html;
             if (!preferBlob && ('srcdoc' in giftFrame)) {
                 giftFrame.srcdoc = htmlWithBase;
@@ -8559,7 +8564,26 @@ document
             return true;
         }
 
-        function openGiftInNewWindow() {
+        function openGiftInNewWindow(key, html, source) {
+            const preferBlob = window.matchMedia && window.matchMedia('(max-width: 720px)').matches;
+            if (!preferBlob) {
+                return false;
+            }
+            if (source) {
+                const popup = window.open(source, '_blank', 'noopener,noreferrer');
+                return !!popup;
+            }
+            if (!html) {
+                return false;
+            }
+            const blob = new Blob([html], { type: 'text/html' });
+            const blobUrl = URL.createObjectURL(blob);
+            const popup = window.open(blobUrl, '_blank', 'noopener,noreferrer');
+            if (popup) {
+                setTimeout(() => URL.revokeObjectURL(blobUrl), 30000);
+                return true;
+            }
+            URL.revokeObjectURL(blobUrl);
             return false;
         }
 
@@ -8596,6 +8620,7 @@ document
                     return;
                 }
             }
+
             const html = getGiftHtml(key);
             const source = giftSources[key];
 
@@ -8615,8 +8640,46 @@ document
                 giftFrame.style.display = 'block';
             };
 
-            if (key === 'wordSearchPro' && source) {
-                const srcWithCacheBust = `${source}?v=${Date.now()}`;
+            if (key === 'wordSearchPro') {
+                const inlineHtml = (wordSearchProInlineHtml || '').trim();
+                if (inlineHtml) {
+                    giftFrame.style.display = 'block';
+                    setGiftFrameHtml(inlineHtml);
+                    revealGiftFrameSoon();
+                } else if (wordSearchProUrl) {
+                    giftFrame.style.display = 'block';
+                    giftFallback.innerHTML = '<div style="width:100%;padding:12px 8px;">Loading Word Search Studio…</div>';
+
+                    if (!wordSearchProHtmlPromise) {
+                        wordSearchProHtmlPromise = fetch(`${wordSearchProUrl}?v=${Date.now()}`, { cache: 'no-cache' })
+                            .then((resp) => {
+                                if (!resp.ok) throw new Error('Failed to load Word Search Studio');
+                                return resp.text();
+                            });
+                    }
+
+                    wordSearchProHtmlPromise
+                        .then((htmlText) => {
+                            setGiftFrameHtml(htmlText);
+                            revealGiftFrameSoon();
+                        })
+                        .catch(() => {
+                            if (html) {
+                                setGiftFrameHtml(html);
+                                revealGiftFrameSoon();
+                            } else {
+                                showGiftFallback();
+                            }
+                        });
+                } else if (html) {
+                    setGiftFrameHtml(html);
+                    revealGiftFrameSoon();
+                } else {
+                    showGiftFallback();
+                    return;
+                }
+            } else if (source) {
+                const srcWithCacheBust = key === 'wordSearchPro' ? `${source}?v=${Date.now()}` : source;
                 giftFrame.style.display = 'block';
                 giftFrame.onerror = () => {
                     if (html) {
@@ -8630,12 +8693,6 @@ document
             } else if (html) {
                 setGiftFrameHtml(html);
                 revealGiftFrameSoon();
-            } else if (source) {
-                giftFrame.style.display = 'block';
-                giftFrame.onerror = () => {
-                    showGiftFallback();
-                };
-                giftFrame.src = source;
             } else {
                 showGiftFallback();
                 return;
@@ -8645,8 +8702,6 @@ document
             document.body.style.overflow = 'hidden';
 
             if (!giftOverlayOpen) {
-                const activeTab = document.querySelector('.tab.active');
-                giftOverlayReturnTab = activeTab?.dataset?.tab || 'main';
                 history.pushState({ giftOverlay: true }, document.title, window.location.href);
                 giftOverlayOpen = true;
             }
@@ -8687,21 +8742,18 @@ document
             }
             giftOverlayOpen = false;
             const activeTab = document.querySelector('.tab.active');
-            if (activeTab?.dataset?.tab === 'gifts' || giftOverlayReturnTab === 'gifts') {
+            if (activeTab?.dataset?.tab === 'gifts') {
                 const giftsContent = document.getElementById('gifts-content');
-                const giftsTab = getTabElement('gifts');
-                if (giftsTab && giftsContent && !giftsContent.classList.contains('active')) {
-                    showTabContent(giftsTab, 'gifts', { skipHistory: true });
+                if (giftsContent && !giftsContent.classList.contains('active')) {
+                    showTabContent(activeTab, 'gifts', { skipHistory: true });
                 }
             }
-            giftOverlayReturnTab = null;
         }
 
         window.addEventListener('popstate', (event) => {
             const emailModal = document.getElementById('emailModal');
             const privacyModal = document.getElementById('privacyModal');
             const welcomeModal = document.getElementById('welcomeModal');
-            const bookDetails = document.getElementById('full-screen-book-details');
 
             if (privacyModal && privacyModal.style.display === 'block') {
                 closePrivacyModal();
@@ -8715,11 +8767,6 @@ document
 
             if (welcomeModal && welcomeModal.style.display === 'flex') {
                 closeWelcomeModal();
-                return;
-            }
-
-            if (bookDetails && bookDetails.style.display === 'block') {
-                backToLibraryFromFullScreen(true);
                 return;
             }
 
