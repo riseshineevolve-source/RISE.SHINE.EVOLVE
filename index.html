@@ -3975,6 +3975,14 @@
       background: var(--pink-main);
     }
 
+    .hm-wheel-visual--calm .hm-wheel-center-dot {
+      background: var(--purple-main);
+    }
+
+    .hm-wheel-visual--energy .hm-wheel-center-dot {
+      background: var(--pink-main);
+    }
+
     .hm-wheel-ring {
       position: absolute;
       inset: 12px;
@@ -4054,15 +4062,18 @@
     }
 
     .hm-result-avatar-card {
-      width: 64px;
-      height: 64px;
+      width: 72px;
+      height: 72px;
+      position: absolute;
+      top: 12px;
+      right: 12px;
     }
 
     .hm-result-card-header {
       display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 12px;
+      flex-direction: column;
+      gap: 8px;
+      padding-right: 84px;
     }
 
     .hm-result-video {
@@ -4411,8 +4422,10 @@
       }
 
       .hm-result-avatar-card {
-        width: 56px;
-        height: 56px;
+        width: 64px;
+        height: 64px;
+        top: 10px;
+        right: 10px;
       }
     }
   </style>
@@ -5182,10 +5195,10 @@
               <div class="hm-pill">${practice.category}</div>
               <div class="hm-pill hm-pill-character">With ${practice.character}</div>
             </div>
-            <div class="${avatarClass}">
-              <video class="hm-result-video" id="${videoId}" autoplay muted loop playsinline></video>
-              <div class="hm-result-fallback" id="${fallbackId}" aria-hidden="true">${fallbackIcon}</div>
-            </div>
+          </div>
+          <div class="${avatarClass}">
+            <video class="hm-result-video" id="${videoId}" autoplay muted loop playsinline></video>
+            <div class="hm-result-fallback" id="${fallbackId}" aria-hidden="true">${fallbackIcon}</div>
           </div>
           <h2 class="hm-result-title">${practice.title}</h2>
           <div class="hm-result-type">Family micro-practice</div>
@@ -5547,8 +5560,8 @@ body {
 .hm-card.show { opacity: 1; scale: 1; }
 .hm-card.hide { opacity: 0; scale: .85; pointer-events: none; }
 .hm-card-header { display: flex; justify-content: center; gap: 14px; align-items: center; }
-.hm-avatar { width: 64px; height: 64px; border-radius: 999px; display:flex; align-items:center; justify-content:center; background: rgba(255,215,0,.08); border: 1px solid rgba(255,215,0,.35); box-shadow: 0 0 14px rgba(255,215,0,.18);  overflow:hidden; }
-.hm-avatar svg { width: 34px; height: 34px; display: block; }
+.hm-avatar { width: 80px; height: 80px; border-radius: 999px; display:flex; align-items:center; justify-content:center; background: rgba(255,215,0,.08); border: 1px solid rgba(255,215,0,.35); box-shadow: 0 0 14px rgba(255,215,0,.18);  overflow:hidden; }
+.hm-avatar svg { width: 42px; height: 42px; display: block; }
     .hm-avatar-video { width: 100%; height: 100%; object-fit: cover; display:block; }
     .hm-avatar-fallback { width: 100%; height: 100%; display:flex; align-items:center; justify-content:center; }
 .hm-card-title { font-size: 1.55rem; font-weight: 900; color: var(--gold); text-align:left; }
@@ -5562,8 +5575,8 @@ body {
   .hm-title{ font-size: 2.05rem; }
   .hm-card-title{ font-size: 1.38rem; }
   .hm-card-instruction{ font-size: 1.01rem; }
-  .hm-avatar { width: 56px; height: 56px; }
-  .hm-avatar svg { width: 30px; height: 30px; }
+  .hm-avatar { width: 68px; height: 68px; }
+  .hm-avatar svg { width: 36px; height: 36px; }
 }
 </style>
 </head>
