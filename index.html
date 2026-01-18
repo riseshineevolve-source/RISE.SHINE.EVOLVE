@@ -3954,6 +3954,9 @@
       border: 1px solid rgba(255, 255, 255, 0.45);
       box-shadow: 0 0 18px rgba(0, 0, 0, 0.35);
       z-index: 3;
+      display:flex;
+      align-items:center;
+      justify-content:center;
     }
 
     .hm-wheel-visual--calm .hm-wheel-center-dot {
@@ -4442,7 +4445,10 @@
                     <div class="hm-wheel-symbol-slot" data-character="Mimi">✨</div>
                     <div class="hm-wheel-symbol-slot" data-character="Bibi">👑</div>
                   </div>
-                  <div class="hm-wheel-center-dot"></div>
+                  <div class="hm-wheel-center-dot">
+                    <video class="hm-center-video" id="calm-center-video" autoplay muted loop playsinline></video>
+                    <div class="hm-center-fallback" id="calm-center-fallback" aria-hidden="true">✨</div>
+                  </div>
                 </div>
               </div>
               <button class="hm-spin-btn" id="calm-spin-btn">
@@ -4526,7 +4532,10 @@
                     <div class="hm-wheel-symbol-slot" data-character="Mimi">✨</div>
                     <div class="hm-wheel-symbol-slot" data-character="Bibi">👑</div>
                   </div>
-                  <div class="hm-wheel-center-dot"></div>
+                  <div class="hm-wheel-center-dot">
+                    <video class="hm-center-video" id="energy-center-video" autoplay muted loop playsinline></video>
+                    <div class="hm-center-fallback" id="energy-center-fallback" aria-hidden="true">⚡</div>
+                  </div>
                 </div>
               </div>
               <button class="hm-spin-btn hm-spin-btn--energy" id="energy-spin-btn">
