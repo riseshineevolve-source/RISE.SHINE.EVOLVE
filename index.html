@@ -1153,6 +1153,8 @@
             overflow: hidden;
             text-shadow: 0 0 8px rgba(138, 43, 226, 0.4);
             box-shadow: 0 0 15px rgba(138, 43, 226, 0.3);
+            pointer-events: auto;
+            touch-action: manipulation;
         }
 
         .tab::before {
@@ -8874,7 +8876,6 @@ document
 
         function initTabTapListeners() {
             document.querySelectorAll('.tab').forEach((tab) => {
-                tab.onclick = null;
                 addTapListener(tab, () => {
                     selectTab(tab, tab.dataset.tab);
                 });
