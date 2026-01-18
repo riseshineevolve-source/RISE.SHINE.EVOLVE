@@ -450,23 +450,6 @@
             z-index: 2;
         }
 
-        .gift-landscape-toggle {
-            position: fixed;
-            top: 10px;
-            left: 12px;
-            background: linear-gradient(45deg, #ffd700, #caa04d);
-            border: 2px solid #8A2BE2;
-            border-radius: 14px;
-            padding: 9px 14px;
-            color: #0a0a0a;
-            font-size: 0.9rem;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 0 0 18px rgba(255, 215, 0, 0.5);
-            z-index: 2;
-            display: none;
-        }
-
         .gift-frame {
             display: block;
             width: 100%;
@@ -524,27 +507,6 @@
                 right: 8px;
                 padding: 7px 11px;
                 font-size: 0.88rem;
-            }
-            .gift-landscape-toggle {
-                top: 8px;
-                left: 8px;
-                padding: 7px 11px;
-                font-size: 0.8rem;
-                display: inline-flex;
-                align-items: center;
-                gap: 6px;
-            }
-            .gift-overlay.landscape-mode .gift-frame {
-                width: 100vh;
-                height: 100vw;
-                max-width: 100vh;
-                max-height: 100vw;
-                transform: rotate(90deg);
-                transform-origin: center center;
-            }
-            .gift-overlay.landscape-mode .gift-overlay-inner {
-                align-items: center;
-                justify-content: center;
             }
             body {
                 filter: brightness(0.9);
@@ -1153,8 +1115,6 @@
             overflow: hidden;
             text-shadow: 0 0 8px rgba(138, 43, 226, 0.4);
             box-shadow: 0 0 15px rgba(138, 43, 226, 0.3);
-            pointer-events: auto;
-            touch-action: manipulation;
         }
 
         .tab::before {
@@ -2927,7 +2887,6 @@
   </div><!-- Email Modal -->
   <div id="gift-overlay" class="gift-overlay">
    <div class="gift-overlay-inner">
-    <button type="button" id="gift-landscape-toggle" class="gift-landscape-toggle">Landscape view</button>
     <button onclick="closeGiftOverlay()" class="gift-close-btn">Close gift ✖</button>
     <iframe id="gift-frame" title="Gift experience" class="gift-frame"></iframe>
     <div id="gift-fallback" class="gift-fallback">
@@ -7006,35 +6965,14 @@ document
             if (signupFields) {
                 signupFields.style.display = authMode === 'signup' ? 'block' : 'none';
             }
-            let isVisible = false;
-            fieldIds.forEach((id) => {
-                const input = document.getElementById(id);
-                if (!input) return;
-                const nextType = input.type === 'password' ? 'text' : 'password';
-                input.type = nextType;
-                if (nextType === 'text') {
-                    isVisible = true;
-                }
-            });
-            if (button) {
-                button.textContent = isVisible ? 'Hide password' : 'Show password';
+            if (signupConsent) {
+                signupConsent.style.display = authMode === 'signup' ? 'block' : 'none';
             }
-        }
-
-        async function handlePasswordResetRequest() {
-            const rawEmail = document.getElementById('brevoEmail')?.value || '';
-            const email = rawEmail.trim().toLowerCase();
-            if (authMode !== 'reset') {
-                setAuthMode('reset');
+            if (firstNameField) {
+                firstNameField.required = authMode === 'signup';
             }
-            if (!email || !email.includes('@') || !email.includes('.')) {
-                showAuthMessage('Enter your email below to reset your password.', '#ff1493');
-                const emailField = document.getElementById('brevoEmail');
-                if (emailField) {
-                    emailField.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    emailField.focus();
-                }
-                return;
+            if (optInField) {
+                optInField.required = authMode === 'signup';
             }
             if (emailField) {
                 const emailBlock = emailField.closest('.sib-input') || emailField.closest('.form__entry');
@@ -8384,13 +8322,6 @@ document
                         }
                         return;
                     }
-                    if (data?.error) {
-                        if (messageBox) {
-                            messageBox.style.color = '#ff69b4';
-                            messageBox.textContent = data.error;
-                        }
-                        return;
-                    }
                     if (messageBox) {
                         messageBox.style.color = '#ffd700';
                         messageBox.textContent = 'Please open the confirmation email in your inbox to complete your account removal.';
@@ -8417,14 +8348,10 @@ document
             ensureRecoveryModalVisible();
             applyMobileLineBreaks();
             adjustWheelMobileLayout();
-            initTabTapListeners();
             initGiftTapListeners();
             const authActionButton = document.getElementById('auth-action-button');
             if (authActionButton) {
                 addTapListener(authActionButton, handleAuthActionClick);
-            }
-            if (giftLandscapeToggle) {
-                addTapListener(giftLandscapeToggle, () => setGiftLandscapeMode(!giftLandscapeMode));
             }
             document.addEventListener('keydown', (event) => {
                 if (event.key !== 'Enter') {
@@ -8545,11 +8472,9 @@ document
         const giftOverlay = document.getElementById('gift-overlay');
         const giftFrame = document.getElementById('gift-frame');
         const giftFallback = document.getElementById('gift-fallback');
-        const giftLandscapeToggle = document.getElementById('gift-landscape-toggle');
         let giftOverlayOpen = false;
         let giftBlobUrl = null;
         let giftOverlayReturnTab = null;
-        let giftLandscapeMode = false;
 
         const giftSources = {
             calmEnergy: null,
@@ -8564,19 +8489,6 @@ document
         const wordSearchProUrl = giftSources.wordSearchPro;
         let wordSearchProHtmlPromise = null;
 
-        function setGiftLandscapeMode(enabled) {
-            giftLandscapeMode = !!enabled;
-            giftOverlay.classList.toggle('landscape-mode', giftLandscapeMode);
-            if (giftLandscapeToggle) {
-                giftLandscapeToggle.textContent = giftLandscapeMode ? 'Portrait view' : 'Landscape view';
-            }
-            if (giftLandscapeMode && screen.orientation && screen.orientation.lock) {
-                screen.orientation.lock('landscape').catch(() => {});
-            } else if (!giftLandscapeMode && screen.orientation && screen.orientation.unlock) {
-                screen.orientation.unlock();
-            }
-        }
-
         function getGiftHtml(key) {
             const tpl = giftTemplates[key];
             if (!tpl) return null;
@@ -8588,8 +8500,7 @@ document
             const preferBlob = window.matchMedia
                 && (window.matchMedia('(max-width: 720px)').matches
                     || window.matchMedia('(orientation: portrait)').matches
-                    || window.matchMedia('(pointer: coarse)').matches
-                    || isMobileViewport());
+                    || window.matchMedia('(pointer: coarse)').matches);
             const baseHref = window.location.origin ? `${window.location.origin}/` : '';
             const htmlWithBase = baseHref && !html.includes('<base')
                 ? html.replace(/<head([^>]*)>/i, `<head$1><base href="${baseHref}">`)
@@ -8646,11 +8557,33 @@ document
                     return;
                 }
             }
-            if (isMobileViewport()) {
-                setGiftLandscapeMode(false);
+            giftBlobUrl = URL.createObjectURL(blob);
+            giftFrame.removeAttribute('srcdoc');
+            giftFrame.src = giftBlobUrl;
+            return true;
+        }
+
+        function revealGiftFrameSoon() {
+            requestAnimationFrame(() => {
+                giftFallback.style.display = 'none';
+                giftFrame.style.display = 'block';
+            });
+            setTimeout(() => {
+                giftFallback.style.display = 'none';
+                giftFrame.style.display = 'block';
+            }, 350);
+        }
+
+        async function openGiftOverlay(key, event) {
+            if (event) {
+                event.stopPropagation();
             }
             const html = getGiftHtml(key);
             const source = giftSources[key];
+            const preferBlob = window.matchMedia
+                && (window.matchMedia('(max-width: 720px)').matches
+                    || window.matchMedia('(orientation: portrait)').matches
+                    || window.matchMedia('(pointer: coarse)').matches);
 
             if (openGiftInNewWindow(key, html, source)) {
                 return;
@@ -8669,17 +8602,50 @@ document
             };
 
             if (key === 'wordSearchPro') {
-                if (wordSearchProUrl) {
+                if (preferBlob && html) {
+                    setGiftFrameHtml(html);
+                    revealGiftFrameSoon();
+                    giftOverlay.style.display = 'flex';
+                    document.body.style.overflow = 'hidden';
+
+                    if (!giftOverlayOpen) {
+                        const activeTab = document.querySelector('.tab.active');
+                        giftOverlayReturnTab = activeTab?.dataset?.tab || 'main';
+                        history.pushState({ giftOverlay: true }, document.title, window.location.href);
+                        giftOverlayOpen = true;
+                    }
+                    return;
+                }
+                const inlineHtml = (wordSearchProInlineHtml || '').trim();
+                if (inlineHtml) {
                     giftFrame.style.display = 'block';
-                    giftFrame.onerror = () => {
-                        if (html) {
-                            setGiftFrameHtml(html);
+                    setGiftFrameHtml(inlineHtml);
+                    revealGiftFrameSoon();
+                } else if (wordSearchProUrl) {
+                    giftFrame.style.display = 'block';
+                    giftFallback.innerHTML = '<div style="width:100%;padding:12px 8px;">Loading Word Search Studio…</div>';
+
+                    if (!wordSearchProHtmlPromise) {
+                        wordSearchProHtmlPromise = fetch(`${wordSearchProUrl}?v=${Date.now()}`, { cache: 'no-cache' })
+                            .then((resp) => {
+                                if (!resp.ok) throw new Error('Failed to load Word Search Studio');
+                                return resp.text();
+                            });
+                    }
+
+                    wordSearchProHtmlPromise
+                        .then((htmlText) => {
+                            setGiftFrameHtml(htmlText);
                             revealGiftFrameSoon();
-                        } else {
-                            showGiftFallback();
-                        }
-                    };
-                    giftFrame.src = `${wordSearchProUrl}?v=${Date.now()}`;
+                        })
+                        .catch(() => {
+                            if (html) {
+                                setGiftFrameHtml(html);
+                                revealGiftFrameSoon();
+                            } else {
+                                showGiftFallback();
+                            }
+                        });
                 } else if (html) {
                     setGiftFrameHtml(html);
                     revealGiftFrameSoon();
@@ -8739,9 +8705,6 @@ document
             giftFrame.style.display = 'none';
             giftFallback.style.display = 'none';
             document.body.style.overflow = '';
-            if (giftLandscapeMode) {
-                setGiftLandscapeMode(false);
-            }
             if (giftBlobUrl) {
                 URL.revokeObjectURL(giftBlobUrl);
                 giftBlobUrl = null;
@@ -8870,14 +8833,6 @@ document
             buttons.forEach(({ selector, handler }) => {
                 document.querySelectorAll(selector).forEach((btn) => {
                     addTapListener(btn, handler);
-                });
-            });
-        }
-
-        function initTabTapListeners() {
-            document.querySelectorAll('.tab').forEach((tab) => {
-                addTapListener(tab, () => {
-                    selectTab(tab, tab.dataset.tab);
                 });
             });
         }
