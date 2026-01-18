@@ -577,6 +577,18 @@
       background: #000000;
     }
 
+    .hm-result-portrait {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      border: 2px solid rgba(255, 215, 0, 0.8);
+      object-fit: cover;
+      background: #000000;
+      box-shadow: 0 0 16px rgba(138, 43, 226, 0.55);
+      margin: 10px auto 12px;
+      display: block;
+    }
+
     .hm-result-card--calm {
       border: 3px solid var(--purple-main);
       box-shadow:
@@ -1539,6 +1551,29 @@
 
     /* ---------- WHEEL LOGIC ---------- */
 
+    function getVideoSources(name, theme) {
+      if (!name) return null;
+      const remoteBase = 'https://raw.githubusercontent.com/riseshineevolve-source/RISE.SHINE.EVOLVE/main/assets/videos/';
+      const calmFile = `${name} calm.mp4`;
+      const energyFiles = {
+        Luli: 'Luli tanczy 1.mp4',
+        Dilo: 'Dilo tanczy 3.mp4',
+        Alio: 'Alio tanczy.mp4',
+        Nini: 'Nini tanczy.mp4',
+        Mimi: 'Mimi tanczy 1.mp4',
+        Bibi: 'Bibi tanczy.mp4',
+      };
+      const fileName = theme === 'calm'
+        ? calmFile
+        : (energyFiles[name] || `${name} tanczy.mp4`);
+      const primary = `assets/videos/${fileName}`;
+      const fallback = `${remoteBase}${encodeURIComponent(fileName)}`;
+      return {
+        primary: encodeURI(primary),
+        fallback,
+      };
+    }
+
     function renderPracticeCard(practice, targetElement, theme) {
       if (!practice) {
         targetElement.innerHTML =
@@ -1553,12 +1588,21 @@
       const speaker = (speakerRaw || "").trim();
       const quote = quoteParts.join(":").trim();
 
+      const videoSources = getVideoSources(practice.character, theme);
+      const videoHtml = videoSources
+        ? `<video class="hm-result-portrait hm-result-portrait--video" autoplay loop muted playsinline aria-label="${practice.character} ${theme} video">
+            <source src="${videoSources.primary}" type="video/mp4">
+            <source src="${videoSources.fallback}" type="video/mp4">
+          </video>`
+        : '';
+
       targetElement.innerHTML = `
         <article class="${themeClass}">
           <div class="hm-pill-row">
             <div class="hm-pill">${practice.category}</div>
             <div class="hm-pill hm-pill-character">With ${practice.character}</div>
           </div>
+          ${videoHtml}
           <h2 class="hm-result-title">${practice.title}</h2>
           <div class="hm-result-type">Family micro-practice</div>
           <p class="hm-result-instruction">${practice.instruction}</p>

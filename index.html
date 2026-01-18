@@ -4239,6 +4239,7 @@
       border-radius: 50%;
       border: 2px solid rgba(255, 215, 0, 0.8);
       object-fit: cover;
+      background: #000000;
       box-shadow: 0 0 16px rgba(138, 43, 226, 0.55);
       margin: 10px auto 12px;
       display: block;
@@ -5206,14 +5207,26 @@
 
     /* ---------- WHEEL LOGIC ---------- */
 
-    function getPortraitSources(name) {
+    function getVideoSources(name, theme) {
       if (!name) return null;
-      const baseName = `${name}.png`;
-      const primary = `assets/images/${baseName}`;
-      const fallback = name === 'Bibi' ? 'assets/images/Grandma Bibi.png' : null;
+      const remoteBase = 'https://raw.githubusercontent.com/riseshineevolve-source/RISE.SHINE.EVOLVE/main/assets/videos/';
+      const calmFile = `${name} calm.mp4`;
+      const energyFiles = {
+        Luli: 'Luli tanczy 1.mp4',
+        Dilo: 'Dilo tanczy 3.mp4',
+        Alio: 'Alio tanczy.mp4',
+        Nini: 'Nini tanczy.mp4',
+        Mimi: 'Mimi tanczy 1.mp4',
+        Bibi: 'Bibi tanczy.mp4',
+      };
+      const fileName = theme === 'calm'
+        ? calmFile
+        : (energyFiles[name] || `${name} tanczy.mp4`);
+      const primary = `assets/videos/${fileName}`;
+      const fallback = `${remoteBase}${encodeURIComponent(fileName)}`;
       return {
         primary: encodeURI(primary),
-        fallback: fallback ? encodeURI(fallback) : null,
+        fallback,
       };
     }
 
@@ -5231,9 +5244,12 @@
       const speaker = (speakerRaw || "").trim();
       const quote = quoteParts.join(":").trim();
 
-      const portraitSources = getPortraitSources(practice.character);
-      const portraitHtml = portraitSources
-        ? `<img class="hm-result-portrait" src="${portraitSources.primary}" alt="${practice.character} portrait"${portraitSources.fallback ? ` onerror="this.onerror=null; this.src='${portraitSources.fallback}';"` : ''}>`
+      const videoSources = getVideoSources(practice.character, theme);
+      const videoHtml = videoSources
+        ? `<video class="hm-result-portrait hm-result-portrait--video" autoplay loop muted playsinline aria-label="${practice.character} ${theme} video">
+            <source src="${videoSources.primary}" type="video/mp4">
+            <source src="${videoSources.fallback}" type="video/mp4">
+          </video>`
         : '';
 
       targetElement.innerHTML = `
@@ -5242,7 +5258,7 @@
             <div class="hm-pill">${practice.category}</div>
             <div class="hm-pill hm-pill-character">With ${practice.character}</div>
           </div>
-          ${portraitHtml}
+          ${videoHtml}
           <h2 class="hm-result-title">${practice.title}</h2>
           <div class="hm-result-type">Family micro-practice</div>
           <p class="hm-result-instruction">${practice.instruction}</p>
@@ -8274,9 +8290,10 @@ document
                 .then(async (response) => {
                     if (!response) return;
                     const data = await response.json().catch(() => ({}));
-                    const errorText = (data?.error || '').toString().toLowerCase();
+                    const errorText = `${data?.error || ''} ${data?.message || ''}`.toString().toLowerCase();
                     const errorCode = (data?.code || '').toString().toLowerCase();
-                    const notFound = errorCode === 'email_not_found'
+                    const notFound = response.status === 404
+                        || errorCode === 'email_not_found'
                         || errorText.includes('email not found')
                         || errorText.includes('not found');
                     if (notFound) {
@@ -8293,80 +8310,10 @@ document
                         }
                         return;
                     }
-                    if (notFound) {
+                    if (!data?.success) {
                         if (messageBox) {
                             messageBox.style.color = '#ff69b4';
-                            messageBox.textContent = 'Email not found.';
-                        }
-                        return;
-                    }
-                    if (data?.error) {
-                        if (messageBox) {
-                            messageBox.style.color = '#ff69b4';
-                            messageBox.textContent = data.error;
-                        }
-                        return;
-                    }
-                    if (data?.error) {
-                        if (messageBox) {
-                            messageBox.style.color = '#ff69b4';
-                            messageBox.textContent = data.error;
-                        }
-                        return;
-                    }
-                    if (data?.error) {
-                        if (messageBox) {
-                            messageBox.style.color = '#ff69b4';
-                            messageBox.textContent = data.error;
-                        }
-                        return;
-                    }
-                    if (data?.error) {
-                        if (messageBox) {
-                            messageBox.style.color = '#ff69b4';
-                            messageBox.textContent = data.error;
-                        }
-                        return;
-                    }
-                    if (data?.error) {
-                        if (messageBox) {
-                            messageBox.style.color = '#ff69b4';
-                            messageBox.textContent = data.error;
-                        }
-                        return;
-                    }
-                    if (data?.error) {
-                        if (messageBox) {
-                            messageBox.style.color = '#ff69b4';
-                            messageBox.textContent = data.error;
-                        }
-                        return;
-                    }
-                    if (data?.error) {
-                        if (messageBox) {
-                            messageBox.style.color = '#ff69b4';
-                            messageBox.textContent = data.error;
-                        }
-                        return;
-                    }
-                    if (data?.error) {
-                        if (messageBox) {
-                            messageBox.style.color = '#ff69b4';
-                            messageBox.textContent = data.error;
-                        }
-                        return;
-                    }
-                    if (data?.error) {
-                        if (messageBox) {
-                            messageBox.style.color = '#ff69b4';
-                            messageBox.textContent = data.error;
-                        }
-                        return;
-                    }
-                    if (data?.error) {
-                        if (messageBox) {
-                            messageBox.style.color = '#ff69b4';
-                            messageBox.textContent = data.error;
+                            messageBox.textContent = notFound ? 'Email not found.' : (data?.error || 'Unable to unsubscribe.');
                         }
                         return;
                     }
@@ -8521,6 +8468,7 @@ document
         const giftFrame = document.getElementById('gift-frame');
         const giftFallback = document.getElementById('gift-fallback');
         let giftOverlayOpen = false;
+        let giftOverlayOriginTab = null;
         let giftBlobUrl = null;
 
         const giftSources = {
@@ -8602,6 +8550,8 @@ document
             if (event) {
                 event.stopPropagation();
             }
+            const activeTab = document.querySelector('.tab.active');
+            giftOverlayOriginTab = activeTab?.dataset?.tab || 'gifts';
             if (!checkGiftsAccess()) {
                 if (supabaseClient) {
                     try {
@@ -8741,13 +8691,13 @@ document
                 return;
             }
             giftOverlayOpen = false;
-            const activeTab = document.querySelector('.tab.active');
-            if (activeTab?.dataset?.tab === 'gifts') {
-                const giftsContent = document.getElementById('gifts-content');
-                if (giftsContent && !giftsContent.classList.contains('active')) {
-                    showTabContent(activeTab, 'gifts', { skipHistory: true });
-                }
+            const originTab = giftOverlayOriginTab || 'gifts';
+            const originTabElement = getTabElement(originTab);
+            const originContent = document.getElementById(`${originTab}-content`);
+            if (originTabElement && originContent && !originContent.classList.contains('active')) {
+                showTabContent(originTabElement, originTab, { skipHistory: true });
             }
+            giftOverlayOriginTab = null;
         }
 
         window.addEventListener('popstate', (event) => {
