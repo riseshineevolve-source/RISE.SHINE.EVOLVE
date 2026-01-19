@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Happy Makers Calm & Energy Wheels</title>
   <style>
     :root {
@@ -669,8 +668,6 @@
       height: 100%;
       object-fit: cover;
       display: block;
-      position: absolute;
-      inset: 0;
     }
 
     .hm-result-fallback {
@@ -681,8 +678,6 @@
       justify-content: center;
       font-size: 22px;
       opacity: 0.85;
-      position: absolute;
-      inset: 0;
     }
 
     .hm-wheel-symbol-slot.hm-selected {
@@ -1049,18 +1044,6 @@
         width: 96px;
         height: 96px;
         right: 12px;
-      }
-    }
-
-    @media (max-width: 640px) {
-      .hm-result-card {
-        padding: 16px;
-      }
-
-      .hm-result-video-circle {
-        position: static;
-        margin: 12px auto 0;
-        transform: none;
       }
     }
   </style>
