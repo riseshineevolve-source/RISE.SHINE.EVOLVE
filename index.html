@@ -4200,19 +4200,25 @@
 
     .hm-result-card {
       border-radius: 18px;
-      padding: 14px 140px 16px 14px;
+      padding: 16px;
       background: #000000;
       position: relative;
       overflow: hidden;
     }
 
+    .hm-result-title-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin: 6px 0 4px;
+    }
+
     .hm-result-video-circle {
-      width: 120px;
-      height: 120px;
-      position: absolute;
-      top: 50%;
-      right: 16px;
-      transform: translateY(-50%);
+      width: 72px;
+      height: 72px;
+      position: static;
       border-radius: 50%;
       overflow: hidden;
       border: 2px solid rgba(255, 255, 255, 0.6);
@@ -4272,7 +4278,7 @@
     .hm-result-title {
       font-size: 1.12rem;
       font-weight: 800;
-      margin: 0 0 4px;
+      margin: 0;
       text-align: center;
       background: linear-gradient(45deg, #8A2BE2, #ff69b4);
       -webkit-background-clip: text;
@@ -4418,6 +4424,9 @@
       .hm-main-title {
         font-size: 1.6rem;
       }
+      .hm-wheel-layout {
+        grid-template-columns: 1fr;
+      }
       .hm-wheel-visual {
         width: 170px;
         height: 170px;
@@ -4429,26 +4438,15 @@
         max-width: 100%;
       }
 
-      .hm-result-card {
-        padding-right: 116px;
-      }
-
       .hm-result-video-circle {
-        width: 96px;
-        height: 96px;
-        right: 12px;
+        width: 64px;
+        height: 64px;
       }
     }
 
     @media (max-width: 640px) {
-      .hm-result-card {
-        padding: 16px;
-      }
-
-      .hm-result-video-circle {
-        position: static;
-        margin: 12px auto 0;
-        transform: none;
+      .hm-result-title-row {
+        justify-content: center;
       }
     }
   </style>
@@ -4498,10 +4496,7 @@
                     <div class="hm-wheel-symbol-slot" data-character="Mimi">✨</div>
                     <div class="hm-wheel-symbol-slot" data-character="Bibi">👑</div>
                   </div>
-                  <div class="hm-wheel-center-dot">
-                    <video class="hm-center-video" id="calm-center-video" autoplay muted loop playsinline></video>
-                    <div class="hm-center-fallback" id="calm-center-fallback" aria-hidden="true">✨</div>
-                  </div>
+                  <div class="hm-wheel-center-dot"></div>
                 </div>
               </div>
               <button class="hm-spin-btn" id="calm-spin-btn">
@@ -4538,10 +4533,6 @@
           <div class="hm-result-box">
             <div class="hm-result-header">
               <div class="hm-result-main-title">Your Micro-Practice</div>
-              <div class="hm-result-avatar hm-result-avatar--calm">
-                <video class="hm-result-video" id="calm-result-video" autoplay muted loop playsinline></video>
-                <div class="hm-result-fallback" id="calm-result-fallback" aria-hidden="true">✨</div>
-              </div>
             </div>
             <div id="calm-result">
               <div class="hm-placeholder">
@@ -4585,10 +4576,7 @@
                     <div class="hm-wheel-symbol-slot" data-character="Mimi">✨</div>
                     <div class="hm-wheel-symbol-slot" data-character="Bibi">👑</div>
                   </div>
-                  <div class="hm-wheel-center-dot">
-                    <video class="hm-center-video" id="energy-center-video" autoplay muted loop playsinline></video>
-                    <div class="hm-center-fallback" id="energy-center-fallback" aria-hidden="true">⚡</div>
-                  </div>
+                  <div class="hm-wheel-center-dot"></div>
                 </div>
               </div>
               <button class="hm-spin-btn hm-spin-btn--energy" id="energy-spin-btn">
@@ -4625,10 +4613,6 @@
           <div class="hm-result-box">
             <div class="hm-result-header">
               <div class="hm-result-main-title">Your Micro-Boost</div>
-              <div class="hm-result-avatar hm-result-avatar--energy">
-                <video class="hm-result-video" id="energy-result-video" autoplay muted loop playsinline></video>
-                <div class="hm-result-fallback" id="energy-result-fallback" aria-hidden="true">⚡</div>
-              </div>
             </div>
             <div id="energy-result">
               <div class="hm-placeholder">
@@ -5250,11 +5234,13 @@
               <div class="hm-pill hm-pill-character">With ${practice.character}</div>
             </div>
           </div>
-          <div class="${circleClass}">
-            <video class="hm-result-video" id="${videoId}" autoplay muted loop playsinline></video>
-            <div class="hm-result-fallback" id="${fallbackId}" aria-hidden="true">${fallbackIcon}</div>
+          <div class="hm-result-title-row">
+            <h2 class="hm-result-title">${practice.title}</h2>
+            <div class="${circleClass}">
+              <video class="hm-result-video" id="${videoId}" autoplay muted loop playsinline></video>
+              <div class="hm-result-fallback" id="${fallbackId}" aria-hidden="true">${fallbackIcon}</div>
+            </div>
           </div>
-          <h2 class="hm-result-title">${practice.title}</h2>
           <div class="hm-result-type">Family micro-practice</div>
           <p class="hm-result-instruction">${practice.instruction}</p>
           <div class="hm-result-comment">
@@ -8899,6 +8885,24 @@ document.getElementById('hm-generate-btn').addEventListener('click', generateCha
                 return;
             }
 
+            const bookDetailsView = document.getElementById('full-screen-book-details');
+            if (bookDetailsView && bookDetailsView.style.display === 'block' && (!event.state || event.state.modal !== 'book')) {
+                backToLibraryFromFullScreen(true);
+                return;
+            }
+
+            const characterDetailsView = document.getElementById('character-details-view');
+            if (characterDetailsView && characterDetailsView.style.display === 'block') {
+                backToFamilyGalleryFromCharacter();
+                return;
+            }
+
+            const familyGalleryView = document.getElementById('full-screen-family-gallery');
+            if (familyGalleryView && familyGalleryView.style.display === 'block') {
+                backToLibrary();
+                return;
+            }
+
             if (event.state && event.state.tab) {
                 const tabElement = getTabElement(event.state.tab);
                 if (tabElement) {
@@ -8911,7 +8915,7 @@ document.getElementById('hm-generate-btn').addEventListener('click', generateCha
                 const mainTab = getTabElement('main');
                 if (mainTab) {
                     selectTab(mainTab, 'main', { skipHistory: true });
-                    history.pushState({ tab: 'main', base: true }, '', '#main');
+                    history.replaceState({ tab: 'main', base: true }, '', '#main');
                 }
                 return;
             }
