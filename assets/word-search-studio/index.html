@@ -1448,6 +1448,11 @@
         }
 
         @media (max-width: 768px) {
+            .container {
+                border: none;
+                box-shadow: none;
+            }
+
             .game-area {
                 display: flex;
                 flex-direction: column;
@@ -1456,6 +1461,7 @@
             
             .puzzle-container {
                 order: 1;
+                align-items: stretch;
             }
             
             .sidebar {
@@ -1491,11 +1497,19 @@
             }
 
             .word-search {
-                width: min(88vw, 300px);
-                max-width: min(88vw, 300px);
+                width: 100%;
+                max-width: 100%;
                 height: auto;
-                max-height: min(34vh, 300px);
-                padding: clamp(6px, 1.2vw, 12px);
+                max-height: min(32vh, 320px);
+                padding: clamp(4px, 1vw, 8px);
+                margin-left: 0;
+                margin-right: auto;
+                border: none;
+                box-shadow: none;
+            }
+
+            .word-search::before {
+                display: none;
             }
 
             .cell {
@@ -1533,11 +1547,24 @@
         }
 
         @media (max-width: 480px) {
+            .container {
+                border: none;
+                box-shadow: none;
+            }
+
             .word-search {
-                width: min(90vw, 280px);
-                max-width: min(90vw, 280px);
-                max-height: min(32vh, 260px);
-                padding: 8px;
+                width: 100%;
+                max-width: 100%;
+                max-height: min(30vh, 260px);
+                padding: 4px;
+                margin-left: 0;
+                margin-right: auto;
+                border: none;
+                box-shadow: none;
+            }
+
+            .word-search::before {
+                display: none;
             }
 
             .cell {
