@@ -1524,11 +1524,12 @@
                 height: auto;
                 max-height: min(24vh, 240px);
                 padding: clamp(4px, 1vw, 6px);
-                margin: 0 auto;
+                margin-left: 0;
+                margin-right: auto;
                 border: none;
                 box-shadow: none;
-                justify-content: center;
-                align-content: center;
+                justify-content: flex-start;
+                align-content: flex-start;
             }
 
             .word-search::before {
@@ -1598,11 +1599,12 @@
                 max-width: 100%;
                 max-height: min(22vh, 220px);
                 padding: 4px;
-                margin: 0 auto;
+                margin-left: 0;
+                margin-right: auto;
                 border: none;
                 box-shadow: none;
-                justify-content: center;
-                align-content: center;
+                justify-content: flex-start;
+                align-content: flex-start;
             }
 
             .word-search::before {
@@ -1635,13 +1637,13 @@
             .game-area {
                 display: grid;
                 grid-template-columns: minmax(0, 2.4fr) minmax(0, 1fr);
-                align-items: start;
+                align-items: stretch;
                 gap: 14px;
             }
 
             .puzzle-container {
                 order: 0;
-                align-items: center;
+                align-items: flex-start;
                 width: 100%;
             }
 
@@ -1651,13 +1653,14 @@
                 max-width: 220px;
                 margin: 0;
                 width: auto;
+                align-self: stretch;
             }
 
             .word-search {
                 max-height: min(38vh, 260px);
-                justify-content: center;
-                align-content: center;
-                margin: 0 auto;
+                justify-content: flex-start;
+                align-content: flex-start;
+                margin: 0;
             }
 
             .cell {

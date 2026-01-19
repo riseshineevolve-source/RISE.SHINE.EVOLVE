@@ -541,7 +541,7 @@ function setAvatar(character){
   video.setAttribute('autoplay', '');
   video.setAttribute('preload', 'auto');
   fallback.style.display = 'flex';
-  video.style.display = 'none';
+  video.style.display = 'block';
   video.src = toSrc(file);
 
   // If a browser blocks autoplay, it's still fine (muted + playsinline usually works)

@@ -817,9 +817,9 @@
     }
 
     .hm-result-video-circle {
-      width: 180px;
-      height: 180px;
-      margin: 0 auto 12px;
+      width: 160px;
+      height: 160px;
+      margin: 0;
       border-radius: 50%;
       overflow: hidden;
       border: 2px solid rgba(255, 255, 255, 0.6);
@@ -854,13 +854,26 @@
         0 0 26px rgba(163, 43, 255, 0.24);
     }
 
+    .hm-result-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 10px;
+    }
+
+    .hm-result-title-block {
+      flex: 1;
+      min-width: 0;
+      text-align: left;
+    }
+
     .hm-pill-row {
       display: flex;
       flex-wrap: wrap;
       gap: 6px;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
       font-size: 0.78rem;
-      justify-content: center;
+      justify-content: flex-start;
     }
 
     .hm-pill {
@@ -880,92 +893,8 @@
       font-size: 1.12rem;
       font-weight: 800;
       margin: 0 0 4px;
-      text-align: center;
+      text-align: left;
       background: linear-gradient(45deg, #8A2BE2, #ff69b4);
-      -webkit-background-clip: text;
-      color: transparent;
-    }
-
-    .hm-result-card--energy .hm-result-title {
-      background: linear-gradient(45deg, var(--pink-bright), var(--pink-main), #efd8a0);
-      -webkit-background-clip: text;
-      color: transparent;
-    }
-
-    .hm-result-card--energy .hm-result-title {
-      background: linear-gradient(45deg, var(--pink-bright), var(--pink-main), #efd8a0);
-      -webkit-background-clip: text;
-      color: transparent;
-    }
-
-    .hm-result-card--energy .hm-result-title {
-      background: linear-gradient(45deg, var(--pink-bright), var(--pink-main), #efd8a0);
-      -webkit-background-clip: text;
-      color: transparent;
-    }
-
-    .hm-result-card--energy .hm-result-title {
-      background: linear-gradient(45deg, var(--pink-bright), var(--pink-main), #efd8a0);
-      -webkit-background-clip: text;
-      color: transparent;
-    }
-
-    .hm-result-card--energy .hm-result-title {
-      background: linear-gradient(45deg, var(--pink-bright), var(--pink-main), #efd8a0);
-      -webkit-background-clip: text;
-      color: transparent;
-    }
-
-    .hm-result-card--energy .hm-result-title {
-      background: linear-gradient(45deg, var(--pink-bright), var(--pink-main), #efd8a0);
-      -webkit-background-clip: text;
-      color: transparent;
-    }
-
-    .hm-result-card--energy .hm-result-title {
-      background: linear-gradient(45deg, var(--pink-bright), var(--pink-main), #efd8a0);
-      -webkit-background-clip: text;
-      color: transparent;
-    }
-
-    .hm-result-card--energy .hm-result-title {
-      background: linear-gradient(45deg, #ff69b4, #f4dce6, #efd8a0);
-      -webkit-background-clip: text;
-      color: transparent;
-    }
-
-    .hm-result-card--energy .hm-result-title {
-      background: linear-gradient(45deg, #ff69b4, #f4dce6, #efd8a0);
-      -webkit-background-clip: text;
-      color: transparent;
-    }
-
-    .hm-result-card--energy .hm-result-title {
-      background: linear-gradient(45deg, #f4dce6, #d46c8d, #efd8a0);
-      -webkit-background-clip: text;
-      color: transparent;
-    }
-
-    .hm-result-card--energy .hm-result-title {
-      background: linear-gradient(45deg, #f4dce6, #d46c8d, #efd8a0);
-      -webkit-background-clip: text;
-      color: transparent;
-    }
-
-    .hm-result-card--energy .hm-result-title {
-      background: linear-gradient(45deg, #f2b5d6, #e667a3);
-      -webkit-background-clip: text;
-      color: transparent;
-    }
-
-    .hm-result-card--energy .hm-result-title {
-      background: linear-gradient(45deg, #f2b5d6, #e667a3);
-      -webkit-background-clip: text;
-      color: transparent;
-    }
-
-    .hm-result-card--energy .hm-result-title {
-      background: linear-gradient(45deg, #f2b5d6, #e667a3);
       -webkit-background-clip: text;
       color: transparent;
     }
@@ -980,7 +909,7 @@
       font-size: 0.86rem;
       color: var(--text-muted);
       margin-bottom: 8px;
-      text-align: center;
+      text-align: left;
     }
 
     .hm-result-instruction {
@@ -988,14 +917,14 @@
       color: #e3ddff;
       margin-bottom: 8px;
       line-height: 1.6;
-      text-align: justify;
+      text-align: left;
     }
 
     .hm-result-comment {
       font-size: 0.9rem;
       color: #c5bdf3;
       font-style: italic;
-      text-align: center;
+      text-align: left;
       display: grid;
       gap: 2px;
     }
@@ -1036,9 +965,30 @@
         max-width: 100%;
       }
 
+      .hm-result-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      .hm-result-title-block {
+        text-align: center;
+      }
+
+      .hm-pill-row {
+        justify-content: center;
+      }
+
+      .hm-result-title,
+      .hm-result-type,
+      .hm-result-instruction,
+      .hm-result-comment {
+        text-align: center;
+      }
+
       .hm-result-video-circle {
-        width: 150px;
-        height: 150px;
+        width: 140px;
+        height: 140px;
       }
     }
   </style>
@@ -1831,17 +1781,21 @@
       targetElement.innerHTML = `
         <article class="${themeClass}">
           <div class="hm-result-card-header">
-            <div class="hm-pill-row">
-              <div class="hm-pill">${practice.category}</div>
-              <div class="hm-pill hm-pill-character">With ${practice.character}</div>
+            <div class="hm-result-header">
+              <div class="${circleClass}">
+                <video class="hm-result-video" id="${videoId}" autoplay muted loop playsinline></video>
+                <div class="hm-result-fallback" id="${fallbackId}" aria-hidden="true">${fallbackIcon}</div>
+              </div>
+              <div class="hm-result-title-block">
+                <div class="hm-pill-row">
+                  <div class="hm-pill">${practice.category}</div>
+                  <div class="hm-pill hm-pill-character">With ${practice.character}</div>
+                </div>
+                <h2 class="hm-result-title">${practice.title}</h2>
+                <div class="hm-result-type">Family micro-practice</div>
+              </div>
             </div>
           </div>
-          <div class="${circleClass}">
-            <video class="hm-result-video" id="${videoId}" autoplay muted loop playsinline></video>
-            <div class="hm-result-fallback" id="${fallbackId}" aria-hidden="true">${fallbackIcon}</div>
-          </div>
-          <h2 class="hm-result-title">${practice.title}</h2>
-          <div class="hm-result-type">Family micro-practice</div>
           <p class="hm-result-instruction">${practice.instruction}</p>
           <div class="hm-result-comment">
             <div class="hm-result-comment-signer">${speaker}</div>
