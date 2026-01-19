@@ -2289,8 +2289,8 @@
       </div>
       <div class="gifts-mobile-instructions">
        <div class="gift-instruction">
-        <h4>Uwaga na telefonie</h4>
-        <p>GIFTS otwierają się w nowej karcie, aby działały najlepiej na urządzeniach mobilnych.</p>
+        <h4>Mobile tip</h4>
+        <p>GIFTS open in a new tab so they work best on phones.</p>
        </div>
       </div>
       <div class="gifts-library-grid">
@@ -4059,6 +4059,8 @@
       height: 100%;
       object-fit: cover;
       display: block;
+      max-width: 100%;
+      max-height: 100%;
     }
 
     .hm-result-fallback {
@@ -4069,56 +4071,6 @@
       justify-content: center;
       font-size: 22px;
       opacity: 0.85;
-    }
-
-    .hm-result-avatar {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      overflow: hidden;
-      border: 2px solid rgba(255, 255, 255, 0.6);
-      box-shadow: 0 0 12px rgba(0, 0, 0, 0.35);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(255, 255, 255, 0.08);
-    }
-
-    .hm-result-avatar--calm {
-      border-color: rgba(138, 43, 226, 0.8);
-      box-shadow: 0 0 12px rgba(138, 43, 226, 0.45);
-    }
-
-    .hm-result-avatar--energy {
-      border-color: rgba(255, 88, 199, 0.8);
-      box-shadow: 0 0 12px rgba(255, 88, 199, 0.35);
-    }
-
-    .hm-result-card-header {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .hm-result-video {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      position: absolute;
-      inset: 0;
-    }
-
-    .hm-result-fallback {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 22px;
-      opacity: 0.85;
-      position: absolute;
-      inset: 0;
     }
 
     .hm-wheel-symbol-slot.hm-selected {
@@ -4248,19 +4200,16 @@
 
     .hm-result-card {
       border-radius: 18px;
-      padding: 14px 140px 16px 14px;
+      padding: 16px;
       background: #000000;
       position: relative;
       overflow: hidden;
     }
 
     .hm-result-video-circle {
-      width: 120px;
-      height: 120px;
-      position: absolute;
-      top: 50%;
-      right: 16px;
-      transform: translateY(-50%);
+      width: 180px;
+      height: 180px;
+      margin: 0 auto 12px;
       border-radius: 50%;
       overflow: hidden;
       border: 2px solid rgba(255, 255, 255, 0.6);
@@ -4477,26 +4426,21 @@
         max-width: 100%;
       }
 
-      .hm-result-card {
-        padding-right: 116px;
-      }
-
       .hm-result-video-circle {
-        width: 96px;
-        height: 96px;
-        right: 12px;
-      }
-    }
-
-    @media (max-width: 640px) {
-      .hm-result-card {
-        padding: 16px;
+        width: 150px;
+        height: 150px;
       }
 
-      .hm-result-video-circle {
-        position: static;
-        margin: 12px auto 0;
-        transform: none;
+      .hm-tabs-wrapper {
+        display: none;
+      }
+
+      .hm-panel {
+        display: block;
+      }
+
+      .hm-panel + .hm-panel {
+        margin-top: 18px;
       }
     }
   </style>
@@ -5210,6 +5154,20 @@
       return VIDEO_BASE + encodeURIComponent(filename).replace(/%2F/g, "/");
     }
 
+    function addTapListener(element, handler) {
+      if (!element) return;
+      element.addEventListener("click", () => {
+        const lastTouch = Number(element.dataset.lastTouch || 0);
+        if (lastTouch && Date.now() - lastTouch < 500) return;
+        handler();
+      });
+      element.addEventListener("touchstart", (event) => {
+        element.dataset.lastTouch = String(Date.now());
+        event.preventDefault();
+        handler();
+      }, { passive: false });
+    }
+
     function setCenterVideo(theme, character){
       const isEnergy = theme === 'energy';
       const video = document.getElementById(isEnergy ? 'energy-result-video' : 'calm-result-video');
@@ -5235,7 +5193,7 @@
       video.setAttribute('autoplay', '');
       video.setAttribute('preload', 'auto');
       fallback.style.display = 'flex';
-      video.style.display = 'block';
+      video.style.display = 'none';
       video.src = toSrc(file);
       video.load();
       const p = video.play();
@@ -5243,9 +5201,12 @@
 
       const hideFallback = () => {
         fallback.style.display = 'none';
+        video.style.display = 'block';
       };
       video.onloadeddata = hideFallback;
       video.onloadedmetadata = hideFallback;
+      video.oncanplay = hideFallback;
+      video.onplaying = hideFallback;
       video.onerror = () => {
         video.style.display = 'none';
         fallback.style.display = 'flex';
@@ -5452,9 +5413,7 @@
         }
       }
 
-      spinBtn.addEventListener("click", () => {
-        spinStopToggle();
-      });
+      addTapListener(spinBtn, spinStopToggle);
 
       filterButtons.forEach(btn => {
         btn.addEventListener("click", () => {
@@ -5522,8 +5481,8 @@ setupWheel({
       }
     }
 
-    calmTabBtn.addEventListener("click", () => activateTab("calm"));
-    energyTabBtn.addEventListener("click", () => activateTab("energy"));
+    addTapListener(calmTabBtn, () => activateTab("calm"));
+    addTapListener(energyTabBtn, () => activateTab("energy"));
 
     tabIndicator.style.transform = "translateX(0%)";
   </script>
@@ -6121,6 +6080,8 @@ function setAvatar(character){
   };
   video.onloadeddata = hideFallback;
   video.onloadedmetadata = hideFallback;
+  video.oncanplay = hideFallback;
+  video.onplaying = hideFallback;
   video.onerror = () => {
     video.style.display = 'none';
     fallback.style.display = 'flex';
@@ -6486,7 +6447,7 @@ document.getElementById('hm-generate-btn').addEventListener('click', generateCha
         min-height: 100vh;
         min-height: 100dvh;
         overflow: auto;
-        padding: 8px 6px 12px;
+        padding: 8px 4px 12px;
       }
       .layout {
         display: flex;
@@ -6496,7 +6457,9 @@ document.getElementById('hm-generate-btn').addEventListener('click', generateCha
       .grid-shell {
         width: 100%;
         order: 1;
-        max-width: 92vw;
+        max-width: 100%;
+        margin-left: 0;
+        margin-right: auto;
       }
       .panel {
         width: 100%;
@@ -6506,6 +6469,8 @@ document.getElementById('hm-generate-btn').addEventListener('click', generateCha
         min-height: 100%;
         padding: 10px 10px;
         margin: 0;
+        width: 100%;
+        max-width: none;
       }
       .grid-shell {
         max-height: none;
@@ -6535,7 +6500,17 @@ document.getElementById('hm-generate-btn').addEventListener('click', generateCha
 
     @media (max-width: 900px) and (orientation: landscape) {
       .layout {
-        align-items: flex-start;
+        grid-template-columns: 2fr 1fr;
+        align-items: center;
+        display: grid;
+      }
+
+      .grid-shell {
+        max-width: none;
+      }
+
+      .panel {
+        align-self: stretch;
       }
 
       .word-grid td {
@@ -8764,14 +8739,6 @@ document.getElementById('hm-generate-btn').addEventListener('click', generateCha
 
             const html = getGiftHtml(key);
             const source = giftSources[key];
-
-            if (isGiftMobileViewport()) {
-                if (openGiftInNewWindow(key, html, source)) {
-                    return;
-                }
-                showGiftFallback('Włącz wyskakujące okna, aby otworzyć ten gift w nowej karcie.');
-                return;
-            }
 
             giftFrame.removeAttribute('src');
             giftFrame.removeAttribute('srcdoc');
