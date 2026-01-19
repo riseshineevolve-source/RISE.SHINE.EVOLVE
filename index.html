@@ -3393,7 +3393,6 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Happy Makers Calm & Energy Wheels</title>
   <style>
     :root {
@@ -4060,6 +4059,52 @@
       height: 100%;
       object-fit: cover;
       display: block;
+    }
+
+    .hm-result-fallback {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      opacity: 0.85;
+    }
+
+    .hm-result-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 2px solid rgba(255, 255, 255, 0.6);
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .hm-result-avatar--calm {
+      border-color: rgba(138, 43, 226, 0.8);
+      box-shadow: 0 0 12px rgba(138, 43, 226, 0.45);
+    }
+
+    .hm-result-avatar--energy {
+      border-color: rgba(255, 88, 199, 0.8);
+      box-shadow: 0 0 12px rgba(255, 88, 199, 0.35);
+    }
+
+    .hm-result-card-header {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .hm-result-video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
       position: absolute;
       inset: 0;
     }
@@ -4501,7 +4546,10 @@
                     <div class="hm-wheel-symbol-slot" data-character="Mimi">✨</div>
                     <div class="hm-wheel-symbol-slot" data-character="Bibi">👑</div>
                   </div>
-                  <div class="hm-wheel-center-dot"></div>
+                  <div class="hm-wheel-center-dot">
+                    <video class="hm-center-video" id="calm-center-video" autoplay muted loop playsinline></video>
+                    <div class="hm-center-fallback" id="calm-center-fallback" aria-hidden="true">✨</div>
+                  </div>
                 </div>
               </div>
               <button class="hm-spin-btn" id="calm-spin-btn">
@@ -4536,7 +4584,13 @@
         <!-- Right: tutorial + result -->
         <div class="hm-text-column">
           <div class="hm-result-box">
-            <div class="hm-result-main-title">Your Micro-Practice</div>
+            <div class="hm-result-header">
+              <div class="hm-result-main-title">Your Micro-Practice</div>
+              <div class="hm-result-avatar hm-result-avatar--calm">
+                <video class="hm-result-video" id="calm-result-video" autoplay muted loop playsinline></video>
+                <div class="hm-result-fallback" id="calm-result-fallback" aria-hidden="true">✨</div>
+              </div>
+            </div>
             <div id="calm-result">
               <div class="hm-placeholder">
                 Spin the Calm Wheel and stop it to reveal your next tiny practice.
@@ -4579,7 +4633,10 @@
                     <div class="hm-wheel-symbol-slot" data-character="Mimi">✨</div>
                     <div class="hm-wheel-symbol-slot" data-character="Bibi">👑</div>
                   </div>
-                  <div class="hm-wheel-center-dot"></div>
+                  <div class="hm-wheel-center-dot">
+                    <video class="hm-center-video" id="energy-center-video" autoplay muted loop playsinline></video>
+                    <div class="hm-center-fallback" id="energy-center-fallback" aria-hidden="true">⚡</div>
+                  </div>
                 </div>
               </div>
               <button class="hm-spin-btn hm-spin-btn--energy" id="energy-spin-btn">
@@ -4614,7 +4671,13 @@
         <!-- Right: tutorial + result -->
         <div class="hm-text-column">
           <div class="hm-result-box">
-            <div class="hm-result-main-title">Your Micro-Boost</div>
+            <div class="hm-result-header">
+              <div class="hm-result-main-title">Your Micro-Boost</div>
+              <div class="hm-result-avatar hm-result-avatar--energy">
+                <video class="hm-result-video" id="energy-result-video" autoplay muted loop playsinline></video>
+                <div class="hm-result-fallback" id="energy-result-fallback" aria-hidden="true">⚡</div>
+              </div>
+            </div>
             <div id="energy-result">
               <div class="hm-placeholder">
                 Spin the Energy Wheel and stop it to reveal your next tiny boost.
