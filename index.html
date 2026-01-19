@@ -2287,6 +2287,12 @@
        <p style="color: #ffd700; font-size: 1rem; margin: 0;">A pocket-sized library of free resources: calm tools, mini challenges, and word games made for family growth.<br>New GIFTS drop regularly.</p>
        <p style="color: #ffffff; font-size: 0.95rem; margin: 10px 0 0 0;">Tip for smaller screens: GIFTS work beautifully in both portrait and landscape.</p>
       </div>
+      <div class="gifts-mobile-instructions">
+       <div class="gift-instruction">
+        <h4>Mobile tip</h4>
+        <p>GIFTS open in a new tab so they work best on phones.</p>
+       </div>
+      </div>
       <div class="gifts-library-grid">
        <div id="gift-card-calm-energy" class="gift-card" style="background: #000000; border: 3px solid #ffd700; border-radius: 18px; padding: 22px; text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(255, 215, 0, 0.5); position: relative; min-height: 300px; display: flex; flex-direction: column; align-items: center; gap: 12px;">
         <div style="position: absolute; top: 12px; left: 12px; background: #8A2BE2; color: #ffffff; font-size: 0.7rem; font-weight: bold; padding: 6px 10px; border-radius: 10px; text-transform: uppercase; box-shadow: 0 0 12px rgba(138, 43, 226, 0.6);">Available</div>
@@ -3387,7 +3393,6 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Happy Makers Calm & Energy Wheels</title>
   <style>
     :root {
@@ -4225,48 +4230,44 @@
       box-shadow: 0 0 18px rgba(255, 88, 199, 0.45);
     }
 
-    .hm-result-card--calm {
-      border: 3px solid var(--purple-main);
-      box-shadow:
-        0 0 35px rgba(138, 43, 226, 0.7),
-        0 0 60px rgba(138, 43, 226, 0.4);
+    .hm-result-card--energy .hm-result-title {
+      background: linear-gradient(45deg, #ff69b4, #f4dce6, #efd8a0);
+      -webkit-background-clip: text;
+      color: transparent;
     }
 
-    .hm-result-card--energy {
-      border: 3px solid var(--pink-main);
-      box-shadow:
-        0 0 18px rgba(255, 88, 199, 0.38),
-        0 0 26px rgba(163, 43, 255, 0.24);
+    .hm-result-card--energy .hm-result-title {
+      background: linear-gradient(45deg, #ff69b4, #f4dce6, #efd8a0);
+      -webkit-background-clip: text;
+      color: transparent;
     }
 
-    .hm-pill-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-bottom: 8px;
-      font-size: 0.78rem;
-      justify-content: center;
+    .hm-result-card--energy .hm-result-title {
+      background: linear-gradient(45deg, #f4dce6, #d46c8d, #efd8a0);
+      -webkit-background-clip: text;
+      color: transparent;
     }
 
-    .hm-pill {
-      padding: 4px 10px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.06);
-      color: var(--text-muted);
-      text-align: center;
+    .hm-result-card--energy .hm-result-title {
+      background: linear-gradient(45deg, #f4dce6, #d46c8d, #efd8a0);
+      -webkit-background-clip: text;
+      color: transparent;
     }
 
-    .hm-pill-character {
-      background: rgba(255, 182, 193, 0.2);
-      color: #ffd6ea;
+    .hm-result-card--energy .hm-result-title {
+      background: linear-gradient(45deg, #f2b5d6, #e667a3);
+      -webkit-background-clip: text;
+      color: transparent;
     }
 
-    .hm-result-title {
-      font-size: 1.12rem;
-      font-weight: 800;
-      margin: 0 0 4px;
-      text-align: center;
-      background: linear-gradient(45deg, #8A2BE2, #ff69b4);
+    .hm-result-card--energy .hm-result-title {
+      background: linear-gradient(45deg, #f2b5d6, #e667a3);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hm-result-card--energy .hm-result-title {
+      background: linear-gradient(45deg, #f2b5d6, #e667a3);
       -webkit-background-clip: text;
       color: transparent;
     }
@@ -4473,7 +4474,10 @@
                     <div class="hm-wheel-symbol-slot" data-character="Mimi">✨</div>
                     <div class="hm-wheel-symbol-slot" data-character="Bibi">👑</div>
                   </div>
-                  <div class="hm-wheel-center-dot"></div>
+                  <div class="hm-wheel-center-dot">
+                    <video class="hm-center-video" id="calm-center-video" autoplay muted loop playsinline></video>
+                    <div class="hm-center-fallback" id="calm-center-fallback" aria-hidden="true">✨</div>
+                  </div>
                 </div>
               </div>
               <button class="hm-spin-btn" id="calm-spin-btn">
@@ -4508,7 +4512,13 @@
         <!-- Right: tutorial + result -->
         <div class="hm-text-column">
           <div class="hm-result-box">
-            <div class="hm-result-main-title">Your Micro-Practice</div>
+            <div class="hm-result-header">
+              <div class="hm-result-main-title">Your Micro-Practice</div>
+              <div class="hm-result-avatar hm-result-avatar--calm">
+                <video class="hm-result-video" id="calm-result-video" autoplay muted loop playsinline></video>
+                <div class="hm-result-fallback" id="calm-result-fallback" aria-hidden="true">✨</div>
+              </div>
+            </div>
             <div id="calm-result">
               <div class="hm-placeholder">
                 Spin the Calm Wheel and stop it to reveal your next tiny practice.
@@ -4551,7 +4561,10 @@
                     <div class="hm-wheel-symbol-slot" data-character="Mimi">✨</div>
                     <div class="hm-wheel-symbol-slot" data-character="Bibi">👑</div>
                   </div>
-                  <div class="hm-wheel-center-dot"></div>
+                  <div class="hm-wheel-center-dot">
+                    <video class="hm-center-video" id="energy-center-video" autoplay muted loop playsinline></video>
+                    <div class="hm-center-fallback" id="energy-center-fallback" aria-hidden="true">⚡</div>
+                  </div>
                 </div>
               </div>
               <button class="hm-spin-btn hm-spin-btn--energy" id="energy-spin-btn">
@@ -4586,7 +4599,13 @@
         <!-- Right: tutorial + result -->
         <div class="hm-text-column">
           <div class="hm-result-box">
-            <div class="hm-result-main-title">Your Micro-Boost</div>
+            <div class="hm-result-header">
+              <div class="hm-result-main-title">Your Micro-Boost</div>
+              <div class="hm-result-avatar hm-result-avatar--energy">
+                <video class="hm-result-video" id="energy-result-video" autoplay muted loop playsinline></video>
+                <div class="hm-result-fallback" id="energy-result-fallback" aria-hidden="true">⚡</div>
+              </div>
+            </div>
             <div id="energy-result">
               <div class="hm-placeholder">
                 Spin the Energy Wheel and stop it to reveal your next tiny boost.
@@ -5381,7 +5400,7 @@
       addTapListener(spinBtn, spinStopToggle);
 
       filterButtons.forEach(btn => {
-        addTapListener(btn, () => {
+        btn.addEventListener("click", () => {
           filterButtons.forEach(b => b.classList.remove("hm-active"));
           btn.classList.add("hm-active");
           currentFilter = btn.getAttribute("data-filter");
@@ -6410,7 +6429,7 @@ document.getElementById('hm-generate-btn').addEventListener('click', generateCha
         min-height: 100vh;
         min-height: 100dvh;
         overflow: auto;
-        padding: 8px 6px 12px;
+        padding: 8px 4px 12px;
       }
       .layout {
         display: flex;
