@@ -108,10 +108,10 @@ body {
 .hm-card.show { opacity: 1; scale: 1; }
 .hm-card.hide { opacity: 0; scale: .85; pointer-events: none; }
 .hm-card-header { display: flex; justify-content: center; gap: 14px; align-items: center; }
-.hm-avatar { width: 46px; height: 46px; border-radius: 999px; display:flex; align-items:center; justify-content:center; background: rgba(255,215,0,.08); border: 1px solid rgba(255,215,0,.35); box-shadow: 0 0 14px rgba(255,215,0,.18);  overflow:hidden; }
-.hm-avatar svg { width: 26px; height: 26px; display: block; }
-    .hm-avatar-video { width: 100%; height: 100%; object-fit: cover; display:block; }
-    .hm-avatar-fallback { width: 100%; height: 100%; display:flex; align-items:center; justify-content:center; }
+    .hm-avatar { width: 92px; height: 92px; border-radius: 999px; display:flex; align-items:center; justify-content:center; background: rgba(255,215,0,.08); border: 1px solid rgba(255,215,0,.35); box-shadow: 0 0 14px rgba(255,215,0,.18);  overflow:hidden; position: relative; }
+    .hm-avatar svg { width: 48px; height: 48px; display: block; }
+    .hm-avatar-video { width: 100%; height: 100%; object-fit: cover; display:block; position: absolute; inset: 0; }
+    .hm-avatar-fallback { width: 100%; height: 100%; display:flex; align-items:center; justify-content:center; position: absolute; inset: 0; }
 .hm-card-title { font-size: 1.55rem; font-weight: 900; color: var(--gold); text-align:left; }
 .hm-category-line { margin-top: 4px; text-align:left; font-size: .92rem; color: var(--text-muted); }
 .hm-category-icon { margin-right: 6px; filter: drop-shadow(0 0 3px rgba(255,215,0,.55)); }
@@ -123,6 +123,8 @@ body {
   .hm-title{ font-size: 2.05rem; }
   .hm-card-title{ font-size: 1.38rem; }
   .hm-card-instruction{ font-size: 1.01rem; }
+  .hm-avatar { width: 76px; height: 76px; }
+  .hm-avatar svg { width: 40px; height: 40px; }
 }
 </style>
 </head>
@@ -146,7 +148,7 @@ body {
   <div id="result-card" class="hm-card">
     <div class="hm-card-header">
       <div class="hm-avatar" id="hm-avatar">
-        <video id="hm-avatar-video" class="hm-avatar-video" autoplay muted loop playsinline></video>
+        <video id="hm-avatar-video" class="hm-avatar-video" autoplay muted loop playsinline preload="auto" webkit-playsinline></video>
         <div id="hm-avatar-fallback" class="hm-avatar-fallback" aria-hidden="true"></div>
       </div>
       <div style="max-width: 440px;">
@@ -374,6 +376,76 @@ const challenges = [
   character: "Bibi",
   comment: "Bibi: \"That\u2019s the vibe.\"",
   category: "Presence"
+},
+{
+  title: "Legend Focus Lock",
+  instruction: "For one minute, pick one spot in the room, keep your body still, and breathe slowly while you lock your attention on it like a striker aiming at the goal.",
+  character: "Dilo",
+  comment: "Dilo: \"Focus is a superpower - and yes, it can be trained.\"",
+  category: "Mindfulness"
+},
+{
+  title: "Pressure-to-Power Stance",
+  instruction: "For one minute, stand grounded with feet steady, chest open, and shoulders relaxed, then breathe like pressure is fuel you\u2019re turning into calm confidence.",
+  character: "Dilo",
+  comment: "Dilo: \"Same pressure, different player.\"",
+  category: "Courage"
+},
+{
+  title: "Silent Victory Replay",
+  instruction: "For one minute, picture one moment you want to handle well today, and rehearse yourself doing it with a steady breath, steady face, and steady choices.",
+  character: "Dilo",
+  comment: "Dilo: \"Practice in your head. Perform in real life.\"",
+  category: "Mindfulness"
+},
+{
+  title: "Energy Into the Floor",
+  instruction: "For one minute, press your feet gently into the ground on each exhale, as if you\u2019re charging your body from the floor like a calm, powerful battery.",
+  character: "Dilo",
+  comment: "Dilo: \"Grounded energy hits different.\"",
+  category: "Mindfulness"
+},
+{
+  title: "Micro-Discipline Minute",
+  instruction: "For one minute, choose one tiny rule for yourself (slow breath, soft shoulders, calm hands) and keep it perfectly, because self-control builds real confidence fast.",
+  character: "Dilo",
+  comment: "Dilo: \"One minute of control = big confidence later.\"",
+  category: "Courage"
+},
+{
+  title: "Calm Designer Mode",
+  instruction: "For one minute, breathe slowly and imagine you\u2019re designing calm like a pro, smoothing the air around you with each exhale like polishing a glass screen.",
+  character: "Alio",
+  comment: "Alio: \"Same brain. Better settings.\"",
+  category: "Mindfulness"
+},
+{
+  title: "Silent Giggle Mission",
+  instruction: "For one minute, try to make yourself smile using only your face, like you\u2019re running a stealth joy mission with zero sound and maximum style.",
+  character: "Alio",
+  comment: "Alio: \"Silent giggles are elite.\"",
+  category: "Fun"
+},
+{
+  title: "Spark-to-Steady Switch",
+  instruction: "For one minute, breathe out longer than you breathe in, and on every exhale soften one tiny alarm in your body (brows, jaw, hands, shoulders) until the system settles.",
+  character: "Alio",
+  comment: "Alio: \"I can be dramatic\u2026 but I can also be regulated.\"",
+  category: "Mindfulness"
+},
+{
+  title: "Curiosity Upgrade",
+  instruction: "For one minute, scan the room and silently notice three details you\u2019ve never paid attention to before, like you\u2019re exploring a brand-new world.",
+  character: "Alio",
+  comment: "Alio: \"Curiosity is calm wearing a cool jacket.\"",
+  category: "Mindfulness"
+},
+{
+  title: "Exhale Advantage Countdown",
+  instruction: "For one minute, count only your exhales from 1 to 6 and start again, keeping your face relaxed like you\u2019ve got a secret advantage.",
+  character: "Alio",
+  comment: "Alio: \"Counting exhales = instant brain refresh.\"",
+  category: "Mindfulness"
 }
 ];
 
@@ -430,15 +502,15 @@ function getAvatarHTML(character) {
 }
 
 
-const VIDEO_BASE = "assets/videos/";
+const VIDEO_BASE = "/assets/videos/";
 
-const DANCE_VIDEO_MAP = {
-  Mimi: "Mimi tanczy 1.mp4",
-  Luli: "Luli tanczy 1.mp4",
-  Dilo: "Dilo tanczy 3.mp4",
-  Alio: "Alio tanczy.mp4",
-  Nini: "Nini tanczy.mp4",
-  Bibi: "Bibi tanczy.mp4"
+const CALM_VIDEO_MAP = {
+  Mimi: "Mimi calm.mp4",
+  Luli: "Luli calm.mp4",
+  Dilo: "Dilo calm.mp4",
+  Alio: "Alio calm.mp4",
+  Nini: "Nini calm.mp4",
+  Bibi: "Bibi calm.mp4"
 };
 
 function toSrc(filename){
@@ -450,7 +522,7 @@ function setAvatar(character){
   const video = document.getElementById('hm-avatar-video');
   const fallback = document.getElementById('hm-avatar-fallback');
 
-  const file = DANCE_VIDEO_MAP[character];
+  const file = CALM_VIDEO_MAP[character];
   if (!file) {
     video.removeAttribute('src');
     video.style.display = 'none';
@@ -459,7 +531,16 @@ function setAvatar(character){
     return;
   }
 
-  fallback.style.display = 'none';
+  video.muted = true;
+  video.playsInline = true;
+  video.autoplay = true;
+  video.preload = 'auto';
+  video.setAttribute('muted', '');
+  video.setAttribute('playsinline', '');
+  video.setAttribute('webkit-playsinline', '');
+  video.setAttribute('autoplay', '');
+  video.setAttribute('preload', 'auto');
+  fallback.style.display = 'flex';
   video.style.display = 'block';
   video.src = toSrc(file);
 
@@ -468,6 +549,11 @@ function setAvatar(character){
   const playPromise = video.play();
   if (playPromise && typeof playPromise.catch === 'function') playPromise.catch(()=>{});
 
+  const hideFallback = () => {
+    fallback.style.display = 'none';
+  };
+  video.onloadeddata = hideFallback;
+  video.onloadedmetadata = hideFallback;
   video.onerror = () => {
     video.style.display = 'none';
     fallback.style.display = 'flex';
@@ -475,14 +561,77 @@ function setAvatar(character){
   };
 }
 
-const categoryIcons = ["⭐", "✦", "❖", "✧"]; 
+const categoryIcons = ["⭐", "✦", "❖", "✧"];
 let remaining = [...challenges];
+let lastCharacter = null;
+let characterQueue = [];
+let challengesByCharacter = new Map();
 
-function pickChallenge(){
-  if (!remaining.length) remaining = [...challenges];
-  const i = Math.floor(Math.random() * remaining.length);
-  return remaining.splice(i, 1)[0];
+function shuffleArray(list) {
+  const arr = [...list];
+  for (let i = arr.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
 }
+
+function resetChallengePools() {
+  remaining = [...challenges];
+  challengesByCharacter = new Map();
+  for (const challenge of remaining) {
+    if (!challengesByCharacter.has(challenge.character)) {
+      challengesByCharacter.set(challenge.character, []);
+    }
+    challengesByCharacter.get(challenge.character).push(challenge);
+  }
+  for (const [character, list] of challengesByCharacter.entries()) {
+    challengesByCharacter.set(character, shuffleArray(list));
+  }
+  characterQueue = shuffleArray([...challengesByCharacter.keys()]);
+}
+
+function pickChallenge() {
+  if (!remaining.length || !characterQueue.length) {
+    resetChallengePools();
+  }
+
+  let selectedCharacter = null;
+  for (let i = 0; i < characterQueue.length; i += 1) {
+    const candidate = characterQueue[i];
+    const pool = challengesByCharacter.get(candidate) || [];
+    if (pool.length && candidate !== lastCharacter) {
+      selectedCharacter = candidate;
+      characterQueue = characterQueue.slice(i + 1).concat(characterQueue.slice(0, i + 1));
+      break;
+    }
+  }
+
+  if (!selectedCharacter) {
+    for (let i = 0; i < characterQueue.length; i += 1) {
+      const candidate = characterQueue[i];
+      const pool = challengesByCharacter.get(candidate) || [];
+      if (pool.length) {
+        selectedCharacter = candidate;
+        characterQueue = characterQueue.slice(i + 1).concat(characterQueue.slice(0, i + 1));
+        break;
+      }
+    }
+  }
+
+  if (!selectedCharacter) {
+    resetChallengePools();
+    return pickChallenge();
+  }
+
+  const pool = challengesByCharacter.get(selectedCharacter);
+  const picked = pool.shift();
+  remaining = remaining.filter(item => item !== picked);
+  lastCharacter = picked.character;
+  return picked;
+}
+
+resetChallengePools();
 
 function renderChallenge(c){
   setAvatar(c.character);
