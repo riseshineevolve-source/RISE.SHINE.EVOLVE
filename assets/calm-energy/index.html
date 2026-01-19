@@ -685,6 +685,12 @@
       inset: 0;
     }
 
+    .hm-result-video-frame {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
     .hm-wheel-symbol-slot.hm-selected {
       font-size: 1.4rem;
       text-shadow:
@@ -1842,8 +1848,10 @@
             </div>
           </div>
           <div class="${circleClass}">
-            <video class="hm-result-video" id="${videoId}" autoplay muted loop playsinline></video>
-            <div class="hm-result-fallback" id="${fallbackId}" aria-hidden="true">${fallbackIcon}</div>
+            <div class="hm-result-video-frame">
+              <video class="hm-result-video" id="${videoId}" autoplay muted loop playsinline></video>
+              <div class="hm-result-fallback" id="${fallbackId}" aria-hidden="true">${fallbackIcon}</div>
+            </div>
           </div>
           <h2 class="hm-result-title">${practice.title}</h2>
           <div class="hm-result-type">Family micro-practice</div>
@@ -2010,12 +2018,24 @@
         }
       }
 
-      spinBtn.addEventListener("click", () => {
-        spinStopToggle();
-      });
+      function addTapListener(element, handler) {
+        if (!element) return;
+        element.addEventListener("click", () => {
+          const lastTouch = Number(element.dataset.lastTouch || 0);
+          if (lastTouch && Date.now() - lastTouch < 500) return;
+          handler();
+        });
+        element.addEventListener("touchstart", (event) => {
+          element.dataset.lastTouch = String(Date.now());
+          event.preventDefault();
+          handler();
+        }, { passive: false });
+      }
+
+      addTapListener(spinBtn, spinStopToggle);
 
       filterButtons.forEach(btn => {
-        btn.addEventListener("click", () => {
+        addTapListener(btn, () => {
           filterButtons.forEach(b => b.classList.remove("hm-active"));
           btn.classList.add("hm-active");
           currentFilter = btn.getAttribute("data-filter");

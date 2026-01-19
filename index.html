@@ -2289,8 +2289,8 @@
       </div>
       <div class="gifts-mobile-instructions">
        <div class="gift-instruction">
-        <h4>Uwaga na telefonie</h4>
-        <p>GIFTS otwierają się w nowej karcie, aby działały najlepiej na urządzeniach mobilnych.</p>
+        <h4>Mobile tip</h4>
+        <p>GIFTS open in a new tab so they work best on phones.</p>
        </div>
       </div>
       <div class="gifts-library-grid">
@@ -4059,52 +4059,6 @@
       height: 100%;
       object-fit: cover;
       display: block;
-    }
-
-    .hm-result-fallback {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 22px;
-      opacity: 0.85;
-    }
-
-    .hm-result-avatar {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      overflow: hidden;
-      border: 2px solid rgba(255, 255, 255, 0.6);
-      box-shadow: 0 0 12px rgba(0, 0, 0, 0.35);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(255, 255, 255, 0.08);
-    }
-
-    .hm-result-avatar--calm {
-      border-color: rgba(138, 43, 226, 0.8);
-      box-shadow: 0 0 12px rgba(138, 43, 226, 0.45);
-    }
-
-    .hm-result-avatar--energy {
-      border-color: rgba(255, 88, 199, 0.8);
-      box-shadow: 0 0 12px rgba(255, 88, 199, 0.35);
-    }
-
-    .hm-result-card-header {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .hm-result-video {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
       position: absolute;
       inset: 0;
     }
@@ -4119,6 +4073,12 @@
       opacity: 0.85;
       position: absolute;
       inset: 0;
+    }
+
+    .hm-result-video-frame {
+      position: relative;
+      width: 100%;
+      height: 100%;
     }
 
     .hm-wheel-symbol-slot.hm-selected {
@@ -5284,8 +5244,10 @@
             </div>
           </div>
           <div class="${circleClass}">
-            <video class="hm-result-video" id="${videoId}" autoplay muted loop playsinline></video>
-            <div class="hm-result-fallback" id="${fallbackId}" aria-hidden="true">${fallbackIcon}</div>
+            <div class="hm-result-video-frame">
+              <video class="hm-result-video" id="${videoId}" autoplay muted loop playsinline></video>
+              <div class="hm-result-fallback" id="${fallbackId}" aria-hidden="true">${fallbackIcon}</div>
+            </div>
           </div>
           <h2 class="hm-result-title">${practice.title}</h2>
           <div class="hm-result-type">Family micro-practice</div>
@@ -5452,9 +5414,21 @@
         }
       }
 
-      spinBtn.addEventListener("click", () => {
-        spinStopToggle();
-      });
+      function addTapListener(element, handler) {
+        if (!element) return;
+        element.addEventListener("click", () => {
+          const lastTouch = Number(element.dataset.lastTouch || 0);
+          if (lastTouch && Date.now() - lastTouch < 500) return;
+          handler();
+        });
+        element.addEventListener("touchstart", (event) => {
+          element.dataset.lastTouch = String(Date.now());
+          event.preventDefault();
+          handler();
+        }, { passive: false });
+      }
+
+      addTapListener(spinBtn, spinStopToggle);
 
       filterButtons.forEach(btn => {
         btn.addEventListener("click", () => {
@@ -6486,7 +6460,7 @@ document.getElementById('hm-generate-btn').addEventListener('click', generateCha
         min-height: 100vh;
         min-height: 100dvh;
         overflow: auto;
-        padding: 8px 6px 12px;
+        padding: 8px 4px 12px;
       }
       .layout {
         display: flex;
@@ -6496,7 +6470,8 @@ document.getElementById('hm-generate-btn').addEventListener('click', generateCha
       .grid-shell {
         width: 100%;
         order: 1;
-        max-width: 92vw;
+        max-width: 100%;
+        margin-left: 0;
       }
       .panel {
         width: 100%;
@@ -6506,6 +6481,7 @@ document.getElementById('hm-generate-btn').addEventListener('click', generateCha
         min-height: 100%;
         padding: 10px 10px;
         margin: 0;
+        width: 100%;
       }
       .grid-shell {
         max-height: none;
@@ -6535,7 +6511,16 @@ document.getElementById('hm-generate-btn').addEventListener('click', generateCha
 
     @media (max-width: 900px) and (orientation: landscape) {
       .layout {
-        align-items: flex-start;
+        grid-template-columns: 2fr 1fr;
+        align-items: center;
+      }
+
+      .grid-shell {
+        max-width: none;
+      }
+
+      .panel {
+        align-self: stretch;
       }
 
       .word-grid td {
@@ -8769,7 +8754,7 @@ document.getElementById('hm-generate-btn').addEventListener('click', generateCha
                 if (openGiftInNewWindow(key, html, source)) {
                     return;
                 }
-                showGiftFallback('Włącz wyskakujące okna, aby otworzyć ten gift w nowej karcie.');
+                showGiftFallback('Please allow pop-ups to open this gift in a new tab.');
                 return;
             }
 
