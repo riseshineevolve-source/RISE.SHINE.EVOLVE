@@ -1727,7 +1727,7 @@
         ];
 
     
-    const VIDEO_BASE = "assets/videos/";
+    const VIDEO_BASE = "/assets/videos/";
 
     const DANCE_VIDEO_MAP = {
       Mimi: "Mimi tanczy 1.mp4",
@@ -1766,13 +1766,23 @@
         return;
       }
 
-      fallback.style.display = 'none';
+      video.muted = true;
+      video.playsInline = true;
+      video.autoplay = true;
+      video.setAttribute('muted', '');
+      video.setAttribute('playsinline', '');
+      video.setAttribute('webkit-playsinline', '');
+      video.setAttribute('autoplay', '');
+      fallback.style.display = 'flex';
       video.style.display = 'block';
       video.src = toSrc(file);
       video.load();
       const p = video.play();
       if (p && typeof p.catch === 'function') p.catch(()=>{});
 
+      video.onloadeddata = () => {
+        fallback.style.display = 'none';
+      };
       video.onerror = () => {
         video.style.display = 'none';
         fallback.style.display = 'flex';

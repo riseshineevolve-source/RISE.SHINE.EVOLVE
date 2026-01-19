@@ -502,7 +502,7 @@ function getAvatarHTML(character) {
 }
 
 
-const VIDEO_BASE = "assets/videos/";
+const VIDEO_BASE = "/assets/videos/";
 
 const CALM_VIDEO_MAP = {
   Mimi: "Mimi calm.mp4",
@@ -537,7 +537,8 @@ function setAvatar(character){
   video.setAttribute('muted', '');
   video.setAttribute('playsinline', '');
   video.setAttribute('webkit-playsinline', '');
-  fallback.style.display = 'none';
+  video.setAttribute('autoplay', '');
+  fallback.style.display = 'flex';
   video.style.display = 'block';
   video.src = toSrc(file);
 
@@ -546,6 +547,9 @@ function setAvatar(character){
   const playPromise = video.play();
   if (playPromise && typeof playPromise.catch === 'function') playPromise.catch(()=>{});
 
+  video.onloadeddata = () => {
+    fallback.style.display = 'none';
+  };
   video.onerror = () => {
     video.style.display = 'none';
     fallback.style.display = 'flex';
