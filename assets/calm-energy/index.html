@@ -669,8 +669,8 @@
       height: 100%;
       object-fit: cover;
       display: block;
-      position: absolute;
-      inset: 0;
+      max-width: 100%;
+      max-height: 100%;
     }
 
     .hm-result-fallback {
@@ -681,14 +681,6 @@
       justify-content: center;
       font-size: 22px;
       opacity: 0.85;
-      position: absolute;
-      inset: 0;
-    }
-
-    .hm-result-video-frame {
-      position: relative;
-      width: 100%;
-      height: 100%;
     }
 
     .hm-wheel-symbol-slot.hm-selected {
@@ -1774,6 +1766,20 @@
       return VIDEO_BASE + encodeURIComponent(filename).replace(/%2F/g, "/");
     }
 
+    function addTapListener(element, handler) {
+      if (!element) return;
+      element.addEventListener("click", () => {
+        const lastTouch = Number(element.dataset.lastTouch || 0);
+        if (lastTouch && Date.now() - lastTouch < 500) return;
+        handler();
+      });
+      element.addEventListener("touchstart", (event) => {
+        element.dataset.lastTouch = String(Date.now());
+        event.preventDefault();
+        handler();
+      }, { passive: false });
+    }
+
     function setCenterVideo(theme, character){
       const isEnergy = theme === 'energy';
       const video = document.getElementById(isEnergy ? 'energy-result-video' : 'calm-result-video');
@@ -1799,7 +1805,7 @@
       video.setAttribute('autoplay', '');
       video.setAttribute('preload', 'auto');
       fallback.style.display = 'flex';
-      video.style.display = 'block';
+      video.style.display = 'none';
       video.src = toSrc(file);
       video.load();
       const p = video.play();
@@ -1807,6 +1813,7 @@
 
       const hideFallback = () => {
         fallback.style.display = 'none';
+        video.style.display = 'block';
       };
       video.onloadeddata = hideFallback;
       video.onloadedmetadata = hideFallback;
@@ -1848,10 +1855,8 @@
             </div>
           </div>
           <div class="${circleClass}">
-            <div class="hm-result-video-frame">
-              <video class="hm-result-video" id="${videoId}" autoplay muted loop playsinline></video>
-              <div class="hm-result-fallback" id="${fallbackId}" aria-hidden="true">${fallbackIcon}</div>
-            </div>
+            <video class="hm-result-video" id="${videoId}" autoplay muted loop playsinline></video>
+            <div class="hm-result-fallback" id="${fallbackId}" aria-hidden="true">${fallbackIcon}</div>
           </div>
           <h2 class="hm-result-title">${practice.title}</h2>
           <div class="hm-result-type">Family micro-practice</div>
@@ -2018,20 +2023,6 @@
         }
       }
 
-      function addTapListener(element, handler) {
-        if (!element) return;
-        element.addEventListener("click", () => {
-          const lastTouch = Number(element.dataset.lastTouch || 0);
-          if (lastTouch && Date.now() - lastTouch < 500) return;
-          handler();
-        });
-        element.addEventListener("touchstart", (event) => {
-          element.dataset.lastTouch = String(Date.now());
-          event.preventDefault();
-          handler();
-        }, { passive: false });
-      }
-
       addTapListener(spinBtn, spinStopToggle);
 
       filterButtons.forEach(btn => {
@@ -2100,8 +2091,8 @@ setupWheel({
       }
     }
 
-    calmTabBtn.addEventListener("click", () => activateTab("calm"));
-    energyTabBtn.addEventListener("click", () => activateTab("energy"));
+    addTapListener(calmTabBtn, () => activateTab("calm"));
+    addTapListener(energyTabBtn, () => activateTab("energy"));
 
     tabIndicator.style.transform = "translateX(0%)";
   </script>
