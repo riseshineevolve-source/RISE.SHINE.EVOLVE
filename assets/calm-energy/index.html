@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Happy Makers Calm & Energy Wheels</title>
   <style>
     :root {
@@ -566,14 +567,17 @@
       width: 86px;
       height: 86px;
       border-radius: 50%;
-      background: radial-gradient(circle at top, rgba(255,255,255,0.95), rgba(255,255,255,0.7));
-      border: 1px solid rgba(255,215,0,0.45);
-      box-shadow: 0 0 18px rgba(255, 215, 0, 0.18), 0 0 40px rgba(138, 43, 226, 0.16);
-      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.45);
+      box-shadow: 0 0 18px rgba(0, 0, 0, 0.35);
       z-index: 3;
-      display:flex;
-      align-items:center;
-      justify-content:center;
+    }
+
+    .hm-wheel-visual--calm .hm-wheel-center-dot {
+      background: var(--purple-main);
+    }
+
+    .hm-wheel-visual--energy .hm-wheel-center-dot {
+      background: var(--pink-main);
     }
 
     .hm-wheel-ring {
@@ -631,8 +635,61 @@
       transform: translate(-50%, -50%) rotate(300deg) translate(0, -68px) rotate(calc(-300deg - var(--wheel-rotation, 0deg)));
     }
 
-    .hm-center-video { width:100%; height:100%; object-fit: cover; display:block; }
-    .hm-center-fallback { font-size: 28px; opacity: 0.85; }
+    .hm-result-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 2px solid rgba(255, 255, 255, 0.6);
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .hm-result-avatar--calm {
+      border-color: rgba(138, 43, 226, 0.8);
+      box-shadow: 0 0 12px rgba(138, 43, 226, 0.45);
+    }
+
+    .hm-result-avatar--energy {
+      border-color: rgba(255, 88, 199, 0.8);
+      box-shadow: 0 0 12px rgba(255, 88, 199, 0.35);
+    }
+
+    .hm-result-card-header {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .hm-result-video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      position: absolute;
+      inset: 0;
+    }
+
+    .hm-result-fallback {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      opacity: 0.85;
+      position: absolute;
+      inset: 0;
+    }
+
+    .hm-result-video-frame {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
 
     .hm-wheel-symbol-slot.hm-selected {
       font-size: 1.4rem;
@@ -761,8 +818,37 @@
 
     .hm-result-card {
       border-radius: 18px;
-      padding: 14px 14px 16px;
+      padding: 14px 140px 16px 14px;
       background: #000000;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hm-result-video-circle {
+      width: 120px;
+      height: 120px;
+      position: absolute;
+      top: 50%;
+      right: 16px;
+      transform: translateY(-50%);
+      border-radius: 50%;
+      overflow: hidden;
+      border: 2px solid rgba(255, 255, 255, 0.6);
+      box-shadow: 0 0 16px rgba(0, 0, 0, 0.4);
+      background: rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hm-result-video-circle--calm {
+      border-color: rgba(138, 43, 226, 0.9);
+      box-shadow: 0 0 18px rgba(138, 43, 226, 0.55);
+    }
+
+    .hm-result-video-circle--energy {
+      border-color: rgba(255, 88, 199, 0.9);
+      box-shadow: 0 0 18px rgba(255, 88, 199, 0.45);
     }
 
     .hm-result-card--calm {
@@ -960,6 +1046,28 @@
       .hm-result-box {
         max-width: 100%;
       }
+
+      .hm-result-card {
+        padding-right: 116px;
+      }
+
+      .hm-result-video-circle {
+        width: 96px;
+        height: 96px;
+        right: 12px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .hm-result-card {
+        padding: 16px;
+      }
+
+      .hm-result-video-circle {
+        position: static;
+        margin: 12px auto 0;
+        transform: none;
+      }
     }
   </style>
 </head>
@@ -1008,10 +1116,7 @@
                     <div class="hm-wheel-symbol-slot" data-character="Mimi">✨</div>
                     <div class="hm-wheel-symbol-slot" data-character="Bibi">👑</div>
                   </div>
-                  <div class="hm-wheel-center-dot">
-                    <video class="hm-center-video" id="calm-center-video" autoplay muted loop playsinline></video>
-                    <div class="hm-center-fallback" id="calm-center-fallback" aria-hidden="true">✨</div>
-                  </div>
+                  <div class="hm-wheel-center-dot"></div>
                 </div>
               </div>
               <button class="hm-spin-btn" id="calm-spin-btn">
@@ -1089,10 +1194,7 @@
                     <div class="hm-wheel-symbol-slot" data-character="Mimi">✨</div>
                     <div class="hm-wheel-symbol-slot" data-character="Bibi">👑</div>
                   </div>
-                  <div class="hm-wheel-center-dot">
-                    <video class="hm-center-video" id="energy-center-video" autoplay muted loop playsinline></video>
-                    <div class="hm-center-fallback" id="energy-center-fallback" aria-hidden="true">⚡</div>
-                  </div>
+                  <div class="hm-wheel-center-dot"></div>
                 </div>
               </div>
               <button class="hm-spin-btn hm-spin-btn--energy" id="energy-spin-btn">
@@ -1636,7 +1738,7 @@
         ];
 
     
-    const VIDEO_BASE = "assets/videos/";
+    const VIDEO_BASE = "/assets/videos/";
 
     const DANCE_VIDEO_MAP = {
       Mimi: "Mimi tanczy 1.mp4",
@@ -1662,8 +1764,8 @@
 
     function setCenterVideo(theme, character){
       const isEnergy = theme === 'energy';
-      const video = document.getElementById(isEnergy ? 'energy-center-video' : 'calm-center-video');
-      const fallback = document.getElementById(isEnergy ? 'energy-center-fallback' : 'calm-center-fallback');
+      const video = document.getElementById(isEnergy ? 'energy-result-video' : 'calm-result-video');
+      const fallback = document.getElementById(isEnergy ? 'energy-result-fallback' : 'calm-result-fallback');
       if (!video || !fallback) return;
 
       const map = isEnergy ? DANCE_VIDEO_MAP : CALM_VIDEO_MAP;
@@ -1671,20 +1773,34 @@
       if (!file) {
         video.removeAttribute('src');
         video.style.display = 'none';
-        fallback.style.display = 'block';
+        fallback.style.display = 'flex';
         return;
       }
 
-      fallback.style.display = 'none';
+      video.muted = true;
+      video.playsInline = true;
+      video.autoplay = true;
+      video.preload = 'auto';
+      video.setAttribute('muted', '');
+      video.setAttribute('playsinline', '');
+      video.setAttribute('webkit-playsinline', '');
+      video.setAttribute('autoplay', '');
+      video.setAttribute('preload', 'auto');
+      fallback.style.display = 'flex';
       video.style.display = 'block';
       video.src = toSrc(file);
       video.load();
       const p = video.play();
       if (p && typeof p.catch === 'function') p.catch(()=>{});
 
+      const hideFallback = () => {
+        fallback.style.display = 'none';
+      };
+      video.onloadeddata = hideFallback;
+      video.onloadedmetadata = hideFallback;
       video.onerror = () => {
         video.style.display = 'none';
-        fallback.style.display = 'block';
+        fallback.style.display = 'flex';
       };
     }
 
@@ -1699,6 +1815,13 @@
 
       const themeClass =
         theme === "energy" ? "hm-result-card hm-result-card--energy" : "hm-result-card hm-result-card--calm";
+      const circleClass =
+        theme === "energy"
+          ? "hm-result-video-circle hm-result-video-circle--energy"
+          : "hm-result-video-circle hm-result-video-circle--calm";
+      const videoId = theme === "energy" ? "energy-result-video" : "calm-result-video";
+      const fallbackId = theme === "energy" ? "energy-result-fallback" : "calm-result-fallback";
+      const fallbackIcon = theme === "energy" ? "⚡" : "✨";
 
       const [speakerRaw, ...quoteParts] = practice.comment.split(":");
       const speaker = (speakerRaw || "").trim();
@@ -1706,9 +1829,17 @@
 
       targetElement.innerHTML = `
         <article class="${themeClass}">
-          <div class="hm-pill-row">
-            <div class="hm-pill">${practice.category}</div>
-            <div class="hm-pill hm-pill-character">With ${practice.character}</div>
+          <div class="hm-result-card-header">
+            <div class="hm-pill-row">
+              <div class="hm-pill">${practice.category}</div>
+              <div class="hm-pill hm-pill-character">With ${practice.character}</div>
+            </div>
+          </div>
+          <div class="${circleClass}">
+            <div class="hm-result-video-frame">
+              <video class="hm-result-video" id="${videoId}" autoplay muted loop playsinline></video>
+              <div class="hm-result-fallback" id="${fallbackId}" aria-hidden="true">${fallbackIcon}</div>
+            </div>
           </div>
           <h2 class="hm-result-title">${practice.title}</h2>
           <div class="hm-result-type">Family micro-practice</div>
@@ -1742,6 +1873,15 @@
       slots[safeIndex].classList.add("hm-selected");
     }
 
+    function shuffleArray(list) {
+      const arr = [...list];
+      for (let i = arr.length - 1; i > 0; i -= 1) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
     function setupWheel(options) {
       const {
         practices,
@@ -1755,6 +1895,7 @@
       let currentFilter = "all";
       let isSpinning = false;
       const slotCharacters = ["Luli", "Dilo", "Alio", "Nini", "Mimi", "Bibi"];
+      let characterQueue = shuffleArray(slotCharacters);
 
       const spinBtn = document.getElementById(spinButtonId);
       const resultEl = document.getElementById(resultContainerId);
@@ -1802,8 +1943,26 @@
 
           const slotCount = slotCharacters.length || 1;
           const degreesPerSlot = 360 / slotCount;
-          const slotIndex = Math.floor(Math.random() * slotCount);
-          const characterName = slotCharacters[slotIndex] || slotCharacters[0];
+          const availableCharacters = new Set(filteredList.map(practice => practice.character));
+          let characterName = null;
+          let slotIndex = 0;
+
+          if (availableCharacters.size) {
+            for (let i = 0; i < characterQueue.length; i += 1) {
+              const candidate = characterQueue[i];
+              if (availableCharacters.has(candidate)) {
+                characterName = candidate;
+                slotIndex = slotCharacters.indexOf(candidate);
+                characterQueue = characterQueue.slice(i + 1).concat(characterQueue.slice(0, i + 1));
+                break;
+              }
+            }
+          }
+
+          if (!characterName) {
+            slotIndex = Math.floor(Math.random() * slotCount);
+            characterName = slotCharacters[slotIndex] || slotCharacters[0];
+          }
 
           const characterMatches = filteredList.filter(
             practice => practice.character === characterName
@@ -1847,12 +2006,24 @@
         }
       }
 
-      spinBtn.addEventListener("click", () => {
-        spinStopToggle();
-      });
+      function addTapListener(element, handler) {
+        if (!element) return;
+        element.addEventListener("click", () => {
+          const lastTouch = Number(element.dataset.lastTouch || 0);
+          if (lastTouch && Date.now() - lastTouch < 500) return;
+          handler();
+        });
+        element.addEventListener("touchstart", (event) => {
+          element.dataset.lastTouch = String(Date.now());
+          event.preventDefault();
+          handler();
+        }, { passive: false });
+      }
+
+      addTapListener(spinBtn, spinStopToggle);
 
       filterButtons.forEach(btn => {
-        btn.addEventListener("click", () => {
+        addTapListener(btn, () => {
           filterButtons.forEach(b => b.classList.remove("hm-active"));
           btn.classList.add("hm-active");
           currentFilter = btn.getAttribute("data-filter");
