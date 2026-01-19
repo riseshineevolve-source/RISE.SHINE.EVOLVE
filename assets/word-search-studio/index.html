@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -686,6 +687,7 @@
             color: #8a2be2;
             font-weight: 900;
             font-size: clamp(10px, 1.2vw, 16px);
+            line-height: 1;
             border-radius: clamp(2px, 0.2vw, 4px);
             cursor: pointer;
             transition: none;
@@ -1505,12 +1507,14 @@
                 width: 100%;
                 max-width: 100%;
                 height: auto;
-                max-height: min(28vh, 280px);
+                max-height: min(24vh, 240px);
                 padding: clamp(4px, 1vw, 6px);
                 margin-left: 0;
                 margin-right: auto;
                 border: none;
                 box-shadow: none;
+                justify-content: flex-start;
+                align-content: flex-start;
             }
 
             .word-search::before {
@@ -1542,12 +1546,26 @@
 
             .button-group {
                 gap: 6px;
+                justify-content: flex-start;
             }
 
             .btn {
                 padding: 10px 18px;
                 border-radius: 20px;
                 font-size: 0.85rem;
+            }
+
+            .puzzle-container,
+            .input-group,
+            .button-group,
+            .generate-section {
+                align-items: flex-start;
+                justify-content: flex-start;
+                text-align: left;
+            }
+
+            .word-search-instruction {
+                text-align: left;
             }
         }
 
@@ -1564,12 +1582,14 @@
             .word-search {
                 width: 100%;
                 max-width: 100%;
-                max-height: min(26vh, 240px);
+                max-height: min(22vh, 220px);
                 padding: 4px;
                 margin-left: 0;
                 margin-right: auto;
                 border: none;
                 box-shadow: none;
+                justify-content: flex-start;
+                align-content: flex-start;
             }
 
             .word-search::before {
@@ -1586,6 +1606,22 @@
             .container {
                 padding: 14px;
                 margin: 8px;
+            }
+        }
+
+        @media (max-width: 900px) and (orientation: landscape) {
+            .container {
+                text-align: left;
+            }
+
+            .word-search {
+                max-height: min(32vh, 200px);
+                justify-content: flex-start;
+                align-content: flex-start;
+            }
+
+            .cell {
+                font-size: clamp(9px, 1.8vw, 14px);
             }
         }
     </style>
@@ -2209,8 +2245,16 @@
                 const wordSearchDiv = document.getElementById('wordSearch');
                 wordSearchDiv.innerHTML = '';
 
-                const maxVisualSize = Math.min(window.innerWidth * 0.82, 640);
-                const cellSize = Math.max(18, Math.min(30, maxVisualSize / this.gridSize));
+                const isCompact = window.matchMedia && window.matchMedia('(max-width: 720px)').matches;
+                const maxVisualSize = Math.min(
+                    window.innerWidth * (isCompact ? 0.75 : 0.82),
+                    window.innerHeight * (isCompact ? 0.65 : 0.75),
+                    isCompact ? 520 : 640
+                );
+                const cellSize = Math.max(
+                    isCompact ? 16 : 18,
+                    Math.min(isCompact ? 26 : 30, maxVisualSize / this.gridSize)
+                );
                 const gridDimension = cellSize * this.gridSize;
                 const framePadding = Math.max(18, Math.min(36, Math.ceil(cellSize * 0.9)));
 
@@ -2229,6 +2273,10 @@
                         cell.className = 'cell';
                         cell.dataset.row = i;
                         cell.dataset.col = j;
+                        cell.style.width = `${cellSize}px`;
+                        cell.style.height = `${cellSize}px`;
+                        cell.style.fontSize = `${Math.max(10, Math.floor(cellSize * 0.55))}px`;
+                        cell.style.lineHeight = '1';
                         
                         if (this.isValidPosition(i, j)) {
                             cell.textContent = this.grid[i][j];
