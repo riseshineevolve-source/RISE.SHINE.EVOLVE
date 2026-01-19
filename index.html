@@ -2287,12 +2287,6 @@
        <p style="color: #ffd700; font-size: 1rem; margin: 0;">A pocket-sized library of free resources: calm tools, mini challenges, and word games made for family growth.<br>New GIFTS drop regularly.</p>
        <p style="color: #ffffff; font-size: 0.95rem; margin: 10px 0 0 0;">Tip for smaller screens: GIFTS work beautifully in both portrait and landscape.</p>
       </div>
-      <div class="gifts-mobile-instructions">
-       <div class="gift-instruction">
-        <h4>Uwaga na telefonie</h4>
-        <p>GIFTS otwierają się w nowej karcie, aby działały najlepiej na urządzeniach mobilnych.</p>
-       </div>
-      </div>
       <div class="gifts-library-grid">
        <div id="gift-card-calm-energy" class="gift-card" style="background: #000000; border: 3px solid #ffd700; border-radius: 18px; padding: 22px; text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(255, 215, 0, 0.5); position: relative; min-height: 300px; display: flex; flex-direction: column; align-items: center; gap: 12px;">
         <div style="position: absolute; top: 12px; left: 12px; background: #8A2BE2; color: #ffffff; font-size: 0.7rem; font-weight: bold; padding: 6px 10px; border-radius: 10px; text-transform: uppercase; box-shadow: 0 0 12px rgba(138, 43, 226, 0.6);">Available</div>
@@ -4071,56 +4065,6 @@
       opacity: 0.85;
     }
 
-    .hm-result-avatar {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      overflow: hidden;
-      border: 2px solid rgba(255, 255, 255, 0.6);
-      box-shadow: 0 0 12px rgba(0, 0, 0, 0.35);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(255, 255, 255, 0.08);
-    }
-
-    .hm-result-avatar--calm {
-      border-color: rgba(138, 43, 226, 0.8);
-      box-shadow: 0 0 12px rgba(138, 43, 226, 0.45);
-    }
-
-    .hm-result-avatar--energy {
-      border-color: rgba(255, 88, 199, 0.8);
-      box-shadow: 0 0 12px rgba(255, 88, 199, 0.35);
-    }
-
-    .hm-result-card-header {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .hm-result-video {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      position: absolute;
-      inset: 0;
-    }
-
-    .hm-result-fallback {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 22px;
-      opacity: 0.85;
-      position: absolute;
-      inset: 0;
-    }
-
     .hm-wheel-symbol-slot.hm-selected {
       font-size: 1.4rem;
       text-shadow:
@@ -4485,18 +4429,6 @@
         width: 96px;
         height: 96px;
         right: 12px;
-      }
-    }
-
-    @media (max-width: 640px) {
-      .hm-result-card {
-        padding: 16px;
-      }
-
-      .hm-result-video-circle {
-        position: static;
-        margin: 12px auto 0;
-        transform: none;
       }
     }
   </style>
@@ -5675,10 +5607,10 @@ body {
 .hm-card.show { opacity: 1; scale: 1; }
 .hm-card.hide { opacity: 0; scale: .85; pointer-events: none; }
 .hm-card-header { display: flex; justify-content: center; gap: 14px; align-items: center; }
-.hm-avatar { width: 92px; height: 92px; border-radius: 999px; display:flex; align-items:center; justify-content:center; background: rgba(255,215,0,.08); border: 1px solid rgba(255,215,0,.35); box-shadow: 0 0 14px rgba(255,215,0,.18);  overflow:hidden; position: relative; }
+.hm-avatar { width: 92px; height: 92px; border-radius: 999px; display:flex; align-items:center; justify-content:center; background: rgba(255,215,0,.08); border: 1px solid rgba(255,215,0,.35); box-shadow: 0 0 14px rgba(255,215,0,.18);  overflow:hidden; }
 .hm-avatar svg { width: 48px; height: 48px; display: block; }
-    .hm-avatar-video { width: 100%; height: 100%; object-fit: cover; display:block; position: absolute; inset: 0; }
-    .hm-avatar-fallback { width: 100%; height: 100%; display:flex; align-items:center; justify-content:center; position: absolute; inset: 0; }
+    .hm-avatar-video { width: 100%; height: 100%; object-fit: cover; display:block; }
+    .hm-avatar-fallback { width: 100%; height: 100%; display:flex; align-items:center; justify-content:center; }
 .hm-card-title { font-size: 1.55rem; font-weight: 900; color: var(--gold); text-align:left; }
 .hm-category-line { margin-top: 4px; text-align:left; font-size: .92rem; color: var(--text-muted); }
 .hm-category-icon { margin-right: 6px; filter: drop-shadow(0 0 3px rgba(255,215,0,.55)); }
@@ -6320,9 +6252,7 @@ document.getElementById('hm-generate-btn').addEventListener('click', generateCha
       text-align: center;
       font-weight: bold;
       font-size: 0.85rem;
-      height: clamp(22px, 4.6vw, 32px);
-      padding: 0;
-      line-height: 1;
+      padding: 5px 0;
       color: #ffffff;
       cursor: pointer;
       transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
@@ -6491,12 +6421,10 @@ document.getElementById('hm-generate-btn').addEventListener('click', generateCha
       .layout {
         display: flex;
         flex-direction: column;
-        align-items: flex-start;
       }
       .grid-shell {
         width: 100%;
         order: 1;
-        max-width: 92vw;
       }
       .panel {
         width: 100%;
@@ -6505,7 +6433,6 @@ document.getElementById('hm-generate-btn').addEventListener('click', generateCha
       .shell {
         min-height: 100%;
         padding: 10px 10px;
-        margin: 0;
       }
       .grid-shell {
         max-height: none;
@@ -6513,34 +6440,6 @@ document.getElementById('hm-generate-btn').addEventListener('click', generateCha
       }
       .panel {
         padding: 10px;
-      }
-
-      h1,
-      .subtitle,
-      .instructions,
-      .status,
-      .panel h2 {
-        text-align: left;
-      }
-
-      .puzzle-meta {
-        justify-content: flex-start;
-      }
-
-      .word-grid td {
-        height: clamp(20px, 6vw, 28px);
-        font-size: clamp(0.72rem, 3vw, 0.9rem);
-      }
-    }
-
-    @media (max-width: 900px) and (orientation: landscape) {
-      .layout {
-        align-items: flex-start;
-      }
-
-      .word-grid td {
-        height: clamp(18px, 4.2vw, 24px);
-        font-size: clamp(0.68rem, 2.6vw, 0.85rem);
       }
     }
   </style>
@@ -8700,8 +8599,8 @@ document.getElementById('hm-generate-btn').addEventListener('click', generateCha
         }
 
         function openGiftInNewWindow(key, html, source) {
-            const preferNewTab = isGiftMobileViewport();
-            if (!preferNewTab) {
+            const preferBlob = window.matchMedia && window.matchMedia('(max-width: 720px)').matches;
+            if (!preferBlob) {
                 return false;
             }
             if (source) {
@@ -8711,11 +8610,7 @@ document.getElementById('hm-generate-btn').addEventListener('click', generateCha
             if (!html) {
                 return false;
             }
-            const baseHref = window.location.origin ? `${window.location.origin}/` : '';
-            const htmlWithBase = baseHref && !html.includes('<base')
-                ? html.replace('<head>', `<head><base href="${baseHref}">`)
-                : html;
-            const blob = new Blob([htmlWithBase], { type: 'text/html' });
+            const blob = new Blob([html], { type: 'text/html' });
             const blobUrl = URL.createObjectURL(blob);
             const popup = window.open(blobUrl, '_blank', 'noopener,noreferrer');
             if (popup) {
@@ -8765,11 +8660,7 @@ document.getElementById('hm-generate-btn').addEventListener('click', generateCha
             const html = getGiftHtml(key);
             const source = giftSources[key];
 
-            if (isGiftMobileViewport()) {
-                if (openGiftInNewWindow(key, html, source)) {
-                    return;
-                }
-                showGiftFallback('Włącz wyskakujące okna, aby otworzyć ten gift w nowej karcie.');
+            if (openGiftInNewWindow(key, html, source)) {
                 return;
             }
 
