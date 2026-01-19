@@ -669,8 +669,8 @@
       height: 100%;
       object-fit: cover;
       display: block;
-      position: absolute;
-      inset: 0;
+      max-width: 100%;
+      max-height: 100%;
     }
 
     .hm-result-fallback {
@@ -681,8 +681,6 @@
       justify-content: center;
       font-size: 22px;
       opacity: 0.85;
-      position: absolute;
-      inset: 0;
     }
 
     .hm-wheel-symbol-slot.hm-selected {
@@ -812,19 +810,16 @@
 
     .hm-result-card {
       border-radius: 18px;
-      padding: 14px 140px 16px 14px;
+      padding: 16px;
       background: #000000;
       position: relative;
       overflow: hidden;
     }
 
     .hm-result-video-circle {
-      width: 120px;
-      height: 120px;
-      position: absolute;
-      top: 50%;
-      right: 16px;
-      transform: translateY(-50%);
+      width: 180px;
+      height: 180px;
+      margin: 0 auto 12px;
       border-radius: 50%;
       overflow: hidden;
       border: 2px solid rgba(255, 255, 255, 0.6);
@@ -1041,26 +1036,21 @@
         max-width: 100%;
       }
 
-      .hm-result-card {
-        padding-right: 116px;
-      }
-
       .hm-result-video-circle {
-        width: 96px;
-        height: 96px;
-        right: 12px;
-      }
-    }
-
-    @media (max-width: 640px) {
-      .hm-result-card {
-        padding: 16px;
+        width: 150px;
+        height: 150px;
       }
 
-      .hm-result-video-circle {
-        position: static;
-        margin: 12px auto 0;
-        transform: none;
+      .hm-tabs-wrapper {
+        display: none;
+      }
+
+      .hm-panel {
+        display: block;
+      }
+
+      .hm-panel + .hm-panel {
+        margin-top: 18px;
       }
     }
   </style>
@@ -1768,6 +1758,20 @@
       return VIDEO_BASE + encodeURIComponent(filename).replace(/%2F/g, "/");
     }
 
+    function addTapListener(element, handler) {
+      if (!element) return;
+      element.addEventListener("click", () => {
+        const lastTouch = Number(element.dataset.lastTouch || 0);
+        if (lastTouch && Date.now() - lastTouch < 500) return;
+        handler();
+      });
+      element.addEventListener("touchstart", (event) => {
+        element.dataset.lastTouch = String(Date.now());
+        event.preventDefault();
+        handler();
+      }, { passive: false });
+    }
+
     function setCenterVideo(theme, character){
       const isEnergy = theme === 'energy';
       const video = document.getElementById(isEnergy ? 'energy-result-video' : 'calm-result-video');
@@ -1793,7 +1797,7 @@
       video.setAttribute('autoplay', '');
       video.setAttribute('preload', 'auto');
       fallback.style.display = 'flex';
-      video.style.display = 'block';
+      video.style.display = 'none';
       video.src = toSrc(file);
       video.load();
       const p = video.play();
@@ -1801,9 +1805,12 @@
 
       const hideFallback = () => {
         fallback.style.display = 'none';
+        video.style.display = 'block';
       };
       video.onloadeddata = hideFallback;
       video.onloadedmetadata = hideFallback;
+      video.oncanplay = hideFallback;
+      video.onplaying = hideFallback;
       video.onerror = () => {
         video.style.display = 'none';
         fallback.style.display = 'flex';
@@ -2010,12 +2017,10 @@
         }
       }
 
-      spinBtn.addEventListener("click", () => {
-        spinStopToggle();
-      });
+      addTapListener(spinBtn, spinStopToggle);
 
       filterButtons.forEach(btn => {
-        btn.addEventListener("click", () => {
+        addTapListener(btn, () => {
           filterButtons.forEach(b => b.classList.remove("hm-active"));
           btn.classList.add("hm-active");
           currentFilter = btn.getAttribute("data-filter");
@@ -2080,8 +2085,8 @@ setupWheel({
       }
     }
 
-    calmTabBtn.addEventListener("click", () => activateTab("calm"));
-    energyTabBtn.addEventListener("click", () => activateTab("energy"));
+    addTapListener(calmTabBtn, () => activateTab("calm"));
+    addTapListener(energyTabBtn, () => activateTab("energy"));
 
     tabIndicator.style.transform = "translateX(0%)";
   </script>
