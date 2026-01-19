@@ -2860,7 +2860,7 @@
      <p style="color: #ffffff; font-size: 1.12rem; line-height: 1.6; margin: 0 0 14px 0; text-align: justify; text-align-last: center;"><strong style="color:#8A2BE2;">Every person can EVOLVE</strong> <span style="color:#ffffff;">(one small step at a time).</span></p>
      <p style="color: #ffffff; font-size: 1.12rem; line-height: 1.6; margin: 0 0 14px 0; text-align: justify; text-align-last: center;">This isn’t just a book series.</p>
      <p style="color: #ffd700; font-size: 1.12rem; line-height: 1.6; margin: 0 0 14px 0; text-align: justify; text-align-last: center; text-transform: uppercase; font-weight: 700;">It’s a movement fueled by love, humor and high-fives!</p>
-     <p style="color: #ffffff; font-size: 1.18rem; line-height: 1.6; margin: 0; text-align: justify; text-align-last: center;"><strong style="color:#ffffff;">Ready to unlock true potential?</strong><br>It is time to <span class="word-rise">Rise</span>. <span class="word-shine">Shine</span>. <span class="word-evolve">Evolve</span>.<br><strong style="color:#ffd700;">TOGETHER.</strong></p>
+     <p style="color: #ffffff; font-size: 1.18rem; line-height: 1.6; margin: 0; text-align: justify; text-align-last: center;"><strong style="color:#ffffff;">Ready to unlock true potential?</strong><br>It is time to <span class="word-rise">RISE</span>.<span class="word-shine">SHINE</span>.<span class="word-evolve">EVOLVE</span><br><strong style="color:#ffd700;">TOGETHER.</strong></p>
     </div>
    </div><!-- Back Button Bottom -->
     <div style="text-align: center;"><button onclick="backToLibrary()" style="
@@ -3419,56 +3419,20 @@
       min-height: 100vh;
     }
 
-    @media (max-width: 720px) {
-      body {
-        min-height: 100vh;
-        min-height: 100dvh;
-        overflow: auto;
-        align-items: stretch;
-      }
-    }
-
     .hm-page {
-      max-width: 960px;
+      max-width: 1280px;
       width: 100%;
-      margin: 8px auto 14px;
-      padding: 0 10px;
-    }
-
-    @media (max-width: 720px) {
-      .hm-page {
-        min-height: 100dvh;
-        margin: 0;
-        padding: 8px;
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-      }
-
-      .hm-page-header {
-        margin-bottom: 10px;
-      }
-
-      .hm-main-title {
-        font-size: 1.6rem;
-      }
-
-      .hm-main-subtitle {
-        font-size: 0.95rem;
-      }
-
-      .hm-tabs-wrapper {
-        margin: 12px 0 10px;
-      }
+      margin: 28px auto 36px;
+      padding: 0 16px;
     }
 
     .hm-page-header {
       text-align: center;
-      margin-bottom: 16px;
+      margin-bottom: 24px;
     }
 
     .hm-main-title {
-      font-size: 1.6rem;
+      font-size: 1.9rem;
       font-weight: 800;
       margin: 0 0 6px;
       background: linear-gradient(45deg, #8A2BE2, #9932CC, #ff69b4, #ffb6c1);
@@ -3477,7 +3441,7 @@
     }
 
     .hm-main-subtitle {
-      font-size: 0.9rem;
+      font-size: 1.02rem;
       color: var(--text-muted);
       max-width: 560px;
       margin: 0 auto;
@@ -3490,7 +3454,7 @@
     .hm-tabs-wrapper {
       display: flex;
       justify-content: center;
-      margin: 14px 0 16px;
+      margin: 22px 0 26px;
     }
 
     .hm-tabs {
@@ -3558,11 +3522,11 @@
     /* Panel layout */
 
     .hm-panel-inner {
-      max-width: 900px;
+      max-width: 1240px;
       margin: 0 auto;
       display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
-      gap: 8px;
+      grid-template-columns: minmax(0, 1.45fr) minmax(0, 0.95fr);
+      gap: 16px;
       align-items: start;
     }
 
@@ -3572,205 +3536,11 @@
       }
     }
 
-    @media (max-width: 1024px) {
-      .hm-page {
-        margin: 12px auto 16px;
-      }
-
-      .hm-panel-inner {
-        gap: 8px;
-      }
-
-      .hm-wheel-box {
-        padding: 8px;
-      }
-
-      .hm-wheel-visual {
-        width: 140px;
-        height: 140px;
-      }
-    }
-
-    @media (max-width: 900px) {
-      .hm-page {
-        margin: 10px auto 14px;
-        padding: 0 10px;
-      }
-
-      .hm-panel-inner {
-        max-width: 100%;
-      }
-
-      .hm-wheel-box {
-        padding: 8px 8px 10px;
-      }
-
-      .hm-wheel-visual {
-        width: 136px;
-        height: 136px;
-      }
-
-      .hm-wheel-subtitle,
-      .hm-wheel-note,
-      .hm-info-text {
-        font-size: 0.82rem;
-      }
-    }
-
-    @media (max-width: 1024px) {
-      .hm-page {
-        margin: 14px auto 18px;
-      }
-
-      .hm-panel-inner {
-        gap: 10px;
-      }
-
-      .hm-wheel-box {
-        padding: 10px;
-      }
-
-      .hm-wheel-visual {
-        width: 140px;
-        height: 140px;
-      }
-    }
-
-    @media (max-width: 900px) {
-      .hm-page {
-        margin: 12px auto 16px;
-        padding: 0 10px;
-      }
-
-      .hm-panel-inner {
-        max-width: 100%;
-      }
-
-      .hm-wheel-box {
-        padding: 9px;
-      }
-
-      .hm-wheel-visual {
-        width: 136px;
-        height: 136px;
-      }
-
-      .hm-wheel-subtitle,
-      .hm-wheel-note,
-      .hm-info-text {
-        font-size: 0.82rem;
-      }
-    }
-
-    @media (max-width: 720px) {
-      .hm-page {
-        height: auto;
-        overflow: visible;
-      }
-
-      .hm-panel-inner {
-        display: flex;
-        flex-direction: column;
-        max-height: none;
-        overflow: visible;
-      }
-
-      .hm-wheel-box {
-        width: 100%;
-        padding: 14px;
-      }
-
-      .hm-text-column {
-        max-width: 100%;
-        width: 100%;
-      }
-
-      .hm-wheel-visual {
-        width: 260px;
-        height: 260px;
-      }
-
-      .hm-wheel-title {
-        font-size: 1.5rem;
-      }
-
-      .hm-wheel-subtitle {
-        font-size: 1.05rem;
-        text-align: center;
-      }
-
-      .hm-controls-label {
-        font-size: 0.95rem;
-      }
-
-      .hm-filter-btn {
-        font-size: 0.85rem;
-      }
-
-      .hm-filter-btn span {
-        font-size: 0.88rem;
-      }
-
-      .hm-info-text {
-        font-size: 0.95rem;
-        text-align: center;
-      }
-
-      .hm-result-main-title {
-        font-size: 1.25rem;
-      }
-    }
-
-    @media (max-width: 1024px) {
-      .hm-page {
-        margin: 14px auto 18px;
-      }
-
-      .hm-panel-inner {
-        gap: 10px;
-      }
-
-      .hm-wheel-box {
-        padding: 10px;
-      }
-
-      .hm-wheel-visual {
-        width: 140px;
-        height: 140px;
-      }
-    }
-
-    @media (max-width: 900px) {
-      .hm-page {
-        margin: 12px auto 16px;
-        padding: 0 10px;
-      }
-
-      .hm-panel-inner {
-        max-width: 100%;
-      }
-
-      .hm-wheel-box {
-        padding: 9px;
-      }
-
-      .hm-wheel-visual {
-        width: 136px;
-        height: 136px;
-      }
-
-      .hm-wheel-subtitle,
-      .hm-wheel-note,
-      .hm-info-text {
-        font-size: 0.82rem;
-      }
-    }
-
     /* Wheel box */
 
     .hm-wheel-box {
       border-radius: var(--radius-xl);
-      padding: 8px 8px 10px;
+      padding: 14px 14px 16px;
       background: radial-gradient(circle at top left, rgba(138, 43, 226, 0.18), transparent 55%),
                   radial-gradient(circle at bottom right, rgba(242, 155, 196, 0.16), transparent 55%),
                   rgba(5, 3, 20, 0.92);
@@ -3778,7 +3548,7 @@
       flex-direction: column;
       align-items: stretch;
       text-align: left;
-      gap: 10px;
+      gap: 12px;
     }
 
     .hm-wheel-box--calm {
@@ -3801,7 +3571,7 @@
     }
 
     .hm-wheel-title {
-      font-size: 1.1rem;
+      font-size: 1.26rem;
       font-weight: 800;
       margin: 4px 0 0;
       text-align: center;
@@ -3825,59 +3595,199 @@
     }
 
     .hm-wheel-subtitle {
-      font-size: 0.82rem;
+      font-size: 0.92rem;
       color: var(--text-muted);
       margin: 2px auto 6px;
-      max-width: 640px;
+      max-width: 700px;
       text-align: justify;
-      line-height: 1.4;
+      line-height: 1.5;
     }
 
     .hm-wheel-layout {
       display: grid;
-      grid-template-columns: minmax(0, 0.85fr) minmax(0, 1fr);
-      gap: 8px;
+      grid-template-columns: minmax(0, 0.95fr) minmax(0, 1fr);
+      gap: 14px;
       align-items: center;
     }
 
-    @media (max-width: 720px) {
-      .hm-wheel-layout {
-        grid-template-columns: 1fr;
-        justify-items: center;
-      }
+    .hm-wheel-visual-stack {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
 
-      .hm-wheel-info-stack {
-        order: 1;
-        width: 100%;
-        align-items: center;
-      }
+    .hm-wheel-info-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
 
-      .hm-wheel-visual-stack {
-        order: 2;
-        width: 100%;
-        align-items: center;
-      }
+    .hm-wheel-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(0, 1fr);
+      gap: 14px;
+      align-items: center;
+    }
 
-      .hm-wheel-visual {
-        width: 210px;
-        height: 210px;
-      }
+    .hm-wheel-visual-stack {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
 
-      .hm-wheel-pointer {
-        border-left-width: 16px;
-        border-right-width: 16px;
-        border-top-width: 24px;
-      }
+    .hm-wheel-info-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
 
-      .hm-info-bar {
-        text-align: center;
-        margin: 0 auto;
-      }
+    .hm-wheel-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(0, 1fr);
+      gap: 14px;
+      align-items: center;
+    }
 
-      .hm-result-box {
-        width: 100%;
-        text-align: center;
-      }
+    .hm-wheel-visual-stack {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .hm-wheel-info-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .hm-wheel-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(0, 1fr);
+      gap: 14px;
+      align-items: center;
+    }
+
+    .hm-wheel-visual-stack {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .hm-wheel-info-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .hm-wheel-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(0, 1fr);
+      gap: 14px;
+      align-items: center;
+    }
+
+    .hm-wheel-visual-stack {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .hm-wheel-info-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .hm-wheel-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(0, 1fr);
+      gap: 14px;
+      align-items: center;
+    }
+
+    .hm-wheel-visual-stack {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .hm-wheel-info-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .hm-wheel-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(0, 1fr);
+      gap: 14px;
+      align-items: center;
+    }
+
+    .hm-wheel-visual-stack {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .hm-wheel-info-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .hm-wheel-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(0, 1fr);
+      gap: 14px;
+      align-items: center;
+    }
+
+    .hm-wheel-visual-stack {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .hm-wheel-info-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .hm-wheel-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(0, 1fr);
+      gap: 14px;
+      align-items: center;
+    }
+
+    .hm-wheel-visual-stack {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .hm-wheel-info-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .hm-wheel-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(0, 1fr);
+      gap: 14px;
+      align-items: center;
     }
 
     .hm-wheel-visual-stack {
@@ -3897,10 +3807,10 @@
 
     .hm-controls-box {
       border-radius: 18px;
-      padding: 10px 12px 12px;
+      padding: 12px 14px 14px;
       background: rgba(8, 5, 26, 0.96);
       border: 2px solid rgba(255, 255, 255, 0.18);
-      margin-bottom: 12px;
+      margin-bottom: 16px;
       text-align: center;
     }
 
@@ -3915,7 +3825,7 @@
     }
 
     .hm-controls-label {
-      font-size: 0.8rem;
+      font-size: 0.9rem;
       color: var(--text-muted);
       margin-bottom: 8px;
       text-align: center;
@@ -3930,11 +3840,11 @@
 
     .hm-filter-btn {
       border: 0;
-      padding: 6px 10px;
+      padding: 7px 13px;
       border-radius: 999px;
       background: rgba(255, 255, 255, 0.04);
       color: var(--text-muted);
-      font-size: 0.74rem;
+      font-size: 0.82rem;
       cursor: pointer;
       transition: all 0.15s ease;
       display: inline-flex;
@@ -3943,7 +3853,7 @@
     }
 
     .hm-filter-btn span {
-      font-size: 0.78rem;
+      font-size: 0.84rem;
     }
 
     .hm-filter-btn.hm-active {
@@ -3967,21 +3877,21 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      margin-bottom: 2px;
+      margin-bottom: 4px;
       position: relative;
-      padding-top: 2px;
+      padding-top: 4px;
     }
 
     .hm-wheel-pointer {
       position: absolute;
-      top: -2px;
+      top: -4px;
       left: 50%;
       transform: translateX(-50%);
       width: 0;
       height: 0;
-      border-left: 14px solid transparent;
-      border-right: 14px solid transparent;
-      border-top: 20px solid #ffffff;
+      border-left: 16px solid transparent;
+      border-right: 16px solid transparent;
+      border-top: 24px solid #ffffff;
       filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.45));
       z-index: 3;
     }
@@ -3991,8 +3901,8 @@
     }
 
     .hm-wheel-visual {
-      width: 140px;
-      height: 140px;
+      width: 188px;
+      height: 188px;
       border-radius: 50%;
       border: 6px solid #fdf7ff;
       position: relative;
@@ -4039,12 +3949,20 @@
     }
 
     .hm-wheel-center-dot {
-      width: 18px;
-      height: 18px;
+      width: 86px;
+      height: 86px;
       border-radius: 50%;
-      background: #fdf7ff;
-      box-shadow: 0 0 12px rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.45);
+      box-shadow: 0 0 18px rgba(0, 0, 0, 0.35);
       z-index: 3;
+    }
+
+    .hm-wheel-visual--calm .hm-wheel-center-dot {
+      background: var(--purple-main);
+    }
+
+    .hm-wheel-visual--energy .hm-wheel-center-dot {
+      background: var(--pink-main);
     }
 
     .hm-wheel-ring {
@@ -4102,6 +4020,48 @@
       transform: translate(-50%, -50%) rotate(300deg) translate(0, -68px) rotate(calc(-300deg - var(--wheel-rotation, 0deg)));
     }
 
+    .hm-result-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 2px solid rgba(255, 255, 255, 0.6);
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .hm-result-avatar--calm {
+      border-color: rgba(138, 43, 226, 0.8);
+      box-shadow: 0 0 12px rgba(138, 43, 226, 0.45);
+    }
+
+    .hm-result-avatar--energy {
+      border-color: rgba(255, 88, 199, 0.8);
+      box-shadow: 0 0 12px rgba(255, 88, 199, 0.35);
+    }
+
+    .hm-result-video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      max-width: 100%;
+      max-height: 100%;
+    }
+
+    .hm-result-fallback {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      opacity: 0.85;
+    }
+
     .hm-wheel-symbol-slot.hm-selected {
       font-size: 1.4rem;
       text-shadow:
@@ -4131,9 +4091,9 @@
 
     .hm-spin-btn {
       border: 0;
-      padding: 8px 18px;
+      padding: 10px 22px;
       border-radius: 999px;
-      font-size: 0.88rem;
+      font-size: 0.96rem;
       font-weight: 600;
       cursor: pointer;
       color: #ffffff;
@@ -4155,11 +4115,11 @@
     }
 
     .hm-wheel-note {
-      font-size: 0.8rem;
+      font-size: 0.88rem;
       color: var(--text-muted);
       max-width: 100%;
       text-align: justify;
-      line-height: 1.4;
+      line-height: 1.5;
     }
 
     /* Right column */
@@ -4167,10 +4127,10 @@
     .hm-text-column {
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 12px;
       align-items: stretch;
-      max-width: 360px;
-      margin: -6px auto 0;
+      max-width: 440px;
+      margin: -28px auto 0;
       align-self: flex-start;
       padding-top: 0;
     }
@@ -4195,16 +4155,16 @@
     }
 
     .hm-info-title {
-      font-size: 0.86rem;
+      font-size: 0.94rem;
       font-weight: 700;
       margin-bottom: 4px;
       text-align: center;
     }
 
     .hm-info-text {
-      font-size: 0.82rem;
+      font-size: 0.9rem;
       color: var(--text-muted);
-      line-height: 1.45;
+      line-height: 1.55;
       text-align: justify;
       margin: 0 auto;
       max-width: 680px;
@@ -4229,20 +4189,35 @@
 
     .hm-result-card {
       border-radius: 18px;
-      padding: 14px 14px 16px;
+      padding: 16px;
       background: #000000;
+      position: relative;
+      overflow: hidden;
     }
 
-    .hm-result-portrait {
-      width: 72px;
-      height: 72px;
+    .hm-result-video-circle {
+      width: 140px;
+      height: 140px;
+      margin: 0;
       border-radius: 50%;
-      border: 2px solid rgba(255, 215, 0, 0.8);
-      object-fit: cover;
-      background: #000000;
-      box-shadow: 0 0 16px rgba(138, 43, 226, 0.55);
-      margin: 10px auto 12px;
-      display: block;
+      overflow: hidden;
+      border: 2px solid rgba(255, 255, 255, 0.6);
+      box-shadow: 0 0 16px rgba(0, 0, 0, 0.4);
+      background: rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .hm-result-video-circle--calm {
+      border-color: rgba(138, 43, 226, 0.9);
+      box-shadow: 0 0 18px rgba(138, 43, 226, 0.55);
+    }
+
+    .hm-result-video-circle--energy {
+      border-color: rgba(255, 88, 199, 0.9);
+      box-shadow: 0 0 18px rgba(255, 88, 199, 0.45);
     }
 
     .hm-result-card--calm {
@@ -4259,13 +4234,26 @@
         0 0 26px rgba(163, 43, 255, 0.24);
     }
 
+    .hm-result-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 10px;
+    }
+
+    .hm-result-title-block {
+      flex: 1;
+      min-width: 0;
+      text-align: left;
+    }
+
     .hm-pill-row {
       display: flex;
       flex-wrap: wrap;
       gap: 6px;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
       font-size: 0.78rem;
-      justify-content: center;
+      justify-content: flex-start;
     }
 
     .hm-pill {
@@ -4285,7 +4273,7 @@
       font-size: 1.12rem;
       font-weight: 800;
       margin: 0 0 4px;
-      text-align: center;
+      text-align: left;
       background: linear-gradient(45deg, #8A2BE2, #ff69b4);
       -webkit-background-clip: text;
       color: transparent;
@@ -4301,7 +4289,7 @@
       font-size: 0.86rem;
       color: var(--text-muted);
       margin-bottom: 8px;
-      text-align: center;
+      text-align: left;
     }
 
     .hm-result-instruction {
@@ -4309,14 +4297,14 @@
       color: #e3ddff;
       margin-bottom: 8px;
       line-height: 1.6;
-      text-align: justify;
+      text-align: left;
     }
 
     .hm-result-comment {
       font-size: 0.9rem;
       color: #c5bdf3;
       font-style: italic;
-      text-align: center;
+      text-align: left;
       display: grid;
       gap: 2px;
     }
@@ -4355,6 +4343,32 @@
       }
       .hm-result-box {
         max-width: 100%;
+      }
+
+      .hm-result-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      .hm-result-title-block {
+        text-align: center;
+      }
+
+      .hm-pill-row {
+        justify-content: center;
+      }
+
+      .hm-result-title,
+      .hm-result-type,
+      .hm-result-instruction,
+      .hm-result-comment {
+        text-align: center;
+      }
+
+      .hm-result-video-circle {
+        width: 120px;
+        height: 120px;
       }
     }
   </style>
@@ -4418,17 +4432,14 @@
                   <button class="hm-filter-btn hm-filter-btn--calm hm-active" data-filter="all">
                     <span>All types</span>
                   </button>
-                  <button class="hm-filter-btn hm-filter-btn--calm" data-filter="1-minute practice">
-                    <span>1-minute</span>
+                  <button class="hm-filter-btn hm-filter-btn--calm" data-filter="Movement">
+                    <span>Movement</span>
                   </button>
-                  <button class="hm-filter-btn hm-filter-btn--calm" data-filter="Micro-movement">
-                    <span>Micro-movement</span>
+                  <button class="hm-filter-btn hm-filter-btn--calm" data-filter="Breath">
+                    <span>Breath</span>
                   </button>
-                  <button class="hm-filter-btn hm-filter-btn--calm" data-filter="Micro-breath">
-                    <span>Micro-breath</span>
-                  </button>
-                  <button class="hm-filter-btn hm-filter-btn--calm" data-filter="Micro-connection">
-                    <span>Micro-connection</span>
+                  <button class="hm-filter-btn hm-filter-btn--calm" data-filter="Connection">
+                    <span>Connection</span>
                   </button>
                 </div>
               </div>
@@ -4499,17 +4510,14 @@
                   <button class="hm-filter-btn hm-filter-btn--energy hm-active" data-filter="all">
                     <span>All types</span>
                   </button>
-                  <button class="hm-filter-btn hm-filter-btn--energy" data-filter="1-minute practice">
-                    <span>1-minute</span>
+                  <button class="hm-filter-btn hm-filter-btn--energy" data-filter="Movement">
+                    <span>Movement</span>
                   </button>
-                  <button class="hm-filter-btn hm-filter-btn--energy" data-filter="Micro-movement">
-                    <span>Micro-movement</span>
+                  <button class="hm-filter-btn hm-filter-btn--energy" data-filter="Breath">
+                    <span>Breath</span>
                   </button>
-                  <button class="hm-filter-btn hm-filter-btn--energy" data-filter="Micro-breath">
-                    <span>Micro-breath</span>
-                  </button>
-                  <button class="hm-filter-btn hm-filter-btn--energy" data-filter="Micro-connection">
-                    <span>Micro-connection</span>
+                  <button class="hm-filter-btn hm-filter-btn--energy" data-filter="Connection">
+                    <span>Connection</span>
                   </button>
                 </div>
               </div>
@@ -4545,690 +4553,577 @@
   <script>
     /* ---------- DATA: CALM PRACTICES ---------- */
     const calmPractices = [
-      // 1-minute practice
-      {
-        id: 1,
-        category: "1-minute practice",
-        title: "Quiet Detective Minute",
-        instruction: `Sit or stand together and stay completely silent for one minute. Just notice what you feel in your body and what tiny details you can see or hear.`,
-        character: "Luli",
-        comment: `Luli's Note: "One quiet minute = at least three new clues about your own mood."`
-      },
-      {
-        id: 2,
-        category: "1-minute practice",
-        title: "Window of Calm",
-        instruction: `Look out of the window (or at one spot in the room) and quietly find three things you have never noticed properly before.`,
-        character: "Dilo",
-        comment: `Dilo's Note: "Level up your focus: new details are like hidden Easter eggs for your brain."`
-      },
-      {
-        id: 3,
-        category: "1-minute practice",
-        title: "Head-to-Toe Scan",
-        instruction: `Close your eyes and gently move your attention from the top of your head down to your toes, relaxing each part as you go.`,
-        character: "Mimi",
-        comment: `Mimi's Note: "Upgrade to deluxe mode: release tension like you are uninstalling old apps."`
-      },
-      {
-        id: 4,
-        category: "1-minute practice",
-        title: "Sound Layers Minute",
-        instruction: `Sit still and listen for: 1) sounds close to you, 2) sounds farther away, 3) the quiet space in between.`,
-        character: "Bibi",
-        comment: `Bibi's Note: "Grandma trick: when I listen carefully, my brain stops shouting and starts sipping tea."`
-      },
-      {
-        id: 5,
-        category: "1-minute practice",
-        title: "Gratitude Glow",
-        instruction: `Everyone silently chooses one thing they are grateful for and just holds that feeling gently for one minute.`,
-        character: "Nini",
-        comment: `Nini's Note: "Tiny secret: grateful hearts make the best cuddle spots."`
-      },
-      {
-        id: 6,
-        category: "1-minute practice",
-        title: "Invisible Snow Globe",
-        instruction: `Close your eyes and imagine your thoughts like glitter swirling in a snow globe. Watch them slowly fall and settle.`,
-        character: "Alio",
-        comment: `Alio's Note: "No shaking allowed. Today we are calm snow, not a snow storm."`
-      },
-      {
-        id: 7,
-        category: "1-minute practice",
-        title: "Sip & Pause",
-        instruction: `Take a small sip of water or tea. For one minute, focus only on taste, warmth and the feeling of the cup in your hand.`,
-        character: "Mimi",
-        comment: `Mimi's Note: "Multitasking is cancelled. For sixty seconds, you and your drink are the main event."`
-      },
-      {
-        id: 8,
-        category: "1-minute practice",
-        title: "Supported by the Floor",
-        instruction: `Sit or lie down and feel how the floor, chair or sofa is holding your body. Let yourself sink a tiny bit deeper into that support.`,
-        character: "Luli",
-        comment: `Luli's Note: "Plot twist: the ground has been your quiet bodyguard this whole time."`
-      },
-      {
-        id: 9,
-        category: "1-minute practice",
-        title: "Blink & Rest",
-        instruction: `Soften your gaze or close your eyes. For one minute, give your eyes a break: slow blinking, no screens, just gentle looking.`,
-        character: "Dilo",
-        comment: `Dilo's Note: "Pro tip: even heroes and gamers need an eye cooldown."`
-      },
-      {
-        id: 10,
-        category: "1-minute practice",
-        title: "Inside Weather Check",
-        instruction: `Ask yourself: "If my feelings were weather right now, what would they be?" Just notice the answer without changing it.`,
-        character: "Bibi",
-        comment: `Bibi's Note: "Rain, sun or tiny emotional tornado - all weather is allowed here."`
-      },
-
-      // Micro-movement
-      {
-        id: 11,
-        category: "Micro-movement",
-        title: "Shoulder Cloud Roll",
-        instruction: `Slowly roll your shoulders up, back and down 5-8 times while breathing calmly.`,
-        character: "Mimi",
-        comment: `Mimi's Note: "Goodbye, 'I carry the world on my shoulders' posture."`
-      },
-      {
-        id: 12,
-        category: "Micro-movement",
-        title: "Cat Wake-Up Stretch",
-        instruction: `Reach your arms up as high as you can, then gently to the sides, like a cat doing a luxurious morning stretch.`,
-        character: "Luli",
-        comment: `Luli's Note: "Stretch as if you had nine lives and one minute to enjoy each."`
-      },
-      {
-        id: 13,
-        category: "Micro-movement",
-        title: "Gentle Shake-Out",
-        instruction: `For 10-15 seconds, gently shake your hands, then arms, then legs. Slow and soft, not wild.`,
-        character: "Alio",
-        comment: `Alio's Note: "This is the low-chaos version of my usual energy."`
-      },
-      {
-        id: 14,
-        category: "Micro-movement",
-        title: "Invisible Wall Push",
-        instruction: `Place your palms in front of you and pretend to push a heavy wall away for 5 slow breaths.`,
-        character: "Dilo",
-        comment: `Dilo's Note: "You are not just pushing the wall. You are pushing the stress back into its box."`
-      },
-      {
-        id: 15,
-        category: "Micro-movement",
-        title: "Jelly Face Reset",
-        instruction: `Scrunch up your whole face tight, hold for 3 seconds, then relax completely like jelly. Repeat 3 times.`,
-        character: "Nini",
-        comment: `Nini's Note: "Warning: may cause giggles and slightly ridiculous faces."`
-      },
-      {
-        id: 16,
-        category: "Micro-movement",
-        title: "Tree Trunk Legs",
-        instruction: `Stand with feet firmly on the ground, knees soft. Imagine roots growing from your feet into the earth for 5-8 breaths.`,
-        character: "Bibi",
-        comment: `Bibi's Note: "Strong roots, soft heart - best combo."`
-      },
-      {
-        id: 17,
-        category: "Micro-movement",
-        title: "Neck Rainbow",
-        instruction: `Gently move your head to look right, then left, then slowly down and up - like drawing a slow rainbow with your nose.`,
-        character: "Mimi",
-        comment: `Mimi's Note: "Slow motion only. This is spa mode, not action movie mode."`
-      },
-      {
-        id: 18,
-        category: "Micro-movement",
-        title: "Star & Hug",
-        instruction: `Stretch arms and legs out wide like a star for 3 breaths, then wrap your arms around yourself for a mini self-hug. Repeat twice.`,
-        character: "Nini",
-        comment: `Nini's Note: "Shine big, then hug the star you are."`
-      },
-      {
-        id: 19,
-        category: "Micro-movement",
-        title: "Slow-March Reset",
-        instruction: `March in place very slowly for 20-30 seconds, feeling each foot roll from heel to toes.`,
-        character: "Dilo",
-        comment: `Dilo's Note: "Like walking to a big match... but in super chill mode."`
-      },
-      {
-        id: 20,
-        category: "Micro-movement",
-        title: "Tiny Toes & Fingers Dance",
-        instruction: `Wiggle your toes and fingers gently for 10-20 seconds, paying attention to each little movement.`,
-        character: "Alio",
-        comment: `Alio's Note: "Even tiny body parts like to party a bit."`
-      },
-
-      // Micro-breath
-      {
-        id: 21,
-        category: "Micro-breath",
-        title: "4-6 Calm Breath",
-        instruction: `Inhale through the nose for a count of 4, exhale slowly for a count of 6. Repeat for 5-8 breaths.`,
-        character: "Luli",
-        comment: `Luli's Note: "Longer exhale = secret code for 'Dear nervous system, relax please'."`
-      },
-      {
-        id: 22,
-        category: "Micro-breath",
-        title: "Box Breath",
-        instruction: `Inhale 4 counts, hold 4, exhale 4, hold 4. Repeat 4 rounds.`,
-        character: "Mimi",
-        comment: `Mimi's Note: "Perfect little square of calm - no geometry homework required."`
-      },
-      {
-        id: 23,
-        category: "Micro-breath",
-        title: "Flower & Candle Breath",
-        instruction: `Pretend you smell a flower (inhale through the nose), then gently blow out a candle (soft exhale through the mouth). Repeat 6-8 times.`,
-        character: "Nini",
-        comment: `Nini's Note: "Pretty smell in, cozy candle out. Very serious science, obviously."`
-      },
-      {
-        id: 24,
-        category: "Micro-breath",
-        title: "Shoulder Wave Breath",
-        instruction: `Inhale and lift your shoulders slightly; exhale and let them melt down. Repeat 6-10 times.`,
-        character: "Alio",
-        comment: `Alio's Note: "Mini rollercoaster, maximum calm."`
-      },
-      {
-        id: 25,
-        category: "Micro-breath",
-        title: "Heart Hand Breath",
-        instruction: `Place one hand on your chest and feel it rise and fall with each breath for 30-60 seconds.`,
-        character: "Bibi",
-        comment: `Bibi's Note: "Your heart has been working overtime. This is its tiny coffee break."`
-      },
-      {
-        id: 26,
-        category: "Micro-breath",
-        title: "Color-In, Grey-Out Breath",
-        instruction: `Choose a calm color. Inhale imagining that color filling you; exhale imagining grey stress leaving your body.`,
-        character: "Luli",
-        comment: `Luli's Note: "Paint your insides in your favorite calm."`
-      },
-      {
-        id: 27,
-        category: "Micro-breath",
-        title: "Three Soft Sighs",
-        instruction: `Inhale gently, then exhale with a long soft sigh. Repeat 3 times.`,
-        character: "Mimi",
-        comment: `Mimi's Note: "Designer sighs only - dramatic but kind to your nervous system."`
-      },
-      {
-        id: 28,
-        category: "Micro-breath",
-        title: "Snake Breath",
-        instruction: `Inhale through the nose, then exhale slowly with a long "ssssss" sound. Repeat 4-6 times.`,
-        character: "Dilo",
-        comment: `Dilo's Note: "Welcome to Level Snake: stealthy calm unlocked."`
-      },
-      {
-        id: 29,
-        category: "Micro-breath",
-        title: "Balloon Belly Breath",
-        instruction: `Put your hands on your belly. Inhale to puff it out like a balloon, exhale to let it gently deflate. Repeat 6-8 times.`,
-        character: "Nini",
-        comment: `Nini's Note: "Important rule: balloon belly is cute, not silly."`
-      },
-      {
-        id: 30,
-        category: "Micro-breath",
-        title: "5-4-3-2-1 Breath",
-        instruction: `Inhale to a comfortable count of 5, exhale to 4. Next breath in 4, out 3, then 3-2, 2-1.`,
-        character: "Alio",
-        comment: `Alio's Note: "Countdown, but instead of rockets, we launch calm."`
-      },
-
-      // Micro-connection
-      {
-        id: 31,
-        category: "Micro-connection",
-        title: "Smile & Eyes High-Five",
-        instruction: `Turn to someone, look into their eyes for 3-5 seconds and share a gentle smile.`,
-        character: "Nini",
-        comment: `Nini's Note: "Warning: strong chance of instant warm fuzzies."`
-      },
-      {
-        id: 32,
-        category: "Micro-connection",
-        title: "Hand Squeeze Signal",
-        instruction: `Hold someone's hand and give one slow squeeze that means "I am here with you".`,
-        character: "Mimi",
-        comment: `Mimi's Note: "Zero words. Maximum message."`
-      },
-      {
-        id: 33,
-        category: "Micro-connection",
-        title: "One-Word Compliment Toss",
-        instruction: `Each person says one word they admire about someone else in the room.`,
-        character: "Luli",
-        comment: `Luli's Note: "Like throwing tiny golden stickers on each other's hearts."`
-      },
-      {
-        id: 34,
-        category: "Micro-connection",
-        title: "Back-to-Back Breathing",
-        instruction: `Sit back-to-back and breathe slowly, feeling the other person's back move with each breath.`,
-        character: "Dilo",
-        comment: `Dilo's Note: "Two spines, one shared rhythm. Very advanced teamwork."`
-      },
-      {
-        id: 35,
-        category: "Micro-connection",
-        title: "Thank-You Look",
-        instruction: `Choose one person and give them a soft, grateful look for 3 seconds, thinking of one thing you appreciate about them.`,
-        character: "Bibi",
-        comment: `Bibi's Note: "Grandma tip: a thankful look often says more than a long speech."`
-      },
-      {
-        id: 36,
-        category: "Micro-connection",
-        title: "High-Five of the Moment",
-        instruction: `Give someone a gentle high-five and say: "We made it to this moment".`,
-        character: "Alio",
-        comment: `Alio's Note: "Instant team upgrade: unlocked."`
-      },
-      {
-        id: 37,
-        category: "Micro-connection",
-        title: "Now-Moment Share",
-        instruction: `Each person finishes the sentence: "Right now I like that..." and names something small in this moment.`,
-        character: "Luli",
-        comment: `Luli's Note: "Tiny honest sentence = big clarity boost."`
-      },
-      {
-        id: 38,
-        category: "Micro-connection",
-        title: "Heart Weather Share",
-        instruction: `Go around and let everyone say one "weather word" for their heart (sunny, cloudy, breezy, stormy...). No fixing, just listening.`,
-        character: "Nini",
-        comment: `Nini's Note: "All heart weather is welcome, even emotional drizzle."`
-      },
-      {
-        id: 39,
-        category: "Micro-connection",
-        title: "Hands-In Stack",
-        instruction: `Everyone puts one hand in the middle, stack-style. Take one deep breath together, then gently release.`,
-        character: "Mimi",
-        comment: `Mimi's Note: "Like a team huddle, but softer and without the shouting."`
-      },
-      {
-        id: 40,
-        category: "Micro-connection",
-        title: "Tiny Sorry, Tiny Repair",
-        instruction: `If someone feels ready, they say one short "I'm sorry for..." about something from today. The group responds with a simple "Thank you".`,
-        character: "Bibi",
-        comment: `Bibi's Note: "Small apology, big courage. That is real strength."`
-      }
-    ];
+{
+  id: 1,
+  category: "Breath",
+  title: "Safety Receipts",
+  instruction: `For one minute, silently list three signs your body is safe right now and let your brain accept the proof.`,
+  character: "Bibi",
+  comment: `Bibi's Note: "Facts calm faster. Receipts only."`
+},
+{
+  id: 2,
+  category: "Breath",
+  title: "Mind Volume Knob",
+  instruction: `For one minute, imagine turning down the volume of your thoughts one notch with every exhale.`,
+  character: "Mimi",
+  comment: `Mimi's Note: "Less noise, more you."`
+},
+{
+  id: 3,
+  category: "Movement",
+  title: "Soft Focus Reset",
+  instruction: `For one minute, soften your gaze and widen your view, because tunnel vision is stress fuel.`,
+  character: "Luli",
+  comment: `Luli's Note: "Zooming out is medicine."`
+},
+{
+  id: 4,
+  category: "Breath",
+  title: "Permission to Soften",
+  instruction: `For one minute, repeat silently "I'm allowed to soften" and relax one body part per breath.`,
+  character: "Bibi",
+  comment: `Bibi's Note: "Permission is powerful. Use it generously."`
+},
+{
+  id: 5,
+  category: "Breath",
+  title: "Boring Breath (In a Good Way)",
+  instruction: `For one minute, breathe as steadily as possible, because predictable rhythm tells your nervous system it can stop panicking.`,
+  character: "Mimi",
+  comment: `Mimi's Note: "Boring breath wins. Legendary, actually."`
+},
+{
+  id: 6,
+  category: "Connection",
+  title: "Gratitude, Felt Not Listed",
+  instruction: `For one minute, hold one grateful thought and feel it physically, like warmth spreading quietly.`,
+  character: "Nini",
+  comment: `Nini's Note: "Let it land. No PowerPoint needed."`
+},
+{
+  id: 7,
+  category: "Connection",
+  title: "Emotion Weather (Silent)",
+  instruction: `For one minute, name your emotion as weather and breathe like weather passes on its own schedule.`,
+  character: "Luli",
+  comment: `Luli's Note: "Storms move. You don't have to chase them."`
+},
+{
+  id: 8,
+  category: "Breath",
+  title: "Truth Anchor Line",
+  instruction: `For one minute, hold one true sentence ("I'm here", "We're safe", "This will pass") and breathe into it.`,
+  character: "Bibi",
+  comment: `Bibi's Note: "Truth steadies. Drama hates that."`
+},
+{
+  id: 9,
+  category: "Movement",
+  title: "Shoulder Melt Rolls",
+  instruction: `For one minute, roll your shoulders slowly and exhale as they drop like heavy curtains closing.`,
+  character: "Mimi",
+  comment: `Mimi's Note: "Instant softness. Your neck will send a thank-you note."`
+},
+{
+  id: 10,
+  category: "Movement",
+  title: "Wall-Press Calm",
+  instruction: `For one minute, gently press your palms into a wall on the exhale and release on the inhale to ground your body fast.`,
+  character: "Dilo",
+  comment: `Dilo's Note: "Wall = stress assistant. Very reliable."`
+},
+{
+  id: 11,
+  category: "Movement",
+  title: "Rooted Stand",
+  instruction: `For one minute, stand with soft knees and imagine roots in your feet while breathing long exhales.`,
+  character: "Bibi",
+  comment: `Bibi's Note: "Steady on purpose. Like a calm oak."`
+},
+{
+  id: 12,
+  category: "Movement",
+  title: "Hand Release Cycle",
+  instruction: `For one minute, softly clench your hands for two seconds and open for four seconds, teaching your body that release is safe.`,
+  character: "Bibi",
+  comment: `Bibi's Note: "Let-go training. Premium and effective."`
+},
+{
+  id: 13,
+  category: "Movement",
+  title: "Neck Yes/No (Slow)",
+  instruction: `For one minute, gently move your head yes and no with steady breath, like your body is agreeing to calm.`,
+  character: "Luli",
+  comment: `Luli's Note: "Consent for peace. Iconic."`
+},
+{
+  id: 14,
+  category: "Movement",
+  title: "Self-Hug Regulation",
+  instruction: `For one minute, hold a self-hug and breathe longer exhales, signaling safety through gentle pressure.`,
+  character: "Nini",
+  comment: `Nini's Note: "Hug, but private. Cozy stealth mode."`
+},
+{
+  id: 15,
+  category: "Movement",
+  title: "Jaw-Tongue Luxury Release",
+  instruction: `For one minute, relax your jaw and let your tongue rest, because this one move often lowers stress instantly.`,
+  character: "Bibi",
+  comment: `Bibi's Note: "Designer calm. Your jaw was overworking."`
+},
+{
+  id: 16,
+  category: "Breath",
+  title: "Long Exhale Rule",
+  instruction: `For one minute, inhale normally and exhale longer, because your exhale is your built-in calm button.`,
+  character: "Mimi",
+  comment: `Mimi's Note: "Exhale does the job. No negotiations."`
+},
+{
+  id: 17,
+  category: "Breath",
+  title: "Silent 'Haa' Release",
+  instruction: `For one minute, exhale like a silent "haa" to release pressure without counting.`,
+  character: "Bibi",
+  comment: `Bibi's Note: "Quiet, classy, effective."`
+},
+{
+  id: 18,
+  category: "Breath",
+  title: "Humming Settle",
+  instruction: `For one minute, hum gently on each exhale and let vibration calm your chest.`,
+  character: "Mimi",
+  comment: `Mimi's Note: "Science in disguise. Very cozy."`
+},
+{
+  id: 19,
+  category: "Breath",
+  title: "Soup-Cool Breath",
+  instruction: `For one minute, exhale as if cooling soup until your shoulders stop climbing.`,
+  character: "Nini",
+  comment: `Nini's Note: "Soup breath supremacy. Works every time."`
+},
+{
+  id: 20,
+  category: "Breath",
+  title: "Box Breath Lite",
+  instruction: `For one minute, breathe 3-3-3-3 (inhale-hold-exhale-hold) to create a predictable rhythm.`,
+  character: "Luli",
+  comment: `Luli's Note: "Order feels safe. Mystery solved."`
+},
+{
+  id: 21,
+  category: "Breath",
+  title: "Soft Sigh Reset",
+  instruction: `For one minute, use gentle sighs to teach your body that release is allowed (no dramatic performance required).`,
+  character: "Bibi",
+  comment: `Bibi's Note: "Designer sighs only."`
+},
+{
+  id: 22,
+  category: "Breath",
+  title: "Hand-on-Heart Breath",
+  instruction: `For one minute, keep a hand on your chest while breathing slowly to send a safety signal through touch.`,
+  character: "Bibi",
+  comment: `Bibi's Note: "Touch speaks calm. Loudly."`
+},
+{
+  id: 23,
+  category: "Breath",
+  title: "Snake Exhale",
+  instruction: `For one minute, exhale with a soft "ssss" to slow your breathing without math.`,
+  character: "Dilo",
+  comment: `Dilo's Note: "Stealth calm. Ninja-level."`
+},
+{
+  id: 24,
+  category: "Connection",
+  title: "Regulate Side-by-Side",
+  instruction: `For one minute, sit or stand near your family and breathe slowly, letting calm be contagious without conversation.`,
+  character: "Mimi",
+  comment: `Mimi's Note: "Co-regulation, but chic."`
+},
+{
+  id: 25,
+  category: "Connection",
+  title: "Kind-Eyes Minute",
+  instruction: `For one minute, offer one person a soft kind look, then return to neutral, like sending a quiet "I'm with you".`,
+  character: "Nini",
+  comment: `Nini's Note: "No speeches needed. Just sparkle."`
+},
+{
+  id: 26,
+  category: "Connection",
+  title: "Warm Presence Practice",
+  instruction: `For one minute, keep an open, relaxed posture (uncrossed arms, soft hands) to make the space feel safer.`,
+  character: "Bibi",
+  comment: `Bibi's Note: "Body language is loud. Make it kind."`
+},
+{
+  id: 27,
+  category: "Connection",
+  title: "Same-Team Intention",
+  instruction: `For one minute, breathe slowly while holding the intention "same team" like a shared internal playlist.`,
+  character: "Dilo",
+  comment: `Dilo's Note: "Co-op mode: stable."`
+},
+{
+  id: 28,
+  category: "Connection",
+  title: "Space-Respect Calm",
+  instruction: `For one minute, give everyone slightly more personal space than usual and breathe, because space lowers friction fast.`,
+  character: "Mimi",
+  comment: `Mimi's Note: "Space is kindness in 4K."`
+},
+{
+  id: 29,
+  category: "Connection",
+  title: "Restart Posture Signal",
+  instruction: `For one minute, practice a shared restart posture (soft face, shoulders down) so your family learns a calm cue.`,
+  character: "Bibi",
+  comment: `Bibi's Note: "Silent reset protocol. Very premium."`
+},
+{
+  id: 30,
+  category: "Connection",
+  title: "Quiet Huddle Calm",
+  instruction: `For one minute, stand in a loose huddle and breathe slowly, letting closeness feel safe and gentle.`,
+  character: "Nini",
+  comment: `Nini's Note: "Family aura upgraded."`
+}
+        ];
 
     /* ---------- DATA: ENERGY PRACTICES ---------- */
     const energyPractices = [
-      // 1-minute practice
-      {
-        id: 1,
-        category: "1-minute practice",
-        title: "Light-Up Minute",
-        instruction: `Stand tall, take one energizing breath and imagine switching on a bright inner light from head to toe.`,
-        character: "Bibi",
-        comment: `Bibi's Note: "Shine, darling. Even lamps need a moment to switch on."`
-      },
-      {
-        id: 2,
-        category: "1-minute practice",
-        title: "Happy Jump Start",
-        instruction: `Do tiny, soft hops in place for about 20 seconds - just enough to wake up your energy without getting exhausted.`,
-        character: "Alio",
-        comment: `Alio's Note: "Mini jumps, maximum zoom."`
-      },
-      {
-        id: 3,
-        category: "1-minute practice",
-        title: "Wake Up My Brain Clap",
-        instruction: `Clap once in front, once behind your back, once above your head. Repeat this pattern three times in a row.`,
-        character: "Mimi",
-        comment: `Mimi's Note: "Brain activated. You are welcome."`
-      },
-      {
-        id: 4,
-        category: "1-minute practice",
-        title: "Rainbow Refresh",
-        instruction: `Picture a rainbow sweeping through your body from head to toes, bringing bright, playful energy as it moves.`,
-        character: "Luli",
-        comment: `Luli's Note: "Color therapy... simplified."`
-      },
-      {
-        id: 5,
-        category: "1-minute practice",
-        title: "Spark Scan",
-        instruction: `Scan your body and find one place that feels sleepy. Imagine sending a tiny burst of light and breath into that spot.`,
-        character: "Dilo",
-        comment: `Dilo's Note: "Internal Wi-Fi: reconnecting..."`
-      },
-      {
-        id: 6,
-        category: "1-minute practice",
-        title: "Energy Wink",
-        instruction: `Wink at someone, exchange a smile and add a tiny celebratory finger snap or wiggle.`,
-        character: "Nini",
-        comment: `Nini's Note: "Warning: may cause giggles."`
-      },
-      {
-        id: 7,
-        category: "1-minute practice",
-        title: "Brain Switch Flip",
-        instruction: `Close your eyes, inhale deeply, open your eyes quickly and say one energizing word out loud.`,
-        character: "Alio",
-        comment: `Alio's Note: "Choose a powerful word... like 'ZOOM!'."`
-      },
-      {
-        id: 8,
-        category: "1-minute practice",
-        title: "Posture Pop-Up",
-        instruction: `Sit or stand up tall like a superhero, shoulders back, chin gently lifted, for 20-30 seconds.`,
-        character: "Mimi",
-        comment: `Mimi's Note: "Instant upgrade: activated."`
-      },
-      {
-        id: 9,
-        category: "1-minute practice",
-        title: "Light-Feet Shuffle",
-        instruction: `Shuffle your feet quickly left-right-left-right for about 10 seconds, keeping your steps light.`,
-        character: "Dilo",
-        comment: `Dilo's Note: "Good footwork. Coach approves."`
-      },
-      {
-        id: 10,
-        category: "1-minute practice",
-        title: "Minute of Boldness",
-        instruction: `For one minute, imagine you are 10% braver. Let that shape your posture, your face or one small choice.`,
-        character: "Luli",
-        comment: `Luli's Note: "Confidence: downloaded."`
-      },
+{
+  id: 1,
+  category: "Movement",
+  title: "10% Braver Body",
+  instruction: `For one minute, stand a little taller and breathe steadily like you're brave and polite at the same time.`,
+  character: "Luli",
+  comment: `Luli's Note: "Brave, not loud. That's premium."`
+},
+{
+  id: 2,
+  category: "Connection",
+  title: "Momentum Preview",
+  instruction: `For one minute, visualize starting your next tiny action smoothly, so your brain treats it as already doable.`,
+  character: "Mimi",
+  comment: `Mimi's Note: "Resistance melts when you pre-load success."`
+},
+{
+  id: 3,
+  category: "Movement",
+  title: "Victory Pose Circuit",
+  instruction: `For one minute, rotate through three calm victory poses, breathing steadily as if progress is your default setting.`,
+  character: "Dilo",
+  comment: `Dilo's Note: "XP confirmed. No capes required."`
+},
+{
+  id: 4,
+  category: "Movement",
+  title: "Joy Micro-Switch",
+  instruction: `For one minute, keep a soft smile and add one tiny movement (sway, bounce, shoulder pop), because motion invites mood.`,
+  character: "Nini",
+  comment: `Nini's Note: "Tiny joy, big fuel. It's unfair how well it works."`
+},
+{
+  id: 5,
+  category: "Breath",
+  title: "Bright Attention Wake-Up",
+  instruction: `For one minute, widen your vision and breathe in a steady rhythm to wake focus without turning anxious.`,
+  character: "Bibi",
+  comment: `Bibi's Note: "Alert, not anxious. Classy energy."`
+},
+{
+  id: 6,
+  category: "Breath",
+  title: "Silent Power Phrase",
+  instruction: `For one minute, silently mouth a power phrase while standing tall, letting your body and words sync.`,
+  character: "Mimi",
+  comment: `Mimi's Note: "Internal mic check: strong and kind."`
+},
+{
+  id: 7,
+  category: "Breath",
+  title: "Confidence Through Stillness",
+  instruction: `For one minute, stay still with tall posture and calm breath, proving to your brain you're in control.`,
+  character: "Bibi",
+  comment: `Bibi's Note: "Quiet confidence hits hard."`
+},
+{
+  id: 8,
+  category: "Breath",
+  title: "Start-Now Ritual",
+  instruction: `For one minute, repeat silently "Starting now" on each exhale to turn intention into motion.`,
+  character: "Mimi",
+  comment: `Mimi's Note: "Start beats perfect. Every time."`
+},
+{
+  id: 9,
+  category: "Movement",
+  title: "Steady March Boost",
+  instruction: `For one minute, march in place with swinging arms at a steady rhythm to wake the brain kindly.`,
+  character: "Mimi",
+  comment: `Mimi's Note: "Classic for a reason. Unbeatable."`
+},
+{
+  id: 10,
+  category: "Movement",
+  title: "Cross-Crawl Focus Builder",
+  instruction: `For one minute, tap right hand to left knee and switch smoothly to energize coordination and attention.`,
+  character: "Luli",
+  comment: `Luli's Note: "Brain bridge online. Smooth operator."`
+},
+{
+  id: 11,
+  category: "Movement",
+  title: "Rocket Arms (Controlled)",
+  instruction: `For one minute, swing your arms like gentle boosters, staying smooth and grounded.`,
+  character: "Alio",
+  comment: `Alio's Note: "Launch approved… but keep it elegant."`
+},
+{
+  id: 12,
+  category: "Movement",
+  title: "Twist-Out Fog",
+  instruction: `For one minute, twist your torso slowly and exhale through each twist to clear mental fog with movement.`,
+  character: "Bibi",
+  comment: `Bibi's Note: "Fog, please leave. Thank you."`
+},
+{
+  id: 13,
+  category: "Movement",
+  title: "Light Feet Shuffle",
+  instruction: `For one minute, shuffle lightly like a warm-up, keeping it playful and quiet.`,
+  character: "Dilo",
+  comment: `Dilo's Note: "Footwork upgrade. Coach smiles."`
+},
+{
+  id: 14,
+  category: "Movement",
+  title: "Chest-Open Shine",
+  instruction: `For one minute, roll shoulders back and lift your chest slightly on the inhale to feel instantly more capable.`,
+  character: "Mimi",
+  comment: `Mimi's Note: "Posture = sparkle. Verified."`
+},
+{
+  id: 15,
+  category: "Movement",
+  title: "Fast Fingers Focus",
+  instruction: `For one minute, tap each finger to your thumb quickly to energize without bouncing off the walls.`,
+  character: "Dilo",
+  comment: `Dilo's Note: "Stealth energy. Quiet but powerful."`
+},
+{
+  id: 16,
+  category: "Movement",
+  title: "Grounded Power Stomp",
+  instruction: `For one minute, do controlled stomps with soft knees, channeling energy into the floor, not into chaos.`,
+  character: "Bibi",
+  comment: `Bibi's Note: "Strong, calm, done."`
+},
+{
+  id: 17,
+  category: "Breath",
+  title: "Confetti Exhale Pulses",
+  instruction: `For one minute, exhale in tiny pulses like soft confetti to spark energy playfully.`,
+  character: "Nini",
+  comment: `Nini's Note: "Micro fireworks. No cleanup needed."`
+},
+{
+  id: 18,
+  category: "Breath",
+  title: "Cool Breeze Breath",
+  instruction: `For one minute, inhale through your nose and exhale cool air like you're refreshing your brain.`,
+  character: "Alio",
+  comment: `Alio's Note: "Fresh mode activated."`
+},
+{
+  id: 19,
+  category: "Breath",
+  title: "One Lion Exhale + Calm",
+  instruction: `For one minute, do one bold "HAA" exhale, then return to steady breathing to reboot energy safely.`,
+  character: "Alio",
+  comment: `Alio's Note: "Rawr… politely."`
+},
+{
+  id: 20,
+  category: "Breath",
+  title: "Rhythm Breath 3-3",
+  instruction: `For one minute, breathe in for three and out for three to energize through rhythm, not stress.`,
+  character: "Dilo",
+  comment: `Dilo's Note: "Beat locked. Let's go."`
+},
+{
+  id: 21,
+  category: "Breath",
+  title: "Power In, Calm Out",
+  instruction: `For one minute, inhale "power" and exhale "calm" to stay energized without tipping into frantic.`,
+  character: "Mimi",
+  comment: `Mimi's Note: "Balanced boost. Premium fuel."`
+},
+{
+  id: 22,
+  category: "Breath",
+  title: "Humming Lift",
+  instruction: `For one minute, hum on each exhale to lift energy while staying regulated.`,
+  character: "Bibi",
+  comment: `Bibi's Note: "Old-school upgrade. Works annoyingly well."`
+},
+{
+  id: 23,
+  category: "Breath",
+  title: "Wake-Up Sips",
+  instruction: `For one minute, take small light inhales and one longer exhale, keeping it gentle and steady.`,
+  character: "Luli",
+  comment: `Luli's Note: "Turbo, but safe. Detective approved."`
+},
+{
+  id: 24,
+  category: "Connection",
+  title: "Sync Sway Energy",
+  instruction: `For one minute, sway gently in the same rhythm as the group to create energy through shared movement.`,
+  character: "Mimi",
+  comment: `Mimi's Note: "Together = fuel. No speeches."`
+},
+{
+  id: 25,
+  category: "Connection",
+  title: "Silent Admiration Boost",
+  instruction: `For one minute, silently choose one admirable quality in the people you see and let warmth energize you.`,
+  character: "Nini",
+  comment: `Nini's Note: "Warmth is fuel. Secretly the best one."`
+},
+{
+  id: 26,
+  category: "Connection",
+  title: "Shared Identity Minute",
+  instruction: `For one minute, hold a family cheer in your mind and move with that "we've got this" identity.`,
+  character: "Mimi",
+  comment: `Mimi's Note: "Iconic, even silently."`
+},
+{
+  id: 27,
+  category: "Connection",
+  title: "Wordless Smile Relay",
+  instruction: `For one minute, pass a small smile around the group without speaking, like a gentle energy baton.`,
+  character: "Alio",
+  comment: `Alio's Note: "No words, all power. Very sneaky."`
+},
+{
+  id: 28,
+  category: "Connection",
+  title: "Meaning = Energy",
+  instruction: `For one minute, silently appreciate one helpful thing happening right now, because meaning boosts energy longer than sugar.`,
+  character: "Bibi",
+  comment: `Bibi's Note: "Energy with roots. The good kind."`
+},
+{
+  id: 29,
+  category: "Connection",
+  title: "Quiet Co-Op Commitment",
+  instruction: `For one minute, each person privately chooses one tiny next action and holds it, creating shared forward momentum.`,
+  character: "Mimi",
+  comment: `Mimi's Note: "Silent teamwork. Surprisingly elite."`
+},
+{
+  id: 30,
+  category: "Connection",
+  title: "Co-Op Courage Stand",
+  instruction: `For one minute, stand tall near each other and breathe steady, letting togetherness make bravery easier.`,
+  character: "Dilo",
+  comment: `Dilo's Note: "Squad strength unlocked."`
+}
+        ];
 
-      // Micro-movement
-      {
-        id: 11,
-        category: "Micro-movement",
-        title: "Rocket Arms",
-        instruction: `Swing your arms gently back and forth, gradually a bit faster, for about 15 seconds while staying relaxed.`,
-        character: "Alio",
-        comment: `Alio's Note: "This is pre-launch."`
-      },
-      {
-        id: 12,
-        category: "Micro-movement",
-        title: "Wake-Up Twist",
-        instruction: `Turn your upper body slowly left and right while keeping your hips facing forward.`,
-        character: "Bibi",
-        comment: `Bibi's Note: "Twist like you are checking who took the last cookie."`
-      },
-      {
-        id: 13,
-        category: "Micro-movement",
-        title: "Shoulder Pop",
-        instruction: `Lift one shoulder up and let it drop, then the other. Make a gentle rhythm out of it.`,
-        character: "Nini",
-        comment: `Nini's Note: "Shoulders dancing = mood dancing."`
-      },
-      {
-        id: 14,
-        category: "Micro-movement",
-        title: "High-Reach Stretch",
-        instruction: `Reach both arms up to the sky, maybe stand on your tiptoes, then relax your arms down.`,
-        character: "Mimi",
-        comment: `Mimi's Note: "Stretch like your dreams are stored on the top shelf."`
-      },
-      {
-        id: 15,
-        category: "Micro-movement",
-        title: "Happy Core Wiggle",
-        instruction: `Gently wiggle your hips in a small circle or side to side, starting slow and maybe a little faster.`,
-        character: "Alio",
-        comment: `Alio's Note: "This is advanced silliness. Excellent form."`
-      },
-      {
-        id: 16,
-        category: "Micro-movement",
-        title: "Fast Fingers",
-        instruction: `Tap each finger to your thumb quickly on both hands for 10-20 seconds.`,
-        character: "Dilo",
-        comment: `Dilo's Note: "Finger speed training: level unlocked."`
-      },
-      {
-        id: 17,
-        category: "Micro-movement",
-        title: "Power Stomp",
-        instruction: `Do two firm but controlled stomps with your feet to wake your legs up.`,
-        character: "Bibi",
-        comment: `Bibi's Note: "Walk like you mean business."`
-      },
-      {
-        id: 18,
-        category: "Micro-movement",
-        title: "Side-Step Shuffle",
-        instruction: `Step side-to-side in a quick but easy rhythm for about 15 seconds.`,
-        character: "Luli",
-        comment: `Luli's Note: "Left-right-left... beautiful choreography."`
-      },
-      {
-        id: 19,
-        category: "Micro-movement",
-        title: "Sunshine Chest Open",
-        instruction: `Pull your shoulders gently back, open your chest and take one big energizing breath.`,
-        character: "Mimi",
-        comment: `Mimi's Note: "A confident chest is the best accessory."`
-      },
-      {
-        id: 20,
-        category: "Micro-movement",
-        title: "Energy Snap Circle",
-        instruction: `Snap your fingers (or gently tap your fingers) in a circle around your body like you are waking up your space.`,
-        character: "Nini",
-        comment: `Nini's Note: "Snap like you found something exciting!"`
-      },
+    
+    const VIDEO_BASE = "/assets/videos/";
 
-      // Micro-breath
-      {
-        id: 21,
-        category: "Micro-breath",
-        title: "Firefly Breath",
-        instruction: `Inhale normally, then exhale in tiny upbeat pulses, like "t-t-t-t-t", as if sending out little sparks of light.`,
-        character: "Nini",
-        comment: `Nini's Note: "Little sparks everywhere!"`
-      },
-      {
-        id: 22,
-        category: "Micro-breath",
-        title: "Energizing Lion Breath",
-        instruction: `Inhale deeply, then exhale with a playful "HAAA" while opening your mouth wide and widening your eyes.`,
-        character: "Alio",
-        comment: `Alio's Note: "Rawr = energy."`
-      },
-      {
-        id: 23,
-        category: "Micro-breath",
-        title: "Power Nose Breath",
-        instruction: `Take short sharp inhales and sharp exhales through your nose 10 times in a row, then rest.`,
-        character: "Dilo",
-        comment: `Dilo's Note: "Fast breath, fast focus."`
-      },
-      {
-        id: 24,
-        category: "Micro-breath",
-        title: "Balloon Boost Breath",
-        instruction: `Inhale and puff your cheeks out, hold for a moment, then blow the air out like a small power burst.`,
-        character: "Bibi",
-        comment: `Bibi's Note: "Graceful? No. Effective? Yes."`
-      },
-      {
-        id: 25,
-        category: "Micro-breath",
-        title: "Color Pop Breath",
-        instruction: `Choose a bright color; inhale imagining it entering your body, exhale imagining that color lighting you up from inside.`,
-        character: "Luli",
-        comment: `Luli's Note: "Internal fireworks... the gentle kind."`
-      },
-      {
-        id: 26,
-        category: "Micro-breath",
-        title: "Sharp 'Yes!' Breath",
-        instruction: `Inhale deeply, exhale while saying a quiet but confident "Yes" and feel it in your body.`,
-        character: "Mimi",
-        comment: `Mimi's Note: "Confidence exhaled."`
-      },
-      {
-        id: 27,
-        category: "Micro-breath",
-        title: "Alert Breath",
-        instruction: `Take one short inhale and a longer, slightly faster exhale. Repeat 6 times, staying relaxed.`,
-        character: "Alio",
-        comment: `Alio's Note: "Like blowing dust off your energy."`
-      },
-      {
-        id: 28,
-        category: "Micro-breath",
-        title: "Warm Hands Breath",
-        instruction: `Rub your hands together quickly while breathing steadily until they feel warm.`,
-        character: "Nini",
-        comment: `Nini's Note: "Magic hands activated."`
-      },
-      {
-        id: 29,
-        category: "Micro-breath",
-        title: "Smile Breath",
-        instruction: `Inhale normally; on the exhale, let a small gentle smile appear on your face.`,
-        character: "Bibi",
-        comment: `Bibi's Note: "Smiling is basically emotional caffeine."`
-      },
-      {
-        id: 30,
-        category: "Micro-breath",
-        title: "Triple Boost Breath",
-        instruction: `Take three quick mini inhales in a row, then one long exhale. Repeat a few times.`,
-        character: "Dilo",
-        comment: `Dilo's Note: "Turbo mode engaged."`
-      },
+    const DANCE_VIDEO_MAP = {
+      Mimi: "Mimi tanczy 1.mp4",
+      Luli: "Luli tanczy 1.mp4",
+      Dilo: "Dilo tanczy 3.mp4",
+      Alio: "Alio tanczy.mp4",
+      Nini: "Nini tanczy.mp4",
+      Bibi: "Bibi tanczy.mp4"
+    };
 
-      // Micro-connection
-      {
-        id: 31,
-        category: "Micro-connection",
-        title: "Power Compliment",
-        instruction: `Give someone one warm, energetic compliment about something they did or how they are.`,
-        character: "Nini",
-        comment: `Nini's Note: "Instant sparkle delivery."`
-      },
-      {
-        id: 32,
-        category: "Micro-connection",
-        title: "3-Second Cheer",
-        instruction: `Cheer loudly and joyfully for someone in the room for exactly three seconds.`,
-        character: "Alio",
-        comment: `Alio's Note: "YES! That is the spirit!"`
-      },
-      {
-        id: 33,
-        category: "Micro-connection",
-        title: "Energy Mirror",
-        instruction: `One person makes a short energetic move; the others copy it like a mirror.`,
-        character: "Mimi",
-        comment: `Mimi's Note: "Copy wisely."`
-      },
-      {
-        id: 34,
-        category: "Micro-connection",
-        title: "High-Five Chain",
-        instruction: `Everyone high-fives everyone else once. Extra points for eye contact and smiles.`,
-        character: "Dilo",
-        comment: `Dilo's Note: "Team energy upgraded."`
-      },
-      {
-        id: 35,
-        category: "Micro-connection",
-        title: "Victory Pose Together",
-        instruction: `Stand tall with feet strong, hands up, superhero style and hold for 5 seconds.`,
-        character: "Luli",
-        comment: `Luli's Note: "Confidence shared multiplies."`
-      },
-      {
-        id: 36,
-        category: "Micro-connection",
-        title: "Synchronized Clap",
-        instruction: `Count "1-2-3" together, then clap at exactly the same time.`,
-        character: "Bibi",
-        comment: `Bibi's Note: "Perfect timing = perfect family jazz."`
-      },
-      {
-        id: 37,
-        category: "Micro-connection",
-        title: "Micro Celebration",
-        instruction: `Make a tiny celebration move or gesture for something you did well today.`,
-        character: "Nini",
-        comment: `Nini's Note: "Mini win = mini dance."`
-      },
-      {
-        id: 38,
-        category: "Micro-connection",
-        title: "Cheer Circle",
-        instruction: `One person says something brave they did today; everyone gives them a short cheer.`,
-        character: "Alio",
-        comment: `Alio's Note: "Applause is fuel."`
-      },
-      {
-        id: 39,
-        category: "Micro-connection",
-        title: "Shared Smile Boost",
-        instruction: `Everyone smiles at the same time for three seconds, then relaxes and notices how it feels.`,
-        character: "Mimi",
-        comment: `Mimi's Note: "Group sparkle: activated."`
-      },
-      {
-        id: 40,
-        category: "Micro-connection",
-        title: "'We Got This' Moment",
-        instruction: `Everyone puts one hand in the middle and says together: "We got this!".`,
-        character: "Dilo",
-        comment: `Dilo's Note: "Energy teamwork: complete."`
+    const CALM_VIDEO_MAP = {
+      Mimi: "Mimi calm.mp4",
+      Luli: "Luli calm.mp4",
+      Dilo: "Dilo calm.mp4",
+      Alio: "Alio calm.mp4",
+      Nini: "Nini calm.mp4",
+      Bibi: "Bibi calm.mp4"
+    };
+
+    function toSrc(filename){
+      return VIDEO_BASE + encodeURIComponent(filename).replace(/%2F/g, "/");
+    }
+
+    function addTapListener(element, handler) {
+      if (!element) return;
+      element.addEventListener("click", () => {
+        const lastTouch = Number(element.dataset.lastTouch || 0);
+        if (lastTouch && Date.now() - lastTouch < 500) return;
+        handler();
+      });
+      element.addEventListener("touchstart", (event) => {
+        element.dataset.lastTouch = String(Date.now());
+        event.preventDefault();
+        handler();
+      }, { passive: false });
+    }
+
+    function setCenterVideo(theme, character){
+      const isEnergy = theme === 'energy';
+      const video = document.getElementById(isEnergy ? 'energy-result-video' : 'calm-result-video');
+      const fallback = document.getElementById(isEnergy ? 'energy-result-fallback' : 'calm-result-fallback');
+      if (!video || !fallback) return;
+
+      const map = isEnergy ? DANCE_VIDEO_MAP : CALM_VIDEO_MAP;
+      const file = map[character];
+      if (!file) {
+        video.removeAttribute('src');
+        video.style.display = 'none';
+        fallback.style.display = 'flex';
+        return;
       }
-    ];
 
-    /* ---------- WHEEL LOGIC ---------- */
+      video.muted = true;
+      video.playsInline = true;
+      video.autoplay = true;
+      video.preload = 'auto';
+      video.setAttribute('muted', '');
+      video.setAttribute('playsinline', '');
+      video.setAttribute('webkit-playsinline', '');
+      video.setAttribute('autoplay', '');
+      video.setAttribute('preload', 'auto');
+      fallback.style.display = 'flex';
+      video.style.display = 'none';
+      video.src = toSrc(file);
+      video.load();
+      const p = video.play();
+      if (p && typeof p.catch === 'function') p.catch(()=>{});
 
-    function getVideoSources(name, theme) {
-      if (!name) return null;
-      const remoteBase = 'https://raw.githubusercontent.com/riseshineevolve-source/RISE.SHINE.EVOLVE/main/assets/videos/';
-      const calmFile = `${name} calm.mp4`;
-      const energyFiles = {
-        Luli: 'Luli tanczy 1.mp4',
-        Dilo: 'Dilo tanczy 3.mp4',
-        Alio: 'Alio tanczy.mp4',
-        Nini: 'Nini tanczy.mp4',
-        Mimi: 'Mimi tanczy 1.mp4',
-        Bibi: 'Bibi tanczy.mp4',
+      const hideFallback = () => {
+        fallback.style.display = 'none';
+        video.style.display = 'block';
       };
-      const fileName = theme === 'calm'
-        ? calmFile
-        : (energyFiles[name] || `${name} tanczy.mp4`);
-      const primary = `assets/videos/${fileName}`;
-      const fallback = `${remoteBase}${encodeURIComponent(fileName)}`;
-      return {
-        primary: encodeURI(primary),
-        fallback,
+      video.onloadeddata = hideFallback;
+      video.onloadedmetadata = hideFallback;
+      video.oncanplay = hideFallback;
+      video.onplaying = hideFallback;
+      video.onerror = () => {
+        video.style.display = 'none';
+        fallback.style.display = 'flex';
       };
     }
+
+/* ---------- WHEEL LOGIC ---------- */
 
     function renderPracticeCard(practice, targetElement, theme) {
       if (!practice) {
@@ -5239,28 +5134,34 @@
 
       const themeClass =
         theme === "energy" ? "hm-result-card hm-result-card--energy" : "hm-result-card hm-result-card--calm";
+      const circleClass =
+        theme === "energy"
+          ? "hm-result-video-circle hm-result-video-circle--energy"
+          : "hm-result-video-circle hm-result-video-circle--calm";
+      const videoId = theme === "energy" ? "energy-result-video" : "calm-result-video";
+      const fallbackId = theme === "energy" ? "energy-result-fallback" : "calm-result-fallback";
+      const fallbackIcon = theme === "energy" ? "⚡" : "✨";
 
       const [speakerRaw, ...quoteParts] = practice.comment.split(":");
       const speaker = (speakerRaw || "").trim();
       const quote = quoteParts.join(":").trim();
 
-      const videoSources = getVideoSources(practice.character, theme);
-      const videoHtml = videoSources
-        ? `<video class="hm-result-portrait hm-result-portrait--video" autoplay loop muted playsinline aria-label="${practice.character} ${theme} video">
-            <source src="${videoSources.primary}" type="video/mp4">
-            <source src="${videoSources.fallback}" type="video/mp4">
-          </video>`
-        : '';
-
       targetElement.innerHTML = `
         <article class="${themeClass}">
-          <div class="hm-pill-row">
-            <div class="hm-pill">${practice.category}</div>
-            <div class="hm-pill hm-pill-character">With ${practice.character}</div>
+          <div class="hm-result-header">
+            <div class="${circleClass}">
+              <video class="hm-result-video" id="${videoId}" autoplay muted loop playsinline></video>
+              <div class="hm-result-fallback" id="${fallbackId}" aria-hidden="true">${fallbackIcon}</div>
+            </div>
+            <div class="hm-result-title-block">
+              <div class="hm-pill-row">
+                <div class="hm-pill">${practice.category}</div>
+                <div class="hm-pill hm-pill-character">With ${practice.character}</div>
+              </div>
+              <h2 class="hm-result-title">${practice.title}</h2>
+              <div class="hm-result-type">Family micro-practice</div>
+            </div>
           </div>
-          ${videoHtml}
-          <h2 class="hm-result-title">${practice.title}</h2>
-          <div class="hm-result-type">Family micro-practice</div>
           <p class="hm-result-instruction">${practice.instruction}</p>
           <div class="hm-result-comment">
             <div class="hm-result-comment-signer">${speaker}</div>
@@ -5291,17 +5192,13 @@
       slots[safeIndex].classList.add("hm-selected");
     }
 
-    function addTapListener(element, handler) {
-      if (!element) return;
-      element.addEventListener("click", handler);
-      element.addEventListener(
-        "touchstart",
-        event => {
-          event.preventDefault();
-          handler(event);
-        },
-        { passive: false }
-      );
+    function shuffleArray(list) {
+      const arr = [...list];
+      for (let i = arr.length - 1; i > 0; i -= 1) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
     }
 
     function setupWheel(options) {
@@ -5317,6 +5214,7 @@
       let currentFilter = "all";
       let isSpinning = false;
       const slotCharacters = ["Luli", "Dilo", "Alio", "Nini", "Mimi", "Bibi"];
+      let characterQueue = shuffleArray(slotCharacters);
 
       const spinBtn = document.getElementById(spinButtonId);
       const resultEl = document.getElementById(resultContainerId);
@@ -5364,8 +5262,26 @@
 
           const slotCount = slotCharacters.length || 1;
           const degreesPerSlot = 360 / slotCount;
-          const slotIndex = Math.floor(Math.random() * slotCount);
-          const characterName = slotCharacters[slotIndex] || slotCharacters[0];
+          const availableCharacters = new Set(filteredList.map(practice => practice.character));
+          let characterName = null;
+          let slotIndex = 0;
+
+          if (availableCharacters.size) {
+            for (let i = 0; i < characterQueue.length; i += 1) {
+              const candidate = characterQueue[i];
+              if (availableCharacters.has(candidate)) {
+                characterName = candidate;
+                slotIndex = slotCharacters.indexOf(candidate);
+                characterQueue = characterQueue.slice(i + 1).concat(characterQueue.slice(0, i + 1));
+                break;
+              }
+            }
+          }
+
+          if (!characterName) {
+            slotIndex = Math.floor(Math.random() * slotCount);
+            characterName = slotCharacters[slotIndex] || slotCharacters[0];
+          }
 
           const characterMatches = filteredList.filter(
             practice => practice.character === characterName
@@ -5401,14 +5317,15 @@
           highlightIconAtIndex(wheelEl, slotIndex);
           renderPracticeCard(chosenPractice, resultEl, theme);
 
+          // Update the premium character video in the wheel center
+          setCenterVideo(theme, chosenPractice.character);
+
           spinBtn.textContent =
             theme === "energy" ? "⚡ Start spinning" : "🎡 Start spinning";
         }
       }
 
-      addTapListener(spinBtn, () => {
-        spinStopToggle();
-      });
+      addTapListener(spinBtn, spinStopToggle);
 
       filterButtons.forEach(btn => {
         addTapListener(btn, () => {
@@ -5428,7 +5345,8 @@
       });
     }
 
-    setupWheel({
+        // Default character visuals
+setupWheel({
       practices: calmPractices,
       spinButtonId: "calm-spin-btn",
       resultContainerId: "calm-result",
@@ -5475,9 +5393,10 @@
     addTapListener(calmTabBtn, () => activateTab("calm"));
     addTapListener(energyTabBtn, () => activateTab("energy"));
 
-
     tabIndicator.style.transform = "translateX(0%)";
   </script>
+</body>
+</html>
   </template>
 
     <template id="gift-template-word-search-pro">
@@ -5518,9 +5437,8 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<title>Happy Makers - 1-Minute Challenge Generator</title>
+<title>Happy Makers – 1-Minute Challenge Generator (Premium)</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
 <style>
 :root {
   --purple-main: #8A2BE2;
@@ -5532,246 +5450,120 @@
   --text-main: #fffdf9;
   --text-muted: #b9b3d9;
 }
-
-/* Reset */
 * { box-sizing: border-box; margin: 0; padding: 0; }
-
 body {
-  font-family: system-ui, sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   background: var(--dark-bg);
   color: var(--text-main);
-  padding: 14px 10px;
+  padding: 32px 16px;
   display: flex;
   justify-content: center;
   min-height: 100vh;
-  min-height: 100dvh;
   overflow-x: hidden;
-  overflow-y: auto;
   position: relative;
 }
-
-/* GOLD SPARKLES */
-.hm-sparkles {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-}
-
-.hm-sparkle {
-  position: absolute;
-  color: var(--gold);
-  font-size: 8px;
-  opacity: 0;
-  animation: twinkle 5s infinite ease-in-out;
-}
-
+.hm-sparkles { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+.hm-sparkle { position: absolute; color: var(--gold); font-size: 9px; opacity: 0; animation: twinkle 5s infinite ease-in-out; }
 .hm-sparkle:nth-child(1) { top: 8%; left: 18%; animation-delay: .3s; }
 .hm-sparkle:nth-child(2) { top: 20%; right: 12%; animation-delay: 1s; }
 .hm-sparkle:nth-child(3) { top: 38%; left: 6%; animation-delay: 1.8s; }
 .hm-sparkle:nth-child(4) { top: 55%; right: 10%; animation-delay: 2.4s; }
 .hm-sparkle:nth-child(5) { top: 72%; left: 25%; animation-delay: 3.1s; }
-
 @keyframes twinkle {
   0% { opacity: 0; transform: scale(.6); }
-  20% { opacity: .9; transform: scale(1); }
-  40% { opacity: .6; transform: scale(.9); }
-  80% { opacity: .3; transform: scale(.8);}
-  100% { opacity: 0; transform: scale(.6);}
+  20% { opacity: .95; transform: scale(1); }
+  40% { opacity: .7; transform: scale(.9); }
+  80% { opacity: .35; transform: scale(.8); }
+  100% { opacity: 0; transform: scale(.6); }
 }
-
-/* WRAPPER */
-.hm-wrapper {
-  width: 100%;
-  max-width: 600px;
-  text-align: center;
-  position: relative;
-  z-index: 2;
-  max-height: 88vh;
-}
-
-/* TITLE */
+.hm-wrapper { width: 100%; max-width: 740px; text-align: center; position: relative; z-index: 2; }
 .hm-title {
-  font-size: 1.85rem;
+  font-size: 2.35rem;
   font-weight: 900;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
   background: linear-gradient(45deg, #8A2BE2, #9932CC, #ff69b4, #ffb6c1);
   -webkit-background-clip: text;
   color: transparent;
 }
-
 .hm-title::after {
   content: "";
   display: block;
-  width: 220px;
+  width: 260px;
   height: 3px;
-  margin: 8px auto 0;
+  margin: 10px auto 0;
   background: linear-gradient(90deg, transparent, var(--gold), transparent);
   box-shadow: 0 0 14px rgba(255,215,0,.9);
   border-radius: 999px;
 }
-
-/* SUBTITLE - GOLD */
 .hm-subtitle {
-  font-size: 0.98rem;
+  font-size: 1.08rem;
   color: var(--gold);
-  margin-bottom: 16px;
-  text-shadow: 0 0 10px rgba(255,215,0,.35);
+  margin: 0 auto 22px;
+  text-shadow: 0 0 10px rgba(255,215,0,.28);
   line-height: 1.55;
+  max-width: 620px;
 }
-
-.hm-subtitle span { display: block; }
-
-/* BUTTON */
+.hm-subtitle span{display:block;}
 .hm-button {
   border: 0;
-  padding: 11px 18px;
+  padding: 14px 28px;
   border-radius: 999px;
-  font-size: 0.98rem;
-  font-weight: 700;
+  font-size: 1.06rem;
+  font-weight: 750;
   cursor: pointer;
   background: linear-gradient(135deg, #8A2BE2, #ff69b4);
   color: #fff;
   margin-bottom: 10px;
   transition: transform .15s, box-shadow .15s;
 }
-
-.hm-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 0 22px rgba(255,105,180,.6);
-}
-
-/* CHALLENGE CARD - SMALLER */
+.hm-button:hover { transform: translateY(-2px); box-shadow: 0 0 22px rgba(255,105,180,.55); }
 .hm-card {
-  margin: 0 auto;
-  margin-top: 12px;
+  margin: 18px auto 0;
   width: 100%;
-  max-width: 500px;
+  max-width: 560px;
   background: #000;
-  border-radius: 16px;
-  padding: 12px;
-  border: 2px solid var(--purple-main);
-  box-shadow: 0 0 20px rgba(138,43,226,.42);
+  border-radius: 22px;
+  padding: 18px 18px 16px;
+  border: 3px solid var(--purple-main);
+  box-shadow: 0 0 26px rgba(138,43,226,.55);
   position: relative;
   opacity: 0;
   scale: .9;
   transition: opacity .27s ease, scale .27s ease;
 }
-
-/* GOLD INNER FRAME */
 .hm-card::before {
   content: "";
   position: absolute;
-  inset: 8px;
-  border-radius: 12px;
+  inset: 6px;
+  border-radius: 18px;
   border: 2px solid var(--gold);
   pointer-events: none;
-  box-shadow: 0 0 12px rgba(255,215,0,.5);
+  box-shadow: 0 0 15px rgba(255,215,0,.45);
 }
-
 .hm-card.show { opacity: 1; scale: 1; }
 .hm-card.hide { opacity: 0; scale: .85; pointer-events: none; }
-
-/* HEADER */
-.hm-card-header {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  align-items: center;
-}
-
-/* SMALL ROUND AVATAR WITH ICON INSIDE */
-.hm-avatar {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background:
-    radial-gradient(circle at 30% 0%, rgba(255,215,0,0.65), transparent 52%),
-    radial-gradient(circle at 70% 100%, rgba(138,43,226,0.7), transparent 60%),
-    #000;
-  border: 2px solid rgba(255,215,0,0.9);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow:
-    0 0 10px rgba(255,215,0,0.75),
-    0 0 15px rgba(138,43,226,0.45);
-  flex-shrink: 0;
-}
-
-.hm-avatar svg {
-  width: 20px;
-  height: 20px;
-  display: block;
-}
-
-.hm-avatar img {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  object-fit: cover;
-  display: block;
-}
-
-/* TEXT */
-.hm-card-title {
-  font-size: 1.22rem;
-  font-weight: 900;
-  color: var(--gold);
-}
-
-.hm-category-icon {
-  font-size: 15px;
-  margin-right: 5px;
-  filter: drop-shadow(0 0 3px rgba(255,215,0,.6));
-}
-
-.hm-character {
-  margin-top: 8px;
-  font-size: 0.95rem;
-  color: var(--gold);
-  font-weight: 700;
-}
-
-.hm-character strong { font-weight: 800; }
-
-.hm-card-instruction {
-  margin-top: 8px;
-  font-size: 0.98rem;
-  line-height: 1.45;
-}
-
-.hm-comment {
-  margin-top: 8px;
-  color: #f3d98f;
-  font-style: italic;
-  font-size: .94rem;
-}
-
-/* RESPONSIVE */
-@media (max-width: 600px) {
-  body { padding: 12px 10px; }
-  .hm-title { font-size: 1.7rem; }
-  .hm-subtitle { font-size: 0.95rem; }
-  .hm-button { padding: 10px 16px; font-size: 0.95rem; }
-  .hm-card { padding: 11px; max-width: 460px; }
-  .hm-card-title { font-size: 1.16rem; }
-  .hm-card-instruction { font-size: 0.95rem; }
-}
-
-@media (max-height: 860px) {
-  body { padding: 12px 10px; }
-  .hm-wrapper { max-height: 84vh; }
-  .hm-title { font-size: 1.66rem; }
-  .hm-subtitle { margin-bottom: 14px; }
-  .hm-card { margin-top: 10px; }
+.hm-card-header { display: flex; justify-content: center; gap: 14px; align-items: center; }
+.hm-avatar { width: 92px; height: 92px; border-radius: 999px; display:flex; align-items:center; justify-content:center; background: rgba(255,215,0,.08); border: 1px solid rgba(255,215,0,.35); box-shadow: 0 0 14px rgba(255,215,0,.18);  overflow:hidden; position: relative; }
+.hm-avatar svg { width: 48px; height: 48px; display: block; }
+    .hm-avatar-video { width: 100%; height: 100%; object-fit: cover; display:block; position: absolute; inset: 0; }
+    .hm-avatar-fallback { width: 100%; height: 100%; display:flex; align-items:center; justify-content:center; position: absolute; inset: 0; }
+.hm-card-title { font-size: 1.55rem; font-weight: 900; color: var(--gold); text-align:left; }
+.hm-category-line { margin-top: 4px; text-align:left; font-size: .92rem; color: var(--text-muted); }
+.hm-category-icon { margin-right: 6px; filter: drop-shadow(0 0 3px rgba(255,215,0,.55)); }
+.hm-character { margin-top: 12px; font-size: 1.02rem; color: var(--gold); font-weight: 750; }
+.hm-card-instruction { margin-top: 10px; font-size: 1.06rem; line-height: 1.6; color: var(--text-main); }
+.hm-comment { margin-top: 12px; color: #f3d98f; font-style: italic; font-size: 1.02rem; }
+@media (max-width: 600px){
+  body{ padding: 24px 10px; }
+  .hm-title{ font-size: 2.05rem; }
+  .hm-card-title{ font-size: 1.38rem; }
+  .hm-card-instruction{ font-size: 1.01rem; }
+  .hm-avatar { width: 76px; height: 76px; }
+  .hm-avatar svg { width: 40px; height: 40px; }
 }
 </style>
 </head>
-
 <body>
-
-<!-- SPARKLES -->
 <div class="hm-sparkles">
   <span class="hm-sparkle">✦</span>
   <span class="hm-sparkle">✧</span>
@@ -5779,34 +5571,29 @@ body {
   <span class="hm-sparkle">✧</span>
   <span class="hm-sparkle">✦</span>
 </div>
-
 <div class="hm-wrapper">
-
   <h1 class="hm-title">The Happy Makers 1-Minute Challenge</h1>
-
   <p class="hm-subtitle">
     <span>One click. One tiny mission.</span>
-    <span>One minute of joy, creativity or connection.</span>
-    <span>Powered by your Happy Makers.</span>
+    <span>One minute of calm, courage, focus or joy.</span>
+    <span>Premium impact. Zero prep. Powered by your Happy Makers.</span>
   </p>
-
   <button class="hm-button" id="hm-generate-btn">Give us a 1-minute challenge!</button>
 
-  <!-- CARD -->
   <div id="result-card" class="hm-card">
     <div class="hm-card-header">
-      <div class="hm-avatar" id="hm-avatar"></div>
-
-      <div>
+      <div class="hm-avatar" id="hm-avatar">
+        <video id="hm-avatar-video" class="hm-avatar-video" autoplay muted loop playsinline preload="auto" webkit-playsinline></video>
+        <div id="hm-avatar-fallback" class="hm-avatar-fallback" aria-hidden="true"></div>
+      </div>
+      <div style="max-width: 440px;">
         <div class="hm-card-title" id="challenge-title"></div>
-        <div style="margin-top:4px;">
+        <div class="hm-category-line">
           <span class="hm-category-icon" id="hm-category-icon">⭐</span>
-          <span id="challenge-category"
-                style="color:var(--text-muted); font-size:.9rem;"></span>
+          <span id="challenge-category"></span>
         </div>
       </div>
     </div>
-
     <div class="hm-character" id="challenge-character"></div>
     <p class="hm-card-instruction" id="challenge-instruction"></p>
     <p class="hm-comment" id="challenge-comment"></p>
@@ -5814,266 +5601,504 @@ body {
 </div>
 
 <script>
-/* --- CHALLENGES (1-minute) --- */
 const challenges = [
-  {
-    title: "Color Dash",
-    instruction: "Spend one minute finding as many different colors around the room as you can.",
-    character: "Luli",
-    comment: "Luli: \"Color detectives never rest.\"",
-    category: "Calm & Focus"
-  },
-  {
-    title: "Mini Freeze Game",
-    instruction: "For one minute, someone calls FREEZE at random moments and everyone poses.",
-    character: "Alio",
-    comment: "Alio: \"Freeze like your Wi-Fi just dropped!\"",
-    category: "Fun & Movement"
-  },
-  {
-    title: "Compliment Chain",
-    instruction: "Spend one minute passing compliments around like a kindness relay.",
-    character: "Nini",
-    comment: "Nini: \"Soft words = warm hearts.\"",
-    category: "Connection"
-  },
-  {
-    title: "Silly Walk Parade",
-    instruction: "Walk around for one minute using the silliest walk you can invent.",
-    character: "Dilo",
-    comment: "Dilo: \"The sillier, the better.\"",
-    category: "Movement"
-  },
-  {
-    title: "1-Minute Story Spark",
-    instruction: "Pick any object and invent a fast one-minute story together.",
-    character: "Bibi",
-    comment: "Bibi: \"Even teaspoons have secret lives.\"",
-    category: "Creativity"
-  },
-  {
-    title: "Gratitude Glow",
-    instruction: "List as many small things you’re grateful for as you can in one minute.",
-    character: "Nini",
-    comment: "Nini: \"Gratitude is sparkle fuel.\"",
-    category: "Calm & Connection"
-  },
-  {
-    title: "Dance Blink Battle",
-    instruction: "Dance for one minute - every big blink changes the move.",
-    character: "Alio",
-    comment: "Alio: \"Blink = chaos unlocked.\"",
-    category: "Movement"
-  },
-  {
-    title: "Hand Spa Minute",
-    instruction: "Give someone next to you a gentle one-minute hand massage.",
-    character: "Nini",
-    comment: "Nini: \"Soft hands, soft hearts.\"",
-    category: "Connection"
-  },
-  {
-    title: "Memory Snapshot",
-    instruction: "Look around, close your eyes, and name details you remember for one minute.",
-    character: "Luli",
-    comment: "Luli: \"Quiet minds see more.\"",
-    category: "Brain & Focus"
-  },
-  {
-    title: "Shadow Theater",
-    instruction: "Use your hands to create shadow shapes for one minute.",
-    character: "Luli",
-    comment: "Luli: \"Dragons encouraged.\"",
-    category: "Creativity"
-  },
-  {
-    title: "Mini Rhyme Race",
-    instruction: "Pick a word and find rhymes or associations for one minute.",
-    character: "Luli",
-    comment: "Luli: \"Your brain adores this kind of work.\"",
-    category: "Brain"
-  },
-  {
-    title: "Hug Relay",
-    instruction: "Keep passing a warm hug from person to person for one minute.",
-    character: "Nini",
-    comment: "Nini: \"The cuddle chain must not break.\"",
-    category: "Connection"
-  },
-  {
-    title: "Balance Challenge",
-    instruction: "Balance on one leg for one minute, switching whenever needed.",
-    character: "Mimi",
-    comment: "Mimi: \"Grace under pressure - always stylish.\"",
-    category: "Movement"
-  },
-  {
-    title: "Secret Handshake Maker",
-    instruction: "Spend one minute inventing the fastest handshake ever.",
-    character: "Alio",
-    comment: "Alio: \"Add a dramatic spin.\"",
-    category: "Fun & Connection"
-  },
-  {
-    title: "Happy Whisper Minute",
-    instruction: "Whisper kind or funny things to each other for one minute.",
-    character: "Nini",
-    comment: "Nini: \"Whispers travel straight to the heart.\"",
-    category: "Connection"
-  },
-  {
-    title: "Emotion Actor",
-    instruction: "Act out different emotions for one minute while others guess.",
-    character: "Luli",
-    comment: "Luli: \"Welcome to the family drama school.\"",
-    category: "Emotions"
-  }
+{
+  title: "VIP Nervous System",
+  instruction: "For one minute, soften your forehead, jaw, and shoulders like you\u2019re checking into a five-star calm hotel, then breathe as if your body finally got the room key.",
+  character: "Mimi",
+  comment: "Mimi: \"Welcome to Suite: Peace.\"",
+  category: "Calm & Regulation"
+},
+{
+  title: "Wide-Angle Reality",
+  instruction: "For one minute, expand your vision to include the whole room (not just one problem) and breathe like you just switched from panic zoom to cinema mode.",
+  character: "Luli",
+  comment: "Luli: \"Plot twist: the room is bigger than the drama.\"",
+  category: "Mindfulness & Perspective"
+},
+{
+  title: "Feet-On-Earth Proof",
+  instruction: "For one minute, press your feet gently into the floor on each exhale, giving your brain physical proof that you\u2019re supported.",
+  character: "Bibi",
+  comment: "Bibi: \"Evidence beats overthinking.\"",
+  category: "Calm & Grounding"
+},
+{
+  title: "Silent Sparkle Scan",
+  instruction: "For one minute, silently spot three tiny good things in your immediate space and let your body notice them like mini wins.",
+  character: "Nini",
+  comment: "Nini: \"Yes, that counts. Yes, that too.\"",
+  category: "Joy & Gratitude"
+},
+{
+  title: "The 10% Kinder Face",
+  instruction: "For one minute, keep your face 10% kinder than your thoughts and notice how your nervous system follows your expression.",
+  character: "Mimi",
+  comment: "Mimi: \"Your face has settings. Choose the premium one.\"",
+  category: "Calm & Connection"
+},
+{
+  title: "Shoulder-Drop Unsubscribe",
+  instruction: "For one minute, each time you notice tension, drop your shoulders once and exhale longer, like you\u2019re canceling a useless monthly fee.",
+  character: "Bibi",
+  comment: "Bibi: \"Unsubscribe from tightness.\"",
+  category: "Calm & Body"
+},
+{
+  title: "Thought Spam Filter",
+  instruction: "For one minute, label each thought silently as planning, worry, or memory, then let it pass without clicking it.",
+  character: "Luli",
+  comment: "Luli: \"Mark as Not Important.\"",
+  category: "Focus & Mindfulness"
+},
+{
+  title: "Open-Hand Permission",
+  instruction: "For one minute, keep your hands open and relaxed (no gripping) while breathing slowly, as if letting go is an actual physical choice.",
+  character: "Bibi",
+  comment: "Bibi: \"Hands open. Life softer.\"",
+  category: "Calm & Release"
+},
+{
+  title: "Legend Stance",
+  instruction: "For one minute, sit or stand 10% taller with a long spine and relaxed shoulders, like confidence is a posture you can practice.",
+  character: "Dilo",
+  comment: "Dilo: \"XP gained. No cape required.\"",
+  category: "Confidence"
+},
+{
+  title: "Save Point Clarity",
+  instruction: "For one minute, choose one tiny next action and hold it gently in your mind, like you just saved your game.",
+  character: "Mimi",
+  comment: "Mimi: \"Save point found.\"",
+  category: "Focus & Momentum"
+},
+{
+  title: "Low-Volume Joy",
+  instruction: "For one minute, hold a soft almost-smile and breathe slowly, proving joy can be elegant and still effective.",
+  character: "Nini",
+  comment: "Nini: \"Quiet sparkle. Big impact.\"",
+  category: "Joy"
+},
+{
+  title: "Slow = Strong Mode",
+  instruction: "For one minute, move and breathe 20% slower than usual, like you\u2019re the calm leader of this room.",
+  character: "Bibi",
+  comment: "Bibi: \"Strength is not speed.\"",
+  category: "Mindful Power"
+},
+{
+  title: "Tension Detective Sweep",
+  instruction: "For one minute, scan your body for tension and soften each spot once, like turning off tiny alarm lights.",
+  character: "Luli",
+  comment: "Luli: \"Mystery solved: it was your jaw.\"",
+  category: "Body Awareness"
+},
+{
+  title: "Let It Be (Premium Edition)",
+  instruction: "For one minute, stop fixing, optimizing, or teaching and simply exist kindly in the moment with steady breath.",
+  character: "Bibi",
+  comment: "Bibi: \"Perfection called. We declined.\"",
+  category: "Calm & Acceptance"
+},
+{
+  title: "CEO Eye Rest",
+  instruction: "For one minute, rest your gaze on something neutral and blink slowly, like your brain is taking a luxury break.",
+  character: "Mimi",
+  comment: "Mimi: \"CEO of calm.\"",
+  category: "Focus & Calm"
+},
+{
+  title: "Velvet Exhale",
+  instruction: "For one minute, exhale longer than you inhale, imagining your breath smoothing your insides like velvet.",
+  character: "Bibi",
+  comment: "Bibi: \"Velvet solves many things.\"",
+  category: "Breath & Calm"
+},
+{
+  title: "Mini-Awe Moment",
+  instruction: "For one minute, notice one quietly amazing thing in this moment and let it land as a real, gentle wow.",
+  character: "Nini",
+  comment: "Nini: \"Awe is a legal upgrade.\"",
+  category: "Joy & Presence"
+},
+{
+  title: "Nature Documentary Voice",
+  instruction: "For one minute, if you speak at all, keep your voice slow and neutral as if narrating a calm nature documentary.",
+  character: "Mimi",
+  comment: "Mimi: \"And here we see\u2026 humans regulating.\"",
+  category: "Communication Calm"
+},
+{
+  title: "Hand-on-Heart Signal",
+  instruction: "For one minute, place a hand on your chest and breathe steadily to tell your body, without words, that you\u2019re here and safe.",
+  character: "Bibi",
+  comment: "Bibi: \"Touch is instant reassurance.\"",
+  category: "Calm & Safety"
+},
+{
+  title: "Drop One Pebble",
+  instruction: "For one minute, pick one tiny irritation and imagine placing it down gently on every exhale, because you don\u2019t need to carry pebbles.",
+  character: "Bibi",
+  comment: "Bibi: \"Carry less. Live more.\"",
+  category: "Release"
+},
+{
+  title: "Kind-Eyes Broadcast",
+  instruction: "For one minute, offer one person a soft kind look, then return to neutral and repeat, like sending quiet safety signals.",
+  character: "Nini",
+  comment: "Nini: \"Connection, but classy.\"",
+  category: "Connection"
+},
+{
+  title: "Brave + Calm Combo",
+  instruction: "For one minute, keep posture tall and breath slow, proving bravery doesn\u2019t need volume.",
+  character: "Dilo",
+  comment: "Dilo: \"Hero mode. Zero shouting.\"",
+  category: "Courage"
+},
+{
+  title: "Sound-Layer Listening",
+  instruction: "For one minute, listen for the nearest sound, the farthest sound, and the silence in between like you\u2019re tuning an instrument.",
+  character: "Luli",
+  comment: "Luli: \"Silence has receipts.\"",
+  category: "Mindfulness"
+},
+{
+  title: "Unclench Everything",
+  instruction: "For one minute, relax eyebrows, tongue, hands, and belly, because half of stress is just clenching in disguise.",
+  character: "Bibi",
+  comment: "Bibi: \"Unclench is premium.\"",
+  category: "Body Reset"
+},
+{
+  title: "Fingertip Reset Button",
+  instruction: "For one minute, tap fingertips together slowly while breathing, like you\u2019re pressing a hidden reset control.",
+  character: "Nini",
+  comment: "Nini: \"Secret button confirmed.\"",
+  category: "Calm & Focus"
+},
+{
+  title: "Inner Coach Voice",
+  instruction: "For one minute, speak to yourself internally like a brilliant coach: calm, kind, and zero dramatic monologues.",
+  character: "Mimi",
+  comment: "Mimi: \"No inner theater today.\"",
+  category: "Self-Leadership"
+},
+{
+  title: "One-Word Intention",
+  instruction: "For one minute, hold one intention word (steady, kind, brave) and breathe as if you\u2019re becoming it in real time.",
+  character: "Bibi",
+  comment: "Bibi: \"Words become weather.\"",
+  category: "Values & Mindset"
+},
+{
+  title: "Micro-Smile Rehab",
+  instruction: "For one minute, soften your mouth and cheeks like you\u2019re recovering from a stressful face, because your body believes your expression.",
+  character: "Nini",
+  comment: "Nini: \"Face therapy. One minute.\"",
+  category: "Joy & Relief"
+},
+{
+  title: "Calm-to-Action Bridge",
+  instruction: "For one minute, breathe slowly while imagining yourself doing one helpful action next, smoothly and without resistance.",
+  character: "Mimi",
+  comment: "Mimi: \"Calm that moves.\"",
+  category: "Momentum"
+},
+{
+  title: "Signature Breath",
+  instruction: "For one minute, breathe steadily like you\u2019re signing your name on the day: intentional, kind, and unshakeable.",
+  character: "Bibi",
+  comment: "Bibi: \"That\u2019s the vibe.\"",
+  category: "Presence"
+},
+{
+  title: "Legend Focus Lock",
+  instruction: "For one minute, pick one spot in the room, keep your body still, and breathe slowly while you lock your attention on it like a striker aiming at the goal.",
+  character: "Dilo",
+  comment: "Dilo: \"Focus is a superpower - and yes, it can be trained.\"",
+  category: "Mindfulness"
+},
+{
+  title: "Pressure-to-Power Stance",
+  instruction: "For one minute, stand grounded with feet steady, chest open, and shoulders relaxed, then breathe like pressure is fuel you\u2019re turning into calm confidence.",
+  character: "Dilo",
+  comment: "Dilo: \"Same pressure, different player.\"",
+  category: "Courage"
+},
+{
+  title: "Silent Victory Replay",
+  instruction: "For one minute, picture one moment you want to handle well today, and rehearse yourself doing it with a steady breath, steady face, and steady choices.",
+  character: "Dilo",
+  comment: "Dilo: \"Practice in your head. Perform in real life.\"",
+  category: "Mindfulness"
+},
+{
+  title: "Energy Into the Floor",
+  instruction: "For one minute, press your feet gently into the ground on each exhale, as if you\u2019re charging your body from the floor like a calm, powerful battery.",
+  character: "Dilo",
+  comment: "Dilo: \"Grounded energy hits different.\"",
+  category: "Mindfulness"
+},
+{
+  title: "Micro-Discipline Minute",
+  instruction: "For one minute, choose one tiny rule for yourself (slow breath, soft shoulders, calm hands) and keep it perfectly, because self-control builds real confidence fast.",
+  character: "Dilo",
+  comment: "Dilo: \"One minute of control = big confidence later.\"",
+  category: "Courage"
+},
+{
+  title: "Calm Designer Mode",
+  instruction: "For one minute, breathe slowly and imagine you\u2019re designing calm like a pro, smoothing the air around you with each exhale like polishing a glass screen.",
+  character: "Alio",
+  comment: "Alio: \"Same brain. Better settings.\"",
+  category: "Mindfulness"
+},
+{
+  title: "Silent Giggle Mission",
+  instruction: "For one minute, try to make yourself smile using only your face, like you\u2019re running a stealth joy mission with zero sound and maximum style.",
+  character: "Alio",
+  comment: "Alio: \"Silent giggles are elite.\"",
+  category: "Fun"
+},
+{
+  title: "Spark-to-Steady Switch",
+  instruction: "For one minute, breathe out longer than you breathe in, and on every exhale soften one tiny alarm in your body (brows, jaw, hands, shoulders) until the system settles.",
+  character: "Alio",
+  comment: "Alio: \"I can be dramatic\u2026 but I can also be regulated.\"",
+  category: "Mindfulness"
+},
+{
+  title: "Curiosity Upgrade",
+  instruction: "For one minute, scan the room and silently notice three details you\u2019ve never paid attention to before, like you\u2019re exploring a brand-new world.",
+  character: "Alio",
+  comment: "Alio: \"Curiosity is calm wearing a cool jacket.\"",
+  category: "Mindfulness"
+},
+{
+  title: "Exhale Advantage Countdown",
+  instruction: "For one minute, count only your exhales from 1 to 6 and start again, keeping your face relaxed like you\u2019ve got a secret advantage.",
+  character: "Alio",
+  comment: "Alio: \"Counting exhales = instant brain refresh.\"",
+  category: "Mindfulness"
+}
 ];
 
-/* --- AVATAR ICONS: small, round, gold+purple --- */
 function getAvatarHTML(character) {
   switch (character) {
     case "Luli":
-      // pionowy złoty księżyc
       return `
         <svg viewBox="0 0 50 50">
-          <path d="M30 4a20 20 0 1 0 0 42c-8-5-12-13-12-21s4-16 12-21z"
-                fill="#FFD700" stroke="#FFD700" stroke-width="2"/>
+          <path d="M30 4a20 20 0 1 0 0 42c-8-5-12-13-12-21s4-16 12-21z" fill="#FFD700" stroke="#FFD700" stroke-width="2"/>
         </svg>
       `;
     case "Dilo":
-      // fioletowa piłka nożna z złotymi łatkami
       return `
         <svg viewBox="0 0 50 50">
-          <circle cx="25" cy="25" r="19"
-                  fill="#8A2BE2" stroke="#FFD700" stroke-width="2"/>
-          <polygon points="25,12 32,16 32,24 25,28 18,24 18,16"
-                   fill="#4b0099" stroke="#FFD700" stroke-width="1.5"/>
-          <polygon points="16,20 20,27 16,34 9,30 9,24"
-                   fill="#4b0099" stroke="#FFD700" stroke-width="1.5"/>
-          <polygon points="34,20 40,24 40,30 33,34 30,27"
-                   fill="#4b0099" stroke="#FFD700" stroke-width="1.5"/>
-          <polygon points="25,32 32,36 28,42 22,42 18,36"
-                   fill="#4b0099" stroke="#FFD700" stroke-width="1.5"/>
+          <circle cx="25" cy="25" r="19" fill="#8A2BE2" stroke="#FFD700" stroke-width="2"/>
+          <polygon points="25,12 32,16 32,24 25,28 18,24 18,16" fill="#4b0099" stroke="#FFD700" stroke-width="1.5"/>
         </svg>
       `;
     case "Alio":
-      // pionowa złota błyskawica
       return `
         <svg viewBox="0 0 50 50">
-          <polygon points="25,6 33,22 27,22 34,44 17,26 23,26"
-                   fill="#FFD700" stroke="#FFD700" stroke-width="2"/>
+          <path d="M25 6l6 14 14 1-11 9 4 15-13-8-13 8 4-15-11-9 14-1z" fill="#FFD700" stroke="#FFD700" stroke-width="2"/>
         </svg>
       `;
     case "Nini":
-      // fioletowe serce z małymi złotymi gwiazdkami
       return `
-        <svg viewBox="0 0 52 52">
-          <path d="M26 44s-13-8-18-18C3 15 8 7 16 7c5 0 8 3 10 6 2-3 5-6 10-6 8 0 13 8 8 19-5 10-18 18-18 18z"
-                fill="#8A2BE2" stroke="#FFD700" stroke-width="2.4"/>
-          <circle cx="20" cy="14" r="2.3" fill="#FFD700"/>
-          <circle cx="32" cy="19" r="1.9" fill="#FFD700"/>
+        <svg viewBox="0 0 50 50">
+          <circle cx="25" cy="25" r="18" fill="#FFD700" stroke="#FFD700" stroke-width="2"/>
+          <circle cx="19" cy="22" r="2.2" fill="#8A2BE2"/>
+          <circle cx="31" cy="22" r="2.2" fill="#8A2BE2"/>
+          <path d="M18 31c3 3 11 3 14 0" fill="none" stroke="#8A2BE2" stroke-width="2" stroke-linecap="round"/>
         </svg>
       `;
     case "Mimi":
-      // złota gwiazda + mała fioletowa gwiazdka
       return `
         <svg viewBox="0 0 50 50">
-          <polygon points="25,6 31,18 44,19 34,27 37,40 25,33 13,40 16,27 6,19 19,18"
-                   fill="#FFD700" stroke="#FFD700" stroke-width="1.8"/>
-          <polygon points="17,14 19,17 22,17 20,19 21,22 17,20 14,22 15,19 13,17 16,17"
-                   fill="#8A2BE2"/>
+          <circle cx="25" cy="25" r="19" fill="#FFD700" stroke="#FFD700" stroke-width="2"/>
+          <path d="M16 20c2-5 16-5 18 0" fill="none" stroke="#8A2BE2" stroke-width="2.2" stroke-linecap="round"/>
+          <path d="M18 32c4 4 10 4 14 0" fill="none" stroke="#8A2BE2" stroke-width="2.2" stroke-linecap="round"/>
         </svg>
       `;
     case "Bibi":
-      // złota korona z fioletowymi kamieniami
       return `
         <svg viewBox="0 0 52 52">
-          <path d="M7 39l4-18 8 9 7-17 7 17 8-9 4 18z"
-                fill="#FFD700" stroke="#FFD700" stroke-width="2.2"/>
+          <path d="M7 39l4-18 8 9 7-17 7 17 8-9 4 18z" fill="#FFD700" stroke="#FFD700" stroke-width="2.2"/>
           <circle cx="19" cy="27" r="2.3" fill="#8A2BE2"/>
           <circle cx="33" cy="27" r="2.3" fill="#8A2BE2"/>
           <circle cx="26" cy="19" r="2.3" fill="#8A2BE2"/>
         </svg>
       `;
     default:
-      return `
-        <svg viewBox="0 0 48 48">
-          <circle cx="24" cy="24" r="18" fill="#FFD700"/>
-        </svg>
-      `;
+      return `<svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="18" fill="#FFD700"/></svg>`;
   }
 }
 
-function getPortraitSources(name) {
-  if (!name) return null;
-  const portraitRemoteBase = 'https://raw.githubusercontent.com/riseshineevolve-source/RISE.SHINE.EVOLVE/main/assets/images/';
-  const fileName = name === 'Bibi' ? 'Grandma Bibi.png' : `${name}.png`;
-  const primary = `assets/images/${fileName}`;
-  const fallback = `${portraitRemoteBase}${encodeURIComponent(fileName)}`;
-  return {
-    primary: encodeURI(primary),
-    fallback,
+
+const VIDEO_BASE = "/assets/videos/";
+
+const CALM_VIDEO_MAP = {
+  Mimi: "Mimi calm.mp4",
+  Luli: "Luli calm.mp4",
+  Dilo: "Dilo calm.mp4",
+  Alio: "Alio calm.mp4",
+  Nini: "Nini calm.mp4",
+  Bibi: "Bibi calm.mp4"
+};
+
+function toSrc(filename){
+  // Encode spaces safely for GitHub Pages / browsers
+  return VIDEO_BASE + encodeURIComponent(filename).replace(/%2F/g, "/");
+}
+
+function setAvatar(character){
+  const video = document.getElementById('hm-avatar-video');
+  const fallback = document.getElementById('hm-avatar-fallback');
+
+  const file = CALM_VIDEO_MAP[character];
+  if (!file) {
+    video.removeAttribute('src');
+    video.style.display = 'none';
+    fallback.style.display = 'flex';
+    fallback.innerHTML = getAvatarHTML(character);
+    return;
+  }
+
+  video.muted = true;
+  video.playsInline = true;
+  video.autoplay = true;
+  video.preload = 'auto';
+  video.setAttribute('muted', '');
+  video.setAttribute('playsinline', '');
+  video.setAttribute('webkit-playsinline', '');
+  video.setAttribute('autoplay', '');
+  video.setAttribute('preload', 'auto');
+  fallback.style.display = 'flex';
+  video.style.display = 'block';
+  video.src = toSrc(file);
+
+  // If a browser blocks autoplay, it's still fine (muted + playsinline usually works)
+  video.load();
+  const playPromise = video.play();
+  if (playPromise && typeof playPromise.catch === 'function') playPromise.catch(()=>{});
+
+  const hideFallback = () => {
+    fallback.style.display = 'none';
+    video.style.display = 'block';
+  };
+  video.onloadeddata = hideFallback;
+  video.onloadedmetadata = hideFallback;
+  video.oncanplay = hideFallback;
+  video.onplaying = hideFallback;
+  video.onerror = () => {
+    video.style.display = 'none';
+    fallback.style.display = 'flex';
+    fallback.innerHTML = getAvatarHTML(character);
   };
 }
 
-function getChallengePortrait(character) {
-  const portraitSources = getPortraitSources(character);
-  return portraitSources || null;
+const categoryIcons = ["⭐", "✦", "❖", "✧"];
+let remaining = [...challenges];
+let lastCharacter = null;
+let characterQueue = [];
+let challengesByCharacter = new Map();
+
+function shuffleArray(list) {
+  const arr = [...list];
+  for (let i = arr.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
 }
 
-/* category icons - subtle variety */
-const categoryIcons = ["⭐", "✦", "❖", "✧"];
-
-let remaining = [...challenges];
+function resetChallengePools() {
+  remaining = [...challenges];
+  challengesByCharacter = new Map();
+  for (const challenge of remaining) {
+    if (!challengesByCharacter.has(challenge.character)) {
+      challengesByCharacter.set(challenge.character, []);
+    }
+    challengesByCharacter.get(challenge.character).push(challenge);
+  }
+  for (const [character, list] of challengesByCharacter.entries()) {
+    challengesByCharacter.set(character, shuffleArray(list));
+  }
+  characterQueue = shuffleArray([...challengesByCharacter.keys()]);
+}
 
 function pickChallenge() {
-  if (remaining.length === 0) {
-    remaining = [...challenges];
+  if (!remaining.length || !characterQueue.length) {
+    resetChallengePools();
   }
-  const i = Math.floor(Math.random() * remaining.length);
-  return remaining.splice(i, 1)[0];
+
+  let selectedCharacter = null;
+  for (let i = 0; i < characterQueue.length; i += 1) {
+    const candidate = characterQueue[i];
+    const pool = challengesByCharacter.get(candidate) || [];
+    if (pool.length && candidate !== lastCharacter) {
+      selectedCharacter = candidate;
+      characterQueue = characterQueue.slice(i + 1).concat(characterQueue.slice(0, i + 1));
+      break;
+    }
+  }
+
+  if (!selectedCharacter) {
+    for (let i = 0; i < characterQueue.length; i += 1) {
+      const candidate = characterQueue[i];
+      const pool = challengesByCharacter.get(candidate) || [];
+      if (pool.length) {
+        selectedCharacter = candidate;
+        characterQueue = characterQueue.slice(i + 1).concat(characterQueue.slice(0, i + 1));
+        break;
+      }
+    }
+  }
+
+  if (!selectedCharacter) {
+    resetChallengePools();
+    return pickChallenge();
+  }
+
+  const pool = challengesByCharacter.get(selectedCharacter);
+  const picked = pool.shift();
+  remaining = remaining.filter(item => item !== picked);
+  lastCharacter = picked.character;
+  return picked;
 }
 
-/* RENDERING */
-function renderChallenge(c) {
-  const avatar = document.getElementById("hm-avatar");
-  const portraitSources = getChallengePortrait(c.character);
-  avatar.innerHTML = portraitSources
-    ? `<img src="${portraitSources.primary}" alt="${c.character} portrait"${portraitSources.fallback ? ` onerror="this.onerror=null; this.src='${portraitSources.fallback}';"` : ''}>`
-    : getAvatarHTML(c.character);
+resetChallengePools();
 
-  document.getElementById("challenge-title").textContent = c.title;
-  document.getElementById("challenge-instruction").textContent = c.instruction;
-  document.getElementById("challenge-character").innerHTML =
-    `With <strong>${c.character}</strong>`;
-  document.getElementById("challenge-comment").textContent = c.comment;
-  document.getElementById("challenge-category").textContent = c.category;
-
-  const catIcon = document.getElementById("hm-category-icon");
-  catIcon.textContent = categoryIcons[Math.floor(Math.random() * categoryIcons.length)];
+function renderChallenge(c){
+  setAvatar(c.character);
+  document.getElementById('hm-avatar-fallback').innerHTML = getAvatarHTML(c.character);
+  document.getElementById('challenge-title').textContent = c.title;
+  document.getElementById('challenge-instruction').textContent = c.instruction;
+  document.getElementById('challenge-character').innerHTML = `With <strong>${c.character}</strong>`;
+  document.getElementById('challenge-comment').textContent = c.comment;
+  document.getElementById('challenge-category').textContent = c.category;
+  document.getElementById('hm-category-icon').textContent = categoryIcons[Math.floor(Math.random()*categoryIcons.length)];
 }
 
-/* ANIMATION + GENERATE */
-function generateChallenge() {
-  const card = document.getElementById("result-card");
-
-  card.classList.remove("show");
-  card.classList.add("hide");
-
-  setTimeout(() => {
+function generateChallenge(){
+  const card = document.getElementById('result-card');
+  card.classList.remove('show');
+  card.classList.add('hide');
+  setTimeout(()=>{
     const ch = pickChallenge();
     renderChallenge(ch);
-    card.classList.remove("hide");
+    card.classList.remove('hide');
     void card.offsetWidth;
-    card.classList.add("show");
+    card.classList.add('show');
   }, 220);
 }
 
-document
-  .getElementById("hm-generate-btn")
-  .addEventListener("click", generateChallenge);
+document.getElementById('hm-generate-btn').addEventListener('click', generateChallenge);
 </script>
+</body>
+</html>
   </template>
 
     <template id="gift-template-word-search">
@@ -6166,7 +6191,9 @@ document
       text-align: center;
       font-weight: bold;
       font-size: 0.85rem;
-      padding: 5px 0;
+      height: clamp(22px, 4.6vw, 32px);
+      padding: 0;
+      line-height: 1;
       color: #ffffff;
       cursor: pointer;
       transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
@@ -6335,10 +6362,14 @@ document
       .layout {
         display: flex;
         flex-direction: column;
+        align-items: flex-start;
       }
       .grid-shell {
         width: 100%;
         order: 1;
+        max-width: 100%;
+        margin-left: 0;
+        margin-right: auto;
       }
       .panel {
         width: 100%;
@@ -6347,6 +6378,9 @@ document
       .shell {
         min-height: 100%;
         padding: 10px 10px;
+        margin: 0;
+        width: 100%;
+        max-width: none;
       }
       .grid-shell {
         max-height: none;
@@ -6354,6 +6388,53 @@ document
       }
       .panel {
         padding: 10px;
+      }
+
+      h1,
+      .subtitle,
+      .instructions,
+      .status,
+      .panel h2 {
+        text-align: left;
+      }
+
+      .puzzle-meta {
+        justify-content: flex-start;
+      }
+
+      .word-grid td {
+        height: clamp(20px, 6vw, 28px);
+        font-size: clamp(0.72rem, 3vw, 0.9rem);
+      }
+    }
+
+    @media (max-width: 900px) and (orientation: landscape) {
+      .layout {
+        grid-template-columns: 2fr 1fr;
+        align-items: center;
+        display: grid;
+        gap: 14px;
+      }
+
+      .grid-shell {
+        max-width: none;
+      }
+
+      .panel {
+        align-self: stretch;
+      }
+
+      .word-grid td {
+        height: clamp(18px, 4.2vw, 24px);
+        font-size: clamp(0.68rem, 2.6vw, 0.85rem);
+      }
+
+      .word-list {
+        grid-template-columns: 1fr;
+      }
+
+      .word-chip {
+        font-size: 0.68rem;
       }
     }
   </style>
@@ -6807,6 +6888,10 @@ document
             return window.matchMedia && window.matchMedia('(max-width: 720px)').matches;
         }
 
+        function isPortraitViewport() {
+            return window.matchMedia && window.matchMedia('(orientation: portrait)').matches;
+        }
+
         function isGiftMobileViewport() {
             return window.matchMedia
                 && (window.matchMedia('(max-width: 900px)').matches
@@ -6837,8 +6922,9 @@ document
             const giftsTab = getTabElement('gifts');
             const requested = localStorage.getItem('giftsRequested') === 'true';
             const hashRequested = window.location.hash === '#gifts';
-            const shouldAutoOpenGifts = !isMobileViewport() && (requested || hashRequested);
-            if (isMobileViewport() && hashRequested) {
+            const isPortrait = isPortraitViewport();
+            const shouldAutoOpenGifts = (requested || hashRequested) && (!isMobileViewport() || isPortrait);
+            if (isMobileViewport() && hashRequested && !isPortrait) {
                 history.replaceState({ tab: 'main' }, '', '#main');
             }
             if (giftsTab && shouldAutoOpenGifts) {
@@ -8200,13 +8286,13 @@ document
             localStorage.setItem('giftsRequested', 'true');
 
             const giftsTab = getTabElement('gifts');
-            if (!isMobileViewport() && giftsTab) {
+            if ((!isMobileViewport() || isPortraitViewport()) && giftsTab) {
                 selectTab(giftsTab, 'gifts', { skipHistory: true });
             }
 
             showEmailModal('login', 'Your email is verified! Please log in to unlock GIFTS.', '#ffd700');
 
-            if (!isMobileViewport() && !hash.includes('#gifts')) {
+            if ((!isMobileViewport() || isPortraitViewport()) && !hash.includes('#gifts')) {
                 history.replaceState({ tab: 'gifts' }, '', '#gifts');
             }
             return true;
@@ -8513,8 +8599,8 @@ document
         }
 
         function openGiftInNewWindow(key, html, source) {
-            const preferBlob = window.matchMedia && window.matchMedia('(max-width: 720px)').matches;
-            if (!preferBlob) {
+            const preferNewTab = isGiftMobileViewport();
+            if (!preferNewTab) {
                 return false;
             }
             if (source) {
@@ -8524,7 +8610,11 @@ document
             if (!html) {
                 return false;
             }
-            const blob = new Blob([html], { type: 'text/html' });
+            const baseHref = window.location.origin ? `${window.location.origin}/` : '';
+            const htmlWithBase = baseHref && !html.includes('<base')
+                ? html.replace('<head>', `<head><base href="${baseHref}">`)
+                : html;
+            const blob = new Blob([htmlWithBase], { type: 'text/html' });
             const blobUrl = URL.createObjectURL(blob);
             const popup = window.open(blobUrl, '_blank', 'noopener,noreferrer');
             if (popup) {
@@ -8574,17 +8664,13 @@ document
             const html = getGiftHtml(key);
             const source = giftSources[key];
 
-            if (openGiftInNewWindow(key, html, source)) {
-                return;
-            }
-
             giftFrame.removeAttribute('src');
             giftFrame.removeAttribute('srcdoc');
             giftFrame.onload = null;
             giftFrame.onerror = null;
-            giftFallback.style.display = 'flex';
-            giftFallback.innerHTML = '<div style="width:100%;padding:12px 8px;">Loading gift…</div>';
-            giftFrame.style.display = 'none';
+            giftFallback.style.display = 'none';
+            giftFallback.innerHTML = '';
+            giftFrame.style.display = 'block';
             giftFrame.onload = () => {
                 giftFallback.style.display = 'none';
                 giftFrame.style.display = 'block';
@@ -8652,7 +8738,13 @@ document
             document.body.style.overflow = 'hidden';
 
             if (!giftOverlayOpen) {
-                history.pushState({ giftOverlay: true }, document.title, window.location.href);
+                const giftsHash = '#gifts';
+                if (window.location.hash !== giftsHash) {
+                    history.replaceState({ tab: 'gifts', base: true }, '', giftsHash);
+                } else if (!history.state) {
+                    history.replaceState({ tab: 'gifts', base: true }, '', giftsHash);
+                }
+                history.pushState({ giftOverlay: true }, document.title, giftsHash);
                 giftOverlayOpen = true;
             }
         }
@@ -8797,6 +8889,7 @@ document
             ];
             buttons.forEach(({ selector, handler }) => {
                 document.querySelectorAll(selector).forEach((btn) => {
+                    btn.removeAttribute('onclick');
                     addTapListener(btn, handler);
                 });
             });
