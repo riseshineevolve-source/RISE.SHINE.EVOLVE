@@ -1488,6 +1488,9 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
                 height: auto;
                 max-height: min(34vh, 300px);
                 padding: clamp(6px, 1.2vw, 12px);
+                margin: 0 auto;
+                justify-content: center;
+                align-content: center;
             }
 
             .cell {
@@ -1530,6 +1533,9 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
                 max-width: min(90vw, 280px);
                 max-height: min(32vh, 260px);
                 padding: 8px;
+                margin: 0 auto;
+                justify-content: center;
+                align-content: center;
             }
 
             .cell {
@@ -1542,6 +1548,34 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
             .container {
                 padding: 14px;
                 margin: 8px;
+            }
+        }
+
+        @media (max-width: 900px) and (orientation: landscape) {
+            .game-area {
+                display: grid;
+                grid-template-columns: 3fr 1fr;
+                align-items: start;
+            }
+
+            .puzzle-container {
+                order: 0;
+                align-items: flex-start;
+            }
+
+            .sidebar {
+                order: 0;
+                min-width: 180px;
+                max-width: 220px;
+                margin-left: 0;
+                margin-right: 0;
+            }
+
+            .word-search {
+                max-height: min(38vh, 260px);
+                justify-content: center;
+                align-content: center;
+                margin: 0;
             }
         }
     </style>

@@ -8915,7 +8915,7 @@ document.getElementById('hm-generate-btn').addEventListener('click', generateCha
                 const mainTab = getTabElement('main');
                 if (mainTab) {
                     selectTab(mainTab, 'main', { skipHistory: true });
-                    history.pushState({ tab: 'main', base: true }, '', '#main');
+                    history.replaceState({ tab: 'main', base: true }, '', '#main');
                 }
                 return;
             }
