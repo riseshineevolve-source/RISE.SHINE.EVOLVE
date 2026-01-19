@@ -534,10 +534,12 @@ function setAvatar(character){
   video.muted = true;
   video.playsInline = true;
   video.autoplay = true;
+  video.preload = 'auto';
   video.setAttribute('muted', '');
   video.setAttribute('playsinline', '');
   video.setAttribute('webkit-playsinline', '');
   video.setAttribute('autoplay', '');
+  video.setAttribute('preload', 'auto');
   fallback.style.display = 'flex';
   video.style.display = 'block';
   video.src = toSrc(file);
@@ -547,9 +549,11 @@ function setAvatar(character){
   const playPromise = video.play();
   if (playPromise && typeof playPromise.catch === 'function') playPromise.catch(()=>{});
 
-  video.onloadeddata = () => {
+  const hideFallback = () => {
     fallback.style.display = 'none';
   };
+  video.onloadeddata = hideFallback;
+  video.onloadedmetadata = hideFallback;
   video.onerror = () => {
     video.style.display = 'none';
     fallback.style.display = 'flex';
