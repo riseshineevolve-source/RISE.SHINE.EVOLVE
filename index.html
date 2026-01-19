@@ -5125,7 +5125,7 @@
     const VIDEO_BASE = "/assets/videos/";
 
     const DANCE_VIDEO_MAP = {
-      Mimi: "Mimi tanczy 1.mp4",
+      Mimi: ["Mimi tanczy.mp4", "Mimi tanczy 1.mp4"],
       Luli: "Luli tanczy 1.mp4",
       Dilo: "Dilo tanczy 3.mp4",
       Alio: "Alio tanczy.mp4",
@@ -5160,20 +5160,25 @@
       }, { passive: false });
     }
 
-    function setCenterVideo(theme, character){
-      const isEnergy = theme === 'energy';
-      const video = document.getElementById(isEnergy ? 'energy-result-video' : 'calm-result-video');
-      const fallback = document.getElementById(isEnergy ? 'energy-result-fallback' : 'calm-result-fallback');
-      if (!video || !fallback) return;
+        function normalizeVideoList(file) {
+          if (!file) return [];
+          return Array.isArray(file) ? file : [file];
+        }
 
-      const map = isEnergy ? DANCE_VIDEO_MAP : CALM_VIDEO_MAP;
-      const file = map[character];
-      if (!file) {
-        video.removeAttribute('src');
-        video.style.display = 'none';
-        fallback.style.display = 'flex';
-        return;
-      }
+        function setCenterVideo(theme, character){
+          const isEnergy = theme === 'energy';
+          const video = document.getElementById(isEnergy ? 'energy-result-video' : 'calm-result-video');
+          const fallback = document.getElementById(isEnergy ? 'energy-result-fallback' : 'calm-result-fallback');
+          if (!video || !fallback) return;
+
+          const map = isEnergy ? DANCE_VIDEO_MAP : CALM_VIDEO_MAP;
+          const files = normalizeVideoList(map[character]);
+          if (!files.length) {
+            video.removeAttribute('src');
+            video.style.display = 'none';
+            fallback.style.display = 'flex';
+            return;
+          }
 
       video.muted = true;
       video.playsInline = true;
@@ -5186,22 +5191,31 @@
       video.setAttribute('preload', 'auto');
       fallback.style.display = 'flex';
       video.style.display = 'none';
-      video.src = toSrc(file);
-      video.load();
-      const p = video.play();
-      if (p && typeof p.catch === 'function') p.catch(()=>{});
+          let index = 0;
+          const tryNext = () => {
+            if (index >= files.length) {
+              video.style.display = 'none';
+              fallback.style.display = 'flex';
+              return;
+            }
+            video.src = toSrc(files[index]);
+            index += 1;
+            video.load();
+            const p = video.play();
+            if (p && typeof p.catch === 'function') p.catch(()=>{});
+          };
+          tryNext();
 
-      const hideFallback = () => {
-        fallback.style.display = 'none';
-        video.style.display = 'block';
-      };
-      video.onloadeddata = hideFallback;
-      video.onloadedmetadata = hideFallback;
-      video.onerror = () => {
-        video.style.display = 'none';
-        fallback.style.display = 'flex';
-      };
-    }
+          const hideFallback = () => {
+            fallback.style.display = 'none';
+            video.style.display = 'block';
+          };
+          video.onloadeddata = hideFallback;
+          video.onloadedmetadata = hideFallback;
+          video.onerror = () => {
+            tryNext();
+          };
+        }
 
 /* ---------- WHEEL LOGIC ---------- */
 
@@ -7292,14 +7306,13 @@ document.getElementById('hm-generate-btn').addEventListener('click', generateCha
                 const panel = document.getElementById(`${mode}-panel`);
                 if (!panel) return;
                 const wheelBox = panel.querySelector('.hm-wheel-box');
-                const wheelLayout = panel.querySelector('.hm-wheel-layout');
                 const infoBar = panel.querySelector('.hm-info-bar');
                 const resultBox = panel.querySelector('.hm-result-box');
-                if (wheelBox && infoBar && wheelLayout && !wheelBox.contains(infoBar)) {
-                    wheelBox.insertBefore(infoBar, wheelLayout);
-                }
                 if (wheelBox && resultBox && !wheelBox.contains(resultBox)) {
                     wheelBox.appendChild(resultBox);
+                }
+                if (wheelBox && infoBar && !wheelBox.contains(infoBar)) {
+                    wheelBox.appendChild(infoBar);
                 }
                 if (wheelBox) {
                     wheelBox.style.textAlign = 'center';
@@ -8911,16 +8924,17 @@ document.getElementById('hm-generate-btn').addEventListener('click', generateCha
                 }
             }
 
+            const activeTab = document.querySelector('.tab.active');
             if (isMobileViewport()) {
-                const mainTab = getTabElement('main');
-                if (mainTab) {
-                    selectTab(mainTab, 'main', { skipHistory: true });
-                    history.replaceState({ tab: 'main', base: true }, '', '#main');
+                if (!activeTab) {
+                    const mainTab = getTabElement('main');
+                    if (mainTab) {
+                        selectTab(mainTab, 'main', { skipHistory: true });
+                        history.replaceState({ tab: 'main', base: true }, '', '#main');
+                    }
                 }
                 return;
             }
-
-            const activeTab = document.querySelector('.tab.active');
             const mainTab = getTabElement('main');
             if ((!event.state || !event.state.tab) && activeTab && mainTab && activeTab.dataset.tab !== 'main') {
                 selectTab(mainTab, 'main', { skipHistory: true });

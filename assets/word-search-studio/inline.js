@@ -1488,9 +1488,10 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
                 height: auto;
                 max-height: min(34vh, 300px);
                 padding: clamp(6px, 1.2vw, 12px);
-                margin: 0 auto;
-                justify-content: center;
-                align-content: center;
+                margin-left: 0;
+                margin-right: auto;
+                justify-content: flex-start;
+                align-content: flex-start;
             }
 
             .cell {
@@ -1533,9 +1534,10 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
                 max-width: min(90vw, 280px);
                 max-height: min(32vh, 260px);
                 padding: 8px;
-                margin: 0 auto;
-                justify-content: center;
-                align-content: center;
+                margin-left: 0;
+                margin-right: auto;
+                justify-content: flex-start;
+                align-content: flex-start;
             }
 
             .cell {
@@ -1569,6 +1571,8 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
                 max-width: 220px;
                 margin-left: 0;
                 margin-right: 0;
+                margin-top: 0;
+                align-self: flex-start;
             }
 
             .word-search {
