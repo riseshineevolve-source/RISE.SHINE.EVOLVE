@@ -4200,19 +4200,16 @@
 
     .hm-result-card {
       border-radius: 18px;
-      padding: 14px 140px 16px 14px;
+      padding: 16px;
       background: #000000;
       position: relative;
       overflow: hidden;
     }
 
     .hm-result-video-circle {
-      width: 120px;
-      height: 120px;
-      position: absolute;
-      top: 50%;
-      right: 16px;
-      transform: translateY(-50%);
+      width: 180px;
+      height: 180px;
+      margin: 0 auto 12px;
       border-radius: 50%;
       overflow: hidden;
       border: 2px solid rgba(255, 255, 255, 0.6);
@@ -4429,26 +4426,21 @@
         max-width: 100%;
       }
 
-      .hm-result-card {
-        padding-right: 116px;
-      }
-
       .hm-result-video-circle {
-        width: 96px;
-        height: 96px;
-        right: 12px;
-      }
-    }
-
-    @media (max-width: 640px) {
-      .hm-result-card {
-        padding: 16px;
+        width: 150px;
+        height: 150px;
       }
 
-      .hm-result-video-circle {
-        position: static;
-        margin: 12px auto 0;
-        transform: none;
+      .hm-tabs-wrapper {
+        display: none;
+      }
+
+      .hm-panel {
+        display: block;
+      }
+
+      .hm-panel + .hm-panel {
+        margin-top: 18px;
       }
     }
   </style>
@@ -5213,6 +5205,8 @@
       };
       video.onloadeddata = hideFallback;
       video.onloadedmetadata = hideFallback;
+      video.oncanplay = hideFallback;
+      video.onplaying = hideFallback;
       video.onerror = () => {
         video.style.display = 'none';
         fallback.style.display = 'flex';
@@ -6086,6 +6080,8 @@ function setAvatar(character){
   };
   video.onloadeddata = hideFallback;
   video.onloadedmetadata = hideFallback;
+  video.oncanplay = hideFallback;
+  video.onplaying = hideFallback;
   video.onerror = () => {
     video.style.display = 'none';
     fallback.style.display = 'flex';
@@ -8743,14 +8739,6 @@ document.getElementById('hm-generate-btn').addEventListener('click', generateCha
 
             const html = getGiftHtml(key);
             const source = giftSources[key];
-
-            if (isGiftMobileViewport()) {
-                if (openGiftInNewWindow(key, html, source)) {
-                    return;
-                }
-                showGiftFallback('Please allow pop-ups to open this gift in a new tab.');
-                return;
-            }
 
             giftFrame.removeAttribute('src');
             giftFrame.removeAttribute('srcdoc');

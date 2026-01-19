@@ -554,6 +554,8 @@ function setAvatar(character){
   };
   video.onloadeddata = hideFallback;
   video.onloadedmetadata = hideFallback;
+  video.oncanplay = hideFallback;
+  video.onplaying = hideFallback;
   video.onerror = () => {
     video.style.display = 'none';
     fallback.style.display = 'flex';
