@@ -1448,6 +1448,15 @@
         }
 
         @media (max-width: 768px) {
+            .container {
+                border: none;
+                box-shadow: none;
+                margin: 0;
+                padding: 16px;
+                border-radius: 0;
+                text-align: left;
+            }
+
             .game-area {
                 display: flex;
                 flex-direction: column;
@@ -1456,6 +1465,7 @@
             
             .puzzle-container {
                 order: 1;
+                align-items: stretch;
             }
             
             .sidebar {
@@ -1469,16 +1479,17 @@
 
             .controls {
                 align-items: stretch;
+                text-align: left;
             }
 
             .control-row {
                 flex-direction: column;
-                align-items: center;
+                align-items: stretch;
             }
             
             .mode-selector {
                 flex-direction: column;
-                align-items: center;
+                align-items: stretch;
             }
             
             .title {
@@ -1491,11 +1502,19 @@
             }
 
             .word-search {
-                width: min(88vw, 300px);
-                max-width: min(88vw, 300px);
+                width: 100%;
+                max-width: 100%;
                 height: auto;
-                max-height: min(34vh, 300px);
-                padding: clamp(6px, 1.2vw, 12px);
+                max-height: min(28vh, 280px);
+                padding: clamp(4px, 1vw, 6px);
+                margin-left: 0;
+                margin-right: auto;
+                border: none;
+                box-shadow: none;
+            }
+
+            .word-search::before {
+                display: none;
             }
 
             .cell {
@@ -1533,11 +1552,28 @@
         }
 
         @media (max-width: 480px) {
+            .container {
+                border: none;
+                box-shadow: none;
+                margin: 0;
+                padding: 12px;
+                border-radius: 0;
+                text-align: left;
+            }
+
             .word-search {
-                width: min(90vw, 280px);
-                max-width: min(90vw, 280px);
-                max-height: min(32vh, 260px);
-                padding: 8px;
+                width: 100%;
+                max-width: 100%;
+                max-height: min(26vh, 240px);
+                padding: 4px;
+                margin-left: 0;
+                margin-right: auto;
+                border: none;
+                box-shadow: none;
+            }
+
+            .word-search::before {
+                display: none;
             }
 
             .cell {
