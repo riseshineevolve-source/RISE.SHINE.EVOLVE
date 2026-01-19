@@ -658,12 +658,6 @@
       box-shadow: 0 0 12px rgba(255, 88, 199, 0.35);
     }
 
-    .hm-result-card-header {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
     .hm-result-video {
       width: 100%;
       height: 100%;
@@ -817,8 +811,8 @@
     }
 
     .hm-result-video-circle {
-      width: 160px;
-      height: 160px;
+      width: 140px;
+      height: 140px;
       margin: 0;
       border-radius: 50%;
       overflow: hidden;
@@ -828,6 +822,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      flex-shrink: 0;
     }
 
     .hm-result-video-circle--calm {
@@ -987,8 +982,8 @@
       }
 
       .hm-result-video-circle {
-        width: 140px;
-        height: 140px;
+        width: 120px;
+        height: 120px;
       }
     }
   </style>
@@ -1780,20 +1775,18 @@
 
       targetElement.innerHTML = `
         <article class="${themeClass}">
-          <div class="hm-result-card-header">
-            <div class="hm-result-header">
-              <div class="${circleClass}">
-                <video class="hm-result-video" id="${videoId}" autoplay muted loop playsinline></video>
-                <div class="hm-result-fallback" id="${fallbackId}" aria-hidden="true">${fallbackIcon}</div>
+          <div class="hm-result-header">
+            <div class="${circleClass}">
+              <video class="hm-result-video" id="${videoId}" autoplay muted loop playsinline></video>
+              <div class="hm-result-fallback" id="${fallbackId}" aria-hidden="true">${fallbackIcon}</div>
+            </div>
+            <div class="hm-result-title-block">
+              <div class="hm-pill-row">
+                <div class="hm-pill">${practice.category}</div>
+                <div class="hm-pill hm-pill-character">With ${practice.character}</div>
               </div>
-              <div class="hm-result-title-block">
-                <div class="hm-pill-row">
-                  <div class="hm-pill">${practice.category}</div>
-                  <div class="hm-pill hm-pill-character">With ${practice.character}</div>
-                </div>
-                <h2 class="hm-result-title">${practice.title}</h2>
-                <div class="hm-result-type">Family micro-practice</div>
-              </div>
+              <h2 class="hm-result-title">${practice.title}</h2>
+              <div class="hm-result-type">Family micro-practice</div>
             </div>
           </div>
           <p class="hm-result-instruction">${practice.instruction}</p>
