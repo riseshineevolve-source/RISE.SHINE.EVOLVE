@@ -810,19 +810,25 @@
 
     .hm-result-card {
       border-radius: 18px;
-      padding: 14px 140px 16px 14px;
+      padding: 16px;
       background: #000000;
       position: relative;
       overflow: hidden;
     }
 
+    .hm-result-title-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin: 6px 0 4px;
+    }
+
     .hm-result-video-circle {
-      width: 120px;
-      height: 120px;
-      position: absolute;
-      top: 50%;
-      right: 16px;
-      transform: translateY(-50%);
+      width: 72px;
+      height: 72px;
+      position: static;
       border-radius: 50%;
       overflow: hidden;
       border: 2px solid rgba(255, 255, 255, 0.6);
@@ -882,7 +888,7 @@
     .hm-result-title {
       font-size: 1.12rem;
       font-weight: 800;
-      margin: 0 0 4px;
+      margin: 0;
       text-align: center;
       background: linear-gradient(45deg, #8A2BE2, #ff69b4);
       -webkit-background-clip: text;
@@ -1028,6 +1034,9 @@
       .hm-main-title {
         font-size: 1.6rem;
       }
+      .hm-wheel-layout {
+        grid-template-columns: 1fr;
+      }
       .hm-wheel-visual {
         width: 170px;
         height: 170px;
@@ -1039,26 +1048,15 @@
         max-width: 100%;
       }
 
-      .hm-result-card {
-        padding-right: 116px;
-      }
-
       .hm-result-video-circle {
-        width: 96px;
-        height: 96px;
-        right: 12px;
+        width: 64px;
+        height: 64px;
       }
     }
 
     @media (max-width: 640px) {
-      .hm-result-card {
-        padding: 16px;
-      }
-
-      .hm-result-video-circle {
-        position: static;
-        margin: 12px auto 0;
-        transform: none;
+      .hm-result-title-row {
+        justify-content: center;
       }
     }
   </style>
@@ -1145,10 +1143,6 @@
           <div class="hm-result-box">
             <div class="hm-result-header">
               <div class="hm-result-main-title">Your Micro-Practice</div>
-              <div class="hm-result-avatar hm-result-avatar--calm">
-                <video class="hm-result-video" id="calm-result-video" autoplay muted loop playsinline></video>
-                <div class="hm-result-fallback" id="calm-result-fallback" aria-hidden="true">✨</div>
-              </div>
             </div>
             <div id="calm-result">
               <div class="hm-placeholder">
@@ -1229,10 +1223,6 @@
           <div class="hm-result-box">
             <div class="hm-result-header">
               <div class="hm-result-main-title">Your Micro-Boost</div>
-              <div class="hm-result-avatar hm-result-avatar--energy">
-                <video class="hm-result-video" id="energy-result-video" autoplay muted loop playsinline></video>
-                <div class="hm-result-fallback" id="energy-result-fallback" aria-hidden="true">⚡</div>
-              </div>
             </div>
             <div id="energy-result">
               <div class="hm-placeholder">
@@ -1745,7 +1735,7 @@
     const VIDEO_BASE = "/assets/videos/";
 
     const DANCE_VIDEO_MAP = {
-      Mimi: "Mimi tanczy 1.mp4",
+      Mimi: ["Mimi tanczy.mp4", "Mimi tanczy 1.mp4"],
       Luli: "Luli tanczy 1.mp4",
       Dilo: "Dilo tanczy 3.mp4",
       Alio: "Alio tanczy.mp4",
@@ -1780,6 +1770,11 @@
       }, { passive: false });
     }
 
+    function normalizeVideoList(file) {
+      if (!file) return [];
+      return Array.isArray(file) ? file : [file];
+    }
+
     function setCenterVideo(theme, character){
       const isEnergy = theme === 'energy';
       const video = document.getElementById(isEnergy ? 'energy-result-video' : 'calm-result-video');
@@ -1787,8 +1782,8 @@
       if (!video || !fallback) return;
 
       const map = isEnergy ? DANCE_VIDEO_MAP : CALM_VIDEO_MAP;
-      const file = map[character];
-      if (!file) {
+      const files = normalizeVideoList(map[character]);
+      if (!files.length) {
         video.removeAttribute('src');
         video.style.display = 'none';
         fallback.style.display = 'flex';
@@ -1806,10 +1801,20 @@
       video.setAttribute('preload', 'auto');
       fallback.style.display = 'flex';
       video.style.display = 'none';
-      video.src = toSrc(file);
-      video.load();
-      const p = video.play();
-      if (p && typeof p.catch === 'function') p.catch(()=>{});
+      let index = 0;
+      const tryNext = () => {
+        if (index >= files.length) {
+          video.style.display = 'none';
+          fallback.style.display = 'flex';
+          return;
+        }
+        video.src = toSrc(files[index]);
+        index += 1;
+        video.load();
+        const p = video.play();
+        if (p && typeof p.catch === 'function') p.catch(()=>{});
+      };
+      tryNext();
 
       const hideFallback = () => {
         fallback.style.display = 'none';
@@ -1818,8 +1823,7 @@
       video.onloadeddata = hideFallback;
       video.onloadedmetadata = hideFallback;
       video.onerror = () => {
-        video.style.display = 'none';
-        fallback.style.display = 'flex';
+        tryNext();
       };
     }
 
@@ -1854,11 +1858,13 @@
               <div class="hm-pill hm-pill-character">With ${practice.character}</div>
             </div>
           </div>
-          <div class="${circleClass}">
-            <video class="hm-result-video" id="${videoId}" autoplay muted loop playsinline></video>
-            <div class="hm-result-fallback" id="${fallbackId}" aria-hidden="true">${fallbackIcon}</div>
+          <div class="hm-result-title-row">
+            <h2 class="hm-result-title">${practice.title}</h2>
+            <div class="${circleClass}">
+              <video class="hm-result-video" id="${videoId}" autoplay muted loop playsinline></video>
+              <div class="hm-result-fallback" id="${fallbackId}" aria-hidden="true">${fallbackIcon}</div>
+            </div>
           </div>
-          <h2 class="hm-result-title">${practice.title}</h2>
           <div class="hm-result-type">Family micro-practice</div>
           <p class="hm-result-instruction">${practice.instruction}</p>
           <div class="hm-result-comment">
