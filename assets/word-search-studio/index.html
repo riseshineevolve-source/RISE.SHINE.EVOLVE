@@ -634,6 +634,12 @@
             align-content: center;
             box-sizing: border-box;
             animation: elegantBoxGlow 9s ease-in-out infinite, frame-sparkle 16s ease-in-out infinite;
+            transition: transform 0.2s ease;
+            transform-origin: var(--zoom-origin-x, 50%) var(--zoom-origin-y, 50%);
+        }
+
+        .word-search.zoomed {
+            transform: scale(1.25);
         }
 
         #onlineAnswerButtons {
@@ -1478,10 +1484,11 @@
             
             .sidebar {
                 order: 2;
-                min-width: 100%;
-                max-width: none;
-                margin-right: 0;
-                margin-left: 0;
+                min-width: 0;
+                width: min(92vw, 360px);
+                max-width: 360px;
+                margin-right: auto;
+                margin-left: auto;
                 margin-top: 10px;
             }
 
@@ -1519,10 +1526,10 @@
             }
 
             .word-search {
-                width: 100%;
-                max-width: 100%;
+                width: min(92vw, 320px);
+                max-width: min(92vw, 320px);
                 height: auto;
-                max-height: min(24vh, 240px);
+                max-height: none;
                 padding: clamp(4px, 1vw, 6px);
                 margin: 0 auto;
                 border: none;
@@ -1594,9 +1601,9 @@
             }
 
             .word-search {
-                width: 100%;
-                max-width: 100%;
-                max-height: min(22vh, 220px);
+                width: min(92vw, 300px);
+                max-width: min(92vw, 300px);
+                max-height: none;
                 padding: 4px;
                 margin: 0 auto;
                 border: none;
@@ -1830,6 +1837,30 @@
                 };
                 
                 this.initEventListeners();
+            }
+
+            getWordSearchElement() {
+                return document.getElementById('wordSearch');
+            }
+
+            zoomToCell(cell) {
+                const container = this.getWordSearchElement();
+                if (!container || !cell) return;
+                const containerRect = container.getBoundingClientRect();
+                const cellRect = cell.getBoundingClientRect();
+                const originX = ((cellRect.left + cellRect.width / 2 - containerRect.left) / containerRect.width) * 100;
+                const originY = ((cellRect.top + cellRect.height / 2 - containerRect.top) / containerRect.height) * 100;
+                container.style.setProperty('--zoom-origin-x', `${originX}%`);
+                container.style.setProperty('--zoom-origin-y', `${originY}%`);
+                container.classList.add('zoomed');
+            }
+
+            clearZoom() {
+                const container = this.getWordSearchElement();
+                if (!container) return;
+                container.classList.remove('zoomed');
+                container.style.removeProperty('--zoom-origin-x');
+                container.style.removeProperty('--zoom-origin-y');
             }
             
             initEventListeners() {
@@ -2376,6 +2407,7 @@
                         direction: wordData.direction,
                         positions: wordData.positions
                     };
+                    this.zoomToCell(cell);
                 } else {
                     // To nie jest pierwsza litera - usuń podświetlenie po 1 sekundzie
                     setTimeout(() => {
@@ -2484,6 +2516,8 @@
                 this.clearHintHighlight(wordData.word);
                 document.getElementById('showAnswersBtn').style.display = 'inline-block';
                 document.getElementById('hideAnswersBtn').style.display = 'none';
+
+                this.clearZoom();
                 
                 // Resetuj postęp
                 this.resetWordProgress();
@@ -2506,7 +2540,9 @@
                         }
                     });
                 }
-                
+                if (!this.activeHint) {
+                    this.clearZoom();
+                }
                 this.currentWordProgress = {};
             }
 
@@ -2880,6 +2916,7 @@
                 if (hintCell) {
                     hintCell.classList.add('hint');
                     this.activeHint = { cell: hintCell, word: nextWord };
+                    this.zoomToCell(hintCell);
                     document.getElementById('showAnswersBtn').style.display = 'none';
                     document.getElementById('hideAnswersBtn').style.display = 'inline-block';
                 }
@@ -2887,6 +2924,7 @@
 
             hideHint() {
                 this.clearHintHighlight();
+                this.clearZoom();
                 document.getElementById('showAnswersBtn').style.display = 'inline-block';
                 document.getElementById('hideAnswersBtn').style.display = 'none';
             }

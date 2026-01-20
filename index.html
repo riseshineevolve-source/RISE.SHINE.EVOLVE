@@ -5123,6 +5123,7 @@
 
     
     const VIDEO_BASE = "/assets/videos/";
+    const VIDEO_BASE_REMOTE = "https://raw.githubusercontent.com/riseshineevolve-source/RISE.SHINE.EVOLVE/main/assets/videos/";
 
     const DANCE_VIDEO_MAP = {
       Mimi: ["Mimi tanczy.mp4", "Mimi tanczy 1.mp4"],
@@ -5144,6 +5145,10 @@
 
     function toSrc(filename){
       return VIDEO_BASE + encodeURIComponent(filename).replace(/%2F/g, "/");
+    }
+
+    function toRemoteSrc(filename) {
+      return VIDEO_BASE_REMOTE + encodeURIComponent(filename).replace(/%2F/g, "/");
     }
 
     function addTapListener(element, handler) {
@@ -5173,7 +5178,8 @@
 
           const map = isEnergy ? DANCE_VIDEO_MAP : CALM_VIDEO_MAP;
           const files = normalizeVideoList(map[character]);
-          if (!files.length) {
+          const sourceList = files.flatMap((file) => [toSrc(file), toRemoteSrc(file)]);
+          if (!sourceList.length) {
             video.removeAttribute('src');
             video.style.display = 'none';
             fallback.style.display = 'flex';
@@ -5193,12 +5199,12 @@
       video.style.display = 'none';
           let index = 0;
           const tryNext = () => {
-            if (index >= files.length) {
+            if (index >= sourceList.length) {
               video.style.display = 'none';
               fallback.style.display = 'flex';
               return;
             }
-            video.src = toSrc(files[index]);
+            video.src = sourceList[index];
             index += 1;
             video.load();
             const p = video.play();
@@ -6035,6 +6041,7 @@ function getAvatarHTML(character) {
 
 
 const VIDEO_BASE = "/assets/videos/";
+const VIDEO_BASE_REMOTE = "https://raw.githubusercontent.com/riseshineevolve-source/RISE.SHINE.EVOLVE/main/assets/videos/";
 
 const CALM_VIDEO_MAP = {
   Mimi: "Mimi calm.mp4",
@@ -6050,6 +6057,10 @@ function toSrc(filename){
   return VIDEO_BASE + encodeURIComponent(filename).replace(/%2F/g, "/");
 }
 
+function toRemoteSrc(filename){
+  return VIDEO_BASE_REMOTE + encodeURIComponent(filename).replace(/%2F/g, "/");
+}
+
 function setAvatar(character){
   const video = document.getElementById('hm-avatar-video');
   const fallback = document.getElementById('hm-avatar-fallback');
@@ -6062,6 +6073,7 @@ function setAvatar(character){
     fallback.innerHTML = getAvatarHTML(character);
     return;
   }
+  const sourceList = [toSrc(file), toRemoteSrc(file)];
 
   video.muted = true;
   video.playsInline = true;
@@ -6074,12 +6086,21 @@ function setAvatar(character){
   video.setAttribute('preload', 'auto');
   fallback.style.display = 'flex';
   video.style.display = 'block';
-  video.src = toSrc(file);
-
-  // If a browser blocks autoplay, it's still fine (muted + playsinline usually works)
-  video.load();
-  const playPromise = video.play();
-  if (playPromise && typeof playPromise.catch === 'function') playPromise.catch(()=>{});
+  let index = 0;
+  const tryNext = () => {
+    if (index >= sourceList.length) {
+      video.style.display = 'none';
+      fallback.style.display = 'flex';
+      fallback.innerHTML = getAvatarHTML(character);
+      return;
+    }
+    video.src = sourceList[index];
+    index += 1;
+    video.load();
+    const playPromise = video.play();
+    if (playPromise && typeof playPromise.catch === 'function') playPromise.catch(()=>{});
+  };
+  tryNext();
 
   const hideFallback = () => {
     fallback.style.display = 'none';
@@ -6087,9 +6108,7 @@ function setAvatar(character){
   video.onloadeddata = hideFallback;
   video.onloadedmetadata = hideFallback;
   video.onerror = () => {
-    video.style.display = 'none';
-    fallback.style.display = 'flex';
-    fallback.innerHTML = getAvatarHTML(character);
+    tryNext();
   };
 }
 
@@ -7305,14 +7324,21 @@ document.getElementById('hm-generate-btn').addEventListener('click', generateCha
             ['calm', 'energy'].forEach((mode) => {
                 const panel = document.getElementById(`${mode}-panel`);
                 if (!panel) return;
+                const panelInner = panel.querySelector('.hm-panel-inner');
                 const wheelBox = panel.querySelector('.hm-wheel-box');
                 const infoBar = panel.querySelector('.hm-info-bar');
                 const resultBox = panel.querySelector('.hm-result-box');
-                if (wheelBox && resultBox && !wheelBox.contains(resultBox)) {
-                    wheelBox.appendChild(resultBox);
+                const textColumn = panel.querySelector('.hm-text-column');
+                if (textColumn) {
+                    if (resultBox && !textColumn.contains(resultBox)) {
+                        textColumn.appendChild(resultBox);
+                    }
+                    if (infoBar && !textColumn.contains(infoBar)) {
+                        textColumn.appendChild(infoBar);
+                    }
                 }
-                if (wheelBox && infoBar && !wheelBox.contains(infoBar)) {
-                    wheelBox.appendChild(infoBar);
+                if (panelInner && wheelBox && textColumn && wheelBox.nextElementSibling !== textColumn) {
+                    panelInner.insertBefore(textColumn, wheelBox.nextElementSibling);
                 }
                 if (wheelBox) {
                     wheelBox.style.textAlign = 'center';
@@ -8857,11 +8883,8 @@ document.getElementById('hm-generate-btn').addEventListener('click', generateCha
             }
 
             if (giftOverlayOpen && history.state && history.state.giftOverlay && !fromHistory) {
-                const activeTab = document.querySelector('.tab.active');
-                const tabName = activeTab?.dataset?.tab || 'main';
-                giftOverlayOpen = false;
-                history.back();
-                return;
+                const originTab = giftOverlayOriginTab || 'gifts';
+                history.replaceState({ tab: originTab }, '', `#${originTab}`);
             }
             giftOverlayOpen = false;
             const originTab = giftOverlayOriginTab || 'gifts';
@@ -8922,6 +8945,15 @@ document.getElementById('hm-generate-btn').addEventListener('click', generateCha
                     selectTab(tabElement, event.state.tab, { skipHistory: true });
                     return;
                 }
+            }
+
+            if (!event.state) {
+                const mainTab = getTabElement('main');
+                if (mainTab) {
+                    selectTab(mainTab, 'main', { skipHistory: true });
+                    history.pushState({ tab: 'main', base: true }, '', '#main');
+                }
+                return;
             }
 
             const activeTab = document.querySelector('.tab.active');
