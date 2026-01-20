@@ -631,6 +631,18 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
             align-content: center;
             box-sizing: content-box;
             animation: elegantBoxGlow 9s ease-in-out infinite, frame-sparkle 16s ease-in-out infinite;
+            transition: transform 0.2s ease;
+            transform-origin: var(--zoom-origin-x, 50%) var(--zoom-origin-y, 50%);
+        }
+
+        .word-search.zoomed {
+            transform: scale(1.25);
+        }
+
+        @media (max-width: 900px) {
+            .word-search.zoomed {
+                transform: scale(1.35);
+            }
         }
 
         .word-search::before {
@@ -1444,18 +1456,21 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
                 display: flex;
                 flex-direction: column;
                 gap: 20px;
+                align-items: center;
             }
             
             .puzzle-container {
                 order: 1;
+                align-items: center;
             }
             
             .sidebar {
                 order: 2;
-                min-width: 100%;
-                max-width: none;
-                margin-right: 0;
-                margin-left: 0;
+                min-width: 0;
+                width: min(86vw, 320px);
+                max-width: 320px;
+                margin-right: auto;
+                margin-left: auto;
                 margin-top: 10px;
             }
 
@@ -1483,15 +1498,15 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
             }
 
             .word-search {
-                width: min(88vw, 300px);
-                max-width: min(88vw, 300px);
+                width: min(92vw, 320px);
+                max-width: min(92vw, 320px);
                 height: auto;
-                max-height: min(34vh, 300px);
+                max-height: none;
                 padding: clamp(6px, 1.2vw, 12px);
-                margin-left: 0;
+                margin-left: auto;
                 margin-right: auto;
-                justify-content: flex-start;
-                align-content: flex-start;
+                justify-content: center;
+                align-content: center;
             }
 
             .cell {
@@ -1530,14 +1545,14 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
 
         @media (max-width: 480px) {
             .word-search {
-                width: min(90vw, 280px);
-                max-width: min(90vw, 280px);
-                max-height: min(32vh, 260px);
+                width: min(92vw, 300px);
+                max-width: min(92vw, 300px);
+                max-height: none;
                 padding: 8px;
-                margin-left: 0;
+                margin-left: auto;
                 margin-right: auto;
-                justify-content: flex-start;
-                align-content: flex-start;
+                justify-content: center;
+                align-content: center;
             }
 
             .cell {
@@ -1748,6 +1763,30 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
                 };
                 
                 this.initEventListeners();
+            }
+
+            getWordSearchElement() {
+                return document.getElementById('wordSearch');
+            }
+
+            zoomToCell(cell) {
+                const container = this.getWordSearchElement();
+                if (!container || !cell) return;
+                const containerRect = container.getBoundingClientRect();
+                const cellRect = cell.getBoundingClientRect();
+                const originX = ((cellRect.left + cellRect.width / 2 - containerRect.left) / containerRect.width) * 100;
+                const originY = ((cellRect.top + cellRect.height / 2 - containerRect.top) / containerRect.height) * 100;
+                container.style.setProperty('--zoom-origin-x', `${originX}%`);
+                container.style.setProperty('--zoom-origin-y', `${originY}%`);
+                container.classList.add('zoomed');
+            }
+
+            clearZoom() {
+                const container = this.getWordSearchElement();
+                if (!container) return;
+                container.classList.remove('zoomed');
+                container.style.removeProperty('--zoom-origin-x');
+                container.style.removeProperty('--zoom-origin-y');
             }
             
             initEventListeners() {
@@ -2282,6 +2321,7 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
                         direction: wordData.direction,
                         positions: wordData.positions
                     };
+                    this.zoomToCell(cell);
                 } else {
                     // To nie jest pierwsza litera - usuń podświetlenie po 1 sekundzie
                     setTimeout(() => {
@@ -2390,6 +2430,8 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
                 this.clearHintHighlight(wordData.word);
                 document.getElementById('showAnswersBtn').style.display = 'inline-block';
                 document.getElementById('hideAnswersBtn').style.display = 'none';
+
+                this.clearZoom();
                 
                 // Resetuj postęp
                 this.resetWordProgress();
@@ -2412,7 +2454,9 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
                         }
                     });
                 }
-                
+                if (!this.activeHint) {
+                    this.clearZoom();
+                }
                 this.currentWordProgress = {};
             }
 
@@ -2786,6 +2830,7 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
                 if (hintCell) {
                     hintCell.classList.add('hint');
                     this.activeHint = { cell: hintCell, word: nextWord };
+                    this.zoomToCell(hintCell);
                     document.getElementById('showAnswersBtn').style.display = 'none';
                     document.getElementById('hideAnswersBtn').style.display = 'inline-block';
                 }
@@ -2793,6 +2838,7 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
 
             hideHint() {
                 this.clearHintHighlight();
+                this.clearZoom();
                 document.getElementById('showAnswersBtn').style.display = 'inline-block';
                 document.getElementById('hideAnswersBtn').style.display = 'none';
             }
