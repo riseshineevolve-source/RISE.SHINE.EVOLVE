@@ -1459,229 +1459,159 @@
                     0 0 70px rgba(0, 160, 133, 0.45);
             }
         }
+/* STYL PRZYCISKU CLOSE */
+        .close-wrapper {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
 
-        @media (max-width: 768px) {
-            body {
-                padding: 12px 8px 16px 4px;
-            }
-
+        #close-gift-btn {
+            background-color: #6a1b9a;
+            color: white;
+            border: 2px solid #ffffff;
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 25px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(106, 27, 154, 0.6);
+            white-space: nowrap;
+            z-index: 1001;
+            -webkit-appearance: none;
+        }
+        /* --- NOWY CSS MOBILE (NAPRAWIONY) --- */
+        
+        /* 1. PORTRAIT (Pionowo) - Maksymalna szerokość, bez ramki */
+        @media (max-width: 900px) {
             .container {
+                padding: 5px !important;
+                width: 100% !important;
+                margin: 0;
                 border: none;
                 box-shadow: none;
-                margin: 0;
-                max-width: none;
-                width: 100%;
-                padding: 16px 12px 16px 6px;
-                border-radius: 0;
-                text-align: left;
             }
-
+            
             .game-area {
                 display: flex;
                 flex-direction: column;
-                gap: 20px;
                 align-items: center;
+                width: 100%;
             }
-            
+
             .puzzle-container {
                 order: 1;
+                width: 100%;
+                display: flex;
+                flex-direction: column;
                 align-items: center;
             }
+
+            /* USUNIĘCIE RAMKI ABY ZMIEŚCIĆ CAŁY SHAPE */
+            .word-search {
+                margin: 0 auto;
+                padding: 0 !important;
+                border: none !important;
+                box-shadow: none !important;
+                background: transparent !important;
+                max-width: 100vw;
+                
+                /* Włączenie Zoomu */
+                transition: transform 0.3s ease;
+                transform-origin: var(--zoom-origin-x, 50%) var(--zoom-origin-y, 50%);
+            }
             
+            .word-search.zoomed {
+                transform: scale(1.4);
+                z-index: 100;
+            }
+
             .sidebar {
                 order: 2;
-                min-width: 0;
-                width: min(86vw, 320px);
-                max-width: 320px;
-                margin-right: auto;
-                margin-left: auto;
-                margin-top: 10px;
+                width: 100%;
+                margin-top: 15px;
+                box-shadow: none;
+                border: none;
+                padding: 0;
             }
 
-            .controls {
-                align-items: stretch;
-                text-align: left;
-            }
-
-            .control-row {
-                flex-direction: column;
-                align-items: stretch;
+            .controls, .input-group, .button-group {
+                align-items: center;
+                justify-content: center;
             }
             
-            .mode-selector {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .input-group,
-            label,
-            input[type="text"],
-            #wordPresets {
-                align-self: flex-start;
-                margin-left: 0;
-                text-align: left;
-            }
-            
-            .title {
-                font-size: 2rem;
-            }
-
-            .victory-banner {
-                font-size: 1.8rem;
-                padding: 20px 40px;
-            }
-
-            .word-search {
-                width: min(92vw, 320px);
-                max-width: min(92vw, 320px);
-                height: auto;
-                max-height: none;
-                padding: clamp(4px, 1vw, 6px);
-                margin: 0 auto;
-                border: none;
-                box-shadow: none;
-                justify-content: center;
-                align-content: center;
-            }
-
-            .word-search::before {
-                display: none;
-            }
-
-            .cell {
-                width: clamp(18px, 3.5vw, 28px);
-                height: clamp(18px, 3.5vw, 28px);
-                font-size: clamp(10px, 1.8vw, 16px);
-            }
-
-            .control-group {
-                padding: 14px;
-                border-radius: 18px;
-            }
-
-            .control-group h3 {
-                font-size: 1.05rem;
-                margin-bottom: 12px;
-            }
-
-            #wordPresets,
-            input[type="text"] {
-                font-size: 0.9rem;
-                padding: 10px;
-                border-radius: 14px;
-            }
-
-            .button-group {
-                gap: 6px;
-                justify-content: flex-start;
-            }
-
-            .btn {
-                padding: 10px 18px;
-                border-radius: 20px;
-                font-size: 0.85rem;
-            }
-
-            .puzzle-container,
-            .input-group,
-            .button-group,
-            .generate-section {
-                align-items: flex-start;
-                justify-content: flex-start;
-                text-align: left;
-            }
-
-            .word-search-instruction {
-                text-align: left;
-            }
+            .header { margin-bottom: 10px; }
+            .title { font-size: 1.8rem; }
         }
 
-        @media (max-width: 480px) {
-            .container {
-                border: none;
-                box-shadow: none;
-                margin: 0;
-                padding: 12px;
-                border-radius: 0;
-                text-align: left;
-            }
-
-            .word-search {
-                width: min(92vw, 300px);
-                max-width: min(92vw, 300px);
-                max-height: none;
-                padding: 4px;
-                margin: 0 auto;
-                border: none;
-                box-shadow: none;
-                justify-content: center;
-                align-content: center;
-            }
-
-            .word-search::before {
-                display: none;
-            }
-
-            .cell {
-                width: clamp(16px, 5vw, 26px);
-                height: clamp(16px, 5vw, 26px);
-                font-size: clamp(9px, 2.5vw, 14px);
-                border-radius: 4px;
-            }
-
-            .container {
-                padding: 14px;
-                margin: 8px;
-            }
-        }
-
+        /* 2. LANDSCAPE (Poziomo) - Lista obok gry */
         @media (max-width: 900px) and (orientation: landscape) {
-            body {
-                padding: 12px 16px;
+            .container {
+                padding: 5px !important;
+                height: 100vh;
+                overflow: hidden;
             }
 
-            .container {
-                text-align: center;
-                max-width: 100%;
+            /* Ukrywamy zbędne elementy w poziomie */
+            .header, .generate-section, .subtitle { display: none; }
+            
+            .close-wrapper {
+                position: absolute; top: 5px; left: 5px; z-index: 1002; margin: 0;
+                width: auto;
             }
+            
+            #close-gift-btn { padding: 5px 15px; font-size: 0.8rem; }
 
             .game-area {
-                display: grid;
-                grid-template-columns: 3fr 1fr;
-                align-items: start;
+                display: flex;
+                flex-direction: row; /* Układ obok siebie */
+                justify-content: center;
+                align-items: center;
+                gap: 10px;
+                height: 100%;
+                padding-top: 20px;
             }
 
             .puzzle-container {
-                order: 0;
-                align-items: flex-start;
-            }
-
-            .sidebar {
-                order: 0;
-                min-width: 180px;
-                max-width: 220px;
-                margin-left: 0;
-                margin-right: 0;
-                margin-top: 0;
-                align-self: flex-start;
+                width: auto;
+                flex: 1;
+                justify-content: center;
             }
 
             .word-search {
-                max-height: min(38vh, 260px);
-                justify-content: center;
-                align-content: center;
+                transform: scale(0.85); /* Lekkie pomniejszenie żeby weszło na wysokość */
+                transform-origin: center center;
+                max-height: 100vh;
                 margin: 0;
             }
+            
+            .word-search.zoomed { transform: scale(1.1); }
 
-            .cell {
-                font-size: clamp(9px, 1.8vw, 14px);
+            /* Lista o stałej szerokości - nie znika */
+            .sidebar {
+                width: 200px !important;
+                min-width: 200px;
+                height: 90vh;
+                margin-top: 0;
+                overflow-y: auto;
+                background: rgba(0,0,0,0.8);
+                border-left: 2px solid #8A2BE2;
+                padding: 10px;
+                flex-shrink: 0;
             }
+            
+            .word-list h3 { margin-top: 0; font-size: 1rem; }
+            .word-item { font-size: 0.75rem; padding: 4px 8px; }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="sparkles" id="sparkles"></div>
+        <div class="close-wrapper">
+            <button id="close-gift-btn" onclick="history.back()">Close the Gift </button>
+        </div>
         <div class="header">
             <h1 class="title">Word Search Puzzle</h1>
             <p class="subtitle">Find all hidden words in the magical letter grid</p>
@@ -2324,46 +2254,56 @@
 
                 const isCompact = window.matchMedia && window.matchMedia('(max-width: 720px)').matches;
                 const maxVisualSize = Math.min(
-                    window.innerWidth * (isCompact ? 0.75 : 0.82),
-                    window.innerHeight * (isCompact ? 0.65 : 0.75),
-                    isCompact ? 520 : 640
-                );
-                const cellSize = Math.max(
-                    isCompact ? 16 : 18,
-                    Math.min(isCompact ? 26 : 30, maxVisualSize / this.gridSize)
-                );
-                const gridDimension = cellSize * this.gridSize;
-                const framePadding = Math.max(18, Math.min(36, Math.ceil(cellSize * 0.9)));
-
-                wordSearchDiv.style.gridTemplateColumns = `repeat(${this.gridSize}, ${cellSize}px)`;
-                wordSearchDiv.style.gridAutoRows = `${cellSize}px`;
-                wordSearchDiv.style.width = `${gridDimension}px`;
-                wordSearchDiv.style.height = `${gridDimension}px`;
-                wordSearchDiv.style.padding = `${framePadding}px`;
-                wordSearchDiv.style.minWidth = `${gridDimension}px`;
-                wordSearchDiv.style.minHeight = `${gridDimension}px`;
-                wordSearchDiv.style.gap = '0px';
+                    window.inn
+                    renderGrid() {
+                const div = document.getElementById('wordSearch');
+                div.innerHTML = '';
                 
-                for (let i = 0; i < this.gridSize; i++) {
-                    for (let j = 0; j < this.gridSize; j++) {
+                // NOWE OBLICZANIE: Maksymalne wykorzystanie szerokości telefonu
+                const isMobile = window.innerWidth < 900;
+                let finalCellSize;
+
+                if (isMobile) {
+                    // W pionie bierzemy całą szerokość minus mały margines (10px)
+                    const availableWidth = window.innerWidth - 10; 
+                    finalCellSize = Math.floor(availableWidth / this.gridSize);
+                    
+                    // Limit wielkości na tabletach
+                    if (finalCellSize > 38) finalCellSize = 38;
+                } else {
+                    finalCellSize = 35; // Desktop standard
+                }
+
+                div.style.gridTemplateColumns = `repeat(${this.gridSize}, ${finalCellSize}px)`;
+                div.style.gridAutoRows = `${finalCellSize}px`;
+                div.style.width = 'fit-content'; 
+                // Ważne: usuwamy sztywne style width/height kontenera
+                div.style.padding = isMobile ? '0' : '20px';
+
+                for(let r=0; r<this.gridSize; r++) {
+                    for(let c=0; c<this.gridSize; c++) {
                         const cell = document.createElement('div');
                         cell.className = 'cell';
-                        cell.dataset.row = i;
-                        cell.dataset.col = j;
-                        cell.style.width = `${cellSize}px`;
-                        cell.style.height = `${cellSize}px`;
-                        cell.style.fontSize = `${Math.max(10, Math.floor(cellSize * 0.55))}px`;
-                        cell.style.lineHeight = '1';
+                        cell.dataset.row = r;
+                        cell.dataset.col = c;
                         
-                        if (this.isValidPosition(i, j)) {
-                            cell.textContent = this.grid[i][j];
+                        // Ustawiamy rozmiar komórki
+                        cell.style.width = `${finalCellSize}px`;
+                        cell.style.height = `${finalCellSize}px`;
+                        
+                        // Większa czcionka na mobile
+                        const fontSize = isMobile ? finalCellSize * 0.65 : finalCellSize * 0.55;
+                        cell.style.fontSize = `${fontSize}px`;
+                        cell.style.lineHeight = '1';
+
+                        if(this.isValidPosition(r,c)) {
+                            cell.textContent = this.grid[r][c];
                             cell.addEventListener('click', (e) => this.handleCellClick(e));
-                            cell.style.cursor = 'pointer';
+                            // Dodatkowe eventy dla dotyku (opcjonalnie, ale click wystarczy zazwyczaj)
                         } else {
                             cell.style.visibility = 'hidden';
                         }
-                        
-                        wordSearchDiv.appendChild(cell);
+                        div.appendChild(cell);
                     }
                 }
             }
@@ -3235,10 +3175,21 @@
             }
         }
 
-        // Inicjalizuj generator po załadowaniu strony
+       // Zmienna globalna
+        let gameInstance = null;
+
         document.addEventListener('DOMContentLoaded', () => {
             createSparkles();
-            new WordSearchGenerator();
+            gameInstance = new WordSearchGenerator();
+        });
+
+        // PRZELICZ GRĘ PRZY OBROCIE TELEFONU
+        window.addEventListener('resize', () => {
+            if (gameInstance && document.getElementById('gameArea').style.display !== 'none') {
+                setTimeout(() => {
+                    gameInstance.renderGrid();
+                }, 300);
+            }
         });
     </script>
 <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'98ac691c60d5bfe4',t:'MTc1OTgyOTc0OS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
