@@ -1459,222 +1459,90 @@
                     0 0 70px rgba(0, 160, 133, 0.45);
             }
         }
-
-        @media (max-width: 768px) {
-            body {
-                padding: 12px 8px 16px 4px;
-            }
-
+/* --- NOWY KOD DLA TELEFONÓW (PIONOWO) - WYŚRODKOWANIE --- */
+        @media (max-width: 900px) {
             .container {
-                border: none;
-                box-shadow: none;
-                margin: 0;
-                max-width: none;
-                width: 100%;
-                padding: 16px 12px 16px 6px;
-                border-radius: 0;
-                text-align: left;
+                padding: 15px;
+                width: 95%;
+                margin: 0 auto;
             }
-
+            
             .game-area {
                 display: flex;
                 flex-direction: column;
-                gap: 20px;
                 align-items: center;
             }
-            
+
             .puzzle-container {
                 order: 1;
-                align-items: center;
+                width: 100%;
+                display: flex;
+                justify-content: center; /* CENTROWANIE KONTENERA */
             }
-            
+
+            .word-search {
+                margin: 0 auto; /* CENTROWANIE PLANSZY */
+                max-width: 95vw; /* Zapobiega ucinaniu z prawej */
+                padding: 10px;
+                transform: none !important; /* Wyłącza dziwne przesunięcia */
+            }
+
             .sidebar {
                 order: 2;
-                min-width: 0;
-                width: min(86vw, 320px);
-                max-width: 320px;
-                margin-right: auto;
-                margin-left: auto;
-                margin-top: 10px;
+                width: 90%;
+                margin-top: 20px;
             }
 
-            .controls {
-                align-items: stretch;
-                text-align: left;
-            }
-
-            .control-row {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            
-            .mode-selector {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .input-group,
-            label,
-            input[type="text"],
-            #wordPresets {
-                align-self: flex-start;
-                margin-left: 0;
-                text-align: left;
-            }
-            
-            .title {
-                font-size: 2rem;
-            }
-
-            .victory-banner {
-                font-size: 1.8rem;
-                padding: 20px 40px;
-            }
-
-            .word-search {
-                width: min(92vw, 320px);
-                max-width: min(92vw, 320px);
-                height: auto;
-                max-height: none;
-                padding: clamp(4px, 1vw, 6px);
-                margin: 0 auto;
-                border: none;
-                box-shadow: none;
+            /* Dostosowanie przycisków na małym ekranie */
+            .controls, .input-group, .button-group {
+                align-items: center;
                 justify-content: center;
-                align-content: center;
             }
-
-            .word-search::before {
-                display: none;
-            }
-
+            
             .cell {
-                width: clamp(18px, 3.5vw, 28px);
-                height: clamp(18px, 3.5vw, 28px);
-                font-size: clamp(10px, 1.8vw, 16px);
-            }
-
-            .control-group {
-                padding: 14px;
-                border-radius: 18px;
-            }
-
-            .control-group h3 {
-                font-size: 1.05rem;
-                margin-bottom: 12px;
-            }
-
-            #wordPresets,
-            input[type="text"] {
-                font-size: 0.9rem;
-                padding: 10px;
-                border-radius: 14px;
-            }
-
-            .button-group {
-                gap: 6px;
-                justify-content: flex-start;
-            }
-
-            .btn {
-                padding: 10px 18px;
-                border-radius: 20px;
-                font-size: 0.85rem;
-            }
-
-            .puzzle-container,
-            .input-group,
-            .button-group,
-            .generate-section {
-                align-items: flex-start;
-                justify-content: flex-start;
-                text-align: left;
-            }
-
-            .word-search-instruction {
-                text-align: left;
+                font-size: 13px; /* Czytelniejsze litery */
             }
         }
 
-        @media (max-width: 480px) {
-            .container {
-                border: none;
-                box-shadow: none;
-                margin: 0;
-                padding: 12px;
-                border-radius: 0;
-                text-align: left;
-            }
-
-            .word-search {
-                width: min(92vw, 300px);
-                max-width: min(92vw, 300px);
-                max-height: none;
-                padding: 4px;
-                margin: 0 auto;
-                border: none;
-                box-shadow: none;
-                justify-content: center;
-                align-content: center;
-            }
-
-            .word-search::before {
-                display: none;
-            }
-
-            .cell {
-                width: clamp(16px, 5vw, 26px);
-                height: clamp(16px, 5vw, 26px);
-                font-size: clamp(9px, 2.5vw, 14px);
-                border-radius: 4px;
-            }
-
-            .container {
-                padding: 14px;
-                margin: 8px;
-            }
-        }
-
+        /* --- NOWY KOD DLA TELEFONÓW (POZIOMO) - LISTA OBOK GRY --- */
         @media (max-width: 900px) and (orientation: landscape) {
-            body {
-                padding: 12px 16px;
-            }
-
             .container {
-                text-align: center;
+                padding: 10px;
                 max-width: 100%;
             }
 
             .game-area {
-                display: grid;
-                grid-template-columns: 3fr 1fr;
-                align-items: start;
+                display: flex;
+                flex-direction: row; /* UKŁAD OBOK SIEBIE */
+                justify-content: center;
+                align-items: flex-start;
+                gap: 20px;
             }
 
             .puzzle-container {
-                order: 0;
-                align-items: flex-start;
-            }
-
-            .sidebar {
-                order: 0;
-                min-width: 180px;
-                max-width: 220px;
-                margin-left: 0;
-                margin-right: 0;
-                margin-top: 0;
-                align-self: flex-start;
+                width: auto;
+                flex: 0 0 auto;
             }
 
             .word-search {
-                max-height: min(38vh, 260px);
-                justify-content: center;
-                align-content: center;
                 margin: 0;
+                max-height: 85vh; /* Żeby gra mieściła się na ekranie w pionie */
+                width: auto;
             }
 
-            .cell {
-                font-size: clamp(9px, 1.8vw, 14px);
+            .sidebar {
+                width: 220px; /* Stała szerokość panelu bocznego */
+                margin-top: 0;
+                max-height: 85vh;
+                overflow-y: auto; /* Przewijanie listy jeśli długa */
+            }
+            
+            .header {
+                display: none; /* Ukrywamy nagłówek w poziomie żeby było więcej miejsca na grę */
+            }
+            
+            .close-wrapper {
+                margin-bottom: 5px; /* Mniejszy odstęp przycisku */
             }
         }
     </style>
