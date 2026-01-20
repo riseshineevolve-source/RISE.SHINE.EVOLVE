@@ -1733,6 +1733,7 @@
 
     
     const VIDEO_BASE = "/assets/videos/";
+    const VIDEO_BASE_REMOTE = "https://raw.githubusercontent.com/riseshineevolve-source/RISE.SHINE.EVOLVE/main/assets/videos/";
 
     const DANCE_VIDEO_MAP = {
       Mimi: ["Mimi tanczy.mp4", "Mimi tanczy 1.mp4"],
@@ -1754,6 +1755,10 @@
 
     function toSrc(filename){
       return VIDEO_BASE + encodeURIComponent(filename).replace(/%2F/g, "/");
+    }
+
+    function toRemoteSrc(filename) {
+      return VIDEO_BASE_REMOTE + encodeURIComponent(filename).replace(/%2F/g, "/");
     }
 
     function addTapListener(element, handler) {
@@ -1783,7 +1788,8 @@
 
       const map = isEnergy ? DANCE_VIDEO_MAP : CALM_VIDEO_MAP;
       const files = normalizeVideoList(map[character]);
-      if (!files.length) {
+      const sourceList = files.flatMap((file) => [toSrc(file), toRemoteSrc(file)]);
+      if (!sourceList.length) {
         video.removeAttribute('src');
         video.style.display = 'none';
         fallback.style.display = 'flex';
@@ -1803,12 +1809,12 @@
       video.style.display = 'none';
       let index = 0;
       const tryNext = () => {
-        if (index >= files.length) {
+        if (index >= sourceList.length) {
           video.style.display = 'none';
           fallback.style.display = 'flex';
           return;
         }
-        video.src = toSrc(files[index]);
+        video.src = sourceList[index];
         index += 1;
         video.load();
         const p = video.play();
