@@ -85,7 +85,8 @@
       transform-origin: var(--zoom-origin-x, 50%) var(--zoom-origin-y, 50%);
     }
     .word-grid.zoomed {
-      transform: scale(1.2);
+      transform: scale(1.25);
+      box-shadow: 0 0 18px rgba(138, 43, 226, 0.35);
     }
     .word-grid td {
       border: 1px solid rgba(255,215,0,0.35);
@@ -228,6 +229,11 @@
     @media (max-width: 900px) { .layout { grid-template-columns: 1fr; } }
     @media (max-width: 900px) and (orientation: landscape) {
       .layout { grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.9fr); }
+    }
+    @media (max-width: 900px) {
+      .word-grid.zoomed {
+        transform: scale(1.35);
+      }
     }
   </style>
 </head>

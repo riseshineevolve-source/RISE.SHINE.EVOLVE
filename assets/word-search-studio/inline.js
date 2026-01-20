@@ -639,6 +639,12 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
             transform: scale(1.25);
         }
 
+        @media (max-width: 900px) {
+            .word-search.zoomed {
+                transform: scale(1.35);
+            }
+        }
+
         .word-search::before {
             content: '';
             position: absolute;
@@ -1450,17 +1456,19 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
                 display: flex;
                 flex-direction: column;
                 gap: 20px;
+                align-items: center;
             }
             
             .puzzle-container {
                 order: 1;
+                align-items: center;
             }
             
             .sidebar {
                 order: 2;
                 min-width: 0;
-                width: min(92vw, 360px);
-                max-width: 360px;
+                width: min(86vw, 320px);
+                max-width: 320px;
                 margin-right: auto;
                 margin-left: auto;
                 margin-top: 10px;

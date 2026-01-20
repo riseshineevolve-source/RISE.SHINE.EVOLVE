@@ -3538,6 +3538,19 @@
     @media (max-width: 860px) {
       .hm-panel-inner {
         grid-template-columns: minmax(0, 1fr);
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+      }
+
+      .hm-wheel-box {
+        order: 1;
+      }
+
+      .hm-text-column {
+        order: 2;
+        margin: 0 auto;
+        max-width: 100%;
       }
     }
 
@@ -5195,8 +5208,8 @@
       video.setAttribute('webkit-playsinline', '');
       video.setAttribute('autoplay', '');
       video.setAttribute('preload', 'auto');
-      fallback.style.display = 'flex';
-      video.style.display = 'none';
+      fallback.style.display = 'none';
+      video.style.display = 'block';
           let index = 0;
           const tryNext = () => {
             if (index >= sourceList.length) {
@@ -6084,7 +6097,7 @@ function setAvatar(character){
   video.setAttribute('webkit-playsinline', '');
   video.setAttribute('autoplay', '');
   video.setAttribute('preload', 'auto');
-  fallback.style.display = 'flex';
+  fallback.style.display = 'none';
   video.style.display = 'block';
   let index = 0;
   const tryNext = () => {
@@ -6220,7 +6233,7 @@ document.getElementById('hm-generate-btn').addEventListener('click', generateCha
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The Happy Makers Word Search</title>
+  <title>Happy Makers Word Hunt</title>
   <style>
     :root {
       --purple: #8A2BE2;
@@ -6281,6 +6294,7 @@ document.getElementById('hm-generate-btn').addEventListener('click', generateCha
       border-radius: 16px;
       padding: 10px;
       box-shadow: inset 0 0 18px rgba(255,215,0,0.25);
+      overflow: visible;
     }
     .puzzle-meta {
       display: flex;
@@ -6298,6 +6312,12 @@ document.getElementById('hm-generate-btn').addEventListener('click', generateCha
       width: 100%;
       border-collapse: collapse;
       table-layout: fixed;
+      transition: transform 0.2s ease;
+      transform-origin: var(--zoom-origin-x, 50%) var(--zoom-origin-y, 50%);
+    }
+    .word-grid.zoomed {
+      transform: scale(1.25);
+      box-shadow: 0 0 18px rgba(138, 43, 226, 0.35);
     }
     .word-grid td {
       border: 1px solid rgba(255,215,0,0.35);
@@ -6464,6 +6484,9 @@ document.getElementById('hm-generate-btn').addEventListener('click', generateCha
 
     @media (max-width: 900px) {
       .layout { grid-template-columns: 1fr; }
+      .word-grid.zoomed {
+        transform: scale(1.35);
+      }
     }
     @media (max-width: 720px) {
       body {
@@ -6545,7 +6568,7 @@ document.getElementById('hm-generate-btn').addEventListener('click', generateCha
 </head>
 <body>
   <div class="shell">
-    <h1>Happy Makers Word Search</h1>
+    <h1>Happy Makers Word Hunt</h1>
     <div class="layout">
       <div class="grid-shell">
         <div class="instructions">
@@ -6581,7 +6604,7 @@ document.getElementById('hm-generate-btn').addEventListener('click', generateCha
     const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     const gridSize = 12;
     const puzzleSets = [
-      { title: 'Happy Makers Word Search', words: ['RISE','SHINE','EVOLVE','GOLD','PURPLE','SPARK','BRIGHT','ENERGY','CALM','JOY','GLOW','GIFT'] },
+      { title: 'Happy Makers Word Hunt', words: ['RISE','SHINE','EVOLVE','GOLD','PURPLE','SPARK','BRIGHT','ENERGY','CALM','JOY','GLOW','GIFT'] },
       { title: 'Happy Makers Crew', words: ['MIMI','LULI','DILO','ALIO','NINI','BIBI','MOTHER','FATHER','FAMILY','CREW','LOVE','SMILE'] },
       { title: 'Maker Magic', words: ['HAPPY','MAKERS','MAGIC','PLAY','CREATE','COLOR','LAUGH','HEART','BRAVE','BOLD','KIND','SPIRIT'] },
       { title: 'Adventure Sparks', words: ['TRAVEL','PUZZLE','QUEST','STUDIO','IDEAS','WORDS','HEROES','STARS','MOON','SUN','DREAM','GLOW'] },
@@ -6687,6 +6710,27 @@ document.getElementById('hm-generate-btn').addEventListener('click', generateCha
     function clearSelections() {
       document.querySelectorAll('.word-grid td.selected').forEach(td => td.classList.remove('selected'));
       startCell = null;
+      clearZoom();
+    }
+
+    function zoomToCell(cell) {
+      const table = document.getElementById('wordGrid');
+      if (!table || !cell) return;
+      const tableRect = table.getBoundingClientRect();
+      const cellRect = cell.getBoundingClientRect();
+      const originX = ((cellRect.left + cellRect.width / 2 - tableRect.left) / tableRect.width) * 100;
+      const originY = ((cellRect.top + cellRect.height / 2 - tableRect.top) / tableRect.height) * 100;
+      table.style.setProperty('--zoom-origin-x', `${originX}%`);
+      table.style.setProperty('--zoom-origin-y', `${originY}%`);
+      table.classList.add('zoomed');
+    }
+
+    function clearZoom() {
+      const table = document.getElementById('wordGrid');
+      if (!table) return;
+      table.classList.remove('zoomed');
+      table.style.removeProperty('--zoom-origin-x');
+      table.style.removeProperty('--zoom-origin-y');
     }
 
     function buildPath(r1, c1, r2, c2) {
@@ -6731,6 +6775,7 @@ document.getElementById('hm-generate-btn').addEventListener('click', generateCha
     function clearHints() {
       document.querySelectorAll('.word-grid td.hint').forEach(td => td.classList.remove('hint'));
       document.querySelectorAll('.word-chip.hint').forEach(chip => chip.classList.remove('hint'));
+      clearZoom();
     }
 
     function showHint() {
@@ -6743,7 +6788,10 @@ document.getElementById('hm-generate-btn').addEventListener('click', generateCha
       const hintCell = result.reversed ? result.path[result.path.length - 1] : result.path[0];
       if (hintCell) {
         const cell = document.querySelector(`td[data-row="${hintCell.r}"][data-col="${hintCell.c}"]`);
-        if (cell) cell.classList.add('hint');
+        if (cell) {
+          cell.classList.add('hint');
+          zoomToCell(cell);
+        }
       }
       const chip = document.getElementById(`word-${target}`);
       if (chip) chip.classList.add('hint');
@@ -6757,6 +6805,7 @@ document.getElementById('hm-generate-btn').addEventListener('click', generateCha
           cell.classList.remove('selected');
         }
       });
+      clearZoom();
       foundWords.add(word);
       const chip = document.getElementById(`word-${word}`);
       if (chip) {
@@ -6778,6 +6827,7 @@ document.getElementById('hm-generate-btn').addEventListener('click', generateCha
       if (!startCell) {
         startCell = { r, c };
         cell.classList.add('selected');
+        zoomToCell(cell);
         return;
       }
 
@@ -6849,6 +6899,7 @@ document.getElementById('hm-generate-btn').addEventListener('click', generateCha
       foundWords = new Set();
       startCell = null;
       clearHints();
+      clearZoom();
       grid = buildGrid(words);
       renderGrid();
       renderWords();
@@ -6993,9 +7044,7 @@ document.getElementById('hm-generate-btn').addEventListener('click', generateCha
         }
 
         function isGiftMobileViewport() {
-            return window.matchMedia
-                && (window.matchMedia('(max-width: 900px)').matches
-                    || window.matchMedia('(pointer: coarse)').matches);
+            return window.matchMedia && window.matchMedia('(max-width: 900px)').matches;
         }
 
         async function checkUser() {
@@ -8215,7 +8264,9 @@ document.getElementById('hm-generate-btn').addEventListener('click', generateCha
             document.getElementById('full-screen-book-details').style.display = 'none';
             document.querySelector('.container').style.display = 'block';
             if (!fromHistory && history.state && history.state.modal === 'book') {
-                history.back();
+                const activeTab = document.querySelector('.tab.active');
+                const tabName = activeTab?.dataset?.tab || 'main';
+                history.replaceState({ tab: tabName }, '', `#${tabName}`);
             }
         }
 
