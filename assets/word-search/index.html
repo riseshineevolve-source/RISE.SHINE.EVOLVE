@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The Happy Makers Word Search</title>
+  <title>Happy Makers Word Hunt</title>
   <style>
     :root {
       --purple: #8A2BE2;
@@ -63,6 +63,7 @@
       border-radius: 16px;
       padding: 16px;
       box-shadow: inset 0 0 18px rgba(255,215,0,0.25);
+      overflow: visible;
     }
     .puzzle-meta {
       display: flex;
@@ -80,6 +81,12 @@
       width: 100%;
       border-collapse: collapse;
       table-layout: fixed;
+      transition: transform 0.2s ease;
+      transform-origin: var(--zoom-origin-x, 50%) var(--zoom-origin-y, 50%);
+    }
+    .word-grid.zoomed {
+      transform: scale(1.25);
+      box-shadow: 0 0 18px rgba(138, 43, 226, 0.35);
     }
     .word-grid td {
       border: 1px solid rgba(255,215,0,0.35);
@@ -220,11 +227,19 @@
     }
 
     @media (max-width: 900px) { .layout { grid-template-columns: 1fr; } }
+    @media (max-width: 900px) and (orientation: landscape) {
+      .layout { grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.9fr); }
+    }
+    @media (max-width: 900px) {
+      .word-grid.zoomed {
+        transform: scale(1.35);
+      }
+    }
   </style>
 </head>
 <body>
   <div class="shell">
-    <h1>The Happy Makers Word Search</h1>
+    <h1>Happy Makers Word Hunt</h1>
     <p class="subtitle">Finish a puzzle to unlock fresh Happy Makers words, confetti and a new round automatically.</p>
     <div class="layout">
       <div class="grid-shell">
@@ -267,6 +282,9 @@
     let grid = [];
     let words = [];
     let foundWords = new Set();
+    let foundCells = [];
+    const WORD_HUNT_STATE_KEY = 'hmWordHuntState';
+    const WORD_HUNT_STATE_MAX_AGE = 1000 * 60 * 60 * 24;
     let startCell = null;
 
     const directions = [
@@ -356,9 +374,75 @@
       document.getElementById('puzzle-name').textContent = puzzleSets[activePuzzleIndex].title;
     }
 
+    function saveState() {
+      if (!grid.length || !words.length) return;
+      const state = {
+        activePuzzleIndex,
+        grid,
+        words,
+        foundWords: Array.from(foundWords),
+        foundCells,
+        timestamp: Date.now()
+      };
+      localStorage.setItem(WORD_HUNT_STATE_KEY, JSON.stringify(state));
+    }
+
+    function restoreState() {
+      const raw = localStorage.getItem(WORD_HUNT_STATE_KEY);
+      if (!raw) return false;
+      let state;
+      try {
+        state = JSON.parse(raw);
+      } catch (error) {
+        return false;
+      }
+      if (!state?.grid?.length || !state?.words?.length) return false;
+      if (state.timestamp && Date.now() - state.timestamp > WORD_HUNT_STATE_MAX_AGE) return false;
+      activePuzzleIndex = state.activePuzzleIndex ?? 0;
+      grid = state.grid;
+      words = state.words;
+      foundWords = new Set(state.foundWords || []);
+      foundCells = state.foundCells || [];
+      renderGrid();
+      renderWords();
+      const foundCellSet = new Set(foundCells.map(cell => `${cell.r},${cell.c}`));
+      foundCellSet.forEach((key) => {
+        const [r, c] = key.split(',').map(Number);
+        const cell = document.querySelector(`td[data-row="${r}"][data-col="${c}"]`);
+        if (cell) cell.classList.add('found');
+      });
+      foundWords.forEach((word) => {
+        const chip = document.getElementById(`word-${word}`);
+        if (chip) chip.classList.add('found');
+      });
+      updateStatus();
+      return true;
+    }
+
     function clearSelections() {
       document.querySelectorAll('.word-grid td.selected').forEach(td => td.classList.remove('selected'));
       startCell = null;
+      clearZoom();
+    }
+
+    function zoomToCell(cell) {
+      const table = document.getElementById('wordGrid');
+      if (!table || !cell) return;
+      const tableRect = table.getBoundingClientRect();
+      const cellRect = cell.getBoundingClientRect();
+      const originX = ((cellRect.left + cellRect.width / 2 - tableRect.left) / tableRect.width) * 100;
+      const originY = ((cellRect.top + cellRect.height / 2 - tableRect.top) / tableRect.height) * 100;
+      table.style.setProperty('--zoom-origin-x', `${originX}%`);
+      table.style.setProperty('--zoom-origin-y', `${originY}%`);
+      table.classList.add('zoomed');
+    }
+
+    function clearZoom() {
+      const table = document.getElementById('wordGrid');
+      if (!table) return;
+      table.classList.remove('zoomed');
+      table.style.removeProperty('--zoom-origin-x');
+      table.style.removeProperty('--zoom-origin-y');
     }
 
     function buildPath(r1, c1, r2, c2) {
@@ -384,10 +468,20 @@
           cell.classList.remove('selected');
         }
       });
+      const existing = new Set(foundCells.map(cell => `${cell.r},${cell.c}`));
+      pathCells.forEach(({ r, c }) => {
+        const key = `${r},${c}`;
+        if (!existing.has(key)) {
+          foundCells.push({ r, c });
+          existing.add(key);
+        }
+      });
+      clearZoom();
       foundWords.add(word);
       const chip = document.getElementById(`word-${word}`);
       if (chip) chip.classList.add('found');
       updateStatus();
+      saveState();
       if (foundWords.size === words.length) {
         celebrate();
       }
@@ -401,6 +495,7 @@
       if (!startCell) {
         startCell = { r, c };
         cell.classList.add('selected');
+        zoomToCell(cell);
         return;
       }
 
@@ -469,12 +564,15 @@
       activePuzzleIndex = ((index % puzzleSets.length) + puzzleSets.length) % puzzleSets.length;
       words = puzzleSets[activePuzzleIndex].words.map(w => w.replace(/\s+/g, '').toUpperCase());
       foundWords = new Set();
+      foundCells = [];
       startCell = null;
+      clearZoom();
       grid = buildGrid(words);
       renderGrid();
       renderWords();
       updateStatus();
       hideCelebration();
+      saveState();
     }
 
     function loadNextPuzzle() {
@@ -484,7 +582,16 @@
     document.getElementById('nextPuzzleBtn').addEventListener('click', loadNextPuzzle);
     document.getElementById('playAgainBtn').addEventListener('click', loadNextPuzzle);
 
-    loadPuzzle(0);
+    window.addEventListener('pagehide', saveState);
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'hidden') {
+        saveState();
+      }
+    });
+
+    if (!restoreState()) {
+      loadPuzzle(0);
+    }
   </script>
 </body>
 </html>
