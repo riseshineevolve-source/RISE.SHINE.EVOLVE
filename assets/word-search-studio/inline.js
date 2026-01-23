@@ -588,10 +588,11 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
 
         .game-area {
             display: grid;
-            grid-template-columns: 3fr 1fr;
+            grid-template-columns: max-content minmax(180px, 220px);
             gap: 20px;
             align-items: flex-start;
-            justify-items: start;
+            justify-items: center;
+            justify-content: center;
         }
 
         .puzzle-container {
@@ -599,7 +600,8 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
             flex-direction: column;
             align-items: flex-start;
             gap: 20px;
-            width: 100%;
+            width: fit-content;
+            max-width: 100%;
         }
 
         .word-search-instruction {
@@ -628,9 +630,9 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
             overflow: visible;
             margin: 0;
             aspect-ratio: 1;
-            justify-content: flex-start;
-            align-content: flex-start;
-            box-sizing: content-box;
+            justify-content: center;
+            align-content: center;
+            box-sizing: border-box;
             animation: elegantBoxGlow 9s ease-in-out infinite, frame-sparkle 16s ease-in-out infinite;
             transition: transform 0.2s ease;
             transform-origin: var(--zoom-origin-x, 50%) var(--zoom-origin-y, 50%);
@@ -1452,12 +1454,12 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
             }
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 768px) and (orientation: portrait) {
             .game-area {
                 display: flex;
                 flex-direction: column;
                 gap: 20px;
-                align-items: center;
+                align-items: flex-start;
             }
             
             .puzzle-container {
@@ -1542,6 +1544,10 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
                 border-radius: 20px;
                 font-size: 0.85rem;
             }
+
+            .word-search-instruction {
+                text-align: left;
+            }
         }
 
         @media (max-width: 480px) {
@@ -1569,12 +1575,13 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
             }
         }
 
-        @media (max-width: 900px) and (orientation: landscape) {
+        @media (max-width: 1024px) and (orientation: landscape) {
             .game-area {
                 display: grid;
                 grid-template-columns: minmax(0, 1fr) minmax(0, 0.8fr);
                 align-items: start;
                 justify-items: start;
+                justify-content: start;
                 gap: 16px;
             }
 
@@ -1587,7 +1594,7 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
                 order: 0;
                 min-width: 180px;
                 max-width: 240px;
-                margin-left: 12px;
+                margin-left: 0;
                 margin-right: 0;
                 margin-top: 0;
                 align-self: flex-start;

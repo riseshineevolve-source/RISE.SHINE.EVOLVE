@@ -589,7 +589,7 @@
 
         .game-area {
             display: grid;
-            grid-template-columns: 3fr 1fr;
+            grid-template-columns: max-content minmax(180px, 220px);
             gap: 20px;
             align-items: flex-start;
             width: 100%;
@@ -602,7 +602,8 @@
             flex-direction: column;
             align-items: flex-start;
             gap: 20px;
-            width: 100%;
+            width: fit-content;
+            max-width: 100%;
         }
 
         .word-search-instruction {
@@ -1486,7 +1487,7 @@
             
             .puzzle-container {
                 order: 1;
-                align-items: center;
+                align-items: flex-start;
             }
             
             .sidebar {
@@ -1538,7 +1539,7 @@
                 height: auto;
                 max-height: none;
                 padding: clamp(4px, 1vw, 6px);
-                margin-left: auto;
+                margin-left: 0;
                 margin-right: auto;
                 border: none;
                 box-shadow: none;
@@ -1651,7 +1652,8 @@
                 display: grid;
                 grid-template-columns: minmax(0, 1fr) minmax(0, 0.8fr);
                 align-items: start;
-                justify-items: center;
+                justify-items: start;
+                justify-content: start;
                 gap: 16px;
             }
 
