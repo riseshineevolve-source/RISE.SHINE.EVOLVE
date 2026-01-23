@@ -2356,11 +2356,12 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
 
                 wordSearchDiv.style.gridTemplateColumns = \`repeat(${this.gridSize}, ${cellSize}px)\`;
                 wordSearchDiv.style.gridAutoRows = \`${cellSize}px\`;
-                wordSearchDiv.style.width = \`${gridDimension}px\`;
-                wordSearchDiv.style.height = \`${gridDimension}px\`;
+                const framedDimension = gridDimension + framePadding * 2;
+                wordSearchDiv.style.width = \`${framedDimension}px\`;
+                wordSearchDiv.style.height = \`${framedDimension}px\`;
                 wordSearchDiv.style.padding = \`${framePadding}px\`;
-                wordSearchDiv.style.minWidth = \`${gridDimension}px\`;
-                wordSearchDiv.style.minHeight = \`${gridDimension}px\`;
+                wordSearchDiv.style.minWidth = \`${framedDimension}px\`;
+                wordSearchDiv.style.minHeight = \`${framedDimension}px\`;
                 wordSearchDiv.style.gap = '0px';
                 
                 for (let i = 0; i < this.gridSize; i++) {
