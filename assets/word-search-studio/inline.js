@@ -1504,10 +1504,10 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
                 height: auto;
                 max-height: none;
                 padding: clamp(6px, 1.2vw, 12px);
-                margin-left: 0;
+                margin-left: auto;
                 margin-right: auto;
-                justify-content: flex-start;
-                align-content: flex-start;
+                justify-content: center;
+                align-content: center;
             }
 
             .cell {
@@ -1862,6 +1862,30 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
                         }
                     });
                 });
+            }
+
+            getWordSearchElement() {
+                return document.getElementById('wordSearch');
+            }
+
+            zoomToCell(cell) {
+                const container = this.getWordSearchElement();
+                if (!container || !cell) return;
+                const containerRect = container.getBoundingClientRect();
+                const cellRect = cell.getBoundingClientRect();
+                const originX = ((cellRect.left + cellRect.width / 2 - containerRect.left) / containerRect.width) * 100;
+                const originY = ((cellRect.top + cellRect.height / 2 - containerRect.top) / containerRect.height) * 100;
+                container.style.setProperty('--zoom-origin-x', `${originX}%`);
+                container.style.setProperty('--zoom-origin-y', `${originY}%`);
+                container.classList.add('zoomed');
+            }
+
+            clearZoom() {
+                const container = this.getWordSearchElement();
+                if (!container) return;
+                container.classList.remove('zoomed');
+                container.style.removeProperty('--zoom-origin-x');
+                container.style.removeProperty('--zoom-origin-y');
             }
 
             getWordSearchElement() {
