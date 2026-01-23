@@ -591,6 +591,7 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
             grid-template-columns: 3fr 1fr;
             gap: 20px;
             align-items: flex-start;
+            justify-items: center;
         }
 
         .puzzle-container {
@@ -1461,7 +1462,7 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
             
             .puzzle-container {
                 order: 1;
-                align-items: center;
+                align-items: flex-start;
             }
             
             .sidebar {

@@ -7661,7 +7661,7 @@ document.getElementById('hm-generate-btn').addEventListener('click', generateCha
         // Tab functionality
         function showTabContent(tabElement, tabName, options = {}) {
             const { skipHistory = false } = options;
-            if (typeof closeGiftOverlay === 'function' && giftOverlayOpen) {
+            if (typeof closeGiftOverlay === 'function' && giftOverlayOpen && isGiftMobileViewport()) {
                 closeGiftOverlay(true);
             }
 
