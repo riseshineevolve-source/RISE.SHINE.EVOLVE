@@ -593,7 +593,8 @@
             gap: 20px;
             align-items: flex-start;
             width: 100%;
-            justify-items: start;
+            justify-items: center;
+            justify-content: center;
         }
 
         .puzzle-container {
@@ -768,8 +769,7 @@
             display: flex;
             flex-direction: column;
             gap: 12px;
-            margin-left: auto;
-            margin-right: 20px;
+            margin: 0;
             animation: frame-sparkle 15s ease-in-out infinite;
         }
 
@@ -1461,7 +1461,7 @@
             }
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 768px) and (orientation: portrait) {
             body {
                 padding: 12px 8px 16px 4px;
             }
@@ -1486,7 +1486,7 @@
             
             .puzzle-container {
                 order: 1;
-                align-items: flex-start;
+                align-items: center;
             }
             
             .sidebar {
@@ -1538,7 +1538,7 @@
                 height: auto;
                 max-height: none;
                 padding: clamp(4px, 1vw, 6px);
-                margin-left: 0;
+                margin-left: auto;
                 margin-right: auto;
                 border: none;
                 box-shadow: none;
@@ -1588,13 +1588,13 @@
             .input-group,
             .button-group,
             .generate-section {
-                align-items: flex-start;
-                justify-content: flex-start;
-                text-align: left;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
             }
 
             .word-search-instruction {
-                text-align: left;
+                text-align: center;
             }
         }
 
@@ -1637,7 +1637,7 @@
             }
         }
 
-        @media (max-width: 900px) and (orientation: landscape) {
+        @media (max-width: 1024px) and (orientation: landscape) {
             body {
                 padding: 12px 16px;
             }
@@ -1651,20 +1651,20 @@
                 display: grid;
                 grid-template-columns: minmax(0, 1fr) minmax(0, 0.8fr);
                 align-items: start;
-                justify-items: start;
+                justify-items: center;
                 gap: 16px;
             }
 
             .puzzle-container {
                 order: 0;
-                align-items: flex-start;
+                align-items: center;
             }
 
             .sidebar {
                 order: 0;
                 min-width: 180px;
                 max-width: 240px;
-                margin-left: 12px;
+                margin-left: 0;
                 margin-right: 0;
                 margin-top: 0;
                 align-self: flex-start;
@@ -1943,30 +1943,6 @@
                         }
                     });
                 });
-            }
-
-            getWordSearchElement() {
-                return document.getElementById('wordSearch');
-            }
-
-            zoomToCell(cell) {
-                const container = this.getWordSearchElement();
-                if (!container || !cell) return;
-                const containerRect = container.getBoundingClientRect();
-                const cellRect = cell.getBoundingClientRect();
-                const originX = ((cellRect.left + cellRect.width / 2 - containerRect.left) / containerRect.width) * 100;
-                const originY = ((cellRect.top + cellRect.height / 2 - containerRect.top) / containerRect.height) * 100;
-                container.style.setProperty('--zoom-origin-x', `${originX}%`);
-                container.style.setProperty('--zoom-origin-y', `${originY}%`);
-                container.classList.add('zoomed');
-            }
-
-            clearZoom() {
-                const container = this.getWordSearchElement();
-                if (!container) return;
-                container.classList.remove('zoomed');
-                container.style.removeProperty('--zoom-origin-x');
-                container.style.removeProperty('--zoom-origin-y');
             }
 
             getWordSearchElement() {
