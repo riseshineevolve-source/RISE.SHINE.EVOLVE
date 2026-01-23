@@ -282,6 +282,9 @@
     let grid = [];
     let words = [];
     let foundWords = new Set();
+    let foundCells = [];
+    const WORD_HUNT_STATE_KEY = 'hmWordHuntState';
+    const WORD_HUNT_STATE_MAX_AGE = 1000 * 60 * 60 * 24;
     let startCell = null;
 
     const directions = [
@@ -371,6 +374,51 @@
       document.getElementById('puzzle-name').textContent = puzzleSets[activePuzzleIndex].title;
     }
 
+    function saveState() {
+      if (!grid.length || !words.length) return;
+      const state = {
+        activePuzzleIndex,
+        grid,
+        words,
+        foundWords: Array.from(foundWords),
+        foundCells,
+        timestamp: Date.now()
+      };
+      localStorage.setItem(WORD_HUNT_STATE_KEY, JSON.stringify(state));
+    }
+
+    function restoreState() {
+      const raw = localStorage.getItem(WORD_HUNT_STATE_KEY);
+      if (!raw) return false;
+      let state;
+      try {
+        state = JSON.parse(raw);
+      } catch (error) {
+        return false;
+      }
+      if (!state?.grid?.length || !state?.words?.length) return false;
+      if (state.timestamp && Date.now() - state.timestamp > WORD_HUNT_STATE_MAX_AGE) return false;
+      activePuzzleIndex = state.activePuzzleIndex ?? 0;
+      grid = state.grid;
+      words = state.words;
+      foundWords = new Set(state.foundWords || []);
+      foundCells = state.foundCells || [];
+      renderGrid();
+      renderWords();
+      const foundCellSet = new Set(foundCells.map(cell => `${cell.r},${cell.c}`));
+      foundCellSet.forEach((key) => {
+        const [r, c] = key.split(',').map(Number);
+        const cell = document.querySelector(`td[data-row="${r}"][data-col="${c}"]`);
+        if (cell) cell.classList.add('found');
+      });
+      foundWords.forEach((word) => {
+        const chip = document.getElementById(`word-${word}`);
+        if (chip) chip.classList.add('found');
+      });
+      updateStatus();
+      return true;
+    }
+
     function clearSelections() {
       document.querySelectorAll('.word-grid td.selected').forEach(td => td.classList.remove('selected'));
       startCell = null;
@@ -420,11 +468,20 @@
           cell.classList.remove('selected');
         }
       });
+      const existing = new Set(foundCells.map(cell => `${cell.r},${cell.c}`));
+      pathCells.forEach(({ r, c }) => {
+        const key = `${r},${c}`;
+        if (!existing.has(key)) {
+          foundCells.push({ r, c });
+          existing.add(key);
+        }
+      });
       clearZoom();
       foundWords.add(word);
       const chip = document.getElementById(`word-${word}`);
       if (chip) chip.classList.add('found');
       updateStatus();
+      saveState();
       if (foundWords.size === words.length) {
         celebrate();
       }
@@ -507,6 +564,7 @@
       activePuzzleIndex = ((index % puzzleSets.length) + puzzleSets.length) % puzzleSets.length;
       words = puzzleSets[activePuzzleIndex].words.map(w => w.replace(/\s+/g, '').toUpperCase());
       foundWords = new Set();
+      foundCells = [];
       startCell = null;
       clearZoom();
       grid = buildGrid(words);
@@ -514,6 +572,7 @@
       renderWords();
       updateStatus();
       hideCelebration();
+      saveState();
     }
 
     function loadNextPuzzle() {
@@ -523,7 +582,16 @@
     document.getElementById('nextPuzzleBtn').addEventListener('click', loadNextPuzzle);
     document.getElementById('playAgainBtn').addEventListener('click', loadNextPuzzle);
 
-    loadPuzzle(0);
+    window.addEventListener('pagehide', saveState);
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'hidden') {
+        saveState();
+      }
+    });
+
+    if (!restoreState()) {
+      loadPuzzle(0);
+    }
   </script>
 </body>
 </html>

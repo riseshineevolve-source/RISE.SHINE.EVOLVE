@@ -579,6 +579,9 @@ let remaining = [...challenges];
 let lastCharacter = null;
 let characterQueue = [];
 let challengesByCharacter = new Map();
+let currentChallenge = null;
+const ONE_MINUTE_STATE_KEY = 'hmOneMinuteState';
+const ONE_MINUTE_STATE_MAX_AGE = 1000 * 60 * 60 * 24;
 
 function shuffleArray(list) {
   const arr = [...list];
@@ -647,6 +650,7 @@ function pickChallenge() {
 resetChallengePools();
 
 function renderChallenge(c){
+  currentChallenge = c;
   setAvatar(c.character);
   document.getElementById('hm-avatar-fallback').innerHTML = getAvatarHTML(c.character);
   document.getElementById('challenge-title').textContent = c.title;
@@ -655,6 +659,37 @@ function renderChallenge(c){
   document.getElementById('challenge-comment').textContent = c.comment;
   document.getElementById('challenge-category').textContent = c.category;
   document.getElementById('hm-category-icon').textContent = categoryIcons[Math.floor(Math.random()*categoryIcons.length)];
+  saveChallengeState();
+}
+
+function saveChallengeState() {
+  if (!currentChallenge) return;
+  const card = document.getElementById('result-card');
+  const state = {
+    challenge: currentChallenge,
+    cardVisible: card?.classList.contains('show') || false,
+    timestamp: Date.now()
+  };
+  localStorage.setItem(ONE_MINUTE_STATE_KEY, JSON.stringify(state));
+}
+
+function restoreChallengeState() {
+  const raw = localStorage.getItem(ONE_MINUTE_STATE_KEY);
+  if (!raw) return false;
+  let state;
+  try {
+    state = JSON.parse(raw);
+  } catch (error) {
+    return false;
+  }
+  if (!state?.challenge) return false;
+  if (state.timestamp && Date.now() - state.timestamp > ONE_MINUTE_STATE_MAX_AGE) return false;
+  renderChallenge(state.challenge);
+  const card = document.getElementById('result-card');
+  if (card && state.cardVisible) {
+    card.classList.add('show');
+  }
+  return true;
 }
 
 function generateChallenge(){
@@ -671,6 +706,13 @@ function generateChallenge(){
 }
 
 document.getElementById('hm-generate-btn').addEventListener('click', generateChallenge);
+window.addEventListener('pagehide', saveChallengeState);
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'hidden') {
+    saveChallengeState();
+  }
+});
+restoreChallengeState();
 </script>
 </body>
 </html>

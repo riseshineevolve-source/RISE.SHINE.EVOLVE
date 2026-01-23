@@ -5236,6 +5236,70 @@
           };
         }
 
+    const CALM_ENERGY_STATE_KEY = 'hmCalmEnergyState';
+    const CALM_ENERGY_STATE_MAX_AGE = 1000 * 60 * 60 * 24;
+
+    function saveCalmEnergyState() {
+      const calmResult = document.getElementById('calm-result');
+      const energyResult = document.getElementById('energy-result');
+      const calmFilter = document.querySelector('#calm-filters .hm-filter-btn.hm-active')?.getAttribute('data-filter') || 'all';
+      const energyFilter = document.querySelector('#energy-filters .hm-filter-btn.hm-active')?.getAttribute('data-filter') || 'all';
+      const activeTab = document.querySelector('.hm-tab-btn.hm-active')?.id === 'hm-tab-energy' ? 'energy' : 'calm';
+      const calmRotation = document.getElementById('calm-wheel-visual')?.style.getPropertyValue('--wheel-rotation') || '';
+      const energyRotation = document.getElementById('energy-wheel-visual')?.style.getPropertyValue('--wheel-rotation') || '';
+      const state = {
+        activeTab,
+        calmResult: calmResult?.innerHTML || '',
+        energyResult: energyResult?.innerHTML || '',
+        calmFilter,
+        energyFilter,
+        calmRotation,
+        energyRotation,
+        timestamp: Date.now()
+      };
+      localStorage.setItem(CALM_ENERGY_STATE_KEY, JSON.stringify(state));
+    }
+
+    function restoreCalmEnergyState() {
+      const raw = localStorage.getItem(CALM_ENERGY_STATE_KEY);
+      if (!raw) return false;
+      let state;
+      try {
+        state = JSON.parse(raw);
+      } catch (error) {
+        return false;
+      }
+      if (state.timestamp && Date.now() - state.timestamp > CALM_ENERGY_STATE_MAX_AGE) {
+        return false;
+      }
+      const calmResult = document.getElementById('calm-result');
+      const energyResult = document.getElementById('energy-result');
+      if (calmResult && state.calmResult) calmResult.innerHTML = state.calmResult;
+      if (energyResult && state.energyResult) energyResult.innerHTML = state.energyResult;
+      const calmRotation = document.getElementById('calm-wheel-visual');
+      const energyRotation = document.getElementById('energy-wheel-visual');
+      if (calmRotation && state.calmRotation) {
+        calmRotation.style.setProperty('--wheel-rotation', state.calmRotation);
+      }
+      if (energyRotation && state.energyRotation) {
+        energyRotation.style.setProperty('--wheel-rotation', state.energyRotation);
+      }
+      if (state.calmFilter) {
+        const calmBtn = document.querySelector(`#calm-filters [data-filter="${state.calmFilter}"]`);
+        if (calmBtn) calmBtn.click();
+      }
+      if (state.energyFilter) {
+        const energyBtn = document.querySelector(`#energy-filters [data-filter="${state.energyFilter}"]`);
+        if (energyBtn) energyBtn.click();
+      }
+      if (state.activeTab === 'energy') {
+        activateTab('energy');
+      } else {
+        activateTab('calm');
+      }
+      return true;
+    }
+
 /* ---------- WHEEL LOGIC ---------- */
 
     function renderPracticeCard(practice, targetElement, theme) {
@@ -5435,6 +5499,7 @@
 
           spinBtn.textContent =
             theme === "energy" ? "⚡ Start spinning" : "🎡 Start spinning";
+          saveCalmEnergyState();
         }
       }
 
@@ -5454,6 +5519,7 @@
                 : "Filter updated. Spin the Calm Wheel to see your next practice."
             }</div>`;
           }
+          saveCalmEnergyState();
         });
       });
     }
@@ -5508,6 +5574,14 @@ setupWheel({
 
     addTapListener(calmTabBtn, () => activateTab("calm"));
     addTapListener(energyTabBtn, () => activateTab("energy"));
+
+    window.addEventListener('pagehide', saveCalmEnergyState);
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'hidden') {
+        saveCalmEnergyState();
+      }
+    });
+    restoreCalmEnergyState();
 
     tabIndicator.style.transform = "translateX(0%)";
   </script>
@@ -6130,6 +6204,9 @@ let remaining = [...challenges];
 let lastCharacter = null;
 let characterQueue = [];
 let challengesByCharacter = new Map();
+let currentChallenge = null;
+const ONE_MINUTE_STATE_KEY = 'hmOneMinuteState';
+const ONE_MINUTE_STATE_MAX_AGE = 1000 * 60 * 60 * 24;
 
 function shuffleArray(list) {
   const arr = [...list];
@@ -6198,6 +6275,7 @@ function pickChallenge() {
 resetChallengePools();
 
 function renderChallenge(c){
+  currentChallenge = c;
   setAvatar(c.character);
   document.getElementById('hm-avatar-fallback').innerHTML = getAvatarHTML(c.character);
   document.getElementById('challenge-title').textContent = c.title;
@@ -6206,6 +6284,37 @@ function renderChallenge(c){
   document.getElementById('challenge-comment').textContent = c.comment;
   document.getElementById('challenge-category').textContent = c.category;
   document.getElementById('hm-category-icon').textContent = categoryIcons[Math.floor(Math.random()*categoryIcons.length)];
+  saveChallengeState();
+}
+
+function saveChallengeState() {
+  if (!currentChallenge) return;
+  const card = document.getElementById('result-card');
+  const state = {
+    challenge: currentChallenge,
+    cardVisible: card?.classList.contains('show') || false,
+    timestamp: Date.now()
+  };
+  localStorage.setItem(ONE_MINUTE_STATE_KEY, JSON.stringify(state));
+}
+
+function restoreChallengeState() {
+  const raw = localStorage.getItem(ONE_MINUTE_STATE_KEY);
+  if (!raw) return false;
+  let state;
+  try {
+    state = JSON.parse(raw);
+  } catch (error) {
+    return false;
+  }
+  if (!state?.challenge) return false;
+  if (state.timestamp && Date.now() - state.timestamp > ONE_MINUTE_STATE_MAX_AGE) return false;
+  renderChallenge(state.challenge);
+  const card = document.getElementById('result-card');
+  if (card && state.cardVisible) {
+    card.classList.add('show');
+  }
+  return true;
 }
 
 function generateChallenge(){
@@ -6222,6 +6331,13 @@ function generateChallenge(){
 }
 
 document.getElementById('hm-generate-btn').addEventListener('click', generateChallenge);
+window.addEventListener('pagehide', saveChallengeState);
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'hidden') {
+    saveChallengeState();
+  }
+});
+restoreChallengeState();
 </script>
 </body>
 </html>
@@ -6616,6 +6732,9 @@ document.getElementById('hm-generate-btn').addEventListener('click', generateCha
     let words = [];
     let foundWords = new Set();
     let startCell = null;
+    let foundCells = [];
+    const WORD_HUNT_STATE_KEY = 'hmWordHuntState';
+    const WORD_HUNT_STATE_MAX_AGE = 1000 * 60 * 60 * 24;
 
     const directions = [
       [0, 1], [1, 0], [0, -1], [-1, 0],
@@ -6705,6 +6824,51 @@ document.getElementById('hm-generate-btn').addEventListener('click', generateCha
       if (puzzleName) {
         puzzleName.textContent = puzzleSets[activePuzzleIndex].title;
       }
+    }
+
+    function saveState() {
+      if (!grid.length || !words.length) return;
+      const state = {
+        activePuzzleIndex,
+        grid,
+        words,
+        foundWords: Array.from(foundWords),
+        foundCells,
+        timestamp: Date.now()
+      };
+      localStorage.setItem(WORD_HUNT_STATE_KEY, JSON.stringify(state));
+    }
+
+    function restoreState() {
+      const raw = localStorage.getItem(WORD_HUNT_STATE_KEY);
+      if (!raw) return false;
+      let state;
+      try {
+        state = JSON.parse(raw);
+      } catch (error) {
+        return false;
+      }
+      if (!state?.grid?.length || !state?.words?.length) return false;
+      if (state.timestamp && Date.now() - state.timestamp > WORD_HUNT_STATE_MAX_AGE) return false;
+      activePuzzleIndex = state.activePuzzleIndex ?? 0;
+      grid = state.grid;
+      words = state.words;
+      foundWords = new Set(state.foundWords || []);
+      foundCells = state.foundCells || [];
+      renderGrid();
+      renderWords();
+      const foundCellSet = new Set(foundCells.map(cell => `${cell.r},${cell.c}`));
+      foundCellSet.forEach((key) => {
+        const [r, c] = key.split(',').map(Number);
+        const cell = document.querySelector(`td[data-row="${r}"][data-col="${c}"]`);
+        if (cell) cell.classList.add('found');
+      });
+      foundWords.forEach((word) => {
+        const chip = document.getElementById(`word-${word}`);
+        if (chip) chip.classList.add('found');
+      });
+      updateStatus();
+      return true;
     }
 
     function clearSelections() {
@@ -6805,6 +6969,14 @@ document.getElementById('hm-generate-btn').addEventListener('click', generateCha
           cell.classList.remove('selected');
         }
       });
+      const existing = new Set(foundCells.map(cell => `${cell.r},${cell.c}`));
+      pathCells.forEach(({ r, c }) => {
+        const key = `${r},${c}`;
+        if (!existing.has(key)) {
+          foundCells.push({ r, c });
+          existing.add(key);
+        }
+      });
       clearZoom();
       foundWords.add(word);
       const chip = document.getElementById(`word-${word}`);
@@ -6814,6 +6986,7 @@ document.getElementById('hm-generate-btn').addEventListener('click', generateCha
       }
       clearHints();
       updateStatus();
+      saveState();
       if (foundWords.size === words.length) {
         celebrate();
       }
@@ -6897,6 +7070,7 @@ document.getElementById('hm-generate-btn').addEventListener('click', generateCha
       activePuzzleIndex = ((index % puzzleSets.length) + puzzleSets.length) % puzzleSets.length;
       words = puzzleSets[activePuzzleIndex].words.map(w => w.replace(/\s+/g, '').toUpperCase());
       foundWords = new Set();
+      foundCells = [];
       startCell = null;
       clearHints();
       clearZoom();
@@ -6905,6 +7079,7 @@ document.getElementById('hm-generate-btn').addEventListener('click', generateCha
       renderWords();
       updateStatus();
       hideCelebration();
+      saveState();
     }
 
     function loadNextPuzzle() {
@@ -6915,7 +7090,16 @@ document.getElementById('hm-generate-btn').addEventListener('click', generateCha
     document.getElementById('playAgainBtn').addEventListener('click', loadNextPuzzle);
     document.getElementById('hintBtn').addEventListener('click', showHint);
 
-    loadPuzzle(0);
+    window.addEventListener('pagehide', saveState);
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'hidden') {
+        saveState();
+      }
+    });
+
+    if (!restoreState()) {
+      loadPuzzle(0);
+    }
   </script>
   </template>
 

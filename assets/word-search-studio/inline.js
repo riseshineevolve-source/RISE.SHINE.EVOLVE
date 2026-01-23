@@ -591,13 +591,13 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
             grid-template-columns: 3fr 1fr;
             gap: 20px;
             align-items: flex-start;
-            justify-items: center;
+            justify-items: start;
         }
 
         .puzzle-container {
             display: flex;
             flex-direction: column;
-            align-items: center;
+            align-items: flex-start;
             gap: 20px;
             width: 100%;
         }
@@ -626,10 +626,10 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
             max-width: none;
             max-height: none;
             overflow: visible;
-            margin: 0 auto;
+            margin: 0;
             aspect-ratio: 1;
-            justify-content: center;
-            align-content: center;
+            justify-content: flex-start;
+            align-content: flex-start;
             box-sizing: content-box;
             animation: elegantBoxGlow 9s ease-in-out infinite, frame-sparkle 16s ease-in-out infinite;
             transition: transform 0.2s ease;
@@ -1572,8 +1572,10 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
         @media (max-width: 900px) and (orientation: landscape) {
             .game-area {
                 display: grid;
-                grid-template-columns: 3fr 1fr;
+                grid-template-columns: minmax(0, 1fr) minmax(0, 0.8fr);
                 align-items: start;
+                justify-items: start;
+                gap: 16px;
             }
 
             .puzzle-container {
@@ -1584,8 +1586,8 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
             .sidebar {
                 order: 0;
                 min-width: 180px;
-                max-width: 220px;
-                margin-left: 0;
+                max-width: 240px;
+                margin-left: 12px;
                 margin-right: 0;
                 margin-top: 0;
                 align-self: flex-start;
@@ -1593,8 +1595,8 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
 
             .word-search {
                 max-height: min(38vh, 260px);
-                justify-content: center;
-                align-content: center;
+                justify-content: flex-start;
+                align-content: flex-start;
                 margin: 0;
             }
         }
@@ -1724,6 +1726,9 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
             }
         }
 
+        const WORD_SEARCH_STUDIO_STATE_KEY = 'hmWordSearchStudioState';
+        const WORD_SEARCH_STUDIO_STATE_MAX_AGE = 1000 * 60 * 60 * 24;
+
         class WordSearchGenerator {
             constructor() {
                 this.grid = [];
@@ -1764,6 +1769,123 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
                 };
                 
                 this.initEventListeners();
+                this.bindStatePersistence();
+            }
+
+            bindStatePersistence() {
+                window.addEventListener('pagehide', () => this.saveState());
+                document.addEventListener('visibilitychange', () => {
+                    if (document.visibilityState === 'hidden') {
+                        this.saveState();
+                    }
+                });
+            }
+
+            saveState() {
+                if (!this.words.length || !this.grid.length) {
+                    return;
+                }
+                const state = {
+                    words: this.words,
+                    grid: this.grid,
+                    placedWords: this.placedWords,
+                    foundWords: Array.from(this.foundWords),
+                    shape: this.shape,
+                    difficulty: this.difficulty,
+                    gridSize: this.gridSize,
+                    randomSeed: this.randomSeed,
+                    generationId: this.generationId,
+                    timestamp: Date.now()
+                };
+                localStorage.setItem(WORD_SEARCH_STUDIO_STATE_KEY, JSON.stringify(state));
+            }
+
+            restoreState() {
+                const raw = localStorage.getItem(WORD_SEARCH_STUDIO_STATE_KEY);
+                if (!raw) {
+                    return false;
+                }
+                let state;
+                try {
+                    state = JSON.parse(raw);
+                } catch (error) {
+                    return false;
+                }
+                if (!state?.grid?.length || !state?.words?.length) {
+                    return false;
+                }
+                if (state.timestamp && Date.now() - state.timestamp > WORD_SEARCH_STUDIO_STATE_MAX_AGE) {
+                    return false;
+                }
+                this.words = state.words;
+                this.grid = state.grid;
+                this.placedWords = state.placedWords || [];
+                this.foundWords = new Set(state.foundWords || []);
+                this.shape = state.shape || this.shape;
+                this.difficulty = state.difficulty || this.difficulty;
+                this.gridSize = state.gridSize || this.gridSize;
+                this.randomSeed = state.randomSeed || this.randomSeed;
+                this.generationId = state.generationId || this.generationId;
+                this.renderGrid();
+                this.setupWordList();
+                this.applyFoundHighlights();
+                this.updateStats();
+                this.updateWordList();
+                const gameArea = document.getElementById('gameArea');
+                if (gameArea) {
+                    gameArea.style.display = 'flex';
+                }
+                const showBtn = document.getElementById('showAnswersBtn');
+                const hideBtn = document.getElementById('hideAnswersBtn');
+                if (showBtn) showBtn.style.display = 'inline-block';
+                if (hideBtn) hideBtn.style.display = 'none';
+                this.syncControls();
+                return true;
+            }
+
+            syncControls() {
+                document.querySelectorAll('[data-shape]').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.shape === this.shape);
+                });
+                document.querySelectorAll('[data-difficulty]').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.difficulty === this.difficulty);
+                });
+            }
+
+            applyFoundHighlights() {
+                this.placedWords.forEach(wordData => {
+                    if (!this.foundWords.has(wordData.word)) return;
+                    wordData.positions.forEach(([row, col]) => {
+                        const cell = document.querySelector(`[data-row="${row}"][data-col="${col}"]`);
+                        if (cell) {
+                            cell.classList.add('found');
+                        }
+                    });
+                });
+            }
+
+            getWordSearchElement() {
+                return document.getElementById('wordSearch');
+            }
+
+            zoomToCell(cell) {
+                const container = this.getWordSearchElement();
+                if (!container || !cell) return;
+                const containerRect = container.getBoundingClientRect();
+                const cellRect = cell.getBoundingClientRect();
+                const originX = ((cellRect.left + cellRect.width / 2 - containerRect.left) / containerRect.width) * 100;
+                const originY = ((cellRect.top + cellRect.height / 2 - containerRect.top) / containerRect.height) * 100;
+                container.style.setProperty('--zoom-origin-x', `${originX}%`);
+                container.style.setProperty('--zoom-origin-y', `${originY}%`);
+                container.classList.add('zoomed');
+            }
+
+            clearZoom() {
+                const container = this.getWordSearchElement();
+                if (!container) return;
+                container.classList.remove('zoomed');
+                container.style.removeProperty('--zoom-origin-x');
+                container.style.removeProperty('--zoom-origin-y');
             }
 
             getWordSearchElement() {
@@ -1918,6 +2040,7 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
                 this.currentFirstLetter = null;
                 this.clearHintHighlight();
                 this.updateStats();
+                this.saveState();
                 
                 document.getElementById('gameArea').style.display = 'flex';
                 document.getElementById('showAnswersBtn').style.display = 'inline-block';
@@ -2444,6 +2567,7 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
                 if (this.foundWords.size === this.words.length) {
                     this.showVictoryAnimation();
                 }
+                this.saveState();
             }
 
             resetWordProgress() {
@@ -3147,7 +3271,8 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
         // Inicjalizuj generator po załadowaniu strony
         document.addEventListener('DOMContentLoaded', () => {
             createSparkles();
-            new WordSearchGenerator();
+            const wordSearch = new WordSearchGenerator();
+            wordSearch.restoreState();
         });
     </script>
 <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'98ac691c60d5bfe4',t:'MTc1OTgyOTc0OS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
