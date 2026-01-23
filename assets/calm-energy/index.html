@@ -148,6 +148,19 @@
     @media (max-width: 860px) {
       .hm-panel-inner {
         grid-template-columns: minmax(0, 1fr);
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+      }
+
+      .hm-wheel-box {
+        order: 1;
+      }
+
+      .hm-text-column {
+        order: 2;
+        margin: 0 auto;
+        max-width: 100%;
       }
     }
 
@@ -1733,6 +1746,7 @@
 
     
     const VIDEO_BASE = "/assets/videos/";
+    const VIDEO_BASE_REMOTE = "https://raw.githubusercontent.com/riseshineevolve-source/RISE.SHINE.EVOLVE/main/assets/videos/";
 
     const DANCE_VIDEO_MAP = {
       Mimi: ["Mimi tanczy.mp4", "Mimi tanczy 1.mp4"],
@@ -1754,6 +1768,10 @@
 
     function toSrc(filename){
       return VIDEO_BASE + encodeURIComponent(filename).replace(/%2F/g, "/");
+    }
+
+    function toRemoteSrc(filename) {
+      return VIDEO_BASE_REMOTE + encodeURIComponent(filename).replace(/%2F/g, "/");
     }
 
     function addTapListener(element, handler) {
@@ -1783,7 +1801,8 @@
 
       const map = isEnergy ? DANCE_VIDEO_MAP : CALM_VIDEO_MAP;
       const files = normalizeVideoList(map[character]);
-      if (!files.length) {
+      const sourceList = files.flatMap((file) => [toSrc(file), toRemoteSrc(file)]);
+      if (!sourceList.length) {
         video.removeAttribute('src');
         video.style.display = 'none';
         fallback.style.display = 'flex';
@@ -1799,16 +1818,16 @@
       video.setAttribute('webkit-playsinline', '');
       video.setAttribute('autoplay', '');
       video.setAttribute('preload', 'auto');
-      fallback.style.display = 'flex';
-      video.style.display = 'none';
+      fallback.style.display = 'none';
+      video.style.display = 'block';
       let index = 0;
       const tryNext = () => {
-        if (index >= files.length) {
+        if (index >= sourceList.length) {
           video.style.display = 'none';
           fallback.style.display = 'flex';
           return;
         }
-        video.src = toSrc(files[index]);
+        video.src = sourceList[index];
         index += 1;
         video.load();
         const p = video.play();
@@ -1825,6 +1844,70 @@
       video.onerror = () => {
         tryNext();
       };
+    }
+
+    const CALM_ENERGY_STATE_KEY = 'hmCalmEnergyState';
+    const CALM_ENERGY_STATE_MAX_AGE = 1000 * 60 * 60 * 24;
+
+    function saveCalmEnergyState() {
+      const calmResult = document.getElementById('calm-result');
+      const energyResult = document.getElementById('energy-result');
+      const calmFilter = document.querySelector('#calm-filters .hm-filter-btn.hm-active')?.getAttribute('data-filter') || 'all';
+      const energyFilter = document.querySelector('#energy-filters .hm-filter-btn.hm-active')?.getAttribute('data-filter') || 'all';
+      const activeTab = document.querySelector('.hm-tab-btn.hm-active')?.id === 'hm-tab-energy' ? 'energy' : 'calm';
+      const calmRotation = document.getElementById('calm-wheel-visual')?.style.getPropertyValue('--wheel-rotation') || '';
+      const energyRotation = document.getElementById('energy-wheel-visual')?.style.getPropertyValue('--wheel-rotation') || '';
+      const state = {
+        activeTab,
+        calmResult: calmResult?.innerHTML || '',
+        energyResult: energyResult?.innerHTML || '',
+        calmFilter,
+        energyFilter,
+        calmRotation,
+        energyRotation,
+        timestamp: Date.now()
+      };
+      localStorage.setItem(CALM_ENERGY_STATE_KEY, JSON.stringify(state));
+    }
+
+    function restoreCalmEnergyState() {
+      const raw = localStorage.getItem(CALM_ENERGY_STATE_KEY);
+      if (!raw) return false;
+      let state;
+      try {
+        state = JSON.parse(raw);
+      } catch (error) {
+        return false;
+      }
+      if (state.timestamp && Date.now() - state.timestamp > CALM_ENERGY_STATE_MAX_AGE) {
+        return false;
+      }
+      const calmResult = document.getElementById('calm-result');
+      const energyResult = document.getElementById('energy-result');
+      if (calmResult && state.calmResult) calmResult.innerHTML = state.calmResult;
+      if (energyResult && state.energyResult) energyResult.innerHTML = state.energyResult;
+      const calmRotation = document.getElementById('calm-wheel-visual');
+      const energyRotation = document.getElementById('energy-wheel-visual');
+      if (calmRotation && state.calmRotation) {
+        calmRotation.style.setProperty('--wheel-rotation', state.calmRotation);
+      }
+      if (energyRotation && state.energyRotation) {
+        energyRotation.style.setProperty('--wheel-rotation', state.energyRotation);
+      }
+      if (state.calmFilter) {
+        const calmBtn = document.querySelector(`#calm-filters [data-filter="${state.calmFilter}"]`);
+        if (calmBtn) calmBtn.click();
+      }
+      if (state.energyFilter) {
+        const energyBtn = document.querySelector(`#energy-filters [data-filter="${state.energyFilter}"]`);
+        if (energyBtn) energyBtn.click();
+      }
+      if (state.activeTab === 'energy') {
+        activateTab('energy');
+      } else {
+        activateTab('calm');
+      }
+      return true;
     }
 
 /* ---------- WHEEL LOGIC ---------- */
@@ -2026,6 +2109,7 @@
 
           spinBtn.textContent =
             theme === "energy" ? "⚡ Start spinning" : "🎡 Start spinning";
+          saveCalmEnergyState();
         }
       }
 
@@ -2045,6 +2129,7 @@
                 : "Filter updated. Spin the Calm Wheel to see your next practice."
             }</div>`;
           }
+          saveCalmEnergyState();
         });
       });
     }
@@ -2099,6 +2184,14 @@ setupWheel({
 
     addTapListener(calmTabBtn, () => activateTab("calm"));
     addTapListener(energyTabBtn, () => activateTab("energy"));
+
+    window.addEventListener('pagehide', saveCalmEnergyState);
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'hidden') {
+        saveCalmEnergyState();
+      }
+    });
+    restoreCalmEnergyState();
 
     tabIndicator.style.transform = "translateX(0%)";
   </script>

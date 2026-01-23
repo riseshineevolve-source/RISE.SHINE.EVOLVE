@@ -503,6 +503,7 @@ function getAvatarHTML(character) {
 
 
 const VIDEO_BASE = "/assets/videos/";
+const VIDEO_BASE_REMOTE = "https://raw.githubusercontent.com/riseshineevolve-source/RISE.SHINE.EVOLVE/main/assets/videos/";
 
 const CALM_VIDEO_MAP = {
   Mimi: "Mimi calm.mp4",
@@ -518,6 +519,10 @@ function toSrc(filename){
   return VIDEO_BASE + encodeURIComponent(filename).replace(/%2F/g, "/");
 }
 
+function toRemoteSrc(filename){
+  return VIDEO_BASE_REMOTE + encodeURIComponent(filename).replace(/%2F/g, "/");
+}
+
 function setAvatar(character){
   const video = document.getElementById('hm-avatar-video');
   const fallback = document.getElementById('hm-avatar-fallback');
@@ -530,6 +535,7 @@ function setAvatar(character){
     fallback.innerHTML = getAvatarHTML(character);
     return;
   }
+  const sourceList = [toSrc(file), toRemoteSrc(file)];
 
   video.muted = true;
   video.playsInline = true;
@@ -540,14 +546,23 @@ function setAvatar(character){
   video.setAttribute('webkit-playsinline', '');
   video.setAttribute('autoplay', '');
   video.setAttribute('preload', 'auto');
-  fallback.style.display = 'flex';
+  fallback.style.display = 'none';
   video.style.display = 'block';
-  video.src = toSrc(file);
-
-  // If a browser blocks autoplay, it's still fine (muted + playsinline usually works)
-  video.load();
-  const playPromise = video.play();
-  if (playPromise && typeof playPromise.catch === 'function') playPromise.catch(()=>{});
+  let index = 0;
+  const tryNext = () => {
+    if (index >= sourceList.length) {
+      video.style.display = 'none';
+      fallback.style.display = 'flex';
+      fallback.innerHTML = getAvatarHTML(character);
+      return;
+    }
+    video.src = sourceList[index];
+    index += 1;
+    video.load();
+    const playPromise = video.play();
+    if (playPromise && typeof playPromise.catch === 'function') playPromise.catch(()=>{});
+  };
+  tryNext();
 
   const hideFallback = () => {
     fallback.style.display = 'none';
@@ -555,9 +570,7 @@ function setAvatar(character){
   video.onloadeddata = hideFallback;
   video.onloadedmetadata = hideFallback;
   video.onerror = () => {
-    video.style.display = 'none';
-    fallback.style.display = 'flex';
-    fallback.innerHTML = getAvatarHTML(character);
+    tryNext();
   };
 }
 
@@ -566,6 +579,9 @@ let remaining = [...challenges];
 let lastCharacter = null;
 let characterQueue = [];
 let challengesByCharacter = new Map();
+let currentChallenge = null;
+const ONE_MINUTE_STATE_KEY = 'hmOneMinuteState';
+const ONE_MINUTE_STATE_MAX_AGE = 1000 * 60 * 60 * 24;
 
 function shuffleArray(list) {
   const arr = [...list];
@@ -634,6 +650,7 @@ function pickChallenge() {
 resetChallengePools();
 
 function renderChallenge(c){
+  currentChallenge = c;
   setAvatar(c.character);
   document.getElementById('hm-avatar-fallback').innerHTML = getAvatarHTML(c.character);
   document.getElementById('challenge-title').textContent = c.title;
@@ -642,6 +659,37 @@ function renderChallenge(c){
   document.getElementById('challenge-comment').textContent = c.comment;
   document.getElementById('challenge-category').textContent = c.category;
   document.getElementById('hm-category-icon').textContent = categoryIcons[Math.floor(Math.random()*categoryIcons.length)];
+  saveChallengeState();
+}
+
+function saveChallengeState() {
+  if (!currentChallenge) return;
+  const card = document.getElementById('result-card');
+  const state = {
+    challenge: currentChallenge,
+    cardVisible: card?.classList.contains('show') || false,
+    timestamp: Date.now()
+  };
+  localStorage.setItem(ONE_MINUTE_STATE_KEY, JSON.stringify(state));
+}
+
+function restoreChallengeState() {
+  const raw = localStorage.getItem(ONE_MINUTE_STATE_KEY);
+  if (!raw) return false;
+  let state;
+  try {
+    state = JSON.parse(raw);
+  } catch (error) {
+    return false;
+  }
+  if (!state?.challenge) return false;
+  if (state.timestamp && Date.now() - state.timestamp > ONE_MINUTE_STATE_MAX_AGE) return false;
+  renderChallenge(state.challenge);
+  const card = document.getElementById('result-card');
+  if (card && state.cardVisible) {
+    card.classList.add('show');
+  }
+  return true;
 }
 
 function generateChallenge(){
@@ -658,6 +706,13 @@ function generateChallenge(){
 }
 
 document.getElementById('hm-generate-btn').addEventListener('click', generateChallenge);
+window.addEventListener('pagehide', saveChallengeState);
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'hidden') {
+    saveChallengeState();
+  }
+});
+restoreChallengeState();
 </script>
 </body>
 </html>
