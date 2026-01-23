@@ -503,6 +503,7 @@ function getAvatarHTML(character) {
 
 
 const VIDEO_BASE = "/assets/videos/";
+const VIDEO_BASE_REMOTE = "https://raw.githubusercontent.com/riseshineevolve-source/RISE.SHINE.EVOLVE/main/assets/videos/";
 
 const CALM_VIDEO_MAP = {
   Mimi: "Mimi calm.mp4",
@@ -518,6 +519,10 @@ function toSrc(filename){
   return VIDEO_BASE + encodeURIComponent(filename).replace(/%2F/g, "/");
 }
 
+function toRemoteSrc(filename){
+  return VIDEO_BASE_REMOTE + encodeURIComponent(filename).replace(/%2F/g, "/");
+}
+
 function setAvatar(character){
   const video = document.getElementById('hm-avatar-video');
   const fallback = document.getElementById('hm-avatar-fallback');
@@ -530,6 +535,7 @@ function setAvatar(character){
     fallback.innerHTML = getAvatarHTML(character);
     return;
   }
+  const sourceList = [toSrc(file), toRemoteSrc(file)];
 
   video.muted = true;
   video.playsInline = true;
@@ -540,14 +546,23 @@ function setAvatar(character){
   video.setAttribute('webkit-playsinline', '');
   video.setAttribute('autoplay', '');
   video.setAttribute('preload', 'auto');
-  fallback.style.display = 'flex';
+  fallback.style.display = 'none';
   video.style.display = 'block';
-  video.src = toSrc(file);
-
-  // If a browser blocks autoplay, it's still fine (muted + playsinline usually works)
-  video.load();
-  const playPromise = video.play();
-  if (playPromise && typeof playPromise.catch === 'function') playPromise.catch(()=>{});
+  let index = 0;
+  const tryNext = () => {
+    if (index >= sourceList.length) {
+      video.style.display = 'none';
+      fallback.style.display = 'flex';
+      fallback.innerHTML = getAvatarHTML(character);
+      return;
+    }
+    video.src = sourceList[index];
+    index += 1;
+    video.load();
+    const playPromise = video.play();
+    if (playPromise && typeof playPromise.catch === 'function') playPromise.catch(()=>{});
+  };
+  tryNext();
 
   const hideFallback = () => {
     fallback.style.display = 'none';
@@ -555,9 +570,7 @@ function setAvatar(character){
   video.onloadeddata = hideFallback;
   video.onloadedmetadata = hideFallback;
   video.onerror = () => {
-    video.style.display = 'none';
-    fallback.style.display = 'flex';
-    fallback.innerHTML = getAvatarHTML(character);
+    tryNext();
   };
 }
 
