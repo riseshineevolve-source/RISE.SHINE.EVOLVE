@@ -1198,7 +1198,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 12px;
             margin: 10px 0 18px;
             text-align: center;
         }
@@ -1211,24 +1210,13 @@
             letter-spacing: 1px;
         }
 
-        .tab-title-video {
-            height: 1.2em;
-            width: auto;
-            border-radius: 10px;
-            box-shadow: 0 0 18px rgba(255, 215, 0, 0.4);
-        }
-
-        .rse-footer-video-wrap {
-            display: flex;
-            justify-content: center;
-            margin-top: 12px;
-        }
-
-        .rse-footer-video {
-            height: clamp(46px, 9vw, 70px);
+        .rse-header-video {
+            height: clamp(48px, 6vw, 80px);
             width: auto;
             border-radius: 12px;
-            box-shadow: 0 0 24px rgba(138, 43, 226, 0.5);
+            box-shadow: 0 0 22px rgba(255, 215, 0, 0.5);
+            margin: 8px auto 18px;
+            display: block;
         }
 
         /* Elegant Christmas Floating Box - Dark Sophisticated Design */
@@ -1879,6 +1867,10 @@
   <div class="container">
    <h1 class="main-title">RISE.SHINE.EVOLVE</h1>
    <p class="subtitle">Empowering Learning Hub</p>
+   <video class="rse-header-video" autoplay loop muted playsinline aria-label="Rise Shine Evolve intro">
+    <source src="assets/videos/final.mp4" type="video/mp4">
+    <source src="https://raw.githubusercontent.com/riseshineevolve-source/RISE.SHINE.EVOLVE/main/assets/videos/final.mp4" type="video/mp4">
+   </video>
   <div id="auth-action-chip">
     <span id="auth-action-label" style="display: none;">Log in as</span>
     <button type="button" id="auth-action-button">Log In</button>
@@ -1914,10 +1906,6 @@
     <div id="main-content" class="tab-content active">
      <div class="tab-title-row">
       <h2>MAIN</h2>
-      <video class="tab-title-video" autoplay loop muted playsinline aria-label="Rise Shine Evolve intro">
-       <source src="assets/videos/final.mp4" type="video/mp4">
-       <source src="https://raw.githubusercontent.com/riseshineevolve-source/RISE.SHINE.EVOLVE/main/assets/videos/final.mp4" type="video/mp4">
-      </video>
      </div>
      <!-- Floating Boxes (Main tab only) -->
      <div class="floating-boxes">
@@ -1973,10 +1961,6 @@
     <div id="kids-content" class="tab-content"><!-- Main Kids Library View -->
      <div class="tab-title-row">
       <h2>KIDS</h2>
-      <video class="tab-title-video" autoplay loop muted playsinline aria-label="Rise Shine Evolve intro">
-       <source src="assets/videos/final.mp4" type="video/mp4">
-       <source src="https://raw.githubusercontent.com/riseshineevolve-source/RISE.SHINE.EVOLVE/main/assets/videos/final.mp4" type="video/mp4">
-      </video>
      </div>
      <div id="kids-library-view">
       <div class="kids-tile">
@@ -2299,10 +2283,6 @@
     <div id="teenagers-content" class="tab-content">
      <div class="tab-title-row">
       <h2>TEENAGERS</h2>
-      <video class="tab-title-video" autoplay loop muted playsinline aria-label="Rise Shine Evolve intro">
-       <source src="assets/videos/final.mp4" type="video/mp4">
-       <source src="https://raw.githubusercontent.com/riseshineevolve-source/RISE.SHINE.EVOLVE/main/assets/videos/final.mp4" type="video/mp4">
-      </video>
      </div>
      <div class="kids-tile">
       <div class="kids-text"><span class="word-coming-soon">Coming soon</span><br><br>
@@ -2332,10 +2312,6 @@
     <div id="adults-content" class="tab-content">
      <div class="tab-title-row">
       <h2>ADULTS</h2>
-      <video class="tab-title-video" autoplay loop muted playsinline aria-label="Rise Shine Evolve intro">
-       <source src="assets/videos/final.mp4" type="video/mp4">
-       <source src="https://raw.githubusercontent.com/riseshineevolve-source/RISE.SHINE.EVOLVE/main/assets/videos/final.mp4" type="video/mp4">
-      </video>
      </div>
      <div class="kids-tile">
       <div class="kids-text"><span class="word-coming-soon">Coming soon</span><br><br>
@@ -2364,10 +2340,6 @@
     <div id="gifts-content" class="tab-content"><!-- Welcome Box with Golden Border -->
      <div class="tab-title-row">
       <h2>GIFTS</h2>
-      <video class="tab-title-video" autoplay loop muted playsinline aria-label="Rise Shine Evolve intro">
-       <source src="assets/videos/final.mp4" type="video/mp4">
-       <source src="https://raw.githubusercontent.com/riseshineevolve-source/RISE.SHINE.EVOLVE/main/assets/videos/final.mp4" type="video/mp4">
-      </video>
      </div>
      <div class="kids-tile" style="border: 3px solid #ffd700; box-shadow: 0 0 35px rgba(255, 215, 0, 0.7), 0 0 60px rgba(255, 215, 0, 0.4); margin: 24px auto; max-width: 520px; padding: 16px 18px;">
       <div class="kids-text">
@@ -2490,10 +2462,6 @@
     <div id="thank-you-content" class="tab-content">
      <div class="tab-title-row">
       <h2>THANK YOU</h2>
-      <video class="tab-title-video" autoplay loop muted playsinline aria-label="Rise Shine Evolve intro">
-       <source src="assets/videos/final.mp4" type="video/mp4">
-       <source src="https://raw.githubusercontent.com/riseshineevolve-source/RISE.SHINE.EVOLVE/main/assets/videos/final.mp4" type="video/mp4">
-      </video>
      </div>
      <div class="kids-tile" style="border: 3px solid #ffd700; box-shadow: 0 0 35px rgba(255, 215, 0, 0.7), 0 0 60px rgba(255, 215, 0, 0.4);">
       <div class="kids-text">
@@ -2525,22 +2493,12 @@
     <div class="kids-tile" style="margin-top: 20px;">
      <div class="kids-text">
       It is time to <span class="word-rise">RISE</span>.<span class="word-shine">SHINE</span>.<span class="word-evolve">EVOLVE</span>
-      <div class="rse-footer-video-wrap">
-       <video class="rse-footer-video" autoplay loop muted playsinline aria-label="Rise Shine Evolve outro">
-        <source src="assets/videos/rse video.mp4" type="video/mp4">
-        <source src="https://raw.githubusercontent.com/riseshineevolve-source/RISE.SHINE.EVOLVE/main/assets/videos/rse%20video.mp4" type="video/mp4">
-       </video>
-      </div>
      </div>
     </div>
     </div>
     <div id="contact-content" class="tab-content">
      <div class="tab-title-row">
       <h2>CONTACT</h2>
-      <video class="tab-title-video" autoplay loop muted playsinline aria-label="Rise Shine Evolve intro">
-       <source src="assets/videos/final.mp4" type="video/mp4">
-       <source src="https://raw.githubusercontent.com/riseshineevolve-source/RISE.SHINE.EVOLVE/main/assets/videos/final.mp4" type="video/mp4">
-      </video>
      </div>
     
         <div class="kids-tile" style="border: 3px solid #ff69b4; box-shadow: 0 0 35px rgba(255, 105, 180, 0.7), 0 0 60px rgba(255, 105, 180, 0.4);">
