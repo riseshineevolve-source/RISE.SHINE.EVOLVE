@@ -600,7 +600,7 @@
         .puzzle-container {
             display: flex;
             flex-direction: column;
-            align-items: center;
+            align-items: flex-start;
             gap: 20px;
             width: 100%;
         }
@@ -630,10 +630,10 @@
             max-width: none;
             max-height: none;
             overflow: visible;
-            margin: 0 auto;
+            margin: 0;
             aspect-ratio: 1;
-            justify-content: center;
-            align-content: center;
+            justify-content: flex-start;
+            align-content: flex-start;
             box-sizing: border-box;
             animation: elegantBoxGlow 9s ease-in-out infinite, frame-sparkle 16s ease-in-out infinite;
             transition: transform 0.2s ease;
@@ -1542,8 +1542,8 @@
                 margin-right: auto;
                 border: none;
                 box-shadow: none;
-                justify-content: center;
-                align-content: center;
+                justify-content: flex-start;
+                align-content: flex-start;
             }
 
             .word-search::before {
@@ -1672,8 +1672,8 @@
 
             .word-search {
                 max-height: min(38vh, 260px);
-                justify-content: center;
-                align-content: center;
+                justify-content: flex-start;
+                align-content: flex-start;
                 margin: 0;
             }
 
