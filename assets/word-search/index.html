@@ -384,11 +384,11 @@
         foundCells,
         timestamp: Date.now()
       };
-      localStorage.setItem(WORD_HUNT_STATE_KEY, JSON.stringify(state));
+      sessionStorage.setItem(WORD_HUNT_STATE_KEY, JSON.stringify(state));
     }
 
     function restoreState() {
-      const raw = localStorage.getItem(WORD_HUNT_STATE_KEY);
+      const raw = sessionStorage.getItem(WORD_HUNT_STATE_KEY);
       if (!raw) return false;
       let state;
       try {

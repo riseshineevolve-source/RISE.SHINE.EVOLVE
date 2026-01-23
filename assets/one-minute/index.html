@@ -670,11 +670,11 @@ function saveChallengeState() {
     cardVisible: card?.classList.contains('show') || false,
     timestamp: Date.now()
   };
-  localStorage.setItem(ONE_MINUTE_STATE_KEY, JSON.stringify(state));
+  sessionStorage.setItem(ONE_MINUTE_STATE_KEY, JSON.stringify(state));
 }
 
 function restoreChallengeState() {
-  const raw = localStorage.getItem(ONE_MINUTE_STATE_KEY);
+  const raw = sessionStorage.getItem(ONE_MINUTE_STATE_KEY);
   if (!raw) return false;
   let state;
   try {

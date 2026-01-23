@@ -588,7 +588,7 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
 
         .game-area {
             display: grid;
-            grid-template-columns: max-content minmax(180px, 220px);
+            grid-template-columns: minmax(0, 1fr) minmax(180px, 220px);
             gap: 20px;
             align-items: flex-start;
             justify-items: center;
@@ -625,8 +625,8 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
                 inset 0 0 40px rgba(255, 215, 0, 0.2);
             position: relative;
             width: auto;
-            max-width: none;
-            max-height: none;
+            max-width: 100%;
+            max-height: 100%;
             overflow: visible;
             margin: 0;
             aspect-ratio: 1;
@@ -1601,7 +1601,7 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
             }
 
             .word-search {
-                max-height: min(38vh, 260px);
+                max-height: none;
                 justify-content: flex-start;
                 align-content: flex-start;
                 margin: 0;
@@ -1804,11 +1804,11 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
                     generationId: this.generationId,
                     timestamp: Date.now()
                 };
-                localStorage.setItem(WORD_SEARCH_STUDIO_STATE_KEY, JSON.stringify(state));
+                sessionStorage.setItem(WORD_SEARCH_STUDIO_STATE_KEY, JSON.stringify(state));
             }
 
             restoreState() {
-                const raw = localStorage.getItem(WORD_SEARCH_STUDIO_STATE_KEY);
+                const raw = sessionStorage.getItem(WORD_SEARCH_STUDIO_STATE_KEY);
                 if (!raw) {
                     return false;
                 }

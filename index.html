@@ -5257,11 +5257,11 @@
         energyRotation,
         timestamp: Date.now()
       };
-      localStorage.setItem(CALM_ENERGY_STATE_KEY, JSON.stringify(state));
+      sessionStorage.setItem(CALM_ENERGY_STATE_KEY, JSON.stringify(state));
     }
 
     function restoreCalmEnergyState() {
-      const raw = localStorage.getItem(CALM_ENERGY_STATE_KEY);
+      const raw = sessionStorage.getItem(CALM_ENERGY_STATE_KEY);
       if (!raw) return false;
       let state;
       try {
@@ -6295,11 +6295,11 @@ function saveChallengeState() {
     cardVisible: card?.classList.contains('show') || false,
     timestamp: Date.now()
   };
-  localStorage.setItem(ONE_MINUTE_STATE_KEY, JSON.stringify(state));
+  sessionStorage.setItem(ONE_MINUTE_STATE_KEY, JSON.stringify(state));
 }
 
 function restoreChallengeState() {
-  const raw = localStorage.getItem(ONE_MINUTE_STATE_KEY);
+  const raw = sessionStorage.getItem(ONE_MINUTE_STATE_KEY);
   if (!raw) return false;
   let state;
   try {
@@ -6836,11 +6836,11 @@ restoreChallengeState();
         foundCells,
         timestamp: Date.now()
       };
-      localStorage.setItem(WORD_HUNT_STATE_KEY, JSON.stringify(state));
+      sessionStorage.setItem(WORD_HUNT_STATE_KEY, JSON.stringify(state));
     }
 
     function restoreState() {
-      const raw = localStorage.getItem(WORD_HUNT_STATE_KEY);
+      const raw = sessionStorage.getItem(WORD_HUNT_STATE_KEY);
       if (!raw) return false;
       let state;
       try {
