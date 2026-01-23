@@ -1504,10 +1504,10 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
                 height: auto;
                 max-height: none;
                 padding: clamp(6px, 1.2vw, 12px);
-                margin-left: 0;
+                margin-left: auto;
                 margin-right: auto;
-                justify-content: flex-start;
-                align-content: flex-start;
+                justify-content: center;
+                align-content: center;
             }
 
             .cell {
