@@ -1459,12 +1459,12 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
                 display: flex;
                 flex-direction: column;
                 gap: 20px;
-                align-items: flex-start;
+                align-items: center;
             }
             
             .puzzle-container {
                 order: 1;
-                align-items: flex-start;
+                align-items: center;
             }
             
             .sidebar {
@@ -1546,7 +1546,7 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
             }
 
             .word-search-instruction {
-                text-align: left;
+                text-align: center;
             }
         }
 
@@ -1580,14 +1580,14 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
                 display: grid;
                 grid-template-columns: minmax(0, 1fr) minmax(0, 0.8fr);
                 align-items: start;
-                justify-items: start;
-                justify-content: start;
+                justify-items: center;
+                justify-content: center;
                 gap: 16px;
             }
 
             .puzzle-container {
                 order: 0;
-                align-items: flex-start;
+                align-items: center;
             }
 
             .sidebar {
@@ -1602,8 +1602,8 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
 
             .word-search {
                 max-height: none;
-                justify-content: flex-start;
-                align-content: flex-start;
+                justify-content: center;
+                align-content: center;
                 margin: 0;
             }
         }
