@@ -1534,6 +1534,7 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
                 font-size: 0.9rem;
                 padding: 10px;
                 border-radius: 14px;
+                text-align: center;
             }
 
             .button-group {

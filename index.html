@@ -1194,6 +1194,14 @@
             text-shadow: 0 0 15px rgba(138, 43, 226, 0.8);
         }
 
+        #contact-content {
+            padding-top: 0;
+        }
+
+        #contact-content .kids-tile:first-child {
+            margin-top: 0;
+        }
+
         .rse-hero-video {
             width: min(180px, 50vw);
             height: auto;
@@ -8811,15 +8819,10 @@ restoreChallengeState();
                 });
             };
 
+            let emailExists = null;
             checkEmailExists()
                 .then((exists) => {
-                    if (exists === false) {
-                        if (messageBox) {
-                            messageBox.style.color = '#ff69b4';
-                            messageBox.textContent = 'Email not found.';
-                        }
-                        return null;
-                    }
+                    emailExists = exists;
                     return sendRequest();
                 })
                 .then(async (response) => {
@@ -8841,14 +8844,18 @@ restoreChallengeState();
                     if (!response.ok) {
                         if (messageBox) {
                             messageBox.style.color = '#ff69b4';
-                            messageBox.textContent = notFound ? 'Email not found.' : (data?.error || 'Unable to unsubscribe.');
+                            messageBox.textContent = (notFound || emailExists === false)
+                                ? 'Email not found.'
+                                : (data?.error || 'Unable to unsubscribe.');
                         }
                         return;
                     }
                     if (!data?.success) {
                         if (messageBox) {
                             messageBox.style.color = '#ff69b4';
-                            messageBox.textContent = notFound ? 'Email not found.' : (data?.error || 'Unable to unsubscribe.');
+                            messageBox.textContent = (notFound || emailExists === false)
+                                ? 'Email not found.'
+                                : (data?.error || 'Unable to unsubscribe.');
                         }
                         return;
                     }
