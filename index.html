@@ -1194,29 +1194,49 @@
             text-shadow: 0 0 15px rgba(138, 43, 226, 0.8);
         }
 
-        .tab-title-row {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 10px 0 18px;
+        .rse-hero-video {
+            width: min(720px, 92vw);
+            height: auto;
+            border-radius: 18px;
+            box-shadow: 0 0 28px rgba(255, 215, 0, 0.5);
+            margin: 6px auto 24px;
+            display: block;
+        }
+
+        .rse-callout {
+            margin-top: 20px;
             text-align: center;
         }
 
-        .tab-title-row h2 {
-            margin: 0;
-            font-size: clamp(1.6rem, 3vw, 2.2rem);
+        .rse-callout-title {
+            font-size: clamp(1.1rem, 2.4vw, 1.6rem);
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
             color: #ffd700;
-            text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
-            letter-spacing: 1px;
+            text-shadow: 0 0 14px rgba(255, 215, 0, 0.7);
         }
 
-        .rse-header-video {
-            height: clamp(48px, 6vw, 80px);
+        .rse-callout-title span {
+            color: #8A2BE2;
+            text-shadow: 0 0 14px rgba(138, 43, 226, 0.7);
+        }
+
+        .rse-callout-frame {
+            display: inline-block;
+            padding: 10px;
+            border-radius: 16px;
+            border: 3px solid #ffd700;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.55), 0 0 32px rgba(138, 43, 226, 0.35);
+            background: rgba(0, 0, 0, 0.85);
+        }
+
+        .rse-callout-video {
+            height: clamp(120px, 24vw, 180px);
             width: auto;
-            border-radius: 12px;
-            box-shadow: 0 0 22px rgba(255, 215, 0, 0.5);
-            margin: 8px auto 18px;
             display: block;
+            border-radius: 10px;
         }
 
         /* Elegant Christmas Floating Box - Dark Sophisticated Design */
@@ -1865,9 +1885,7 @@
  <body><!-- Golden sparkles -->
   <div class="sparkles" id="sparkles"></div><!-- Main content -->
   <div class="container">
-   <h1 class="main-title">RISE.SHINE.EVOLVE</h1>
-   <p class="subtitle">Empowering Learning Hub</p>
-   <video class="rse-header-video" autoplay loop muted playsinline aria-label="Rise Shine Evolve intro">
+   <video class="rse-hero-video" autoplay loop muted playsinline aria-label="Rise Shine Evolve intro">
     <source src="assets/videos/final.mp4" type="video/mp4">
     <source src="https://raw.githubusercontent.com/riseshineevolve-source/RISE.SHINE.EVOLVE/main/assets/videos/final.mp4" type="video/mp4">
    </video>
@@ -1948,12 +1966,14 @@
      </div>
      <div class="kids-tile" style="margin-top: 20px;">
       <div class="kids-text">
-       It is time to <span class="word-rise">RISE</span>.<span class="word-shine">SHINE</span>.<span class="word-evolve">EVOLVE</span>
-       <div class="rse-footer-video-wrap">
-        <video class="rse-footer-video" autoplay loop muted playsinline aria-label="Rise Shine Evolve outro">
-         <source src="assets/videos/rse video.mp4" type="video/mp4">
-         <source src="https://raw.githubusercontent.com/riseshineevolve-source/RISE.SHINE.EVOLVE/main/assets/videos/rse%20video.mp4" type="video/mp4">
-        </video>
+       <div class="rse-callout">
+        <div class="rse-callout-title">IT IS TIME TO <span>✨</span></div>
+        <div class="rse-callout-frame">
+         <video class="rse-callout-video" autoplay loop muted playsinline aria-label="Rise Shine Evolve outro">
+          <source src="assets/videos/rse video.mp4" type="video/mp4">
+          <source src="https://raw.githubusercontent.com/riseshineevolve-source/RISE.SHINE.EVOLVE/main/assets/videos/rse%20video.mp4" type="video/mp4">
+         </video>
+        </div>
        </div>
       </div>
      </div>
@@ -2269,12 +2289,14 @@
       </div>
       <div class="kids-tile" style="margin-top: 20px;">
        <div class="kids-text">
-        It is time to <span class="word-rise">RISE</span>.<span class="word-shine">SHINE</span>.<span class="word-evolve">EVOLVE</span>
-        <div class="rse-footer-video-wrap">
-         <video class="rse-footer-video" autoplay loop muted playsinline aria-label="Rise Shine Evolve outro">
-          <source src="assets/videos/rse video.mp4" type="video/mp4">
-          <source src="https://raw.githubusercontent.com/riseshineevolve-source/RISE.SHINE.EVOLVE/main/assets/videos/rse%20video.mp4" type="video/mp4">
-         </video>
+        <div class="rse-callout">
+         <div class="rse-callout-title">IT IS TIME TO <span>✨</span></div>
+         <div class="rse-callout-frame">
+          <video class="rse-callout-video" autoplay loop muted playsinline aria-label="Rise Shine Evolve outro">
+           <source src="assets/videos/rse video.mp4" type="video/mp4">
+           <source src="https://raw.githubusercontent.com/riseshineevolve-source/RISE.SHINE.EVOLVE/main/assets/videos/rse%20video.mp4" type="video/mp4">
+          </video>
+         </div>
         </div>
        </div>
       </div>
@@ -2299,12 +2321,14 @@
      </div>
      <div class="kids-tile" style="margin-top: 20px;">
       <div class="kids-text">
-       It is time to <span class="word-rise">RISE</span>.<span class="word-shine">SHINE</span>.<span class="word-evolve">EVOLVE</span>
-       <div class="rse-footer-video-wrap">
-        <video class="rse-footer-video" autoplay loop muted playsinline aria-label="Rise Shine Evolve outro">
-         <source src="assets/videos/rse video.mp4" type="video/mp4">
-         <source src="https://raw.githubusercontent.com/riseshineevolve-source/RISE.SHINE.EVOLVE/main/assets/videos/rse%20video.mp4" type="video/mp4">
-        </video>
+       <div class="rse-callout">
+        <div class="rse-callout-title">IT IS TIME TO <span>✨</span></div>
+        <div class="rse-callout-frame">
+         <video class="rse-callout-video" autoplay loop muted playsinline aria-label="Rise Shine Evolve outro">
+          <source src="assets/videos/rse video.mp4" type="video/mp4">
+          <source src="https://raw.githubusercontent.com/riseshineevolve-source/RISE.SHINE.EVOLVE/main/assets/videos/rse%20video.mp4" type="video/mp4">
+         </video>
+        </div>
        </div>
       </div>
      </div>
@@ -2327,12 +2351,14 @@
      </div>
      <div class="kids-tile" style="margin-top: 20px;">
       <div class="kids-text">
-       It is time to <span class="word-rise">RISE</span>.<span class="word-shine">SHINE</span>.<span class="word-evolve">EVOLVE</span>
-       <div class="rse-footer-video-wrap">
-        <video class="rse-footer-video" autoplay loop muted playsinline aria-label="Rise Shine Evolve outro">
-         <source src="assets/videos/rse video.mp4" type="video/mp4">
-         <source src="https://raw.githubusercontent.com/riseshineevolve-source/RISE.SHINE.EVOLVE/main/assets/videos/rse%20video.mp4" type="video/mp4">
-        </video>
+       <div class="rse-callout">
+        <div class="rse-callout-title">IT IS TIME TO <span>✨</span></div>
+        <div class="rse-callout-frame">
+         <video class="rse-callout-video" autoplay loop muted playsinline aria-label="Rise Shine Evolve outro">
+          <source src="assets/videos/rse video.mp4" type="video/mp4">
+          <source src="https://raw.githubusercontent.com/riseshineevolve-source/RISE.SHINE.EVOLVE/main/assets/videos/rse%20video.mp4" type="video/mp4">
+         </video>
+        </div>
        </div>
       </div>
      </div>
@@ -2492,7 +2518,16 @@
      </div>
     <div class="kids-tile" style="margin-top: 20px;">
      <div class="kids-text">
-      It is time to <span class="word-rise">RISE</span>.<span class="word-shine">SHINE</span>.<span class="word-evolve">EVOLVE</span>
+      <div class="rse-callout">
+       <div class="rse-callout-title">IT IS TIME TO <span>✨</span></div>
+       <div class="rse-callout-frame">
+        <video class="rse-callout-video" autoplay loop muted playsinline aria-label="Rise Shine Evolve outro">
+         <source src="assets/videos/rse video.mp4" type="video/mp4">
+         <source src="https://raw.githubusercontent.com/riseshineevolve-source/RISE.SHINE.EVOLVE/main/assets/videos/rse%20video.mp4" type="video/mp4">
+        </video>
+       </div>
+      </div>
+     </div>
      </div>
     </div>
     </div>
@@ -2543,12 +2578,14 @@
 
             <div class="kids-tile" style="padding: 12px 18px; max-width: 400px; width: 100%;">
                 <div class="kids-text">
-                    It is time to <span class="word-rise">RISE</span>.<span class="word-shine">SHINE</span>.<span class="word-evolve">EVOLVE</span>
-                    <div class="rse-footer-video-wrap">
-                        <video class="rse-footer-video" autoplay loop muted playsinline aria-label="Rise Shine Evolve outro">
-                            <source src="assets/videos/rse video.mp4" type="video/mp4">
-                            <source src="https://raw.githubusercontent.com/riseshineevolve-source/RISE.SHINE.EVOLVE/main/assets/videos/rse%20video.mp4" type="video/mp4">
-                        </video>
+                    <div class="rse-callout">
+                        <div class="rse-callout-title">IT IS TIME TO <span>✨</span></div>
+                        <div class="rse-callout-frame">
+                            <video class="rse-callout-video" autoplay loop muted playsinline aria-label="Rise Shine Evolve outro">
+                                <source src="assets/videos/rse video.mp4" type="video/mp4">
+                                <source src="https://raw.githubusercontent.com/riseshineevolve-source/RISE.SHINE.EVOLVE/main/assets/videos/rse%20video.mp4" type="video/mp4">
+                            </video>
+                        </div>
                     </div>
                 </div>
             </div>
