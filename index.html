@@ -1194,6 +1194,15 @@
             text-shadow: 0 0 15px rgba(138, 43, 226, 0.8);
         }
 
+        .rse-hero-video {
+            width: min(260px, 70vw);
+            height: auto;
+            border-radius: 16px;
+            box-shadow: 0 0 24px rgba(255, 215, 0, 0.45);
+            margin: 6px auto 18px;
+            display: block;
+        }
+
         /* Elegant Christmas Floating Box - Dark Sophisticated Design */
         .elegant-christmas-box {
             position: fixed;
@@ -1840,8 +1849,10 @@
  <body><!-- Golden sparkles -->
   <div class="sparkles" id="sparkles"></div><!-- Main content -->
   <div class="container">
-   <h1 class="main-title">RISE.SHINE.EVOLVE</h1>
-   <p class="subtitle">Empowering Learning Hub</p>
+   <video class="rse-hero-video" autoplay loop muted playsinline aria-label="Rise Shine Evolve intro">
+    <source src="assets/videos/final.mp4" type="video/mp4">
+    <source src="https://raw.githubusercontent.com/riseshineevolve-source/RISE.SHINE.EVOLVE/main/assets/videos/final.mp4" type="video/mp4">
+   </video>
   <div id="auth-action-chip">
     <span id="auth-action-label" style="display: none;">Log in as</span>
     <button type="button" id="auth-action-button">Log In</button>
@@ -2419,10 +2430,10 @@
        </div>
       </div>
      </div>
-     <div class="kids-tile" style="margin-top: 20px;">
-      <div class="kids-text">
-       It is time to <span class="word-rise">RISE</span>.<span class="word-shine">SHINE</span>.<span class="word-evolve">EVOLVE</span>
-      </div>
+    <div class="kids-tile" style="margin-top: 20px;">
+     <div class="kids-text">
+      It is time to <span class="word-rise">RISE</span>.<span class="word-shine">SHINE</span>.<span class="word-evolve">EVOLVE</span>
+     </div>
      </div>
     </div>
     <div id="contact-content" class="tab-content">
@@ -3538,6 +3549,19 @@
     @media (max-width: 860px) {
       .hm-panel-inner {
         grid-template-columns: minmax(0, 1fr);
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+      }
+
+      .hm-wheel-box {
+        order: 1;
+      }
+
+      .hm-text-column {
+        order: 2;
+        margin: 0 auto;
+        max-width: 100%;
       }
     }
 
@@ -5123,6 +5147,7 @@
 
     
     const VIDEO_BASE = "/assets/videos/";
+    const VIDEO_BASE_REMOTE = "https://raw.githubusercontent.com/riseshineevolve-source/RISE.SHINE.EVOLVE/main/assets/videos/";
 
     const DANCE_VIDEO_MAP = {
       Mimi: ["Mimi tanczy.mp4", "Mimi tanczy 1.mp4"],
@@ -5144,6 +5169,10 @@
 
     function toSrc(filename){
       return VIDEO_BASE + encodeURIComponent(filename).replace(/%2F/g, "/");
+    }
+
+    function toRemoteSrc(filename) {
+      return VIDEO_BASE_REMOTE + encodeURIComponent(filename).replace(/%2F/g, "/");
     }
 
     function addTapListener(element, handler) {
@@ -5173,7 +5202,8 @@
 
           const map = isEnergy ? DANCE_VIDEO_MAP : CALM_VIDEO_MAP;
           const files = normalizeVideoList(map[character]);
-          if (!files.length) {
+          const sourceList = files.flatMap((file) => [toSrc(file), toRemoteSrc(file)]);
+          if (!sourceList.length) {
             video.removeAttribute('src');
             video.style.display = 'none';
             fallback.style.display = 'flex';
@@ -5189,16 +5219,16 @@
       video.setAttribute('webkit-playsinline', '');
       video.setAttribute('autoplay', '');
       video.setAttribute('preload', 'auto');
-      fallback.style.display = 'flex';
-      video.style.display = 'none';
+      fallback.style.display = 'none';
+      video.style.display = 'block';
           let index = 0;
           const tryNext = () => {
-            if (index >= files.length) {
+            if (index >= sourceList.length) {
               video.style.display = 'none';
               fallback.style.display = 'flex';
               return;
             }
-            video.src = toSrc(files[index]);
+            video.src = sourceList[index];
             index += 1;
             video.load();
             const p = video.play();
@@ -5216,6 +5246,70 @@
             tryNext();
           };
         }
+
+    const CALM_ENERGY_STATE_KEY = 'hmCalmEnergyState';
+    const CALM_ENERGY_STATE_MAX_AGE = 1000 * 60 * 60 * 24;
+
+    function saveCalmEnergyState() {
+      const calmResult = document.getElementById('calm-result');
+      const energyResult = document.getElementById('energy-result');
+      const calmFilter = document.querySelector('#calm-filters .hm-filter-btn.hm-active')?.getAttribute('data-filter') || 'all';
+      const energyFilter = document.querySelector('#energy-filters .hm-filter-btn.hm-active')?.getAttribute('data-filter') || 'all';
+      const activeTab = document.querySelector('.hm-tab-btn.hm-active')?.id === 'hm-tab-energy' ? 'energy' : 'calm';
+      const calmRotation = document.getElementById('calm-wheel-visual')?.style.getPropertyValue('--wheel-rotation') || '';
+      const energyRotation = document.getElementById('energy-wheel-visual')?.style.getPropertyValue('--wheel-rotation') || '';
+      const state = {
+        activeTab,
+        calmResult: calmResult?.innerHTML || '',
+        energyResult: energyResult?.innerHTML || '',
+        calmFilter,
+        energyFilter,
+        calmRotation,
+        energyRotation,
+        timestamp: Date.now()
+      };
+      sessionStorage.setItem(CALM_ENERGY_STATE_KEY, JSON.stringify(state));
+    }
+
+    function restoreCalmEnergyState() {
+      const raw = sessionStorage.getItem(CALM_ENERGY_STATE_KEY);
+      if (!raw) return false;
+      let state;
+      try {
+        state = JSON.parse(raw);
+      } catch (error) {
+        return false;
+      }
+      if (state.timestamp && Date.now() - state.timestamp > CALM_ENERGY_STATE_MAX_AGE) {
+        return false;
+      }
+      const calmResult = document.getElementById('calm-result');
+      const energyResult = document.getElementById('energy-result');
+      if (calmResult && state.calmResult) calmResult.innerHTML = state.calmResult;
+      if (energyResult && state.energyResult) energyResult.innerHTML = state.energyResult;
+      const calmRotation = document.getElementById('calm-wheel-visual');
+      const energyRotation = document.getElementById('energy-wheel-visual');
+      if (calmRotation && state.calmRotation) {
+        calmRotation.style.setProperty('--wheel-rotation', state.calmRotation);
+      }
+      if (energyRotation && state.energyRotation) {
+        energyRotation.style.setProperty('--wheel-rotation', state.energyRotation);
+      }
+      if (state.calmFilter) {
+        const calmBtn = document.querySelector(`#calm-filters [data-filter="${state.calmFilter}"]`);
+        if (calmBtn) calmBtn.click();
+      }
+      if (state.energyFilter) {
+        const energyBtn = document.querySelector(`#energy-filters [data-filter="${state.energyFilter}"]`);
+        if (energyBtn) energyBtn.click();
+      }
+      if (state.activeTab === 'energy') {
+        activateTab('energy');
+      } else {
+        activateTab('calm');
+      }
+      return true;
+    }
 
 /* ---------- WHEEL LOGIC ---------- */
 
@@ -5416,6 +5510,7 @@
 
           spinBtn.textContent =
             theme === "energy" ? "⚡ Start spinning" : "🎡 Start spinning";
+          saveCalmEnergyState();
         }
       }
 
@@ -5435,6 +5530,7 @@
                 : "Filter updated. Spin the Calm Wheel to see your next practice."
             }</div>`;
           }
+          saveCalmEnergyState();
         });
       });
     }
@@ -5489,6 +5585,14 @@ setupWheel({
 
     addTapListener(calmTabBtn, () => activateTab("calm"));
     addTapListener(energyTabBtn, () => activateTab("energy"));
+
+    window.addEventListener('pagehide', saveCalmEnergyState);
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'hidden') {
+        saveCalmEnergyState();
+      }
+    });
+    restoreCalmEnergyState();
 
     tabIndicator.style.transform = "translateX(0%)";
   </script>
@@ -6035,6 +6139,7 @@ function getAvatarHTML(character) {
 
 
 const VIDEO_BASE = "/assets/videos/";
+const VIDEO_BASE_REMOTE = "https://raw.githubusercontent.com/riseshineevolve-source/RISE.SHINE.EVOLVE/main/assets/videos/";
 
 const CALM_VIDEO_MAP = {
   Mimi: "Mimi calm.mp4",
@@ -6050,6 +6155,10 @@ function toSrc(filename){
   return VIDEO_BASE + encodeURIComponent(filename).replace(/%2F/g, "/");
 }
 
+function toRemoteSrc(filename){
+  return VIDEO_BASE_REMOTE + encodeURIComponent(filename).replace(/%2F/g, "/");
+}
+
 function setAvatar(character){
   const video = document.getElementById('hm-avatar-video');
   const fallback = document.getElementById('hm-avatar-fallback');
@@ -6062,6 +6171,7 @@ function setAvatar(character){
     fallback.innerHTML = getAvatarHTML(character);
     return;
   }
+  const sourceList = [toSrc(file), toRemoteSrc(file)];
 
   video.muted = true;
   video.playsInline = true;
@@ -6072,14 +6182,23 @@ function setAvatar(character){
   video.setAttribute('webkit-playsinline', '');
   video.setAttribute('autoplay', '');
   video.setAttribute('preload', 'auto');
-  fallback.style.display = 'flex';
+  fallback.style.display = 'none';
   video.style.display = 'block';
-  video.src = toSrc(file);
-
-  // If a browser blocks autoplay, it's still fine (muted + playsinline usually works)
-  video.load();
-  const playPromise = video.play();
-  if (playPromise && typeof playPromise.catch === 'function') playPromise.catch(()=>{});
+  let index = 0;
+  const tryNext = () => {
+    if (index >= sourceList.length) {
+      video.style.display = 'none';
+      fallback.style.display = 'flex';
+      fallback.innerHTML = getAvatarHTML(character);
+      return;
+    }
+    video.src = sourceList[index];
+    index += 1;
+    video.load();
+    const playPromise = video.play();
+    if (playPromise && typeof playPromise.catch === 'function') playPromise.catch(()=>{});
+  };
+  tryNext();
 
   const hideFallback = () => {
     fallback.style.display = 'none';
@@ -6087,9 +6206,7 @@ function setAvatar(character){
   video.onloadeddata = hideFallback;
   video.onloadedmetadata = hideFallback;
   video.onerror = () => {
-    video.style.display = 'none';
-    fallback.style.display = 'flex';
-    fallback.innerHTML = getAvatarHTML(character);
+    tryNext();
   };
 }
 
@@ -6098,6 +6215,9 @@ let remaining = [...challenges];
 let lastCharacter = null;
 let characterQueue = [];
 let challengesByCharacter = new Map();
+let currentChallenge = null;
+const ONE_MINUTE_STATE_KEY = 'hmOneMinuteState';
+const ONE_MINUTE_STATE_MAX_AGE = 1000 * 60 * 60 * 24;
 
 function shuffleArray(list) {
   const arr = [...list];
@@ -6166,6 +6286,7 @@ function pickChallenge() {
 resetChallengePools();
 
 function renderChallenge(c){
+  currentChallenge = c;
   setAvatar(c.character);
   document.getElementById('hm-avatar-fallback').innerHTML = getAvatarHTML(c.character);
   document.getElementById('challenge-title').textContent = c.title;
@@ -6174,6 +6295,37 @@ function renderChallenge(c){
   document.getElementById('challenge-comment').textContent = c.comment;
   document.getElementById('challenge-category').textContent = c.category;
   document.getElementById('hm-category-icon').textContent = categoryIcons[Math.floor(Math.random()*categoryIcons.length)];
+  saveChallengeState();
+}
+
+function saveChallengeState() {
+  if (!currentChallenge) return;
+  const card = document.getElementById('result-card');
+  const state = {
+    challenge: currentChallenge,
+    cardVisible: card?.classList.contains('show') || false,
+    timestamp: Date.now()
+  };
+  sessionStorage.setItem(ONE_MINUTE_STATE_KEY, JSON.stringify(state));
+}
+
+function restoreChallengeState() {
+  const raw = sessionStorage.getItem(ONE_MINUTE_STATE_KEY);
+  if (!raw) return false;
+  let state;
+  try {
+    state = JSON.parse(raw);
+  } catch (error) {
+    return false;
+  }
+  if (!state?.challenge) return false;
+  if (state.timestamp && Date.now() - state.timestamp > ONE_MINUTE_STATE_MAX_AGE) return false;
+  renderChallenge(state.challenge);
+  const card = document.getElementById('result-card');
+  if (card && state.cardVisible) {
+    card.classList.add('show');
+  }
+  return true;
 }
 
 function generateChallenge(){
@@ -6190,6 +6342,13 @@ function generateChallenge(){
 }
 
 document.getElementById('hm-generate-btn').addEventListener('click', generateChallenge);
+window.addEventListener('pagehide', saveChallengeState);
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'hidden') {
+    saveChallengeState();
+  }
+});
+restoreChallengeState();
 </script>
 </body>
 </html>
@@ -6201,7 +6360,7 @@ document.getElementById('hm-generate-btn').addEventListener('click', generateCha
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The Happy Makers Word Search</title>
+  <title>Happy Makers Word Hunt</title>
   <style>
     :root {
       --purple: #8A2BE2;
@@ -6262,6 +6421,7 @@ document.getElementById('hm-generate-btn').addEventListener('click', generateCha
       border-radius: 16px;
       padding: 10px;
       box-shadow: inset 0 0 18px rgba(255,215,0,0.25);
+      overflow: visible;
     }
     .puzzle-meta {
       display: flex;
@@ -6279,6 +6439,12 @@ document.getElementById('hm-generate-btn').addEventListener('click', generateCha
       width: 100%;
       border-collapse: collapse;
       table-layout: fixed;
+      transition: transform 0.2s ease;
+      transform-origin: var(--zoom-origin-x, 50%) var(--zoom-origin-y, 50%);
+    }
+    .word-grid.zoomed {
+      transform: scale(1.25);
+      box-shadow: 0 0 18px rgba(138, 43, 226, 0.35);
     }
     .word-grid td {
       border: 1px solid rgba(255,215,0,0.35);
@@ -6445,6 +6611,9 @@ document.getElementById('hm-generate-btn').addEventListener('click', generateCha
 
     @media (max-width: 900px) {
       .layout { grid-template-columns: 1fr; }
+      .word-grid.zoomed {
+        transform: scale(1.35);
+      }
     }
     @media (max-width: 720px) {
       body {
@@ -6526,7 +6695,7 @@ document.getElementById('hm-generate-btn').addEventListener('click', generateCha
 </head>
 <body>
   <div class="shell">
-    <h1>Happy Makers Word Search</h1>
+    <h1>Happy Makers Word Hunt</h1>
     <div class="layout">
       <div class="grid-shell">
         <div class="instructions">
@@ -6562,7 +6731,7 @@ document.getElementById('hm-generate-btn').addEventListener('click', generateCha
     const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     const gridSize = 12;
     const puzzleSets = [
-      { title: 'Happy Makers Word Search', words: ['RISE','SHINE','EVOLVE','GOLD','PURPLE','SPARK','BRIGHT','ENERGY','CALM','JOY','GLOW','GIFT'] },
+      { title: 'Happy Makers Word Hunt', words: ['RISE','SHINE','EVOLVE','GOLD','PURPLE','SPARK','BRIGHT','ENERGY','CALM','JOY','GLOW','GIFT'] },
       { title: 'Happy Makers Crew', words: ['MIMI','LULI','DILO','ALIO','NINI','BIBI','MOTHER','FATHER','FAMILY','CREW','LOVE','SMILE'] },
       { title: 'Maker Magic', words: ['HAPPY','MAKERS','MAGIC','PLAY','CREATE','COLOR','LAUGH','HEART','BRAVE','BOLD','KIND','SPIRIT'] },
       { title: 'Adventure Sparks', words: ['TRAVEL','PUZZLE','QUEST','STUDIO','IDEAS','WORDS','HEROES','STARS','MOON','SUN','DREAM','GLOW'] },
@@ -6574,6 +6743,9 @@ document.getElementById('hm-generate-btn').addEventListener('click', generateCha
     let words = [];
     let foundWords = new Set();
     let startCell = null;
+    let foundCells = [];
+    const WORD_HUNT_STATE_KEY = 'hmWordHuntState';
+    const WORD_HUNT_STATE_MAX_AGE = 1000 * 60 * 60 * 24;
 
     const directions = [
       [0, 1], [1, 0], [0, -1], [-1, 0],
@@ -6665,9 +6837,75 @@ document.getElementById('hm-generate-btn').addEventListener('click', generateCha
       }
     }
 
+    function saveState() {
+      if (!grid.length || !words.length) return;
+      const state = {
+        activePuzzleIndex,
+        grid,
+        words,
+        foundWords: Array.from(foundWords),
+        foundCells,
+        timestamp: Date.now()
+      };
+      sessionStorage.setItem(WORD_HUNT_STATE_KEY, JSON.stringify(state));
+    }
+
+    function restoreState() {
+      const raw = sessionStorage.getItem(WORD_HUNT_STATE_KEY);
+      if (!raw) return false;
+      let state;
+      try {
+        state = JSON.parse(raw);
+      } catch (error) {
+        return false;
+      }
+      if (!state?.grid?.length || !state?.words?.length) return false;
+      if (state.timestamp && Date.now() - state.timestamp > WORD_HUNT_STATE_MAX_AGE) return false;
+      activePuzzleIndex = state.activePuzzleIndex ?? 0;
+      grid = state.grid;
+      words = state.words;
+      foundWords = new Set(state.foundWords || []);
+      foundCells = state.foundCells || [];
+      renderGrid();
+      renderWords();
+      const foundCellSet = new Set(foundCells.map(cell => `${cell.r},${cell.c}`));
+      foundCellSet.forEach((key) => {
+        const [r, c] = key.split(',').map(Number);
+        const cell = document.querySelector(`td[data-row="${r}"][data-col="${c}"]`);
+        if (cell) cell.classList.add('found');
+      });
+      foundWords.forEach((word) => {
+        const chip = document.getElementById(`word-${word}`);
+        if (chip) chip.classList.add('found');
+      });
+      updateStatus();
+      return true;
+    }
+
     function clearSelections() {
       document.querySelectorAll('.word-grid td.selected').forEach(td => td.classList.remove('selected'));
       startCell = null;
+      clearZoom();
+    }
+
+    function zoomToCell(cell) {
+      const table = document.getElementById('wordGrid');
+      if (!table || !cell) return;
+      const tableRect = table.getBoundingClientRect();
+      const cellRect = cell.getBoundingClientRect();
+      const originX = ((cellRect.left + cellRect.width / 2 - tableRect.left) / tableRect.width) * 100;
+      const originY = ((cellRect.top + cellRect.height / 2 - tableRect.top) / tableRect.height) * 100;
+      table.style.setProperty('--zoom-origin-x', `${originX}%`);
+      table.style.setProperty('--zoom-origin-y', `${originY}%`);
+      table.classList.add('zoomed');
+    }
+
+    function clearZoom() {
+      const table = document.getElementById('wordGrid');
+      if (!table) return;
+      table.classList.remove('zoomed');
+      table.style.removeProperty('--zoom-origin-x');
+      table.style.removeProperty('--zoom-origin-y');
     }
 
     function buildPath(r1, c1, r2, c2) {
@@ -6712,6 +6950,7 @@ document.getElementById('hm-generate-btn').addEventListener('click', generateCha
     function clearHints() {
       document.querySelectorAll('.word-grid td.hint').forEach(td => td.classList.remove('hint'));
       document.querySelectorAll('.word-chip.hint').forEach(chip => chip.classList.remove('hint'));
+      clearZoom();
     }
 
     function showHint() {
@@ -6724,7 +6963,10 @@ document.getElementById('hm-generate-btn').addEventListener('click', generateCha
       const hintCell = result.reversed ? result.path[result.path.length - 1] : result.path[0];
       if (hintCell) {
         const cell = document.querySelector(`td[data-row="${hintCell.r}"][data-col="${hintCell.c}"]`);
-        if (cell) cell.classList.add('hint');
+        if (cell) {
+          cell.classList.add('hint');
+          zoomToCell(cell);
+        }
       }
       const chip = document.getElementById(`word-${target}`);
       if (chip) chip.classList.add('hint');
@@ -6738,6 +6980,15 @@ document.getElementById('hm-generate-btn').addEventListener('click', generateCha
           cell.classList.remove('selected');
         }
       });
+      const existing = new Set(foundCells.map(cell => `${cell.r},${cell.c}`));
+      pathCells.forEach(({ r, c }) => {
+        const key = `${r},${c}`;
+        if (!existing.has(key)) {
+          foundCells.push({ r, c });
+          existing.add(key);
+        }
+      });
+      clearZoom();
       foundWords.add(word);
       const chip = document.getElementById(`word-${word}`);
       if (chip) {
@@ -6746,6 +6997,7 @@ document.getElementById('hm-generate-btn').addEventListener('click', generateCha
       }
       clearHints();
       updateStatus();
+      saveState();
       if (foundWords.size === words.length) {
         celebrate();
       }
@@ -6759,6 +7011,7 @@ document.getElementById('hm-generate-btn').addEventListener('click', generateCha
       if (!startCell) {
         startCell = { r, c };
         cell.classList.add('selected');
+        zoomToCell(cell);
         return;
       }
 
@@ -6828,13 +7081,16 @@ document.getElementById('hm-generate-btn').addEventListener('click', generateCha
       activePuzzleIndex = ((index % puzzleSets.length) + puzzleSets.length) % puzzleSets.length;
       words = puzzleSets[activePuzzleIndex].words.map(w => w.replace(/\s+/g, '').toUpperCase());
       foundWords = new Set();
+      foundCells = [];
       startCell = null;
       clearHints();
+      clearZoom();
       grid = buildGrid(words);
       renderGrid();
       renderWords();
       updateStatus();
       hideCelebration();
+      saveState();
     }
 
     function loadNextPuzzle() {
@@ -6845,7 +7101,16 @@ document.getElementById('hm-generate-btn').addEventListener('click', generateCha
     document.getElementById('playAgainBtn').addEventListener('click', loadNextPuzzle);
     document.getElementById('hintBtn').addEventListener('click', showHint);
 
-    loadPuzzle(0);
+    window.addEventListener('pagehide', saveState);
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'hidden') {
+        saveState();
+      }
+    });
+
+    if (!restoreState()) {
+      loadPuzzle(0);
+    }
   </script>
   </template>
 
@@ -6974,9 +7239,7 @@ document.getElementById('hm-generate-btn').addEventListener('click', generateCha
         }
 
         function isGiftMobileViewport() {
-            return window.matchMedia
-                && (window.matchMedia('(max-width: 900px)').matches
-                    || window.matchMedia('(pointer: coarse)').matches);
+            return window.matchMedia && window.matchMedia('(max-width: 900px)').matches;
         }
 
         async function checkUser() {
@@ -7305,14 +7568,21 @@ document.getElementById('hm-generate-btn').addEventListener('click', generateCha
             ['calm', 'energy'].forEach((mode) => {
                 const panel = document.getElementById(`${mode}-panel`);
                 if (!panel) return;
+                const panelInner = panel.querySelector('.hm-panel-inner');
                 const wheelBox = panel.querySelector('.hm-wheel-box');
                 const infoBar = panel.querySelector('.hm-info-bar');
                 const resultBox = panel.querySelector('.hm-result-box');
-                if (wheelBox && resultBox && !wheelBox.contains(resultBox)) {
-                    wheelBox.appendChild(resultBox);
+                const textColumn = panel.querySelector('.hm-text-column');
+                if (textColumn) {
+                    if (resultBox && !textColumn.contains(resultBox)) {
+                        textColumn.appendChild(resultBox);
+                    }
+                    if (infoBar && !textColumn.contains(infoBar)) {
+                        textColumn.appendChild(infoBar);
+                    }
                 }
-                if (wheelBox && infoBar && !wheelBox.contains(infoBar)) {
-                    wheelBox.appendChild(infoBar);
+                if (panelInner && wheelBox && textColumn && wheelBox.nextElementSibling !== textColumn) {
+                    panelInner.insertBefore(textColumn, wheelBox.nextElementSibling);
                 }
                 if (wheelBox) {
                     wheelBox.style.textAlign = 'center';
@@ -7586,7 +7856,7 @@ document.getElementById('hm-generate-btn').addEventListener('click', generateCha
         // Tab functionality
         function showTabContent(tabElement, tabName, options = {}) {
             const { skipHistory = false } = options;
-            if (typeof closeGiftOverlay === 'function' && giftOverlayOpen) {
+            if (typeof closeGiftOverlay === 'function' && giftOverlayOpen && isGiftMobileViewport()) {
                 closeGiftOverlay(true);
             }
 
@@ -8189,7 +8459,9 @@ document.getElementById('hm-generate-btn').addEventListener('click', generateCha
             document.getElementById('full-screen-book-details').style.display = 'none';
             document.querySelector('.container').style.display = 'block';
             if (!fromHistory && history.state && history.state.modal === 'book') {
-                history.back();
+                const activeTab = document.querySelector('.tab.active');
+                const tabName = activeTab?.dataset?.tab || 'main';
+                history.replaceState({ tab: tabName }, '', `#${tabName}`);
             }
         }
 
@@ -8857,11 +9129,8 @@ document.getElementById('hm-generate-btn').addEventListener('click', generateCha
             }
 
             if (giftOverlayOpen && history.state && history.state.giftOverlay && !fromHistory) {
-                const activeTab = document.querySelector('.tab.active');
-                const tabName = activeTab?.dataset?.tab || 'main';
-                giftOverlayOpen = false;
-                history.back();
-                return;
+                const originTab = giftOverlayOriginTab || 'gifts';
+                history.replaceState({ tab: originTab }, '', `#${originTab}`);
             }
             giftOverlayOpen = false;
             const originTab = giftOverlayOriginTab || 'gifts';
@@ -8922,6 +9191,15 @@ document.getElementById('hm-generate-btn').addEventListener('click', generateCha
                     selectTab(tabElement, event.state.tab, { skipHistory: true });
                     return;
                 }
+            }
+
+            if (!event.state) {
+                const mainTab = getTabElement('main');
+                if (mainTab) {
+                    selectTab(mainTab, 'main', { skipHistory: true });
+                    history.pushState({ tab: 'main', base: true }, '', '#main');
+                }
+                return;
             }
 
             const activeTab = document.querySelector('.tab.active');
