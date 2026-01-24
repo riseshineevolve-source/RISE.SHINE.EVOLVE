@@ -1459,12 +1459,12 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
                 display: flex;
                 flex-direction: column;
                 gap: 20px;
-                align-items: center;
+                align-items: flex-start;
             }
             
             .puzzle-container {
                 order: 1;
-                align-items: center;
+                align-items: flex-start;
             }
             
             .sidebar {
@@ -1478,7 +1478,8 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
             }
 
             .controls {
-                align-items: stretch;
+                align-items: center;
+                text-align: center;
             }
 
             .control-row {
@@ -1546,7 +1547,7 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
             }
 
             .word-search-instruction {
-                text-align: center;
+                text-align: left;
             }
         }
 

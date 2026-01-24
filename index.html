@@ -1195,7 +1195,7 @@
         }
 
         .rse-hero-video {
-            width: min(260px, 70vw);
+            width: min(180px, 50vw);
             height: auto;
             border-radius: 16px;
             box-shadow: 0 0 24px rgba(255, 215, 0, 0.45);
@@ -8771,6 +8771,25 @@ restoreChallengeState();
                 return;
             }
 
+            const checkEmailExists = async () => {
+                if (!supabaseClient) {
+                    return null;
+                }
+                const tableCandidates = ['newsletter_subscribers', 'subscribers'];
+                for (const tableName of tableCandidates) {
+                    const { count, error } = await supabaseClient
+                        .from(tableName)
+                        .select('id', { count: 'exact', head: true })
+                        .eq('email', emailValue)
+                        .limit(1);
+                    if (error) {
+                        continue;
+                    }
+                    return (count || 0) > 0;
+                }
+                return null;
+            };
+
             const sendRequest = async () => {
                 let userId = '';
                 if (supabaseClient) {
@@ -8792,7 +8811,17 @@ restoreChallengeState();
                 });
             };
 
-            sendRequest()
+            checkEmailExists()
+                .then((exists) => {
+                    if (exists === false) {
+                        if (messageBox) {
+                            messageBox.style.color = '#ff69b4';
+                            messageBox.textContent = 'Email not found.';
+                        }
+                        return null;
+                    }
+                    return sendRequest();
+                })
                 .then(async (response) => {
                     if (!response) return;
                     const data = await response.json().catch(() => ({}));
