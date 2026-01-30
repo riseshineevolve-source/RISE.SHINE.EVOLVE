@@ -1522,6 +1522,8 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
             .control-group {
                 padding: 14px;
                 border-radius: 18px;
+                margin-left: auto;
+                margin-right: auto;
             }
 
             .control-group h3 {

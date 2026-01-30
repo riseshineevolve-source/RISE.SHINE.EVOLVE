@@ -2493,7 +2493,6 @@
       It is time to <span class="word-rise">RISE</span>.<span class="word-shine">SHINE</span>.<span class="word-evolve">EVOLVE</span>
      </div>
      </div>
-     </div>
     </div>
     </div>
     <div id="contact-content" class="tab-content">
@@ -8834,7 +8833,7 @@ restoreChallengeState();
                         || errorCode === 'email_not_found'
                         || errorText.includes('email not found')
                         || errorText.includes('not found');
-                    if (notFound) {
+                    if (notFound && emailExists === false) {
                         if (messageBox) {
                             messageBox.style.color = '#ff69b4';
                             messageBox.textContent = 'Email not found.';
@@ -8844,7 +8843,7 @@ restoreChallengeState();
                     if (!response.ok) {
                         if (messageBox) {
                             messageBox.style.color = '#ff69b4';
-                            messageBox.textContent = (notFound || emailExists === false)
+                            messageBox.textContent = (emailExists === false)
                                 ? 'Email not found.'
                                 : (data?.error || 'Unable to unsubscribe.');
                         }
@@ -8853,7 +8852,7 @@ restoreChallengeState();
                     if (!data?.success) {
                         if (messageBox) {
                             messageBox.style.color = '#ff69b4';
-                            messageBox.textContent = (notFound || emailExists === false)
+                            messageBox.textContent = (emailExists === false)
                                 ? 'Email not found.'
                                 : (data?.error || 'Unable to unsubscribe.');
                         }
