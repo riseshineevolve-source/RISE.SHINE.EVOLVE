@@ -600,7 +600,7 @@
         .puzzle-container {
             display: flex;
             flex-direction: column;
-            align-items: center;
+            align-items: flex-start;
             gap: 20px;
             width: fit-content;
             max-width: 100%;
@@ -631,10 +631,10 @@
             max-width: 100%;
             max-height: 100%;
             overflow: visible;
-            margin: 0 auto;
+            margin: 0;
             aspect-ratio: 1;
-            justify-content: center;
-            align-content: center;
+            justify-content: flex-start;
+            align-content: flex-start;
             box-sizing: border-box;
             animation: elegantBoxGlow 9s ease-in-out infinite, frame-sparkle 16s ease-in-out infinite;
             transition: transform 0.2s ease;
@@ -1482,7 +1482,7 @@
                 display: flex;
                 flex-direction: column;
                 gap: 20px;
-                align-items: flex-start;
+                align-items: center;
             }
             
             .puzzle-container {
@@ -1591,13 +1591,13 @@
             .input-group,
             .button-group,
             .generate-section {
-                align-items: flex-start;
-                justify-content: flex-start;
-                text-align: left;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
             }
 
             .word-search-instruction {
-                text-align: left;
+                text-align: center;
             }
         }
 
