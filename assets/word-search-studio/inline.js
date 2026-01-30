@@ -588,9 +588,11 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
 
         .game-area {
             display: grid;
-            grid-template-columns: 3fr 1fr;
+            grid-template-columns: minmax(0, 1fr) minmax(180px, 220px);
             gap: 20px;
             align-items: flex-start;
+            justify-items: center;
+            justify-content: center;
         }
 
         .puzzle-container {
@@ -598,7 +600,8 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
             flex-direction: column;
             align-items: center;
             gap: 20px;
-            width: 100%;
+            width: fit-content;
+            max-width: 100%;
         }
 
         .word-search-instruction {
@@ -622,15 +625,27 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
                 inset 0 0 40px rgba(255, 215, 0, 0.2);
             position: relative;
             width: auto;
-            max-width: none;
-            max-height: none;
+            max-width: 100%;
+            max-height: 100%;
             overflow: visible;
             margin: 0 auto;
             aspect-ratio: 1;
             justify-content: center;
             align-content: center;
-            box-sizing: content-box;
+            box-sizing: border-box;
             animation: elegantBoxGlow 9s ease-in-out infinite, frame-sparkle 16s ease-in-out infinite;
+            transition: transform 0.2s ease;
+            transform-origin: var(--zoom-origin-x, 50%) var(--zoom-origin-y, 50%);
+        }
+
+        .word-search.zoomed {
+            transform: scale(1.25);
+        }
+
+        @media (max-width: 900px) {
+            .word-search.zoomed {
+                transform: scale(1.35);
+            }
         }
 
         .word-search::before {
@@ -1439,28 +1454,32 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
             }
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 768px) and (orientation: portrait) {
             .game-area {
                 display: flex;
                 flex-direction: column;
                 gap: 20px;
+                align-items: flex-start;
             }
             
             .puzzle-container {
                 order: 1;
+                align-items: flex-start;
             }
             
             .sidebar {
                 order: 2;
-                min-width: 100%;
-                max-width: none;
-                margin-right: 0;
-                margin-left: 0;
+                min-width: 0;
+                width: min(86vw, 320px);
+                max-width: 320px;
+                margin-right: auto;
+                margin-left: auto;
                 margin-top: 10px;
             }
 
             .controls {
-                align-items: stretch;
+                align-items: center;
+                text-align: center;
             }
 
             .control-row {
@@ -1483,10 +1502,10 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
             }
 
             .word-search {
-                width: min(88vw, 300px);
-                max-width: min(88vw, 300px);
+                width: min(92vw, 320px);
+                max-width: min(92vw, 320px);
                 height: auto;
-                max-height: min(34vh, 300px);
+                max-height: none;
                 padding: clamp(6px, 1.2vw, 12px);
                 margin-left: 0;
                 margin-right: auto;
@@ -1503,6 +1522,8 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
             .control-group {
                 padding: 14px;
                 border-radius: 18px;
+                margin-left: auto;
+                margin-right: auto;
             }
 
             .control-group h3 {
@@ -1515,6 +1536,7 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
                 font-size: 0.9rem;
                 padding: 10px;
                 border-radius: 14px;
+                text-align: center;
             }
 
             .button-group {
@@ -1526,18 +1548,22 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
                 border-radius: 20px;
                 font-size: 0.85rem;
             }
+
+            .word-search-instruction {
+                text-align: left;
+            }
         }
 
         @media (max-width: 480px) {
             .word-search {
-                width: min(90vw, 280px);
-                max-width: min(90vw, 280px);
-                max-height: min(32vh, 260px);
+                width: min(92vw, 300px);
+                max-width: min(92vw, 300px);
+                max-height: none;
                 padding: 8px;
-                margin-left: 0;
+                margin-left: auto;
                 margin-right: auto;
-                justify-content: flex-start;
-                align-content: flex-start;
+                justify-content: center;
+                align-content: center;
             }
 
             .cell {
@@ -1553,22 +1579,25 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
             }
         }
 
-        @media (max-width: 900px) and (orientation: landscape) {
+        @media (max-width: 1024px) and (orientation: landscape) {
             .game-area {
                 display: grid;
-                grid-template-columns: 3fr 1fr;
+                grid-template-columns: minmax(0, 1fr) minmax(0, 0.8fr);
                 align-items: start;
+                justify-items: center;
+                justify-content: center;
+                gap: 16px;
             }
 
             .puzzle-container {
                 order: 0;
-                align-items: flex-start;
+                align-items: center;
             }
 
             .sidebar {
                 order: 0;
                 min-width: 180px;
-                max-width: 220px;
+                max-width: 240px;
                 margin-left: 0;
                 margin-right: 0;
                 margin-top: 0;
@@ -1576,7 +1605,7 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
             }
 
             .word-search {
-                max-height: min(38vh, 260px);
+                max-height: none;
                 justify-content: center;
                 align-content: center;
                 margin: 0;
@@ -1708,6 +1737,9 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
             }
         }
 
+        const WORD_SEARCH_STUDIO_STATE_KEY = 'hmWordSearchStudioState';
+        const WORD_SEARCH_STUDIO_STATE_MAX_AGE = 1000 * 60 * 60 * 24;
+
         class WordSearchGenerator {
             constructor() {
                 this.grid = [];
@@ -1748,6 +1780,123 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
                 };
                 
                 this.initEventListeners();
+                this.bindStatePersistence();
+            }
+
+            bindStatePersistence() {
+                window.addEventListener('pagehide', () => this.saveState());
+                document.addEventListener('visibilitychange', () => {
+                    if (document.visibilityState === 'hidden') {
+                        this.saveState();
+                    }
+                });
+            }
+
+            saveState() {
+                if (!this.words.length || !this.grid.length) {
+                    return;
+                }
+                const state = {
+                    words: this.words,
+                    grid: this.grid,
+                    placedWords: this.placedWords,
+                    foundWords: Array.from(this.foundWords),
+                    shape: this.shape,
+                    difficulty: this.difficulty,
+                    gridSize: this.gridSize,
+                    randomSeed: this.randomSeed,
+                    generationId: this.generationId,
+                    timestamp: Date.now()
+                };
+                sessionStorage.setItem(WORD_SEARCH_STUDIO_STATE_KEY, JSON.stringify(state));
+            }
+
+            restoreState() {
+                const raw = sessionStorage.getItem(WORD_SEARCH_STUDIO_STATE_KEY);
+                if (!raw) {
+                    return false;
+                }
+                let state;
+                try {
+                    state = JSON.parse(raw);
+                } catch (error) {
+                    return false;
+                }
+                if (!state?.grid?.length || !state?.words?.length) {
+                    return false;
+                }
+                if (state.timestamp && Date.now() - state.timestamp > WORD_SEARCH_STUDIO_STATE_MAX_AGE) {
+                    return false;
+                }
+                this.words = state.words;
+                this.grid = state.grid;
+                this.placedWords = state.placedWords || [];
+                this.foundWords = new Set(state.foundWords || []);
+                this.shape = state.shape || this.shape;
+                this.difficulty = state.difficulty || this.difficulty;
+                this.gridSize = state.gridSize || this.gridSize;
+                this.randomSeed = state.randomSeed || this.randomSeed;
+                this.generationId = state.generationId || this.generationId;
+                this.renderGrid();
+                this.setupWordList();
+                this.applyFoundHighlights();
+                this.updateStats();
+                this.updateWordList();
+                const gameArea = document.getElementById('gameArea');
+                if (gameArea) {
+                    gameArea.style.display = 'flex';
+                }
+                const showBtn = document.getElementById('showAnswersBtn');
+                const hideBtn = document.getElementById('hideAnswersBtn');
+                if (showBtn) showBtn.style.display = 'inline-block';
+                if (hideBtn) hideBtn.style.display = 'none';
+                this.syncControls();
+                return true;
+            }
+
+            syncControls() {
+                document.querySelectorAll('[data-shape]').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.shape === this.shape);
+                });
+                document.querySelectorAll('[data-difficulty]').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.difficulty === this.difficulty);
+                });
+            }
+
+            applyFoundHighlights() {
+                this.placedWords.forEach(wordData => {
+                    if (!this.foundWords.has(wordData.word)) return;
+                    wordData.positions.forEach(([row, col]) => {
+                        const cell = document.querySelector(`[data-row="${row}"][data-col="${col}"]`);
+                        if (cell) {
+                            cell.classList.add('found');
+                        }
+                    });
+                });
+            }
+
+            getWordSearchElement() {
+                return document.getElementById('wordSearch');
+            }
+
+            zoomToCell(cell) {
+                const container = this.getWordSearchElement();
+                if (!container || !cell) return;
+                const containerRect = container.getBoundingClientRect();
+                const cellRect = cell.getBoundingClientRect();
+                const originX = ((cellRect.left + cellRect.width / 2 - containerRect.left) / containerRect.width) * 100;
+                const originY = ((cellRect.top + cellRect.height / 2 - containerRect.top) / containerRect.height) * 100;
+                container.style.setProperty('--zoom-origin-x', `${originX}%`);
+                container.style.setProperty('--zoom-origin-y', `${originY}%`);
+                container.classList.add('zoomed');
+            }
+
+            clearZoom() {
+                const container = this.getWordSearchElement();
+                if (!container) return;
+                container.classList.remove('zoomed');
+                container.style.removeProperty('--zoom-origin-x');
+                container.style.removeProperty('--zoom-origin-y');
             }
             
             initEventListeners() {
@@ -1878,6 +2027,7 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
                 this.currentFirstLetter = null;
                 this.clearHintHighlight();
                 this.updateStats();
+                this.saveState();
                 
                 document.getElementById('gameArea').style.display = 'flex';
                 document.getElementById('showAnswersBtn').style.display = 'inline-block';
@@ -2210,11 +2360,12 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
 
                 wordSearchDiv.style.gridTemplateColumns = \`repeat(${this.gridSize}, ${cellSize}px)\`;
                 wordSearchDiv.style.gridAutoRows = \`${cellSize}px\`;
-                wordSearchDiv.style.width = \`${gridDimension}px\`;
-                wordSearchDiv.style.height = \`${gridDimension}px\`;
+                const framedDimension = gridDimension + framePadding * 2;
+                wordSearchDiv.style.width = \`${framedDimension}px\`;
+                wordSearchDiv.style.height = \`${framedDimension}px\`;
                 wordSearchDiv.style.padding = \`${framePadding}px\`;
-                wordSearchDiv.style.minWidth = \`${gridDimension}px\`;
-                wordSearchDiv.style.minHeight = \`${gridDimension}px\`;
+                wordSearchDiv.style.minWidth = \`${framedDimension}px\`;
+                wordSearchDiv.style.minHeight = \`${framedDimension}px\`;
                 wordSearchDiv.style.gap = '0px';
                 
                 for (let i = 0; i < this.gridSize; i++) {
@@ -2282,6 +2433,7 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
                         direction: wordData.direction,
                         positions: wordData.positions
                     };
+                    this.zoomToCell(cell);
                 } else {
                     // To nie jest pierwsza litera - usuń podświetlenie po 1 sekundzie
                     setTimeout(() => {
@@ -2390,6 +2542,8 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
                 this.clearHintHighlight(wordData.word);
                 document.getElementById('showAnswersBtn').style.display = 'inline-block';
                 document.getElementById('hideAnswersBtn').style.display = 'none';
+
+                this.clearZoom();
                 
                 // Resetuj postęp
                 this.resetWordProgress();
@@ -2401,6 +2555,7 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
                 if (this.foundWords.size === this.words.length) {
                     this.showVictoryAnimation();
                 }
+                this.saveState();
             }
 
             resetWordProgress() {
@@ -2412,7 +2567,9 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
                         }
                     });
                 }
-                
+                if (!this.activeHint) {
+                    this.clearZoom();
+                }
                 this.currentWordProgress = {};
             }
 
@@ -2786,6 +2943,7 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
                 if (hintCell) {
                     hintCell.classList.add('hint');
                     this.activeHint = { cell: hintCell, word: nextWord };
+                    this.zoomToCell(hintCell);
                     document.getElementById('showAnswersBtn').style.display = 'none';
                     document.getElementById('hideAnswersBtn').style.display = 'inline-block';
                 }
@@ -2793,6 +2951,7 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
 
             hideHint() {
                 this.clearHintHighlight();
+                this.clearZoom();
                 document.getElementById('showAnswersBtn').style.display = 'inline-block';
                 document.getElementById('hideAnswersBtn').style.display = 'none';
             }
@@ -3100,7 +3259,8 @@ window.WORD_SEARCH_STUDIO_HTML = `<!DOCTYPE html>
         // Inicjalizuj generator po załadowaniu strony
         document.addEventListener('DOMContentLoaded', () => {
             createSparkles();
-            new WordSearchGenerator();
+            const wordSearch = new WordSearchGenerator();
+            wordSearch.restoreState();
         });
     </script>
 <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'98ac691c60d5bfe4',t:'MTc1OTgyOTc0OS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
