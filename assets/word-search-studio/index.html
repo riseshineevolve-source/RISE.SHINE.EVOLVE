@@ -2505,6 +2505,13 @@
                 }
 
                 if (this.isSelecting) {
+                    if (row === this.startRow && col === this.startCol) {
+                        this.clearHighlight();
+                        this.isSelecting = false;
+                        this.selectedCells = [];
+                        this.clearZoom();
+                        return;
+                    }
                     this.endSelection(row, col, cell);
                     return;
                 }
