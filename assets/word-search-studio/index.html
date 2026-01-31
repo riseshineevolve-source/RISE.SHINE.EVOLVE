@@ -589,7 +589,7 @@
 
         .game-area {
             display: grid;
-            grid-template-columns: minmax(0, 1fr) minmax(180px, 220px);
+            grid-template-columns: minmax(0, 1fr) auto minmax(180px, 220px);
             gap: 20px;
             align-items: flex-start;
             width: 100%;
@@ -604,6 +604,7 @@
             gap: 20px;
             width: fit-content;
             max-width: 100%;
+            grid-column: 2;
         }
 
         .word-search-instruction {
@@ -775,6 +776,7 @@
             gap: 12px;
             margin: 0;
             animation: frame-sparkle 15s ease-in-out infinite;
+            grid-column: 3;
         }
 
         .sidebar::before {
@@ -1664,6 +1666,7 @@
             .puzzle-container {
                 order: 0;
                 align-items: center;
+                grid-column: auto;
             }
 
             .sidebar {
@@ -1674,6 +1677,7 @@
                 margin-right: 0;
                 margin-top: 0;
                 align-self: flex-start;
+                grid-column: auto;
             }
 
             .word-search {
@@ -2502,6 +2506,12 @@
                 if (this.preventClick) {
                     this.preventClick = false;
                     return;
+                }
+
+                if (this.activeHint) {
+                    this.clearHintHighlight();
+                    document.getElementById('showAnswersBtn').style.display = 'inline-block';
+                    document.getElementById('hideAnswersBtn').style.display = 'none';
                 }
 
                 if (this.isSelecting) {
