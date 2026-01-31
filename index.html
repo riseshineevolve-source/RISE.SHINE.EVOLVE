@@ -3762,7 +3762,7 @@
         Exit Print Mode
     </button>
 
-    <div class="max-w-4xl w-full app-frame p-8 md:p-16 relative flex flex-col min-h-[550px]">
+    <div class="max-w-4xl w-full app-frame p-6 md:p-12 relative flex flex-col min-h-[500px]">
 
         <!-- Header -->
         <header class="text-center space-y-3 mb-10 hide-on-fridge">
@@ -3789,12 +3789,12 @@
 
         <!-- Main Display -->
         <main class="flex-grow flex flex-col justify-center items-center text-center relative z-10 py-2">
-            <div id="result" class="motto-text text-3xl md:text-5xl font-light leading-snug mb-8 transition-all duration-700 ease-in-out text-white tracking-wide">
+            <div id="result" class="motto-text text-2xl md:text-4xl font-light leading-snug mb-6 transition-all duration-700 ease-in-out text-white tracking-wide">
                 We don’t have to be perfect<br>
                 <span class="glow-text-gold font-normal">to be worthy.</span>
             </div>
 
-            <div id="hint" class="motto-hint text-white font-thin text-sm md:text-base max-w-lg transition-opacity duration-700 delay-150 leading-relaxed tracking-wide opacity-80">
+            <div id="hint" class="motto-hint text-white font-thin text-xs md:text-sm max-w-lg transition-opacity duration-700 delay-150 leading-relaxed tracking-wide opacity-80">
                 A reminder of self-compassion. Worthiness is our birthright, not a reward.
             </div>
         </main>
@@ -3936,6 +3936,7 @@
         let mottoHistory = [];
         let historyIndex = -1;
         let readyDeck = [];
+        let lastMottoText = '';
 
         const els = {
             result: document.getElementById('result'),
@@ -3964,6 +3965,7 @@
             const firstMotto = readyMottosLibrary[readyDeck[readyDeck.length-1]];
             updateDisplay(firstMotto.text.replace(/\n/g, '<br>'), firstMotto.hint, false);
             addToHistory(firstMotto.text.replace(/\n/g, '<br>'), firstMotto.hint);
+            lastMottoText = firstMotto.text;
 
             els.generateBtn.addEventListener('click', generate);
             els.backBtn.addEventListener('click', goBack);
@@ -3992,7 +3994,14 @@
                 });
             });
 
-            els.fridgeBtn.addEventListener('click', () => { document.body.classList.add('fridge-mode'); });
+            els.fridgeBtn.addEventListener('click', () => {
+                document.body.classList.add('fridge-mode');
+                setTimeout(() => {
+                    if (typeof window.print === 'function') {
+                        window.print();
+                    }
+                }, 200);
+            });
             els.exitFridgeBtn.addEventListener('click', () => { document.body.classList.remove('fridge-mode'); });
         }
 
@@ -4079,16 +4088,31 @@
             return str.charAt(0).toUpperCase() + str.slice(1);
         }
 
+        function getNextReadyMotto() {
+            if (readyDeck.length === 0) {
+                shuffleReadyDeck();
+            }
+            let idx = readyDeck.pop();
+            let item = readyMottosLibrary[idx];
+            if (item && item.text === lastMottoText) {
+                if (readyDeck.length === 0) {
+                    shuffleReadyDeck();
+                }
+                idx = readyDeck.pop();
+                item = readyMottosLibrary[idx];
+            }
+            return item;
+        }
+
         function generate() {
             let text = "";
             let hint = "";
 
             if (currentMode === 'ready') {
-                if(readyDeck.length === 0) shuffleReadyDeck();
-                const idx = readyDeck.pop();
-                const item = readyMottosLibrary[idx];
+                const item = getNextReadyMotto();
                 text = item.text.replace(/\n/g, '<br>');
                 hint = item.hint;
+                lastMottoText = item.text;
             } else {
                 const raw1 = getWord(1);
                 const raw2 = getWord(2);
@@ -9312,6 +9336,7 @@ restoreChallengeState();
                     content.scrollTop = 0;
                 }
             }
+            window.scrollTo(0, 0);
             document.body.style.overflow = 'hidden';
             history.pushState({ modal: 'email' }, '', window.location.href);
         }
@@ -9333,6 +9358,7 @@ restoreChallengeState();
             if (content) {
                 content.scrollTop = 0;
             }
+            window.scrollTo(0, 0);
             document.body.style.overflow = 'hidden';
         }
 
@@ -9818,6 +9844,19 @@ restoreChallengeState();
                 }
             }
 
+            const isFamilyMotto = key === 'familyMotto';
+            if (isFamilyMotto) {
+                giftFrame.style.borderWidth = '0';
+                giftFrame.style.borderRadius = '0';
+                giftFrame.style.boxShadow = 'none';
+                giftFrame.style.background = 'transparent';
+            } else {
+                giftFrame.style.borderWidth = '';
+                giftFrame.style.borderRadius = '';
+                giftFrame.style.boxShadow = '';
+                giftFrame.style.background = '';
+            }
+
             const html = getGiftHtml(key);
             const source = giftSources[key];
 
@@ -9900,6 +9939,13 @@ restoreChallengeState();
             }
 
             giftOverlay.style.display = 'flex';
+            giftOverlay.style.position = 'fixed';
+            giftOverlay.style.top = '0';
+            giftOverlay.style.left = '0';
+            giftOverlay.style.right = '0';
+            giftOverlay.style.height = '100%';
+            giftOverlay.scrollTop = 0;
+            window.scrollTo(0, 0);
             document.body.style.overflow = 'hidden';
 
             if (!giftOverlayOpen) {
@@ -9915,6 +9961,13 @@ restoreChallengeState();
             giftFallback.style.display = 'flex';
             giftFallback.textContent = message || 'Gift content is unavailable right now. Please try again in a moment.';
             giftOverlay.style.display = 'flex';
+            giftOverlay.style.position = 'fixed';
+            giftOverlay.style.top = '0';
+            giftOverlay.style.left = '0';
+            giftOverlay.style.right = '0';
+            giftOverlay.style.height = '100%';
+            giftOverlay.scrollTop = 0;
+            window.scrollTo(0, 0);
             document.body.style.overflow = 'hidden';
             if (!giftOverlayOpen) {
                 history.pushState({ giftOverlay: true }, document.title, window.location.href);
