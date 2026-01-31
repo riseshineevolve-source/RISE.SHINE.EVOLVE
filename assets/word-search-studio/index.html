@@ -7,7 +7,7 @@
     <style>
         body {
             box-sizing: border-box;
-            margin: 0;
+            margin: 0 auto;
             padding: 20px;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: #000000;
@@ -376,6 +376,7 @@
             gap: 22px;
             margin-bottom: 24px;
             align-items: center;
+            text-align: center;
         }
 
         .control-row {
@@ -403,6 +404,7 @@
             max-width: 480px;
             width: 100%;
             justify-self: center;
+            margin: 0 auto;
         }
 
         .panel-gold,
@@ -589,7 +591,7 @@
 
         .game-area {
             display: grid;
-            grid-template-columns: minmax(0, 1fr) minmax(180px, 220px);
+            grid-template-columns: minmax(0, 1fr) auto minmax(180px, 220px);
             gap: 20px;
             align-items: flex-start;
             width: 100%;
@@ -600,10 +602,11 @@
         .puzzle-container {
             display: flex;
             flex-direction: column;
-            align-items: flex-start;
+            align-items: center;
             gap: 20px;
             width: fit-content;
             max-width: 100%;
+            grid-column: 2;
         }
 
         .word-search-instruction {
@@ -611,7 +614,7 @@
             font-size: 0.95rem;
             font-weight: 600;
             color: #f4f1ff;
-            margin: 0;
+            margin: 0 auto;
         }
 
         .word-search {
@@ -631,18 +634,21 @@
             max-width: 100%;
             max-height: 100%;
             overflow: visible;
-            margin: 0;
+            margin: 0 auto;
             aspect-ratio: 1;
-            justify-content: flex-start;
-            align-content: flex-start;
+            justify-content: center;
+            align-content: center;
             box-sizing: border-box;
             animation: elegantBoxGlow 9s ease-in-out infinite, frame-sparkle 16s ease-in-out infinite;
             transition: transform 0.2s ease;
             transform-origin: var(--zoom-origin-x, 50%) var(--zoom-origin-y, 50%);
+            touch-action: manipulation;
         }
 
         .word-search.zoomed {
             transform: scale(1.25);
+            cursor: default;
+            touch-action: manipulation;
         }
 
         @media (max-width: 900px) {
@@ -772,6 +778,7 @@
             gap: 12px;
             margin: 0;
             animation: frame-sparkle 15s ease-in-out infinite;
+            grid-column: 3;
         }
 
         .sidebar::before {
@@ -1126,7 +1133,8 @@
                 0 0 20px rgba(255, 215, 0, 0.9),
                 0 0 35px rgba(138, 43, 226, 0.6);
             overflow: hidden;
-            min-width: 520px;
+            max-width: 90vw;
+            min-width: 0;
             line-height: 1.5;
         }
 
@@ -1487,7 +1495,7 @@
             
             .puzzle-container {
                 order: 1;
-                align-items: flex-start;
+                align-items: center;
             }
             
             .sidebar {
@@ -1529,8 +1537,10 @@
             }
 
             .victory-banner {
-                font-size: 1.8rem;
-                padding: 20px 40px;
+                font-size: 1.3rem;
+                padding: 18px 24px;
+                max-width: 90vw;
+                line-height: 1.4;
             }
 
             .word-search {
@@ -1539,12 +1549,11 @@
                 height: auto;
                 max-height: none;
                 padding: clamp(4px, 1vw, 6px);
-                margin-left: 0;
-                margin-right: auto;
+                margin: 0 auto;
                 border: none;
                 box-shadow: none;
-                justify-content: flex-start;
-                align-content: flex-start;
+                justify-content: center;
+                align-content: center;
             }
 
             .word-search::before {
@@ -1662,6 +1671,7 @@
             .puzzle-container {
                 order: 0;
                 align-items: center;
+                grid-column: auto;
             }
 
             .sidebar {
@@ -1672,6 +1682,7 @@
                 margin-right: 0;
                 margin-top: 0;
                 align-self: flex-start;
+                grid-column: auto;
             }
 
             .word-search {
@@ -1747,7 +1758,7 @@
 
         <div class="game-area" id="gameArea" style="display: none;">
             <div class="puzzle-container">
-                <p class="word-search-instruction">Click the first letter and each following letter until the last.</p>
+                <p class="word-search-instruction">Tap the first and the last letter of the word.</p>
                 <div class="word-search" id="wordSearch"></div>
                 <div style="text-align: center; margin-top: 20px;" id="onlineAnswerButtons">
                     <button class="btn btn-secondary" id="showAnswersBtn" style="display: none;">Show Hint</button>
@@ -1800,15 +1811,18 @@
             const sparklesContainer = document.getElementById('sparkles');
             if (!sparklesContainer) return;
 
-            const sparkleCount = 50;
+            const isMobile = window.matchMedia && window.matchMedia('(max-width: 768px)').matches;
+            const sparkleCount = isMobile ? 20 : 50;
+            const fragment = document.createDocumentFragment();
             for (let i = 0; i < sparkleCount; i++) {
                 const sparkle = document.createElement('div');
                 sparkle.className = 'sparkle';
                 sparkle.style.left = Math.random() * 100 + '%';
                 sparkle.style.top = Math.random() * 100 + '%';
                 sparkle.style.animationDelay = Math.random() * 3 + 's';
-                sparklesContainer.appendChild(sparkle);
+                fragment.appendChild(sparkle);
             }
+            sparklesContainer.appendChild(fragment);
         }
 
         const WORD_SEARCH_STUDIO_STATE_KEY = 'hmWordSearchStudioState';
@@ -1829,6 +1843,10 @@
                 this.currentWordProgress = {};
                 this.currentFirstLetter = null;
                 this.activeHint = null;
+                this.pan = { x: 0, y: 0 };
+                this.panStart = null;
+                this.isPanning = false;
+                this.preventClick = false;
 
                 this.directions = {
                     easy: [
@@ -1960,6 +1978,9 @@
                 const cellRect = cell.getBoundingClientRect();
                 const originX = ((cellRect.left + cellRect.width / 2 - containerRect.left) / containerRect.width) * 100;
                 const originY = ((cellRect.top + cellRect.height / 2 - containerRect.top) / containerRect.height) * 100;
+                this.pan = { x: 0, y: 0 };
+                container.style.setProperty('--pan-x', '0px');
+                container.style.setProperty('--pan-y', '0px');
                 container.style.setProperty('--zoom-origin-x', `${originX}%`);
                 container.style.setProperty('--zoom-origin-y', `${originY}%`);
                 container.classList.add('zoomed');
@@ -1969,6 +1990,8 @@
                 const container = this.getWordSearchElement();
                 if (!container) return;
                 container.classList.remove('zoomed');
+                container.style.removeProperty('--pan-x');
+                container.style.removeProperty('--pan-y');
                 container.style.removeProperty('--zoom-origin-x');
                 container.style.removeProperty('--zoom-origin-y');
             }
@@ -2478,56 +2501,37 @@
                 const cell = e.target;
                 const row = parseInt(cell.dataset.row);
                 const col = parseInt(cell.dataset.col);
-                const letter = cell.textContent;
                 
                 // Sprawdź czy komórka już została znaleziona
                 if (cell.classList.contains('found')) {
                     return;
                 }
-                
-                // Jeśli już mamy rozpoczęte słowo, sprawdź czy to kolejna litera
-                if (this.currentWordProgress.word) {
-                    const isNextLetter = this.isNextLetterInWord(row, col, letter);
-                    if (isNextLetter) {
-                        // Dodaj komórkę do aktualnego słowa
-                        this.currentWordProgress.cells.push({row, col, cell});
-                        this.highlightCell(cell);
-                        
-                        // Sprawdź czy słowo zostało ukończone
-                        if (this.currentWordProgress.cells.length === this.currentWordProgress.word.length) {
-                            this.completeWord();
-                        }
+
+                if (this.preventClick) {
+                    this.preventClick = false;
+                    return;
+                }
+
+                if (this.activeHint) {
+                    this.clearHintHighlight();
+                    document.getElementById('showAnswersBtn').style.display = 'inline-block';
+                    document.getElementById('hideAnswersBtn').style.display = 'none';
+                }
+
+                if (this.isSelecting) {
+                    if (row === this.startRow && col === this.startCol) {
+                        this.clearHighlight();
+                        this.isSelecting = false;
+                        this.selectedCells = [];
+                        this.clearZoom();
                         return;
-                    } else {
-                        // Niepoprawna litera - resetuj postęp
-                        this.resetWordProgress();
                     }
+                    this.endSelection(row, col, cell);
+                    return;
                 }
-                
-                // Podświetl komórkę różowo-żółto
-                this.highlightCell(cell);
-                
-                // Sprawdź czy ta litera jest pierwszą literą jakiegoś słowa
-                const wordData = this.isFirstLetterOfWord(row, col, letter);
-                
-                if (wordData) {
-                    // To jest pierwsza litera słowa - rozpocznij śledzenie
-                    this.currentWordProgress = {
-                        word: wordData.word,
-                        wordData: wordData,
-                        cells: [{row, col, cell}],
-                        direction: wordData.direction,
-                        positions: wordData.positions
-                    };
-                    this.zoomToCell(cell);
-                } else {
-                    // To nie jest pierwsza litera - usuń podświetlenie po 1 sekundzie
-                    setTimeout(() => {
-                        if (!cell.classList.contains('found')) {
-                            this.removeHighlight(cell);
-                        }
-                    }, 1000);
-                }
+
+                this.startSelection(row, col, cell);
+                this.zoomToCell(cell);
             }
 
             highlightCell(cell) {
@@ -2711,6 +2715,7 @@
                     this.animateWordCompletion(foundWordData);
                     this.highlightFoundWordInList(foundWordData.word);
                     this.updateStats();
+                    this.clearZoom();
                     
                     // Sprawdź czy wszystkie słowa zostały znalezione
                     if (this.foundWords.size === this.words.length) {
@@ -2741,12 +2746,50 @@
                                 cell.style.transform = '';
                             }
                         });
-                    }, 1000);
+                    }, 3000);
                 }
                 
                 // Resetuj stan wyboru
                 this.isSelecting = false;
                 this.selectedCells = [];
+            }
+
+            initPanHandlers() {
+                const container = this.getWordSearchElement();
+                if (!container) return;
+                container.addEventListener('pointerdown', (event) => {
+                    if (!container.classList.contains('zoomed')) return;
+                    this.isPanning = true;
+                    this.preventClick = false;
+                    this.panStart = {
+                        x: event.clientX,
+                        y: event.clientY,
+                        panX: this.pan.x,
+                        panY: this.pan.y
+                    };
+                    container.setPointerCapture(event.pointerId);
+                });
+                container.addEventListener('pointermove', (event) => {
+                    if (!this.isPanning || !this.panStart) return;
+                    const deltaX = event.clientX - this.panStart.x;
+                    const deltaY = event.clientY - this.panStart.y;
+                    if (Math.abs(deltaX) > 12 || Math.abs(deltaY) > 12) {
+                        this.preventClick = true;
+                    }
+                    this.pan = {
+                        x: this.panStart.panX + deltaX,
+                        y: this.panStart.panY + deltaY
+                    };
+                    container.style.setProperty('--pan-x', `${this.pan.x}px`);
+                    container.style.setProperty('--pan-y', `${this.pan.y}px`);
+                });
+                const stopPan = () => {
+                    this.isPanning = false;
+                    this.panStart = null;
+                };
+                container.addEventListener('pointerup', stopPan);
+                container.addEventListener('pointercancel', stopPan);
+                container.addEventListener('pointerleave', stopPan);
             }
 
             getPathBetweenCells(startRow, startCol, endRow, endCol) {
@@ -2860,24 +2903,27 @@
             
 
             showVictoryAnimation() {
+                const isMobile = window.matchMedia && window.matchMedia('(max-width: 768px)').matches;
                 // Utwórz overlay dla konfetti
                 const overlay = document.createElement('div');
                 overlay.className = 'celebration-overlay';
                 document.body.appendChild(overlay);
                 
                 // Generuj konfetti krócej i szybciej
-                for (let i = 0; i < 90; i++) {
+                const primaryConfettiCount = isMobile ? 45 : 90;
+                for (let i = 0; i < primaryConfettiCount; i++) {
                     setTimeout(() => {
                         this.createConfetti(overlay);
-                    }, i * 28);
+                    }, i * (isMobile ? 32 : 28));
                 }
 
                 // Dodatkowa krótka fala konfetti
                 setTimeout(() => {
-                    for (let i = 0; i < 40; i++) {
+                    const secondaryConfettiCount = isMobile ? 20 : 40;
+                    for (let i = 0; i < secondaryConfettiCount; i++) {
                         setTimeout(() => {
                             this.createConfetti(overlay);
-                        }, i * 40);
+                        }, i * (isMobile ? 50 : 40));
                     }
                 }, 1400);
                 
@@ -2887,7 +2933,7 @@
 
                 const banner = document.createElement('div');
                 banner.className = 'victory-banner';
-                banner.innerHTML = `<div class="gold-text">Mission accomplished!</div><div class="purple-text">The Happy Makers officially promote you to</div><div class="purple-text">Chief Word Finder!</div>`;
+                banner.innerHTML = `<div class="gold-text">Mission accomplished!</div><div class="purple-text">The Happy Makers</div><div class="purple-text">officially promote you to</div><div class="purple-text">Chief Word Finder!</div>`;
                 puzzleContainer.appendChild(banner);
 
                 // Usuń animacje po krótszym czasie
