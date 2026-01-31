@@ -9331,6 +9331,7 @@ restoreChallengeState();
             }
             const modal = document.getElementById('emailModal');
             if (modal) {
+                const scrollY = window.scrollY || window.pageYOffset || 0;
                 modal.classList.add('show');
                 modal.style.display = 'flex';
                 modal.style.position = 'fixed';
