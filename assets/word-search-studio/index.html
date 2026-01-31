@@ -652,7 +652,7 @@
 
         @media (max-width: 900px) {
             .word-search.zoomed {
-                transform: scale(1.35);
+                transform: translate(var(--pan-x, 0px), var(--pan-y, 0px)) scale(1.35);
             }
         }
 
@@ -1669,6 +1669,7 @@
             .puzzle-container {
                 order: 0;
                 align-items: center;
+                grid-column: auto;
             }
 
             .sidebar {
@@ -1679,6 +1680,7 @@
                 margin-right: 0;
                 margin-top: 0;
                 align-self: flex-start;
+                grid-column: auto;
             }
 
             .word-search {
@@ -1993,6 +1995,7 @@
             }
             
             initEventListeners() {
+                this.initPanHandlers();
                 // Przyciski trudności
                 document.querySelectorAll('[data-difficulty]').forEach(btn => {
                     btn.addEventListener('click', (e) => {
