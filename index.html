@@ -1969,7 +1969,7 @@
           </div>
           <div style="margin-top: auto; display: flex; flex-direction: column; gap: 10px;">
            <p style="margin: 0; color: #ff69b4; font-weight: 700;">Not just for ‘good days’.<br>But for the random messy Tuesday, too.</p>
-           <button onclick="selectTab(getTabElement('kids'), 'kids'); const libraryTitle = document.querySelector('#library-collection-title'); if (libraryTitle) { libraryTitle.scrollIntoView({ behavior: 'smooth', block: 'start' }); }" style="padding: 10px 18px; border-radius: 999px; border: 2px solid #8A2BE2; background: #000000; color: #ffffff; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; box-shadow: 0 0 14px rgba(138, 43, 226, 0.5);">Head to Library</button>
+           <button onclick="selectTab(getTabElement('kids'), 'kids'); const libraryTitle = document.querySelector('#library-collection-title'); if (libraryTitle) { const rect = libraryTitle.getBoundingClientRect(); const targetTop = rect.top + window.pageYOffset - 80; window.scrollTo({ top: Math.max(targetTop, 0), behavior: 'smooth' }); }" style="padding: 10px 18px; border-radius: 999px; border: 2px solid #8A2BE2; background: #000000; color: #ffffff; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; box-shadow: 0 0 14px rgba(138, 43, 226, 0.5);">Head to Library</button>
           </div>
          </div>
          <div style="border: 2px solid #ffd700; border-radius: 22px; padding: 18px; display: flex; flex-direction: column; gap: 10px; box-shadow: 0 0 16px rgba(255, 215, 0, 0.35); min-height: 100%;">
@@ -1980,7 +1980,7 @@
           </div>
           <div style="margin-top: auto; display: flex; flex-direction: column; gap: 10px;">
            <p style="margin: 0; color: #8A2BE2; font-weight: 700;">Because sometimes you don’t need a whole program. You need an <span style="color:#ffd700; font-weight:800;">INSTANT RESET</span>.</p>
-           <button onclick="selectTab(getTabElement('gifts'), 'gifts')" style="padding: 10px 18px; border-radius: 999px; border: 2px solid #ffd700; background: #000000; color: #ffd700; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; box-shadow: 0 0 14px rgba(255, 215, 0, 0.45);">Grab Instant Boosts</button>
+           <button onclick="selectTab(getTabElement('gifts'), 'gifts'); const giftsWelcome = document.querySelector('#gifts-welcome'); if (giftsWelcome) { const rect = giftsWelcome.getBoundingClientRect(); const targetTop = rect.top + window.pageYOffset - 80; window.scrollTo({ top: Math.max(targetTop, 0), behavior: 'smooth' }); }" style="padding: 10px 18px; border-radius: 999px; border: 2px solid #ffd700; background: #000000; color: #ffd700; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; box-shadow: 0 0 14px rgba(255, 215, 0, 0.45);">Grab Instant Boosts</button>
           </div>
          </div>
         </div>
@@ -2367,7 +2367,7 @@
      <div class="tab-title-row">
       <h2>GIFTS</h2>
      </div>
-     <div class="kids-tile" style="border: 3px solid #ffd700; box-shadow: 0 0 35px rgba(255, 215, 0, 0.7), 0 0 60px rgba(255, 215, 0, 0.4); margin: 24px auto; max-width: 520px; padding: 16px 18px;">
+     <div id="gifts-welcome" class="kids-tile" style="border: 3px solid #ffd700; box-shadow: 0 0 35px rgba(255, 215, 0, 0.7), 0 0 60px rgba(255, 215, 0, 0.4); margin: 24px auto; max-width: 520px; padding: 16px 18px;">
       <div class="kids-text">
        <h3 style="color: #ffd700; font-size: 1.5rem; margin-bottom: 18px; text-shadow: 0 0 16px rgba(255, 215, 0, 0.8); line-height: 1.25;">Welcome to your<br>
         exclusive GIFTS section!</h3>
@@ -8717,8 +8717,14 @@ restoreChallengeState();
             }
             const modal = document.getElementById('emailModal');
             if (modal) {
+                const scrollY = window.scrollY || window.pageYOffset || 0;
                 modal.classList.add('show');
                 modal.style.display = 'flex';
+                modal.style.position = 'absolute';
+                modal.style.top = `${scrollY}px`;
+                modal.style.left = '0';
+                modal.style.right = '0';
+                modal.style.height = `${window.innerHeight}px`;
                 modal.scrollTop = 0;
                 const content = modal.querySelector('.modal-content');
                 if (content) {
@@ -8736,6 +8742,12 @@ restoreChallengeState();
             }
             modal.classList.add('show');
             modal.style.display = 'flex';
+            const scrollY = window.scrollY || window.pageYOffset || 0;
+            modal.style.position = 'absolute';
+            modal.style.top = `${scrollY}px`;
+            modal.style.left = '0';
+            modal.style.right = '0';
+            modal.style.height = `${window.innerHeight}px`;
             modal.scrollTop = 0;
             const content = modal.querySelector('.modal-content');
             if (content) {
@@ -8749,6 +8761,11 @@ restoreChallengeState();
             if (modal) {
                 modal.classList.remove('show');
                 modal.style.display = 'none';
+                modal.style.position = 'fixed';
+                modal.style.top = '0';
+                modal.style.left = '0';
+                modal.style.right = '0';
+                modal.style.height = '100%';
             }
             document.body.style.overflow = 'auto';
             sessionStorage.setItem('bookPromoDismissed', 'true');
@@ -8772,6 +8789,11 @@ restoreChallengeState();
             if (modal) {
                 modal.classList.remove('show');
                 modal.style.display = 'none';
+                modal.style.position = 'fixed';
+                modal.style.top = '0';
+                modal.style.left = '0';
+                modal.style.right = '0';
+                modal.style.height = '100%';
             }
             document.body.style.overflow = 'auto';
         }
