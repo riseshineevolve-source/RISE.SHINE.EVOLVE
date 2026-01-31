@@ -376,6 +376,7 @@
             gap: 22px;
             margin-bottom: 24px;
             align-items: center;
+            text-align: center;
         }
 
         .control-row {
@@ -403,6 +404,7 @@
             max-width: 480px;
             width: 100%;
             justify-self: center;
+            margin: 0 auto;
         }
 
         .panel-gold,
@@ -644,9 +646,9 @@
         }
 
         .word-search.zoomed {
-            transform: translate(var(--pan-x, 0px), var(--pan-y, 0px)) scale(1.25);
-            cursor: grab;
-            touch-action: none;
+            transform: scale(1.25);
+            cursor: default;
+            touch-action: manipulation;
         }
 
         @media (max-width: 900px) {
@@ -1131,7 +1133,8 @@
                 0 0 20px rgba(255, 215, 0, 0.9),
                 0 0 35px rgba(138, 43, 226, 0.6);
             overflow: hidden;
-            min-width: 520px;
+            max-width: 90vw;
+            min-width: 0;
             line-height: 1.5;
         }
 
@@ -1534,8 +1537,10 @@
             }
 
             .victory-banner {
-                font-size: 1.8rem;
-                padding: 20px 40px;
+                font-size: 1.3rem;
+                padding: 18px 24px;
+                max-width: 90vw;
+                line-height: 1.4;
             }
 
             .word-search {
@@ -2742,7 +2747,7 @@
                                 cell.style.transform = '';
                             }
                         });
-                    }, 1000);
+                    }, 3000);
                 }
                 
                 // Resetuj stan wyboru
@@ -2899,24 +2904,27 @@
             
 
             showVictoryAnimation() {
+                const isMobile = window.matchMedia && window.matchMedia('(max-width: 768px)').matches;
                 // Utwórz overlay dla konfetti
                 const overlay = document.createElement('div');
                 overlay.className = 'celebration-overlay';
                 document.body.appendChild(overlay);
                 
                 // Generuj konfetti krócej i szybciej
-                for (let i = 0; i < 90; i++) {
+                const primaryConfettiCount = isMobile ? 45 : 90;
+                for (let i = 0; i < primaryConfettiCount; i++) {
                     setTimeout(() => {
                         this.createConfetti(overlay);
-                    }, i * 28);
+                    }, i * (isMobile ? 32 : 28));
                 }
 
                 // Dodatkowa krótka fala konfetti
                 setTimeout(() => {
-                    for (let i = 0; i < 40; i++) {
+                    const secondaryConfettiCount = isMobile ? 20 : 40;
+                    for (let i = 0; i < secondaryConfettiCount; i++) {
                         setTimeout(() => {
                             this.createConfetti(overlay);
-                        }, i * 40);
+                        }, i * (isMobile ? 50 : 40));
                     }
                 }, 1400);
                 
@@ -2926,7 +2934,7 @@
 
                 const banner = document.createElement('div');
                 banner.className = 'victory-banner';
-                banner.innerHTML = `<div class="gold-text">Mission accomplished!</div><div class="purple-text">The Happy Makers officially promote you to</div><div class="purple-text">Chief Word Finder!</div>`;
+                banner.innerHTML = `<div class="gold-text">Mission accomplished!</div><div class="purple-text">The Happy Makers</div><div class="purple-text">officially promote you to</div><div class="purple-text">Chief Word Finder!</div>`;
                 puzzleContainer.appendChild(banner);
 
                 // Usuń animacje po krótszym czasie
