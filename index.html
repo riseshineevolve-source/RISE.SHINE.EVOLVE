@@ -1961,19 +1961,27 @@
          </div>
         </div>
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px;">
-         <div style="border: 2px solid #8A2BE2; border-radius: 22px; padding: 18px; display: flex; flex-direction: column; gap: 10px; box-shadow: 0 0 16px rgba(138, 43, 226, 0.3);">
-          <p style="margin: 0; font-size: 1.05rem;">Explore our</p>
-          <p style="margin: 0; font-size: 1.35rem; font-weight: 800; color: #8A2BE2; text-transform: uppercase;">LIBRARY</p>
-          <p style="margin: 0;">Guided journeys and family-friendly experiences designed to build resilience, emotional strength, and self-belief.</p>
-          <p style="margin: 0; color: #ff69b4; font-weight: 700;">Not just for ‘good days’.<br>But for the random messy Tuesday, too.</p>
-          <button onclick="selectTab(getTabElement('kids'), 'kids')" style="margin-top: 6px; padding: 10px 18px; border-radius: 999px; border: 2px solid #8A2BE2; background: #000000; color: #ffffff; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; box-shadow: 0 0 14px rgba(138, 43, 226, 0.5);">Head to Library</button>
+         <div style="border: 2px solid #8A2BE2; border-radius: 22px; padding: 18px; display: flex; flex-direction: column; gap: 10px; box-shadow: 0 0 16px rgba(138, 43, 226, 0.3); min-height: 100%;">
+          <div style="display: flex; flex-direction: column; gap: 10px; flex: 1;">
+           <p style="margin: 0; font-size: 1.05rem;">Explore our</p>
+           <p style="margin: 0; font-size: 1.35rem; font-weight: 800; color: #8A2BE2; text-transform: uppercase;">LIBRARY</p>
+           <p style="margin: 0;">Guided journeys and family-friendly experiences designed to build resilience, emotional strength, and self-belief.</p>
+          </div>
+          <div style="margin-top: auto; display: flex; flex-direction: column; gap: 10px;">
+           <p style="margin: 0; color: #ff69b4; font-weight: 700;">Not just for ‘good days’.<br>But for the random messy Tuesday, too.</p>
+           <button onclick="selectTab(getTabElement('kids'), 'kids'); const libraryTitle = document.querySelector('#library-collection-title'); if (libraryTitle) { libraryTitle.scrollIntoView({ behavior: 'smooth', block: 'start' }); }" style="padding: 10px 18px; border-radius: 999px; border: 2px solid #8A2BE2; background: #000000; color: #ffffff; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; box-shadow: 0 0 14px rgba(138, 43, 226, 0.5);">Head to Library</button>
+          </div>
          </div>
-         <div style="border: 2px solid #ffd700; border-radius: 22px; padding: 18px; display: flex; flex-direction: column; gap: 10px; box-shadow: 0 0 16px rgba(255, 215, 0, 0.35);">
-          <p style="margin: 0; font-size: 1.05rem;">Need something fast?</p>
-          <p style="margin: 0; font-size: 1.35rem; font-weight: 800; color: #ffd700; text-transform: uppercase;">Head to GIFTS.</p>
-          <p style="margin: 0;">Bite-sized resources like 1-minute challenges and quick calm or energy boosters.</p>
-          <p style="margin: 0; color: #8A2BE2; font-weight: 700;">Because sometimes you don’t need a whole program. You need an <span style="color:#ffd700; font-weight:800;">INSTANT RESET</span>.</p>
-          <button onclick="selectTab(getTabElement('gifts'), 'gifts')" style="margin-top: 6px; padding: 10px 18px; border-radius: 999px; border: 2px solid #ffd700; background: #000000; color: #ffd700; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; box-shadow: 0 0 14px rgba(255, 215, 0, 0.45);">Grab Instant Boosts</button>
+         <div style="border: 2px solid #ffd700; border-radius: 22px; padding: 18px; display: flex; flex-direction: column; gap: 10px; box-shadow: 0 0 16px rgba(255, 215, 0, 0.35); min-height: 100%;">
+          <div style="display: flex; flex-direction: column; gap: 10px; flex: 1;">
+           <p style="margin: 0; font-size: 1.05rem;">Need something fast?</p>
+           <p style="margin: 0; font-size: 1.35rem; font-weight: 800; color: #ffd700; text-transform: uppercase;">Head to GIFTS.</p>
+           <p style="margin: 0;">Bite-sized resources like 1-minute challenges and quick calm or energy boosters.</p>
+          </div>
+          <div style="margin-top: auto; display: flex; flex-direction: column; gap: 10px;">
+           <p style="margin: 0; color: #8A2BE2; font-weight: 700;">Because sometimes you don’t need a whole program. You need an <span style="color:#ffd700; font-weight:800;">INSTANT RESET</span>.</p>
+           <button onclick="selectTab(getTabElement('gifts'), 'gifts')" style="padding: 10px 18px; border-radius: 999px; border: 2px solid #ffd700; background: #000000; color: #ffd700; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; box-shadow: 0 0 14px rgba(255, 215, 0, 0.45);">Grab Instant Boosts</button>
+          </div>
          </div>
         </div>
         <div style="text-align: center; margin-top: 6px;">
@@ -2052,7 +2060,7 @@
       </div><!-- Elegant Library Collection -->
       <div class="kids-tile" style="border: 3px solid #8A2BE2; box-shadow: 0 0 35px rgba(138, 43, 226, 0.7), 0 0 60px rgba(138, 43, 226, 0.4); margin: 30px auto; max-width: 800px; padding: 30px;">
        <div class="kids-text">
-        <h3 style="color: #8A2BE2; font-size: 1.8rem; margin-bottom: 20px; text-shadow: 0 0 20px rgba(138, 43, 226, 0.8);">
+        <h3 id="library-collection-title" style="color: #8A2BE2; font-size: 1.8rem; margin-bottom: 20px; text-shadow: 0 0 20px rgba(138, 43, 226, 0.8);">
          <svg width="40" height="40" viewbox="0 0 100 100" style="display: inline-block; vertical-align: middle; margin-right: 10px;"><!-- First Book - Gold --> <rect x="10" y="20" width="15" height="60" fill="#ffd700" stroke="#8A2BE2" stroke-width="1" rx="2" /> <rect x="12" y="22" width="11" height="4" fill="#8A2BE2" opacity="0.3" /> <rect x="12" y="28" width="11" height="2" fill="#8A2BE2" opacity="0.2" /> <rect x="12" y="32" width="11" height="2" fill="#8A2BE2" opacity="0.2" /> <!-- Second Book - Purple --> <rect x="28" y="15" width="15" height="65" fill="#8A2BE2" stroke="#ffd700" stroke-width="1" rx="2" /> <rect x="30" y="17" width="11" height="4" fill="#ffd700" opacity="0.3" /> <rect x="30" y="23" width="11" height="2" fill="#ffd700" opacity="0.2" /> <rect x="30" y="27" width="11" height="2" fill="#ffd700" opacity="0.2" /> <!-- Third Book - Gold --> <rect x="46" y="18" width="15" height="62" fill="#ffd700" stroke="#8A2BE2" stroke-width="1" rx="2" /> <rect x="48" y="20" width="11" height="4" fill="#8A2BE2" opacity="0.3" /> <rect x="48" y="26" width="11" height="2" fill="#8A2BE2" opacity="0.2" /> <rect x="48" y="30" width="11" height="2" fill="#8A2BE2" opacity="0.2" /> <!-- Fourth Book - Purple --> <rect x="64" y="22" width="15" height="58" fill="#8A2BE2" stroke="#ffd700" stroke-width="1" rx="2" /> <rect x="66" y="24" width="11" height="4" fill="#ffd700" opacity="0.3" /> <rect x="66" y="30" width="11" height="2" fill="#ffd700" opacity="0.2" /> <rect x="66" y="34" width="11" height="2" fill="#ffd700" opacity="0.2" /> <!-- Sparkle effects --> <circle cx="20" cy="15" r="1" fill="#ffd700" opacity="0.8">
            <animate attributename="opacity" values="0.8;0.3;0.8" dur="2s" repeatcount="indefinite" />
           </circle> <circle cx="55" cy="12" r="1" fill="#8A2BE2" opacity="0.8">
@@ -2946,21 +2954,79 @@
     </div>
    </div>
     <div style="width: 100%; margin: 30px auto 40px auto; background: #000000; border: 3px solid #8A2BE2; border-radius: 24px; padding: 28px; box-shadow: 0 0 35px rgba(138, 43, 226, 0.6), 0 0 60px rgba(138, 43, 226, 0.3); text-align: center; box-sizing: border-box;">
-     <h3 style="color: #ffd700; font-size: 1.85rem; margin: 0 0 16px 0; text-shadow: 0 0 18px rgba(255, 215, 0, 0.7);">What happens when you mix Mindfulness, Adventure, and a sprinkle of <span style="color:#8A2BE2;font-weight:700;">Family&nbsp;Magic</span>?</h3>
-     <p style="color: #ffffff; font-size: 1.15rem; line-height: 1.6; margin: 0 0 14px 0; text-align: justify; text-align-last: center;"><strong style="color:#ffd700;">You get The Happy Makers!</strong></p>
-     <p style="color: #ffffff; font-size: 1.12rem; line-height: 1.6; margin: 0 0 14px 0; text-align: justify; text-align-last: center;">Meet your new best friends.<br>A lovable squad of trusted guides and fun-loving companions on a mission to make being YOU the greatest adventure of all.</p>
-     <p style="color: #ffffff; font-size: 1.12rem; line-height: 1.6; margin: 0 0 14px 0; text-align: justify; text-align-last: center;">We bring the empowering spirit of<br>the <strong style="color:#8A2BE2;">Rise Shine Evolve Learning Hub</strong><br>straight into your living room.</p>
-     <p style="color: #ffffff; font-size: 1.12rem; line-height: 1.6; margin: 0 0 14px 0; text-align: justify; text-align-last: center;">We craft immersive journeys that turn everyday<br>challanges into opportunities<br>for <strong style="color:#ffd700;">Connection&nbsp;and&nbsp;Growth</strong>.</p>
-     <p style="color: #ffffff; font-size: 1.12rem; line-height: 1.6; margin: 0 0 14px 0; text-align: justify; text-align-last: center;">Whether it’s finding calm in the daily rush<br>or discovering inner courage<br>on a Tuesday morning.<br>Our squad is here to help you navigate the wild ride<br>of growing up.</p>
-     <p style="color: #ffffff; font-size: 1.12rem; line-height: 1.6; margin: 0 0 14px 0; text-align: justify; text-align-last: center;"><strong style="color:#8A2BE2;">The Happy Makers Vibe?</strong><br>We take emotional growth seriously.<br>But we never take ourselves too seriously.</p>
-     <p style="color: #ffffff; font-size: 1.12rem; line-height: 1.6; margin: 0 0 14px 0; text-align: justify; text-align-last: center;">We believe in<br><strong style="color:#ffd700;">zero boring lecturers</strong> and <strong style="color:#ffd700;">100% fun</strong>.<br>Because let’s be honest: kids learn best when they are laughing and exploring the world.</p>
-     <p style="color: #ffffff; font-size: 1.12rem; line-height: 1.6; margin: 0 0 14px 0; text-align: justify; text-align-last: center;">Join us on a journey where:</p>
-     <p style="color: #ffffff; font-size: 1.12rem; line-height: 1.6; margin: 0 0 8px 0; text-align: justify; text-align-last: center;"><strong style="color:#ff69b4;">Every child can RISE</strong><br><span style="color:#ffffff;">(no superhero cape required).</span></p>
-     <p style="color: #ffffff; font-size: 1.12rem; line-height: 1.6; margin: 0 0 8px 0; text-align: justify; text-align-last: center;"><strong style="color:#ffd700;">Every family can SHINE</strong><br><span style="color:#ffffff;">(yes, even on the messy,<br>chaotic days).</span></p>
-     <p style="color: #ffffff; font-size: 1.12rem; line-height: 1.6; margin: 0 0 14px 0; text-align: justify; text-align-last: center;"><strong style="color:#8A2BE2;">Every person can EVOLVE</strong><br><span style="color:#ffffff;">(one small step at a time).</span></p>
-     <p style="color: #ffffff; font-size: 1.12rem; line-height: 1.6; margin: 0 0 14px 0; text-align: justify; text-align-last: center;">This isn’t just a book series.</p>
-     <p style="color: #ffd700; font-size: 1.12rem; line-height: 1.6; margin: 0 0 14px 0; text-align: justify; text-align-last: center; text-transform: uppercase; font-weight: 700;">It’s a movement fueled by love, humor and high-fives!</p>
-     <p style="color: #ffffff; font-size: 1.18rem; line-height: 1.6; margin: 0; text-align: justify; text-align-last: center;"><strong style="color:#ffffff;">Ready to unlock true potential?</strong><br>It is time to <span style="color:#ff1493; font-weight: bold;">RISE</span><span style="color:#ff1493; font-weight: bold;">.</span><span style="color:#ffd700; font-weight: bold;">SHINE</span><span style="color:#ffd700; font-weight: bold;">.</span><span style="color:#9932CC; font-weight: bold;">EVOLVE</span><span style="color:#9932CC; font-weight: bold;">.</span><br><strong style="color:#ffd700;">TOGETHER.</strong></p>
+     <div style="display: inline-block; padding: 14px 22px; border-radius: 18px; border: 2px solid #ffd700; box-shadow: 0 0 18px rgba(255, 215, 0, 0.35); margin-bottom: 16px;">
+      <h3 style="color: #ffffff; font-size: 1.1rem; margin: 0; line-height: 1.6; font-weight: 500;">
+       What happens when you mix<br>Mindfulness, Adventure, and a sprinkle of<br><span style="color:#ffd700; font-weight:700; text-transform: uppercase;">Family Magic?</span>
+      </h3>
+     </div>
+     <div style="margin-bottom: 18px;">
+      <p style="margin: 0; color: #ffffff; font-size: 1.05rem;">You get</p>
+      <p style="margin: 6px 0 0 0; color: #ff69b4; font-size: 2.2rem; font-weight: 800; text-transform: uppercase; letter-spacing: 3px; text-shadow: 0 0 12px rgba(255, 105, 180, 0.7);">THE HAPPY MAKERS!</p>
+     </div>
+     <div style="border: 2px solid rgba(138, 43, 226, 0.7); border-radius: 22px; padding: 22px; box-shadow: 0 0 18px rgba(138, 43, 226, 0.35); margin-bottom: 20px;">
+      <h4 style="margin: 0 0 12px 0; font-size: 1.4rem; color: #ffffff; font-weight: 600;">Meet your new<br><span style="color:#ffd700; font-weight: 800; text-transform: uppercase;">BEST FRIENDS</span>.</h4>
+      <p style="margin: 0 0 16px 0; color: #ffffff;">A lovable squad of trusted guides and fun-loving companions<br>on a mission to make being <span style="color:#ff69b4; font-weight:700;">YOU</span> the greatest adventure of all.</p>
+      <div style="height: 1px; background: rgba(138, 43, 226, 0.3); margin: 16px 0;"></div>
+      <p style="margin: 0 0 12px 0; color: #ffffff; font-size: 1.05rem;">
+       We bring the empowering spirit of the<br>
+       <span style="color:#ff69b4; font-weight:800;">RISE</span> <span style="color:#ffd700; font-weight:800;">SHINE</span> <span style="color:#9932CC; font-weight:800;">EVOLVE</span> <span style="font-weight:600;">Learning Hub</span><br>
+       straight into your living room.
+      </p>
+      <p style="margin: 0 0 10px 0; color: #ffffff;">We craft immersive journeys that turn everyday<br>challenges into opportunities for:</p>
+      <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">
+       <span style="color:#ff69b4;">Connection</span>
+       <span style="color:#666;">|</span>
+       <span style="color:#ffd700;">Growth</span>
+      </div>
+      <p style="margin: 12px 0 0 0; color: #c7bedb; font-size: 0.9rem; font-style: italic;">Whether it’s finding calm in the daily rush<br>or discovering inner courage on a Tuesday morning.</p>
+      <div style="display: inline-block; margin-top: 12px; padding: 8px 14px; border-radius: 999px; border: 1px solid rgba(138, 43, 226, 0.5); background: rgba(138, 43, 226, 0.1); font-size: 0.85rem; color: #ffffff;">Our squad is here to help you navigate the <span style="font-weight:700;">wild ride of growing up</span>.</div>
+     </div>
+     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; align-items: stretch; margin-bottom: 18px;">
+      <div style="border: 2px solid #ffd700; border-radius: 22px; padding: 18px; box-shadow: 0 0 16px rgba(255, 215, 0, 0.3); display: flex; flex-direction: column; gap: 12px;">
+       <div style="font-size: 1.1rem; font-weight: 800; color: #ffd700; text-transform: uppercase;">The Happy Makers<br>Vibe?</div>
+       <p style="margin: 0; color: #ffffff;">We take emotional growth seriously.<br>But we never take ourselves too seriously.</p>
+       <div style="border-top: 1px solid rgba(255, 215, 0, 0.3); border-bottom: 1px solid rgba(255, 215, 0, 0.3); padding: 12px 0;">
+        <div style="text-transform: uppercase; font-weight: 700; color: #666; text-decoration: line-through; text-decoration-color: #ffd700;">Zero boring lectures</div>
+        <div style="text-transform: uppercase; font-weight: 800; color: #ffd700;">&amp; 100% Fun</div>
+       </div>
+       <p style="margin: 0; color: #c7bedb; font-size: 0.9rem;">Because let’s be honest:<br>kids learn best when they are laughing<br>and exploring the world.</p>
+      </div>
+      <div style="border: 2px solid #8A2BE2; border-radius: 22px; padding: 18px; box-shadow: 0 0 16px rgba(138, 43, 226, 0.3); display: flex; flex-direction: column; gap: 12px;">
+       <p style="margin: 0; color: #ffffff; font-weight: 600;">Join us on a journey where:</p>
+       <div style="display: flex; flex-direction: column; gap: 12px;">
+        <div>
+         <div style="font-weight: 800; color: #ff69b4; text-transform: uppercase;">Every child can RISE</div>
+         <div style="font-size: 0.85rem; color: #c7bedb;">(no superhero cape required)</div>
+        </div>
+        <div>
+         <div style="font-weight: 800; color: #ffd700; text-transform: uppercase;">Every family can SHINE</div>
+         <div style="font-size: 0.85rem; color: #c7bedb;">(yes, even on the messy, chaotic days)</div>
+        </div>
+        <div>
+         <div style="font-weight: 800; color: #8A2BE2; text-transform: uppercase;">Every person can EVOLVE</div>
+         <div style="font-size: 0.85rem; color: #c7bedb;">(one small step at a time)</div>
+        </div>
+       </div>
+      </div>
+     </div>
+     <div style="margin-bottom: 10px;">
+      <p style="margin: 0; color: #ffffff;">This isn’t just a book series.</p>
+      <p style="margin: 6px 0 0 0; color: #ffffff; font-weight: 600;">It’s a movement fueled by<br>
+       <span style="color:#ff69b4; font-weight:800;">Love</span> <span style="color:#666;">|</span>
+       <span style="color:#ffd700; font-weight:800;">Humor</span> <span style="color:#666;">|</span>
+       <span style="color:#8A2BE2; font-weight:800;">High-Fives!</span>
+      </p>
+     </div>
+     <div style="margin-top: 16px;">
+      <p style="margin: 0; color: #c7bedb; text-transform: uppercase; letter-spacing: 3px; font-weight: 700;">Ready to unlock true potential?</p>
+      <p style="margin: 8px 0 0 0; color: #c7bedb; text-transform: uppercase; letter-spacing: 3px; font-weight: 700;">It is time to</p>
+      <div style="display: flex; flex-direction: column; gap: 6px; margin-top: 8px; font-size: 2rem; font-weight: 800; text-transform: uppercase;">
+       <span style="color:#ff69b4;">RISE</span>
+       <span style="color:#ffd700;">SHINE</span>
+       <span style="color:#9932CC;">EVOLVE</span>
+      </div>
+      <div style="margin-top: 8px; font-size: 1.6rem; font-weight: 700; letter-spacing: 6px;">TOGETHER</div>
+     </div>
      <div class="rse-footer-video-wrap">
       <video class="rse-footer-video" autoplay loop muted playsinline aria-label="Rise Shine Evolve outro">
        <source src="assets/videos/rse video.mp4" type="video/mp4">
