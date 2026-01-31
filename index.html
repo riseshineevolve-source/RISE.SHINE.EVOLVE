@@ -3023,9 +3023,9 @@
       <p style="margin: 0; color: #ffffff; text-transform: uppercase; letter-spacing: 3px; font-weight: 700;">Ready to unlock true potential?</p>
       <p style="margin: 8px 0 0 0; color: #ffffff; text-transform: uppercase; letter-spacing: 3px; font-weight: 700;">It is time to</p>
       <div style="display: flex; flex-direction: column; gap: 6px; margin-top: 8px; font-size: 2rem; font-weight: 800; text-transform: uppercase;">
-       <span class="word-rise">RISE</span>
-       <span class="word-shine">SHINE</span>
-       <span class="word-evolve">EVOLVE</span>
+       <span class="word-rise" style="color:#ff1493; text-shadow: 0 0 25px rgba(255, 20, 147, 1), 0 0 40px rgba(255, 20, 147, 0.6), 0 0 60px rgba(255, 20, 147, 0.3); font-weight: bold; animation: riseGlow 8s infinite ease-in-out;">RISE</span>
+       <span class="word-shine" style="color:#ffd700; text-shadow: 0 0 25px rgba(255, 215, 0, 1), 0 0 40px rgba(255, 215, 0, 0.6), 0 0 60px rgba(255, 215, 0, 0.3); font-weight: bold; animation: shineGlow 8s infinite ease-in-out;">SHINE</span>
+       <span class="word-evolve" style="color:#9932CC; text-shadow: 0 0 25px rgba(153, 50, 204, 1), 0 0 40px rgba(153, 50, 204, 0.6), 0 0 60px rgba(153, 50, 204, 0.3); font-weight: bold; animation: evolveGlow 8s infinite ease-in-out;">EVOLVE</span>
       </div>
       <div style="margin-top: 8px; font-size: 1.6rem; font-weight: 700; letter-spacing: 6px; color: #ffffff;">TOGETHER</div>
      </div>
@@ -8720,11 +8720,11 @@ restoreChallengeState();
                 const scrollY = window.scrollY || window.pageYOffset || 0;
                 modal.classList.add('show');
                 modal.style.display = 'flex';
-                modal.style.position = 'absolute';
-                modal.style.top = `${scrollY}px`;
+                modal.style.position = 'fixed';
+                modal.style.top = '0';
                 modal.style.left = '0';
                 modal.style.right = '0';
-                modal.style.height = `${window.innerHeight}px`;
+                modal.style.height = '100%';
                 modal.scrollTop = 0;
                 const content = modal.querySelector('.modal-content');
                 if (content) {
@@ -8742,12 +8742,11 @@ restoreChallengeState();
             }
             modal.classList.add('show');
             modal.style.display = 'flex';
-            const scrollY = window.scrollY || window.pageYOffset || 0;
-            modal.style.position = 'absolute';
-            modal.style.top = `${scrollY}px`;
+            modal.style.position = 'fixed';
+            modal.style.top = '0';
             modal.style.left = '0';
             modal.style.right = '0';
-            modal.style.height = `${window.innerHeight}px`;
+            modal.style.height = '100%';
             modal.scrollTop = 0;
             const content = modal.querySelector('.modal-content');
             if (content) {
