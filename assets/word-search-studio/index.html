@@ -2759,7 +2759,7 @@
                     if (!this.isPanning || !this.panStart) return;
                     const deltaX = event.clientX - this.panStart.x;
                     const deltaY = event.clientY - this.panStart.y;
-                    if (Math.abs(deltaX) > 4 || Math.abs(deltaY) > 4) {
+                    if (Math.abs(deltaX) > 12 || Math.abs(deltaY) > 12) {
                         this.preventClick = true;
                     }
                     this.pan = {
