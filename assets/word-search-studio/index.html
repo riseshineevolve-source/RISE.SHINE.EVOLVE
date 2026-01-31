@@ -653,7 +653,7 @@
 
         @media (max-width: 900px) {
             .word-search.zoomed {
-                transform: scale(1.35);
+                transform: translate(var(--pan-x, 0px), var(--pan-y, 0px)) scale(1.35);
             }
         }
 
@@ -1997,6 +1997,7 @@
             }
             
             initEventListeners() {
+                this.initPanHandlers();
                 // Przyciski trudności
                 document.querySelectorAll('[data-difficulty]').forEach(btn => {
                     btn.addEventListener('click', (e) => {
