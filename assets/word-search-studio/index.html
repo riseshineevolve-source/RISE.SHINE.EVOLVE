@@ -639,15 +639,18 @@
             animation: elegantBoxGlow 9s ease-in-out infinite, frame-sparkle 16s ease-in-out infinite;
             transition: transform 0.2s ease;
             transform-origin: var(--zoom-origin-x, 50%) var(--zoom-origin-y, 50%);
+            touch-action: manipulation;
         }
 
         .word-search.zoomed {
-            transform: scale(1.25);
+            transform: translate(var(--pan-x, 0px), var(--pan-y, 0px)) scale(1.25);
+            cursor: grab;
+            touch-action: none;
         }
 
         @media (max-width: 900px) {
             .word-search.zoomed {
-                transform: scale(1.35);
+                transform: translate(var(--pan-x, 0px), var(--pan-y, 0px)) scale(1.35);
             }
         }
 
@@ -1831,6 +1834,10 @@
                 this.currentWordProgress = {};
                 this.currentFirstLetter = null;
                 this.activeHint = null;
+                this.pan = { x: 0, y: 0 };
+                this.panStart = null;
+                this.isPanning = false;
+                this.preventClick = false;
 
                 this.directions = {
                     easy: [
@@ -1962,6 +1969,9 @@
                 const cellRect = cell.getBoundingClientRect();
                 const originX = ((cellRect.left + cellRect.width / 2 - containerRect.left) / containerRect.width) * 100;
                 const originY = ((cellRect.top + cellRect.height / 2 - containerRect.top) / containerRect.height) * 100;
+                this.pan = { x: 0, y: 0 };
+                container.style.setProperty('--pan-x', '0px');
+                container.style.setProperty('--pan-y', '0px');
                 container.style.setProperty('--zoom-origin-x', `${originX}%`);
                 container.style.setProperty('--zoom-origin-y', `${originY}%`);
                 container.classList.add('zoomed');
@@ -1971,11 +1981,14 @@
                 const container = this.getWordSearchElement();
                 if (!container) return;
                 container.classList.remove('zoomed');
+                container.style.removeProperty('--pan-x');
+                container.style.removeProperty('--pan-y');
                 container.style.removeProperty('--zoom-origin-x');
                 container.style.removeProperty('--zoom-origin-y');
             }
             
             initEventListeners() {
+                this.initPanHandlers();
                 // Przyciski trudności
                 document.querySelectorAll('[data-difficulty]').forEach(btn => {
                     btn.addEventListener('click', (e) => {
@@ -2486,6 +2499,11 @@
                     return;
                 }
 
+                if (this.preventClick) {
+                    this.preventClick = false;
+                    return;
+                }
+
                 if (this.isSelecting) {
                     this.endSelection(row, col, cell);
                     return;
@@ -2676,6 +2694,7 @@
                     this.animateWordCompletion(foundWordData);
                     this.highlightFoundWordInList(foundWordData.word);
                     this.updateStats();
+                    this.clearZoom();
                     
                     // Sprawdź czy wszystkie słowa zostały znalezione
                     if (this.foundWords.size === this.words.length) {
@@ -2712,6 +2731,44 @@
                 // Resetuj stan wyboru
                 this.isSelecting = false;
                 this.selectedCells = [];
+            }
+
+            initPanHandlers() {
+                const container = this.getWordSearchElement();
+                if (!container) return;
+                container.addEventListener('pointerdown', (event) => {
+                    if (!container.classList.contains('zoomed')) return;
+                    this.isPanning = true;
+                    this.preventClick = false;
+                    this.panStart = {
+                        x: event.clientX,
+                        y: event.clientY,
+                        panX: this.pan.x,
+                        panY: this.pan.y
+                    };
+                    container.setPointerCapture(event.pointerId);
+                });
+                container.addEventListener('pointermove', (event) => {
+                    if (!this.isPanning || !this.panStart) return;
+                    const deltaX = event.clientX - this.panStart.x;
+                    const deltaY = event.clientY - this.panStart.y;
+                    if (Math.abs(deltaX) > 4 || Math.abs(deltaY) > 4) {
+                        this.preventClick = true;
+                    }
+                    this.pan = {
+                        x: this.panStart.panX + deltaX,
+                        y: this.panStart.panY + deltaY
+                    };
+                    container.style.setProperty('--pan-x', `${this.pan.x}px`);
+                    container.style.setProperty('--pan-y', `${this.pan.y}px`);
+                });
+                const stopPan = () => {
+                    this.isPanning = false;
+                    this.panStart = null;
+                };
+                container.addEventListener('pointerup', stopPan);
+                container.addEventListener('pointercancel', stopPan);
+                container.addEventListener('pointerleave', stopPan);
             }
 
             getPathBetweenCells(startRow, startCol, endRow, endCol) {
