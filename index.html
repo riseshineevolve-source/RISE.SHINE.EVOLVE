@@ -9642,7 +9642,7 @@ restoreChallengeState();
 
             if (!verificationHandled) {
                 const hashTab = (window.location.hash || '').replace('#', '');
-                const desiredTab = hashTab && getTabElement(hashTab) ? hashTab : 'main';
+                const desiredTab = hashTab && hashTab !== 'gifts' && getTabElement(hashTab) ? hashTab : 'main';
                 const tabElement = getTabElement(desiredTab) || getTabElement('main');
                 if (tabElement) {
                     selectTab(tabElement, tabElement.dataset.tab, { skipHistory: true });
