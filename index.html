@@ -3750,7 +3750,7 @@
         body.fridge-mode .hide-on-fridge { display: none !important; }
         .show-on-fridge { display: none; }
         body.fridge-mode .motto-text { color: black !important; text-shadow: none !important; font-weight: 700; }
-        body.fridge-mode .motto-hint { color: #444 !important; font-style: italic; }
+        body.fridge-mode .motto-hint { color: #111 !important; font-style: italic; font-weight: 600; }
         body.fridge-mode .show-on-fridge { display: block; }
         body.fridge-mode #exitFridgeBtn { display: none !important; }
     </style>
@@ -3857,7 +3857,7 @@
 
     </div>
 
-    <div class="show-on-fridge text-center text-xs text-black mt-6">
+    <div class="show-on-fridge text-center text-xs text-black" style="position: fixed; bottom: 12px; left: 0; right: 0;">
         All rights reserved Rise.Shine.Evolve.
     </div>
 
@@ -4009,6 +4009,9 @@
                 }, 200);
             });
             els.exitFridgeBtn.addEventListener('click', () => { document.body.classList.remove('fridge-mode'); });
+            window.addEventListener('afterprint', () => {
+                document.body.classList.remove('fridge-mode');
+            });
         }
 
         function shuffleReadyDeck() {
