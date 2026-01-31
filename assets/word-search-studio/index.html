@@ -7,7 +7,7 @@
     <style>
         body {
             box-sizing: border-box;
-            margin: 0;
+            margin: 0 auto;
             padding: 20px;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: #000000;
@@ -600,7 +600,7 @@
         .puzzle-container {
             display: flex;
             flex-direction: column;
-            align-items: flex-start;
+            align-items: center;
             gap: 20px;
             width: fit-content;
             max-width: 100%;
@@ -611,7 +611,7 @@
             font-size: 0.95rem;
             font-weight: 600;
             color: #f4f1ff;
-            margin: 0;
+            margin: 0 auto;
         }
 
         .word-search {
@@ -631,10 +631,10 @@
             max-width: 100%;
             max-height: 100%;
             overflow: visible;
-            margin: 0;
+            margin: 0 auto;
             aspect-ratio: 1;
-            justify-content: flex-start;
-            align-content: flex-start;
+            justify-content: center;
+            align-content: center;
             box-sizing: border-box;
             animation: elegantBoxGlow 9s ease-in-out infinite, frame-sparkle 16s ease-in-out infinite;
             transition: transform 0.2s ease;
@@ -1746,7 +1746,7 @@
 
         <div class="game-area" id="gameArea" style="display: none;">
             <div class="puzzle-container">
-                <p class="word-search-instruction">Click the first letter and each following letter until the last.</p>
+                <p class="word-search-instruction">Tap the first and the last letter of the word.</p>
                 <div class="word-search" id="wordSearch"></div>
                 <div style="text-align: center; margin-top: 20px;" id="onlineAnswerButtons">
                     <button class="btn btn-secondary" id="showAnswersBtn" style="display: none;">Show Hint</button>
@@ -1799,15 +1799,18 @@
             const sparklesContainer = document.getElementById('sparkles');
             if (!sparklesContainer) return;
 
-            const sparkleCount = 50;
+            const isMobile = window.matchMedia && window.matchMedia('(max-width: 768px)').matches;
+            const sparkleCount = isMobile ? 20 : 50;
+            const fragment = document.createDocumentFragment();
             for (let i = 0; i < sparkleCount; i++) {
                 const sparkle = document.createElement('div');
                 sparkle.className = 'sparkle';
                 sparkle.style.left = Math.random() * 100 + '%';
                 sparkle.style.top = Math.random() * 100 + '%';
                 sparkle.style.animationDelay = Math.random() * 3 + 's';
-                sparklesContainer.appendChild(sparkle);
+                fragment.appendChild(sparkle);
             }
+            sparklesContainer.appendChild(fragment);
         }
 
         const WORD_SEARCH_STUDIO_STATE_KEY = 'hmWordSearchStudioState';
@@ -2477,56 +2480,19 @@
                 const cell = e.target;
                 const row = parseInt(cell.dataset.row);
                 const col = parseInt(cell.dataset.col);
-                const letter = cell.textContent;
                 
                 // Sprawdź czy komórka już została znaleziona
                 if (cell.classList.contains('found')) {
                     return;
                 }
-                
-                // Jeśli już mamy rozpoczęte słowo, sprawdź czy to kolejna litera
-                if (this.currentWordProgress.word) {
-                    const isNextLetter = this.isNextLetterInWord(row, col, letter);
-                    if (isNextLetter) {
-                        // Dodaj komórkę do aktualnego słowa
-                        this.currentWordProgress.cells.push({row, col, cell});
-                        this.highlightCell(cell);
-                        
-                        // Sprawdź czy słowo zostało ukończone
-                        if (this.currentWordProgress.cells.length === this.currentWordProgress.word.length) {
-                            this.completeWord();
-                        }
-                        return;
-                    } else {
-                        // Niepoprawna litera - resetuj postęp
-                        this.resetWordProgress();
-                    }
+
+                if (this.isSelecting) {
+                    this.endSelection(row, col, cell);
+                    return;
                 }
-                
-                // Podświetl komórkę różowo-żółto
-                this.highlightCell(cell);
-                
-                // Sprawdź czy ta litera jest pierwszą literą jakiegoś słowa
-                const wordData = this.isFirstLetterOfWord(row, col, letter);
-                
-                if (wordData) {
-                    // To jest pierwsza litera słowa - rozpocznij śledzenie
-                    this.currentWordProgress = {
-                        word: wordData.word,
-                        wordData: wordData,
-                        cells: [{row, col, cell}],
-                        direction: wordData.direction,
-                        positions: wordData.positions
-                    };
-                    this.zoomToCell(cell);
-                } else {
-                    // To nie jest pierwsza litera - usuń podświetlenie po 1 sekundzie
-                    setTimeout(() => {
-                        if (!cell.classList.contains('found')) {
-                            this.removeHighlight(cell);
-                        }
-                    }, 1000);
-                }
+
+                this.startSelection(row, col, cell);
+                this.zoomToCell(cell);
             }
 
             highlightCell(cell) {
