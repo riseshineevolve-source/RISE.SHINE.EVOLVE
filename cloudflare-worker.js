@@ -73,7 +73,7 @@ async function sendDeleteConfirmationEmail(body, env, workerOrigin) {
         userId = await lookupSupabaseUserId(email, env);
     }
     if (!userId) {
-        return new Response(JSON.stringify({ error: "Email not found", code: "email_not_found" }), {
+        return new Response(JSON.stringify({ error: "Email not found in database", code: "email_not_found" }), {
             status: 404,
             headers: { "Access-Control-Allow-Origin": "*", "Content-Type": "application/json" }
         });
