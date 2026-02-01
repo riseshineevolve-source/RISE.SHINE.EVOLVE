@@ -2472,8 +2472,9 @@
                 wordSearchDiv.innerHTML = '';
 
                 const isCompact = window.matchMedia && window.matchMedia('(max-width: 720px)').matches;
+                const containerWidth = wordSearchDiv.parentElement?.clientWidth || window.innerWidth;
                 const maxVisualSize = Math.min(
-                    window.innerWidth * (isCompact ? 0.7 : 0.82),
+                    containerWidth * (isCompact ? 0.95 : 0.82),
                     window.innerHeight * (isCompact ? 0.65 : 0.75),
                     isCompact ? 520 : 640
                 );
