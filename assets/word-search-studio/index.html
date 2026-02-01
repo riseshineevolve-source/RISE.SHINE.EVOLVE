@@ -1517,7 +1517,6 @@
             .control-row {
                 flex-direction: column;
                 align-items: center;
-                width: 100%;
             }
             
             .mode-selector {
@@ -1532,15 +1531,6 @@
                 align-self: center;
                 margin-left: 0;
                 text-align: center;
-            }
-
-            .control-group,
-            .sidebar {
-                width: min(90vw, 320px);
-                max-width: 320px;
-                box-sizing: border-box;
-                margin-left: auto;
-                margin-right: auto;
             }
             
             .title {
@@ -1594,14 +1584,11 @@
                 font-size: 0.9rem;
                 padding: 10px;
                 border-radius: 14px;
-                width: 100%;
-                max-width: 100%;
-                box-sizing: border-box;
             }
 
             .button-group {
                 gap: 6px;
-                justify-content: center;
+                justify-content: flex-start;
             }
 
             .btn {
@@ -2472,9 +2459,8 @@
                 wordSearchDiv.innerHTML = '';
 
                 const isCompact = window.matchMedia && window.matchMedia('(max-width: 720px)').matches;
-                const containerWidth = wordSearchDiv.parentElement?.clientWidth || window.innerWidth;
                 const maxVisualSize = Math.min(
-                    containerWidth * (isCompact ? 0.95 : 0.82),
+                    window.innerWidth * (isCompact ? 0.75 : 0.82),
                     window.innerHeight * (isCompact ? 0.65 : 0.75),
                     isCompact ? 520 : 640
                 );
