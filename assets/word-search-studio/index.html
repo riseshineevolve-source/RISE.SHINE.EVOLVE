@@ -1472,7 +1472,7 @@
 
         @media (max-width: 768px) and (orientation: portrait) {
             body {
-                padding: 12px 12px 16px 4px;
+                padding: 12px 12px 16px;
             }
 
             .container {
@@ -1609,6 +1609,14 @@
             .word-search-instruction {
                 text-align: center;
             }
+
+            body::before,
+            body::after,
+            .sparkles,
+            .word-search,
+            .word-search::after {
+                animation: none;
+            }
         }
 
         @media (max-width: 480px) {
@@ -1616,7 +1624,7 @@
                 border: none;
                 box-shadow: none;
                 margin: 0;
-                padding: 12px 12px 12px 6px;
+                padding: 12px;
                 border-radius: 0;
                 text-align: left;
             }
@@ -1645,7 +1653,7 @@
             }
 
             .container {
-                padding: 12px 12px 12px 6px;
+                padding: 12px;
                 margin: 0;
             }
         }
@@ -2461,7 +2469,9 @@
                     Math.min(isCompact ? 26 : 30, maxVisualSize / this.gridSize)
                 );
                 const gridDimension = cellSize * this.gridSize;
-                const framePadding = Math.max(18, Math.min(36, Math.ceil(cellSize * 0.9)));
+                const framePadding = isCompact
+                    ? Math.max(10, Math.min(18, Math.ceil(cellSize * 0.6)))
+                    : Math.max(18, Math.min(36, Math.ceil(cellSize * 0.9)));
 
                 wordSearchDiv.style.gridTemplateColumns = `repeat(${this.gridSize}, ${cellSize}px)`;
                 wordSearchDiv.style.gridAutoRows = `${cellSize}px`;
@@ -2472,6 +2482,7 @@
                 wordSearchDiv.style.minWidth = `${framedDimension}px`;
                 wordSearchDiv.style.minHeight = `${framedDimension}px`;
                 wordSearchDiv.style.gap = '0px';
+                wordSearchDiv.style.margin = '0 auto';
                 
                 for (let i = 0; i < this.gridSize; i++) {
                     for (let j = 0; j < this.gridSize; j++) {
