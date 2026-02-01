@@ -2200,6 +2200,10 @@
                     baseSize += 1;
                 }
 
+                if (this.shape === 'diamond' || this.shape === 'heart') {
+                    baseSize += 1;
+                }
+
                 this.gridSize = Math.min(Math.ceil(baseSize), 15);
             }
             
@@ -2487,12 +2491,19 @@
                 wordSearchDiv.innerHTML = '';
 
                 const isCompact = window.matchMedia && window.matchMedia('(max-width: 720px)').matches;
+                const isPortraitMobile = window.matchMedia && window.matchMedia('(max-width: 768px) and (orientation: portrait)').matches;
                 const containerWidth = wordSearchDiv.parentElement?.clientWidth || window.innerWidth;
                 const viewportWidth = window.innerWidth;
                 const viewportHeight = window.innerHeight;
+                const maxWidthScale = isPortraitMobile && (this.shape === 'diamond' || this.shape === 'heart') && this.words.length >= 10
+                    ? 0.88
+                    : (isCompact ? 0.95 : 0.82);
+                const maxHeightScale = isPortraitMobile && (this.shape === 'diamond' || this.shape === 'heart') && this.words.length >= 10
+                    ? 0.6
+                    : (isCompact ? 0.65 : 0.75);
                 const maxVisualSize = Math.min(
-                    Math.min(containerWidth, viewportWidth) * (isCompact ? 0.95 : 0.82),
-                    viewportHeight * (isCompact ? 0.65 : 0.75),
+                    Math.min(containerWidth, viewportWidth) * maxWidthScale,
+                    viewportHeight * maxHeightScale,
                     isCompact ? 520 : 640
                 );
                 const cellSize = Math.max(
