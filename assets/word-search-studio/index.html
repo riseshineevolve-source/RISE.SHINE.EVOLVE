@@ -1534,7 +1534,14 @@
                 text-align: center;
             }
 
-            .control-group,
+            .control-group {
+                width: min(84vw, 300px);
+                max-width: 300px;
+                box-sizing: border-box;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
             .sidebar {
                 width: min(90vw, 320px);
                 max-width: 320px;
@@ -1629,6 +1636,14 @@
             .word-search,
             .word-search::after {
                 animation: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .control-group {
+                width: min(84vw, 300px);
+                max-width: 300px;
+                padding: 14px;
             }
         }
 
@@ -2185,6 +2200,10 @@
                     baseSize += 1;
                 }
 
+                if (this.shape === 'diamond' || this.shape === 'heart') {
+                    baseSize += 1;
+                }
+
                 this.gridSize = Math.min(Math.ceil(baseSize), 15);
             }
             
@@ -2472,10 +2491,19 @@
                 wordSearchDiv.innerHTML = '';
 
                 const isCompact = window.matchMedia && window.matchMedia('(max-width: 720px)').matches;
+                const isPortraitMobile = window.matchMedia && window.matchMedia('(max-width: 768px) and (orientation: portrait)').matches;
                 const containerWidth = wordSearchDiv.parentElement?.clientWidth || window.innerWidth;
+                const viewportWidth = window.innerWidth;
+                const viewportHeight = window.innerHeight;
+                const maxWidthScale = isPortraitMobile && (this.shape === 'diamond' || this.shape === 'heart') && this.words.length >= 10
+                    ? 0.88
+                    : (isCompact ? 0.95 : 0.82);
+                const maxHeightScale = isPortraitMobile && (this.shape === 'diamond' || this.shape === 'heart') && this.words.length >= 10
+                    ? 0.6
+                    : (isCompact ? 0.65 : 0.75);
                 const maxVisualSize = Math.min(
-                    containerWidth * (isCompact ? 0.95 : 0.82),
-                    window.innerHeight * (isCompact ? 0.65 : 0.75),
+                    Math.min(containerWidth, viewportWidth) * maxWidthScale,
+                    viewportHeight * maxHeightScale,
                     isCompact ? 520 : 640
                 );
                 const cellSize = Math.max(
@@ -2483,9 +2511,12 @@
                     Math.min(isCompact ? 26 : 30, maxVisualSize / this.gridSize)
                 );
                 const gridDimension = cellSize * this.gridSize;
-                const framePadding = isCompact
+                const maxFrameSize = Math.min(containerWidth, viewportWidth) * (isCompact ? 0.98 : 0.9);
+                const desiredPadding = isCompact
                     ? Math.max(10, Math.min(18, Math.ceil(cellSize * 0.6)))
                     : Math.max(18, Math.min(36, Math.ceil(cellSize * 0.9)));
+                const availablePadding = Math.max(0, Math.floor((maxFrameSize - gridDimension) / 2));
+                const framePadding = Math.min(desiredPadding, availablePadding);
 
                 wordSearchDiv.style.gridTemplateColumns = `repeat(${this.gridSize}, ${cellSize}px)`;
                 wordSearchDiv.style.gridAutoRows = `${cellSize}px`;
@@ -2543,6 +2574,11 @@
                     document.getElementById('hideAnswersBtn').style.display = 'none';
                 }
 
+                if (!this.isSelecting && !this.isCellPartOfWord(row, col)) {
+                    this.showWrongTapHighlight(cell);
+                    return;
+                }
+
                 if (this.isSelecting) {
                     if (row === this.startRow && col === this.startCol) {
                         this.clearHighlight();
@@ -2567,6 +2603,33 @@
                 cell.style.boxShadow = '0 0 15px rgba(255, 105, 180, 0.6), 0 0 25px rgba(255, 215, 0, 0.4)';
                 cell.style.fontWeight = '900';
                 cell.style.transform = 'scale(1.05)';
+            }
+
+            showWrongTapHighlight(cell) {
+                cell.classList.add('clicked-wrong');
+                cell.style.background = 'linear-gradient(45deg, #ff4757, #ff3838)';
+                cell.style.color = 'white';
+                cell.style.border = '3px solid #ff4757';
+                cell.style.boxShadow = '0 0 25px rgba(255, 71, 87, 0.9), 0 0 50px rgba(255, 56, 56, 0.6)';
+                cell.style.transform = 'scale(1.05)';
+
+                setTimeout(() => {
+                    if (!cell.classList.contains('found')) {
+                        cell.classList.remove('clicked-wrong');
+                        cell.style.background = '#ffffff';
+                        cell.style.color = '#8a2be2';
+                        cell.style.border = '1px solid #cccccc';
+                        cell.style.boxShadow = '';
+                        cell.style.fontWeight = '900';
+                        cell.style.transform = '';
+                    }
+                }, 3000);
+            }
+
+            isCellPartOfWord(row, col) {
+                return this.placedWords.some(wordData =>
+                    wordData.positions.some(([posRow, posCol]) => posRow === row && posCol === col)
+                );
             }
             
             removeHighlight(cell) {
