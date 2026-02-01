@@ -9538,7 +9538,7 @@ restoreChallengeState();
                     if (notFound && emailExists === false) {
                         if (messageBox) {
                             messageBox.style.color = '#ff69b4';
-                            messageBox.textContent = 'Email not found.';
+                            messageBox.textContent = 'Email not found in database.';
                         }
                         return;
                     }
@@ -9546,7 +9546,7 @@ restoreChallengeState();
                         if (messageBox) {
                             messageBox.style.color = '#ff69b4';
                             messageBox.textContent = (emailExists === false)
-                                ? 'Email not found.'
+                                ? 'Email not found in database.'
                                 : (data?.error || 'Unable to unsubscribe.');
                         }
                         return;
@@ -9555,7 +9555,7 @@ restoreChallengeState();
                         if (messageBox) {
                             messageBox.style.color = '#ff69b4';
                             messageBox.textContent = (emailExists === false)
-                                ? 'Email not found.'
+                                ? 'Email not found in database.'
                                 : (data?.error || 'Unable to unsubscribe.');
                         }
                         return;
