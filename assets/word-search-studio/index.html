@@ -1472,7 +1472,7 @@
 
         @media (max-width: 768px) and (orientation: portrait) {
             body {
-                padding: 12px 12px 16px 4px;
+                padding: 12px 12px 16px;
             }
 
             .container {
@@ -1517,6 +1517,7 @@
             .control-row {
                 flex-direction: column;
                 align-items: center;
+                width: 100%;
             }
             
             .mode-selector {
@@ -1531,6 +1532,15 @@
                 align-self: center;
                 margin-left: 0;
                 text-align: center;
+            }
+
+            .control-group,
+            .sidebar {
+                width: min(90vw, 320px);
+                max-width: 320px;
+                box-sizing: border-box;
+                margin-left: auto;
+                margin-right: auto;
             }
             
             .title {
@@ -1584,11 +1594,14 @@
                 font-size: 0.9rem;
                 padding: 10px;
                 border-radius: 14px;
+                width: 100%;
+                max-width: 100%;
+                box-sizing: border-box;
             }
 
             .button-group {
                 gap: 6px;
-                justify-content: flex-start;
+                justify-content: center;
             }
 
             .btn {
@@ -1609,6 +1622,14 @@
             .word-search-instruction {
                 text-align: center;
             }
+
+            body::before,
+            body::after,
+            .sparkles,
+            .word-search,
+            .word-search::after {
+                animation: none;
+            }
         }
 
         @media (max-width: 480px) {
@@ -1616,7 +1637,7 @@
                 border: none;
                 box-shadow: none;
                 margin: 0;
-                padding: 12px 12px 12px 6px;
+                padding: 12px;
                 border-radius: 0;
                 text-align: left;
             }
@@ -1645,7 +1666,7 @@
             }
 
             .container {
-                padding: 12px 12px 12px 6px;
+                padding: 12px;
                 margin: 0;
             }
         }
@@ -2452,7 +2473,7 @@
 
                 const isCompact = window.matchMedia && window.matchMedia('(max-width: 720px)').matches;
                 const maxVisualSize = Math.min(
-                    window.innerWidth * (isCompact ? 0.75 : 0.82),
+                    window.innerWidth * (isCompact ? 0.7 : 0.82),
                     window.innerHeight * (isCompact ? 0.65 : 0.75),
                     isCompact ? 520 : 640
                 );
@@ -2461,7 +2482,9 @@
                     Math.min(isCompact ? 26 : 30, maxVisualSize / this.gridSize)
                 );
                 const gridDimension = cellSize * this.gridSize;
-                const framePadding = Math.max(18, Math.min(36, Math.ceil(cellSize * 0.9)));
+                const framePadding = isCompact
+                    ? Math.max(10, Math.min(18, Math.ceil(cellSize * 0.6)))
+                    : Math.max(18, Math.min(36, Math.ceil(cellSize * 0.9)));
 
                 wordSearchDiv.style.gridTemplateColumns = `repeat(${this.gridSize}, ${cellSize}px)`;
                 wordSearchDiv.style.gridAutoRows = `${cellSize}px`;
@@ -2472,6 +2495,7 @@
                 wordSearchDiv.style.minWidth = `${framedDimension}px`;
                 wordSearchDiv.style.minHeight = `${framedDimension}px`;
                 wordSearchDiv.style.gap = '0px';
+                wordSearchDiv.style.margin = '0 auto';
                 
                 for (let i = 0; i < this.gridSize; i++) {
                     for (let j = 0; j < this.gridSize; j++) {
