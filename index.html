@@ -9446,138 +9446,82 @@ restoreChallengeState();
                 showEmailModal('set-password', 'Set your new password below.', '#ffd700');
             }
         }
-        function handleUnsubscribe(event) {
+        async function handleUnsubscribe(event) {
             event.preventDefault();
             const form = event.target;
-            const emailInput = form.querySelector('input[type="email"], input[name="EMAIL"]');
-            const messageBox = form.parentElement
-                ? form.parentElement.querySelector('.unsubscribe-message')
-                : document.querySelector('.unsubscribe-message');
-            if (messageBox) {
-                messageBox.textContent = '';
-            }
+            const emailInput = form.querySelector('input[name="EMAIL"]');
+            const messageBox = document.querySelector('.unsubscribe-message');
             const emailValue = emailInput ? emailInput.value.trim().toLowerCase() : '';
-            if (!emailValue || !emailValue.includes('@') || !emailValue.includes('.')) {
-                if (messageBox) {
-                    messageBox.style.color = '#ff69b4';
-                    messageBox.textContent = 'Please enter a valid email address.';
-                }
-                return;
-            }
+
+            if (!emailValue) return;
+
             if (messageBox) {
                 messageBox.style.color = '#ffd700';
-                messageBox.textContent = 'Processing your unsubscribe request...';
+                messageBox.textContent = 'Verifying email...';
             }
 
-            const workerEndpoint = (typeof CLOUDFLARE_WORKER_ENDPOINT === 'string' && CLOUDFLARE_WORKER_ENDPOINT.trim())
-                ? CLOUDFLARE_WORKER_ENDPOINT.trim()
-                : 'https://newsletter-endpoint.rise-shine-evolve.workers.dev/';
-            if (!workerEndpoint) {
-                if (messageBox) {
-                    messageBox.style.color = '#ff69b4';
-                    messageBox.textContent = 'Unsubscribe is unavailable right now. Please contact support.';
-                }
-                return;
-            }
-
-            const checkEmailExists = async () => {
-                if (!supabaseClient) {
-                    return null;
-                }
-                const tableCandidates = ['newsletter_subscribers', 'subscribers'];
-                for (const tableName of tableCandidates) {
-                    const { count, error } = await supabaseClient
-                        .from(tableName)
-                        .select('id', { count: 'exact', head: true })
-                        .eq('email', emailValue)
-                        .limit(1);
-                    if (error) {
-                        continue;
-                    }
-                    return (count || 0) > 0;
-                }
-                return null;
-            };
-
-            const sendRequest = async () => {
-                let userId = '';
+            try {
+                // 1. Sprawdź czy e-mail istnieje w Supabase
+                let emailExists = false;
                 if (supabaseClient) {
-                    const { data: { session } } = await supabaseClient.auth.getSession();
-                    if (session?.user?.id && session?.user?.email?.toLowerCase() === emailValue) {
-                        userId = session.user.id;
+                    const tables = ['newsletter_subscribers', 'subscribers'];
+                    for (const table of tables) {
+                        const { count, error } = await supabaseClient
+                            .from(table)
+                            .select('id', { count: 'exact', head: true })
+                            .eq('email', emailValue);
+                        if (!error && count > 0) {
+                            emailExists = true;
+                            break;
+                        }
                     }
                 }
-                return fetch(workerEndpoint, {
+
+                // 2. Jeśli nie ma go w bazie - zatrzymaj proces i wyświetl błąd
+                if (!emailExists) {
+                    if (messageBox) {
+                        messageBox.style.color = '#ff69b4';
+                        messageBox.textContent = 'Email not found in our database.';
+                    }
+                    return; 
+                }
+
+                // 3. Jeśli istnieje - wyślij prośbę do Workera
+                if (messageBox) messageBox.textContent = 'Processing request...';
+                
+                const workerEndpoint = '[https://newsletter-endpoint.rise-shine-evolve.workers.dev/](https://newsletter-endpoint.rise-shine-evolve.workers.dev/)';
+                const response = await fetch(workerEndpoint, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         type: 'request_delete',
-                        email: emailValue,
-                        userId,
+                        email: emailValue
                     }),
-                    mode: 'cors',
-                    credentials: 'omit',
+                    mode: 'cors'
                 });
-            };
 
-            let emailExists = null;
-            checkEmailExists()
-                .then((exists) => {
-                    emailExists = exists;
-                    return sendRequest();
-                })
-                .then(async (response) => {
-                    if (!response) return;
-                    const data = await response.json().catch(() => ({}));
-                    const errorText = `${data?.error || ''} ${data?.message || ''}`.toString().toLowerCase();
-                    const errorCode = (data?.code || '').toString().toLowerCase();
-                    const notFound = response.status === 404
-                        || errorCode === 'email_not_found'
-                        || errorText.includes('email not found')
-                        || errorText.includes('not found');
-                    if (notFound && emailExists === false) {
-                        if (messageBox) {
-                            messageBox.style.color = '#ff69b4';
-                            messageBox.textContent = 'Email not found.';
-                        }
-                        return;
-                    }
-                    if (!response.ok) {
-                        if (messageBox) {
-                            messageBox.style.color = '#ff69b4';
-                            messageBox.textContent = (emailExists === false)
-                                ? 'Email not found.'
-                                : (data?.error || 'Unable to unsubscribe.');
-                        }
-                        return;
-                    }
-                    if (!data?.success) {
-                        if (messageBox) {
-                            messageBox.style.color = '#ff69b4';
-                            messageBox.textContent = (emailExists === false)
-                                ? 'Email not found.'
-                                : (data?.error || 'Unable to unsubscribe.');
-                        }
-                        return;
-                    }
+                const data = await response.json();
+
+                if (response.ok && data.success) {
                     if (messageBox) {
                         messageBox.style.color = '#ffd700';
-                        messageBox.textContent = 'Please open the confirmation email in your inbox to complete your account removal.';
+                        messageBox.textContent = 'Link sent! Please check your inbox to complete your account removal';
                     }
-                    if (supabaseClient) {
-                        await supabaseClient.auth.signOut();
-                    }
-                    hasGiftsAccess = false;
+                    if (supabaseClient) await supabaseClient.auth.signOut();
                     setLoggedInBadge(false);
                     clearGiftsAccess();
                     localStorage.setItem('manualLoggedOut', 'true');
-                })
-                .catch((error) => {
-                    if (messageBox) {
-                        messageBox.style.color = '#ff69b4';
-                        messageBox.textContent = error?.message || 'Unsubscribe is unavailable right now. Please try again later.';
-                    }
-                });
+                } else {
+                    throw new Error(data.error || 'Worker error');
+                }
+
+            } catch (error) {
+                if (messageBox) {
+                    messageBox.style.color = '#ff69b4';
+                    messageBox.textContent = 'Something went wrong. Please try again later.';
+                }
+                console.error("Unsubscribe error:", error);
+            }
         }
         document.addEventListener('DOMContentLoaded', () => {
             applyCharacterPortraits();
