@@ -9630,8 +9630,8 @@ restoreChallengeState();
 
             if (!verificationHandled) {
                 const hashTab = (window.location.hash || '').replace('#', '');
-                const desiredTab = hashTab && hashTab !== 'gifts' && getTabElement(hashTab) ? hashTab : 'The HUB';
-                const tabElement = getTabElement(desiredTab) || getTabElement('The HUB');
+                const desiredTab = hashTab && hashTab !== 'gifts' && getTabElement(hashTab) ? hashTab : 'main';
+                const tabElement = getTabElement(desiredTab) || getTabElement('main');
                 if (tabElement) {
                     selectTab(tabElement, tabElement.dataset.tab, { skipHistory: true });
                     const baseState = { tab: tabElement.dataset.tab, base: true };
