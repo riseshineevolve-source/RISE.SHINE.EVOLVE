@@ -3731,6 +3731,7 @@
         }
         .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
 
+        /* --- STYL PODGLĄDU NA EKRANIE --- */
         body.fridge-mode { background: white !important; color: black !important; }
         body.fridge-mode .app-frame { background: white; border: 4px solid black; box-shadow: none; border-radius: 0; }
         body.fridge-mode .hide-on-fridge { display: none !important; }
@@ -3741,6 +3742,59 @@
 
         .animate-fade-in { animation: fadeIn 0.5s ease forwards; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* --- POPRAWKA DLA MOBILNEGO DRUKOWANIA --- */
+        /* To wymusza style "fridge-mode" bezpośrednio w oknie drukowania, ignorując układ flexbox telefonu */
+        @media print {
+            body {
+                background: white !important;
+                color: black !important;
+                display: block !important; /* Resetuje flexbox, który psuje wydruk na mobile */
+                height: auto !important;
+                min-height: 0 !important;
+                overflow: visible !important;
+            }
+            
+            .app-frame {
+                background: white !important;
+                border: 4px solid black !important;
+                box-shadow: none !important;
+                border-radius: 0 !important;
+                color: black !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                margin: 0 !important;
+                padding: 20px !important;
+            }
+
+            .motto-text {
+                color: black !important;
+                text-shadow: none !important;
+                font-weight: 700 !important;
+            }
+
+            .motto-hint {
+                color: #111 !important;
+                font-style: italic !important;
+                font-weight: 600 !important;
+            }
+
+            /* Ukrywamy wszystko co zbędne */
+            .hide-on-fridge, 
+            .stars, 
+            #exitFridgeBtn, 
+            .toast,
+            button {
+                display: none !important;
+            }
+
+            /* Pokazujemy stopkę */
+            .show-on-fridge {
+                display: block !important;
+                position: static !important; /* Ustawienie statyczne zamiast fixed */
+                margin-top: 20px;
+            }
+        }
     </style>
 </head>
 <body class="p-4">
