@@ -9446,7 +9446,7 @@ restoreChallengeState();
                 showEmailModal('set-password', 'Set your new password below.', '#ffd700');
             }
         }
-        async function handleUnsubscribe(event) {
+         async function handleUnsubscribe(event) {
             event.preventDefault();
             const form = event.target;
             const emailInput = form.querySelector('input[name="EMAIL"]');
@@ -9457,38 +9457,10 @@ restoreChallengeState();
 
             if (messageBox) {
                 messageBox.style.color = '#ffd700';
-                messageBox.textContent = 'Verifying email...';
+                messageBox.textContent = 'Processing request...';
             }
 
             try {
-                // 1. Sprawdź czy e-mail istnieje w Supabase
-                let emailExists = false;
-                if (supabaseClient) {
-                    const tables = ['newsletter_subscribers', 'subscribers'];
-                    for (const table of tables) {
-                        const { count, error } = await supabaseClient
-                            .from(table)
-                            .select('id', { count: 'exact', head: true })
-                            .eq('email', emailValue);
-                        if (!error && count > 0) {
-                            emailExists = true;
-                            break;
-                        }
-                    }
-                }
-
-                // 2. Jeśli nie ma go w bazie - zatrzymaj proces i wyświetl błąd
-                if (!emailExists) {
-                    if (messageBox) {
-                        messageBox.style.color = '#ff69b4';
-                        messageBox.textContent = 'Email not found in our database.';
-                    }
-                    return; 
-                }
-
-                // 3. Jeśli istnieje - wyślij prośbę do Workera
-                if (messageBox) messageBox.textContent = 'Processing request...';
-                
                 const workerEndpoint = '[https://newsletter-endpoint.rise-shine-evolve.workers.dev/](https://newsletter-endpoint.rise-shine-evolve.workers.dev/)';
                 const response = await fetch(workerEndpoint, {
                     method: 'POST',
@@ -9500,19 +9472,29 @@ restoreChallengeState();
                     mode: 'cors'
                 });
 
-                const data = await response.json();
+                const data = await response.json().catch(() => ({}));
+
+                // Jeśli Worker zwróci błąd 404 (Email not found), pokaż odpowiedni komunikat
+                if (response.status === 404 || data.code === "email_not_found") {
+                    if (messageBox) {
+                        messageBox.style.color = '#ff69b4';
+                        messageBox.textContent = 'Email not found in our database.';
+                    }
+                    return;
+                }
 
                 if (response.ok && data.success) {
                     if (messageBox) {
                         messageBox.style.color = '#ffd700';
-                        messageBox.textContent = 'Link sent! Please check your inbox to complete your account removal';
+                        messageBox.textContent = 'Link sent! Please check your inbox to confirm deletion.';
                     }
+                    // Czyścimy sesję jeśli user był zalogowany
                     if (supabaseClient) await supabaseClient.auth.signOut();
                     setLoggedInBadge(false);
                     clearGiftsAccess();
                     localStorage.setItem('manualLoggedOut', 'true');
                 } else {
-                    throw new Error(data.error || 'Worker error');
+                    throw new Error(data.error || 'Something went wrong.');
                 }
 
             } catch (error) {
