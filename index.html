@@ -9446,7 +9446,7 @@ restoreChallengeState();
                 showEmailModal('set-password', 'Set your new password below.', '#ffd700');
             }
         }
-         function handleUnsubscribe(event) {
+        function handleUnsubscribe(event) {
             event.preventDefault();
             const form = event.target;
             const emailInput = form.querySelector('input[type="email"], input[name="EMAIL"]');
@@ -9471,7 +9471,7 @@ restoreChallengeState();
 
             const workerEndpoint = (typeof CLOUDFLARE_WORKER_ENDPOINT === 'string' && CLOUDFLARE_WORKER_ENDPOINT.trim())
                 ? CLOUDFLARE_WORKER_ENDPOINT.trim()
-                : '[https://newsletter-endpoint.rise-shine-evolve.workers.dev/](https://newsletter-endpoint.rise-shine-evolve.workers.dev/)';
+                : 'https://newsletter-endpoint.rise-shine-evolve.workers.dev/';
             if (!workerEndpoint) {
                 if (messageBox) {
                     messageBox.style.color = '#ff69b4';
