@@ -1942,7 +1942,7 @@
           Learning Hub comes in.
          </h3>
          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; align-items: start;">
-          <div style="display: flex; flex-direction: column; gap: 12px;">
+          <div style="display: flex; flex-direction: column; gap: 12px; text-align: center;">
            <p style="margin: 0;">We turn everyday challenges<br>into simple, usable tools for:</p>
            <div style="display: inline-flex; flex-direction: column; gap: 6px; margin: 0 auto; font-size: 0.85rem; font-weight: 700; color: #8A2BE2; text-transform: uppercase; letter-spacing: 1px;">
             <div>Calm <span style="color:#666; font-weight:300; margin: 0 6px;">|</span> Confidence</div>
@@ -3028,13 +3028,6 @@
      </div>
      <div style="margin-top: 16px;">
       <p style="margin: 0; color: #ffffff; text-transform: uppercase; letter-spacing: 3px; font-weight: 700;">Ready to unlock true potential?</p>
-      <p style="margin: 8px 0 0 0; color: #ffffff; text-transform: uppercase; letter-spacing: 3px; font-weight: 700;">It is time to</p>
-      <div style="display: flex; flex-direction: column; gap: 6px; margin-top: 8px; font-size: 2rem; font-weight: 800; text-transform: uppercase;">
-       <span class="word-rise" style="color:#ff1493; text-shadow: 0 0 25px rgba(255, 20, 147, 1), 0 0 40px rgba(255, 20, 147, 0.6), 0 0 60px rgba(255, 20, 147, 0.3); font-weight: bold; animation: riseGlow 8s infinite ease-in-out;">RISE</span>
-       <span class="word-shine" style="color:#ffd700; text-shadow: 0 0 25px rgba(255, 215, 0, 1), 0 0 40px rgba(255, 215, 0, 0.6), 0 0 60px rgba(255, 215, 0, 0.3); font-weight: bold; animation: shineGlow 8s infinite ease-in-out;">SHINE</span>
-       <span class="word-evolve" style="color:#9932CC; text-shadow: 0 0 25px rgba(153, 50, 204, 1), 0 0 40px rgba(153, 50, 204, 0.6), 0 0 60px rgba(153, 50, 204, 0.3); font-weight: bold; animation: evolveGlow 8s infinite ease-in-out;">EVOLVE</span>
-      </div>
-      <div style="margin-top: 8px; font-size: 1.6rem; font-weight: 700; letter-spacing: 6px; color: #ffffff;">TOGETHER</div>
      </div>
      <div class="rse-footer-video-wrap">
       <video class="rse-footer-video" autoplay loop muted playsinline aria-label="Rise Shine Evolve outro">
@@ -8700,6 +8693,7 @@ restoreChallengeState();
             // Hide main container and show full-screen family gallery
             document.querySelector('.container').style.display = 'none';
             document.getElementById('full-screen-family-gallery').style.display = 'block';
+            document.body.style.overflow = 'hidden';
             
             // Hide all book details and character details
             const bookDetails = document.querySelectorAll('.book-details-view');
@@ -8712,6 +8706,7 @@ restoreChallengeState();
             document.querySelector('.container').style.display = 'block';
             document.getElementById('full-screen-family-gallery').style.display = 'none';
             document.getElementById('character-details-view').style.display = 'none';
+            document.body.style.overflow = '';
             
             // Hide all book details
             const bookDetails = document.querySelectorAll('.book-details-view');
@@ -8947,6 +8942,7 @@ restoreChallengeState();
 
             document.querySelector('.container').style.display = 'none';
             document.getElementById('full-screen-family-gallery').style.display = 'none';
+            document.body.style.overflow = 'hidden';
             const view = document.getElementById('character-details-view');
             const content = document.getElementById('character-details-content');
 
@@ -8960,6 +8956,7 @@ restoreChallengeState();
             document.getElementById('character-details-view').style.display = 'none';
             document.getElementById('full-screen-family-gallery').style.display = 'block';
             document.querySelector('.container').style.display = 'none';
+            document.body.style.overflow = 'hidden';
             window.scrollTo(0, 0);
         }
 
