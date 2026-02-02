@@ -8671,8 +8671,12 @@ restoreChallengeState();
             if (!content) return;
             const tiles = Array.from(content.querySelectorAll('.kids-tile'))
                 .filter(tile => tile.textContent.toLowerCase().replace(/[^a-z]+/g, ' ').trim().includes('it is time to rise shine evolve'));
-            if (tiles.length <= 1) return;
+            if (tiles.length === 0) return;
+            const lastTile = tiles[tiles.length - 1];
             tiles.slice(0, -1).forEach(tile => tile.remove());
+            if (content.lastElementChild !== lastTile) {
+                content.appendChild(lastTile);
+            }
         }
 
         // Tab functionality
