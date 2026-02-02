@@ -2146,12 +2146,21 @@
                 // Generuj siatkę z wieloma próbami
                 let attempts = 0;
                 let success = false;
+                const isDiamondHard = this.shape === 'diamond' && this.difficulty === 'hard';
+                const maxAttempts = isDiamondHard ? 40 : 20;
+                const isPortraitMobile = window.matchMedia && window.matchMedia('(max-width: 768px) and (orientation: portrait)').matches;
+                const maxGridSize = isPortraitMobile && (this.shape === 'diamond' || this.shape === 'heart') ? 21 : 25;
                 
-                while (attempts < 20 && !success) {
+                while (attempts < maxAttempts && !success) {
                     success = this.createGrid();
                     attempts++;
                     if (!success) {
-                        this.gridSize = Math.min(25, this.gridSize + 1);
+                        if (this.gridSize < maxGridSize) {
+                            this.gridSize = Math.min(maxGridSize, this.gridSize + 1);
+                        } else {
+                            this.randomSeed = Date.now() + Math.random() * 1000000 + performance.now();
+                            this.generationId = Math.random().toString(36).substring(2, 15);
+                        }
                     }
                 }
                 
