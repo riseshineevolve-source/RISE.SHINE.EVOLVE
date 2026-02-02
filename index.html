@@ -3146,10 +3146,27 @@
       padding: 18px;
       overflow-y: auto;
       box-sizing: border-box;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.25s ease;
     }
 
     #bookPromoModal.show {
       display: flex;
+      opacity: 1;
+      visibility: visible;
+    }
+
+    #bookPromoModal .modal-content {
+      opacity: 0;
+      transform: translateY(12px) scale(0.98);
+      transition: opacity 0.25s ease, transform 0.25s ease;
+      will-change: opacity, transform;
+    }
+
+    #bookPromoModal.show .modal-content {
+      opacity: 1;
+      transform: translateY(0) scale(1);
     }
 
     @media (max-width: 720px) {
@@ -3245,7 +3262,7 @@
                 text-transform: uppercase;
                 box-shadow: 0 0 12px rgba(255, 215, 0, 0.7);
             ">NEW</div>
-     <img src="assets/images/Confident, Mindful & Happy Me cover.png" data-cover-base="Confident, Mindful & Happy Me" alt="The Confident, Mindful &amp; Happy Me Adventure cover" loading="eager" fetchpriority="high" decoding="async" style="width: 150px; height: auto; border-radius: 12px; border: 2px solid #ffd700; box-shadow: 0 0 18px rgba(255,215,0,0.35); margin: 46px auto 14px auto; display: block;">
+     <img src="assets/images/Confident, Mindful & Happy Me cover.png" data-cover-base="Confident, Mindful & Happy Me" alt="The Confident, Mindful &amp; Happy Me Adventure cover" loading="eager" fetchpriority="high" decoding="async" width="150" height="225" style="width: 150px; height: 225px; object-fit: cover; border-radius: 12px; border: 2px solid #ffd700; box-shadow: 0 0 18px rgba(255,215,0,0.35); margin: 46px auto 14px auto; display: block;">
      <div style="color: #ffd700; font-weight: bold; font-size: 1.1rem; margin-bottom: 10px; line-height: 1.25; text-shadow: 0 0 15px rgba(255, 215, 0, 0.8);">
       The Confident, Mindful &amp; Happy Me Adventure
      </div>
