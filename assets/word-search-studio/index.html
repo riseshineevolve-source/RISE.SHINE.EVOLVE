@@ -1534,7 +1534,14 @@
                 text-align: center;
             }
 
-            .control-group,
+            .control-group {
+                width: min(84vw, 300px);
+                max-width: 300px;
+                box-sizing: border-box;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
             .sidebar {
                 width: min(90vw, 320px);
                 max-width: 320px;
@@ -1628,6 +1635,18 @@
             .sparkles,
             .word-search,
             .word-search::after {
+                animation: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .control-group {
+                width: min(84vw, 300px);
+                max-width: 300px;
+                padding: 14px;
+            }
+
+            .word-search {
                 animation: none;
             }
         }
@@ -1832,7 +1851,11 @@
             if (!sparklesContainer) return;
 
             const isMobile = window.matchMedia && window.matchMedia('(max-width: 768px)').matches;
-            const sparkleCount = isMobile ? 12 : 50;
+            if (isMobile) {
+                sparklesContainer.innerHTML = '';
+                return;
+            }
+            const sparkleCount = 50;
             const fragment = document.createDocumentFragment();
             for (let i = 0; i < sparkleCount; i++) {
                 const sparkle = document.createElement('div');
@@ -1867,6 +1890,7 @@
                 this.panStart = null;
                 this.isPanning = false;
                 this.preventClick = false;
+                this.relaxSpacing = false;
 
                 this.directions = {
                     easy: [
@@ -2123,17 +2147,32 @@
                 // Generuj siatkę z wieloma próbami
                 let attempts = 0;
                 let success = false;
+                const isHeartOrDiamond = this.shape === 'diamond' || this.shape === 'heart';
+                const isPortraitMobile = window.matchMedia && window.matchMedia('(max-width: 768px) and (orientation: portrait)').matches;
+                const maxAttempts = isHeartOrDiamond ? 60 : 20;
+                const maxGridSize = isPortraitMobile && isHeartOrDiamond ? 21 : 25;
+                this.relaxSpacing = isPortraitMobile && isHeartOrDiamond;
+                if (this.relaxSpacing) {
+                    this.gridSize = maxGridSize;
+                }
                 
-                while (attempts < 20 && !success) {
+                while (attempts < maxAttempts && !success) {
                     success = this.createGrid();
                     attempts++;
                     if (!success) {
-                        this.gridSize = Math.min(25, this.gridSize + 1);
+                        if (this.gridSize < maxGridSize) {
+                            this.gridSize = Math.min(maxGridSize, this.gridSize + 1);
+                        } else {
+                            if (attempts % 5 === 0) {
+                                this.randomSeed = Date.now() + Math.random() * 1000000 + performance.now();
+                                this.generationId = Math.random().toString(36).substring(2, 15);
+                            }
+                        }
                     }
                 }
                 
                 if (!success) {
-                    errorDiv.innerHTML = '<div class="error">⚠️ Nie udało się wygenerować wyszukiwarki. Spróbuj z mniejszą liczbą lub krótszymi słowami.</div>';
+                    errorDiv.innerHTML = '<div class="error">⚠️ We couldn\'t generate the search. Hit again the Generate Search button.</div>';
                     return;
                 }
                 
@@ -2185,7 +2224,15 @@
                     baseSize += 1;
                 }
 
-                this.gridSize = Math.min(Math.ceil(baseSize), 15);
+                if (this.shape === 'diamond' || this.shape === 'heart') {
+                    baseSize += 1;
+                }
+
+                const isPortraitMobile = window.matchMedia && window.matchMedia('(max-width: 768px) and (orientation: portrait)').matches;
+                const maxGridSize = isPortraitMobile && (this.shape === 'diamond' || this.shape === 'heart')
+                    ? 21
+                    : 15;
+                this.gridSize = Math.min(Math.ceil(baseSize), maxGridSize);
             }
             
             createGrid() {
@@ -2221,7 +2268,7 @@
 
             placeWord(word) {
                 const directions = this.directions[this.difficulty];
-                const attempts = 500;
+                const attempts = (this.shape === 'diamond' || this.shape === 'heart') ? 1200 : 500;
                 
                 // Losowo przemieszaj kierunki dla każdego słowa z wieloma poziomami losowości
                 const shuffledDirections = [...directions]
@@ -2303,6 +2350,9 @@
             }
             
             checkWordSpacing(word, row, col, dx, dy) {
+                if (this.relaxSpacing) {
+                    return true;
+                }
                 // Sprawdź każdą literę słowa
                 for (let i = 0; i < word.length; i++) {
                     const currentRow = row + i * dx;
@@ -2472,20 +2522,44 @@
                 wordSearchDiv.innerHTML = '';
 
                 const isCompact = window.matchMedia && window.matchMedia('(max-width: 720px)').matches;
+                const isPortraitMobile = window.matchMedia && window.matchMedia('(max-width: 768px) and (orientation: portrait)').matches;
+                const isHeartOrDiamond = this.shape === 'diamond' || this.shape === 'heart';
                 const containerWidth = wordSearchDiv.parentElement?.clientWidth || window.innerWidth;
+                const viewportWidth = window.innerWidth;
+                const viewportHeight = window.innerHeight;
+                const maxWidthScale = isPortraitMobile && isHeartOrDiamond && this.words.length >= 10
+                    ? 0.88
+                    : (isCompact ? 0.95 : 0.82);
+                const maxHeightScale = isPortraitMobile && isHeartOrDiamond && this.words.length >= 10
+                    ? 0.6
+                    : (isCompact ? 0.65 : 0.75);
                 const maxVisualSize = Math.min(
-                    containerWidth * (isCompact ? 0.95 : 0.82),
-                    window.innerHeight * (isCompact ? 0.65 : 0.75),
+                    Math.min(containerWidth, viewportWidth) * maxWidthScale,
+                    viewportHeight * maxHeightScale,
                     isCompact ? 520 : 640
                 );
+                const availableWidth = Math.min(containerWidth, viewportWidth) * (isCompact ? 0.98 : 0.94);
+                const availableHeight = viewportHeight * (isCompact ? 0.68 : 0.78);
+                const frameCellTarget = isPortraitMobile && isHeartOrDiamond
+                    ? 21
+                    : null;
                 const cellSize = Math.max(
                     isCompact ? 16 : 18,
-                    Math.min(isCompact ? 26 : 30, maxVisualSize / this.gridSize)
+                    Math.min(
+                        isCompact ? 26 : 30,
+                        maxVisualSize / this.gridSize,
+                        frameCellTarget ? availableWidth / frameCellTarget : Infinity,
+                        frameCellTarget ? availableHeight / frameCellTarget : Infinity
+                    )
                 );
                 const gridDimension = cellSize * this.gridSize;
-                const framePadding = isCompact
+                const maxFrameSize = Math.min(containerWidth, viewportWidth) * (isCompact ? 0.98 : 0.9);
+                const desiredPadding = isCompact
                     ? Math.max(10, Math.min(18, Math.ceil(cellSize * 0.6)))
                     : Math.max(18, Math.min(36, Math.ceil(cellSize * 0.9)));
+                const maxFrame = frameCellTarget ? Math.min(maxFrameSize, frameCellTarget * cellSize) : maxFrameSize;
+                const availablePadding = Math.max(0, Math.floor((maxFrame - gridDimension) / 2));
+                const framePadding = Math.min(desiredPadding, availablePadding);
 
                 wordSearchDiv.style.gridTemplateColumns = `repeat(${this.gridSize}, ${cellSize}px)`;
                 wordSearchDiv.style.gridAutoRows = `${cellSize}px`;
@@ -2543,6 +2617,11 @@
                     document.getElementById('hideAnswersBtn').style.display = 'none';
                 }
 
+                if (!this.isSelecting && !this.isCellPartOfWord(row, col)) {
+                    this.showWrongTapHighlight(cell);
+                    return;
+                }
+
                 if (this.isSelecting) {
                     if (row === this.startRow && col === this.startCol) {
                         this.clearHighlight();
@@ -2567,6 +2646,33 @@
                 cell.style.boxShadow = '0 0 15px rgba(255, 105, 180, 0.6), 0 0 25px rgba(255, 215, 0, 0.4)';
                 cell.style.fontWeight = '900';
                 cell.style.transform = 'scale(1.05)';
+            }
+
+            showWrongTapHighlight(cell) {
+                cell.classList.add('clicked-wrong');
+                cell.style.background = 'linear-gradient(45deg, #ff4757, #ff3838)';
+                cell.style.color = 'white';
+                cell.style.border = '3px solid #ff4757';
+                cell.style.boxShadow = '0 0 25px rgba(255, 71, 87, 0.9), 0 0 50px rgba(255, 56, 56, 0.6)';
+                cell.style.transform = 'scale(1.05)';
+
+                setTimeout(() => {
+                    if (!cell.classList.contains('found')) {
+                        cell.classList.remove('clicked-wrong');
+                        cell.style.background = '#ffffff';
+                        cell.style.color = '#8a2be2';
+                        cell.style.border = '1px solid #cccccc';
+                        cell.style.boxShadow = '';
+                        cell.style.fontWeight = '900';
+                        cell.style.transform = '';
+                    }
+                }, 2500);
+            }
+
+            isCellPartOfWord(row, col) {
+                return this.placedWords.some(wordData =>
+                    wordData.positions.some(([posRow, posCol]) => posRow === row && posCol === col)
+                );
             }
             
             removeHighlight(cell) {
@@ -2711,15 +2817,17 @@
                 // Zaznacz wszystkie komórki na ścieżce
                 path.forEach(({row, col}) => {
                     const cell = document.querySelector(`[data-row="${row}"][data-col="${col}"]`);
-                    if (cell && !cell.classList.contains('found')) {
+                    if (cell) {
                         this.selectedCells.push({row, col, cell});
-                        cell.classList.add('highlighted');
-                        cell.style.background = 'linear-gradient(45deg, #ff69b4, #ffd700)';
-                        cell.style.color = '#000000';
-                        cell.style.border = '2px solid #ff69b4';
-                        cell.style.boxShadow = '0 0 15px rgba(255, 105, 180, 0.6), 0 0 25px rgba(255, 215, 0, 0.4)';
-                        cell.style.fontWeight = '900';
-                        cell.style.transform = 'scale(1.05)';
+                        if (!cell.classList.contains('found')) {
+                            cell.classList.add('highlighted');
+                            cell.style.background = 'linear-gradient(45deg, #ff69b4, #ffd700)';
+                            cell.style.color = '#000000';
+                            cell.style.border = '2px solid #ff69b4';
+                            cell.style.boxShadow = '0 0 15px rgba(255, 105, 180, 0.6), 0 0 25px rgba(255, 215, 0, 0.4)';
+                            cell.style.fontWeight = '900';
+                            cell.style.transform = 'scale(1.05)';
+                        }
                     }
                 });
                 
@@ -2749,6 +2857,9 @@
                 } else {
                     // Nie znaleziono słowa - pokaż czerwony efekt błędu i usuń po 1 sekundzie
                     this.selectedCells.forEach(({cell}) => {
+                        if (cell.classList.contains('found')) {
+                            return;
+                        }
                         cell.classList.remove('highlighted');
                         cell.classList.add('clicked-wrong');
                         cell.style.background = 'linear-gradient(45deg, #ff4757, #ff3838)';
@@ -2771,7 +2882,7 @@
                                 cell.style.transform = '';
                             }
                         });
-                    }, 3000);
+                    }, 2500);
                 }
                 
                 // Resetuj stan wyboru
