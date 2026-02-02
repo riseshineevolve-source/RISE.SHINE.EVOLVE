@@ -8669,7 +8669,7 @@ restoreChallengeState();
             const content = document.getElementById(tabName + '-content');
             if (!content) return;
             const tiles = Array.from(content.querySelectorAll('.kids-tile'))
-                .filter(tile => tile.textContent.replace(/\s+/g, ' ').toLowerCase().includes('it is time to rise shine evolve'));
+                .filter(tile => tile.textContent.toLowerCase().replace(/[^a-z]+/g, ' ').trim().includes('it is time to rise shine evolve'));
             if (tiles.length <= 1) return;
             tiles.slice(0, -1).forEach(tile => tile.remove());
         }
