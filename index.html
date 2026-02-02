@@ -1,8 +1,9 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" translate="no">
  <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="google" content="notranslate">
   <title>Riseshine Evolve</title>
   <link rel="preload" as="image" href="assets/images/Confident,%20Mindful%20%26%20Happy%20Me%20cover.png">
   <style>
@@ -419,6 +420,23 @@
             box-sizing: border-box;
             align-items: center;
             justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s ease;
+            will-change: opacity;
+            pointer-events: none;
+        }
+
+        .gift-overlay.show {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+        @media (max-width: 720px) {
+            #full-screen-family-gallery div[onclick^="showCharacterDetailsFullScreen"] {
+                min-height: 420px;
+            }
         }
 
         .gift-overlay-inner {
@@ -2298,11 +2316,6 @@
         </div>
        </div>
       </div>
-      <div class="kids-tile" style="margin-top: 20px;">
-       <div class="kids-text">
-        It is time to <span class="word-rise">RISE</span><span class="word-rise">.</span><span class="word-shine">SHINE</span><span class="word-shine">.</span><span class="word-evolve">EVOLVE</span><span class="word-evolve">.</span>
-       </div>
-      </div>
      </div>
     </div>
     <div id="teenagers-content" class="tab-content">
@@ -2322,11 +2335,6 @@
         Transform your family time with our bestselling Christmas guide that brings families closer together through mindful moments and joyful traditions:<br><br><span style="color: #ffd700; font-weight: bold; text-shadow: 0 0 15px rgba(255, 215, 0, 0.8);">24 GENTLE STEPS TO CHRISTMAS</span><br><span style="color: #8A2BE2; font-weight: bold; text-shadow: 0 0 15px rgba(138, 43, 226, 0.8);">A Mindful Family Journey to Togetherness, Reflection &amp; the Magic of Christmas</span><br><br><span style="color: #ff69b4; font-size: 0.9rem; font-style: italic;">Perfect for creating meaningful connections during the most wonderful time of the year!</span>
       </div>
      </div>
-     <div class="kids-tile" style="margin-top: 20px;">
-      <div class="kids-text">
-       It is time to <span class="word-rise">RISE</span><span class="word-rise">.</span><span class="word-shine">SHINE</span><span class="word-shine">.</span><span class="word-evolve">EVOLVE</span><span class="word-evolve">.</span>
-      </div>
-     </div>
     </div>
     <div id="adults-content" class="tab-content">
      <div class="tab-title-row">
@@ -2342,11 +2350,6 @@
       <div class="kids-text">
        While you wait, discover something magical that's perfect for your family!<br><br>
         Transform your family time with our bestselling Christmas guide that brings families closer together through mindful moments and joyful traditions:<br><br><span style="color: #ffd700; font-weight: bold; text-shadow: 0 0 15px rgba(255, 215, 0, 0.8);">24 GENTLE STEPS TO CHRISTMAS</span><br><span style="color: #8A2BE2; font-weight: bold; text-shadow: 0 0 15px rgba(138, 43, 226, 0.8);">A Mindful Family Journey to Togetherness, Reflection &amp; the Magic of Christmas</span><br><br><span style="color: #ff69b4; font-size: 0.9rem; font-style: italic;">Perfect for creating meaningful connections during the most wonderful time of the year!</span>
-      </div>
-     </div>
-     <div class="kids-tile" style="margin-top: 20px;">
-      <div class="kids-text">
-       It is time to <span class="word-rise">RISE</span><span class="word-rise">.</span><span class="word-shine">SHINE</span><span class="word-shine">.</span><span class="word-evolve">EVOLVE</span><span class="word-evolve">.</span>
       </div>
      </div>
     </div>
@@ -2523,11 +2526,6 @@
        </div>
       </div>
      </div>
-    <div class="kids-tile" style="margin-top: 20px;">
-     <div class="kids-text">
-      It is time to <span class="word-rise">RISE</span><span class="word-rise">.</span><span class="word-shine">SHINE</span><span class="word-shine">.</span><span class="word-evolve">EVOLVE</span><span class="word-evolve">.</span>
-     </div>
-     </div>
      </div>
     </div>
     </div>
@@ -2576,11 +2574,6 @@
                 </div>
             </div>
 
-            <div class="kids-tile" style="padding: 12px 18px; max-width: 400px; width: 100%;">
-                <div class="kids-text">
-                    It is time to <span class="word-rise">RISE</span><span class="word-rise">.</span><span class="word-shine">SHINE</span><span class="word-shine">.</span><span class="word-evolve">EVOLVE</span><span class="word-evolve">.</span>
-                </div>
-            </div>
             <div id="brevo-unsub" class="unsubscribe-wrapper" style="margin: 14px auto 0 auto; max-width: 520px; text-align: center; color: #ffd700; font-size: 0.75rem;">
             <p style="margin-bottom: 8px;">UNSUBSCRIBE AND REMOVE THE ACCOUNT</p>
                 <div class="brevo-unsub">
@@ -2658,7 +2651,15 @@
                 transition: all 0.3s ease;
             " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 0 30px rgba(138, 43, 226, 0.8)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 0 20px rgba(138, 43, 226, 0.6)';"> ← Back to Library </button> <!-- Title -->
     <h2 style="color: #8A2BE2; font-size: 2.8rem; text-align: center; margin-bottom: 15px; text-shadow: 0 0 30px rgba(138, 43, 226, 0.8); text-transform: uppercase; letter-spacing: 2px;">MEET THE HAPPY-MAKERS FAMILY</h2>
-    <p style="color: #ffd700; font-size: 1.4rem; text-align: center; margin-bottom: 50px; text-shadow: 0 0 15px rgba(255, 215, 0, 0.6);">Your charmingly cheerful companions on every adventure!</p><!-- Family Members Grid -->
+    <p style="color: #ffd700; font-size: 1.4rem; text-align: center; margin-bottom: 20px; text-shadow: 0 0 15px rgba(255, 215, 0, 0.6);">Your charmingly cheerful companions on every adventure!</p>
+    <div style="display: flex; justify-content: center; margin-bottom: 50px;">
+        <div style="background: #000000; border: 4px solid #8A2BE2; border-radius: 20px; padding: 20px; text-align: center; width: 100%; max-width: 300px; min-height: 350px; box-shadow: 0 15px 50px rgba(0, 0, 0, 0.4), 0 0 0 2px rgba(138, 43, 226, 0.6), inset 0 3px 0 rgba(255, 255, 255, 0.1), 0 0 40px rgba(138, 43, 226, 0.3), 0 0 80px rgba(138, 43, 226, 0.2); display: flex; flex-direction: column; justify-content: center;">
+            <video controls playsinline preload="auto" aria-label="Meet the Happy-Makers Family video" style="width: 100%; height: 100%; border-radius: 16px; object-fit: cover; border: 2px solid #ffd700; box-shadow: 0 0 18px rgba(255,215,0,0.35);">
+                <source src="assets/videos/meet%20HM.mp4" type="video/mp4">
+                <source src="https://raw.githubusercontent.com/riseshineevolve-source/RISE.SHINE.EVOLVE/main/assets/videos/meet%20HM.mp4" type="video/mp4">
+            </video>
+        </div>
+    </div><!-- Family Members Grid -->
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; margin-bottom: 50px; padding: 0 20px; justify-items: center;"><!-- Mimi: różowe obramowanie z animacją po najechaniu -->
      <div onclick="showCharacterDetailsFullScreen('mimi')" style="
     background: #000000;
@@ -3146,10 +3147,28 @@
       padding: 18px;
       overflow-y: auto;
       box-sizing: border-box;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.25s ease;
     }
 
     #bookPromoModal.show {
       display: flex;
+      opacity: 1;
+      visibility: visible;
+    }
+
+    #bookPromoModal .modal-content {
+      opacity: 0;
+      transform: translateY(12px) scale(0.98);
+      transition: opacity 0.25s ease, transform 0.25s ease;
+      will-change: opacity, transform;
+      backface-visibility: hidden;
+    }
+
+    #bookPromoModal.show .modal-content {
+      opacity: 1;
+      transform: translateY(0) scale(1);
     }
 
     @media (max-width: 720px) {
@@ -3245,7 +3264,7 @@
                 text-transform: uppercase;
                 box-shadow: 0 0 12px rgba(255, 215, 0, 0.7);
             ">NEW</div>
-     <img src="assets/images/Confident, Mindful & Happy Me cover.png" data-cover-base="Confident, Mindful & Happy Me" alt="The Confident, Mindful &amp; Happy Me Adventure cover" loading="eager" fetchpriority="high" decoding="async" style="width: 150px; height: auto; border-radius: 12px; border: 2px solid #ffd700; box-shadow: 0 0 18px rgba(255,215,0,0.35); margin: 46px auto 14px auto; display: block;">
+     <img src="assets/images/Confident, Mindful & Happy Me cover.png" data-cover-base="Confident, Mindful & Happy Me" alt="The Confident, Mindful &amp; Happy Me Adventure cover" loading="eager" fetchpriority="high" decoding="async" width="150" height="225" style="width: 150px; height: 225px; object-fit: cover; border-radius: 12px; border: 2px solid #ffd700; box-shadow: 0 0 18px rgba(255,215,0,0.35); margin: 46px auto 14px auto; display: block;">
      <div style="color: #ffd700; font-weight: bold; font-size: 1.1rem; margin-bottom: 10px; line-height: 1.25; text-shadow: 0 0 15px rgba(255, 215, 0, 0.8);">
       The Confident, Mindful &amp; Happy Me Adventure
      </div>
@@ -9953,6 +9972,9 @@ restoreChallengeState();
             }
 
             giftOverlay.style.display = 'flex';
+            requestAnimationFrame(() => {
+                giftOverlay.classList.add('show');
+            });
             giftOverlay.style.position = 'fixed';
             giftOverlay.style.top = '0';
             giftOverlay.style.left = '0';
@@ -9975,6 +9997,9 @@ restoreChallengeState();
             giftFallback.style.display = 'flex';
             giftFallback.textContent = message || 'Gift content is unavailable right now. Please try again in a moment.';
             giftOverlay.style.display = 'flex';
+            requestAnimationFrame(() => {
+                giftOverlay.classList.add('show');
+            });
             giftOverlay.style.position = 'fixed';
             giftOverlay.style.top = '0';
             giftOverlay.style.left = '0';
@@ -9990,7 +10015,10 @@ restoreChallengeState();
         }
 
         function closeGiftOverlay(fromHistory = false) {
-            giftOverlay.style.display = 'none';
+            giftOverlay.classList.remove('show');
+            setTimeout(() => {
+                giftOverlay.style.display = 'none';
+            }, 200);
             giftFrame.src = 'about:blank';
             giftFrame.srcdoc = '';
             giftFrame.style.display = 'none';
