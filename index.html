@@ -419,6 +419,17 @@
             box-sizing: border-box;
             align-items: center;
             justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s ease;
+            will-change: opacity;
+            pointer-events: none;
+        }
+
+        .gift-overlay.show {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
         }
 
         .gift-overlay-inner {
@@ -2661,8 +2672,8 @@
     <p style="color: #ffd700; font-size: 1.4rem; text-align: center; margin-bottom: 20px; text-shadow: 0 0 15px rgba(255, 215, 0, 0.6);">Your charmingly cheerful companions on every adventure!</p>
     <div style="display: flex; justify-content: center; margin-bottom: 50px;">
         <div style="background: #000000; border: 4px solid #8A2BE2; border-radius: 20px; padding: 20px; text-align: center; width: 100%; max-width: 300px; min-height: 350px; box-shadow: 0 15px 50px rgba(0, 0, 0, 0.4), 0 0 0 2px rgba(138, 43, 226, 0.6), inset 0 3px 0 rgba(255, 255, 255, 0.1), 0 0 40px rgba(138, 43, 226, 0.3), 0 0 80px rgba(138, 43, 226, 0.2); display: flex; flex-direction: column; justify-content: center;">
-            <video controls playsinline preload="metadata" aria-label="Meet the Happy-Makers Family video" style="width: 100%; height: 100%; border-radius: 16px; object-fit: cover; border: 2px solid #ffd700; box-shadow: 0 0 18px rgba(255,215,0,0.35);">
-                <source src="assets/videos/meet HM.mp4" type="video/mp4">
+            <video controls playsinline preload="auto" aria-label="Meet the Happy-Makers Family video" style="width: 100%; height: 100%; border-radius: 16px; object-fit: cover; border: 2px solid #ffd700; box-shadow: 0 0 18px rgba(255,215,0,0.35);">
+                <source src="assets/videos/meet%20HM.mp4" type="video/mp4">
                 <source src="https://raw.githubusercontent.com/riseshineevolve-source/RISE.SHINE.EVOLVE/main/assets/videos/meet%20HM.mp4" type="video/mp4">
             </video>
         </div>
@@ -9979,6 +9990,9 @@ restoreChallengeState();
             }
 
             giftOverlay.style.display = 'flex';
+            requestAnimationFrame(() => {
+                giftOverlay.classList.add('show');
+            });
             giftOverlay.style.position = 'fixed';
             giftOverlay.style.top = '0';
             giftOverlay.style.left = '0';
@@ -10001,6 +10015,9 @@ restoreChallengeState();
             giftFallback.style.display = 'flex';
             giftFallback.textContent = message || 'Gift content is unavailable right now. Please try again in a moment.';
             giftOverlay.style.display = 'flex';
+            requestAnimationFrame(() => {
+                giftOverlay.classList.add('show');
+            });
             giftOverlay.style.position = 'fixed';
             giftOverlay.style.top = '0';
             giftOverlay.style.left = '0';
@@ -10016,7 +10033,10 @@ restoreChallengeState();
         }
 
         function closeGiftOverlay(fromHistory = false) {
-            giftOverlay.style.display = 'none';
+            giftOverlay.classList.remove('show');
+            setTimeout(() => {
+                giftOverlay.style.display = 'none';
+            }, 200);
             giftFrame.src = 'about:blank';
             giftFrame.srcdoc = '';
             giftFrame.style.display = 'none';
