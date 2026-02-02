@@ -8664,6 +8664,16 @@ restoreChallengeState();
             return document.querySelector(`.tab[data-tab="${tabName}"]`);
         }
 
+        function removeDuplicateRiseTile(tabName) {
+            if (tabName === 'main') return;
+            const content = document.getElementById(tabName + '-content');
+            if (!content) return;
+            const tiles = Array.from(content.querySelectorAll('.kids-tile'))
+                .filter(tile => tile.textContent.replace(/\s+/g, ' ').toLowerCase().includes('it is time to rise shine evolve'));
+            if (tiles.length <= 1) return;
+            tiles.slice(0, -1).forEach(tile => tile.remove());
+        }
+
         // Tab functionality
         function showTabContent(tabElement, tabName, options = {}) {
             const { skipHistory = false } = options;
@@ -8691,6 +8701,7 @@ restoreChallengeState();
             }
 
             updateInfoTile(tabName);
+            removeDuplicateRiseTile(tabName);
 
             if (!skipHistory) {
                 history.pushState({ tab: tabName }, '', `#${tabName}`);
