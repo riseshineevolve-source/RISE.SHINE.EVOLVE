@@ -2601,11 +2601,6 @@
                 const row = parseInt(cell.dataset.row);
                 const col = parseInt(cell.dataset.col);
                 
-                // Sprawdź czy komórka już została znaleziona
-                if (cell.classList.contains('found')) {
-                    return;
-                }
-
                 if (this.preventClick) {
                     this.preventClick = false;
                     return;
@@ -2801,7 +2796,9 @@
                 this.startCol = col;
                 
                 // Zastosuj różowo-żółte podświetlenie
-                this.highlightCell(cell);
+                if (!cell.classList.contains('found')) {
+                    this.highlightCell(cell);
+                }
             }
             
 
