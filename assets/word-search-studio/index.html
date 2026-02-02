@@ -2156,7 +2156,7 @@
                 }
                 
                 if (!success) {
-                    errorDiv.innerHTML = '<div class="error">⚠️ Nie udało się wygenerować wyszukiwarki. Spróbuj z mniejszą liczbą lub krótszymi słowami.</div>';
+                    errorDiv.innerHTML = '<div class="error">⚠️ We could not generate the search. Please try fewer words or shorter words.</div>';
                     return;
                 }
                 
@@ -2214,7 +2214,7 @@
 
                 const isPortraitMobile = window.matchMedia && window.matchMedia('(max-width: 768px) and (orientation: portrait)').matches;
                 const maxGridSize = isPortraitMobile && (this.shape === 'diamond' || this.shape === 'heart')
-                    ? (this.shape === 'diamond' ? 22 : 21)
+                    ? 21
                     : 15;
                 this.gridSize = Math.min(Math.ceil(baseSize), maxGridSize);
             }
@@ -2252,7 +2252,7 @@
 
             placeWord(word) {
                 const directions = this.directions[this.difficulty];
-                const attempts = 500;
+                const attempts = (this.shape === 'diamond' || this.shape === 'heart') ? 800 : 500;
                 
                 // Losowo przemieszaj kierunki dla każdego słowa z wieloma poziomami losowości
                 const shuffledDirections = [...directions]
@@ -2522,7 +2522,7 @@
                 const availableWidth = Math.min(containerWidth, viewportWidth) * (isCompact ? 0.98 : 0.94);
                 const availableHeight = viewportHeight * (isCompact ? 0.68 : 0.78);
                 const frameCellTarget = isPortraitMobile && isHeartOrDiamond
-                    ? (this.shape === 'diamond' ? 22 : 21)
+                    ? 21
                     : null;
                 const cellSize = Math.max(
                     isCompact ? 16 : 18,
