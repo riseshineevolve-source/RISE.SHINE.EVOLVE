@@ -2666,7 +2666,7 @@
                         cell.style.fontWeight = '900';
                         cell.style.transform = '';
                     }
-                }, 3000);
+                }, 2500);
             }
 
             isCellPartOfWord(row, col) {
@@ -2817,15 +2817,17 @@
                 // Zaznacz wszystkie komórki na ścieżce
                 path.forEach(({row, col}) => {
                     const cell = document.querySelector(`[data-row="${row}"][data-col="${col}"]`);
-                    if (cell && !cell.classList.contains('found')) {
+                    if (cell) {
                         this.selectedCells.push({row, col, cell});
-                        cell.classList.add('highlighted');
-                        cell.style.background = 'linear-gradient(45deg, #ff69b4, #ffd700)';
-                        cell.style.color = '#000000';
-                        cell.style.border = '2px solid #ff69b4';
-                        cell.style.boxShadow = '0 0 15px rgba(255, 105, 180, 0.6), 0 0 25px rgba(255, 215, 0, 0.4)';
-                        cell.style.fontWeight = '900';
-                        cell.style.transform = 'scale(1.05)';
+                        if (!cell.classList.contains('found')) {
+                            cell.classList.add('highlighted');
+                            cell.style.background = 'linear-gradient(45deg, #ff69b4, #ffd700)';
+                            cell.style.color = '#000000';
+                            cell.style.border = '2px solid #ff69b4';
+                            cell.style.boxShadow = '0 0 15px rgba(255, 105, 180, 0.6), 0 0 25px rgba(255, 215, 0, 0.4)';
+                            cell.style.fontWeight = '900';
+                            cell.style.transform = 'scale(1.05)';
+                        }
                     }
                 });
                 
@@ -2855,6 +2857,9 @@
                 } else {
                     // Nie znaleziono słowa - pokaż czerwony efekt błędu i usuń po 1 sekundzie
                     this.selectedCells.forEach(({cell}) => {
+                        if (cell.classList.contains('found')) {
+                            return;
+                        }
                         cell.classList.remove('highlighted');
                         cell.classList.add('clicked-wrong');
                         cell.style.background = 'linear-gradient(45deg, #ff4757, #ff3838)';
@@ -2877,7 +2882,7 @@
                                 cell.style.transform = '';
                             }
                         });
-                    }, 3000);
+                    }, 2500);
                 }
                 
                 // Resetuj stan wyboru
