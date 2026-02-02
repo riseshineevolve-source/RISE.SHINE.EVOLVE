@@ -1890,6 +1890,7 @@
                 this.panStart = null;
                 this.isPanning = false;
                 this.preventClick = false;
+                this.relaxSpacing = false;
 
                 this.directions = {
                     easy: [
@@ -2147,9 +2148,13 @@
                 let attempts = 0;
                 let success = false;
                 const isHeartOrDiamond = this.shape === 'diamond' || this.shape === 'heart';
-                const maxAttempts = isHeartOrDiamond ? 60 : 20;
                 const isPortraitMobile = window.matchMedia && window.matchMedia('(max-width: 768px) and (orientation: portrait)').matches;
+                const maxAttempts = isHeartOrDiamond ? 60 : 20;
                 const maxGridSize = isPortraitMobile && isHeartOrDiamond ? 21 : 25;
+                this.relaxSpacing = isPortraitMobile && isHeartOrDiamond;
+                if (this.relaxSpacing) {
+                    this.gridSize = maxGridSize;
+                }
                 
                 while (attempts < maxAttempts && !success) {
                     success = this.createGrid();
@@ -2345,6 +2350,9 @@
             }
             
             checkWordSpacing(word, row, col, dx, dy) {
+                if (this.relaxSpacing) {
+                    return true;
+                }
                 // Sprawdź każdą literę słowa
                 for (let i = 0; i < word.length; i++) {
                     const currentRow = row + i * dx;
