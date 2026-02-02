@@ -2146,10 +2146,10 @@
                 // Generuj siatkę z wieloma próbami
                 let attempts = 0;
                 let success = false;
-                const isDiamondHard = this.shape === 'diamond' && this.difficulty === 'hard';
-                const maxAttempts = isDiamondHard ? 40 : 20;
+                const isHeartOrDiamond = this.shape === 'diamond' || this.shape === 'heart';
+                const maxAttempts = isHeartOrDiamond ? 60 : 20;
                 const isPortraitMobile = window.matchMedia && window.matchMedia('(max-width: 768px) and (orientation: portrait)').matches;
-                const maxGridSize = isPortraitMobile && (this.shape === 'diamond' || this.shape === 'heart') ? 21 : 25;
+                const maxGridSize = isPortraitMobile && isHeartOrDiamond ? 21 : 25;
                 
                 while (attempts < maxAttempts && !success) {
                     success = this.createGrid();
@@ -2158,14 +2158,16 @@
                         if (this.gridSize < maxGridSize) {
                             this.gridSize = Math.min(maxGridSize, this.gridSize + 1);
                         } else {
-                            this.randomSeed = Date.now() + Math.random() * 1000000 + performance.now();
-                            this.generationId = Math.random().toString(36).substring(2, 15);
+                            if (attempts % 5 === 0) {
+                                this.randomSeed = Date.now() + Math.random() * 1000000 + performance.now();
+                                this.generationId = Math.random().toString(36).substring(2, 15);
+                            }
                         }
                     }
                 }
                 
                 if (!success) {
-                    errorDiv.innerHTML = '<div class="error">⚠️ We could not generate the search. Please try fewer words or shorter words.</div>';
+                    errorDiv.innerHTML = '<div class="error">⚠️ We couldn\'t generate the search. Hit again the Generate Search button.</div>';
                     return;
                 }
                 
@@ -2261,7 +2263,7 @@
 
             placeWord(word) {
                 const directions = this.directions[this.difficulty];
-                const attempts = (this.shape === 'diamond' || this.shape === 'heart') ? 800 : 500;
+                const attempts = (this.shape === 'diamond' || this.shape === 'heart') ? 1200 : 500;
                 
                 // Losowo przemieszaj kierunki dla każdego słowa z wieloma poziomami losowości
                 const shuffledDirections = [...directions]
