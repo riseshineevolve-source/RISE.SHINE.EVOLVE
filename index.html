@@ -7952,6 +7952,7 @@ restoreChallengeState();
         document.addEventListener('DOMContentLoaded', () => {
             checkUser();
             resetAuthPanel();
+            ['kids', 'teenagers', 'adults', 'gifts', 'contact'].forEach(removeDuplicateRiseTile);
 
             const brevoUnsubForm = document.getElementById('sib-form-unsub');
             if (brevoUnsubForm) {
@@ -8669,9 +8670,13 @@ restoreChallengeState();
             const content = document.getElementById(tabName + '-content');
             if (!content) return;
             const tiles = Array.from(content.querySelectorAll('.kids-tile'))
-                .filter(tile => tile.textContent.replace(/\s+/g, ' ').toLowerCase().includes('it is time to rise shine evolve'));
-            if (tiles.length <= 1) return;
+                .filter(tile => tile.textContent.toLowerCase().replace(/[^a-z]+/g, ' ').trim().includes('it is time to rise shine evolve'));
+            if (tiles.length === 0) return;
+            const lastTile = tiles[tiles.length - 1];
             tiles.slice(0, -1).forEach(tile => tile.remove());
+            if (content.lastElementChild !== lastTile) {
+                content.appendChild(lastTile);
+            }
         }
 
         // Tab functionality
