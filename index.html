@@ -7952,6 +7952,7 @@ restoreChallengeState();
         document.addEventListener('DOMContentLoaded', () => {
             checkUser();
             resetAuthPanel();
+            ['kids', 'teenagers', 'adults', 'gifts', 'contact'].forEach(removeDuplicateRiseTile);
 
             const brevoUnsubForm = document.getElementById('sib-form-unsub');
             if (brevoUnsubForm) {
