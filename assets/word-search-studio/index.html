@@ -1645,6 +1645,10 @@
                 max-width: 300px;
                 padding: 14px;
             }
+
+            .word-search {
+                animation: none;
+            }
         }
 
         @media (max-width: 480px) {
@@ -1847,7 +1851,11 @@
             if (!sparklesContainer) return;
 
             const isMobile = window.matchMedia && window.matchMedia('(max-width: 768px)').matches;
-            const sparkleCount = isMobile ? 12 : 50;
+            if (isMobile) {
+                sparklesContainer.innerHTML = '';
+                return;
+            }
+            const sparkleCount = 50;
             const fragment = document.createDocumentFragment();
             for (let i = 0; i < sparkleCount; i++) {
                 const sparkle = document.createElement('div');
@@ -2204,7 +2212,11 @@
                     baseSize += 1;
                 }
 
-                this.gridSize = Math.min(Math.ceil(baseSize), 15);
+                const isPortraitMobile = window.matchMedia && window.matchMedia('(max-width: 768px) and (orientation: portrait)').matches;
+                const maxGridSize = isPortraitMobile && (this.shape === 'diamond' || this.shape === 'heart')
+                    ? (this.shape === 'diamond' ? 22 : 21)
+                    : 15;
+                this.gridSize = Math.min(Math.ceil(baseSize), maxGridSize);
             }
             
             createGrid() {
@@ -2492,13 +2504,14 @@
 
                 const isCompact = window.matchMedia && window.matchMedia('(max-width: 720px)').matches;
                 const isPortraitMobile = window.matchMedia && window.matchMedia('(max-width: 768px) and (orientation: portrait)').matches;
+                const isHeartOrDiamond = this.shape === 'diamond' || this.shape === 'heart';
                 const containerWidth = wordSearchDiv.parentElement?.clientWidth || window.innerWidth;
                 const viewportWidth = window.innerWidth;
                 const viewportHeight = window.innerHeight;
-                const maxWidthScale = isPortraitMobile && (this.shape === 'diamond' || this.shape === 'heart') && this.words.length >= 10
+                const maxWidthScale = isPortraitMobile && isHeartOrDiamond && this.words.length >= 10
                     ? 0.88
                     : (isCompact ? 0.95 : 0.82);
-                const maxHeightScale = isPortraitMobile && (this.shape === 'diamond' || this.shape === 'heart') && this.words.length >= 10
+                const maxHeightScale = isPortraitMobile && isHeartOrDiamond && this.words.length >= 10
                     ? 0.6
                     : (isCompact ? 0.65 : 0.75);
                 const maxVisualSize = Math.min(
@@ -2506,16 +2519,27 @@
                     viewportHeight * maxHeightScale,
                     isCompact ? 520 : 640
                 );
+                const availableWidth = Math.min(containerWidth, viewportWidth) * (isCompact ? 0.98 : 0.94);
+                const availableHeight = viewportHeight * (isCompact ? 0.68 : 0.78);
+                const frameCellTarget = isPortraitMobile && isHeartOrDiamond
+                    ? (this.shape === 'diamond' ? 22 : 21)
+                    : null;
                 const cellSize = Math.max(
                     isCompact ? 16 : 18,
-                    Math.min(isCompact ? 26 : 30, maxVisualSize / this.gridSize)
+                    Math.min(
+                        isCompact ? 26 : 30,
+                        maxVisualSize / this.gridSize,
+                        frameCellTarget ? availableWidth / frameCellTarget : Infinity,
+                        frameCellTarget ? availableHeight / frameCellTarget : Infinity
+                    )
                 );
                 const gridDimension = cellSize * this.gridSize;
                 const maxFrameSize = Math.min(containerWidth, viewportWidth) * (isCompact ? 0.98 : 0.9);
                 const desiredPadding = isCompact
                     ? Math.max(10, Math.min(18, Math.ceil(cellSize * 0.6)))
                     : Math.max(18, Math.min(36, Math.ceil(cellSize * 0.9)));
-                const availablePadding = Math.max(0, Math.floor((maxFrameSize - gridDimension) / 2));
+                const maxFrame = frameCellTarget ? Math.min(maxFrameSize, frameCellTarget * cellSize) : maxFrameSize;
+                const availablePadding = Math.max(0, Math.floor((maxFrame - gridDimension) / 2));
                 const framePadding = Math.min(desiredPadding, availablePadding);
 
                 wordSearchDiv.style.gridTemplateColumns = `repeat(${this.gridSize}, ${cellSize}px)`;
