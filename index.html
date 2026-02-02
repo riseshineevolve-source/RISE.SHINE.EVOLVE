@@ -2658,7 +2658,15 @@
                 transition: all 0.3s ease;
             " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 0 30px rgba(138, 43, 226, 0.8)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 0 20px rgba(138, 43, 226, 0.6)';"> ← Back to Library </button> <!-- Title -->
     <h2 style="color: #8A2BE2; font-size: 2.8rem; text-align: center; margin-bottom: 15px; text-shadow: 0 0 30px rgba(138, 43, 226, 0.8); text-transform: uppercase; letter-spacing: 2px;">MEET THE HAPPY-MAKERS FAMILY</h2>
-    <p style="color: #ffd700; font-size: 1.4rem; text-align: center; margin-bottom: 50px; text-shadow: 0 0 15px rgba(255, 215, 0, 0.6);">Your charmingly cheerful companions on every adventure!</p><!-- Family Members Grid -->
+    <p style="color: #ffd700; font-size: 1.4rem; text-align: center; margin-bottom: 20px; text-shadow: 0 0 15px rgba(255, 215, 0, 0.6);">Your charmingly cheerful companions on every adventure!</p>
+    <div style="display: flex; justify-content: center; margin-bottom: 50px;">
+        <div style="background: #000000; border: 4px solid #8A2BE2; border-radius: 20px; padding: 20px; text-align: center; width: 100%; max-width: 300px; min-height: 350px; box-shadow: 0 15px 50px rgba(0, 0, 0, 0.4), 0 0 0 2px rgba(138, 43, 226, 0.6), inset 0 3px 0 rgba(255, 255, 255, 0.1), 0 0 40px rgba(138, 43, 226, 0.3), 0 0 80px rgba(138, 43, 226, 0.2); display: flex; flex-direction: column; justify-content: center;">
+            <video controls playsinline preload="metadata" aria-label="Meet the Happy-Makers Family video" style="width: 100%; height: 100%; border-radius: 16px; object-fit: cover; border: 2px solid #ffd700; box-shadow: 0 0 18px rgba(255,215,0,0.35);">
+                <source src="assets/videos/meet HM.mp4" type="video/mp4">
+                <source src="https://raw.githubusercontent.com/riseshineevolve-source/RISE.SHINE.EVOLVE/main/assets/videos/meet%20HM.mp4" type="video/mp4">
+            </video>
+        </div>
+    </div><!-- Family Members Grid -->
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; margin-bottom: 50px; padding: 0 20px; justify-items: center;"><!-- Mimi: różowe obramowanie z animacją po najechaniu -->
      <div onclick="showCharacterDetailsFullScreen('mimi')" style="
     background: #000000;
@@ -3146,10 +3154,28 @@
       padding: 18px;
       overflow-y: auto;
       box-sizing: border-box;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.25s ease;
     }
 
     #bookPromoModal.show {
       display: flex;
+      opacity: 1;
+      visibility: visible;
+    }
+
+    #bookPromoModal .modal-content {
+      opacity: 0;
+      transform: translateY(12px) scale(0.98);
+      transition: opacity 0.25s ease, transform 0.25s ease;
+      will-change: opacity, transform;
+      backface-visibility: hidden;
+    }
+
+    #bookPromoModal.show .modal-content {
+      opacity: 1;
+      transform: translateY(0) scale(1);
     }
 
     @media (max-width: 720px) {
@@ -3245,7 +3271,7 @@
                 text-transform: uppercase;
                 box-shadow: 0 0 12px rgba(255, 215, 0, 0.7);
             ">NEW</div>
-     <img src="assets/images/Confident, Mindful & Happy Me cover.png" data-cover-base="Confident, Mindful & Happy Me" alt="The Confident, Mindful &amp; Happy Me Adventure cover" loading="eager" fetchpriority="high" decoding="async" style="width: 150px; height: auto; border-radius: 12px; border: 2px solid #ffd700; box-shadow: 0 0 18px rgba(255,215,0,0.35); margin: 46px auto 14px auto; display: block;">
+     <img src="assets/images/Confident, Mindful & Happy Me cover.png" data-cover-base="Confident, Mindful & Happy Me" alt="The Confident, Mindful &amp; Happy Me Adventure cover" loading="eager" fetchpriority="high" decoding="async" width="150" height="225" style="width: 150px; height: 225px; object-fit: cover; border-radius: 12px; border: 2px solid #ffd700; box-shadow: 0 0 18px rgba(255,215,0,0.35); margin: 46px auto 14px auto; display: block;">
      <div style="color: #ffd700; font-weight: bold; font-size: 1.1rem; margin-bottom: 10px; line-height: 1.25; text-shadow: 0 0 15px rgba(255, 215, 0, 0.8);">
       The Confident, Mindful &amp; Happy Me Adventure
      </div>
