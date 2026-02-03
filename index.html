@@ -413,8 +413,7 @@
             position: fixed;
             inset: 0;
             width: 100%;
-            height: var(--app-height);
-            min-height: var(--app-height);
+            height: 100%;
             background: rgba(0, 0, 0, 0.95);
             z-index: 10010;
             overflow: hidden;
@@ -3167,30 +3166,19 @@
    </div>
   </div>
   <style>
-    :root {
-      --app-height: 100vh;
-    }
-
-    @supports (height: 100dvh) {
-      :root {
-        --app-height: 100dvh;
-      }
-    }
-
     #emailModal {
       display: none;
       position: fixed;
       inset: 0;
       width: 100%;
-      height: var(--app-height);
-      min-height: var(--app-height);
+      height: 100%;
       background: rgba(0, 0, 0, 0.9);
       z-index: 10005;
       backdrop-filter: blur(6px);
       margin: 0;
       align-items: center;
       justify-content: center;
-      padding: calc(16px + env(safe-area-inset-top)) calc(16px + env(safe-area-inset-right)) calc(16px + env(safe-area-inset-bottom)) calc(16px + env(safe-area-inset-left));
+      padding: 16px;
       overflow-y: auto;
       box-sizing: border-box;
     }
@@ -3205,14 +3193,13 @@
       position: fixed;
       inset: 0;
       width: 100%;
-      height: var(--app-height);
-      min-height: var(--app-height);
+      height: 100%;
       background: rgba(0, 0, 0, 0.92);
       z-index: 15000;
       backdrop-filter: blur(6px);
       align-items: center;
       justify-content: center;
-      padding: calc(18px + env(safe-area-inset-top)) calc(18px + env(safe-area-inset-right)) calc(18px + env(safe-area-inset-bottom)) calc(18px + env(safe-area-inset-left));
+      padding: 18px;
       overflow-y: auto;
       box-sizing: border-box;
       opacity: 0;
@@ -3239,33 +3226,6 @@
       transform: translateY(0) scale(1);
     }
 
-    #signupConfirmModal,
-    #privacyModal {
-      height: var(--app-height);
-      min-height: var(--app-height);
-    }
-
-    #emailModal .modal-content,
-    #bookPromoModal .modal-content,
-    #signupConfirmModal .modal-content,
-    #privacyModal .modal-content {
-      max-height: calc(var(--app-height) - 32px);
-    }
-
-    #emailModal .close,
-    #signupConfirmModal .close,
-    #privacyModal .close {
-      position: sticky !important;
-      top: 8px;
-      margin-left: auto;
-    }
-
-    #emailModal #authActionBottom {
-      position: sticky;
-      bottom: 0;
-      z-index: 2;
-    }
-
     @media (max-width: 720px) {
       #emailModal,
       #bookPromoModal,
@@ -3273,10 +3233,6 @@
         align-items: flex-start;
         justify-content: center;
         padding-top: 24px;
-      }
-
-      #privacyModal .modal-content {
-        margin: 16px auto;
       }
     }
   </style>
@@ -3288,7 +3244,7 @@
             padding: 0;
             max-width: 520px;
             width: 100%;
-            max-height: calc(var(--app-height) - 32px);
+            max-height: 90vh;
             overflow: hidden;
             margin: 0 auto;
         ">
@@ -3402,7 +3358,7 @@
             padding: 14px 16px;
             max-width: 560px;
             width: 92%;
-            max-height: calc(var(--app-height) - 32px);
+            max-height: 96vh;
             overflow-y: auto;
             box-shadow: 0 0 50px rgba(138, 43, 226, 0.8);
             margin: 0 auto;
@@ -3570,7 +3526,7 @@
     </div>
    </div>
   </div>
-  <div id="signupConfirmModal" class="modal" style="display: none; position: fixed; inset: 0; width: 100%; height: var(--app-height); min-height: var(--app-height); background: rgba(0, 0, 0, 0.9); z-index: 20050; backdrop-filter: blur(6px); align-items: center; justify-content: center; padding: calc(16px + env(safe-area-inset-top)) calc(16px + env(safe-area-inset-right)) calc(16px + env(safe-area-inset-bottom)) calc(16px + env(safe-area-inset-left)); box-sizing: border-box;">
+  <div id="signupConfirmModal" class="modal" style="display: none; position: fixed; inset: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.9); z-index: 20050; backdrop-filter: blur(6px); align-items: center; justify-content: center; padding: 16px; box-sizing: border-box;">
         <div class="modal-content" style="
             position: relative;
             background: linear-gradient(135deg, #000000, #1a1a1a);
@@ -3579,7 +3535,7 @@
             padding: 20px 22px;
             max-width: 520px;
             width: 92%;
-            max-height: calc(var(--app-height) - 32px);
+            max-height: 92vh;
             overflow-y: auto;
             box-shadow: 0 0 50px rgba(255, 215, 0, 0.6);
             margin: 0 auto;
@@ -3608,8 +3564,8 @@
     </p>
    </div>
   </div>
-  <div id="privacyModal" class="modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: var(--app-height); min-height: var(--app-height); background: rgba(0,0,0,0.9); z-index: 12000; backdrop-filter: blur(6px);">
-    <div class="modal-content" style="max-width: 700px; max-height: calc(var(--app-height) - 40px); overflow-y: auto; margin: 40px auto; background: #0c0c0c; border: 3px solid #8A2BE2; border-radius: 20px; padding: 25px; position: relative; box-shadow: 0 0 40px rgba(138, 43, 226, 0.7);">
+  <div id="privacyModal" class="modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 12000; backdrop-filter: blur(6px);">
+    <div class="modal-content" style="max-width: 700px; max-height: 80vh; overflow-y: auto; margin: 40px auto; background: #0c0c0c; border: 3px solid #8A2BE2; border-radius: 20px; padding: 25px; position: relative; box-shadow: 0 0 40px rgba(138, 43, 226, 0.7);">
         <span class="close" onclick="closePrivacyModal()" style="position: absolute; top: 12px; right: 12px; font-size: 1.4rem; cursor: pointer; color: #ffffff;">×</span>
         <h2 style="color: #ffd700; text-align: center; margin-bottom: 10px;">Privacy Policy</h2>
         <div style="color: #ffffff; line-height: 1.6; font-size: 14px;">
@@ -8408,7 +8364,7 @@ restoreChallengeState();
                     content.scrollTop = 0;
                 }
                 modal.scrollTop = 0;
-                lockBodyScroll();
+                document.body.style.overflow = 'hidden';
             }
         }
 
@@ -8418,7 +8374,7 @@ restoreChallengeState();
                 modal.classList.remove('show');
                 modal.style.display = 'none';
             }
-            unlockBodyScrollIfNeeded();
+            document.body.style.overflow = 'auto';
         }
 
         function applyMobileLineBreaks() {
@@ -9493,66 +9449,6 @@ restoreChallengeState();
                 showEmailModal('login');
             }
         }
-
-        let scrollLockOffset = 0;
-
-        function updateAppHeight() {
-            document.documentElement.style.setProperty('--app-height', `${window.innerHeight}px`);
-        }
-
-        function lockBodyScroll() {
-            if (document.body.dataset.scrollLocked === 'true') {
-                return;
-            }
-            scrollLockOffset = window.scrollY || window.pageYOffset || 0;
-            document.body.dataset.scrollLocked = 'true';
-            document.body.style.position = 'fixed';
-            document.body.style.top = `-${scrollLockOffset}px`;
-            document.body.style.width = '100%';
-            document.body.style.overflow = 'hidden';
-        }
-
-        function unlockBodyScroll() {
-            if (document.body.dataset.scrollLocked !== 'true') {
-                return;
-            }
-            const scrollY = Math.abs(parseInt(document.body.style.top || '0', 10)) || scrollLockOffset;
-            document.body.style.position = '';
-            document.body.style.top = '';
-            document.body.style.width = '';
-            document.body.style.overflow = '';
-            delete document.body.dataset.scrollLocked;
-            window.scrollTo(0, scrollY);
-        }
-
-        function isAnyModalOpen() {
-            const emailModal = document.getElementById('emailModal');
-            const privacyModal = document.getElementById('privacyModal');
-            const signupConfirmModal = document.getElementById('signupConfirmModal');
-            const promoModal = document.getElementById('bookPromoModal');
-            const welcomeModal = document.getElementById('welcomeModal');
-            const giftOverlay = document.getElementById('gift-overlay');
-
-            const emailOpen = emailModal && (emailModal.style.display === 'flex' || emailModal.classList.contains('show'));
-            const privacyOpen = privacyModal && privacyModal.style.display === 'block';
-            const signupOpen = signupConfirmModal && (signupConfirmModal.style.display === 'flex' || signupConfirmModal.classList.contains('show'));
-            const promoOpen = promoModal && (promoModal.style.display === 'flex' || promoModal.classList.contains('show'));
-            const welcomeOpen = welcomeModal && (welcomeModal.style.display === 'flex' || welcomeModal.classList.contains('show'));
-            const giftOpen = (typeof giftOverlayOpen !== 'undefined' && giftOverlayOpen) || (giftOverlay && giftOverlay.classList.contains('show'));
-
-            return emailOpen || privacyOpen || signupOpen || promoOpen || welcomeOpen || giftOpen;
-        }
-
-        function unlockBodyScrollIfNeeded() {
-            if (!isAnyModalOpen()) {
-                unlockBodyScroll();
-            }
-        }
-
-        updateAppHeight();
-        window.addEventListener('resize', updateAppHeight);
-        window.addEventListener('orientationchange', updateAppHeight);
-
         function showEmailModal(mode = null, message = null, messageColor = '#ffd700') {
             const errorMsg = document.getElementById('errorMsg');
             if (errorMsg) {
@@ -9582,20 +9478,22 @@ restoreChallengeState();
             }
             const modal = document.getElementById('emailModal');
             if (modal) {
+                const scrollY = window.scrollY || window.pageYOffset || 0;
                 modal.classList.add('show');
                 modal.style.display = 'flex';
                 modal.style.position = 'fixed';
                 modal.style.top = '0';
                 modal.style.left = '0';
                 modal.style.right = '0';
-                modal.style.height = 'var(--app-height)';
+                modal.style.height = '100%';
                 modal.scrollTop = 0;
                 const content = modal.querySelector('.modal-content');
                 if (content) {
                     content.scrollTop = 0;
                 }
             }
-            lockBodyScroll();
+            window.scrollTo(0, 0);
+            document.body.style.overflow = 'hidden';
             history.pushState({ modal: 'email' }, '', window.location.href);
         }
 
@@ -9614,13 +9512,14 @@ restoreChallengeState();
                 modal.style.top = '0';
                 modal.style.left = '0';
                 modal.style.right = '0';
-                modal.style.height = 'var(--app-height)';
+                modal.style.height = '100%';
                 modal.scrollTop = 0;
                 const content = modal.querySelector('.modal-content');
                 if (content) {
                     content.scrollTop = 0;
                 }
-                lockBodyScroll();
+                window.scrollTo(0, 0);
+                document.body.style.overflow = 'hidden';
             };
 
             const cover = modal.querySelector('img');
@@ -9642,9 +9541,9 @@ restoreChallengeState();
                 modal.style.top = '0';
                 modal.style.left = '0';
                 modal.style.right = '0';
-                modal.style.height = 'var(--app-height)';
+                modal.style.height = '100%';
             }
-            unlockBodyScrollIfNeeded();
+            document.body.style.overflow = 'auto';
             sessionStorage.setItem('bookPromoDismissed', 'true');
         }
 
@@ -9658,7 +9557,7 @@ restoreChallengeState();
 
         function openPrivacyPolicy() {
             document.getElementById('privacyModal').style.display = 'block';
-            lockBodyScroll();
+            document.body.style.overflow = 'hidden';
             history.pushState({ modal: 'privacy' }, '', window.location.href);
         }
         function closeEmailModal() {
@@ -9670,13 +9569,13 @@ restoreChallengeState();
                 modal.style.top = '0';
                 modal.style.left = '0';
                 modal.style.right = '0';
-                modal.style.height = 'var(--app-height)';
+                modal.style.height = '100%';
             }
-            unlockBodyScrollIfNeeded();
+            document.body.style.overflow = 'auto';
         }
         function closePrivacyModal() {
             document.getElementById('privacyModal').style.display = 'none';
-            unlockBodyScrollIfNeeded();
+            document.body.style.overflow = 'auto';
         }
 
         function handleVerificationRedirect() {
@@ -10213,9 +10112,10 @@ restoreChallengeState();
             giftOverlay.style.top = '0';
             giftOverlay.style.left = '0';
             giftOverlay.style.right = '0';
-            giftOverlay.style.height = 'var(--app-height)';
+            giftOverlay.style.height = '100%';
             giftOverlay.scrollTop = 0;
-            lockBodyScroll();
+            window.scrollTo(0, 0);
+            document.body.style.overflow = 'hidden';
 
             if (!giftOverlayOpen) {
                 history.pushState({ giftOverlay: true }, document.title, window.location.href);
@@ -10237,9 +10137,10 @@ restoreChallengeState();
             giftOverlay.style.top = '0';
             giftOverlay.style.left = '0';
             giftOverlay.style.right = '0';
-            giftOverlay.style.height = 'var(--app-height)';
+            giftOverlay.style.height = '100%';
             giftOverlay.scrollTop = 0;
-            lockBodyScroll();
+            window.scrollTo(0, 0);
+            document.body.style.overflow = 'hidden';
             if (!giftOverlayOpen) {
                 history.pushState({ giftOverlay: true }, document.title, window.location.href);
                 giftOverlayOpen = true;
@@ -10255,19 +10156,17 @@ restoreChallengeState();
             giftFrame.srcdoc = '';
             giftFrame.style.display = 'none';
             giftFallback.style.display = 'none';
+            document.body.style.overflow = '';
             if (giftBlobUrl) {
                 URL.revokeObjectURL(giftBlobUrl);
                 giftBlobUrl = null;
             }
 
-            const wasGiftOverlayOpen = giftOverlayOpen;
-            giftOverlayOpen = false;
-            unlockBodyScrollIfNeeded();
-
-            if (wasGiftOverlayOpen && history.state && history.state.giftOverlay && !fromHistory) {
+            if (giftOverlayOpen && history.state && history.state.giftOverlay && !fromHistory) {
                 const originTab = giftOverlayOriginTab || 'gifts';
                 history.replaceState({ tab: originTab }, '', `#${originTab}`);
             }
+            giftOverlayOpen = false;
             const originTab = giftOverlayOriginTab || 'gifts';
             const originTabElement = getTabElement(originTab);
             const originContent = document.getElementById(`${originTab}-content`);
