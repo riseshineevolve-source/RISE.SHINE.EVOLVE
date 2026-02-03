@@ -958,11 +958,25 @@
             width: 100%;
             text-align: center;
             margin-top: 0;
+            padding-top: 0;
             animation: fadeIn 0.3s ease-in-out;
         }
 
         .tab-content.active {
             display: block;
+        }
+
+        #kids-content,
+        #teenagers-content,
+        #adults-content,
+        #gifts-content,
+        #contact-content {
+            margin-top: -192px;
+            padding-top: 8px;
+        }
+
+        #main-content {
+            margin-top: 24px;
         }
 
         @keyframes fadeIn {
