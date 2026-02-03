@@ -3226,13 +3226,25 @@
       transform: translateY(0) scale(1);
     }
 
+    #signupConfirmModal {
+      height: 100dvh;
+      min-height: 100svh;
+      padding-top: max(16px, env(safe-area-inset-top));
+      padding-bottom: max(16px, env(safe-area-inset-bottom));
+    }
+
+    #signupConfirmModal .modal-content {
+      max-height: min(92vh, calc(100dvh - 32px));
+    }
+
     @media (max-width: 720px) {
       #emailModal,
       #bookPromoModal,
       #signupConfirmModal {
         align-items: flex-start;
         justify-content: center;
-        padding-top: 24px;
+        padding-top: max(24px, env(safe-area-inset-top));
+        padding-bottom: max(16px, env(safe-area-inset-bottom));
       }
     }
   </style>
@@ -8352,19 +8364,34 @@ restoreChallengeState();
             }
         }
 
+        let signupConfirmScrollY = 0;
+
         function showSignupConfirmModal() {
             const modal = document.getElementById('signupConfirmModal');
             if (modal) {
+                signupConfirmScrollY = window.scrollY || window.pageYOffset || 0;
                 modal.style.display = 'flex';
                 modal.classList.add('show');
                 modal.style.visibility = 'visible';
+                modal.style.position = 'fixed';
+                modal.style.top = '0';
+                modal.style.left = '0';
+                modal.style.right = '0';
+                modal.style.bottom = '0';
+                modal.style.height = '100dvh';
                 const content = modal.querySelector('.modal-content');
                 if (content) {
                     content.style.display = 'block';
                     content.scrollTop = 0;
+                    content.focus?.();
+                    content.scrollIntoView({ block: 'center', inline: 'nearest' });
                 }
                 modal.scrollTop = 0;
                 document.body.style.overflow = 'hidden';
+                document.documentElement.style.overflow = 'hidden';
+                document.body.style.position = 'fixed';
+                document.body.style.top = `-${signupConfirmScrollY}px`;
+                document.body.style.width = '100%';
             }
         }
 
@@ -8374,7 +8401,12 @@ restoreChallengeState();
                 modal.classList.remove('show');
                 modal.style.display = 'none';
             }
-            document.body.style.overflow = 'auto';
+            document.body.style.overflow = '';
+            document.documentElement.style.overflow = '';
+            document.body.style.position = '';
+            document.body.style.top = '';
+            document.body.style.width = '';
+            window.scrollTo(0, signupConfirmScrollY || 0);
         }
 
         function applyMobileLineBreaks() {
