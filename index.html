@@ -9610,28 +9610,69 @@ restoreChallengeState();
             document.body.style.overflow = 'auto';
         }
 
-        function handleVerificationRedirect() {
+        function getAuthRedirectContext() {
             const hash = window.location.hash || '';
             const searchParams = new URLSearchParams(window.location.search || '');
-            const hashParams = new URLSearchParams(hash.replace('#', ''));
+            const hashValue = hash.startsWith('#/') ? hash.slice(2) : hash.replace('#', '');
+            const hashQuery = hashValue.includes('?') ? hashValue.split('?').slice(1).join('?') : hashValue;
+            const hashParams = new URLSearchParams(hashQuery);
             const type = searchParams.get('type') || hashParams.get('type') || '';
-            const hasToken = hash.includes('access_token=') || searchParams.has('access_token');
-            const isRecoveryFlow = type === 'recovery' || (!type && hasToken);
-            const isVerifyFlow = ['signup', 'invite', 'recovery'].includes(type) || hasToken;
+            const accessToken = hashParams.get('access_token') || searchParams.get('access_token');
+            const refreshToken = hashParams.get('refresh_token') || searchParams.get('refresh_token');
+            const token = hashParams.get('token') || searchParams.get('token');
+            const code = hashParams.get('code') || searchParams.get('code');
+            const hasAccessToken = !!accessToken;
+            const isRecoveryFlow = type === 'recovery' || (!type && (hasAccessToken || token || code));
+            const isVerifyFlow = ['signup', 'invite', 'recovery'].includes(type) || hasAccessToken || !!token || !!code;
+            return {
+                type,
+                hash,
+                hashParams,
+                searchParams,
+                accessToken,
+                refreshToken,
+                token,
+                code,
+                isRecoveryFlow,
+                isVerifyFlow,
+            };
+        }
+
+        function handleVerificationRedirect() {
+            const {
+                hash,
+                hashParams,
+                searchParams,
+                accessToken,
+                refreshToken,
+                token,
+                code,
+                isRecoveryFlow,
+                isVerifyFlow,
+            } = getAuthRedirectContext();
 
             if (!isVerifyFlow) {
                 return false;
             }
 
             if (isRecoveryFlow) {
-                const accessToken = hashParams.get('access_token') || searchParams.get('access_token');
-                const refreshToken = hashParams.get('refresh_token') || searchParams.get('refresh_token');
                 if (supabaseClient && accessToken && refreshToken) {
                     supabaseClient.auth.setSession({
                         access_token: accessToken,
                         refresh_token: refreshToken,
                     }).catch(() => {
                         // ignore session set errors and let updateUser handle failures
+                    });
+                } else if (supabaseClient && code && typeof supabaseClient.auth.exchangeCodeForSession === 'function') {
+                    supabaseClient.auth.exchangeCodeForSession(code).catch(() => {
+                        // ignore session exchange errors and let updateUser handle failures
+                    });
+                } else if (supabaseClient && token && typeof supabaseClient.auth.verifyOtp === 'function') {
+                    supabaseClient.auth.verifyOtp({
+                        type: 'recovery',
+                        token,
+                    }).catch(() => {
+                        // ignore otp verify errors and let updateUser handle failures
                     });
                 }
                 showEmailModal('set-password', 'Set your new password below.', '#ffd700');
@@ -9657,12 +9698,7 @@ restoreChallengeState();
             if (!isMobileViewport()) {
                 return;
             }
-            const hash = window.location.hash || '';
-            const searchParams = new URLSearchParams(window.location.search || '');
-            const hashParams = new URLSearchParams(hash.replace('#', ''));
-            const type = searchParams.get('type') || hashParams.get('type') || '';
-            const hasToken = hash.includes('access_token=') || searchParams.has('access_token');
-            const isRecoveryFlow = type === 'recovery' || (!type && hasToken);
+            const { isRecoveryFlow } = getAuthRedirectContext();
             if (!isRecoveryFlow) {
                 return;
             }
