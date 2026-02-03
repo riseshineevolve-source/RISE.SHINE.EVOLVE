@@ -3103,7 +3103,6 @@
                     font-weight: bold;
                     cursor: pointer;
                     box-shadow: 0 0 20px rgba(138, 43, 226, 0.6);
-                    white-space: nowrap;
                     transition: all 0.3s ease;
                 " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 0 30px rgba(138, 43, 226, 0.8)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 0 20px rgba(138, 43, 226, 0.6)';"> ← Back to Library </button>
     </div>
@@ -8359,17 +8358,10 @@ restoreChallengeState();
                 modal.style.display = 'flex';
                 modal.classList.add('show');
                 modal.style.visibility = 'visible';
-                modal.style.position = 'fixed';
-                modal.style.inset = '0';
-                modal.style.width = '100%';
-                modal.style.height = '100dvh';
-                modal.style.alignItems = 'center';
-                modal.style.justifyContent = 'center';
                 const content = modal.querySelector('.modal-content');
                 if (content) {
                     content.style.display = 'block';
                     content.scrollTop = 0;
-                    content.style.maxHeight = '92dvh';
                 }
                 modal.scrollTop = 0;
                 document.body.style.overflow = 'hidden';
