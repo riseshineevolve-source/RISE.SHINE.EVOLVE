@@ -3408,6 +3408,7 @@
     <p style="color: #e6e6e6; font-size: 0.78rem; text-align: center; margin: 0 0 2px 0;">New here? Click Create Account.</p>
     <p style="color: #e6e6e6; font-size: 0.78rem; text-align: center; margin: 0 0 8px 0;">Already have an account? Click Log In.</p>
     <p id="errorMsg" style="color: #ff1493; text-align: center; margin: 6px 0 10px 0; font-weight: bold;"></p>
+    <p id="existingAccountMsg" style="color: #ff1493; text-align: center; margin: 0 0 10px 0; font-weight: bold; display: none;">An account already exists for this email address. Please log in.</p>
     <div style="text-align: center; margin: 0 0 8px 0;">
         <button type="button" id="forgotPasswordLink" onclick="setAuthMode('reset'); showAuthMessage('Enter your email below to reset your password.', '#ff1493');" style="background: none; border: none; color: #ffd700; font-size: 0.78rem; font-weight: 600; cursor: pointer; text-decoration: underline;">
             Forgot password?
@@ -8183,6 +8184,19 @@ restoreChallengeState();
             if (errorMsg) {
                 errorMsg.textContent = '';
             }
+            const existingAccountMsg = document.getElementById('existingAccountMsg');
+            if (existingAccountMsg) {
+                existingAccountMsg.textContent = '';
+                existingAccountMsg.style.display = 'none';
+            }
+        }
+
+        function showExistingAccountMessage() {
+            const existingAccountMsg = document.getElementById('existingAccountMsg');
+            if (existingAccountMsg) {
+                existingAccountMsg.textContent = 'An account already exists for this email address. Please log in.';
+                existingAccountMsg.style.display = 'block';
+            }
         }
 
         function togglePasswordVisibility(fieldIds, button) {
@@ -8574,8 +8588,8 @@ restoreChallengeState();
                 if (message.toLowerCase().includes('already registered')
                     || message.toLowerCase().includes('user already registered')
                     || message.toLowerCase().includes('already exists')) {
-                    showAuthMessage('An account already exists for this email address. Please log in.', '#ff1493');
                     setAuthMode('login');
+                    showExistingAccountMessage();
                     return;
                 }
                 if (message.toLowerCase().includes('confirmation')) {
@@ -8586,8 +8600,8 @@ restoreChallengeState();
                 return;
             }
             if (data?.user?.identities && data.user.identities.length === 0) {
-                showAuthMessage('An account already exists for this email address. Please log in.', '#ff1493');
                 setAuthMode('login');
+                showExistingAccountMessage();
                 return;
             }
 
