@@ -1072,6 +1072,25 @@
         justify-content: center;
       }
     }
+
+    @media (max-width: 900px) and (orientation: portrait) {
+      .hm-panel-inner {
+        display: grid !important;
+        grid-template-columns: minmax(0, 1fr) !important;
+        gap: 18px;
+      }
+
+      .hm-wheel-box {
+        width: 100% !important;
+      }
+
+      .hm-text-column {
+        width: 100% !important;
+        margin: 0 auto;
+        max-width: 100% !important;
+        align-self: stretch;
+      }
+    }
   </style>
 </head>
 <body>
