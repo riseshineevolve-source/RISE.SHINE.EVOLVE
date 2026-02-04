@@ -1093,22 +1093,20 @@
       }
     }
 
-    @media (orientation: portrait) {
+    @media (max-width: 900px) and (orientation: portrait) {
       .hm-panel-inner {
-        display: block !important;
+        display: grid !important;
         grid-template-columns: minmax(0, 1fr) !important;
         gap: 18px;
       }
 
       .hm-wheel-box {
-        order: 1;
         width: 100% !important;
       }
 
       .hm-text-column {
-        order: 2;
         width: 100% !important;
-        margin: 18px auto 0;
+        margin: 0 auto;
         max-width: 100% !important;
         align-self: stretch;
       }
