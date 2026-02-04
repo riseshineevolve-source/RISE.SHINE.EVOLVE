@@ -164,6 +164,26 @@
       }
     }
 
+    @media (max-width: 1024px) and (orientation: portrait) {
+      .hm-panel-inner {
+        grid-template-columns: minmax(0, 1fr);
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+      }
+
+      .hm-wheel-box {
+        order: 1;
+      }
+
+      .hm-text-column {
+        order: 2;
+        margin: 0 auto;
+        max-width: 100%;
+        align-self: stretch;
+      }
+    }
+
     /* Wheel box */
 
     .hm-wheel-box {
