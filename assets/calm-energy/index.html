@@ -1095,8 +1095,8 @@
 
     @media (max-width: 900px) and (orientation: portrait) {
       .hm-panel-inner {
-        display: grid !important;
-        grid-template-columns: minmax(0, 1fr) !important;
+        display: flex !important;
+        flex-direction: column !important;
         gap: 18px;
       }
 
@@ -1106,7 +1106,7 @@
 
       .hm-text-column {
         width: 100% !important;
-        margin: 0 auto;
+        margin: 0 auto !important;
         max-width: 100% !important;
         align-self: stretch;
       }
