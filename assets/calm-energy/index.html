@@ -1095,20 +1095,21 @@
 
     @media (orientation: portrait) {
       .hm-panel-inner {
+        display: block !important;
         grid-template-columns: minmax(0, 1fr) !important;
-        display: flex !important;
-        flex-direction: column !important;
         gap: 18px;
       }
 
       .hm-wheel-box {
         order: 1;
+        width: 100% !important;
       }
 
       .hm-text-column {
         order: 2;
-        margin: 0 auto;
-        max-width: 100%;
+        width: 100% !important;
+        margin: 18px auto 0;
+        max-width: 100% !important;
         align-self: stretch;
       }
     }
