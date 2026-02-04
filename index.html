@@ -8575,7 +8575,7 @@ restoreChallengeState();
                     || message.toLowerCase().includes('user already registered')
                     || message.toLowerCase().includes('already exists')) {
                     showAuthMessage('You already have an account please log in.', '#ff1493');
-                    setAuthMode('login');
+                    setAuthMode('login'); // Account already exists for this email address; please log in.
                     return;
                 }
                 if (message.toLowerCase().includes('confirmation')) {
@@ -8587,7 +8587,7 @@ restoreChallengeState();
             }
             if (data?.user?.identities && data.user.identities.length === 0) {
                 showAuthMessage('You already have an account please log in.', '#ff1493');
-                setAuthMode('login');
+                setAuthMode('login'); // Account already exists for this email address; please log in.
                 return;
             }
 
