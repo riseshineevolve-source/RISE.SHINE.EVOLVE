@@ -3333,6 +3333,7 @@
       justify-content: center;
       padding: max(16px, env(safe-area-inset-top)) 18px max(16px, env(safe-area-inset-bottom));
       overflow-y: auto;
+      overflow-x: hidden;
       box-sizing: border-box;
       opacity: 0;
       visibility: hidden;
@@ -9878,7 +9879,6 @@ restoreChallengeState();
                 modal.style.minHeight = '100svh';
             }
             document.body.style.overflow = '';
-            document.documentElement.style.overflow = '';
             sessionStorage.setItem('bookPromoDismissed', 'true');
         }
 
