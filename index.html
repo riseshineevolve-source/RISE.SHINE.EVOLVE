@@ -1962,10 +1962,10 @@
        <button class="elegant-amazon-btn floating-box-cta" onclick="event.stopPropagation(); showFamilyGallery();">MEET<br><span style="white-space: nowrap;">THE HAPPY-MAKERS</span></button>
        </div>
       </div>
-      <div class="elegant-christmas-box" style="max-width: 140px; border-radius: 18px 8px 18px 8px; padding: 8px 8px 10px;" onclick="window.open('https://www.amazon.com/dp/B0G6ZBD7YF/ref=sr_1_1?crid=1JNI65G7Y5W2T&dib=eyJ2IjoiMSJ9.6sPvd45HQ0DwFx7rDVm4GzEvVHvx5Nfyyk4-aOOpL-R9ARZwGRkFwI6K0rPa1EX0ZBKEzsfqQGLw0d4jZ5-ItQ.HHZ--L7lh4LL8MZJqdljxFqBdMTp3g8LL8IgiH3QPb0&dib_tag=se&keywords=the+confident+mindful+%26+happy+me+adventure&qid=1765802239&s=digital-text&sprefix=%2Cdigital-text%2C354&sr=1-1', '_blank', 'noopener,noreferrer')">
+      <div class="elegant-christmas-box" style="max-width: 140px; border-radius: 18px 8px 18px 8px; padding: 8px 8px 10px;" onclick="window.open('https://www.amazon.com/dp/B0GQ4B7VQQ', '_blank', 'noopener,noreferrer')">
        <div class="elegant-box-content">
-        <img src="assets/images/Confident,%20Mindful%20%26%20Happy%20Me%20cover.png" alt="The Confident, Mindful &amp; Happy Me Adventure cover" class="floating-box-image">
-       <button class="elegant-amazon-btn floating-box-cta" onclick="event.stopPropagation(); window.open('https://www.amazon.com/dp/B0G6ZBD7YF/ref=sr_1_1?crid=1JNI65G7Y5W2T&dib=eyJ2IjoiMSJ9.6sPvd45HQ0DwFx7rDVm4GzEvVHvx5Nfyyk4-aOOpL-R9ARZwGRkFwI6K0rPa1EX0ZBKEzsfqQGLw0d4jZ5-ItQ.HHZ--L7lh4LL8MZJqdljxFqBdMTp3g8LL8IgiH3QPb0&dib_tag=se&keywords=the+confident+mindful+%26+happy+me+adventure&qid=1765802239&s=digital-text&sprefix=%2Cdigital-text%2C354&sr=1-1', '_blank', 'noopener,noreferrer')">Add to cart<br>on Amazon</button>
+        <img src="assets/images/10 stories cover.png" alt="Level Up Your Brain World 01 cover" class="floating-box-image">
+       <button class="elegant-amazon-btn floating-box-cta" onclick="event.stopPropagation(); window.open('https://www.amazon.com/dp/B0GQ4B7VQQ', '_blank', 'noopener,noreferrer')">ADD TO CART<br>ON AMAZON</button>
        </div>
       </div>
      </div>
@@ -2311,7 +2311,7 @@
                                             padding: 8px 12px;
                                             border-radius: 12px;
                                             text-transform: uppercase;
-                                            box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+                                            box-shadow: 0 0 15px rgba(138, 43, 226, 0.6);
                                             letter-spacing: 0.5px;
                                             cursor: pointer;
                                         " onclick="showBookDetailsFullScreen('confident-adventure')">
@@ -3324,13 +3324,14 @@
       position: fixed;
       inset: 0;
       width: 100%;
-      height: 100%;
+      height: 100dvh;
+      min-height: 100svh;
       background: rgba(0, 0, 0, 0.92);
       z-index: 15000;
       backdrop-filter: blur(6px);
       align-items: center;
       justify-content: center;
-      padding: 18px;
+      padding: max(16px, env(safe-area-inset-top)) 18px max(16px, env(safe-area-inset-bottom));
       overflow-y: auto;
       overflow-x: hidden;
       box-sizing: border-box;
@@ -3392,7 +3393,7 @@
             background: transparent;
             border-radius: 20px;
             padding: 0;
-            max-width: 520px;
+            max-width: 500px;
             width: 100%;
             max-height: 90vh;
             overflow: hidden;
@@ -3403,24 +3404,24 @@
             top: 10px;
             right: 10px;
             background: #000000;
-            border: 2px solid #ffd700;
-            color: #ffd700;
-            font-size: 1.4rem;
+            border: 2px solid #5eeff3;
+            color: #5eeff3;
+            font-size: 1.2rem;
             cursor: pointer;
-            width: 36px;
-            height: 36px;
+            width: 34px;
+            height: 34px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+            box-shadow: 0 0 14px rgba(94, 239, 243, 0.6);
             z-index: 3;
         ">×</button>
     <div style="
             background: #000000;
             border: 2px solid #8A2BE2;
             border-radius: 18px;
-            padding: 54px 20px 70px 20px;
+            padding: 48px 18px 66px 18px;
             text-align: center;
             box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4),
                 0 0 28px rgba(138, 43, 226, 0.45);
@@ -3429,72 +3430,41 @@
         ">
      <div style="
                 position: absolute;
-                top: 60px;
-                left: 50%;
-                transform: translateX(-50%);
-                color: #ffd700;
-                font-size: 0.58rem;
-                font-weight: 800;
-                letter-spacing: 0.05rem;
-                text-transform: uppercase;
-                text-shadow: 0 0 12px rgba(255, 215, 0, 0.6);
-                max-width: 140px;
-                text-align: center;
-            ">
-      The Ultimate Kids’<br>Survival Kit
-     </div>
-     <div style="
-                position: absolute;
                 top: 14px;
                 left: 14px;
                 background: #8A2BE2;
                 color: #ffffff;
-                font-size: 0.7rem;
+                font-size: 0.64rem;
                 font-weight: bold;
-                padding: 6px 10px;
+                padding: 5px 9px;
                 border-radius: 10px;
                 text-transform: uppercase;
                 box-shadow: 0 0 10px rgba(138, 43, 226, 0.6);
             ">Available</div>
-            <div style="
-                position: absolute;
-                top: 58px;
-                right: 14px;
-                background: #ffd700;
-                color: #000000;
-                font-size: 0.72rem;
-                font-weight: 800;
-                padding: 6px 10px;
-                border-radius: 10px;
-                text-transform: uppercase;
-                box-shadow: 0 0 12px rgba(255, 215, 0, 0.7);
-            ">NEW</div>
-     <img src="assets/images/Confident,%20Mindful%20%26%20Happy%20Me%20cover.png" data-cover-base="Confident, Mindful & Happy Me cover" alt="The Confident, Mindful &amp; Happy Me Adventure cover" loading="eager" fetchpriority="high" decoding="async" width="150" height="225" style="width: 150px; height: 225px; object-fit: cover; border-radius: 12px; border: 2px solid #ffd700; box-shadow: 0 0 18px rgba(255,215,0,0.35); margin: 46px auto 14px auto; display: block;">
-     <div style="color: #ffd700; font-weight: bold; font-size: 1.1rem; margin-bottom: 10px; line-height: 1.25; text-shadow: 0 0 15px rgba(255, 215, 0, 0.8);">
-      The Confident, Mindful &amp; Happy Me Adventure
+     <img src="assets/images/10 stories cover.png" data-cover-base="10 stories cover" alt="Level Up Your Brain World 01 cover" loading="eager" fetchpriority="high" decoding="async" width="142" height="213" style="width: 142px; height: 213px; object-fit: cover; border-radius: 12px; border: 2px solid #5eeff3; box-shadow: 0 0 18px rgba(94,239,243,0.35); margin: 24px auto 12px auto; display: block;">
+     <div style="color: #5eeff3; font-weight: 800; font-size: 1rem; margin-bottom: 6px; line-height: 1.2; text-shadow: 0 0 15px rgba(94, 239, 243, 0.8);">
+      Level Up Your Brain World 01
      </div>
-     <div style="color: #ffffff; font-size: 0.9rem; margin-bottom: 12px; line-height: 1.5;">
-      31 Days to Boost Self-Esteem,<br>
-      Master Big Feelings &amp; Unlock Inner Superpower.<br>
-      A Fun Growth Mindset Journey for Kids 6-10.
+     <div style="color: #ffffff; font-size: 0.82rem; margin-bottom: 12px; line-height: 1.35;">
+      10 Fun Stories to Help Build Grit, Tame the Lizard Brain, and Understand How Your Mind Works.
      </div>
      <div style="
                 position: absolute;
-                bottom: 16px;
+                bottom: 14px;
                 left: 50%;
                 transform: translateX(-50%);
-                background: #ffd700;
+                background: #5eeff3;
                 color: #000000;
-                font-size: 0.8rem;
+                font-size: 0.78rem;
                 font-weight: bold;
-                padding: 10px 16px;
+                padding: 9px 14px;
                 border-radius: 12px;
-                text-transform: uppercase;
-                box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
-                letter-spacing: 0.5px;
+                text-transform: none;
+                box-shadow: 0 0 15px rgba(94, 239, 243, 0.6);
+                letter-spacing: 0.2px;
                 cursor: pointer;
-            " onclick="handleBookPromoExplore(event)">
-      Explore more
+            " onclick="window.open('https://www.amazon.com/dp/B0GQ4B7VQQ', '_blank', 'noopener,noreferrer')">
+      Grab it on Amazon
      </div>
     </div>
    </div>
@@ -9535,8 +9505,9 @@ restoreChallengeState();
                             cursor: pointer;
                             box-shadow: 0 0 30px rgba(138, 43, 226, 0.6);
                             letter-spacing: 0.5px;
+                            transition: all 0.3s ease;
                         ">
-                            Available soon on Amazon
+                            ADD TO CART ON AMAZON &amp; LET THE GAME BEGIN!
                         </button>
                     </div>
                 `;
@@ -9874,13 +9845,15 @@ restoreChallengeState();
                 modal.style.top = '0';
                 modal.style.left = '0';
                 modal.style.right = '0';
-                modal.style.height = '100%';
+                modal.style.height = '100dvh';
+                modal.style.minHeight = '100svh';
                 modal.scrollTop = 0;
                 const content = modal.querySelector('.modal-content');
                 if (content) {
                     content.scrollTop = 0;
                 }
                 document.body.style.overflow = 'hidden';
+                document.documentElement.style.overflow = 'hidden';
             };
 
             const cover = modal.querySelector('img');
@@ -9902,7 +9875,8 @@ restoreChallengeState();
                 modal.style.top = '0';
                 modal.style.left = '0';
                 modal.style.right = '0';
-                modal.style.height = '100%';
+                modal.style.height = '100dvh';
+                modal.style.minHeight = '100svh';
             }
             document.body.style.overflow = '';
             sessionStorage.setItem('bookPromoDismissed', 'true');
@@ -9913,7 +9887,7 @@ restoreChallengeState();
                 event.stopPropagation();
             }
             closeBookPromoModal();
-            showBookDetailsFullScreen('confident-adventure');
+            showBookDetailsFullScreen('level-up-brain');
         }
 
         function openPrivacyPolicy() {
@@ -10235,23 +10209,20 @@ restoreChallengeState();
                 authForm.addEventListener('focusin', clearAuthMessage);
             }
 
-            const promoDismissed = sessionStorage.getItem('bookPromoDismissed') === 'true';
-            if (!promoDismissed) {
-                setTimeout(() => {
-                    const emailModal = document.getElementById('emailModal');
-                    const privacyModal = document.getElementById('privacyModal');
-                    const welcomeModal = document.getElementById('welcomeModal');
-                    const promoModal = document.getElementById('bookPromoModal');
-                    const fullScreenDetails = document.getElementById('full-screen-book-details');
-                    const emailOpen = emailModal && (emailModal.style.display === 'flex' || emailModal.classList.contains('show'));
-                    const privacyOpen = privacyModal && privacyModal.style.display === 'block';
-                    const welcomeOpen = welcomeModal && welcomeModal.style.display === 'flex';
-                    const detailsOpen = fullScreenDetails && fullScreenDetails.style.display === 'block';
-                    if (!emailOpen && !privacyOpen && !welcomeOpen && !detailsOpen && promoModal && !promoModal.classList.contains('show')) {
-                        showBookPromoModal();
-                    }
-                }, 2500);
-            }
+            setTimeout(() => {
+                const emailModal = document.getElementById('emailModal');
+                const privacyModal = document.getElementById('privacyModal');
+                const welcomeModal = document.getElementById('welcomeModal');
+                const promoModal = document.getElementById('bookPromoModal');
+                const fullScreenDetails = document.getElementById('full-screen-book-details');
+                const emailOpen = emailModal && (emailModal.style.display === 'flex' || emailModal.classList.contains('show'));
+                const privacyOpen = privacyModal && privacyModal.style.display === 'block';
+                const welcomeOpen = welcomeModal && welcomeModal.style.display === 'flex';
+                const detailsOpen = fullScreenDetails && fullScreenDetails.style.display === 'block';
+                if (!emailOpen && !privacyOpen && !welcomeOpen && !detailsOpen && promoModal && !promoModal.classList.contains('show')) {
+                    showBookPromoModal();
+                }
+            }, 2500);
         });
 
         // Email modal submit listener
