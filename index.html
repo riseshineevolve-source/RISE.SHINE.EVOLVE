@@ -3324,16 +3324,14 @@
       position: fixed;
       inset: 0;
       width: 100%;
-      height: 100dvh;
-      min-height: 100svh;
+      height: 100%;
       background: rgba(0, 0, 0, 0.92);
       z-index: 15000;
       backdrop-filter: blur(6px);
       align-items: center;
       justify-content: center;
-      padding: max(16px, env(safe-area-inset-top)) 18px max(16px, env(safe-area-inset-bottom));
+      padding: 18px;
       overflow-y: auto;
-      overflow-x: hidden;
       box-sizing: border-box;
       opacity: 0;
       visibility: hidden;
@@ -9845,15 +9843,14 @@ restoreChallengeState();
                 modal.style.top = '0';
                 modal.style.left = '0';
                 modal.style.right = '0';
-                modal.style.height = '100dvh';
-                modal.style.minHeight = '100svh';
+                modal.style.height = '100%';
                 modal.scrollTop = 0;
                 const content = modal.querySelector('.modal-content');
                 if (content) {
                     content.scrollTop = 0;
                 }
+                window.scrollTo(0, 0);
                 document.body.style.overflow = 'hidden';
-                document.documentElement.style.overflow = 'hidden';
             };
 
             const cover = modal.querySelector('img');
@@ -9875,10 +9872,9 @@ restoreChallengeState();
                 modal.style.top = '0';
                 modal.style.left = '0';
                 modal.style.right = '0';
-                modal.style.height = '100dvh';
-                modal.style.minHeight = '100svh';
+                modal.style.height = '100%';
             }
-            document.body.style.overflow = '';
+            document.body.style.overflow = 'auto';
             sessionStorage.setItem('bookPromoDismissed', 'true');
         }
 
