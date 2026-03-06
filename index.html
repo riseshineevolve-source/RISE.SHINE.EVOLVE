@@ -3257,7 +3257,7 @@
     <div id="character-details-content"></div>
    </div>
   </div><!-- Full Screen Book Details -->
-  <div id="full-screen-book-details" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100dvh; min-height: 100svh; background: #000000; z-index: 999; overflow-y: auto; padding: max(20px, env(safe-area-inset-top)) 20px max(120px, env(safe-area-inset-bottom)); box-sizing: border-box; -webkit-overflow-scrolling: touch;">
+  <div id="full-screen-book-details" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000000; z-index: 999; overflow-y: auto; padding: 40px 20px;">
    <div style="max-width: 1000px; margin: 0 auto;"><!-- Back Button --> <button onclick="backToLibraryFromFullScreen()" style="
                 background: linear-gradient(45deg, #8A2BE2, #9932CC);
                 border: 2px solid #ffd700;
@@ -3370,17 +3370,11 @@
 
     @media (max-width: 720px) {
       #emailModal,
+      #bookPromoModal,
       #signupConfirmModal {
         align-items: flex-start;
         justify-content: center;
         padding-top: max(24px, env(safe-area-inset-top));
-        padding-bottom: max(16px, env(safe-area-inset-bottom));
-      }
-
-      #bookPromoModal {
-        align-items: center;
-        justify-content: center;
-        padding-top: max(16px, env(safe-area-inset-top));
         padding-bottom: max(16px, env(safe-area-inset-bottom));
       }
     }
