@@ -654,20 +654,23 @@
 
         .golden-bullets li {
             position: relative;
-            padding-left: 26px;
+            padding-left: 18px;
             margin-bottom: 10px;
             line-height: 1.5;
             color: #ffffff;
         }
 
         .golden-bullets li::before {
-            content: '✶';
+            content: '';
             position: absolute;
             left: 0;
-            top: 4px;
-            color: #ffd700;
-            text-shadow: 0 0 8px rgba(255, 215, 0, 0.9), 0 0 16px rgba(255, 215, 0, 0.6);
-            font-size: 0.8rem;
+            top: 0.62em;
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, #fffbe0 0%, #ffe680 28%, #ffd700 58%, #d4a200 100%);
+            box-shadow: 0 0 6px rgba(255, 215, 0, 0.9), 0 0 12px rgba(255, 215, 0, 0.55);
+            transform: translateY(-50%);
         }
 
 
@@ -2149,7 +2152,7 @@
                                             text-transform: uppercase;
                                             box-shadow: 0 0 10px rgba(138, 43, 226, 0.6);
                                         ">
-            Available Soon
+            Available
            </div>
            <div style="
                                             position: absolute;
@@ -3257,7 +3260,7 @@
     <div id="character-details-content"></div>
    </div>
   </div><!-- Full Screen Book Details -->
-  <div id="full-screen-book-details" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000000; z-index: 999; overflow-y: auto; padding: 40px 20px;">
+  <div id="full-screen-book-details" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100vh; height: 100svh; height: 100dvh; max-height: 100dvh; background: #000000; z-index: 999; overflow-y: auto; -webkit-overflow-scrolling: touch; overscroll-behavior: none; box-sizing: border-box; padding: 40px 20px 120px 20px;">
    <div style="max-width: 1000px; margin: 0 auto;"><!-- Back Button --> <button onclick="backToLibraryFromFullScreen()" style="
                 background: linear-gradient(45deg, #8A2BE2, #9932CC);
                 border: 2px solid #ffd700;
@@ -9257,6 +9260,7 @@ restoreChallengeState();
             bookDetailsWrapper.scrollTop = 0;
             window.scrollTo(0, 0);
             document.body.style.overflow = 'hidden';
+            document.documentElement.style.overflow = 'hidden';
             if (!history.state || history.state.modal !== 'book') {
                 history.pushState({ modal: 'book' }, '', window.location.href);
             }
@@ -9352,15 +9356,15 @@ restoreChallengeState();
                             <li style="margin-bottom: 10px;">• <span style="font-weight:700; color:#ffd700;">ACCESS THE NEURO-COACHING CONSOLE</span><br>Get a concise CHEAT CODE in simple language.<br>examples include Dopamine Burnout, Habit Stacking, and Theory of Mind.<br>Talk about it for two minutes.</li>
                             <li>• <span style="font-weight:700; color:#ffd700;">LEVEL UP</span><br>Use the tool immediately when you need help with:</li>
                         </ol>
-                        <ul style="list-style: none; padding: 0; margin: 0 0 20px 0;">
-                            <li style="margin-bottom: 8px;">• <span style="text-decoration: underline; color:#8A2BE2; font-weight:700;">SCREEN TIME BATTLES</span> and dopamine burnout,</li>
-                            <li style="margin-bottom: 8px;">• <span style="text-decoration: underline; color:#8A2BE2; font-weight:700;">MORNING ROUTINE</span> and <span style="text-decoration: underline; color:#8A2BE2; font-weight:700;">BEDTIME ROUTINE</span> arguments,</li>
-                            <li style="margin-bottom: 8px;">• Kids <span style="text-decoration: underline; color:#8A2BE2; font-weight:700;">IGNORING INSTRUCTIONS</span> and selective hearing,</li>
-                            <li style="margin-bottom: 8px;">• <span style="text-decoration: underline; color:#8A2BE2; font-weight:700;">NEGATIVE SELF-TALK</span>, worry, and "mental spam",</li>
-                            <li style="margin-bottom: 8px;">• <span style="text-decoration: underline; color:#8A2BE2; font-weight:700;">SIBLING FIGHTS</span>, scorekeeping, and teamwork,</li>
-                            <li style="margin-bottom: 8px;">• <span style="text-decoration: underline; color:#8A2BE2; font-weight:700;">PLAYGROUND DRAMA</span> and reacting to mean words,</li>
-                            <li style="margin-bottom: 8px;">• <span style="text-decoration: underline; color:#8A2BE2; font-weight:700;">MELTDOWNS</span> when fun plans get cancelled,</li>
-                            <li>• <span style="text-decoration: underline; color:#8A2BE2; font-weight:700;">INTERNET SAFETY</span> and spotting <span style="text-decoration: underline; color:#8A2BE2; font-weight:700;">FAKE NEWS</span> with <span style="text-decoration: underline; color:#8A2BE2; font-weight:700;">CRITICAL THINKING</span>.</li>
+                        <ul class="golden-bullets" style="margin: 0 0 20px 0;">
+                            <li style="margin-bottom: 8px;"><span style="text-decoration: underline; font-weight:700;">SCREEN TIME BATTLES</span> and dopamine burnout,</li>
+                            <li style="margin-bottom: 8px;"><span style="text-decoration: underline; font-weight:700;">MORNING ROUTINE</span> and <span style="text-decoration: underline; font-weight:700;">BEDTIME ROUTINE</span> arguments,</li>
+                            <li style="margin-bottom: 8px;">Kids <span style="text-decoration: underline; font-weight:700;">IGNORING INSTRUCTIONS</span> and selective hearing,</li>
+                            <li style="margin-bottom: 8px;"><span style="text-decoration: underline; font-weight:700;">NEGATIVE SELF-TALK</span>, worry, and "mental spam",</li>
+                            <li style="margin-bottom: 8px;"><span style="text-decoration: underline; font-weight:700;">SIBLING FIGHTS</span>, scorekeeping, and teamwork,</li>
+                            <li style="margin-bottom: 8px;"><span style="text-decoration: underline; font-weight:700;">PLAYGROUND DRAMA</span> and reacting to mean words,</li>
+                            <li style="margin-bottom: 8px;"><span style="text-decoration: underline; font-weight:700;">MELTDOWNS</span> when fun plans get cancelled,</li>
+                            <li><span style="text-decoration: underline; font-weight:700;">INTERNET SAFETY</span> and spotting <span style="text-decoration: underline; font-weight:700;">FAKE NEWS</span> with <span style="text-decoration: underline; font-weight:700;">CRITICAL THINKING</span>.</li>
                         </ul>
 
                         <p style="margin-bottom: 14px; color: #ffd700; font-weight: 700; text-decoration: underline;">MEET YOUR EVOLVED SUPPORT SQUAD:</p>
@@ -9398,19 +9402,21 @@ restoreChallengeState();
                     </div>
 
                     <div style="text-align: center; margin-top: 30px;">
-                        <button style="
+                        <button onclick="window.open('https://www.amazon.com/dp/B0GRG4CBJD', '_blank', 'noopener,noreferrer')" style="
                             background: linear-gradient(45deg, #8A2BE2, #9932CC);
                             border: 3px solid #ffd700;
                             border-radius: 25px;
                             padding: 18px 36px;
                             color: #ffffff;
-                            font-size: 1.05rem;
+                            font-size: clamp(0.78rem, 3.8vw, 1.05rem);
                             font-weight: bold;
-                            cursor: default;
+                            white-space: nowrap;
+                            cursor: pointer;
                             box-shadow: 0 0 30px rgba(138, 43, 226, 0.6);
+                            transition: all 0.3s ease;
                             letter-spacing: 0.5px;
-                        ">
-                            Available soon on Amazon
+                        " onmouseover="this.style.transform='translateY(-3px) scale(1.05)'; this.style.boxShadow='0 0 40px rgba(138, 43, 226, 0.8)';" onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 0 30px rgba(138, 43, 226, 0.6)';">
+                            [ UNCLOCK WORLD 02 ON AMAZON ]
                         </button>
                     </div>
                 `;
@@ -9438,15 +9444,15 @@ restoreChallengeState();
                             <li style="margin-bottom: 10px;"><span style="font-weight:700; color:#5eeff3;">ACCESS THE NEURO-COACHING CONSOLE</span>: Unlock a concise CHEAT CODE that explains the science behind the story in simple language (Mirror Neurons, the Amygdala, and brain "glitches") that kids actually get.</li>
                             <li><span style="font-weight:700; color:#5eeff3;">LEVEL UP IMMEDIATELY</span>: Apply the tools right away. It is the perfect support when you need help with:</li>
                         </ol>
-                        <ul style="list-style: none; padding: 0; margin: 0 0 20px 0;">
-                            <li style="margin-bottom: 8px;">• Tantrums and meltdowns</li>
-                            <li style="margin-bottom: 8px;">• After-school emotional crashes (restraint collapse)</li>
-                            <li style="margin-bottom: 8px;">• Anger and calming down tools</li>
-                            <li style="margin-bottom: 8px;">• Boredom and motivation</li>
-                            <li style="margin-bottom: 8px;">• Procrastination and "Brain Drain"</li>
-                            <li style="margin-bottom: 8px;">• Friendship and social skills</li>
-                            <li style="margin-bottom: 8px;">• Self-care and hygiene</li>
-                            <li>• Building a growth mindset and resilience</li>
+                        <ul class="golden-bullets" style="margin: 0 0 20px 0;">
+                            <li style="margin-bottom: 8px;">Tantrums and meltdowns</li>
+                            <li style="margin-bottom: 8px;">After-school emotional crashes (restraint collapse)</li>
+                            <li style="margin-bottom: 8px;">Anger and calming down tools</li>
+                            <li style="margin-bottom: 8px;">Boredom and motivation</li>
+                            <li style="margin-bottom: 8px;">Procrastination and "Brain Drain"</li>
+                            <li style="margin-bottom: 8px;">Friendship and social skills</li>
+                            <li style="margin-bottom: 8px;">Self-care and hygiene</li>
+                            <li>Building a growth mindset and resilience</li>
                         </ul>
 
                         <p style="margin-bottom: 14px; color: #5eeff3; font-weight: 700; text-decoration: underline;">MEET YOUR SUPPORT SQUAD:</p>
@@ -9473,11 +9479,11 @@ restoreChallengeState();
                         </ul>
 
                         <p style="margin-bottom: 14px; color: #5eeff3; font-weight: 700; text-decoration: underline;">WHY THIS BOOK WINS (FOR REAL PARENTS):</p>
-                        <ul style="list-style: none; padding: 0; margin: 0 0 20px 0;">
-                            <li style="margin-bottom: 7px;">🟦 RELUCTANT-READER PROOF: short chapters and gaming metaphors mean zero boredom.</li>
-                            <li style="margin-bottom: 7px;">🟦 BUILT FOR REAL CHANGE: complex psychology becomes simple, memorable coping skills kids actually USE.</li>
-                            <li style="margin-bottom: 7px;">🟦 SMART BUT SIMPLE: real tools turned into kid-friendly "cheat codes."</li>
-                            <li>🟦 BUSY-PARENT APPROVED: read at bedtime, talk for 2 minutes, and you’re done.</li>
+                        <ul class="golden-bullets" style="margin: 0 0 20px 0;">
+                            <li style="margin-bottom: 7px;">RELUCTANT-READER PROOF: short chapters and gaming metaphors mean zero boredom.</li>
+                            <li style="margin-bottom: 7px;">BUILT FOR REAL CHANGE: complex psychology becomes simple, memorable coping skills kids actually USE.</li>
+                            <li style="margin-bottom: 7px;">SMART BUT SIMPLE: real tools turned into kid-friendly "cheat codes."</li>
+                            <li>BUSY-PARENT APPROVED: read at bedtime, talk for 2 minutes, and you’re done.</li>
                         </ul>
 
                         <p style="margin-bottom: 10px; font-weight: 700; color: #8A2BE2; text-decoration: underline;">STOP FIGHTING THE "LIZARD BRAIN." START UPGRADING IT.</p>
@@ -9492,14 +9498,15 @@ restoreChallengeState();
                             border-radius: 25px;
                             padding: 18px 36px;
                             color: #ffffff;
-                            font-size: 1.05rem;
+                            font-size: clamp(0.78rem, 3.8vw, 1.05rem);
                             font-weight: bold;
+                            white-space: nowrap;
                             cursor: pointer;
                             box-shadow: 0 0 30px rgba(138, 43, 226, 0.6);
                             letter-spacing: 0.5px;
                             transition: all 0.3s ease;
                         ">
-                            ADD TO CART ON AMAZON &amp; LET THE GAME BEGIN!
+                            [ UNCLOCK WORLD 01 ON AMAZON ]
                         </button>
                     </div>
                 `;
@@ -9701,6 +9708,11 @@ restoreChallengeState();
                     </div>
                 `;
             }
+            detailsContent.querySelectorAll('a').forEach(link => {
+                if (/buy\s+on\s+amazon/i.test(link.textContent || '')) {
+                    link.remove();
+                }
+            });
             applyCoverImages();
         }
 
@@ -9708,6 +9720,7 @@ restoreChallengeState();
             document.getElementById('full-screen-book-details').style.display = 'none';
             document.querySelector('.container').style.display = 'block';
             document.body.style.overflow = '';
+            document.documentElement.style.overflow = '';
             if (!fromHistory && history.state && history.state.modal === 'book') {
                 const activeTab = document.querySelector('.tab.active');
                 const tabName = activeTab?.dataset?.tab || 'main';
