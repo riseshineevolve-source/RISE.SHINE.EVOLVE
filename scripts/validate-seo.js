@@ -58,7 +58,13 @@ for (const rel of pages) {
   assert(txt.includes(`meta name="robots" content="${robots}"`), `${rel}: missing/invalid robots directive`);
   assert(txt.includes(`meta name="googlebot" content="${robots}"`), `${rel}: missing/invalid googlebot directive`);
   assert(txt.includes('property="og:locale" content="en_US"'), `${rel}: missing og:locale`);
-  assert(txt.includes('property="og:image:secure_url" content="https://rise-shine-evolve-learning-hub.com/assets/images/pp.png"'), `${rel}: missing og:image:secure_url`);
+  const ogImage = extractSingle(/<meta property="og:image" content="([^"]+)"/i, txt);
+  const ogImageSecure = extractSingle(/<meta property="og:image:secure_url" content="([^"]+)"/i, txt);
+  assert(!!ogImageSecure, `${rel}: missing og:image:secure_url`);
+  if (ogImage && ogImageSecure) {
+    assert(ogImageSecure.startsWith('https://'), `${rel}: og:image:secure_url must be https`);
+    assert(ogImageSecure === ogImage, `${rel}: og:image:secure_url differs from og:image`);
+  }
   assert(txt.includes('name="twitter:site" content="@RiseShineEvolve"'), `${rel}: missing twitter:site`);
   assert(txt.includes('name="twitter:creator" content="@RiseShineEvolve"'), `${rel}: missing twitter:creator`);
 

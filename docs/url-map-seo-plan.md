@@ -90,3 +90,35 @@
 - ✅ Added unified SEO pipeline (`npm run seo:all`) with machine-readable report artifact (`reports/seo-status.json`) and CI schedule/manual trigger
 
 - ✅ Finalized SEO tooling with centralized config (`scripts/seo-config.json`) used by validator and audit scripts
+
+## SEO rollout checklist (operational)
+
+### 1) Pre-release
+- [ ] Confirm canonical URLs use production domain `https://rise-shine-evolve.com`.
+- [ ] Confirm every SEO page has exactly one `h1` and includes `title` + `meta description`.
+- [ ] Confirm JSON-LD is valid (`WebPage` on pages, `WebSite` on homepage, `BreadcrumbList` on hubs/landing pages).
+- [ ] Confirm internal links connect: homepage → hubs → landing pages.
+- [ ] Confirm `robots.txt`, `sitemap.xml`, and `feed.xml` are available and internally consistent.
+
+### 2) Local validation
+- [ ] Run `npm run seo:validate` (baseline checks).
+- [ ] Run `npm run seo:audit` (URL map/files/sitemap/feed consistency).
+- [ ] Run `npm run seo:all` and verify `reports/seo-status.json` is generated with pass status.
+
+### 3) Release day
+- [ ] Deploy latest version to production.
+- [ ] Open `https://rise-shine-evolve.com/robots.txt` and verify no accidental disallow rules.
+- [ ] Open `https://rise-shine-evolve.com/sitemap.xml` and verify all key hubs/landing URLs are present.
+- [ ] Open `https://rise-shine-evolve.com/feed.xml` and verify channel + latest items render correctly.
+
+### 4) Post-release (Search Console / Bing)
+- [ ] Submit `https://rise-shine-evolve.com/sitemap.xml` in Google Search Console.
+- [ ] Submit `https://rise-shine-evolve.com/sitemap.xml` in Bing Webmaster Tools.
+- [ ] Request indexing for homepage, hubs (`/kids/`, `/teenagers/`, `/adults/`, `/library/`, `/gifts/`) and priority landing pages.
+- [ ] Monitor coverage/indexing reports for 7-14 days and capture issues.
+
+### 5) Ongoing quality gate
+- [ ] Keep GitHub Action `seo-validation` passing on every push/PR.
+- [ ] Treat SEO validation failures as release blockers.
+- [ ] Re-run `npm run seo:all` whenever adding/removing landing pages or changing canonical routes.
+- [ ] Update this checklist and URL map when introducing new books/gifts hubs.
