@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://rise-shine-evolve-learning-hub.com/sitemap.xml
