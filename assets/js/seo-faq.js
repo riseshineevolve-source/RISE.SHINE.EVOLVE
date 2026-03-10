@@ -188,7 +188,8 @@
 
   function buildFAQSchema(faq) {
     const canonical = getCanonicalUrl();
-    const id = canonical.replace(/\/?$/, "/") + "#faq";
+    const normalizedCanonical = canonical.replace(/\/?$/, "/");
+    const id = normalizedCanonical + "#faq";
     const questions = (faq.questions || []).map((item) => ({
       "@type": "Question",
       name: normalizeText(item.q),
@@ -202,6 +203,7 @@
       "@context": "https://schema.org",
       "@type": "FAQPage",
       "@id": id,
+      mainEntityOfPage: { "@id": normalizedCanonical + "#webpage" },
       mainEntity: questions
     };
   }

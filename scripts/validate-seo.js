@@ -14,6 +14,7 @@ function fail(msg){ console.error('✖', msg); failed = true; }
 function ok(msg){ console.log('✔', msg); }
 function assert(cond, msg){ checks += 1; if (!cond) fail(msg); }
 function read(rel){ return fs.readFileSync(path.join(ROOT, rel), 'utf8'); }
+function normalizeSpace(str){ return String(str || '').replace(/\s+/g, ' ').trim(); }
 
 function extractSingle(re, txt){ const m = txt.match(re); return m ? m[1] : null; }
 function allMatches(re, txt){ return [...txt.matchAll(re)].map(m => m[1]); }
@@ -30,6 +31,8 @@ function parseJsonLdBlocks(txt, rel){
 
 // -------- Page-level checks --------
 const canonicalSet = new Set();
+const titleToPages = new Map();
+const descriptionToPages = new Map();
 for (const rel of pages) {
   const fp = path.join(ROOT, rel);
   assert(fs.existsSync(fp), `Missing page: ${rel}`);
@@ -37,14 +40,36 @@ for (const rel of pages) {
 
   const txt = read(rel);
   const canonical = extractSingle(/<link rel="canonical" href="([^"]+)"/i, txt);
+  const title = extractSingle(/<title>([\s\S]*?)<\/title>/i, txt);
+  const metaDescription = extractSingle(/<meta name="description" content="([^"]*)"\s*\/?>/i, txt);
   const ogUrl = extractSingle(/<meta property="og:url" content="([^"]+)"/i, txt);
   const hreflangEn = extractSingle(/<link rel="alternate" hreflang="en" href="([^"]+)"/i, txt);
   const hreflangXDefault = extractSingle(/<link rel="alternate" hreflang="x-default" href="([^"]+)"/i, txt);
 
   assert(!!canonical, `${rel}: missing canonical`);
+  assert(!!title, `${rel}: missing <title>`);
+  assert(!!metaDescription, `${rel}: missing meta description`);
   assert(!!ogUrl, `${rel}: missing og:url`);
   assert(!!hreflangEn, `${rel}: missing hreflang en`);
   assert(!!hreflangXDefault, `${rel}: missing hreflang x-default`);
+
+  if (title) {
+    const normalizedTitle = normalizeSpace(title);
+    assert(normalizedTitle.length >= 8, `${rel}: title too short (<8 chars)`);
+    assert(normalizedTitle.length <= 80, `${rel}: title too long (>80 chars)`);
+    assert(!/^(home|untitled|new page)$/i.test(normalizedTitle), `${rel}: title appears placeholder-like`);
+    if (!titleToPages.has(normalizedTitle)) titleToPages.set(normalizedTitle, []);
+    titleToPages.get(normalizedTitle).push(rel);
+  }
+
+  if (metaDescription) {
+    const normalizedDescription = normalizeSpace(metaDescription);
+    assert(normalizedDescription.length >= 35, `${rel}: meta description too short (<35 chars)`);
+    assert(normalizedDescription.length <= 220, `${rel}: meta description too long (>220 chars)`);
+    assert(!/(lorem ipsum|todo|tbd)/i.test(normalizedDescription), `${rel}: meta description appears placeholder-like`);
+    if (!descriptionToPages.has(normalizedDescription)) descriptionToPages.set(normalizedDescription, []);
+    descriptionToPages.get(normalizedDescription).push(rel);
+  }
 
   if (canonical) {
     canonicalSet.add(canonical);
@@ -91,6 +116,14 @@ for (const rel of pages) {
       }
     }
   }
+}
+
+for (const [title, rels] of titleToPages.entries()) {
+  assert(rels.length === 1, `Duplicate title used by ${rels.join(', ')} => "${title}"`);
+}
+
+for (const [description, rels] of descriptionToPages.entries()) {
+  assert(rels.length === 1, `Duplicate meta description used by ${rels.join(', ')} => "${description}"`);
 }
 
 // -------- XML and crawl checks --------

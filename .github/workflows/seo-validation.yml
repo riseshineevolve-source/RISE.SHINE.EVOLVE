@@ -20,6 +20,9 @@ jobs:
         with:
           node-version: 20
 
+      - name: Install dependencies
+        run: npm install
+
       - name: Run full SEO pipeline
         run: npm run seo:all
 
@@ -29,3 +32,18 @@ jobs:
         with:
           name: seo-status
           path: reports/seo-status.json
+
+
+      - name: Run Lighthouse CI (CWV)
+        uses: treosh/lighthouse-ci-action@v12
+        with:
+          configPath: ./.lighthouserc.json
+          uploadArtifacts: true
+          temporaryPublicStorage: true
+
+      - name: Upload Lighthouse report artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-report
+          path: ./.lighthouseci

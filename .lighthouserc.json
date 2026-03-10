@@ -1,0 +1,25 @@
+{
+  "ci": {
+    "collect": {
+      "staticDistDir": ".",
+      "url": [
+        "/",
+        "/kids/",
+        "/library/world-01/",
+        "/adults/"
+      ],
+      "numberOfRuns": 1
+    },
+    "assert": {
+      "assertions": {
+        "largest-contentful-paint": ["warn", { "maxNumericValue": 2500 }],
+        "cumulative-layout-shift": ["warn", { "maxNumericValue": 0.1 }],
+        "total-blocking-time": ["warn", { "maxNumericValue": 200 }],
+        "speed-index": ["warn", { "maxNumericValue": 3400 }]
+      }
+    },
+    "upload": {
+      "target": "temporary-public-storage"
+    }
+  }
+}
