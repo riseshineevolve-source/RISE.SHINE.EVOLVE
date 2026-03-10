@@ -785,7 +785,16 @@
         }
 
         .book-detail-bullets--purple.book-detail-bullets--controller li::before {
-            filter: hue-rotate(35deg) saturate(1.05);
+            filter: none;
+            text-shadow: 0 0 4px rgba(168, 85, 247, 0.65);
+        }
+
+        .book-detail-bullets--icons-only li {
+            padding-left: 0;
+        }
+
+        .book-detail-bullets--icons-only li::before {
+            content: none;
         }
 
 
@@ -9486,7 +9495,7 @@ restoreChallengeState();
                         </ul>
 
                         <p style="margin-bottom: 14px; color: #ffd700; font-weight: 700; text-decoration: underline;">MEET YOUR EVOLVED SUPPORT SQUAD:</p>
-                        <ul class="book-detail-bullets">
+                        <ul class="book-detail-bullets book-detail-bullets--icons-only">
                             <li style="margin-bottom: 8px;">✨ Nini: The Joy Spark who refills everyone’s emotional bucket.</li>
                             <li style="margin-bottom: 8px;">⚡ Alio: Upgrading his Truth Detector for the internet.</li>
                             <li style="margin-bottom: 8px;">🔥 Dilo: Learning how to survive Screen Burnout.</li>
@@ -9579,7 +9588,7 @@ restoreChallengeState();
                         </ul>
 
                         <p style="margin-bottom: 14px; color: #5eeff3; font-weight: 700; text-decoration: underline;">MEET YOUR SUPPORT SQUAD:</p>
-                        <ul class="book-detail-bullets book-detail-bullets--purple">
+                        <ul class="book-detail-bullets book-detail-bullets--purple book-detail-bullets--icons-only">
                             <li style="margin-bottom: 8px;">✨ Nini: The 5-year-old "Glitter Volcano" of emotions.</li>
                             <li style="margin-bottom: 8px;">⚡ Alio: The boy who wears a colander to protect his thoughts.</li>
                             <li style="margin-bottom: 8px;">🔥 Dilo: The gamer who thinks chores are just "bad side quests."</li>
