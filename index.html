@@ -713,6 +713,40 @@
             transform: translateY(-50%);
         }
 
+        .book-detail-bullets {
+            list-style: none;
+            padding: 0;
+            margin: 0 auto 20px auto;
+            width: fit-content;
+            max-width: min(780px, 92vw);
+            text-align: left;
+        }
+
+        .book-detail-bullets li {
+            position: relative;
+            padding-left: 16px;
+            margin-bottom: 8px;
+            line-height: 1.5;
+            color: #ffffff;
+        }
+
+        .book-detail-bullets li:last-child {
+            margin-bottom: 0;
+        }
+
+        .book-detail-bullets li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.62em;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, #fffbe0 0%, #ffe680 28%, #ffd700 58%, #d4a200 100%);
+            box-shadow: 0 0 5px rgba(255, 215, 0, 0.85), 0 0 10px rgba(255, 215, 0, 0.45);
+            transform: translateY(-50%);
+        }
+
 
         .character-detail-shell {
             background: linear-gradient(145deg, rgba(0, 0, 0, 0.95), rgba(20, 20, 20, 0.9));
@@ -5611,7 +5645,7 @@
                 </div>
               </div>
               <button class="hm-spin-btn hm-spin-btn--energy" id="energy-spin-btn">
-                ⚡ Start spinning
+                Start spinning
               </button>
             </div>
             <div class="hm-wheel-info-stack">
@@ -6439,7 +6473,7 @@
               : "Wheel spinning... click again to stop and see your next calm-down practice."
           }</div>`;
           spinBtn.textContent =
-            theme === "energy" ? "⚡ Stop & reveal" : "🎡 Stop & reveal";
+            theme === "energy" ? "Stop & reveal" : "🎡 Stop & reveal";
         } else {
           // Stop spinning, pick practice and highlight top icon
           isSpinning = false;
@@ -6451,7 +6485,7 @@
           if (!filteredList.length) {
             renderPracticeCard(null, resultEl, theme);
             spinBtn.textContent =
-              theme === "energy" ? "⚡ Start spinning" : "🎡 Start spinning";
+              theme === "energy" ? "Start spinning" : "🎡 Start spinning";
             return;
           }
 
@@ -6516,7 +6550,7 @@
           setCenterVideo(theme, chosenPractice.character);
 
           spinBtn.textContent =
-            theme === "energy" ? "⚡ Start spinning" : "🎡 Start spinning";
+            theme === "energy" ? "Start spinning" : "🎡 Start spinning";
           saveCalmEnergyState();
         }
       }
@@ -9393,13 +9427,13 @@ restoreChallengeState();
                         <p style="margin-bottom: 18px;"><span style="color: #ffd700; font-weight:700;">COPING SKILLS FOR KIDS THAT WORK FAST. TOOLS THAT ACTUALLY MAKE SENSE TO A KID.</span></p>
                         <p style="margin-bottom: 18px;">We know how hard it is to get kids to read about emotions or routines. That’s why this book disguises powerful mindset and self-regulation tools as 10 FUNNY STORIES, designed in an original GAMING-STYLE GRAPHIC LOOK: black-and-<br>white, clean, cool, and kid-approved.</p>
 
-                        <p style="margin-bottom: 14px; color: #ffd700; font-weight: 700; text-decoration: underline;">🎮 HOW IT WORKS (THE "5-MINUTE MISSION" SYSTEM):</p>
-                        <ol style="list-style-position: inside; padding: 0; margin: 0 0 20px 0;">
-                            <li style="margin-bottom: 10px;">• <span style="font-weight:700; color:#ffd700;">READ THE STORY</span><br>Join The Happy Makers on quick missions with Pixel Zombies, invisible Mental Spam,<br>and a deepfake polar bear playing Minecraft.</li>
-                            <li style="margin-bottom: 10px;">• <span style="font-weight:700; color:#ffd700;">ACCESS THE NEURO-COACHING CONSOLE</span><br>Get a concise CHEAT CODE in simple language.<br>examples include Dopamine Burnout, Habit Stacking, and Theory of Mind.<br>Talk about it for two minutes.</li>
-                            <li>• <span style="font-weight:700; color:#ffd700;">LEVEL UP</span><br>Use the tool immediately when you need help with:</li>
-                        </ol>
-                        <ul class="golden-bullets" style="margin: 0 0 20px 0;">
+                        <p style="margin-bottom: 14px; color: #ffd700; font-weight: 700; text-decoration: underline;">HOW IT WORKS (THE "5-MINUTE MISSION" SYSTEM):</p>
+                        <ul class="book-detail-bullets">
+                            <li style="margin-bottom: 10px;"><span style="font-weight:700; color:#ffd700;">READ THE STORY</span><br>Join The Happy Makers on quick missions with Pixel Zombies, invisible Mental Spam,<br>and a deepfake polar bear playing Minecraft.</li>
+                            <li style="margin-bottom: 10px;"><span style="font-weight:700; color:#ffd700;">ACCESS THE NEURO-COACHING CONSOLE</span><br>Get a concise CHEAT CODE in simple language.<br>examples include Dopamine Burnout, Habit Stacking, and Theory of Mind.<br>Talk about it for two minutes.</li>
+                            <li><span style="font-weight:700; color:#ffd700;">LEVEL UP</span><br>Use the tool immediately when you need help with:</li>
+                        </ul>
+                        <ul class="book-detail-bullets">
                             <li style="margin-bottom: 8px;"><span style="text-decoration: underline; font-weight:700;">SCREEN TIME BATTLES</span> and dopamine burnout,</li>
                             <li style="margin-bottom: 8px;"><span style="text-decoration: underline; font-weight:700;">MORNING ROUTINE</span> and <span style="text-decoration: underline; font-weight:700;">BEDTIME ROUTINE</span> arguments,</li>
                             <li style="margin-bottom: 8px;">Kids <span style="text-decoration: underline; font-weight:700;">IGNORING INSTRUCTIONS</span> and selective hearing,</li>
@@ -9411,33 +9445,33 @@ restoreChallengeState();
                         </ul>
 
                         <p style="margin-bottom: 14px; color: #ffd700; font-weight: 700; text-decoration: underline;">MEET YOUR EVOLVED SUPPORT SQUAD:</p>
-                        <ul style="list-style: none; padding: 0; margin: 0 0 20px 0;">
-                            <li style="margin-bottom: 8px;">✨ Nini: The Joy Spark who refills everyone’s emotional bucket.</li>
-                            <li style="margin-bottom: 8px;">⚡ Alio: Upgrading his Truth Detector for the internet.</li>
-                            <li style="margin-bottom: 8px;">🔥 Dilo: Learning how to survive Screen Burnout.</li>
-                            <li style="margin-bottom: 8px;">🌙 Luli: The Logic Guardian who busts myths and stops sibling fights.</li>
-                            <li>💖 Mimi: The Brain Captain trying to keep the family spaceship flying.</li>
+                        <ul class="book-detail-bullets">
+                            <li style="margin-bottom: 8px;">Nini: The Joy Spark who refills everyone’s emotional bucket.</li>
+                            <li style="margin-bottom: 8px;">Alio: Upgrading his Truth Detector for the internet.</li>
+                            <li style="margin-bottom: 8px;">Dilo: Learning how to survive Screen Burnout.</li>
+                            <li style="margin-bottom: 8px;">Luli: The Logic Guardian who busts myths and stops sibling fights.</li>
+                            <li>Mimi: The Brain Captain trying to keep the family spaceship flying.</li>
                         </ul>
 
                         <p style="margin-bottom: 14px; color: #ffd700; font-weight: 700; text-decoration: underline;">INSIDE, YOUR CHILD WILL UNLOCK 10 NEW CHEAT CODES FOR REAL LIFE:</p>
-                        <ul style="list-style: none; padding: 0; margin: 0 0 20px 0;">
-                            <li style="margin-bottom: 7px;">🎮 LEVEL 11: The Daily Habit Loop (Discipline + Habit Stacking)</li>
-                            <li style="margin-bottom: 7px;">🎮 LEVEL 12: The Nightly Reboot (Rest + The Brain Dishwasher)</li>
-                            <li style="margin-bottom: 7px;">🎮 LEVEL 13: The Glitchy Wi-Fi (Listening + Auditory Filtering)</li>
-                            <li style="margin-bottom: 7px;">🎮 LEVEL 14: The Teflon Shield (Resilience + Bouncing off Mean Words)</li>
-                            <li style="margin-bottom: 7px;">🎮 LEVEL 15: The Spaceship Mutiny (Contribution + The 10-Minute Blitz)</li>
-                            <li style="margin-bottom: 7px;">🎮 LEVEL 16: The 6 and 9 Mystery (Perspective + Theory of Mind)</li>
-                            <li style="margin-bottom: 7px;">🎮 LEVEL 17: The Mental Spam (Critical Thinking + Deleting Negative Thoughts)</li>
-                            <li style="margin-bottom: 7px;">🎮 LEVEL 18: The Pixel Zombie (Screen Balance + Dopamine Burnout)</li>
-                            <li style="margin-bottom: 7px;">🎮 LEVEL 19: The Pivot Dance (Flexibility + Surviving Disappointment)</li>
-                            <li>🎮 LEVEL 20: The Reality Glitch (Truth Detector + Spotting Fake News)</li>
+                        <ul class="book-detail-bullets">
+                            <li style="margin-bottom: 7px;">LEVEL 11: The Daily Habit Loop (Discipline + Habit Stacking)</li>
+                            <li style="margin-bottom: 7px;">LEVEL 12: The Nightly Reboot (Rest + The Brain Dishwasher)</li>
+                            <li style="margin-bottom: 7px;">LEVEL 13: The Glitchy Wi-Fi (Listening + Auditory Filtering)</li>
+                            <li style="margin-bottom: 7px;">LEVEL 14: The Teflon Shield (Resilience + Bouncing off Mean Words)</li>
+                            <li style="margin-bottom: 7px;">LEVEL 15: The Spaceship Mutiny (Contribution + The 10-Minute Blitz)</li>
+                            <li style="margin-bottom: 7px;">LEVEL 16: The 6 and 9 Mystery (Perspective + Theory of Mind)</li>
+                            <li style="margin-bottom: 7px;">LEVEL 17: The Mental Spam (Critical Thinking + Deleting Negative Thoughts)</li>
+                            <li style="margin-bottom: 7px;">LEVEL 18: The Pixel Zombie (Screen Balance + Dopamine Burnout)</li>
+                            <li style="margin-bottom: 7px;">LEVEL 19: The Pivot Dance (Flexibility + Surviving Disappointment)</li>
+                            <li>LEVEL 20: The Reality Glitch (Truth Detector + Spotting Fake News)</li>
                         </ul>
 
                         <p style="margin-bottom: 14px; color: #ffd700; font-weight: 700; text-decoration: underline;">WHY THIS BOOK WINS (FOR REAL PARENTS):</p>
-                        <ul style="list-style: none; padding: 0; margin: 0 0 20px 0;">
-                            <li style="margin-bottom: 7px;">🟡 PERFECT FOR RELUCTANT READERS: short chapters, gaming metaphors, zero boredom.</li>
-                            <li style="margin-bottom: 7px;">🟡 BUILT FOR THE MODERN WORLD: screen balance, routines, mindset, internet safety, and critical thinking.</li>
-                            <li>🟡 MADE FOR REAL TRANSFORMATION: fewer battles, smoother routines, stronger teamwork, and a calmer home.</li>
+                        <ul class="book-detail-bullets">
+                            <li style="margin-bottom: 7px;">PERFECT FOR RELUCTANT READERS: short chapters, gaming metaphors, zero boredom.</li>
+                            <li style="margin-bottom: 7px;">BUILT FOR THE MODERN WORLD: screen balance, routines, mindset, internet safety, and critical thinking.</li>
+                            <li>MADE FOR REAL TRANSFORMATION: fewer battles, smoother routines, stronger teamwork, and a calmer home.</li>
                         </ul>
 
                         <p style="margin-bottom: 10px; font-weight:700; color:#8A2BE2; text-decoration: underline;">EQUIP YOUR CHILD WITH REAL-LIFE SKILLS THAT WILL PAY OFF FOR A LIFETIME.</p>
@@ -9486,13 +9520,13 @@ restoreChallengeState();
                         <p style="margin-bottom: 16px;"><span style="color: #8A2BE2; font-weight: 700; text-decoration: underline;">NO FLUFF. NO LECTURES. JUST ACTION.</span></p>
                         <p style="margin-bottom: 16px;">We know how hard it is to get kids to read about self-regulation. That’s why we disguised a powerful mindset + self-regulation toolkit as a collection of 10 HILARIOUS STORIES.<br>It’s also designed in an original gaming-style graphic look: BLACK-AND-WHITE, CLEAN, COOL, AND 100% KID-APPROVED.<br>The result is change you can actually see: FEWER EXPLOSIONS, FASTER RECOVERY, BETTER CHOICES, AND A CALMER HOME.</p>
 
-                        <p style="margin-bottom: 14px; color: #5eeff3; font-weight: 700; text-decoration: underline;">🎮 HOW IT WORKS: THE "5-MINUTE MISSION" SYSTEM</p>
-                        <ol style="list-style-position: inside; padding: 0; margin: 0 0 20px 0;">
+                        <p style="margin-bottom: 14px; color: #5eeff3; font-weight: 700; text-decoration: underline;">HOW IT WORKS: THE "5-MINUTE MISSION" SYSTEM</p>
+                        <ul class="book-detail-bullets">
                             <li style="margin-bottom: 10px;"><span style="font-weight:700; color:#5eeff3;">READ THE STORY</span>: Join The Happy Makers, a chaotic, relatable family, on quick adventures involving mutant ants, invisible spy ink, or exploding emotional volcanoes.</li>
                             <li style="margin-bottom: 10px;"><span style="font-weight:700; color:#5eeff3;">ACCESS THE NEURO-COACHING CONSOLE</span>: Unlock a concise CHEAT CODE that explains the science behind the story in simple language (Mirror Neurons, the Amygdala, and brain "glitches") that kids actually get.</li>
                             <li><span style="font-weight:700; color:#5eeff3;">LEVEL UP IMMEDIATELY</span>: Apply the tools right away. It is the perfect support when you need help with:</li>
-                        </ol>
-                        <ul class="golden-bullets" style="margin: 0 0 20px 0;">
+                        </ul>
+                        <ul class="book-detail-bullets">
                             <li style="margin-bottom: 8px;">Tantrums and meltdowns</li>
                             <li style="margin-bottom: 8px;">After-school emotional crashes (restraint collapse)</li>
                             <li style="margin-bottom: 8px;">Anger and calming down tools</li>
@@ -9504,30 +9538,30 @@ restoreChallengeState();
                         </ul>
 
                         <p style="margin-bottom: 14px; color: #5eeff3; font-weight: 700; text-decoration: underline;">MEET YOUR SUPPORT SQUAD:</p>
-                        <ul style="list-style: none; padding: 0; margin: 0 0 20px 0;">
-                            <li style="margin-bottom: 8px;">✨ Nini: The 5-year-old "Glitter Volcano" of emotions.</li>
-                            <li style="margin-bottom: 8px;">⚡ Alio: The boy who wears a colander to protect his thoughts.</li>
-                            <li style="margin-bottom: 8px;">🔥 Dilo: The gamer who thinks chores are just "bad side quests."</li>
-                            <li style="margin-bottom: 8px;">🌙 Luli: The calm sister who uses books as portals.</li>
-                            <li>💖 Mimi: The mom trying to find her phone (while using its flashlight).</li>
+                        <ul class="book-detail-bullets">
+                            <li style="margin-bottom: 8px;">Nini: The 5-year-old "Glitter Volcano" of emotions.</li>
+                            <li style="margin-bottom: 8px;">Alio: The boy who wears a colander to protect his thoughts.</li>
+                            <li style="margin-bottom: 8px;">Dilo: The gamer who thinks chores are just "bad side quests."</li>
+                            <li style="margin-bottom: 8px;">Luli: The calm sister who uses books as portals.</li>
+                            <li>Mimi: The mom trying to find her phone (while using its flashlight).</li>
                         </ul>
 
                         <p style="margin-bottom: 14px; color: #5eeff3; font-weight: 700; text-decoration: underline;">INSIDE, YOUR CHILD WILL UNLOCK 10 CHEAT CODES FOR REAL LIFE:</p>
-                        <ul style="list-style: none; padding: 0; margin: 0 0 20px 0;">
-                            <li style="margin-bottom: 7px;">🎮 Level 1: The After-School Crash (Regulation + Restraint Collapse)</li>
-                            <li style="margin-bottom: 7px;">🎮 Level 2: The Ice Cream Tragedy (Empathy + Mirror Neurons)</li>
-                            <li style="margin-bottom: 7px;">🎮 Level 3: The Invisible XP (Mistakes = XP. Keep farming skills.)</li>
-                            <li style="margin-bottom: 7px;">🎮 Level 4: The Spy Who Was Bored (Curiosity + The Wonder Hook)</li>
-                            <li style="margin-bottom: 7px;">🎮 Level 5: The Lizard in the Living Room (Anger + "Wake Your Wizard")</li>
-                            <li style="margin-bottom: 7px;">🎮 Level 6: Construction Noise (Growth Mindset + The Power of YET)</li>
-                            <li style="margin-bottom: 7px;">🎮 Level 7: The Bankrupt Plant (Friendship + Making Deposits)</li>
-                            <li style="margin-bottom: 7px;">🎮 Level 8: The Muddy Ferrari (Self-Care + "Ferrari Maintenance")</li>
-                            <li style="margin-bottom: 7px;">🎮 Level 9: The Broccoli Fortress (Fuel + "Building With Bricks")</li>
-                            <li>🎮 Level 10: The Energy Vampire (Brain Drain + Eat the Frog)</li>
+                        <ul class="book-detail-bullets">
+                            <li style="margin-bottom: 7px;">Level 1: The After-School Crash (Regulation + Restraint Collapse)</li>
+                            <li style="margin-bottom: 7px;">Level 2: The Ice Cream Tragedy (Empathy + Mirror Neurons)</li>
+                            <li style="margin-bottom: 7px;">Level 3: The Invisible XP (Mistakes = XP. Keep farming skills.)</li>
+                            <li style="margin-bottom: 7px;">Level 4: The Spy Who Was Bored (Curiosity + The Wonder Hook)</li>
+                            <li style="margin-bottom: 7px;">Level 5: The Lizard in the Living Room (Anger + "Wake Your Wizard")</li>
+                            <li style="margin-bottom: 7px;">Level 6: Construction Noise (Growth Mindset + The Power of YET)</li>
+                            <li style="margin-bottom: 7px;">Level 7: The Bankrupt Plant (Friendship + Making Deposits)</li>
+                            <li style="margin-bottom: 7px;">Level 8: The Muddy Ferrari (Self-Care + "Ferrari Maintenance")</li>
+                            <li style="margin-bottom: 7px;">Level 9: The Broccoli Fortress (Fuel + "Building With Bricks")</li>
+                            <li>Level 10: The Energy Vampire (Brain Drain + Eat the Frog)</li>
                         </ul>
 
                         <p style="margin-bottom: 14px; color: #5eeff3; font-weight: 700; text-decoration: underline;">WHY THIS BOOK WINS (FOR REAL PARENTS):</p>
-                        <ul class="golden-bullets" style="margin: 0 0 20px 0;">
+                        <ul class="book-detail-bullets">
                             <li style="margin-bottom: 7px;">RELUCTANT-READER PROOF: short chapters and gaming metaphors mean zero boredom.</li>
                             <li style="margin-bottom: 7px;">BUILT FOR REAL CHANGE: complex psychology becomes simple, memorable coping skills kids actually USE.</li>
                             <li style="margin-bottom: 7px;">SMART BUT SIMPLE: real tools turned into kid-friendly "cheat codes."</li>

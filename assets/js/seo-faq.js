@@ -95,28 +95,11 @@
         },
         {
           q: "Are these free?",
-          a: "Some gifts are free and some are paid—each one is designed to be simple, fast, and actually usable in real life."
+          a: "Some gifts are free and some are paid—each one is designed to be simple, fast, and usable in real life."
         },
         {
           q: "How do we use them as a family?",
-          a: "Pick one gift, try it today, and keep it visible (fridge, desk, bedtime spot). Small tools work best when they are easy to grab."
-        }
-      ]
-    },
-    "/library/grandma-book": {
-      title: "FAQ",
-      questions: [
-        {
-          q: "What is Grandma Bibi Anti-Boredom Club?",
-          a: "A fun, family-friendly boredom-buster you can use at home or during visits—designed to keep kids engaged without long prep."
-        },
-        {
-          q: "Is it screen-free friendly?",
-          a: "Yes. It is meant to help kids switch from 'I am bored' to simple activities and playful challenges."
-        },
-        {
-          q: "Who is it best for?",
-          a: "Kids, parents, and grandparents who want an easy go-to resource for connection, play, and boredom moments."
+          a: "Pick one gift, try it today, and keep it visible (fridge, desk, bedtime spot). Small tools work best when they’re easy to grab."
         }
       ]
     },
@@ -132,7 +115,7 @@
           a: "Pick one motto for the week, say it together, and place it where everyone will see it."
         },
         {
-          q: "Why does this work?",
+          q: "Why does this help?",
           a: "One clear phrase reduces arguing and helps everyone reset faster—especially during transitions and tough moments."
         }
       ]
@@ -142,7 +125,7 @@
       questions: [
         {
           q: "What are Calm vs Energy Cards?",
-          a: "A quick way to help kids tell the difference between 'calm' and 'energy'—so you can choose the right reset."
+          a: "A quick way to help kids notice whether they need calm or healthy energy—so you can choose the right reset."
         },
         {
           q: "How do we use them?",
@@ -167,7 +150,7 @@
         },
         {
           q: "Is it kid-friendly?",
-          a: "Yes. It is made to be easy to start and satisfying to finish."
+          a: "Yes. It’s made to be easy to start and satisfying to finish."
         }
       ]
     },
