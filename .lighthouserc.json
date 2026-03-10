@@ -5,8 +5,14 @@
       "url": [
         "/",
         "/kids/",
+        "/teenagers/",
+        "/adults/",
+        "/library/",
         "/library/world-01/",
-        "/adults/"
+        "/library/world-02/",
+        "/library/confident-adventure/",
+        "/library/christmas-book/",
+        "/gifts/"
       ],
       "numberOfRuns": 1
     },

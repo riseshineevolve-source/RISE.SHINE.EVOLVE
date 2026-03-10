@@ -42,6 +42,10 @@ for (const rel of pages) {
   const canonical = extractSingle(/<link rel="canonical" href="([^"]+)"/i, txt);
   const title = extractSingle(/<title>([\s\S]*?)<\/title>/i, txt);
   const metaDescription = extractSingle(/<meta name="description" content="([^"]*)"\s*\/?>/i, txt);
+  const ogTitle = extractSingle(/<meta property="og:title" content="([^"]*)"\s*\/?>/i, txt);
+  const ogDescription = extractSingle(/<meta property="og:description" content="([^"]*)"\s*\/?>/i, txt);
+  const twitterTitle = extractSingle(/<meta name="twitter:title" content="([^"]*)"\s*\/?>/i, txt);
+  const twitterDescription = extractSingle(/<meta name="twitter:description" content="([^"]*)"\s*\/?>/i, txt);
   const ogUrl = extractSingle(/<meta property="og:url" content="([^"]+)"/i, txt);
   const hreflangEn = extractSingle(/<link rel="alternate" hreflang="en" href="([^"]+)"/i, txt);
   const hreflangXDefault = extractSingle(/<link rel="alternate" hreflang="x-default" href="([^"]+)"/i, txt);
@@ -49,6 +53,10 @@ for (const rel of pages) {
   assert(!!canonical, `${rel}: missing canonical`);
   assert(!!title, `${rel}: missing <title>`);
   assert(!!metaDescription, `${rel}: missing meta description`);
+  assert(!!ogTitle, `${rel}: missing og:title`);
+  assert(!!ogDescription, `${rel}: missing og:description`);
+  assert(!!twitterTitle, `${rel}: missing twitter:title`);
+  assert(!!twitterDescription, `${rel}: missing twitter:description`);
   assert(!!ogUrl, `${rel}: missing og:url`);
   assert(!!hreflangEn, `${rel}: missing hreflang en`);
   assert(!!hreflangXDefault, `${rel}: missing hreflang x-default`);
@@ -69,6 +77,38 @@ for (const rel of pages) {
     assert(!/(lorem ipsum|todo|tbd)/i.test(normalizedDescription), `${rel}: meta description appears placeholder-like`);
     if (!descriptionToPages.has(normalizedDescription)) descriptionToPages.set(normalizedDescription, []);
     descriptionToPages.get(normalizedDescription).push(rel);
+  }
+
+  if (ogTitle) {
+    const normalizedOgTitle = normalizeSpace(ogTitle);
+    assert(normalizedOgTitle.length >= 8, `${rel}: og:title too short (<8 chars)`);
+    assert(normalizedOgTitle.length <= 110, `${rel}: og:title too long (>110 chars)`);
+    assert(!/^(home|untitled|new page)$/i.test(normalizedOgTitle), `${rel}: og:title appears placeholder-like`);
+  }
+
+  if (ogDescription) {
+    const normalizedOgDescription = normalizeSpace(ogDescription);
+    assert(normalizedOgDescription.length >= 20, `${rel}: og:description too short (<20 chars)`);
+    assert(normalizedOgDescription.length <= 220, `${rel}: og:description too long (>220 chars)`);
+    assert(!/(lorem ipsum|todo|tbd)/i.test(normalizedOgDescription), `${rel}: og:description appears placeholder-like`);
+  }
+
+  if (twitterTitle) {
+    const normalizedTwitterTitle = normalizeSpace(twitterTitle);
+    assert(normalizedTwitterTitle.length >= 8, `${rel}: twitter:title too short (<8 chars)`);
+    assert(normalizedTwitterTitle.length <= 110, `${rel}: twitter:title too long (>110 chars)`);
+    assert(!/^(home|untitled|new page)$/i.test(normalizedTwitterTitle), `${rel}: twitter:title appears placeholder-like`);
+  }
+
+  if (twitterDescription) {
+    const normalizedTwitterDescription = normalizeSpace(twitterDescription);
+    assert(normalizedTwitterDescription.length >= 20, `${rel}: twitter:description too short (<20 chars)`);
+    assert(normalizedTwitterDescription.length <= 220, `${rel}: twitter:description too long (>220 chars)`);
+    assert(!/(lorem ipsum|todo|tbd)/i.test(normalizedTwitterDescription), `${rel}: twitter:description appears placeholder-like`);
+  }
+
+  if (title && ogTitle) {
+    assert(normalizeSpace(title) === normalizeSpace(ogTitle), `${rel}: og:title differs from <title>`);
   }
 
   if (canonical) {
