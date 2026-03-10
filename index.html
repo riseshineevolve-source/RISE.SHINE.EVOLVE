@@ -10827,7 +10827,7 @@ restoreChallengeState();
     const candidates = document.querySelectorAll('.tabs-container p, .tabs-container div, .tabs-container small, .tabs-container span');
     candidates.forEach((element) => {
       const text = (element.textContent || '').replace(/\s+/g, ' ').trim();
-      if (/^SEO pages:/i.test(text)) {
+      if (/^(SEO pages:|Direct pages:)/i.test(text)) {
         element.remove();
       }
     });
