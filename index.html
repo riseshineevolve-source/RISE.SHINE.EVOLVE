@@ -747,6 +747,47 @@
             transform: translateY(-50%);
         }
 
+        .book-detail-bullets--level-up li::before {
+            content: '▸';
+            width: auto;
+            height: auto;
+            border-radius: 0;
+            background: none;
+            box-shadow: none;
+            color: #ffd700;
+            font-size: 0.8rem;
+            font-weight: 700;
+            top: 0.1em;
+            transform: none;
+        }
+
+        .book-detail-bullets--controller li::before {
+            content: '🎮';
+            width: auto;
+            height: auto;
+            border-radius: 0;
+            background: none;
+            box-shadow: none;
+            font-size: 0.78rem;
+            top: 0.04em;
+            transform: none;
+        }
+
+        .book-detail-bullets--purple li::before {
+            background: radial-gradient(circle at 30% 30%, #f3e8ff 0%, #d7b8ff 28%, #a855f7 58%, #6b21a8 100%);
+            box-shadow: 0 0 5px rgba(168, 85, 247, 0.9), 0 0 10px rgba(168, 85, 247, 0.45);
+        }
+
+        .book-detail-bullets--purple.book-detail-bullets--level-up li::before {
+            color: #a855f7;
+            background: none;
+            box-shadow: none;
+        }
+
+        .book-detail-bullets--purple.book-detail-bullets--controller li::before {
+            filter: hue-rotate(35deg) saturate(1.05);
+        }
+
 
         .character-detail-shell {
             background: linear-gradient(145deg, rgba(0, 0, 0, 0.95), rgba(20, 20, 20, 0.9));
@@ -9433,7 +9474,7 @@ restoreChallengeState();
                             <li style="margin-bottom: 10px;"><span style="font-weight:700; color:#ffd700;">ACCESS THE NEURO-COACHING CONSOLE</span><br>Get a concise CHEAT CODE in simple language.<br>examples include Dopamine Burnout, Habit Stacking, and Theory of Mind.<br>Talk about it for two minutes.</li>
                             <li><span style="font-weight:700; color:#ffd700;">LEVEL UP</span><br>Use the tool immediately when you need help with:</li>
                         </ul>
-                        <ul class="book-detail-bullets">
+                        <ul class="book-detail-bullets book-detail-bullets--level-up">
                             <li style="margin-bottom: 8px;"><span style="text-decoration: underline; font-weight:700;">SCREEN TIME BATTLES</span> and dopamine burnout,</li>
                             <li style="margin-bottom: 8px;"><span style="text-decoration: underline; font-weight:700;">MORNING ROUTINE</span> and <span style="text-decoration: underline; font-weight:700;">BEDTIME ROUTINE</span> arguments,</li>
                             <li style="margin-bottom: 8px;">Kids <span style="text-decoration: underline; font-weight:700;">IGNORING INSTRUCTIONS</span> and selective hearing,</li>
@@ -9446,15 +9487,15 @@ restoreChallengeState();
 
                         <p style="margin-bottom: 14px; color: #ffd700; font-weight: 700; text-decoration: underline;">MEET YOUR EVOLVED SUPPORT SQUAD:</p>
                         <ul class="book-detail-bullets">
-                            <li style="margin-bottom: 8px;">Nini: The Joy Spark who refills everyone’s emotional bucket.</li>
-                            <li style="margin-bottom: 8px;">Alio: Upgrading his Truth Detector for the internet.</li>
-                            <li style="margin-bottom: 8px;">Dilo: Learning how to survive Screen Burnout.</li>
-                            <li style="margin-bottom: 8px;">Luli: The Logic Guardian who busts myths and stops sibling fights.</li>
-                            <li>Mimi: The Brain Captain trying to keep the family spaceship flying.</li>
+                            <li style="margin-bottom: 8px;">✨ Nini: The Joy Spark who refills everyone’s emotional bucket.</li>
+                            <li style="margin-bottom: 8px;">⚡ Alio: Upgrading his Truth Detector for the internet.</li>
+                            <li style="margin-bottom: 8px;">🔥 Dilo: Learning how to survive Screen Burnout.</li>
+                            <li style="margin-bottom: 8px;">🌙 Luli: The Logic Guardian who busts myths and stops sibling fights.</li>
+                            <li>💖 Mimi: The Brain Captain trying to keep the family spaceship flying.</li>
                         </ul>
 
                         <p style="margin-bottom: 14px; color: #ffd700; font-weight: 700; text-decoration: underline;">INSIDE, YOUR CHILD WILL UNLOCK 10 NEW CHEAT CODES FOR REAL LIFE:</p>
-                        <ul class="book-detail-bullets">
+                        <ul class="book-detail-bullets book-detail-bullets--controller">
                             <li style="margin-bottom: 7px;">LEVEL 11: The Daily Habit Loop (Discipline + Habit Stacking)</li>
                             <li style="margin-bottom: 7px;">LEVEL 12: The Nightly Reboot (Rest + The Brain Dishwasher)</li>
                             <li style="margin-bottom: 7px;">LEVEL 13: The Glitchy Wi-Fi (Listening + Auditory Filtering)</li>
@@ -9521,12 +9562,12 @@ restoreChallengeState();
                         <p style="margin-bottom: 16px;">We know how hard it is to get kids to read about self-regulation. That’s why we disguised a powerful mindset + self-regulation toolkit as a collection of 10 HILARIOUS STORIES.<br>It’s also designed in an original gaming-style graphic look: BLACK-AND-WHITE, CLEAN, COOL, AND 100% KID-APPROVED.<br>The result is change you can actually see: FEWER EXPLOSIONS, FASTER RECOVERY, BETTER CHOICES, AND A CALMER HOME.</p>
 
                         <p style="margin-bottom: 14px; color: #5eeff3; font-weight: 700; text-decoration: underline;">HOW IT WORKS: THE "5-MINUTE MISSION" SYSTEM</p>
-                        <ul class="book-detail-bullets">
+                        <ul class="book-detail-bullets book-detail-bullets--purple">
                             <li style="margin-bottom: 10px;"><span style="font-weight:700; color:#5eeff3;">READ THE STORY</span>: Join The Happy Makers, a chaotic, relatable family, on quick adventures involving mutant ants, invisible spy ink, or exploding emotional volcanoes.</li>
                             <li style="margin-bottom: 10px;"><span style="font-weight:700; color:#5eeff3;">ACCESS THE NEURO-COACHING CONSOLE</span>: Unlock a concise CHEAT CODE that explains the science behind the story in simple language (Mirror Neurons, the Amygdala, and brain "glitches") that kids actually get.</li>
                             <li><span style="font-weight:700; color:#5eeff3;">LEVEL UP IMMEDIATELY</span>: Apply the tools right away. It is the perfect support when you need help with:</li>
                         </ul>
-                        <ul class="book-detail-bullets">
+                        <ul class="book-detail-bullets book-detail-bullets--purple book-detail-bullets--level-up">
                             <li style="margin-bottom: 8px;">Tantrums and meltdowns</li>
                             <li style="margin-bottom: 8px;">After-school emotional crashes (restraint collapse)</li>
                             <li style="margin-bottom: 8px;">Anger and calming down tools</li>
@@ -9538,16 +9579,16 @@ restoreChallengeState();
                         </ul>
 
                         <p style="margin-bottom: 14px; color: #5eeff3; font-weight: 700; text-decoration: underline;">MEET YOUR SUPPORT SQUAD:</p>
-                        <ul class="book-detail-bullets">
-                            <li style="margin-bottom: 8px;">Nini: The 5-year-old "Glitter Volcano" of emotions.</li>
-                            <li style="margin-bottom: 8px;">Alio: The boy who wears a colander to protect his thoughts.</li>
-                            <li style="margin-bottom: 8px;">Dilo: The gamer who thinks chores are just "bad side quests."</li>
-                            <li style="margin-bottom: 8px;">Luli: The calm sister who uses books as portals.</li>
-                            <li>Mimi: The mom trying to find her phone (while using its flashlight).</li>
+                        <ul class="book-detail-bullets book-detail-bullets--purple">
+                            <li style="margin-bottom: 8px;">✨ Nini: The 5-year-old "Glitter Volcano" of emotions.</li>
+                            <li style="margin-bottom: 8px;">⚡ Alio: The boy who wears a colander to protect his thoughts.</li>
+                            <li style="margin-bottom: 8px;">🔥 Dilo: The gamer who thinks chores are just "bad side quests."</li>
+                            <li style="margin-bottom: 8px;">🌙 Luli: The calm sister who uses books as portals.</li>
+                            <li>💖 Mimi: The mom trying to find her phone (while using its flashlight).</li>
                         </ul>
 
                         <p style="margin-bottom: 14px; color: #5eeff3; font-weight: 700; text-decoration: underline;">INSIDE, YOUR CHILD WILL UNLOCK 10 CHEAT CODES FOR REAL LIFE:</p>
-                        <ul class="book-detail-bullets">
+                        <ul class="book-detail-bullets book-detail-bullets--purple book-detail-bullets--controller">
                             <li style="margin-bottom: 7px;">Level 1: The After-School Crash (Regulation + Restraint Collapse)</li>
                             <li style="margin-bottom: 7px;">Level 2: The Ice Cream Tragedy (Empathy + Mirror Neurons)</li>
                             <li style="margin-bottom: 7px;">Level 3: The Invisible XP (Mistakes = XP. Keep farming skills.)</li>
@@ -9561,7 +9602,7 @@ restoreChallengeState();
                         </ul>
 
                         <p style="margin-bottom: 14px; color: #5eeff3; font-weight: 700; text-decoration: underline;">WHY THIS BOOK WINS (FOR REAL PARENTS):</p>
-                        <ul class="book-detail-bullets">
+                        <ul class="book-detail-bullets book-detail-bullets--purple">
                             <li style="margin-bottom: 7px;">RELUCTANT-READER PROOF: short chapters and gaming metaphors mean zero boredom.</li>
                             <li style="margin-bottom: 7px;">BUILT FOR REAL CHANGE: complex psychology becomes simple, memorable coping skills kids actually USE.</li>
                             <li style="margin-bottom: 7px;">SMART BUT SIMPLE: real tools turned into kid-friendly "cheat codes."</li>
