@@ -1,0 +1,40 @@
+{
+  "baseUrl": "https://rise-shine-evolve-learning-hub.com",
+  "pages": [
+    "index.html",
+    "kids/index.html",
+    "teenagers/index.html",
+    "adults/index.html",
+    "library/index.html",
+    "library/world-01/index.html",
+    "library/world-02/index.html",
+    "library/confident-adventure/index.html",
+    "library/christmas-book/index.html",
+    "library/grandma-book/index.html",
+    "gifts/index.html",
+    "gifts/family-motto/index.html",
+    "gifts/calm-energy/index.html",
+    "gifts/word-search/index.html",
+    "gifts/word-search-studio/index.html",
+    "site-map/index.html"
+  ],
+  "expectedPaths": [
+    "/",
+    "/kids/",
+    "/teenagers/",
+    "/adults/",
+    "/library/",
+    "/library/world-01/",
+    "/library/world-02/",
+    "/library/confident-adventure/",
+    "/library/christmas-book/",
+    "/library/grandma-book/",
+    "/gifts/",
+    "/gifts/family-motto/",
+    "/gifts/calm-energy/",
+    "/gifts/word-search/",
+    "/gifts/word-search-studio/",
+    "/site-map/",
+    "/feed.xml"
+  ]
+}
