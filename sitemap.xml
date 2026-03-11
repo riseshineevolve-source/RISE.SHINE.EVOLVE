@@ -104,7 +104,7 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://rise-shine-evolve-learning-hub.com/gifts/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://rise-shine-evolve-learning-hub.com/gifts/" />
     <image:image>
-      <image:loc>https://rise-shine-evolve-learning-hub.com/assets/images/pp.png</image:loc>
+      <image:loc>https://rise-shine-evolve-learning-hub.com/assets/og/gifts.svg</image:loc>
       <image:caption>Rise Shine Evolve - family growth books, gifts and tools</image:caption>
     </image:image>
   </url>
@@ -116,7 +116,7 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://rise-shine-evolve-learning-hub.com/gifts/family-motto/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://rise-shine-evolve-learning-hub.com/gifts/family-motto/" />
     <image:image>
-      <image:loc>https://rise-shine-evolve-learning-hub.com/assets/images/pp.png</image:loc>
+      <image:loc>https://rise-shine-evolve-learning-hub.com/assets/og/family-motto.svg</image:loc>
       <image:caption>Rise Shine Evolve - family growth books, gifts and tools</image:caption>
     </image:image>
   </url>
@@ -128,7 +128,7 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://rise-shine-evolve-learning-hub.com/gifts/calm-energy/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://rise-shine-evolve-learning-hub.com/gifts/calm-energy/" />
     <image:image>
-      <image:loc>https://rise-shine-evolve-learning-hub.com/assets/images/pp.png</image:loc>
+      <image:loc>https://rise-shine-evolve-learning-hub.com/assets/og/calm-energy.svg</image:loc>
       <image:caption>Rise Shine Evolve - family growth books, gifts and tools</image:caption>
     </image:image>
   </url>
@@ -140,7 +140,7 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://rise-shine-evolve-learning-hub.com/gifts/word-search/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://rise-shine-evolve-learning-hub.com/gifts/word-search/" />
     <image:image>
-      <image:loc>https://rise-shine-evolve-learning-hub.com/assets/images/pp.png</image:loc>
+      <image:loc>https://rise-shine-evolve-learning-hub.com/assets/og/word-search.svg</image:loc>
       <image:caption>Rise Shine Evolve - family growth books, gifts and tools</image:caption>
     </image:image>
   </url>
@@ -152,7 +152,7 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://rise-shine-evolve-learning-hub.com/gifts/word-search-studio/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://rise-shine-evolve-learning-hub.com/gifts/word-search-studio/" />
     <image:image>
-      <image:loc>https://rise-shine-evolve-learning-hub.com/assets/images/pp.png</image:loc>
+      <image:loc>https://rise-shine-evolve-learning-hub.com/assets/og/word-search-studio.svg</image:loc>
       <image:caption>Rise Shine Evolve - family growth books, gifts and tools</image:caption>
     </image:image>
   </url>
@@ -178,6 +178,30 @@
     <image:image>
       <image:loc>https://rise-shine-evolve-learning-hub.com/assets/images/pp.png</image:loc>
       <image:caption>Rise Shine Evolve - family growth books, gifts and tools</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rise-shine-evolve-learning-hub.com/the-happy-makers/</loc>
+    <lastmod>2026-03-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://rise-shine-evolve-learning-hub.com/the-happy-makers/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://rise-shine-evolve-learning-hub.com/the-happy-makers/" />
+    <image:image>
+      <image:loc>https://rise-shine-evolve-learning-hub.com/assets/og/the-happy-makers.svg</image:loc>
+      <image:caption>The Happy Makers page</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://rise-shine-evolve-learning-hub.com/level-up-your-brain/</loc>
+    <lastmod>2026-03-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://rise-shine-evolve-learning-hub.com/level-up-your-brain/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://rise-shine-evolve-learning-hub.com/level-up-your-brain/" />
+    <image:image>
+      <image:loc>https://rise-shine-evolve-learning-hub.com/assets/og/level-up-your-brain.svg</image:loc>
+      <image:caption>Level Up Your Brain page</image:caption>
     </image:image>
   </url>
   <url>

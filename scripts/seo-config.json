@@ -16,6 +16,8 @@
     "gifts/calm-energy/index.html",
     "gifts/word-search/index.html",
     "gifts/word-search-studio/index.html",
+    "the-happy-makers/index.html",
+    "level-up-your-brain/index.html",
     "site-map/index.html"
   ],
   "expectedPaths": [
@@ -34,6 +36,8 @@
     "/gifts/calm-energy/",
     "/gifts/word-search/",
     "/gifts/word-search-studio/",
+    "/the-happy-makers/",
+    "/level-up-your-brain/",
     "/site-map/",
     "/feed.xml"
   ]
