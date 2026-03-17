@@ -3,7 +3,11 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "deploy": "wrangler deploy ./cloudflare-worker.js --config ./wrangler.toml"
+    "deploy": "wrangler deploy ./cloudflare-worker.js --config ./wrangler.toml",
+    "seo:validate": "node scripts/validate-seo.js",
+    "seo:validate:strict": "node scripts/validate-seo.js",
+    "seo:audit": "node scripts/seo-audit.js",
+    "seo:all": "node scripts/seo-all.js"
   },
   "devDependencies": {
     "wrangler": "^4.51.0"
