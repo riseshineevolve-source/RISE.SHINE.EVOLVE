@@ -2149,14 +2149,14 @@
           <p style="margin: 0; font-size: 1.2rem; font-weight: 800; color: #ffb7f7;">The Survival Kit<br>for Little Heroes</p>
           <p style="margin: 0; color: #ffb7f7; font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px;">Available Soon</p>
           <p style="margin: 0; color: #ffffff; line-height: 1.55;">Interactive web apps and story-driven missions to tame wild emotions, build unshakeable confidence, and defeat the 'Energy Vampire'. Tools they'll actually want to use.</p>
-          <button onclick="selectTab(getTabElement('kids'), 'kids')" style="margin-top: auto; padding: 10px 18px; border-radius: 999px; border: 2px solid #ff4de1; background: #000000; color: #ffffff; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; box-shadow: 0 0 14px rgba(255, 77, 225, 0.55);">Explore Kids Toolkit</button>
+          <button onclick="selectTab(getTabElement('kids'), 'kids'); const kidsAppsStart = document.querySelector('#kids-apps-start'); if (kidsAppsStart) { const rect = kidsAppsStart.getBoundingClientRect(); const targetTop = rect.top + window.pageYOffset - 80; window.scrollTo({ top: Math.max(targetTop, 0), behavior: 'smooth' }); }" style="margin-top: auto; padding: 10px 18px; border-radius: 999px; border: 2px solid #ff4de1; background: #000000; color: #ffffff; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; box-shadow: 0 0 14px rgba(255, 77, 225, 0.55);">Explore Kids Toolkit</button>
          </div>
          <div style="border: 2px solid #00e5ff; border-radius: 22px; padding: 18px; display: flex; flex-direction: column; gap: 10px; box-shadow: 0 0 16px rgba(0, 229, 255, 0.35); min-height: 100%; transition: all .25s ease;" onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 0 24px rgba(0, 229, 255, 0.6)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 0 16px rgba(0, 229, 255, 0.35)'">
           <div style="display: inline-block; align-self: center; font-size: 0.72rem; font-weight: 800; color: #000; background: #00e5ff; padding: 5px 10px; border-radius: 999px; letter-spacing: 1px; text-transform: uppercase;">For Teens</div>
           <p style="margin: 0; font-size: 1.2rem; font-weight: 800; color: #9ff6ff;">The Ultimate<br>'Cheat Codes' for Life.</p>
           <p style="margin: 0; color: #9ff6ff; font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px;">Available Soon</p>
           <p style="margin: 0; color: #ffffff; line-height: 1.55;">No lectures. No cringe. Just real-world digital strategies, toolkits, and interactive guides to master stress, boost focus, and navigate the chaos of growing up.</p>
-          <button onclick="selectTab(getTabElement('teenagers'), 'teenagers')" style="margin-top: auto; padding: 10px 18px; border-radius: 999px; border: 2px solid #00e5ff; background: #000000; color: #ffffff; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; box-shadow: 0 0 14px rgba(0, 229, 255, 0.5);">Explore Teens Toolkit</button>
+          <button onclick="selectTab(getTabElement('teenagers'), 'teenagers'); const teensAppCard = document.querySelector('#teens-app-card'); if (teensAppCard) { const rect = teensAppCard.getBoundingClientRect(); const targetTop = rect.top + window.pageYOffset - 80; window.scrollTo({ top: Math.max(targetTop, 0), behavior: 'smooth' }); }" style="margin-top: auto; padding: 10px 18px; border-radius: 999px; border: 2px solid #00e5ff; background: #000000; color: #ffffff; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; box-shadow: 0 0 14px rgba(0, 229, 255, 0.5);">Explore Teens Toolkit</button>
          </div>
          </div>
          <div style="border: 2px solid #d4ff37; border-radius: 22px; padding: 18px; display: flex; flex-direction: column; gap: 10px; box-shadow: 0 0 16px rgba(212, 255, 55, 0.35); min-height: 100%; transition: all .25s ease; align-self: center; width: min(100%, 520px);" onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 0 24px rgba(212, 255, 55, 0.6)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 0 16px rgba(212, 255, 55, 0.35)'">
@@ -2164,7 +2164,7 @@
           <p style="margin: 0; font-size: 1.2rem; font-weight: 800; color: #ecff9f;">The Ground Control Station</p>
           <p style="margin: 0; color: #ecff9f; font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px;">Available Soon</p>
           <p style="margin: 0; color: #ffffff; line-height: 1.55;">Neuro-affirming parenting tools, low-demand strategies, and self-care resets for you. Because you can't be the ultimate co-pilot if your own battery is at 1%.</p>
-          <button onclick="selectTab(getTabElement('adults'), 'adults')" style="margin-top: auto; padding: 10px 18px; border-radius: 999px; border: 2px solid #d4ff37; background: #000000; color: #ffffff; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; box-shadow: 0 0 14px rgba(212, 255, 55, 0.5);">Explore Adults Toolkit</button>
+          <button onclick="selectTab(getTabElement('adults'), 'adults'); const adultsTop = document.querySelector('#adults-content'); if (adultsTop) { const rect = adultsTop.getBoundingClientRect(); const targetTop = rect.top + window.pageYOffset - 80; window.scrollTo({ top: Math.max(targetTop, 0), behavior: 'smooth' }); }" style="margin-top: auto; padding: 10px 18px; border-radius: 999px; border: 2px solid #d4ff37; background: #000000; color: #ffffff; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; box-shadow: 0 0 14px rgba(212, 255, 55, 0.5);">Explore Adults Toolkit</button>
          </div>
         </div>
         <div style="margin-top: 8px; border: 2px solid #8A2BE2; border-radius: 22px; padding: 20px; display: flex; flex-direction: column; gap: 14px; box-shadow: 0 0 22px rgba(138, 43, 226, 0.45); width: min(100%, 980px); margin-left: auto; margin-right: auto; background: linear-gradient(90deg, rgba(138, 43, 226, 0.14), rgba(0, 0, 0, 0.55));">
@@ -2238,7 +2238,7 @@
         </div>
        </div>
       </div><!-- Interactive Apps Collection -->
-      <div class="kids-tile" style="border: 3px solid #00e5ff; box-shadow: 0 0 35px rgba(0, 229, 255, 0.75), 0 0 60px rgba(0, 229, 255, 0.45); margin: 30px auto; max-width: 800px; padding: 30px;">
+      <div id="kids-apps-start" class="kids-tile" style="border: 3px solid #00e5ff; box-shadow: 0 0 35px rgba(0, 229, 255, 0.75), 0 0 60px rgba(0, 229, 255, 0.45); margin: 30px auto; max-width: 800px; padding: 30px;">
        <div class="kids-text">
         <h3 style="color: #00e5ff; font-size: 1.8rem; margin-bottom: 12px; text-shadow: 0 0 20px rgba(0, 229, 255, 0.9);">🎮 INTERACTIVE APPS</h3>
         <p style="color: #7ff7ff; font-size: 1.15rem; margin: -2px 0 10px 0; font-weight: bold; text-shadow: 0 0 10px rgba(0, 229, 255, 0.7);">Level Up Your Daily Routine</p>
@@ -2682,7 +2682,7 @@
         and prepare for the exciting journey ahead.
       </div>
      </div>
-     <div class="kids-tile" style="border: 3px solid #00e5ff; box-shadow: 0 0 35px rgba(0, 229, 255, 0.75), 0 0 60px rgba(0, 229, 255, 0.45); margin: 30px auto; max-width: 860px; padding: 26px 20px;">
+     <div id="teens-app-card" class="kids-tile" style="border: 3px solid #00e5ff; box-shadow: 0 0 35px rgba(0, 229, 255, 0.75), 0 0 60px rgba(0, 229, 255, 0.45); margin: 30px auto; max-width: 860px; padding: 26px 20px;">
       <div class="kids-text">
        <h3 style="color: #00e5ff; font-size: 1.8rem; margin-bottom: 12px; text-shadow: 0 0 20px rgba(0, 229, 255, 0.9);">⚡ TEENS APP</h3>
        <p style="color: #7ff7ff; font-size: 1rem; margin: 0 0 20px 0;">Neon Cyberpunk Cyan Edition</p>
@@ -10997,10 +10997,10 @@ restoreChallengeState();
       document.querySelectorAll(selector).forEach((element) => element.remove());
     });
 
-    const candidates = document.querySelectorAll('.tabs-container p, .tabs-container div, .tabs-container small, .tabs-container span');
+    const candidates = document.querySelectorAll('.tabs-container p, .tabs-container div, .tabs-container small, .tabs-container span, p, div');
     candidates.forEach((element) => {
       const text = (element.textContent || '').replace(/\s+/g, ' ').trim();
-      if (/^(SEO pages:|Direct pages:)/i.test(text)) {
+      if (/^(SEO pages:|Direct pages:)/i.test(text) || /Meet The Happy Makers.*Level Up Your Brain.*Happy Me Adventure/i.test(text)) {
         element.remove();
       }
     });
