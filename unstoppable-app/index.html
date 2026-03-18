@@ -1,0 +1,498 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Project Unstoppable App | Rise Shine Evolve</title>
+  <meta
+    name="description"
+    content="Project Unstoppable is a 31-day gamified SaaS web app for teens to level up focus, mindset, and confidence with PWA access."
+  />
+  <link rel="canonical" href="https://rise-shine-evolve-learning-hub.com/unstoppable-app/" />
+  <style>
+    :root {
+      --bg-main: #04060b;
+      --bg-card: #0a1120;
+      --text-main: #f4f9ff;
+      --text-muted: #b8c8de;
+      --blue: #00cfff;
+      --green: #39ff88;
+      --radius: 18px;
+      --price-currency: "$";
+      --price-amount: "29.00";
+      --shadow-blue: 0 0 28px rgba(0, 207, 255, 0.35);
+      --shadow-green: 0 0 28px rgba(57, 255, 136, 0.35);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      background:
+        radial-gradient(circle at 10% 0%, rgba(0, 207, 255, 0.22), transparent 44%),
+        radial-gradient(circle at 100% 15%, rgba(57, 255, 136, 0.2), transparent 45%),
+        var(--bg-main);
+      color: var(--text-main);
+      line-height: 1.6;
+    }
+
+    .page {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 24px 18px 80px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .section {
+      background: linear-gradient(180deg, rgba(10, 17, 32, 0.9), rgba(5, 9, 16, 0.95));
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 24px;
+      padding: 24px;
+    }
+
+    h1, h2, h3 { margin-top: 0; line-height: 1.2; }
+
+    h1 {
+      font-size: clamp(1.9rem, 5vw, 3rem);
+      margin-bottom: 12px;
+      text-shadow: 0 0 22px rgba(0, 207, 255, 0.4);
+    }
+
+    h2 {
+      font-size: clamp(1.4rem, 3.2vw, 2.1rem);
+      margin-bottom: 16px;
+      color: #ecf8ff;
+      text-shadow: 0 0 15px rgba(57, 255, 136, 0.25);
+    }
+
+    .subheading,
+    .feature-card p,
+    .step,
+    .faq-answer,
+    .muted,
+    footer,
+    .legal-links button {
+      color: var(--text-muted);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .hero-copy {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .btn {
+      border: 2px solid transparent;
+      border-radius: 999px;
+      padding: 12px 20px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      cursor: pointer;
+      transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+      text-decoration: none;
+      display: inline-block;
+      text-align: center;
+    }
+
+    .btn-primary {
+      background: #03060a;
+      color: #fff;
+      border-color: var(--blue);
+      box-shadow: var(--shadow-blue);
+      align-self: flex-start;
+    }
+
+    .btn-primary:hover,
+    .btn-primary:focus-visible {
+      transform: translateY(-2px);
+      box-shadow: 0 0 34px rgba(0, 207, 255, 0.55);
+      outline: none;
+    }
+
+    .mockup {
+      min-height: 280px;
+      border-radius: var(--radius);
+      border: 2px dashed var(--green);
+      background: linear-gradient(160deg, rgba(57, 255, 136, 0.08), rgba(0, 207, 255, 0.08));
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 20px;
+      box-shadow: var(--shadow-green);
+      color: #d8ffe9;
+      font-weight: 700;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .feature-card {
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: var(--radius);
+      padding: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      min-height: 100%;
+    }
+
+    .feature-card:nth-child(1) { border-color: rgba(0, 207, 255, 0.5); box-shadow: 0 0 16px rgba(0, 207, 255, 0.26); }
+    .feature-card:nth-child(2) { border-color: rgba(57, 255, 136, 0.5); box-shadow: 0 0 16px rgba(57, 255, 136, 0.24); }
+    .feature-card:nth-child(3) { border-color: rgba(0, 207, 255, 0.5); box-shadow: 0 0 16px rgba(0, 207, 255, 0.22); }
+
+    .steps {
+      display: grid;
+      gap: 12px;
+    }
+
+    .step {
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      padding: 12px 14px;
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .step strong { color: #fff; }
+
+    #pricing { scroll-margin-top: 24px; }
+
+    .pricing-wrap {
+      display: grid;
+      place-items: center;
+    }
+
+    .pricing-card {
+      width: min(100%, 560px);
+      border: 2px solid var(--green);
+      border-radius: 22px;
+      padding: 22px;
+      background: linear-gradient(180deg, rgba(8, 30, 18, 0.82), rgba(4, 10, 18, 0.95));
+      box-shadow: var(--shadow-green);
+    }
+
+    .plan {
+      margin: 0 0 4px;
+      color: #b4ffd6;
+      text-transform: uppercase;
+      letter-spacing: 0.9px;
+      font-weight: 800;
+    }
+
+    .price {
+      margin: 0;
+      font-size: clamp(2.2rem, 6vw, 3rem);
+      line-height: 1;
+      color: var(--green);
+      text-shadow: 0 0 18px rgba(57, 255, 136, 0.55);
+      font-weight: 900;
+    }
+
+    .price::before { content: var(--price-currency); margin-right: 2px; }
+    .price::after { content: var(--price-amount); }
+
+    .price-sub {
+      margin: 8px 0 16px;
+      color: #fff;
+      font-weight: 600;
+    }
+
+    .benefits {
+      margin: 0 0 18px;
+      padding-left: 18px;
+    }
+
+    .benefits li { margin-bottom: 8px; }
+
+    .btn-pricing {
+      width: 100%;
+      border-color: var(--blue);
+      background: #030608;
+      color: #fff;
+      box-shadow: 0 0 20px rgba(0, 207, 255, 0.4);
+    }
+
+    .btn-pricing:hover,
+    .btn-pricing:focus-visible {
+      transform: translateY(-2px);
+      box-shadow: 0 0 28px rgba(0, 207, 255, 0.6);
+      outline: none;
+    }
+
+    .faq-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .faq-item {
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      padding: 14px;
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .faq-question {
+      margin: 0 0 6px;
+      color: #fff;
+      font-weight: 700;
+    }
+
+    .faq-answer {
+      margin: 0;
+    }
+
+    footer {
+      text-align: center;
+      padding: 8px 0 0;
+      font-size: 0.95rem;
+    }
+
+    .legal-links {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .legal-links button {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: #dfe8fa;
+      border-radius: 999px;
+      padding: 7px 12px;
+      cursor: pointer;
+    }
+
+    .legal-links button:hover,
+    .legal-links button:focus-visible {
+      border-color: var(--blue);
+      box-shadow: 0 0 12px rgba(0, 207, 255, 0.35);
+      outline: none;
+      color: #fff;
+    }
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.65);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      z-index: 1000;
+    }
+
+    .modal-backdrop.open { display: flex; }
+
+    .modal {
+      width: min(100%, 720px);
+      background: #09111e;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 16px;
+      padding: 18px;
+      box-shadow: 0 0 36px rgba(0, 207, 255, 0.35);
+    }
+
+    .modal h3 { margin-bottom: 10px; }
+
+    .modal p {
+      margin: 0;
+      color: #d0dff2;
+    }
+
+    .modal-actions {
+      margin-top: 14px;
+      text-align: right;
+    }
+
+    .modal-actions button {
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      background: #06101d;
+      color: #fff;
+      padding: 8px 14px;
+      cursor: pointer;
+    }
+
+    @media (max-width: 900px) {
+      .features-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 760px) {
+      .page { padding: 16px 12px 64px; gap: 18px; }
+      .section { padding: 18px; border-radius: 18px; }
+      .hero { grid-template-columns: 1fr; }
+      .btn-primary { width: 100%; }
+      .mockup { min-height: 210px; }
+      .features-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="section hero" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <h1 id="hero-title">Stop Playing on Hard Mode. Level Up Your Mindset in 31 Days. 🎮</h1>
+        <p style="margin: -2px 0 0 0; color: #39ff88; font-size: 0.92rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px;">Available Soon</p>
+        <p class="subheading">
+          Welcome to Project Unstoppable. A 31-day interactive web application (SaaS) built like a video game to help teens hack their focus, translate 'parent logic', block the haters, and unlock their inner Legend. Install our Progressive Web App (PWA) straight to your phone.
+        </p>
+        <a class="btn btn-primary" href="#pricing">GET 12-MONTH ACCESS NOW</a>
+      </div>
+      <div class="mockup" role="img" aria-label="Gamer-style app mockup placeholder">
+        Gamer-Style App Mockup (Phone + Laptop)
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="features-title">
+      <h2 id="features-title">The Ultimate Cheat Codes for Real Life</h2>
+      <div class="features-grid">
+        <article class="feature-card">
+          <h3>The Hater Blocker &amp; Squad Analysis</h3>
+          <p>Trolls are just lag. Learn to build a "Teflon Shield" against drama, run a Vibe Check on your friends, and master the "Grey Rock" face.</p>
+        </article>
+        <article class="feature-card">
+          <h3>Focus Fortress &amp; Brain Hacks</h3>
+          <p>Defeat the "Procrastination Slayer" with the 5-Minute Glitch. Ditch useless highlighting and learn to hack school with "Active Recall" cheat sheets.</p>
+        </article>
+        <article class="feature-card">
+          <h3>The Parent Translator</h3>
+          <p>Parents are basically NPCs with upgrades. Learn their language to negotiate better, stop the nagging, and unlock more freedom.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="how-title">
+      <h2 id="how-title">How our Progressive Web App (PWA) Works:</h2>
+      <div class="steps">
+        <div class="step"><strong>Step 1:</strong> Purchase your 1-Year Access Pass securely online.</div>
+        <div class="step"><strong>Step 2:</strong> Instantly receive your private login credentials via email.</div>
+        <div class="step"><strong>Step 3:</strong> Log in through your web browser and click "Install App" to add the Unstoppable icon directly to your phone's home screen.</div>
+        <div class="step"><strong>Step 4:</strong> Your XP and daily stats are securely synced in the cloud (powered by Supabase) across all your devices.</div>
+      </div>
+    </section>
+
+    <section class="section" id="pricing" aria-labelledby="pricing-title">
+      <h2 id="pricing-title">Choose Your Loadout</h2>
+      <div class="pricing-wrap">
+        <article class="pricing-card" aria-label="Pricing card">
+          <p class="plan">12-Month "Level 100" Access Pass</p>
+          <p class="price" aria-label="Price"></p>
+          <p class="price-sub">One-Time Payment</p>
+          <ul class="benefits">
+            <li>Full access to the 31-Day Interactive Web App.</li>
+            <li>Progressive Web App (PWA) technology for mobile &amp; desktop.</li>
+            <li>Secure, encrypted cloud sync for multiple devices.</li>
+            <li>1-Year License (Access automatically expires after 365 days).</li>
+          </ul>
+          <button class="btn btn-pricing" type="button">UNLOCK CHEAT CODES</button>
+          <p class="muted" style="font-size: 0.86rem; margin: 12px 0 0;">Secure payments processed by Paddle. Due to the instant-access digital nature of this software, all sales are final.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="faq-title">
+      <h2 id="faq-title">FAQ</h2>
+      <div class="faq-list">
+        <article class="faq-item">
+          <p class="faq-question">Is this a physical book or a PDF?</p>
+          <p class="faq-answer">No. This is a digital Software-as-a-Service (SaaS) web application. You interact with it online, farm daily XP, and track your mindset evolution.</p>
+        </article>
+        <article class="faq-item">
+          <p class="faq-question">Do I need to download it from the App Store?</p>
+          <p class="faq-answer">No. We use modern PWA (Progressive Web App) technology. Just log in via your browser and click "Install" to add it to your home screen. It takes 0 space on your hard drive!</p>
+        </article>
+        <article class="faq-item">
+          <p class="faq-question">What is your refund policy?</p>
+          <p class="faq-answer">Because our product is a digital application that grants instant access to our proprietary 31-day program, ALL SALES ARE FINAL. We do not offer refunds, returns, or exchanges under any circumstances. If you encounter any "glitches" logging in, our support team will help you immediately.</p>
+        </article>
+      </div>
+    </section>
+
+    <footer>
+      <p style="margin: 0;">Support Email: hello@rise-shine-evolve-learning-hub.com</p>
+      <div class="legal-links" role="navigation" aria-label="Legal links">
+        <button type="button" data-legal="terms">Terms of Service</button>
+        <button type="button" data-legal="privacy">Privacy Policy</button>
+        <button type="button" data-legal="refund">Return &amp; Refund Policy</button>
+      </div>
+    </footer>
+  </main>
+
+  <div class="modal-backdrop" id="legal-modal" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="legal-modal-title">
+      <h3 id="legal-modal-title"></h3>
+      <p id="legal-modal-body"></p>
+      <div class="modal-actions">
+        <button id="legal-modal-close" type="button">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var legalCopy = {
+        terms: {
+          title: 'Terms of Service',
+          body: 'By purchasing access to the Project Unstoppable web application, you are granted a personal license to access the platform for exactly 12 months from the date of purchase. This is not a lifetime license.'
+        },
+        privacy: {
+          title: 'Privacy Policy',
+          body: 'We collect minimal personal information necessary to provide you with access. We use Supabase to securely store your account data and Cloudflare to host the application. We do not sell your data.'
+        },
+        refund: {
+          title: 'Return & Refund Policy',
+          body: 'All Sales Are Final. Upon purchase, you are granted immediate access to the digital platform. Because the digital product is instantly accessible, we do not offer refunds, exchanges, or cancellations.'
+        }
+      };
+
+      var modal = document.getElementById('legal-modal');
+      var modalTitle = document.getElementById('legal-modal-title');
+      var modalBody = document.getElementById('legal-modal-body');
+      var closeButton = document.getElementById('legal-modal-close');
+
+      function openModal(key) {
+        var content = legalCopy[key];
+        if (!content) return;
+        modalTitle.textContent = content.title;
+        modalBody.textContent = content.body;
+        modal.classList.add('open');
+        modal.setAttribute('aria-hidden', 'false');
+      }
+
+      function closeModal() {
+        modal.classList.remove('open');
+        modal.setAttribute('aria-hidden', 'true');
+      }
+
+      document.querySelectorAll('[data-legal]').forEach(function (button) {
+        button.addEventListener('click', function () {
+          openModal(button.getAttribute('data-legal'));
+        });
+      });
+
+      closeButton.addEventListener('click', closeModal);
+      modal.addEventListener('click', function (event) {
+        if (event.target === modal) closeModal();
+      });
+      document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape' && modal.classList.contains('open')) {
+          closeModal();
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
