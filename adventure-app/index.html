@@ -320,6 +320,20 @@
       color: #d0d6f1;
     }
 
+    .modal h4 {
+      margin: 12px 0 6px;
+      color: #ffd700;
+      font-size: 1rem;
+    }
+
+    .modal ul {
+      margin: 6px 0 8px 20px;
+      color: #d0d6f1;
+      padding: 0;
+    }
+
+    .modal a { color: #9ff6ff; }
+
     .modal-actions {
       margin-top: 14px;
       text-align: right;
@@ -429,7 +443,7 @@
     </section>
 
     <footer>
-      <p style="margin: 0;">Support Email: hello@rise-shine-evolve-learning-hub.com</p>
+      <p style="margin: 0;">Support Email: rise.shine.evolve@gmail.com</p>
       <div class="legal-links" role="navigation" aria-label="Legal links">
         <button type="button" data-legal="terms">Terms of Service</button>
         <button type="button" data-legal="privacy">Privacy Policy</button>
@@ -457,7 +471,55 @@
         },
         privacy: {
           title: 'Privacy Policy',
-          body: 'We collect minimal personal information necessary to provide you with access. We use Supabase to securely store your account data and Cloudflare to host the application. We do not sell your data.'
+          body: `<p><strong>Effective Date:</strong> January 1, 2025</p>
+            <h4>1. Information We Collect</h4>
+            <p>We collect information you provide directly to us when you subscribe to our community newsletter:</p>
+            <ul>
+              <li>First name</li>
+              <li>Email address</li>
+              <li>Communication preferences</li>
+            </ul>
+            <h4>2. How We Use Your Information</h4>
+            <p>We use the information we collect to:</p>
+            <ul>
+              <li>Send you educational materials and newsletters</li>
+              <li>Provide access to free educational resources</li>
+              <li>Communicate with you about our services and new releases</li>
+              <li>Improve our educational content</li>
+              <li>Comply with legal obligations</li>
+            </ul>
+            <h4>3. Information Sharing</h4>
+            <p>We do not sell, trade, or otherwise transfer your personal information to third parties without your consent, except as described in this policy or as required by law.</p>
+            <h4>4. Data Security</h4>
+            <p>We implement appropriate security measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction. Passwords are encrypted and stored securely.</p>
+            <h4>5. Your Rights (GDPR &amp; RODO Compliance)</h4>
+            <p>Under GDPR (General Data Protection Regulation) and Polish RODO (Rozporządzenie o Ochronie Danych Osobowych), you have the right to:</p>
+            <ul>
+              <li><strong>Access (Art. 15 GDPR/RODO):</strong> Request access to your personal data</li>
+              <li><strong>Rectification (Art. 16 GDPR/RODO):</strong> Correct inaccurate or incomplete data</li>
+              <li><strong>Erasure (Art. 17 GDPR/RODO):</strong> Request deletion of your data ("right to be forgotten")</li>
+              <li><strong>Restriction (Art. 18 GDPR/RODO):</strong> Restrict processing of your data</li>
+              <li><strong>Portability (Art. 20 GDPR/RODO):</strong> Receive your data in a structured format</li>
+              <li><strong>Objection (Art. 21 GDPR/RODO):</strong> Object to processing of your data</li>
+              <li><strong>Withdraw consent:</strong> Unsubscribe from newsletter at any time</li>
+              <li><strong>Lodge a complaint:</strong> File a complaint with supervisory authority (UODO in Poland)</li>
+            </ul>
+            <h4>6. Legal Basis for Processing (GDPR/RODO Art. 6)</h4>
+            <p>We process your data based on:</p>
+            <ul>
+              <li><strong>Consent (Art. 6(1)(a)):</strong> For newsletter subscriptions and community access</li>
+              <li><strong>Legitimate interests (Art. 6(1)(f)):</strong> For service improvement and educational content development</li>
+            </ul>
+            <h4>7. Data Retention</h4>
+            <p>We retain your newsletter subscription data only as long as necessary for the purposes outlined in this policy or as required by law. Newsletter data is kept until you unsubscribe from our community.</p>
+            <h4>8. International Transfers</h4>
+            <p>Your information may be transferred to and processed in countries other than your own. We ensure appropriate safeguards are in place in accordance with GDPR Chapter V.</p>
+            <h4>9. Contact &amp; Data Protection Officer</h4>
+            <p>For questions about this Privacy Policy or to exercise your rights, contact us at: <a href="mailto:rise.shine.evolve@gmail.com">rise.shine.evolve@gmail.com</a></p>
+            <p>You can also contact the Polish supervisory authority (UODO): <a href="https://uodo.gov.pl" target="_blank" rel="noopener noreferrer">uodo.gov.pl</a></p>
+            <p>This policy complies with GDPR (EU), RODO (Poland) and CCPA (California) data protection laws.</p>
+            <p>Rise.Shine.Evolve - Empowering Learning Hub</p>`,
+          isHtml: true
         },
         refund: {
           title: 'Return & Refund Policy',
@@ -474,7 +536,11 @@
         var content = legalCopy[key];
         if (!content) return;
         modalTitle.textContent = content.title;
-        modalBody.textContent = content.body;
+        if (content.isHtml) {
+          modalBody.innerHTML = content.body;
+        } else {
+          modalBody.textContent = content.body;
+        }
         modal.classList.add('open');
         modal.setAttribute('aria-hidden', 'false');
       }
