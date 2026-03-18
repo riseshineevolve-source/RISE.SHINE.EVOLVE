@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Library Collection — Rise Shine Evolve</title>
+  <desc id="desc">Rise Shine Evolve social preview card.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#10243a"/>
+      <stop offset="100%" stop-color="#2a6a99"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <circle cx="1020" cy="120" r="88" fill="#ffffff22"/>
+  <circle cx="160" cy="520" r="120" fill="#ffffff14"/>
+  <text x="88" y="220" fill="#f4f7fb" font-family="Arial, Helvetica, sans-serif" font-size="56" font-weight="700">Library Collection</text>
+  <text x="88" y="292" fill="#e6edf5" font-family="Arial, Helvetica, sans-serif" font-size="34">Family growth tools for busy homes.</text>
+  <text x="88" y="560" fill="#f4f7fb" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700">Rise Shine Evolve</text>
+</svg>
