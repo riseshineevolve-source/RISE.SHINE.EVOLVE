@@ -132,8 +132,18 @@
     }
 
     .btn-back {
-      border-color: #8A2BE2;
-      box-shadow: 0 0 16px rgba(138, 43, 226, 0.45);
+      background: linear-gradient(180deg, #a54bff 0%, #8A2BE2 100%);
+      border-color: #ffd700;
+      color: #ffffff;
+      box-shadow: 0 0 18px rgba(138, 43, 226, 0.65), 0 0 12px rgba(255, 215, 0, 0.45);
+      font-weight: 800;
+    }
+
+    .btn-back:hover,
+    .btn-back:focus-visible {
+      transform: translateY(-2px);
+      box-shadow: 0 0 24px rgba(138, 43, 226, 0.8), 0 0 16px rgba(255, 215, 0, 0.55);
+      outline: none;
     }
 
     .mockup {
@@ -384,7 +394,7 @@
           Welcome to Project Unstoppable. A 31-day interactive web application (SaaS) built like a video game to help teens hack their focus, translate 'parent logic', block the haters, and unlock their inner Legend. Install our Progressive Web App (PWA) straight to your phone.
         </p>
         <a class="btn btn-primary" href="#pricing">GET 12-MONTH ACCESS NOW</a>
-        <a class="btn btn-back" href="/#toolkits-path">BACK TO TOOLKIT</a>
+        <a class="btn btn-back" href="/#toolkits-path">← Back to Toolkit</a>
       </div>
       <div class="mockup" role="img" aria-label="Gamer-style app mockup placeholder">
         Gamer-Style App Mockup (Phone + Laptop)
@@ -454,6 +464,10 @@
           <p class="faq-answer">Because our product is a digital application that grants instant access to our proprietary 31-day program, ALL SALES ARE FINAL. We do not offer refunds, returns, or exchanges under any circumstances. If you encounter any "glitches" logging in, our support team will help you immediately.</p>
         </article>
       </div>
+    </section>
+
+    <section class="section" style="display:flex; justify-content:center; align-items:center; padding-top:18px; padding-bottom:18px;">
+      <a class="btn btn-back" href="/#toolkits-path">← Back to Toolkit</a>
     </section>
 
     <footer>

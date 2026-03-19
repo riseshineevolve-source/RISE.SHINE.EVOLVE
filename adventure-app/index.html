@@ -134,8 +134,18 @@
     }
 
     .btn-back {
+      background: linear-gradient(180deg, #a54bff 0%, #8A2BE2 100%);
       border-color: #ffd700;
-      box-shadow: 0 0 16px rgba(255, 215, 0, 0.4);
+      color: #ffffff;
+      box-shadow: 0 0 18px rgba(138, 43, 226, 0.65), 0 0 12px rgba(255, 215, 0, 0.45);
+      font-weight: 800;
+    }
+
+    .btn-back:hover,
+    .btn-back:focus-visible {
+      transform: translateY(-2px);
+      box-shadow: 0 0 24px rgba(138, 43, 226, 0.8), 0 0 16px rgba(255, 215, 0, 0.55);
+      outline: none;
     }
 
     .mockup {
@@ -391,7 +401,7 @@
           Welcome to the Happy-Makers Survival Kit. A 31-day interactive web application (SaaS) designed to help kids boost self-esteem, master big feelings, and build unshakeable confidence. No App Store needed – install our Progressive Web App (PWA) directly on your phone or tablet!
         </p>
         <a class="btn btn-primary" href="#pricing">GET 12-MONTH ACCESS NOW</a>
-        <a class="btn btn-back" href="/#toolkits-path">BACK TO TOOLKIT</a>
+        <a class="btn btn-back" href="/#toolkits-path">← Back to Toolkit</a>
       </div>
       <div class="mockup" role="img" aria-label="App Interface Mockup placeholder">
         App Interface Mockup (Phone + Laptop)
@@ -461,6 +471,10 @@
           <p class="faq-answer">Because our product is a digital application that grants instant access to our proprietary 31-day program, ALL SALES ARE FINAL. We do not offer refunds, returns, or exchanges under any circumstances. If you have technical issues logging in, our support team will help you immediately.</p>
         </article>
       </div>
+    </section>
+
+    <section class="section" style="display:flex; justify-content:center; align-items:center; padding-top:18px; padding-bottom:18px;">
+      <a class="btn btn-back" href="/#toolkits-path">← Back to Toolkit</a>
     </section>
 
     <footer>
