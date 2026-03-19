@@ -1,0 +1,607 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The Confident, Mindful &amp; Happy Me Adventure App | Rise Shine Evolve</title>
+  <meta
+    name="description"
+    content="Unlock your child's inner superpower in 31 days with The Confident, Mindful & Happy Me Adventure App — a digital SaaS web app and PWA for confidence and emotional growth."
+  />
+  <link rel="canonical" href="https://rise-shine-evolve-learning-hub.com/adventure-app/" />
+  <style>
+    :root {
+      --bg-main: #05050a;
+      --bg-card: #0e0f1c;
+      --text-main: #ffffff;
+      --text-muted: #b7bdd6;
+      --purple: #8a2be2;
+      --blue: #00e5ff;
+      --yellow: #ffd700;
+      --pink: #ff4de1;
+      --price-currency: "$";
+      --price-amount: "";
+      --radius: 18px;
+      --shadow-purple: 0 0 28px rgba(138, 43, 226, 0.35);
+      --shadow-blue: 0 0 28px rgba(0, 229, 255, 0.35);
+      --shadow-yellow: 0 0 28px rgba(255, 215, 0, 0.35);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      background:
+        radial-gradient(circle at 10% 0%, rgba(138, 43, 226, 0.24), transparent 45%),
+        radial-gradient(circle at 95% 10%, rgba(0, 229, 255, 0.18), transparent 45%),
+        var(--bg-main);
+      color: var(--text-main);
+      line-height: 1.6;
+    }
+
+    .page {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 24px 18px 80px;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    .section {
+      background: linear-gradient(180deg, rgba(14, 15, 28, 0.92), rgba(8, 8, 14, 0.96));
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 24px;
+      padding: 24px;
+    }
+
+    .section:nth-of-type(1) { border: 2px solid rgba(138, 43, 226, 0.75); box-shadow: 0 0 26px rgba(138, 43, 226, 0.42); }
+    .section:nth-of-type(2) { border: 2px solid rgba(255, 215, 0, 0.72); box-shadow: 0 0 24px rgba(255, 215, 0, 0.34); }
+    .section:nth-of-type(3) { border: 2px solid rgba(138, 43, 226, 0.65); box-shadow: 0 0 24px rgba(138, 43, 226, 0.3); }
+    .section:nth-of-type(4) { border: 2px solid rgba(255, 215, 0, 0.65); box-shadow: 0 0 24px rgba(255, 215, 0, 0.28); }
+
+    h1, h2, h3 { margin-top: 0; line-height: 1.2; }
+
+    h1 {
+      font-size: clamp(1.9rem, 5vw, 3rem);
+      margin-bottom: 12px;
+      text-shadow: 0 0 22px rgba(138, 43, 226, 0.4);
+    }
+
+    h2 {
+      font-size: clamp(1.4rem, 3.2vw, 2.1rem);
+      margin-bottom: 16px;
+      color: #f5f7ff;
+      text-shadow: 0 0 16px rgba(0, 229, 255, 0.25);
+    }
+
+    .key-gold {
+      color: #ffd700;
+      text-shadow: 0 0 16px rgba(255, 215, 0, 0.55);
+    }
+
+    .subheading,
+    .step,
+    .feature-card p,
+    .faq-answer,
+    .muted,
+    .legal-links button,
+    footer {
+      color: var(--text-muted);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .hero-copy {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .btn {
+      border: 2px solid transparent;
+      border-radius: 999px;
+      padding: 12px 20px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      cursor: pointer;
+      transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+      text-decoration: none;
+      display: inline-block;
+      text-align: center;
+    }
+
+    .btn-primary {
+      background: #090912;
+      color: #fff;
+      border-color: var(--purple);
+      box-shadow: var(--shadow-purple);
+      align-self: flex-start;
+    }
+
+    .btn-primary:hover,
+    .btn-primary:focus-visible {
+      transform: translateY(-2px);
+      box-shadow: 0 0 36px rgba(138, 43, 226, 0.55);
+      outline: none;
+    }
+
+    .btn-back {
+      background: linear-gradient(180deg, #a54bff 0%, #8A2BE2 100%);
+      border-color: #ffd700;
+      color: #ffffff;
+      box-shadow: 0 0 18px rgba(138, 43, 226, 0.65), 0 0 12px rgba(255, 215, 0, 0.45);
+      font-weight: 800;
+    }
+
+    .btn-back:hover,
+    .btn-back:focus-visible {
+      transform: translateY(-2px);
+      box-shadow: 0 0 24px rgba(138, 43, 226, 0.8), 0 0 16px rgba(255, 215, 0, 0.55);
+      outline: none;
+    }
+
+    .mockup {
+      min-height: 280px;
+      border-radius: var(--radius);
+      border: 2px dashed var(--blue);
+      background: linear-gradient(160deg, rgba(0, 229, 255, 0.08), rgba(138, 43, 226, 0.08));
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 20px;
+      box-shadow: var(--shadow-blue);
+      color: #d8fdff;
+      font-weight: 700;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .feature-card {
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: var(--radius);
+      padding: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      min-height: 100%;
+    }
+
+    .feature-card:nth-child(1) { border-color: rgba(255, 77, 225, 0.52); box-shadow: 0 0 16px rgba(255, 77, 225, 0.24); }
+    .feature-card:nth-child(2) { border-color: rgba(0, 229, 255, 0.52); box-shadow: 0 0 16px rgba(0, 229, 255, 0.24); }
+    .feature-card:nth-child(3) { border-color: rgba(255, 215, 0, 0.52); box-shadow: 0 0 16px rgba(255, 215, 0, 0.22); }
+
+    .feature-card h3 {
+      font-size: 1.18rem;
+      margin-bottom: 8px;
+    }
+
+    .steps {
+      display: grid;
+      gap: 12px;
+    }
+
+    .step {
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      padding: 12px 14px;
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .step strong { color: #fff; }
+
+    #pricing { scroll-margin-top: 24px; }
+
+    .pricing-wrap {
+      display: grid;
+      place-items: center;
+    }
+
+    .pricing-card {
+      width: min(100%, 560px);
+      border: 2px solid var(--yellow);
+      border-radius: 22px;
+      padding: 22px;
+      background: linear-gradient(180deg, rgba(20, 18, 7, 0.88), rgba(10, 10, 14, 0.95));
+      box-shadow: var(--shadow-yellow);
+    }
+
+    .plan {
+      margin: 0 0 4px;
+      color: #fff2b0;
+      text-transform: uppercase;
+      letter-spacing: 0.9px;
+      font-weight: 800;
+    }
+
+    .price {
+      margin: 0;
+      font-size: clamp(2.2rem, 6vw, 3rem);
+      line-height: 1;
+      color: var(--yellow);
+      text-shadow: 0 0 18px rgba(255, 215, 0, 0.55);
+      font-weight: 900;
+    }
+
+    .price::before { content: var(--price-currency); margin-right: 2px; }
+    .price::after { content: var(--price-amount); }
+
+    .price-sub {
+      margin: 8px 0 16px;
+      color: #fff;
+      font-weight: 600;
+    }
+
+    .benefits {
+      margin: 0 0 18px;
+      padding-left: 18px;
+    }
+
+    .benefits li { margin-bottom: 8px; }
+
+    .btn-pricing {
+      width: 100%;
+      border-color: var(--yellow);
+      background: #090909;
+      color: #ffffff;
+      box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+    }
+
+    .btn-pricing:hover,
+    .btn-pricing:focus-visible {
+      transform: translateY(-2px);
+      box-shadow: 0 0 28px rgba(255, 215, 0, 0.6);
+      outline: none;
+    }
+
+    .faq-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .faq-item {
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      padding: 14px;
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .faq-question {
+      margin: 0 0 6px;
+      color: #ffffff;
+      font-weight: 700;
+    }
+
+    .faq-answer {
+      margin: 0;
+    }
+
+    footer {
+      text-align: center;
+      padding: 8px 0 0;
+      font-size: 0.95rem;
+    }
+
+    .legal-links {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .legal-links button {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: #dfe5ff;
+      border-radius: 999px;
+      padding: 7px 12px;
+      cursor: pointer;
+    }
+
+    .legal-links button:hover,
+    .legal-links button:focus-visible {
+      border-color: var(--blue);
+      box-shadow: 0 0 12px rgba(0, 229, 255, 0.35);
+      outline: none;
+      color: #ffffff;
+    }
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.65);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      z-index: 1000;
+    }
+
+    .modal-backdrop.open { display: flex; }
+
+    .modal {
+      width: min(100%, 720px);
+      background: #0c0e1a;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 16px;
+      padding: 18px;
+      box-shadow: 0 0 36px rgba(138, 43, 226, 0.45);
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+
+    .modal h3 { margin-bottom: 10px; }
+
+    .modal p {
+      margin: 0;
+      color: #d0d6f1;
+    }
+
+    #legal-modal-body { color: #d0d6f1; }
+
+    .modal h4 {
+      margin: 12px 0 6px;
+      color: #ffd700;
+      font-size: 1rem;
+    }
+
+    .modal ul {
+      margin: 6px 0 8px 20px;
+      color: #d0d6f1;
+      padding: 0;
+    }
+
+    .modal a { color: #9ff6ff; }
+
+    .modal-actions {
+      margin-top: 14px;
+      text-align: right;
+    }
+
+    .modal-actions button {
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      background: #0a0b14;
+      color: #fff;
+      padding: 8px 14px;
+      cursor: pointer;
+    }
+
+    @media (max-width: 900px) {
+      .features-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 760px) {
+      .page { padding: 16px 12px 64px; gap: 18px; }
+      .section { padding: 18px; border-radius: 18px; }
+      .hero { grid-template-columns: 1fr; }
+      .btn-primary { width: 100%; }
+      .mockup { min-height: 210px; }
+      .features-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="section hero" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <h1 id="hero-title">Unlock Your Child's <span class="key-gold">Inner Superpower</span> in 31 Days! 🚀</h1>
+        <p style="margin: -2px 0 0 0; color: #ffd700; font-size: 0.92rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px;">Available Soon</p>
+        <p class="subheading">
+          Welcome to the Happy-Makers Survival Kit. A 31-day interactive web application (SaaS) designed to help kids boost self-esteem, master big feelings, and build unshakeable confidence. No App Store needed – install our Progressive Web App (PWA) directly on your phone or tablet!
+        </p>
+        <a class="btn btn-primary" href="#pricing">GET 12-MONTH ACCESS NOW</a>
+        <a class="btn btn-back" href="/#toolkits-path">← Back to Toolkit</a>
+      </div>
+      <div class="mockup" role="img" aria-label="App Interface Mockup placeholder">
+        App Interface Mockup (Phone + Laptop)
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="features-title">
+      <h2 id="features-title">What’s Inside Your <span class="key-gold">Digital Survival Kit</span>?</h2>
+      <div class="features-grid">
+        <article class="feature-card">
+          <h3>Tame Wild Emotions</h3>
+          <p>Map out where feelings hide by becoming a "Body Detective" and learn how to crush anxiety with the interactive "Worry Shredder" machine.</p>
+        </article>
+        <article class="feature-card">
+          <h3>Build Unshakeable Confidence</h3>
+          <p>Stop fearing failure. Transform every "Oops" into an "Awesome" by designing a "Mistake Masterpiece" and unlocking the "Bravery Medal".</p>
+        </article>
+        <article class="feature-card">
+          <h3>31 Interactive Mini-Missions</h3>
+          <p>Just 10 minutes a day! Connect with the Happy-Makers squad through daily quests, from activating "Zen Master Sloth Mode" to building your "Energy Bubble".</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="how-title">
+      <h2 id="how-title">How our Progressive Web App (PWA) Works:</h2>
+      <div class="steps">
+        <div class="step"><strong>Step 1:</strong> Purchase your 1-Year Access Pass securely online.</div>
+        <div class="step"><strong>Step 2:</strong> Instantly receive your private login credentials via email.</div>
+        <div class="step"><strong>Step 3:</strong> Log in through your browser and click "Install App" to add the Happy-Makers icon directly to your home screen.</div>
+        <div class="step"><strong>Step 4:</strong> Start the 31-day adventure! Your family's progress is securely synced in the cloud across all your devices.</div>
+      </div>
+    </section>
+
+    <section class="section" id="pricing" aria-labelledby="pricing-title">
+      <h2 id="pricing-title">Choose Your <span class="key-gold">Loadout</span></h2>
+      <div class="pricing-wrap">
+        <article class="pricing-card" aria-label="Pricing card">
+          <p class="plan">12-Month Unlimited Access Pass</p>
+          <p class="price" aria-label="Price"></p>
+          <p class="price-sub">One-Time Payment</p>
+          <ul class="benefits">
+            <li>Full access to the 31-Day Interactive Web App.</li>
+            <li>Progressive Web App (PWA) technology for mobile &amp; desktop.</li>
+            <li>Secure, encrypted cloud sync for multiple devices.</li>
+            <li>1-Year License (Access automatically expires after 365 days).</li>
+          </ul>
+          <button class="btn btn-pricing" type="button">START THE ADVENTURE</button>
+          <p class="muted" style="font-size: 0.86rem; margin: 12px 0 0;">Secure payments processed by Paddle. Due to the instant-access digital nature of this software, all sales are final.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="faq-title">
+      <h2 id="faq-title">FAQ</h2>
+      <div class="faq-list">
+        <article class="faq-item">
+          <p class="faq-question">Is this a physical book or a PDF?</p>
+          <p class="faq-answer">No. This is a digital Software-as-a-Service (SaaS) web application. You interact with it online, complete daily missions, and track your emotional mastery journey.</p>
+        </article>
+        <article class="faq-item">
+          <p class="faq-question">How do I download the app?</p>
+          <p class="faq-answer">We use modern PWA (Progressive Web App) technology. You don't need to visit the App Store. Just log in via your web browser and click the "Install" button inside the app to add it to your home screen.</p>
+        </article>
+        <article class="faq-item">
+          <p class="faq-question">What is your refund policy?</p>
+          <p class="faq-answer">Because our product is a digital application that grants instant access to our proprietary 31-day program, ALL SALES ARE FINAL. We do not offer refunds, returns, or exchanges under any circumstances. If you have technical issues logging in, our support team will help you immediately.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" style="display:flex; justify-content:center; align-items:center; padding-top:18px; padding-bottom:18px;">
+      <a class="btn btn-back" href="/#toolkits-path">← Back to Toolkit</a>
+    </section>
+
+    <footer>
+      <p style="margin: 0;">Support Email: rise.shine.evolve@gmail.com</p>
+      <div class="legal-links" role="navigation" aria-label="Legal links">
+        <button type="button" data-legal="terms">Terms of Service</button>
+        <button type="button" data-legal="privacy">Privacy Policy</button>
+        <button type="button" data-legal="refund">Return &amp; Refund Policy</button>
+      </div>
+    </footer>
+  </main>
+
+  <div class="modal-backdrop" id="legal-modal" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="legal-modal-title">
+      <h3 id="legal-modal-title"></h3>
+      <div id="legal-modal-body"></div>
+      <div class="modal-actions">
+        <button id="legal-modal-close" type="button">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var legalCopy = {
+        terms: {
+          title: 'Terms of Service',
+          body: 'By purchasing access to the Happy Makers web application, you are granted a personal license to access the platform for exactly 12 months from the date of purchase. This is not a lifetime license.'
+        },
+        privacy: {
+          title: 'Privacy Policy',
+          body: `<p><strong>Effective Date:</strong> January 1, 2025</p>
+            <h4>1. Information We Collect</h4>
+            <p>We collect information you provide directly to us when you subscribe to our community newsletter:</p>
+            <ul>
+              <li>First name</li>
+              <li>Email address</li>
+              <li>Communication preferences</li>
+            </ul>
+            <h4>2. How We Use Your Information</h4>
+            <p>We use the information we collect to:</p>
+            <ul>
+              <li>Send you educational materials and newsletters</li>
+              <li>Provide access to free educational resources</li>
+              <li>Communicate with you about our services and new releases</li>
+              <li>Improve our educational content</li>
+              <li>Comply with legal obligations</li>
+            </ul>
+            <h4>3. Information Sharing</h4>
+            <p>We do not sell, trade, or otherwise transfer your personal information to third parties without your consent, except as described in this policy or as required by law.</p>
+            <h4>4. Data Security</h4>
+            <p>We implement appropriate security measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction. Passwords are encrypted and stored securely.</p>
+            <h4>5. Your Rights (GDPR &amp; RODO Compliance)</h4>
+            <p>Under GDPR (General Data Protection Regulation) and Polish RODO (Rozporządzenie o Ochronie Danych Osobowych), you have the right to:</p>
+            <ul>
+              <li><strong>Access (Art. 15 GDPR/RODO):</strong> Request access to your personal data</li>
+              <li><strong>Rectification (Art. 16 GDPR/RODO):</strong> Correct inaccurate or incomplete data</li>
+              <li><strong>Erasure (Art. 17 GDPR/RODO):</strong> Request deletion of your data ("right to be forgotten")</li>
+              <li><strong>Restriction (Art. 18 GDPR/RODO):</strong> Restrict processing of your data</li>
+              <li><strong>Portability (Art. 20 GDPR/RODO):</strong> Receive your data in a structured format</li>
+              <li><strong>Objection (Art. 21 GDPR/RODO):</strong> Object to processing of your data</li>
+              <li><strong>Withdraw consent:</strong> Unsubscribe from newsletter at any time</li>
+              <li><strong>Lodge a complaint:</strong> File a complaint with supervisory authority (UODO in Poland)</li>
+            </ul>
+            <h4>6. Legal Basis for Processing (GDPR/RODO Art. 6)</h4>
+            <p>We process your data based on:</p>
+            <ul>
+              <li><strong>Consent (Art. 6(1)(a)):</strong> For newsletter subscriptions and community access</li>
+              <li><strong>Legitimate interests (Art. 6(1)(f)):</strong> For service improvement and educational content development</li>
+            </ul>
+            <h4>7. Data Retention</h4>
+            <p>We retain your newsletter subscription data only as long as necessary for the purposes outlined in this policy or as required by law. Newsletter data is kept until you unsubscribe from our community.</p>
+            <h4>8. International Transfers</h4>
+            <p>Your information may be transferred to and processed in countries other than your own. We ensure appropriate safeguards are in place in accordance with GDPR Chapter V.</p>
+            <h4>9. Contact &amp; Data Protection Officer</h4>
+            <p>For questions about this Privacy Policy or to exercise your rights, contact us at: <a href="mailto:rise.shine.evolve@gmail.com">rise.shine.evolve@gmail.com</a></p>
+            <p>You can also contact the Polish supervisory authority (UODO): <a href="https://uodo.gov.pl" target="_blank" rel="noopener noreferrer">uodo.gov.pl</a></p>
+            <p>This policy complies with GDPR (EU), RODO (Poland) and CCPA (California) data protection laws.</p>
+            <p>Rise.Shine.Evolve - Empowering Learning Hub</p>`,
+          isHtml: true
+        },
+        refund: {
+          title: 'Return & Refund Policy',
+          body: 'All Sales Are Final. Upon purchase, you are granted immediate access to the digital platform. Because the digital product is instantly accessible, we do not offer refunds, exchanges, or cancellations once the purchase is complete.'
+        }
+      };
+
+      var modal = document.getElementById('legal-modal');
+      var modalTitle = document.getElementById('legal-modal-title');
+      var modalBody = document.getElementById('legal-modal-body');
+      var closeButton = document.getElementById('legal-modal-close');
+
+      function openModal(key) {
+        var content = legalCopy[key];
+        if (!content) return;
+        modalTitle.textContent = content.title;
+        if (content.isHtml) {
+          modalBody.innerHTML = content.body;
+        } else {
+          modalBody.textContent = content.body;
+        }
+        modal.scrollTop = 0;
+        modal.classList.add('open');
+        modal.setAttribute('aria-hidden', 'false');
+      }
+
+      function closeModal() {
+        modal.classList.remove('open');
+        modal.setAttribute('aria-hidden', 'true');
+      }
+
+      document.querySelectorAll('[data-legal]').forEach(function (button) {
+        button.addEventListener('click', function () {
+          openModal(button.getAttribute('data-legal'));
+        });
+      });
+
+      closeButton.addEventListener('click', closeModal);
+      modal.addEventListener('click', function (event) {
+        if (event.target === modal) closeModal();
+      });
+      document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape' && modal.classList.contains('open')) {
+          closeModal();
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
