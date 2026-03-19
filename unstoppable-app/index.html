@@ -16,12 +16,13 @@
       --text-main: #f4f9ff;
       --text-muted: #b8c8de;
       --blue: #00cfff;
-      --green: #39ff88;
+      --green: #00e5ff;
+      --purple: #8A2BE2;
       --radius: 18px;
       --price-currency: "$";
       --price-amount: "";
       --shadow-blue: 0 0 28px rgba(0, 207, 255, 0.35);
-      --shadow-green: 0 0 28px rgba(57, 255, 136, 0.35);
+      --shadow-green: 0 0 28px rgba(0, 229, 255, 0.35);
     }
 
     * { box-sizing: border-box; }
@@ -31,7 +32,7 @@
       font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
       background:
         radial-gradient(circle at 10% 0%, rgba(0, 207, 255, 0.22), transparent 44%),
-        radial-gradient(circle at 100% 15%, rgba(57, 255, 136, 0.2), transparent 45%),
+        radial-gradient(circle at 100% 15%, rgba(138, 43, 226, 0.24), transparent 45%),
         var(--bg-main);
       color: var(--text-main);
       line-height: 1.6;
@@ -53,10 +54,10 @@
       padding: 24px;
     }
 
-    .section:nth-of-type(1) { border-color: rgba(138, 43, 226, 0.6); box-shadow: 0 0 20px rgba(138, 43, 226, 0.25); }
-    .section:nth-of-type(2) { border-color: rgba(255, 105, 180, 0.5); box-shadow: 0 0 18px rgba(255, 105, 180, 0.2); }
-    .section:nth-of-type(3) { border-color: rgba(255, 215, 0, 0.55); box-shadow: 0 0 18px rgba(255, 215, 0, 0.22); }
-    .section:nth-of-type(4) { border-color: rgba(0, 207, 255, 0.6); box-shadow: 0 0 18px rgba(0, 207, 255, 0.22); }
+    .section:nth-of-type(1) { border-color: rgba(0, 229, 255, 0.6); box-shadow: 0 0 20px rgba(0, 229, 255, 0.25); }
+    .section:nth-of-type(2) { border-color: rgba(138, 43, 226, 0.55); box-shadow: 0 0 18px rgba(138, 43, 226, 0.22); }
+    .section:nth-of-type(3) { border-color: rgba(0, 229, 255, 0.55); box-shadow: 0 0 18px rgba(0, 229, 255, 0.22); }
+    .section:nth-of-type(4) { border-color: rgba(138, 43, 226, 0.55); box-shadow: 0 0 18px rgba(138, 43, 226, 0.22); }
 
     h1, h2, h3 { margin-top: 0; line-height: 1.2; }
 
@@ -129,7 +130,7 @@
       min-height: 280px;
       border-radius: var(--radius);
       border: 2px dashed var(--green);
-      background: linear-gradient(160deg, rgba(57, 255, 136, 0.08), rgba(0, 207, 255, 0.08));
+      background: linear-gradient(160deg, rgba(0, 229, 255, 0.08), rgba(138, 43, 226, 0.1));
       display: grid;
       place-items: center;
       text-align: center;
@@ -183,13 +184,13 @@
       border: 2px solid var(--green);
       border-radius: 22px;
       padding: 22px;
-      background: linear-gradient(180deg, rgba(8, 30, 18, 0.82), rgba(4, 10, 18, 0.95));
+      background: linear-gradient(180deg, rgba(8, 22, 34, 0.88), rgba(8, 8, 20, 0.95));
       box-shadow: var(--shadow-green);
     }
 
     .plan {
       margin: 0 0 4px;
-      color: #b4ffd6;
+      color: #b9e3ff;
       text-transform: uppercase;
       letter-spacing: 0.9px;
       font-weight: 800;
@@ -200,7 +201,7 @@
       font-size: clamp(2.2rem, 6vw, 3rem);
       line-height: 1;
       color: var(--green);
-      text-shadow: 0 0 18px rgba(57, 255, 136, 0.55);
+      text-shadow: 0 0 18px rgba(0, 229, 255, 0.55);
       font-weight: 900;
     }
 
@@ -354,7 +355,7 @@
     <section class="section hero" aria-labelledby="hero-title">
       <div class="hero-copy">
         <h1 id="hero-title">Stop Playing on Hard Mode. Level Up Your Mindset in 31 Days. 🎮</h1>
-        <p style="margin: -2px 0 0 0; color: #39ff88; font-size: 0.92rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px;">Available Soon</p>
+        <p style="margin: -2px 0 0 0; color: #8A2BE2; font-size: 0.92rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px;">Available Soon</p>
         <p class="subheading">
           Welcome to Project Unstoppable. A 31-day interactive web application (SaaS) built like a video game to help teens hack their focus, translate 'parent logic', block the haters, and unlock their inner Legend. Install our Progressive Web App (PWA) straight to your phone.
         </p>
@@ -431,7 +432,7 @@
     </section>
 
     <footer>
-      <p style="margin: 0;">Support Email: hello@rise-shine-evolve-learning-hub.com</p>
+      <p style="margin: 0;">Support Email: rise.shine.evolve@gmail.com</p>
       <div class="legal-links" role="navigation" aria-label="Legal links">
         <button type="button" data-legal="terms">Terms of Service</button>
         <button type="button" data-legal="privacy">Privacy Policy</button>

@@ -2685,7 +2685,6 @@
      <div id="teens-app-card" class="kids-tile" style="border: 3px solid #00e5ff; box-shadow: 0 0 35px rgba(0, 229, 255, 0.75), 0 0 60px rgba(0, 229, 255, 0.45); margin: 30px auto; max-width: 860px; padding: 26px 20px;">
       <div class="kids-text">
        <h3 style="color: #00e5ff; font-size: 1.8rem; margin-bottom: 12px; text-shadow: 0 0 20px rgba(0, 229, 255, 0.9);">⚡ TEENS APP</h3>
-       <p style="color: #7ff7ff; font-size: 1rem; margin: 0 0 20px 0;">Neon Cyberpunk Cyan Edition</p>
        <a href="/unstoppable-app" style="text-decoration:none; color:inherit; display:block; max-width: 280px; margin: 0 auto;">
         <div style="
               background: #000000;
@@ -10997,7 +10996,7 @@ restoreChallengeState();
       document.querySelectorAll(selector).forEach((element) => element.remove());
     });
 
-    const candidates = document.querySelectorAll('.tabs-container p, .tabs-container div, .tabs-container small, .tabs-container span');
+    const candidates = document.querySelectorAll('.tabs-container p, .tabs-container div, .tabs-container small, .tabs-container span, p, small, span, li');
     candidates.forEach((element) => {
       const text = (element.textContent || '').replace(/\s+/g, ' ').trim();
       if (/^(SEO pages:|Direct pages:)/i.test(text) || /Meet The Happy Makers.*Level Up Your Brain.*Happy Me Adventure/i.test(text)) {
