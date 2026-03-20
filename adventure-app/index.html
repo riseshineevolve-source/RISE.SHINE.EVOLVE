@@ -192,6 +192,45 @@
       margin-bottom: 8px;
     }
 
+    .story-flow {
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+
+    .story-block {
+      border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 18px;
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .story-block-muted {
+      border-color: rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.01);
+      color: #ddd7ea;
+    }
+
+    .story-block-bright {
+      border-color: rgba(255, 215, 0, 0.65);
+      box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
+    }
+
+    .story-list {
+      margin: 0;
+      padding-left: 18px;
+      display: grid;
+      gap: 8px;
+      color: #ffffff;
+    }
+
+    .story-cta {
+      text-align: center;
+      border: 2px solid rgba(138, 43, 226, 0.75);
+      box-shadow: 0 0 22px rgba(138, 43, 226, 0.32);
+      background: linear-gradient(180deg, rgba(22, 14, 36, 0.8), rgba(8, 8, 14, 0.92));
+    }
+
     .steps {
       display: grid;
       gap: 12px;
@@ -337,6 +376,7 @@
     .modal-backdrop.open { display: flex; }
 
     .modal {
+      position: relative;
       width: min(100%, 720px);
       background: #0c0e1a;
       border: 1px solid rgba(255, 255, 255, 0.16);
@@ -384,6 +424,21 @@
       cursor: pointer;
     }
 
+    .modal-close-top {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.55);
+      background: #0a0b14;
+      color: #fff;
+      font-size: 1.2rem;
+      line-height: 1;
+      cursor: pointer;
+    }
+
     @media (max-width: 900px) {
       .features-grid { grid-template-columns: 1fr 1fr; }
     }
@@ -418,19 +473,55 @@
     </section>
 
     <section class="section" aria-labelledby="features-title">
-      <h2 id="features-title">What’s Inside Your <span class="key-gold">Digital Survival Kit</span>?</h2>
-      <div class="features-grid">
-        <article class="feature-card">
-          <h3>Tame Wild Emotions</h3>
-          <p>Map out where feelings hide by becoming a "Body Detective" and learn how to crush anxiety with the interactive "Worry Shredder" machine.</p>
+      <h2 id="features-title"><span class="key-gold">ABOUT THE APP / FEATURES</span></h2>
+      <div class="story-flow">
+        <article class="story-block story-block-muted">
+          <h3>Let’s be honest: growing up is an amazing journey.</h3>
+          <p>But sometimes it feels like playing a video game on ‘Hard Mode’. The world gets loud, feelings get messy, and the pressure to fit in can be overwhelming. You see your child struggling with worry, perfectionism, or just finding their voice.</p>
+          <p>You want to guide them with confidence and joy, but you fear that asking questions feels like an ‘interrogation’ or a ‘boring lecture.’ You are scrambling to find the right tools to calm the storm when emotions take over.</p>
+          <p><strong class="key-gold">Where do you start?</strong></p>
         </article>
-        <article class="feature-card">
-          <h3>Build Unshakeable Confidence</h3>
-          <p>Stop fearing failure. Transform every "Oops" into an "Awesome" by designing a "Mistake Masterpiece" and unlocking the "Bravery Medal".</p>
+
+        <article class="story-block story-block-bright">
+          <h3 class="key-gold">Welcome to The Confident, Mindful &amp; Happy Me Adventure!</h3>
+          <p>This isn't just an ebook or a PDF. It is an interactive, digital Survival Kit and a creative roadmap designed to help your child master the wild ride of growing up with courage and a smile. We turn ‘I can’t’ into ‘I can,’ and boring days into legendary quests directly on their screen.</p>
         </article>
-        <article class="feature-card">
-          <h3>31 Interactive Mini-Missions</h3>
-          <p>Just 10 minutes a day! Connect with the Happy-Makers squad through daily quests, from activating "Zen Master Sloth Mode" to building your "Energy Bubble".</p>
+
+        <article class="story-block">
+          <h3 class="key-gold">Built for Real Connection</h3>
+          <div class="features-grid">
+            <article class="feature-card">
+              <h3>🎮 One Interactive Mission a Day</h3>
+              <p>No overwhelm. The app unlocks just 10 minutes of engaging, bite-sized daily quests to build unshakeable resilience.</p>
+            </article>
+            <article class="feature-card">
+              <h3>📊 Personal Progress Dashboard</h3>
+              <p>Every completed quest is automatically saved! Your child can track their journey, watch their XP grow, and visually see their superpowers evolving.</p>
+            </article>
+            <article class="feature-card">
+              <h3>🤝 The "Show Your Parent" Feature</h3>
+              <p>We eliminated the "How was your day? / Fine." loop. Each mission ends with a prompt kids can proudly show you on the screen, sharing their wins and thoughts, and sparking meaningful, pressure-free conversations.</p>
+            </article>
+          </div>
+        </article>
+
+        <article class="story-block">
+          <h3 class="key-gold">THE 31-DAY MISSION: READY TO LEVEL UP?</h3>
+          <p>The journey is divided into 5 EXCITING LEVELS to build a growth mindset:</p>
+          <ul class="story-list">
+            <li><strong>WEEK 1: Build Your Fortress (Feeling Safe &amp; Grounded).</strong> Learning grounding techniques to feel secure and worthy.</li>
+            <li><strong>WEEK 2: Tame the Wild Emotions (Mastering Anxiety &amp; Anger).</strong> Using fun metaphors to regulate reactions and turn ‘monsters’ into friends.</li>
+            <li><strong>WEEK 3: Shine Your Light (Building Unshakeable Confidence).</strong> Discovering unique strengths and learning to stand tall.</li>
+            <li><strong>WEEK 4: Assemble Your Team (Connection &amp; Kindness).</strong> Exploring the power of empathy, setting boundaries, and asking for support.</li>
+            <li><strong>WEEK 5: Fly High (Launching Your Dreams).</strong> Integrating all the tools to set goals and celebrate personal growth.</li>
+          </ul>
+        </article>
+
+        <article class="story-block story-cta">
+          <h3 class="key-gold">The world is waiting for your child's magic.</h3>
+          <p>We don't just tell them they are brave, we give them the digital toolkit to feel resilient, capable, and confident every single day.</p>
+          <p>Whenever they face a tough moment in the future, they can simply open the app on your phone like an emotional first-aid box, pick the exact tool they need, and apply it immediately.</p>
+          <p style="margin: 0; font-weight: 800; letter-spacing: 1px;" class="key-gold">IT IS TIME TO RISE. SHINE. EVOLVE. TOGETHER!</p>
         </article>
       </div>
     </section>
@@ -498,6 +589,7 @@
 
   <div class="modal-backdrop" id="legal-modal" aria-hidden="true">
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="legal-modal-title">
+      <button class="modal-close-top js-close-legal" type="button" aria-label="Close privacy policy modal">×</button>
       <h3 id="legal-modal-title"></h3>
       <div id="legal-modal-body"></div>
       <div class="modal-actions">
@@ -575,6 +667,7 @@
       var modalTitle = document.getElementById('legal-modal-title');
       var modalBody = document.getElementById('legal-modal-body');
       var closeButton = document.getElementById('legal-modal-close');
+      var closeTopButtons = document.querySelectorAll('.js-close-legal');
 
       function openModal(key) {
         var content = legalCopy[key];
@@ -602,6 +695,9 @@
       });
 
       closeButton.addEventListener('click', closeModal);
+      closeTopButtons.forEach(function (button) {
+        button.addEventListener('click', closeModal);
+      });
       modal.addEventListener('click', function (event) {
         if (event.target === modal) closeModal();
       });

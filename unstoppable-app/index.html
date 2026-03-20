@@ -330,6 +330,7 @@
     .modal-backdrop.open { display: flex; }
 
     .modal {
+      position: relative;
       width: min(100%, 720px);
       background: #09111e;
       border: 1px solid rgba(255, 255, 255, 0.16);
@@ -374,6 +375,21 @@
       background: #06101d;
       color: #fff;
       padding: 8px 14px;
+      cursor: pointer;
+    }
+
+    .modal-close-top {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.55);
+      background: #06101d;
+      color: #fff;
+      font-size: 1.2rem;
+      line-height: 1;
       cursor: pointer;
     }
 
@@ -491,6 +507,7 @@
 
   <div class="modal-backdrop" id="legal-modal" aria-hidden="true">
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="legal-modal-title">
+      <button class="modal-close-top js-close-legal" type="button" aria-label="Close privacy policy modal">×</button>
       <h3 id="legal-modal-title"></h3>
       <div id="legal-modal-body"></div>
       <div class="modal-actions">
@@ -568,6 +585,7 @@
       var modalTitle = document.getElementById('legal-modal-title');
       var modalBody = document.getElementById('legal-modal-body');
       var closeButton = document.getElementById('legal-modal-close');
+      var closeTopButtons = document.querySelectorAll('.js-close-legal');
 
       function openModal(key) {
         var content = legalCopy[key];
@@ -595,6 +613,9 @@
       });
 
       closeButton.addEventListener('click', closeModal);
+      closeTopButtons.forEach(function (button) {
+        button.addEventListener('click', closeModal);
+      });
       modal.addEventListener('click', function (event) {
         if (event.target === modal) closeModal();
       });
