@@ -14,7 +14,7 @@
       --bg-main: #05050a;
       --bg-card: #0e0f1c;
       --text-main: #ffffff;
-      --text-muted: #b7bdd6;
+      --text-muted: #e6ddff;
       --purple: #8a2be2;
       --blue: #00e5ff;
       --yellow: #ffd700;
@@ -141,6 +141,13 @@
       font-weight: 800;
     }
 
+    .btn-back-mini {
+      padding: 8px 14px;
+      font-size: 0.9rem;
+      letter-spacing: 0.3px;
+      text-transform: none;
+    }
+
     .btn-back:hover,
     .btn-back:focus-visible {
       transform: translateY(-2px);
@@ -176,9 +183,9 @@
       min-height: 100%;
     }
 
-    .feature-card:nth-child(1) { border-color: rgba(255, 77, 225, 0.52); box-shadow: 0 0 16px rgba(255, 77, 225, 0.24); }
-    .feature-card:nth-child(2) { border-color: rgba(0, 229, 255, 0.52); box-shadow: 0 0 16px rgba(0, 229, 255, 0.24); }
-    .feature-card:nth-child(3) { border-color: rgba(255, 215, 0, 0.52); box-shadow: 0 0 16px rgba(255, 215, 0, 0.22); }
+    .feature-card:nth-child(1) { border-color: rgba(138, 43, 226, 0.62); box-shadow: 0 0 16px rgba(138, 43, 226, 0.28); }
+    .feature-card:nth-child(2) { border-color: rgba(255, 215, 0, 0.6); box-shadow: 0 0 16px rgba(255, 215, 0, 0.28); }
+    .feature-card:nth-child(3) { border-color: rgba(138, 43, 226, 0.58); box-shadow: 0 0 16px rgba(138, 43, 226, 0.24); }
 
     .feature-card h3 {
       font-size: 1.18rem;
@@ -393,6 +400,9 @@
 </head>
 <body>
   <main class="page">
+    <div style="display:flex; justify-content:flex-start; margin-bottom: -6px;">
+      <a class="btn btn-back btn-back-mini" href="/#toolkits-path">← Back to Toolkit</a>
+    </div>
     <section class="section hero" aria-labelledby="hero-title">
       <div class="hero-copy">
         <h1 id="hero-title">Unlock Your Child's <span class="key-gold">Inner Superpower</span> in 31 Days! 🚀</h1>
@@ -401,7 +411,6 @@
           Welcome to the Happy-Makers Survival Kit. A 31-day interactive web application (SaaS) designed to help kids boost self-esteem, master big feelings, and build unshakeable confidence. No App Store needed – install our Progressive Web App (PWA) directly on your phone or tablet!
         </p>
         <a class="btn btn-primary" href="#pricing">GET 12-MONTH ACCESS NOW</a>
-        <a class="btn btn-back" href="/#toolkits-path">← Back to Toolkit</a>
       </div>
       <div class="mockup" role="img" aria-label="App Interface Mockup placeholder">
         App Interface Mockup (Phone + Laptop)

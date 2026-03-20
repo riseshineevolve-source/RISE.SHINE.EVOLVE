@@ -2131,8 +2131,8 @@
             <div>Calm <span style="color:#666; font-weight:300; margin: 0 6px;">|</span> Confidence</div>
             <div>Connection <span style="color:#666; font-weight:300; margin: 0 6px;">|</span> Joy</div>
            </div>
-           <p style="margin: 0; text-align: center;">Tools kids can actually<br>reach for in the moment.</p>
-           <p style="margin: 0; text-align: center;">No lectures,<br>no ‘perfect kid’ pressure.</p>
+           <p style="margin: 0; text-align: center;">Actionable cheat codes for every player in the family.</p>
+           <p style="margin: 0; text-align: center;">No boring lectures, no cringe, and absolutely zero 'perfect family' pressure.</p>
           </div>
                     </p>
           </div>
@@ -10060,6 +10060,9 @@ restoreChallengeState();
             if (!modal) {
                 return;
             }
+            if (localStorage.getItem('bookPromoShown') === 'true') {
+                return;
+            }
             const showModal = () => {
                 if (modal.classList.contains('show')) {
                     return;
@@ -10078,6 +10081,7 @@ restoreChallengeState();
                 }
                 window.scrollTo(0, 0);
                 document.body.style.overflow = 'hidden';
+                localStorage.setItem('bookPromoShown', 'true');
             };
 
             const cover = modal.querySelector('img');
@@ -10103,6 +10107,7 @@ restoreChallengeState();
             }
             document.body.style.overflow = 'auto';
             sessionStorage.setItem('bookPromoDismissed', 'true');
+            localStorage.setItem('bookPromoShown', 'true');
         }
 
         function handleBookPromoExplore(event) {
@@ -10442,7 +10447,8 @@ restoreChallengeState();
                 const privacyOpen = privacyModal && privacyModal.style.display === 'block';
                 const welcomeOpen = welcomeModal && welcomeModal.style.display === 'flex';
                 const detailsOpen = fullScreenDetails && fullScreenDetails.style.display === 'block';
-                if (!emailOpen && !privacyOpen && !welcomeOpen && !detailsOpen && promoModal && !promoModal.classList.contains('show')) {
+                const promoSeen = localStorage.getItem('bookPromoShown') === 'true';
+                if (!promoSeen && !emailOpen && !privacyOpen && !welcomeOpen && !detailsOpen && promoModal && !promoModal.classList.contains('show')) {
                     showBookPromoModal();
                 }
             }, 2500);
