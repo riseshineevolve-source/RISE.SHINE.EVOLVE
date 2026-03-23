@@ -165,8 +165,14 @@
       text-align: center;
       padding: 20px;
       box-shadow: var(--shadow-blue);
-      color: #d8fdff;
-      font-weight: 700;
+    }
+
+    .mockup img {
+      width: min(100%, 260px);
+      height: auto;
+      border-radius: 14px;
+      border: 2px solid rgba(0, 229, 255, 0.75);
+      box-shadow: 0 0 20px rgba(0, 229, 255, 0.42);
     }
 
     .features-grid {
@@ -190,6 +196,27 @@
     .feature-card h3 {
       font-size: 1.18rem;
       margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .feature-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.42);
+      color: #f8f4ff;
+      font-size: 0.95rem;
+      line-height: 1;
+      background: radial-gradient(circle at 30% 30%, rgba(255, 215, 0, 0.45), rgba(138, 43, 226, 0.35) 60%, rgba(5, 9, 16, 0.65));
+      box-shadow:
+        0 0 14px rgba(255, 215, 0, 0.3),
+        0 0 20px rgba(138, 43, 226, 0.24);
+      flex-shrink: 0;
     }
 
     .story-flow {
@@ -456,7 +483,7 @@
 <body>
   <main class="page">
     <div style="display:flex; justify-content:flex-start; margin-bottom: -6px;">
-      <a class="btn btn-back btn-back-mini" href="/#toolkits-path">← Back to Toolkit</a>
+      <a class="btn btn-back btn-back-mini" href="/kids/">← Back to Toolkit</a>
     </div>
     <section class="section hero" aria-labelledby="hero-title">
       <div class="hero-copy">
@@ -467,8 +494,8 @@
         </p>
         <a class="btn btn-primary" href="#pricing">GET 12-MONTH ACCESS NOW</a>
       </div>
-      <div class="mockup" role="img" aria-label="App Interface Mockup placeholder">
-        App Interface Mockup (Phone + Laptop)
+      <div class="mockup">
+        <img src="/assets/images/Confident,%20Mindful%20%26%20Happy%20Me%20cover.png" alt="The Confident, Mindful and Happy Me app cover" loading="lazy" />
       </div>
     </section>
 
@@ -491,15 +518,15 @@
           <h3 class="key-gold">Built for Real Connection</h3>
           <div class="features-grid">
             <article class="feature-card">
-              <h3>🎮 One Interactive Mission a Day</h3>
+              <h3><span class="feature-icon" aria-hidden="true">◈</span>One Interactive Mission a Day</h3>
               <p>No overwhelm. The app unlocks just 10 minutes of engaging, bite-sized daily quests to build unshakeable resilience.</p>
             </article>
             <article class="feature-card">
-              <h3>📊 Personal Progress Dashboard</h3>
+              <h3><span class="feature-icon" aria-hidden="true">◉</span>Personal Progress Dashboard</h3>
               <p>Every completed quest is automatically saved! Your child can track their journey, watch their XP grow, and visually see their superpowers evolving.</p>
             </article>
             <article class="feature-card">
-              <h3>🤝 The "Show Your Parent" Feature</h3>
+              <h3><span class="feature-icon" aria-hidden="true">✦</span>The "Show Your Parent" Feature</h3>
               <p>We eliminated the "How was your day? / Fine." loop. Each mission ends with a prompt kids can proudly show you on the screen, sharing their wins and thoughts, and sparking meaningful, pressure-free conversations.</p>
             </article>
           </div>
@@ -574,7 +601,7 @@
     </section>
 
     <section class="section" style="display:flex; justify-content:center; align-items:center; padding-top:18px; padding-bottom:18px;">
-      <a class="btn btn-back" href="/#toolkits-path">← Back to Toolkit</a>
+      <a class="btn btn-back" href="/kids/">← Back to Toolkit</a>
     </section>
 
     <footer>

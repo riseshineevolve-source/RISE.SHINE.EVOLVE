@@ -163,8 +163,14 @@
       text-align: center;
       padding: 20px;
       box-shadow: var(--shadow-green);
-      color: #d8ffe9;
-      font-weight: 700;
+    }
+
+    .mockup img {
+      width: min(100%, 260px);
+      height: auto;
+      border-radius: 14px;
+      border: 2px solid rgba(0, 229, 255, 0.75);
+      box-shadow: 0 0 20px rgba(0, 229, 255, 0.42);
     }
 
     .features-grid {
@@ -184,6 +190,30 @@
     .feature-card:nth-child(1) { border-color: rgba(138, 43, 226, 0.62); box-shadow: 0 0 16px rgba(138, 43, 226, 0.3); }
     .feature-card:nth-child(2) { border-color: rgba(255, 215, 0, 0.58); box-shadow: 0 0 16px rgba(255, 215, 0, 0.28); }
     .feature-card:nth-child(3) { border-color: rgba(138, 43, 226, 0.58); box-shadow: 0 0 16px rgba(138, 43, 226, 0.26); }
+
+    .feature-card h3 {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .feature-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.42);
+      color: #f5f6ff;
+      font-size: 0.95rem;
+      line-height: 1;
+      background: radial-gradient(circle at 30% 30%, rgba(0, 229, 255, 0.42), rgba(138, 43, 226, 0.32) 60%, rgba(5, 9, 16, 0.65));
+      box-shadow:
+        0 0 14px rgba(0, 207, 255, 0.3),
+        0 0 20px rgba(138, 43, 226, 0.24);
+      flex-shrink: 0;
+    }
 
     .steps {
       display: grid;
@@ -410,7 +440,7 @@
 <body>
   <main class="page">
     <div style="display:flex; justify-content:flex-start; margin-bottom: -6px;">
-      <a class="btn btn-back btn-back-mini" href="/#toolkits-path">← Back to Toolkit</a>
+      <a class="btn btn-back btn-back-mini" href="/teenagers/">← Back to Toolkit</a>
     </div>
     <section class="section hero" aria-labelledby="hero-title">
       <div class="hero-copy">
@@ -421,8 +451,8 @@
         </p>
         <a class="btn btn-primary" href="#pricing">GET 12-MONTH ACCESS NOW</a>
       </div>
-      <div class="mockup" role="img" aria-label="Gamer-style app mockup placeholder">
-        Gamer-Style App Mockup (Phone + Laptop)
+      <div class="mockup">
+        <img src="/assets/images/LEVEL%20UP%20YOUR%20BRAIN%20COVER%20WORLD%2002.png" alt="Project Unstoppable app cover" loading="lazy" />
       </div>
     </section>
 
@@ -430,15 +460,15 @@
       <h2 id="features-title">The Ultimate <span class="key-purple">Cheat Codes</span> for Real Life</h2>
       <div class="features-grid">
         <article class="feature-card">
-          <h3>The Hater Blocker &amp; Squad Analysis</h3>
+          <h3><span class="feature-icon" aria-hidden="true">◈</span>The Hater Blocker &amp; Squad Analysis</h3>
           <p>Trolls are just lag. Learn to build a "Teflon Shield" against drama, run a Vibe Check on your friends, and master the "Grey Rock" face.</p>
         </article>
         <article class="feature-card">
-          <h3>Focus Fortress &amp; Brain Hacks</h3>
+          <h3><span class="feature-icon" aria-hidden="true">◉</span>Focus Fortress &amp; Brain Hacks</h3>
           <p>Defeat the "Procrastination Slayer" with the 5-Minute Glitch. Ditch useless highlighting and learn to hack school with "Active Recall" cheat sheets.</p>
         </article>
         <article class="feature-card">
-          <h3>The Parent Translator</h3>
+          <h3><span class="feature-icon" aria-hidden="true">✦</span>The Parent Translator</h3>
           <p>Parents are basically NPCs with upgrades. Learn their language to negotiate better, stop the nagging, and unlock more freedom.</p>
         </article>
       </div>
@@ -492,7 +522,7 @@
     </section>
 
     <section class="section" style="display:flex; justify-content:center; align-items:center; padding-top:18px; padding-bottom:18px;">
-      <a class="btn btn-back" href="/#toolkits-path">← Back to Toolkit</a>
+      <a class="btn btn-back" href="/teenagers/">← Back to Toolkit</a>
     </section>
 
     <footer>
