@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Rise Shine Evolve Updates</title>
+    <link>https://rise-shine-evolve-learning-hub.com/</link>
+    <atom:link href="https://rise-shine-evolve-learning-hub.com/feed.xml" rel="self" type="application/rss+xml" />
+    <description>Updates for Rise Shine Evolve hubs, books, and gifts landing pages.</description>
+    <language>en-us</language>
+    <managingEditor>hello@rise-shine-evolve-learning-hub.com (Rise Shine Evolve)</managingEditor>
+    <webMaster>hello@rise-shine-evolve-learning-hub.com (Rise Shine Evolve)</webMaster>
+    <lastBuildDate>Mon, 09 Mar 2026 13:59:40 +0000</lastBuildDate>
+    <ttl>1440</ttl>
+    <image>
+      <url>https://rise-shine-evolve-learning-hub.com/assets/images/pp.png</url>
+      <title>Rise Shine Evolve Updates</title>
+      <link>https://rise-shine-evolve-learning-hub.com/</link>
+    </image>
+
+    <item>
+      <title>SEO hubs and landing pages rollout</title>
+      <link>https://rise-shine-evolve-learning-hub.com/site-map/</link>
+      <description>Dedicated hubs and landing pages for library, gifts, kids, teenagers and adults.</description>
+      <category>SEO</category>
+      <pubDate>Mon, 09 Mar 2026 13:59:40 +0000</pubDate>
+      <guid isPermaLink="true">https://rise-shine-evolve-learning-hub.com/site-map/</guid>
+    </item>
+
+    <item>
+      <title>Library collection pages available</title>
+      <link>https://rise-shine-evolve-learning-hub.com/library/</link>
+      <description>World 01, World 02 and additional library resource pages are available.</description>
+      <category>Library</category>
+      <pubDate>Mon, 09 Mar 2026 13:59:40 +0000</pubDate>
+      <guid isPermaLink="true">https://rise-shine-evolve-learning-hub.com/library/</guid>
+    </item>
+
+    <item>
+      <title>Gifts pages and tools available</title>
+      <link>https://rise-shine-evolve-learning-hub.com/gifts/</link>
+      <description>Family Motto, Calm/Energy, Word Search and Word Search Studio pages are available.</description>
+      <category>Gifts</category>
+      <pubDate>Mon, 09 Mar 2026 13:59:40 +0000</pubDate>
+      <guid isPermaLink="true">https://rise-shine-evolve-learning-hub.com/gifts/</guid>
+    </item>
+  </channel>
+</rss>
