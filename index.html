@@ -10581,6 +10581,36 @@ restoreChallengeState();
             });
         }
 
+        function showGiftMobileNotice(message) {
+            const mobileTips = document.querySelector('.gifts-mobile-instructions');
+            if (!mobileTips) {
+                return;
+            }
+
+            let notice = document.getElementById('gift-mobile-notice');
+            if (!notice) {
+                notice = document.createElement('div');
+                notice.id = 'gift-mobile-notice';
+                notice.className = 'gift-instruction';
+                notice.style.borderColor = '#ffd700';
+                notice.style.boxShadow = '0 0 16px rgba(255, 215, 0, 0.4)';
+                const title = document.createElement('h4');
+                title.textContent = 'Pop-up blocked';
+                const body = document.createElement('p');
+                body.style.margin = '0';
+                body.textContent = '';
+                notice.appendChild(title);
+                notice.appendChild(body);
+                mobileTips.appendChild(notice);
+            }
+
+            const bodyText = notice.querySelector('p');
+            if (bodyText) {
+                bodyText.textContent = message;
+            }
+            notice.style.display = 'block';
+        }
+
         async function openGiftOverlay(key, event) {
             if (event) {
                 event.stopPropagation();
@@ -10626,7 +10656,7 @@ restoreChallengeState();
                 if (openGiftInNewWindow(key, html, source)) {
                     return;
                 }
-                showGiftFallback('Please allow pop-ups to open this gift in a new tab.');
+                showGiftMobileNotice('Please allow pop-ups to open this gift in a new tab. You can stay on this Gifts list and try again.');
                 return;
             }
 
