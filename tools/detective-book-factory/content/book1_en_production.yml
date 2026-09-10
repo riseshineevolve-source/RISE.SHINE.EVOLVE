@@ -126,7 +126,7 @@ missions:
       - speaker: "alio"
         text: "Large vent theory."
     spatial:
-      source_page_asset: "assets/production/case02_grid.png"
+      source_page_asset: "assets/production/case02_grid.jpg"
       crop: null
       clue_cards:
         - "MONA was beside a car and beside a workbench."
@@ -136,7 +136,7 @@ missions:
         - "BELLA shared a room with a toilet, but was not beside it."
         - "EDA was the trophy keeper. Exactly one other person was alone in her room."
       answer: "PORTIA"
-      solution_asset: "assets/production/case02_solution.png"
+      solution_asset: "assets/production/case02_solution.jpg"
       solution_crop: null
       source_note: "Prototype logic module from Shigai. Final edition will use rebuilt RSE artwork and renamed room assets."
     meta_reveal: "A tiny 0 is stamped on the underside of the trophy's temporary evidence tag."
@@ -195,7 +195,7 @@ missions:
       - speaker: "mimi"
         text: "Classic label problem."
     spatial:
-      source_page_asset: "assets/production/case04_grid.png"
+      source_page_asset: "assets/production/case04_grid.jpg"
       crop: null
       clue_cards:
         - "LUTHER was in the Break Room and in row 5."
@@ -205,7 +205,7 @@ missions:
         - "WARREN shared a room with a couch, but was not beside it."
         - "GISELLE had the box list. Exactly one other person was alone in her room."
       answer: "WARREN"
-      solution_asset: "assets/production/case04_solution.png"
+      solution_asset: "assets/production/case04_solution.jpg"
       solution_crop: null
       source_note: "Prototype logic module from Shigai. Final art will be rethemed as the fair kitchen and collection area."
     meta_reveal: "The wrong box has a round quality-control sticker with a tiny 0 printed inside it."
