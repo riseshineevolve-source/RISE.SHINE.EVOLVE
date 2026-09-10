@@ -28,21 +28,38 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r tools/detective-book-factory/requirements.txt
 
-      - name: Build PDF
+      - name: Build production preview
+        working-directory: tools/detective-book-factory
         run: |
-          mkdir -p tools/detective-book-factory/dist
-          python tools/detective-book-factory/render_book.py \
-            --content tools/detective-book-factory/content/book_en.yml \
-            --output tools/detective-book-factory/dist/Happy-Makers-Detective-Academy-Blueprint-EN.pdf
+          mkdir -p dist
+          python render_book.py \
+            --content content/book1_en_production.yml \
+            --output dist/HMDA_Book1_Production_Preview_v1.pdf
 
-      - name: Basic PDF preflight
+      - name: Preflight
+        working-directory: tools/detective-book-factory
         run: |
-          pdfinfo tools/detective-book-factory/dist/Happy-Makers-Detective-Academy-Blueprint-EN.pdf
-          test "$(pdfinfo tools/detective-book-factory/dist/Happy-Makers-Detective-Academy-Blueprint-EN.pdf | awk '/Pages:/ {print $2}')" -ge 30
+          python scripts/preflight.py \
+            --content content/book1_en_production.yml \
+            --pdf dist/HMDA_Book1_Production_Preview_v1.pdf \
+            --min-pages 25 \
+            --report dist/preflight.txt
+          pdfinfo dist/HMDA_Book1_Production_Preview_v1.pdf
 
-      - name: Upload built PDF
+      - name: Render page previews
+        working-directory: tools/detective-book-factory
+        run: |
+          python scripts/make_previews.py \
+            --pdf dist/HMDA_Book1_Production_Preview_v1.pdf \
+            --out dist/previews \
+            --dpi 144
+
+      - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
-          name: detective-academy-pdf
-          path: tools/detective-book-factory/dist/*.pdf
+          name: detective-academy-production-preview
+          path: |
+            tools/detective-book-factory/dist/HMDA_Book1_Production_Preview_v1.pdf
+            tools/detective-book-factory/dist/preflight.txt
+            tools/detective-book-factory/dist/previews/*.png
           if-no-files-found: error
