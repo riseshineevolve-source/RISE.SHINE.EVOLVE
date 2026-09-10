@@ -1,0 +1,262 @@
+book:
+  title: "HAPPY MAKERS DETECTIVE ACADEMY"
+  subtitle: "THE MYSTERY OF ROOM ZERO"
+  strapline: "30 OFFLINE MYSTERY MISSIONS FOR CURIOUS KIDS AGES 8-12"
+  opening_code: "ONE DETECTIVE IS STILL MISSING."
+  rule_zero: "ZERO ASSUMPTIONS. NOTICE FIRST. THEORIZE SECOND."
+  edition: "Production Preview v1"
+  language: "EN"
+
+characters:
+  bibi:
+    name: "GRANDMA BIBI"
+    tag: "ARCHIVE NOTE"
+    asset: "assets/production/bibi.png"
+  luli:
+    name: "LULI"
+    tag: "CLUE CHECK"
+    asset: "assets/production/luli.png"
+  dilo:
+    name: "DILO"
+    tag: "CODE DROP"
+    asset: "assets/production/dilo.png"
+  alio:
+    name: "ALIO"
+    tag: "FIELD ALERT"
+    asset: "assets/production/alio.png"
+  nini:
+    name: "NINI"
+    tag: "NUDGE"
+    asset: "assets/production/nini.png"
+  mimi:
+    name: "MIMI"
+    tag: "CASE NOTE"
+    asset: "assets/production/mimi.png"
+  squad:
+    name: "THE HAPPY MAKERS"
+    tag: "YOUR SQUAD"
+    asset: "assets/production/squad.jpg"
+
+opening:
+  acceptance_letter:
+    headline: "DETECTIVE RECRUITMENT NOTICE"
+    body: >-
+      A black envelope arrived with no stamp, no sender and one silver mark: 0.
+      Inside was an old Detective Academy badge. The name line was blank. The status line was not.
+      It read: ONE DETECTIVE IS STILL MISSING.
+    note: >-
+      Write your detective name on the badge. From this page on, you are not reading about the case. You are in it.
+  squad_intro: >-
+    The Happy Makers are your squad, not your teachers. They will notice, argue, joke, test ideas, get stuck, recover, and occasionally suggest a secret tunnel when absolutely nobody asked for one. You make the final call.
+  how_to_play:
+    - "READ THE MISSION. Every case tells you exactly what must be discovered."
+    - "MARK THE EVIDENCE. Tick useful clues, cross out impossible positions, circle what matters."
+    - "USE A NUDGE ONLY IF YOU NEED IT. Being stuck is part of detective work."
+    - "WRITE YOUR VERDICT. Do not guess. Make the evidence earn your answer."
+    - "WATCH FOR STRANGE DETAILS. Not everything in this book is only about the case on that page."
+
+missions:
+  - number: 1
+    rank: "TRAINING"
+    type: "guided"
+    title: "THE BADGE THAT ARRIVED BEFORE THE MAIL"
+    status: "MISSION ACTIVE"
+    guides: ["mimi", "luli"]
+    hook: >-
+      The post has not arrived. The front door has not opened. Yet a Detective Academy badge is sitting on Mimi's kitchen table.
+    objective: "Work out who was at the delivery desk when the badge appeared."
+    dialogue:
+      - speaker: "mimi"
+        text: "Nobody touches the evidence."
+      - speaker: "luli"
+        text: "You just moved the mug."
+      - speaker: "mimi"
+        text: "I was establishing authority."
+    tutorial:
+      size: 4
+      cols: ["A", "B", "C", "D"]
+      rows: [1, 2, 3, 4]
+      people: ["ARI", "BEA", "COLE", "DANI"]
+      positions:
+        ARI: "B1"
+        BEA: "C4"
+        COLE: "A3"
+        DANI: "D2"
+      rooms:
+        - {name: "ARCHIVE", cells: ["A1","A2","B1","B2"]}
+        - {name: "LIBRARY", cells: ["A3","A4","B3","B4"]}
+        - {name: "WORKSHOP", cells: ["C1","C2","C3","C4"]}
+        - {name: "DELIVERY", cells: ["D1","D2","D3","D4"]}
+      clues:
+        - "ARI was in row 1, column B."
+        - "COLE was in the Library, column A."
+        - "BEA was in column C, but not in row 2."
+        - "Each person used a different row and a different column."
+        - "The badge appeared at the Delivery desk."
+      guided_steps:
+        - "Place ARI at B1. Exact clues are free points. Take them."
+        - "COLE must be at A3. That uses row 3 and column A."
+        - "Only rows 2 and 4 remain for BEA and DANI. BEA cannot be in row 2, so BEA is C4."
+        - "That leaves D2 for DANI. D2 is in Delivery."
+      answer: "DANI"
+      verdict: "DANI was at the Delivery desk when the badge appeared."
+    meta_reveal: "Turn the badge over. A tiny engraved 0 sits below the name line."
+    nudge: "Start with the clues that give an exact square."
+    solution_steps:
+      - "ARI goes to B1."
+      - "COLE goes to A3."
+      - "BEA must use C4 because C2 is ruled out."
+      - "DANI takes the only remaining row and column: D2."
+      - "D2 is inside Delivery, so DANI is the person we need."
+
+  - number: 2
+    rank: "ROOKIE"
+    type: "spatial"
+    title: "THE TROPHY THAT NEVER REACHED THE SHELF"
+    status: "CASE FILE 02"
+    guides: ["luli", "alio"]
+    hook: >-
+      A junior sports trophy was photographed at 15:42. At 15:49 the display shelf was empty. Nobody left the building in those seven minutes.
+    objective: "Place everyone on the floor plan and identify who was alone with the trophy keeper."
+    dialogue:
+      - speaker: "alio"
+        text: "Vent theory is still alive."
+      - speaker: "luli"
+        text: "The trophy is forty centimetres tall."
+      - speaker: "alio"
+        text: "Large vent theory."
+    spatial:
+      source_page_asset: "assets/production/case02_grid.png"
+      crop: null
+      clue_cards:
+        - "MONA was beside a car and beside a workbench."
+        - "RIDLEY was in row 2 and column B."
+        - "PORTIA was in a corner and beside a refrigerator."
+        - "QUEENIE was in the Bathroom and in row 4."
+        - "BELLA shared a room with a toilet, but was not beside it."
+        - "EDA was the trophy keeper. Exactly one other person was alone in her room."
+      answer: "PORTIA"
+      solution_asset: "assets/production/case02_solution.png"
+      solution_crop: null
+      source_note: "Prototype logic module from Shigai. Final edition will use rebuilt RSE artwork and renamed room assets."
+    meta_reveal: "A tiny 0 is stamped on the underside of the trophy's temporary evidence tag."
+    nudge: "Exact coordinates first. Then use room clues to collapse the remaining options."
+    solution_steps:
+      - "RIDLEY is fixed at B2."
+      - "QUEENIE must be in row 4 inside the Bathroom."
+      - "MONA must touch both the car and the workbench, fixing her position."
+      - "PORTIA must be the corner position beside a refrigerator."
+      - "After every placement, PORTIA is the only person sharing EDA's room."
+
+  - number: 3
+    rank: "ROOKIE"
+    type: "visual"
+    title: "LULI'S LOOK-TWICE FILE"
+    status: "QUICK MISSION"
+    guides: ["luli", "nini"]
+    hook: >-
+      Two evidence photos were taken less than a minute apart. Most differences are harmless. Three change what the team can conclude.
+    objective: "Circle the three differences that matter to the case. Ignore decorative noise."
+    dialogue:
+      - speaker: "nini"
+        text: "I found glitter."
+      - speaker: "luli"
+        text: "Glitter is currently not a crime."
+    visual:
+      meaningful:
+        - "The ribbon knot changes from LEFT to RIGHT."
+        - "Evidence tag 0417 becomes 0471."
+        - "The muddy shoeprint points toward the door in Photo B."
+      decoys:
+        - "One poster has one extra star."
+        - "A cup handle turns slightly."
+        - "A pencil rolls a few centimetres."
+      answer: "RIBBON KNOT + TAG NUMBER + SHOEPRINT DIRECTION"
+    meta_reveal: "The back of evidence tag 0471 carries the same engraved 0 as your Academy badge."
+    nudge: "Ask which difference could change WHO, WHEN or WHERE."
+    solution_steps:
+      - "The ribbon knot identifies which package was handled."
+      - "The tag number changes the identity of the evidence item."
+      - "The footprint direction changes the likely route."
+      - "Stars, cup handles and a rolling pencil do not alter the case."
+
+  - number: 4
+    rank: "ROOKIE"
+    type: "spatial"
+    title: "THE CUPCAKE BOX WITH SIX ALIBIS"
+    status: "CASE FILE 04"
+    guides: ["mimi", "dilo"]
+    hook: >-
+      Six identical boxes left the fair kitchen. Five contained vanilla cupcakes. One contained the emergency test batch with salt sprinkles. The labels were mixed up before collection.
+    objective: "Place everyone and identify who collected the wrong box."
+    dialogue:
+      - speaker: "dilo"
+        text: "Classic pastry espionage."
+      - speaker: "mimi"
+        text: "Classic label problem."
+    spatial:
+      source_page_asset: "assets/production/case04_grid.png"
+      crop: null
+      clue_cards:
+        - "LUTHER was in the Break Room and in row 5."
+        - "SIMONE was in the Copy Room, in column E."
+        - "ZORA was in the Copy Room and in a corner."
+        - "CARMEN was diagonally adjacent to SIMONE."
+        - "WARREN shared a room with a couch, but was not beside it."
+        - "GISELLE had the box list. Exactly one other person was alone in her room."
+      answer: "WARREN"
+      solution_asset: "assets/production/case04_solution.png"
+      solution_crop: null
+      source_note: "Prototype logic module from Shigai. Final art will be rethemed as the fair kitchen and collection area."
+    meta_reveal: "The wrong box has a round quality-control sticker with a tiny 0 printed inside it."
+    nudge: "Corners and exact room/column clues remove a lot of space quickly."
+    solution_steps:
+      - "SIMONE is fixed in column E inside Copy Room."
+      - "ZORA must take the Copy Room corner."
+      - "CARMEN goes diagonally next to SIMONE."
+      - "LUTHER must occupy row 5 inside Break Room."
+      - "WARREN becomes the only person sharing GISELLE's room."
+
+  - number: 5
+    rank: "ROOKIE"
+    type: "code"
+    title: "DILO'S CODE THAT DEFINITELY WASN'T 1234"
+    status: "CODE DROP"
+    guides: ["dilo", "luli"]
+    hook: >-
+      Dilo has locked the evidence locker with a four-symbol code and described it as "legendary security". Luli has already ruled out legendary.
+    objective: "Put the four symbols in the only order that satisfies every clue."
+    dialogue:
+      - speaker: "dilo"
+        text: "Security level: legendary."
+      - speaker: "luli"
+        text: "Your first clue is written on the keypad."
+      - speaker: "dilo"
+        text: "Security level: medium legendary."
+    code:
+      symbols: ["BALL", "STAR", "BOLT", "HEART"]
+      clues:
+        - "BOLT comes immediately after STAR."
+        - "BALL appears before HEART."
+        - "STAR is not first."
+        - "HEART is not third."
+      answer: ["BALL", "STAR", "BOLT", "HEART"]
+    meta_reveal: "When the locker opens, an old envelope inside is sealed with a plain black 0."
+    nudge: "Treat STAR+BOLT as one two-symbol block."
+    solution_steps:
+      - "STAR and BOLT must stay together in that order."
+      - "STAR cannot be first, so the pair must occupy positions 2 and 3."
+      - "BALL must be before HEART."
+      - "That forces BALL, STAR, BOLT, HEART."
+
+preview_end:
+  headline: "ROOKIE ACCESS: PARTIALLY UNLOCKED"
+  body: >-
+    Five missions down. The 0 has now appeared on a badge, an evidence tag, a trophy record, a cupcake sticker and an old envelope. Coincidence is getting expensive.
+  dialogue:
+    - speaker: "alio"
+      text: "Secret tunnel probability just went up."
+    - speaker: "luli"
+      text: "That is not how probability works."
+    - speaker: "dilo"
+      text: "Still went up."
