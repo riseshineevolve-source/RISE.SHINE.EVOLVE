@@ -2,58 +2,49 @@
 
 Reusable content-driven PDF generator for the Rise.Shine.Evolve. Detective Academy series.
 
-## Why this exists
+## Production model
 
-The layout engine lives in code. Story, dialogue, puzzle descriptions and metadata live in YAML. New editions should mostly require editing content and swapping puzzle assets rather than rebuilding page geometry in Canva or Colab.
+Story and puzzle data live in YAML. Layout lives in Python. Character portraits and spatial logic modules are replaceable assets. Canva is a finishing layer, not the source of pagination.
 
-## Current phase
+The current production preview renders the opening and Cases 01-05 of Book 1, `The Mystery of Room Zero`, with:
 
-Phase 1 renders the complete 30-mission story blueprint into a deterministic Letter-size PDF. Phase 2 will add production page templates, Shigai grid assets, Happy Makers art, hint pages, solutions, KDP bleed and preflight checks.
+- grayscale gaming/dossier design
+- Happy Makers avatar dialogue cards
+- guided training grid
+- reusable spatial deduction page template
+- quick visual-evidence template
+- code puzzle template
+- Room Zero meta-story beats
+- Hint Vault
+- step-by-step solution pages
+- automatic preflight
+- automatic PNG page previews
 
-## Structure
+`content/book_en.yml` remains the 30-case master blueprint. `content/book1_en_production.yml` contains production-ready copy for the first rendered tranche.
 
-- `content/book_en.yml` - master English story blueprint and 30-mission plan
-- `render_book.py` - reusable PDF renderer
-- `dist/` - generated output, not source of truth
-- `.github/workflows/build-detective-book.yml` - automatic cloud build
+## Build locally
 
-## Local Windows build
-
-```bat
-cd tools\detective-book-factory
-py -m venv .venv
-.venv\Scripts\python -m pip install -r requirements.txt
-.venv\Scripts\python render_book.py
+```bash
+cd tools/detective-book-factory
+python -m venv .venv
+# Windows: .venv\\Scripts\\activate
+# macOS/Linux: source .venv/bin/activate
+pip install -r requirements.txt
+python render_book.py --content content/book1_en_production.yml --output dist/HMDA_Book1_Production_Preview_v1.pdf
+python scripts/preflight.py --content content/book1_en_production.yml --pdf dist/HMDA_Book1_Production_Preview_v1.pdf --min-pages 25 --report dist/preflight.txt
+python scripts/make_previews.py --pdf dist/HMDA_Book1_Production_Preview_v1.pdf --out dist/previews --dpi 144
 ```
 
 ## Cloud build
 
-Every push to `feature/detective-book-factory` that changes this tool triggers GitHub Actions. You can also run the workflow manually from Actions > Build Detective Academy PDF > Run workflow.
+Pushes to `feature/detective-book-factory` trigger `.github/workflows/build-detective-book.yml`. The workflow builds the PDF, runs preflight, creates PNG previews, and uploads everything as a GitHub Actions artifact.
 
-The PDF is uploaded as a workflow artifact named `detective-academy-pdf`.
+## Asset rules
 
-## Planned production architecture
+- `assets/production/*.png|jpg`: normalized grayscale Happy Makers portraits and temporary verified spatial modules.
+- Temporary Shigai map assets are logic references only. Final publication art should be rebuilt/rethemed while preserving verified clue geometry.
+- Every reframed spatial case must be revalidated before publication.
 
-The final renderer will support reusable page types:
+## Series reuse
 
-1. title / copyright / detective ID
-2. squad introduction
-3. chapter opener
-4. guided training case
-5. two-page spatial case spread
-6. quick mission
-7. Room Zero checkpoint
-8. three-level hint vault
-9. step-by-step solutions
-10. grand final
-11. certificate / series hook
-
-Content remains separate from design. English and Polish editions will use separate YAML files while sharing exactly the same templates and puzzle geometry.
-
-## Canva handoff
-
-The code-generated PDF is the master source. The production build will also export high-resolution page previews. Canva is intended for light art-direction tweaks only, not for rebuilding pagination or the logic system.
-
-## Non-negotiable logic rule
-
-Every final puzzle must have one valid solution. Any time a Shigai grid is reframed, room names or clue wording are changed consistently and the resulting case is revalidated before publication.
+Book 2 or another language edition should require mostly new YAML plus new puzzle/art assets. Page templates, callout components, chapter gates, hint pages, solution layouts, preflight, and export stay reusable.
