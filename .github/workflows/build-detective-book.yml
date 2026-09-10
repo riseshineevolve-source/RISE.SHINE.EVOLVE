@@ -1,0 +1,48 @@
+name: Build Detective Academy PDF
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - feature/detective-book-factory
+    paths:
+      - 'tools/detective-book-factory/**'
+      - '.github/workflows/build-detective-book.yml'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install fonts and dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y fonts-dejavu-core poppler-utils
+          python -m pip install --upgrade pip
+          pip install -r tools/detective-book-factory/requirements.txt
+
+      - name: Build PDF
+        run: |
+          mkdir -p tools/detective-book-factory/dist
+          python tools/detective-book-factory/render_book.py \
+            --content tools/detective-book-factory/content/book_en.yml \
+            --output tools/detective-book-factory/dist/Happy-Makers-Detective-Academy-Blueprint-EN.pdf
+
+      - name: Basic PDF preflight
+        run: |
+          pdfinfo tools/detective-book-factory/dist/Happy-Makers-Detective-Academy-Blueprint-EN.pdf
+          test "$(pdfinfo tools/detective-book-factory/dist/Happy-Makers-Detective-Academy-Blueprint-EN.pdf | awk '/Pages:/ {print $2}')" -ge 30
+
+      - name: Upload built PDF
+        uses: actions/upload-artifact@v4
+        with:
+          name: detective-academy-pdf
+          path: tools/detective-book-factory/dist/*.pdf
+          if-no-files-found: error
