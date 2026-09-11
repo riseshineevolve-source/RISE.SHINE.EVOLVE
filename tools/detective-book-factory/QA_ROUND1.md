@@ -12,7 +12,7 @@ Status: **full Production Preview v3 assembled locally (81 pages)**. This is not
 - Corrected the Grandma Bibi checkpoint numbering to Case 16.
 - Case 18 previously produced tied timestamps. Revised values now give one order: `A -> C -> B -> D`.
 - Cases 19 and 20 no longer reuse earlier spatial modules. They now use verified Shigai source modules from source pages 10 and 12.
-- Case 24 now encodes facing direction versus real travel direction using footprints plus fading mud.
+- Case 24 now encodes facing direction versus actual travel direction using footprints plus fading mud.
 - Case 28 no longer prints the FACT / THEORY / NO EVIDENCE answers beside each statement.
 - Added a 3-level Hint Vault for all 30 missions.
 - Added solution entries for all 30 missions.
@@ -59,3 +59,12 @@ Status: **full Production Preview v3 assembled locally (81 pages)**. This is not
 - After credits: `CASE 001 // STILL OPEN`
 
 The intended production model remains content-driven: YAML/content -> reusable renderer -> automatic preflight -> PDF/PNG outputs. Canva remains a finishing layer, not the source of pagination.
+
+## Next production tranche
+
+- Rebuild the 14 meta-carrying spatial maps into a consistent RSE / Happy Makers visual language.
+- Assign the final fourteen empty-room meta letters so they spell `CHECK THE OLD MAP` in case order.
+- Revalidate each rebuilt map for a unique solution.
+- Replace schematic Quick Mission art with premium grayscale evidence art.
+- Fold Production Preview v3 structure into the reusable generator so GitHub Actions can render the same full-book build automatically.
+- Run print-layout QA at final page count, then order a physical KDP proof.
