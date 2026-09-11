@@ -1,0 +1,114 @@
+source:
+  file: "shigai-royalty-combined 1(1).pdf"
+  purpose: "Raw verified spatial-deduction modules only. All story framing, character names, room labels, mission objective and final wording are rebuilt in RSE voice."
+  rule: "Never import murder/victim wording into the final children's book."
+
+selected_modules:
+  HMDA-002:
+    final_title: "The Trophy That Never Reached the Shelf"
+    shigai_puzzle_page: 2
+    shigai_solution_page: 50
+    raw_solution: "Portia"
+    grid: "6x6"
+    tier: "rookie"
+    reason: "Clean beginner geometry with adjacency, exact row/column and corner clues."
+
+  HMDA-004:
+    final_title: "The Cupcake Box with Six Alibis"
+    shigai_puzzle_page: 4
+    shigai_solution_page: 52
+    raw_solution: "Warren"
+    grid: "6x6"
+    tier: "rookie"
+    reason: "Distinct diagonal + corner + room/column + object-in-room path."
+
+  HMDA-006:
+    final_title: "The Museum Label That Lied"
+    shigai_puzzle_page: 21
+    shigai_solution_page: 65
+    raw_solution: "India"
+    grid: "6x6"
+    tier: "rookie"
+    reason: "Kid-safe Find-the-Thief variant with a very readable 6x6 plan. Good reskin candidate for museum access."
+
+  HMDA-007:
+    final_title: "The Costume That Walked Away"
+    shigai_puzzle_page: 3
+    shigai_solution_page: 51
+    raw_solution: "Ann"
+    grid: "6x6"
+    tier: "rookie"
+    reason: "Strong mix of outer-wall, room, column, corner and alone-in-room clues."
+
+  HMDA-010:
+    final_title: "The Robot with Two Owners"
+    shigai_puzzle_page: 6
+    shigai_solution_page: 54
+    raw_solution: "Dexter"
+    grid: "7x7"
+    tier: "field_agent"
+    reason: "Good transition to multi-step deduction: room exclusivity, distance, diagonal and wall constraints."
+
+  HMDA-012:
+    final_title: "The Parrot Who Knew the Password"
+    shigai_puzzle_page: 27
+    shigai_solution_page: 68
+    raw_solution: "Josephine"
+    grid: "7x7"
+    tier: "field_agent"
+    reason: "Already uses harmless found-by framing; excellent base for witness/parrot story layer."
+
+  HMDA-013:
+    final_title: "The Camera That Blinked at 4:17"
+    shigai_puzzle_page: 9
+    shigai_solution_page: 57
+    raw_solution: "Geoffrey"
+    grid: "7x7"
+    tier: "field_agent"
+    reason: "Useful Manhattan-distance + outer-wall + order + directional relation combination."
+
+  HMDA-015:
+    final_title: "The Backpack That Changed Owners"
+    shigai_puzzle_page: 11
+    shigai_solution_page: 59
+    raw_solution: "Reginald"
+    grid: "7x7"
+    tier: "field_agent"
+    reason: "Excellent chained relationships and diagonal dependencies; feels meaningfully harder without enlarging the grid."
+
+reserve_modules:
+  - puzzle_page: 5
+    solution_page: 53
+    grid: "7x7"
+    note: "Medium reserve with either/or and order-position logic."
+  - puzzle_page: 8
+    solution_page: 56
+    grid: "7x7"
+    note: "Hard reserve; useful if another Field Agent case fails after reskin."
+  - puzzle_page: 12
+    solution_page: 60
+    grid: "7x7"
+    note: "Expert reserve with long-distance clue."
+  - puzzle_page: 39
+    solution_page: 74
+    grid: "7x7"
+    note: "Strong safe bunny framing and advanced relational chain; candidate for Master tier."
+  - puzzle_page: 41
+    solution_page: 75
+    grid: "7x7"
+    note: "Expert safe framing; candidate for Master tier."
+  - puzzle_page: 47
+    solution_page: 78
+    grid: "9x9"
+    note: "Primary candidate for late Master/Boss testing."
+  - puzzle_page: 49
+    solution_page: 79
+    grid: "9x9"
+    note: "Boss reserve."
+
+production_requirements:
+  - "Redraw or clean the final map so legacy Shigai room names do not conflict with the rewritten story."
+  - "Preserve exact grid geometry and object placement unless the solver is rerun after edits."
+  - "Replace all suspect names and final target wording only after a deterministic mapping is stored."
+  - "Each reskinned case must be revalidated against the original solution before print export."
+  - "Room Zero meta clues are an added layer and may never change the standalone verified solution."

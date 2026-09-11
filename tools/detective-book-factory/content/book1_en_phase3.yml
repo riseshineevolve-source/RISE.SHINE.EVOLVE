@@ -1,0 +1,253 @@
+phase: 3
+book: "HAPPY MAKERS DETECTIVE ACADEMY"
+subtitle: "THE MYSTERY OF ROOM ZERO"
+range: "Cases 17-30"
+status: "production-copy"
+
+missions:
+  - number: 17
+    rank: "MASTER"
+    type: "spatial"
+    title: "THE TRAIN TICKET THAT WASN'T LOST"
+    guides: ["alio", "luli"]
+    hook: "At a heritage railway event, one special ticket appears to vanish. The real question is not where it went, but who was handed it before anyone noticed."
+    objective: "Place everyone and identify who received the special ticket."
+    dialogue:
+      - {speaker: "alio", text: "Can we interrogate the train?"}
+      - {speaker: "luli", text: "Only if it requests legal representation."}
+    shigai:
+      source_page: 17
+      solution_page: 63
+      grid: "9x9"
+      note: "Use verified geometry only; final room names and props will be re-themed."
+    meta_letter: "O"
+    verdict_label: "WHO RECEIVED THE SPECIAL TICKET?"
+
+  - number: 18
+    rank: "MASTER"
+    type: "timeline"
+    title: "THE SEVEN-MINUTE ALIBI"
+    guides: ["mimi", "dilo"]
+    hook: "One cafe clock is seven minutes slow. Dilo's watch is two minutes fast. Four events must be converted to real time."
+    objective: "Build the only timeline that fits all timestamps."
+    dialogue:
+      - {speaker: "mimi", text: "Which clock is correct?"}
+      - {speaker: "dilo", text: "Mine."}
+      - {speaker: "mimi", text: "Evidence?"}
+      - {speaker: "dilo", text: "Confidence."}
+    meta: "The side result 0:07 is a deliberate false lead."
+
+  - number: 19
+    rank: "MASTER"
+    type: "spatial"
+    title: "THE LIBRARY BOOK THAT CHECKED ITSELF OUT"
+    guides: ["dilo", "luli"]
+    hook: "The library system says a rare book left the building. The book is still on the shelf."
+    objective: "Find who was near the return desk when the wrong account was scanned."
+    dialogue:
+      - {speaker: "dilo", text: "Digital ghost."}
+      - {speaker: "luli", text: "Barcode problem until proven supernatural."}
+    shigai:
+      source_page: 11
+      solution_page: 59
+      grid: "7x7"
+    meta_letter: "L"
+    verdict_label: "WHO WAS NEAR THE RETURN DESK?"
+
+  - number: 20
+    rank: "MASTER"
+    type: "spatial"
+    title: "THE PAINT-SPLATTERED ALIBI"
+    guides: ["mimi", "nini"]
+    hook: "A community art wall ends up in the wrong order. Nobody is in trouble. The challenge is reconstructing who was where before the paint dried."
+    objective: "Work out who shared the art room."
+    dialogue:
+      - {speaker: "nini", text: "This one looks better upside down."}
+      - {speaker: "mimi", text: "Not currently useful, but agreed."}
+    shigai:
+      source_page: 9
+      solution_page: 57
+      grid: "7x7"
+    meta_letter: "D"
+    verdict_label: "WHO SHARED THE ART ROOM?"
+
+  - number: 21
+    rank: "MASTER"
+    type: "reconstruction"
+    title: "THE NOTE IN FOUR PIECES"
+    guides: ["dilo", "nini"]
+    hook: "Four torn scraps belong to one message. Rebuild it using torn edges, handwriting and sentence logic."
+    objective: "Reconstruct the note and read the hidden instruction."
+    answer: "THE ANSWER IS IN WHAT YOU LEAVE EMPTY."
+    dialogue:
+      - {speaker: "dilo", text: "Paper is an unstable platform."}
+      - {speaker: "nini", text: "You ripped it."}
+
+  - number: 22
+    rank: "MASTER"
+    type: "spatial"
+    title: "THE MUSIC ROOM MIX-UP"
+    guides: ["luli", "alio"]
+    hook: "Three identical black instrument cases have migrated across the music school."
+    objective: "Determine who received the wrong case."
+    dialogue:
+      - {speaker: "alio", text: "Open it carefully."}
+      - {speaker: "luli", text: "It is a cello case."}
+      - {speaker: "alio", text: "Exactly."}
+    shigai:
+      source_page: 39
+      solution_page: 74
+      grid: "7x7"
+    meta_letter: "M"
+    verdict_label: "WHO RECEIVED THE WRONG CASE?"
+
+  - number: 23
+    rank: "MASTER"
+    type: "spatial"
+    title: "THE WRISTBAND SWITCH AT ADVENTURE PARK"
+    guides: ["mimi", "dilo"]
+    hook: "One wristband opens the climbing course. Another opens the arcade-credit locker."
+    objective: "Find who accidentally received the wrong wristband."
+    dialogue:
+      - {speaker: "mimi", text: "Solve the case."}
+      - {speaker: "dilo", text: "I am studying the arcade's security architecture."}
+    shigai:
+      source_page: 41
+      solution_page: 75
+      grid: "7x7"
+    meta_letter: "A"
+    verdict_label: "WHO RECEIVED THE WRONG WRISTBAND?"
+
+  - number: 24
+    rank: "MASTER"
+    type: "visual-sequence"
+    title: "THE FOOTPRINTS THAT WALKED BACKWARDS"
+    guides: ["alio", "luli"]
+    hook: "The tread points one way. Fresh mud transfer points another."
+    objective: "Work out the real direction of travel."
+    dialogue:
+      - {speaker: "alio", text: "Science requires sacrifice."}
+      - {speaker: "luli", text: "The hedge disagrees."}
+    meta: "One tread contains a tiny circular cut matching the Academy zero motif."
+
+  - number: 25
+    rank: "MASTER"
+    type: "spatial"
+    title: "THE PACKAGE WITH NO NAME"
+    guides: ["nini", "mimi"]
+    hook: "A harmless parcel has been passed around so many times that nobody remembers its destination."
+    objective: "Find who accepted the parcel and where it should have gone."
+    dialogue:
+      - {speaker: "mimi", text: "Nobody stole it. Everyone was just aggressively helpful."}
+    shigai:
+      source_page: 43
+      solution_page: 76
+      grid: "7x7"
+    meta_letter: "P"
+    verdict_label: "WHO ACCEPTED THE PACKAGE?"
+
+  - number: 26
+    rank: "MASTER"
+    type: "room-zero-checkpoint"
+    title: "THE CASE OF THE MISSING PEOPLE"
+    guides: ["luli", "dilo", "nini"]
+    hook: "Nini looks at an old solved map and asks one tiny question: Why is one named room always empty?"
+    objective: "Revisit the fourteen marked spatial cases and record the first letter of each unique empty room."
+    answer: "CHECK THE OLD MAP"
+    meta: "First major twist. The zero motif meant zero people, not room number zero."
+    dialogue:
+      - {speaker: "dilo", text: "We solved fourteen cases and the clue was the room we ignored?"}
+      - {speaker: "luli", text: "The evidence would like an apology."}
+
+  - number: 27
+    rank: "FINAL"
+    type: "map-overlay"
+    title: "BIBI'S MAP HAS ONE ROOM WITH ZERO DOORS"
+    guides: ["bibi", "alio"]
+    hook: "The old Academy plan contains a rectangular space surrounded by walls with no door."
+    objective: "Align old and new plans and locate the sealed space."
+    dialogue:
+      - {speaker: "bibi", text: "This map is older than all of you. Not older than me. Choose your next words carefully."}
+      - {speaker: "alio", text: "Secret tunnel."}
+    meta: "A tiny note beside the sealed room says RULE FIRST, ROOM SECOND."
+
+  - number: 28
+    rank: "FINAL"
+    type: "fact-theory-sort"
+    title: "RULE ZERO"
+    guides: ["bibi", "mimi", "luli"]
+    hook: "Before the final map, Bibi remembers what the Academy meant by zero."
+    objective: "Sort facts from theories and unsupported assumptions."
+    answer: "ZERO ASSUMPTIONS. NOTICE FIRST. THEORIZE SECOND."
+    dialogue:
+      - {speaker: "mimi", text: "So Alio's tunnel theory is back?"}
+      - {speaker: "luli", text: "Unfortunately, yes."}
+      - {speaker: "alio", text: "Helmet vindicated."}
+
+  - number: 29
+    rank: "GRAND MASTER"
+    type: "boss-spatial"
+    title: "THE MAP BENEATH THE MAP"
+    guides: ["luli", "dilo", "alio"]
+    hook: "The old Academy plan hides a service level. Solve the largest spatial case to locate the access hatch below the sealed room."
+    objective: "Use the solved positions to identify the final access coordinate."
+    dialogue:
+      - {speaker: "dilo", text: "Boss level."}
+      - {speaker: "luli", text: "No button-mashing."}
+      - {speaker: "alio", text: "Can I at least wear two helmets?"}
+    shigai:
+      source_page: 47
+      solution_page: 78
+      grid: "9x9"
+      note: "Final publication version must be re-themed and revalidated after room/object replacement."
+    verdict_label: "FINAL ACCESS COORDINATE"
+
+  - number: 30
+    rank: "GRAND FINAL"
+    type: "multi-stage-finale"
+    title: "THE MYSTERY OF ROOM ZERO"
+    guides: ["bibi", "mimi", "luli", "dilo", "alio", "nini"]
+    hook: "The hatch opens into a room the modern Academy forgot. Six badge hooks wait on the wall. Five are occupied."
+    objective: "Open the final lock and discover who the missing detective has been from page one."
+    final_lock:
+      - "Symbol from Dilo's code mission"
+      - "Coordinate from Case 29"
+      - "Missing word from Rule Zero"
+      - "Reader's name from the opening badge"
+    reveal: >-
+      Room Zero was never room number zero. It was the original Academy training room, named for Rule Zero: begin every case with zero assumptions. Grandma Bibi and her childhood squad built an initiation trail here decades ago, but renovations sealed the room before the trail was completed. The opening training case accidentally reactivated the old mechanical clue system. Nobody has been secretly controlling the adventure. The Academy itself has been replaying the unfinished test.
+    reader_payoff: >-
+      Inside Room Zero are six badge hooks. Five hold old Academy badges. The sixth is empty and labelled NEXT DETECTIVE. The missing detective was the reader from page one.
+    series_hook: >-
+      After the case is closed, Dilo opens a drawer Luli explicitly told him not to open. Inside is one thin file stamped CASE 001 - STILL OPEN.
+    dialogue:
+      - {speaker: "nini", text: "So... who was the missing detective?"}
+      - {speaker: "dilo", text: "There is a drawer."}
+      - {speaker: "luli", text: "Do not open the drawer."}
+      - {speaker: "dilo", text: "Counterpoint: drawer."}
+
+meta_validation:
+  spatial_case_letters:
+    2: C
+    4: H
+    6: E
+    7: C
+    10: K
+    12: T
+    13: H
+    15: E
+    17: O
+    19: L
+    20: D
+    22: M
+    23: A
+    25: P
+  expected_message: "CHECKTHEOLDMAP"
+  human_readable: "CHECK THE OLD MAP"
+
+production_notes:
+  - "No full-black interior pages. Use dark panels and light page fields for print safety."
+  - "Shigai exports are logic references, not final publication art. Re-theme rooms and props only if geometry is preserved and the case is revalidated."
+  - "Case 26 must force the reader to physically revisit earlier solved cases."
+  - "Case 30 introduces no new puzzle rule. The payoff must come only from information already earned."
+  - "The reader, not the Happy Makers, makes the final deduction."

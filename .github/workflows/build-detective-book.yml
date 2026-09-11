@@ -1,0 +1,70 @@
+name: Build Detective Academy PDF
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - feature/detective-book-factory
+    paths:
+      - 'tools/detective-book-factory/**'
+      - 'assets/images/**'
+      - '.github/workflows/build-detective-book.yml'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install fonts and dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y fonts-dejavu-core poppler-utils
+          python -m pip install --upgrade pip
+          pip install -r tools/detective-book-factory/requirements.txt
+
+      - name: Sync canonical Happy Makers assets
+        working-directory: tools/detective-book-factory
+        run: python scripts/sync_brand_assets.py
+
+      - name: Build production preview
+        working-directory: tools/detective-book-factory
+        run: |
+          mkdir -p dist
+          python render_book.py \
+            --content content/book1_en_production.yml \
+            --output dist/HMDA_Book1_Production_Preview_v1.pdf
+
+      - name: Preflight
+        working-directory: tools/detective-book-factory
+        run: |
+          python scripts/preflight.py \
+            --content content/book1_en_production.yml \
+            --pdf dist/HMDA_Book1_Production_Preview_v1.pdf \
+            --min-pages 25 \
+            --report dist/preflight.txt
+          pdfinfo dist/HMDA_Book1_Production_Preview_v1.pdf
+
+      - name: Render page previews
+        working-directory: tools/detective-book-factory
+        run: |
+          python scripts/make_previews.py \
+            --pdf dist/HMDA_Book1_Production_Preview_v1.pdf \
+            --out dist/previews \
+            --dpi 144
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: detective-academy-production-preview
+          path: |
+            tools/detective-book-factory/dist/HMDA_Book1_Production_Preview_v1.pdf
+            tools/detective-book-factory/dist/preflight.txt
+            tools/detective-book-factory/dist/previews/*.png
+          if-no-files-found: error

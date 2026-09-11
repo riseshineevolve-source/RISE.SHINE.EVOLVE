@@ -1,0 +1,157 @@
+name: HMDA Gaming Grayscale
+version: 3
+trim:
+  width_in: 8.5
+  height_in: 11
+  interior: grayscale
+  bleed: false
+
+principles:
+  - "YOU are the detective; Happy Makers are the squad."
+  - "Offline puzzle solving with modern game-interface energy."
+  - "Story, puzzle and character beats must feel like one system, never three stacked layers."
+  - "One clear action per page area; no hunting for what to do next."
+  - "Humour comes from character behaviour, not decorative jokes."
+  - "Use grayscale hierarchy, not colour dependence."
+  - "Interior pages must remain print-friendly on KDP white paper: gaming contrast comes from dark panels and borders, not repeated full-black pages."
+
+print_safety:
+  paper_target: "KDP black ink on white paper"
+  full_black_interior_pages: false
+  preferred_dark_coverage: "localized HUD panels, chapter blocks, headers, evidence cards"
+  grayscale_background_min_fill: "10% when a gray background is intentionally printed"
+  minimum_rule_pt: 0.75
+  image_target_dpi: 300
+  generated_character_art_rule: "Use current generated hero art at approximately 3.5-4.0 inches wide unless a higher-resolution master is available."
+  proof_required: true
+  proof_checks:
+    - "show-through / ghosting on pages behind dark panels"
+    - "small grayscale details remain distinct"
+    - "grid lines and checkboxes remain crisp"
+    - "body text remains comfortable at normal reading distance"
+
+palette:
+  black: "#0B0B0D"
+  charcoal: "#202126"
+  dark: "#34363D"
+  mid: "#777A83"
+  line: "#C7C9CE"
+  pale: "#EEEEF1"
+  paper: "#F7F7F8"
+  white: "#FFFFFF"
+
+typography:
+  display:
+    family_role: "bold geometric sans"
+    min_pt: 18
+    max_pt: 32
+  body:
+    family_role: "high-legibility sans"
+    min_pt: 9
+    target_pt: 10.5
+  tech:
+    family_role: "monospace accent only"
+    min_pt: 6.8
+    max_pt: 9
+  rules:
+    - "Never shrink core child-facing instructions below 9 pt."
+    - "Keep paragraphs short; prefer 1-3 sentence mission chunks."
+    - "Coordinates, status labels and evidence IDs may use mono."
+
+ui:
+  labels:
+    - "MISSION ACTIVE"
+    - "CASE FILE"
+    - "EVIDENCE UNLOCKED"
+    - "CLUE CHECK"
+    - "ARCHIVE FOUND"
+    - "STATUS: OPEN"
+    - "STATUS: CLEARED"
+    - "CHECKPOINT"
+    - "LOCKED"
+    - "BOSS CASE"
+    - "ROOM ZERO ACCESS"
+  shapes:
+    - "rounded notification cards"
+    - "dossier corners"
+    - "thin grid accents"
+    - "status bars"
+    - "evidence tags"
+    - "coordinate labels"
+  avoid:
+    - "neon cyber overload"
+    - "fake touchscreen controls"
+    - "XP spam"
+    - "traditional comic bubbles on every page"
+    - "decorative clutter around deduction grids"
+
+avatar_system:
+  treatment: "circular grayscale portrait inside modern message card"
+  sizes_in:
+    small: 0.52
+    medium: 0.85
+    large: 1.7
+  tags:
+    luli: "CLUE CHECK"
+    dilo: "CODE DROP"
+    alio: "FIELD ALERT"
+    nini: "NUDGE"
+    mimi: "CASE NOTE"
+    bibi: "ARCHIVE FILE"
+  rule: "Use 1-2 Happy Makers per normal case. Full squad only for recruitment, checkpoints, chapter gates and finale."
+
+page_families:
+  - title
+  - recruitment
+  - squad
+  - how_to_play
+  - detective_id
+  - chapter_gate
+  - mission_brief
+  - spatial_grid
+  - quick_visual
+  - code_puzzle
+  - timeline_puzzle
+  - evidence_bag
+  - room_zero_checkpoint
+  - hint_vault
+  - solution_walkthrough
+  - finale
+  - certificate
+
+spatial_cases:
+  rookie_grid: "6x6"
+  field_grid: "7x7"
+  master_grid: "7x7 preferred"
+  boss_grid: "9x9 only"
+  rule: "Difficulty must come from deduction chains, not merely grid size."
+  shigai_role: "verified spatial logic engine only; all story framing is rebuilt in RSE voice"
+
+hints:
+  level_1: "NINI NUDGE - identify a productive first step"
+  level_2: "CLUE CHECK - point to a specific clue interaction"
+  level_3: "ALMOST THERE - expose the next deduction without giving the verdict"
+
+solutions:
+  max_steps: 6
+  structure:
+    - "what becomes fixed"
+    - "what that eliminates"
+    - "what must therefore be true"
+    - "verdict"
+
+meta_mystery:
+  phrase: "CHECK THE OLD MAP"
+  rule_zero: "ZERO ASSUMPTIONS. NOTICE FIRST. THEORIZE SECOND."
+  requirement: "Meta clues may never make a standalone case ambiguous or alter its verified solution."
+
+canva:
+  role: "finishing room only"
+  allowed:
+    - "small decorative adjustments"
+    - "special-spread polish"
+    - "manual art replacement"
+  avoid:
+    - "manual pagination"
+    - "manual solution renumbering"
+    - "rebuilding repeated page templates"
