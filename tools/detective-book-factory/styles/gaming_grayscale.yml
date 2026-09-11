@@ -1,5 +1,5 @@
 name: HMDA Gaming Grayscale
-version: 2
+version: 3
 trim:
   width_in: 8.5
   height_in: 11
@@ -13,6 +13,22 @@ principles:
   - "One clear action per page area; no hunting for what to do next."
   - "Humour comes from character behaviour, not decorative jokes."
   - "Use grayscale hierarchy, not colour dependence."
+  - "Interior pages must remain print-friendly on KDP white paper: gaming contrast comes from dark panels and borders, not repeated full-black pages."
+
+print_safety:
+  paper_target: "KDP black ink on white paper"
+  full_black_interior_pages: false
+  preferred_dark_coverage: "localized HUD panels, chapter blocks, headers, evidence cards"
+  grayscale_background_min_fill: "10% when a gray background is intentionally printed"
+  minimum_rule_pt: 0.75
+  image_target_dpi: 300
+  generated_character_art_rule: "Use current generated hero art at approximately 3.5-4.0 inches wide unless a higher-resolution master is available."
+  proof_required: true
+  proof_checks:
+    - "show-through / ghosting on pages behind dark panels"
+    - "small grayscale details remain distinct"
+    - "grid lines and checkboxes remain crisp"
+    - "body text remains comfortable at normal reading distance"
 
 palette:
   black: "#0B0B0D"
