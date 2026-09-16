@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Project Unstoppable App | Rise Shine Evolve</title>
+  <title>Project Unstoppable App — Coming Soon on Google Play | Rise Shine Evolve</title>
   <meta
     name="description"
-    content="Project Unstoppable is a 31-day gamified SaaS web app for teens to level up focus, mindset, and confidence with PWA access."
+    content="Project Unstoppable is a 31-day mobile experience for teens to level up focus, mindset, and confidence. Coming soon on Google Play."
   />
   <link rel="canonical" href="https://rise-shine-evolve-learning-hub.com/unstoppable-app/" />
   <style>
@@ -19,8 +19,6 @@
       --green: #00e5ff;
       --purple: #8A2BE2;
       --radius: 18px;
-      --price-currency: "$";
-      --price-amount: "";
       --shadow-blue: 0 0 28px rgba(0, 207, 255, 0.35);
       --shadow-green: 0 0 28px rgba(0, 229, 255, 0.35);
     }
@@ -82,8 +80,6 @@
     .subheading,
     .feature-card p,
     .step,
-    .faq-answer,
-    .muted,
     footer,
     .legal-links button {
       color: var(--text-muted);
@@ -129,6 +125,11 @@
       transform: translateY(-2px);
       box-shadow: 0 0 34px rgba(0, 207, 255, 0.55);
       outline: none;
+    }
+
+    .launch-state {
+      cursor: default;
+      pointer-events: none;
     }
 
     .btn-back {
@@ -228,92 +229,6 @@
     }
 
     .step strong { color: #fff; }
-
-    #pricing { scroll-margin-top: 24px; }
-
-    .pricing-wrap {
-      display: grid;
-      place-items: center;
-    }
-
-    .pricing-card {
-      width: min(100%, 560px);
-      border: 2px solid var(--green);
-      border-radius: 22px;
-      padding: 22px;
-      background: linear-gradient(180deg, rgba(8, 22, 34, 0.88), rgba(8, 8, 20, 0.95));
-      box-shadow: var(--shadow-green);
-    }
-
-    .plan {
-      margin: 0 0 4px;
-      color: #b9e3ff;
-      text-transform: uppercase;
-      letter-spacing: 0.9px;
-      font-weight: 800;
-    }
-
-    .price {
-      margin: 0;
-      font-size: clamp(2.2rem, 6vw, 3rem);
-      line-height: 1;
-      color: var(--green);
-      text-shadow: 0 0 18px rgba(0, 229, 255, 0.55);
-      font-weight: 900;
-    }
-
-    .price::before { content: var(--price-currency); margin-right: 2px; }
-    .price::after { content: var(--price-amount); }
-
-    .price-sub {
-      margin: 8px 0 16px;
-      color: #fff;
-      font-weight: 600;
-    }
-
-    .benefits {
-      margin: 0 0 18px;
-      padding-left: 18px;
-    }
-
-    .benefits li { margin-bottom: 8px; }
-
-    .btn-pricing {
-      width: 100%;
-      border-color: var(--blue);
-      background: #030608;
-      color: #fff;
-      box-shadow: 0 0 20px rgba(0, 207, 255, 0.4);
-    }
-
-    .btn-pricing:hover,
-    .btn-pricing:focus-visible {
-      transform: translateY(-2px);
-      box-shadow: 0 0 28px rgba(0, 207, 255, 0.6);
-      outline: none;
-    }
-
-    .faq-list {
-      display: grid;
-      gap: 12px;
-    }
-
-    .faq-item {
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 14px;
-      padding: 14px;
-      background: rgba(255, 255, 255, 0.02);
-    }
-
-    .faq-question {
-      margin: 0 0 6px;
-      color: #fff;
-      font-weight: 700;
-    }
-
-    .faq-answer {
-      margin: 0;
-    }
 
     footer {
       text-align: center;
@@ -445,11 +360,11 @@
     <section class="section hero" aria-labelledby="hero-title">
       <div class="hero-copy">
         <h1 id="hero-title">Stop Playing on Hard Mode. <span class="key-purple">Level Up Your Mindset</span> in 31 Days. 🎮</h1>
-        <p style="margin: -2px 0 0 0; color: #8A2BE2; font-size: 0.92rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px;">Available Soon</p>
+        <p style="margin: -2px 0 0 0; color: #8A2BE2; font-size: 0.92rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px;">Coming Soon on Google Play</p>
         <p class="subheading">
-          Welcome to Project Unstoppable. A 31-day interactive web application (SaaS) built like a video game to help teens hack their focus, translate 'parent logic', block the haters, and unlock their inner Legend. Install our Progressive Web App (PWA) straight to your phone.
+          Welcome to Project Unstoppable. A 31-day mobile experience built like a video game to help teens hack their focus, translate 'parent logic', block the haters, and unlock their inner Legend.
         </p>
-        <a class="btn btn-primary" href="#pricing">GET 12-MONTH ACCESS NOW</a>
+        <span class="btn btn-primary launch-state" role="status">COMING SOON ON GOOGLE PLAY</span>
       </div>
       <div class="mockup">
         <img src="/assets/images/LEVEL%20UP%20YOUR%20BRAIN%20COVER%20WORLD%2002.png" alt="Project Unstoppable app cover" loading="lazy" />
@@ -474,50 +389,12 @@
       </div>
     </section>
 
-    <section class="section" aria-labelledby="how-title">
-      <h2 id="how-title">How our Progressive Web App (PWA) Works:</h2>
+    <section class="section" aria-labelledby="launch-title">
+      <h2 id="launch-title">The <span class="key-purple">Launch Quest</span> Is Loading</h2>
       <div class="steps">
-        <div class="step"><strong>Step 1:</strong> Purchase your 1-Year Access Pass securely online.</div>
-        <div class="step"><strong>Step 2:</strong> Instantly receive your private login credentials via email.</div>
-        <div class="step"><strong>Step 3:</strong> Log in through your web browser and click "Install App" to add the Unstoppable icon directly to your phone's home screen.</div>
-        <div class="step"><strong>Step 4:</strong> Your XP and daily stats are securely synced in the cloud (powered by Supabase) across all your devices.</div>
-      </div>
-    </section>
-
-    <section class="section" id="pricing" aria-labelledby="pricing-title">
-      <h2 id="pricing-title">Choose Your <span class="key-purple">Loadout</span></h2>
-      <div class="pricing-wrap">
-        <article class="pricing-card" aria-label="Pricing card">
-          <p class="plan">12-Month "Level 100" Access Pass</p>
-          <p class="price" aria-label="Price"></p>
-          <p class="price-sub">One-Time Payment</p>
-          <ul class="benefits">
-            <li>Full access to the 31-Day Interactive Web App.</li>
-            <li>Progressive Web App (PWA) technology for mobile &amp; desktop.</li>
-            <li>Secure, encrypted cloud sync for multiple devices.</li>
-            <li>1-Year License (Access automatically expires after 365 days).</li>
-          </ul>
-          <button class="btn btn-pricing" type="button">UNLOCK CHEAT CODES</button>
-          <p class="muted" style="font-size: 0.86rem; margin: 12px 0 0;">Secure payments processed by Paddle. Due to the instant-access digital nature of this software, all sales are final.</p>
-        </article>
-      </div>
-    </section>
-
-    <section class="section" aria-labelledby="faq-title">
-      <h2 id="faq-title">FAQ</h2>
-      <div class="faq-list">
-        <article class="faq-item">
-          <p class="faq-question">Is this a physical book or a PDF?</p>
-          <p class="faq-answer">No. This is a digital Software-as-a-Service (SaaS) web application. You interact with it online, farm daily XP, and track your mindset evolution.</p>
-        </article>
-        <article class="faq-item">
-          <p class="faq-question">Do I need to download it from the App Store?</p>
-          <p class="faq-answer">No. We use modern PWA (Progressive Web App) technology. Just log in via your browser and click "Install" to add it to your home screen. It takes 0 space on your hard drive!</p>
-        </article>
-        <article class="faq-item">
-          <p class="faq-question">What is your refund policy?</p>
-          <p class="faq-answer">Because our product is a digital application that grants instant access to our proprietary 31-day program, ALL SALES ARE FINAL. We do not offer refunds, returns, or exchanges under any circumstances. If you encounter any "glitches" logging in, our support team will help you immediately.</p>
-        </article>
+        <div class="step"><strong>Coming Soon:</strong> Project Unstoppable is on its way to Google Play.</div>
+        <div class="step"><strong>31 Days:</strong> Get ready for a quest designed to help you level up your mindset.</div>
+        <div class="step"><strong>Stay Tuned:</strong> Launch news will land here when it is ready.</div>
       </div>
     </section>
 
@@ -551,7 +428,7 @@
       var legalCopy = {
         terms: {
           title: 'Terms of Service',
-          body: 'By purchasing access to the Project Unstoppable web application, you are granted a personal license to access the platform for exactly 12 months from the date of purchase. This is not a lifetime license.'
+          body: 'Project Unstoppable is currently coming soon on Google Play. Applicable terms will be provided with the mobile app when it is available.'
         },
         privacy: {
           title: 'Privacy Policy',
@@ -607,7 +484,7 @@
         },
         refund: {
           title: 'Return & Refund Policy',
-          body: 'All Sales Are Final. Upon purchase, you are granted immediate access to the digital platform. Because the digital product is instantly accessible, we do not offer refunds, exchanges, or cancellations.'
+          body: 'Project Unstoppable is currently coming soon on Google Play. Any applicable store policies will be provided with the mobile app when it is available.'
         }
       };
 

@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>The Confident, Mindful &amp; Happy Me Adventure App | Rise Shine Evolve</title>
+  <title>The Confident, Mindful &amp; Happy Me Adventure App — Coming Soon on Google Play</title>
   <meta
     name="description"
-    content="Unlock your child's inner superpower in 31 days with The Confident, Mindful & Happy Me Adventure App — a digital SaaS web app and PWA for confidence and emotional growth."
+    content="Discover The Confident, Mindful & Happy Me Adventure App, a 31-day mobile adventure for kids, coming soon on Google Play."
   />
   <link rel="canonical" href="https://rise-shine-evolve-learning-hub.com/adventure-app/" />
   <style>
@@ -19,12 +19,9 @@
       --blue: #00e5ff;
       --yellow: #ffd700;
       --pink: #ff4de1;
-      --price-currency: "$";
-      --price-amount: "";
       --radius: 18px;
       --shadow-purple: 0 0 28px rgba(138, 43, 226, 0.35);
       --shadow-blue: 0 0 28px rgba(0, 229, 255, 0.35);
-      --shadow-yellow: 0 0 28px rgba(255, 215, 0, 0.35);
     }
 
     * { box-sizing: border-box; }
@@ -82,10 +79,7 @@
     }
 
     .subheading,
-    .step,
     .feature-card p,
-    .faq-answer,
-    .muted,
     .legal-links button,
     footer {
       color: var(--text-muted);
@@ -124,6 +118,11 @@
       border-color: var(--purple);
       box-shadow: var(--shadow-purple);
       align-self: flex-start;
+    }
+
+    .launch-state {
+      cursor: default;
+      pointer-events: none;
     }
 
     .btn-primary:hover,
@@ -258,106 +257,6 @@
       background: linear-gradient(180deg, rgba(22, 14, 36, 0.8), rgba(8, 8, 14, 0.92));
     }
 
-    .steps {
-      display: grid;
-      gap: 12px;
-    }
-
-    .step {
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 14px;
-      padding: 12px 14px;
-      background: rgba(255, 255, 255, 0.02);
-    }
-
-    .step strong { color: #fff; }
-
-    #pricing { scroll-margin-top: 24px; }
-
-    .pricing-wrap {
-      display: grid;
-      place-items: center;
-    }
-
-    .pricing-card {
-      width: min(100%, 560px);
-      border: 2px solid var(--yellow);
-      border-radius: 22px;
-      padding: 22px;
-      background: linear-gradient(180deg, rgba(20, 18, 7, 0.88), rgba(10, 10, 14, 0.95));
-      box-shadow: var(--shadow-yellow);
-    }
-
-    .plan {
-      margin: 0 0 4px;
-      color: #fff2b0;
-      text-transform: uppercase;
-      letter-spacing: 0.9px;
-      font-weight: 800;
-    }
-
-    .price {
-      margin: 0;
-      font-size: clamp(2.2rem, 6vw, 3rem);
-      line-height: 1;
-      color: var(--yellow);
-      text-shadow: 0 0 18px rgba(255, 215, 0, 0.55);
-      font-weight: 900;
-    }
-
-    .price::before { content: var(--price-currency); margin-right: 2px; }
-    .price::after { content: var(--price-amount); }
-
-    .price-sub {
-      margin: 8px 0 16px;
-      color: #fff;
-      font-weight: 600;
-    }
-
-    .benefits {
-      margin: 0 0 18px;
-      padding-left: 18px;
-    }
-
-    .benefits li { margin-bottom: 8px; }
-
-    .btn-pricing {
-      width: 100%;
-      border-color: var(--yellow);
-      background: #090909;
-      color: #ffffff;
-      box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
-    }
-
-    .btn-pricing:hover,
-    .btn-pricing:focus-visible {
-      transform: translateY(-2px);
-      box-shadow: 0 0 28px rgba(255, 215, 0, 0.6);
-      outline: none;
-    }
-
-    .faq-list {
-      display: grid;
-      gap: 12px;
-    }
-
-    .faq-item {
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 14px;
-      padding: 14px;
-      background: rgba(255, 255, 255, 0.02);
-    }
-
-    .faq-question {
-      margin: 0 0 6px;
-      color: #ffffff;
-      font-weight: 700;
-    }
-
-    .faq-answer {
-      margin: 0;
-    }
-
     footer {
       text-align: center;
       padding: 8px 0 0;
@@ -488,11 +387,11 @@
     <section class="section hero" aria-labelledby="hero-title">
       <div class="hero-copy">
         <h1 id="hero-title">Unlock Your Child's <span class="key-gold">Inner Superpower</span> in 31 Days! 🚀</h1>
-        <p style="margin: -2px 0 0 0; color: #ffd700; font-size: 0.92rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px;">Available Soon</p>
+        <p style="margin: -2px 0 0 0; color: #ffd700; font-size: 0.92rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px;">Coming Soon on Google Play</p>
         <p class="subheading">
-          Welcome to the Happy-Makers Survival Kit. A 31-day interactive web application (SaaS) designed to help kids boost self-esteem, master big feelings, and build unshakeable confidence. No App Store needed – install our Progressive Web App (PWA) directly on your phone or tablet!
+          Welcome to the Happy-Makers Survival Kit: a 31-day mobile adventure designed to help kids build confidence, navigate big feelings, and grow with courage.
         </p>
-        <a class="btn btn-primary" href="#pricing">GET 12-MONTH ACCESS NOW</a>
+        <span class="btn btn-primary launch-state">COMING SOON ON GOOGLE PLAY</span>
       </div>
       <div class="mockup">
         <img src="https://raw.githubusercontent.com/riseshineevolve-source/RISE.SHINE.EVOLVE/main/assets/images/The%20confident%20App%20cover%202.png" alt="The Confident app cover" loading="lazy" />
@@ -553,51 +452,9 @@
       </div>
     </section>
 
-    <section class="section" aria-labelledby="how-title">
-      <h2 id="how-title">How our Progressive Web App (PWA) Works:</h2>
-      <div class="steps">
-        <div class="step"><strong>Step 1:</strong> Purchase your 1-Year Access Pass securely online.</div>
-        <div class="step"><strong>Step 2:</strong> Instantly receive your private login credentials via email.</div>
-        <div class="step"><strong>Step 3:</strong> Log in through your browser and click "Install App" to add the Happy-Makers icon directly to your home screen.</div>
-        <div class="step"><strong>Step 4:</strong> Start the 31-day adventure! Your family's progress is securely synced in the cloud across all your devices.</div>
-      </div>
-    </section>
-
-    <section class="section" id="pricing" aria-labelledby="pricing-title">
-      <h2 id="pricing-title">Choose Your <span class="key-gold">Loadout</span></h2>
-      <div class="pricing-wrap">
-        <article class="pricing-card" aria-label="Pricing card">
-          <p class="plan">12-Month Unlimited Access Pass</p>
-          <p class="price" aria-label="Price"></p>
-          <p class="price-sub">One-Time Payment</p>
-          <ul class="benefits">
-            <li>Full access to the 31-Day Interactive Web App.</li>
-            <li>Progressive Web App (PWA) technology for mobile &amp; desktop.</li>
-            <li>Secure, encrypted cloud sync for multiple devices.</li>
-            <li>1-Year License (Access automatically expires after 365 days).</li>
-          </ul>
-          <button class="btn btn-pricing" type="button">START THE ADVENTURE</button>
-          <p class="muted" style="font-size: 0.86rem; margin: 12px 0 0;">Secure payments processed by Paddle. Due to the instant-access digital nature of this software, all sales are final.</p>
-        </article>
-      </div>
-    </section>
-
-    <section class="section" aria-labelledby="faq-title">
-      <h2 id="faq-title">FAQ</h2>
-      <div class="faq-list">
-        <article class="faq-item">
-          <p class="faq-question">Is this a physical book or a PDF?</p>
-          <p class="faq-answer">No. This is a digital Software-as-a-Service (SaaS) web application. You interact with it online, complete daily missions, and track your emotional mastery journey.</p>
-        </article>
-        <article class="faq-item">
-          <p class="faq-question">How do I download the app?</p>
-          <p class="faq-answer">We use modern PWA (Progressive Web App) technology. You don't need to visit the App Store. Just log in via your web browser and click the "Install" button inside the app to add it to your home screen.</p>
-        </article>
-        <article class="faq-item">
-          <p class="faq-question">What is your refund policy?</p>
-          <p class="faq-answer">Because our product is a digital application that grants instant access to our proprietary 31-day program, ALL SALES ARE FINAL. We do not offer refunds, returns, or exchanges under any circumstances. If you have technical issues logging in, our support team will help you immediately.</p>
-        </article>
-      </div>
+    <section class="section" aria-labelledby="launch-title">
+      <h2 id="launch-title"><span class="key-gold">COMING SOON ON GOOGLE PLAY</span></h2>
+      <p class="subheading">The Confident, Mindful &amp; Happy Me Adventure is coming soon as a mobile app.</p>
     </section>
 
     <section class="section" style="display:flex; justify-content:center; align-items:center; padding-top:18px; padding-bottom:18px;">
@@ -630,7 +487,7 @@
       var legalCopy = {
         terms: {
           title: 'Terms of Service',
-          body: 'By purchasing access to the Happy Makers web application, you are granted a personal license to access the platform for exactly 12 months from the date of purchase. This is not a lifetime license.'
+          body: 'These terms govern your use of the Rise.Shine.Evolve website and educational resources. The Confident, Mindful & Happy Me Adventure App is coming soon on Google Play.'
         },
         privacy: {
           title: 'Privacy Policy',
@@ -686,7 +543,7 @@
         },
         refund: {
           title: 'Return & Refund Policy',
-          body: 'All Sales Are Final. Upon purchase, you are granted immediate access to the digital platform. Because the digital product is instantly accessible, we do not offer refunds, exchanges, or cancellations once the purchase is complete.'
+          body: 'The Confident, Mindful & Happy Me Adventure App is currently coming soon on Google Play. Any applicable store policies will be provided with the mobile app when it is available.'
         }
       };
 
