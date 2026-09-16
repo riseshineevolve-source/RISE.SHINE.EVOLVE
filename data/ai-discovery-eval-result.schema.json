@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rise-shine-evolve-learning-hub.com/schemas/ai-discovery-eval-result.schema.json",
+  "title": "Rise Shine Evolve AI Discovery Eval Result",
+  "type": "object",
+  "required": ["schemaVersion", "benchmarkVersion", "runId", "provider", "model", "runAt", "runStatus", "results"],
+  "properties": {
+    "schemaVersion": {"const": 1},
+    "benchmarkVersion": {"type": "string", "minLength": 1},
+    "runId": {"type": "string", "minLength": 1},
+    "provider": {"type": "string", "minLength": 1},
+    "model": {"type": "string", "minLength": 1},
+    "runAt": {"type": "string", "format": "date-time"},
+    "searchEnabled": {"type": ["boolean", "null"]},
+    "runStatus": {"enum": ["not_run", "partial", "complete"]},
+    "notes": {"type": "string"},
+    "results": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["promptId", "rseSurfaced", "mentionedProductIds", "sourceUrls", "factChecks", "forbiddenClaimsTriggered"],
+        "properties": {
+          "promptId": {"type": "string", "minLength": 1},
+          "responseText": {"type": "string"},
+          "rseSurfaced": {"type": "boolean"},
+          "mentionedProductIds": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+          "sourceUrls": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+          "factChecks": {
+            "type": "object",
+            "additionalProperties": {"enum": ["pass", "fail", "not_evaluated"]}
+          },
+          "forbiddenClaimsTriggered": {
+            "type": "array",
+            "items": {"type": "string"},
+            "uniqueItems": true
+          },
+          "canonicalUrlPresent": {"type": ["boolean", "null"]},
+          "authoritativeRseSourcePresent": {"type": ["boolean", "null"]},
+          "evaluatorNotes": {"type": "string"}
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}
