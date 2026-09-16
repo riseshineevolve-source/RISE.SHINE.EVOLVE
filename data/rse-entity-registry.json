@@ -1,0 +1,87 @@
+{
+  "schemaVersion": 1,
+  "lastReviewed": "2026-09-16",
+  "entities": [
+    {
+      "id": "rse-brand",
+      "canonicalName": "Rise.Shine.Evolve.",
+      "aliases": ["Rise Shine Evolve", "Rise.Shine.Evolve"],
+      "entityType": "brand",
+      "canonicalUrl": "https://rise-shine-evolve-learning-hub.com/",
+      "parentEntityId": null,
+      "officialExternalUrls": [],
+      "status": "active"
+    },
+    {
+      "id": "happy-makers-universe",
+      "canonicalName": "Happy Makers",
+      "aliases": ["The Happy Makers"],
+      "entityType": "creative_universe",
+      "canonicalUrl": "https://rise-shine-evolve-learning-hub.com/the-happy-makers/",
+      "parentEntityId": "rse-brand",
+      "officialExternalUrls": [],
+      "status": "active"
+    },
+    {
+      "id": "level-up-your-brain-series",
+      "canonicalName": "Level Up Your Brain",
+      "aliases": [],
+      "entityType": "product_series",
+      "canonicalUrl": "https://rise-shine-evolve-learning-hub.com/level-up-your-brain/",
+      "parentEntityId": "rse-brand",
+      "officialExternalUrls": [],
+      "status": "active"
+    },
+    {
+      "id": "confident-adventure-entity",
+      "canonicalName": "The Confident, Mindful & Happy Me Adventure",
+      "aliases": ["Confident Adventure"],
+      "entityType": "product_family",
+      "canonicalUrl": "https://rise-shine-evolve-learning-hub.com/library/confident-adventure/",
+      "parentEntityId": "rse-brand",
+      "officialExternalUrls": [],
+      "status": "active"
+    },
+    {
+      "id": "project-unstoppable-entity",
+      "canonicalName": "Project Unstoppable",
+      "aliases": ["Project Unstoppable App"],
+      "entityType": "product_family",
+      "canonicalUrl": "https://rise-shine-evolve-learning-hub.com/unstoppable-app/",
+      "parentEntityId": "rse-brand",
+      "officialExternalUrls": [],
+      "status": "coming_soon"
+    },
+    {
+      "id": "gentle-steps-christmas-entity",
+      "canonicalName": "24 Gentle Steps to Christmas",
+      "aliases": ["Christmas Family Book"],
+      "entityType": "book",
+      "canonicalUrl": "https://rise-shine-evolve-learning-hub.com/library/christmas-book/",
+      "parentEntityId": "rse-brand",
+      "officialExternalUrls": [],
+      "status": "active"
+    },
+    {
+      "id": "grandma-bibi-entity",
+      "canonicalName": "Grandma Bibi Anti-Boredom Club",
+      "aliases": ["Grandma Bibi"],
+      "entityType": "book",
+      "canonicalUrl": "https://rise-shine-evolve-learning-hub.com/library/grandma-book/",
+      "parentEntityId": "rse-brand",
+      "officialExternalUrls": [],
+      "status": "availability_unverified"
+    },
+    {
+      "id": "seniors-area",
+      "canonicalName": "Seniors",
+      "aliases": [],
+      "entityType": "audience_area",
+      "canonicalUrl": "https://rise-shine-evolve-learning-hub.com/seniors/",
+      "parentEntityId": "rse-brand",
+      "officialExternalUrls": [],
+      "status": "coming_soon",
+      "note": "Audience area only. Do not model as a product until a real Seniors product is defined."
+    }
+  ]
+}
