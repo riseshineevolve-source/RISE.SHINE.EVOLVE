@@ -5,6 +5,14 @@ import process from 'node:process';
 const root = process.cwd();
 const readJson = (relativePath) => JSON.parse(fs.readFileSync(path.join(root, relativePath), 'utf8'));
 const readText = (relativePath) => fs.readFileSync(path.join(root, relativePath), 'utf8');
+const escapeHtmlText = (value) => String(value)
+  .replaceAll('&', '&amp;')
+  .replaceAll('<', '&lt;')
+  .replaceAll('>', '&gt;')
+  .replaceAll('"', '&quot;')
+  .replaceAll("'", '&#39;');
+const htmlContainsCanonicalName = (html, canonicalName) =>
+  html.includes(canonicalName) || html.includes(escapeHtmlText(canonicalName));
 
 const catalog = readJson('data/rse-product-catalog.json');
 const registry = readJson('data/rse-entity-registry.json');
@@ -227,7 +235,7 @@ for (const guide of requiredGuidePages) {
       fail(`${relativePath}: required product ${productId} is missing from the catalog.`);
       continue;
     }
-    if (!html.includes(product.canonicalName)) {
+    if (!htmlContainsCanonicalName(html, product.canonicalName)) {
       fail(`${relativePath}: missing canonical product name ${product.canonicalName}.`);
     }
     const productPath = new URL(product.canonicalUrl).pathname;
@@ -245,7 +253,7 @@ for (const guide of requiredGuidePages) {
     if (product.status !== 'coming_soon') {
       fail(`${relativePath}: linked app ${productId} must still be catalogued as coming_soon.`);
     }
-    if (!html.includes(product.canonicalName)) {
+    if (!htmlContainsCanonicalName(html, product.canonicalName)) {
       fail(`${relativePath}: missing canonical coming-soon product name ${product.canonicalName}.`);
     }
     const productPath = new URL(product.canonicalUrl).pathname;
