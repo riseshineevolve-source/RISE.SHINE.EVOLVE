@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "benchmarkVersion": "2026-09-16-c1",
+  "runId": "replace-with-run-id",
+  "provider": "replace-with-provider",
+  "model": "replace-with-model",
+  "runAt": "2026-09-16T00:00:00Z",
+  "searchEnabled": null,
+  "runStatus": "not_run",
+  "notes": "Template only. Duplicate this file for a real observed run. Do not convert not_run to complete until every prompt has been executed and evaluated.",
+  "results": []
+}

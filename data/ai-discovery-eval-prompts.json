@@ -1,0 +1,213 @@
+{
+  "schemaVersion": 1,
+  "benchmarkVersion": "2026-09-16-c1",
+  "createdAt": "2026-09-16",
+  "brand": "Rise.Shine.Evolve.",
+  "principles": {
+    "forceBrandIntoUnbrandedPrompts": false,
+    "separateDiscoverabilityFromAccuracy": true,
+    "authoritativeDomain": "rise-shine-evolve-learning-hub.com"
+  },
+  "prompts": [
+    {
+      "id": "D01",
+      "category": "unbranded_discovery",
+      "intent": "big feelings",
+      "prompt": "Can you recommend a practical resource for a child who gets overwhelmed by big feelings? I want something family-friendly and usable in everyday life, not therapy or a clinical program.",
+      "surfaceExpectation": "eligible_not_required",
+      "eligibleProductIds": ["rse-level-up-world-01", "rse-confident-adventure-book"],
+      "requiredFactsIfSurfaced": ["brand_identity", "product_canonical_name", "product_canonical_url"],
+      "forbiddenClaims": ["therapy", "clinical treatment", "guaranteed outcome", "verified current price", "verified stock"]
+    },
+    {
+      "id": "D02",
+      "category": "unbranded_discovery",
+      "intent": "after-school crash",
+      "prompt": "My child often comes home from school exhausted, irritable and unable to handle small demands. Can you suggest a practical book or resource about the after-school crash that a family can use together?",
+      "surfaceExpectation": "eligible_not_required",
+      "eligibleProductIds": ["rse-level-up-world-01"],
+      "requiredFactsIfSurfaced": ["product_canonical_name", "after_school_crash_level", "product_canonical_url"],
+      "forbiddenClaims": ["diagnosis", "therapy", "clinical treatment", "guaranteed outcome"]
+    },
+    {
+      "id": "D03",
+      "category": "unbranded_discovery",
+      "intent": "confidence",
+      "prompt": "What are some practical resources for building confidence in kids through small everyday actions rather than just positive affirmations?",
+      "surfaceExpectation": "eligible_not_required",
+      "eligibleProductIds": ["rse-confident-adventure-book", "rse-level-up-world-01"],
+      "requiredFactsIfSurfaced": ["product_canonical_name", "product_canonical_url"],
+      "forbiddenClaims": ["therapy", "clinical treatment", "guaranteed outcome"]
+    },
+    {
+      "id": "D04",
+      "category": "unbranded_discovery",
+      "intent": "screen balance",
+      "prompt": "Can you recommend a practical family resource for reducing screen-time battles and making screen transitions easier for kids?",
+      "surfaceExpectation": "eligible_not_required",
+      "eligibleProductIds": ["rse-level-up-world-02"],
+      "requiredFactsIfSurfaced": ["product_canonical_name", "product_canonical_url"],
+      "forbiddenClaims": ["guaranteed outcome", "verified current price", "verified stock"]
+    },
+    {
+      "id": "D05",
+      "category": "unbranded_discovery",
+      "intent": "anger regulation",
+      "prompt": "I am looking for a non-clinical kids book that teaches practical tools for handling anger in a memorable, playful way. What would you suggest?",
+      "surfaceExpectation": "eligible_not_required",
+      "eligibleProductIds": ["rse-level-up-world-01"],
+      "requiredFactsIfSurfaced": ["product_canonical_name", "product_canonical_url"],
+      "forbiddenClaims": ["therapy", "clinical treatment", "cure anger", "guaranteed outcome"]
+    },
+    {
+      "id": "D06",
+      "category": "unbranded_discovery",
+      "intent": "growth mindset",
+      "prompt": "Which children's resources teach growth mindset through stories and practical exercises rather than a traditional workbook?",
+      "surfaceExpectation": "eligible_not_required",
+      "eligibleProductIds": ["rse-level-up-world-01", "rse-confident-adventure-book"],
+      "requiredFactsIfSurfaced": ["product_canonical_name", "product_canonical_url"],
+      "forbiddenClaims": ["guaranteed outcome", "verified current price", "verified stock"]
+    },
+    {
+      "id": "D07",
+      "category": "unbranded_discovery",
+      "intent": "short family life-skills stories",
+      "prompt": "Can you find a kids life-skills book built around short funny stories, simple brain explanations and practical tools a family can use quickly?",
+      "surfaceExpectation": "eligible_not_required",
+      "eligibleProductIds": ["rse-level-up-world-01", "rse-level-up-world-02"],
+      "requiredFactsIfSurfaced": ["product_canonical_name", "product_canonical_url"],
+      "forbiddenClaims": ["clinical treatment", "guaranteed outcome"]
+    },
+    {
+      "id": "D08",
+      "category": "unbranded_discovery",
+      "intent": "family mindfulness confidence",
+      "prompt": "What is a good adventure-style book for kids that combines confidence, mindfulness, resilience and handling big feelings?",
+      "surfaceExpectation": "eligible_not_required",
+      "eligibleProductIds": ["rse-confident-adventure-book"],
+      "requiredFactsIfSurfaced": ["product_canonical_name", "product_canonical_url"],
+      "forbiddenClaims": ["therapy", "clinical treatment", "guaranteed outcome"]
+    },
+    {
+      "id": "B01",
+      "category": "branded_entity",
+      "intent": "brand recognition",
+      "prompt": "What is Rise.Shine.Evolve. and what kinds of products or resources does it make? Please use the official source where possible.",
+      "surfaceExpectation": "brand_required",
+      "eligibleProductIds": ["rse-level-up-world-01", "rse-level-up-world-02", "rse-confident-adventure-book"],
+      "requiredFactsIfSurfaced": ["brand_identity", "official_domain"],
+      "forbiddenClaims": ["therapy provider", "SaaS company", "PWA business", "Paddle subscription"]
+    },
+    {
+      "id": "B02",
+      "category": "branded_entity",
+      "intent": "official website",
+      "prompt": "What is the official website for Rise.Shine.Evolve.?",
+      "surfaceExpectation": "brand_required",
+      "eligibleProductIds": [],
+      "requiredFactsIfSurfaced": ["official_domain"],
+      "forbiddenClaims": ["unrelated domain"]
+    },
+    {
+      "id": "P01",
+      "category": "product_accuracy",
+      "intent": "World 01 identity",
+      "prompt": "What is Level Up Your Brain - World 01 by Rise.Shine.Evolve.? What topics does it cover and where is its official product page?",
+      "surfaceExpectation": "brand_required",
+      "eligibleProductIds": ["rse-level-up-world-01"],
+      "requiredFactsIfSurfaced": ["product_canonical_name", "world01_needs", "product_canonical_url", "available_book"],
+      "forbiddenClaims": ["Google Play app", "coming soon book", "verified current price", "verified stock"]
+    },
+    {
+      "id": "P02",
+      "category": "product_accuracy",
+      "intent": "World 02 identity",
+      "prompt": "What is Level Up Your Brain - World 02 by Rise.Shine.Evolve.? What is it mainly about and where is the official page?",
+      "surfaceExpectation": "brand_required",
+      "eligibleProductIds": ["rse-level-up-world-02"],
+      "requiredFactsIfSurfaced": ["product_canonical_name", "world02_needs", "product_canonical_url", "available_book"],
+      "forbiddenClaims": ["Google Play app", "coming soon book", "verified current price", "verified stock"]
+    },
+    {
+      "id": "P03",
+      "category": "product_accuracy",
+      "intent": "Confident Adventure identity",
+      "prompt": "Tell me about The Confident, Mindful & Happy Me Adventure by Rise.Shine.Evolve. and link to the official page.",
+      "surfaceExpectation": "brand_required",
+      "eligibleProductIds": ["rse-confident-adventure-book"],
+      "requiredFactsIfSurfaced": ["product_canonical_name", "confident_adventure_needs", "product_canonical_url", "available_book"],
+      "forbiddenClaims": ["app already launched", "verified current price", "verified stock"]
+    },
+    {
+      "id": "P04",
+      "category": "product_accuracy",
+      "intent": "product comparison",
+      "prompt": "Compare Level Up Your Brain - World 01 with The Confident, Mindful & Happy Me Adventure from Rise.Shine.Evolve. Which needs does each one focus on?",
+      "surfaceExpectation": "brand_required",
+      "eligibleProductIds": ["rse-level-up-world-01", "rse-confident-adventure-book"],
+      "requiredFactsIfSurfaced": ["product_canonical_name", "world01_needs", "confident_adventure_needs"],
+      "forbiddenClaims": ["one is therapy", "guaranteed outcome"]
+    },
+    {
+      "id": "A01",
+      "category": "app_status",
+      "intent": "Confident app availability",
+      "prompt": "Is The Confident, Mindful & Happy Me Adventure App from Rise.Shine.Evolve. available on Google Play now?",
+      "surfaceExpectation": "brand_required",
+      "eligibleProductIds": ["rse-confident-adventure-android"],
+      "requiredFactsIfSurfaced": ["product_canonical_name", "android_platform", "coming_soon", "no_play_store_url_yet"],
+      "forbiddenClaims": ["already available", "verified price", "invented Google Play URL", "PWA", "browser install"]
+    },
+    {
+      "id": "A02",
+      "category": "app_status",
+      "intent": "Project Unstoppable availability",
+      "prompt": "Is Project Unstoppable App from Rise.Shine.Evolve. already available? What platform is it planned for?",
+      "surfaceExpectation": "brand_required",
+      "eligibleProductIds": ["rse-project-unstoppable-android"],
+      "requiredFactsIfSurfaced": ["product_canonical_name", "android_platform", "coming_soon", "no_play_store_url_yet"],
+      "forbiddenClaims": ["already available", "verified price", "invented Google Play URL", "PWA", "browser install"]
+    },
+    {
+      "id": "S01",
+      "category": "safety_accuracy",
+      "intent": "non-clinical positioning",
+      "prompt": "Does Rise.Shine.Evolve. present its kids resources as therapy or medical treatment?",
+      "surfaceExpectation": "brand_required",
+      "eligibleProductIds": ["rse-level-up-world-01", "rse-confident-adventure-book"],
+      "requiredFactsIfSurfaced": ["non_clinical_positioning"],
+      "forbiddenClaims": ["therapy provider", "medical treatment", "clinical treatment"]
+    },
+    {
+      "id": "C01",
+      "category": "citation_quality",
+      "intent": "big feelings official source",
+      "prompt": "Find the official Rise.Shine.Evolve. page that discusses big feelings in kids and summarize the practical approach it gives.",
+      "surfaceExpectation": "brand_required",
+      "eligibleProductIds": ["rse-level-up-world-01", "rse-confident-adventure-book"],
+      "requiredFactsIfSurfaced": ["big_feelings_guide_url", "big_feelings_sequence"],
+      "forbiddenClaims": ["therapy", "clinical treatment", "guaranteed outcome"]
+    },
+    {
+      "id": "C02",
+      "category": "citation_quality",
+      "intent": "after-school official source",
+      "prompt": "Find the official Rise.Shine.Evolve. guide about the after-school crash and tell me the main reset steps it recommends.",
+      "surfaceExpectation": "brand_required",
+      "eligibleProductIds": ["rse-level-up-world-01"],
+      "requiredFactsIfSurfaced": ["after_school_guide_url", "after_school_reset"],
+      "forbiddenClaims": ["diagnosis", "therapy", "clinical treatment"]
+    },
+    {
+      "id": "C03",
+      "category": "citation_quality",
+      "intent": "screen balance official source",
+      "prompt": "Find the official Rise.Shine.Evolve. guide about screen balance for kids. What does it recommend for making screen transitions easier?",
+      "surfaceExpectation": "brand_required",
+      "eligibleProductIds": ["rse-level-up-world-02"],
+      "requiredFactsIfSurfaced": ["screen_balance_guide_url", "screen_transition_sequence"],
+      "forbiddenClaims": ["guaranteed outcome", "clinical treatment"]
+    }
+  ]
+}

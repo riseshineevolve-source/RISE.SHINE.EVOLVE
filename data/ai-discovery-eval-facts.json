@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "benchmarkVersion": "2026-09-16-c1",
+  "facts": {
+    "brand_identity": {
+      "description": "Rise.Shine.Evolve. is the canonical brand name.",
+      "source": "data/rse-product-catalog.json"
+    },
+    "official_domain": {
+      "description": "The official RSE website domain is rise-shine-evolve-learning-hub.com.",
+      "expectedValue": "https://rise-shine-evolve-learning-hub.com/"
+    },
+    "product_canonical_name": {
+      "description": "Any surfaced RSE product should use its canonical name from the product catalog.",
+      "source": "data/rse-product-catalog.json"
+    },
+    "product_canonical_url": {
+      "description": "Any surfaced RSE product should link to its canonical RSE product page when an official URL is requested or cited.",
+      "source": "data/rse-product-catalog.json"
+    },
+    "available_book": {
+      "description": "The referenced book is catalogued as available, while live price and stock remain unverified.",
+      "source": "data/rse-product-catalog.json"
+    },
+    "world01_needs": {
+      "description": "World 01 maps to big feelings, anger regulation and growth mindset, with after-school regulation among secondary needs.",
+      "productId": "rse-level-up-world-01"
+    },
+    "world02_needs": {
+      "description": "World 02 maps primarily to screen balance, routines and habits.",
+      "productId": "rse-level-up-world-02"
+    },
+    "confident_adventure_needs": {
+      "description": "The Confident, Mindful & Happy Me Adventure maps primarily to confidence, mindfulness and big feelings.",
+      "productId": "rse-confident-adventure-book"
+    },
+    "after_school_crash_level": {
+      "description": "World 01 contains an existing level titled The After-School Crash.",
+      "source": "library/world-01/index.html"
+    },
+    "android_platform": {
+      "description": "The referenced RSE app is planned for Android / Google Play.",
+      "source": "data/rse-product-catalog.json"
+    },
+    "coming_soon": {
+      "description": "The referenced app is currently catalogued as coming soon, not launched.",
+      "source": "data/rse-product-catalog.json"
+    },
+    "no_play_store_url_yet": {
+      "description": "No verified Google Play store URL is currently present in the catalog for the coming-soon app.",
+      "source": "data/rse-product-catalog.json"
+    },
+    "non_clinical_positioning": {
+      "description": "RSE kids guides/resources are presented as educational family resources, not therapy or medical treatment.",
+      "source": "docs/ai-discovery/PHASE_C1_INTENT_PAGES.md"
+    },
+    "big_feelings_guide_url": {
+      "description": "The canonical Big Feelings guide URL is /guides/big-feelings/.",
+      "expectedValue": "https://rise-shine-evolve-learning-hub.com/guides/big-feelings/"
+    },
+    "big_feelings_sequence": {
+      "description": "The Big Feelings guide uses the sequence pause, connect, name, choose.",
+      "source": "guides/big-feelings/index.html"
+    },
+    "after_school_guide_url": {
+      "description": "The canonical After-School Crash guide URL is /guides/after-school-crash/.",
+      "expectedValue": "https://rise-shine-evolve-learning-hub.com/guides/after-school-crash/"
+    },
+    "after_school_reset": {
+      "description": "The After-School Crash guide uses arrive, refuel, decompress, reconnect, restart as its simple reset sequence.",
+      "source": "guides/after-school-crash/index.html"
+    },
+    "screen_balance_guide_url": {
+      "description": "The canonical Screen Balance guide URL is /guides/screen-balance/.",
+      "expectedValue": "https://rise-shine-evolve-learning-hub.com/guides/screen-balance/"
+    },
+    "screen_transition_sequence": {
+      "description": "The Screen Balance guide uses before, near the end, at the end, after as its four-part transition sequence.",
+      "source": "guides/screen-balance/index.html"
+    }
+  }
+}
