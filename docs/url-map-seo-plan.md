@@ -94,7 +94,7 @@
 ## SEO rollout checklist (operational)
 
 ### 1) Pre-release
-- [ ] Confirm canonical URLs use production domain `https://rise-shine-evolve.com`.
+- [ ] Confirm canonical URLs use production domain `https://rise-shine-evolve-learning-hub.com`.
 - [ ] Confirm every SEO page has exactly one `h1` and includes `title` + `meta description`.
 - [ ] Confirm JSON-LD is valid (`WebPage` on pages, `WebSite` on homepage, `BreadcrumbList` on hubs/landing pages).
 - [ ] Confirm internal links connect: homepage → hubs → landing pages.
@@ -107,13 +107,13 @@
 
 ### 3) Release day
 - [ ] Deploy latest version to production.
-- [ ] Open `https://rise-shine-evolve.com/robots.txt` and verify no accidental disallow rules.
-- [ ] Open `https://rise-shine-evolve.com/sitemap.xml` and verify all key hubs/landing URLs are present.
-- [ ] Open `https://rise-shine-evolve.com/feed.xml` and verify channel + latest items render correctly.
+- [ ] Open `https://rise-shine-evolve-learning-hub.com/robots.txt` and verify no accidental disallow rules.
+- [ ] Open `https://rise-shine-evolve-learning-hub.com/sitemap.xml` and verify all key hubs/landing URLs are present.
+- [ ] Open `https://rise-shine-evolve-learning-hub.com/feed.xml` and verify channel + latest items render correctly.
 
 ### 4) Post-release (Search Console / Bing)
-- [ ] Submit `https://rise-shine-evolve.com/sitemap.xml` in Google Search Console.
-- [ ] Submit `https://rise-shine-evolve.com/sitemap.xml` in Bing Webmaster Tools.
+- [ ] Submit `https://rise-shine-evolve-learning-hub.com/sitemap.xml` in Google Search Console.
+- [ ] Submit `https://rise-shine-evolve-learning-hub.com/sitemap.xml` in Bing Webmaster Tools.
 - [ ] Request indexing for homepage, hubs (`/kids/`, `/teenagers/`, `/adults/`, `/library/`, `/gifts/`) and priority landing pages.
 - [ ] Monitor coverage/indexing reports for 7-14 days and capture issues.
 
