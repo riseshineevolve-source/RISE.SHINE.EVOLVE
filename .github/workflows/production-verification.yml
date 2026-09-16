@@ -1,0 +1,36 @@
+name: Production Delivery Verification
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "30 5 * * *"
+  push:
+    branches:
+      - "ai-discovery/v1-production-delivery-verification-*"
+    paths:
+      - "scripts/verify-production-delivery.mjs"
+      - "package.json"
+      - ".github/workflows/production-verification.yml"
+
+jobs:
+  verify-production:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Verify live production delivery
+        run: npm run production:verify
+
+      - name: Upload production delivery report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: production-delivery-report
+          path: reports/ai-discovery/production-delivery-run.json
+          if-no-files-found: warn
