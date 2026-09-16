@@ -5,6 +5,14 @@ import process from 'node:process';
 const root = process.cwd();
 const readJson = (relativePath) => JSON.parse(fs.readFileSync(path.join(root, relativePath), 'utf8'));
 const readText = (relativePath) => fs.readFileSync(path.join(root, relativePath), 'utf8');
+const escapeHtmlText = (value) => String(value)
+  .replaceAll('&', '&amp;')
+  .replaceAll('<', '&lt;')
+  .replaceAll('>', '&gt;')
+  .replaceAll('"', '&quot;')
+  .replaceAll("'", '&#39;');
+const htmlContainsCanonicalName = (html, canonicalName) =>
+  html.includes(canonicalName) || html.includes(escapeHtmlText(canonicalName));
 
 const catalog = readJson('data/rse-product-catalog.json');
 const registry = readJson('data/rse-entity-registry.json');
@@ -19,6 +27,32 @@ const products = Array.isArray(catalog.products) ? catalog.products : [];
 const entities = Array.isArray(registry.entities) ? registry.entities : [];
 const seoPages = Array.isArray(seoConfig.pages) ? seoConfig.pages : [];
 const requiredAppPages = ['adventure-app/index.html', 'unstoppable-app/index.html'];
+const requiredGuidePages = [
+  {
+    path: 'guides/big-feelings/index.html',
+    canonicalPath: '/guides/big-feelings/',
+    productIds: ['rse-level-up-world-01', 'rse-confident-adventure-book'],
+    comingSoonProductIds: ['rse-confident-adventure-android']
+  },
+  {
+    path: 'guides/confidence-for-kids/index.html',
+    canonicalPath: '/guides/confidence-for-kids/',
+    productIds: ['rse-confident-adventure-book', 'rse-level-up-world-01'],
+    comingSoonProductIds: ['rse-confident-adventure-android']
+  },
+  {
+    path: 'guides/after-school-crash/index.html',
+    canonicalPath: '/guides/after-school-crash/',
+    productIds: ['rse-level-up-world-01'],
+    requiredText: ['The After-School Crash']
+  },
+  {
+    path: 'guides/screen-balance/index.html',
+    canonicalPath: '/guides/screen-balance/',
+    productIds: ['rse-level-up-world-02'],
+    comingSoonProductIds: ['rse-project-unstoppable-android']
+  }
+];
 
 if (!products.length) fail('Product catalog must contain at least one product.');
 if (!entities.length) fail('Entity registry must contain at least one entity.');
@@ -156,6 +190,88 @@ for (const relativePath of requiredAppPages) {
   }
 }
 
+const productById = new Map(products.map((product) => [product.id, product]));
+const productionBase = 'https://rise-shine-evolve-learning-hub.com';
+const prohibitedGuideClaims = /guaranteed results|clinically proven|therapy replacement|medical treatment for/i;
+
+for (const guide of requiredGuidePages) {
+  const relativePath = guide.path;
+  if (!seoPages.includes(relativePath)) {
+    fail(`${relativePath}: guide page must be in the centralized SEO inventory.`);
+  }
+
+  const absolutePath = path.join(root, relativePath);
+  if (!fs.existsSync(absolutePath)) {
+    fail(`AI discovery guide page is missing: ${relativePath}`);
+    continue;
+  }
+
+  const html = readText(relativePath);
+  const expectedCanonical = `${productionBase}${guide.canonicalPath}`;
+  const canonical = html.match(/<link rel="canonical" href="([^"]+)"/i)?.[1];
+
+  if (canonical !== expectedCanonical) {
+    fail(`${relativePath}: canonical must be exactly ${expectedCanonical}.`);
+  }
+  if (retiredCopy.test(html)) {
+    fail(`${relativePath}: retired PWA/Paddle/SaaS/web-app copy reappeared.`);
+  }
+  if (prohibitedGuideClaims.test(html)) {
+    fail(`${relativePath}: prohibited clinical/guaranteed-outcome claim detected.`);
+  }
+  if (!html.includes('"@type":"FAQPage"') || !/<section\s+id="faq"/i.test(html)) {
+    fail(`${relativePath}: FAQ structured data must have matching visible FAQ content.`);
+  }
+  if (html.includes(`"item":"${productionBase}/guides/"`)) {
+    fail(`${relativePath}: breadcrumb must not point to a non-existent /guides/ hub.`);
+  }
+  if (/"offers"\s*:/.test(html)) {
+    fail(`${relativePath}: guide pages must not invent commerce Offer data.`);
+  }
+
+  for (const productId of guide.productIds || []) {
+    const product = productById.get(productId);
+    if (!product) {
+      fail(`${relativePath}: required product ${productId} is missing from the catalog.`);
+      continue;
+    }
+    if (!htmlContainsCanonicalName(html, product.canonicalName)) {
+      fail(`${relativePath}: missing canonical product name ${product.canonicalName}.`);
+    }
+    const productPath = new URL(product.canonicalUrl).pathname;
+    if (!html.includes(`href="${productPath}"`)) {
+      fail(`${relativePath}: missing canonical product link ${productPath}.`);
+    }
+  }
+
+  for (const productId of guide.comingSoonProductIds || []) {
+    const product = productById.get(productId);
+    if (!product) {
+      fail(`${relativePath}: coming-soon product ${productId} is missing from the catalog.`);
+      continue;
+    }
+    if (product.status !== 'coming_soon') {
+      fail(`${relativePath}: linked app ${productId} must still be catalogued as coming_soon.`);
+    }
+    if (!htmlContainsCanonicalName(html, product.canonicalName)) {
+      fail(`${relativePath}: missing canonical coming-soon product name ${product.canonicalName}.`);
+    }
+    const productPath = new URL(product.canonicalUrl).pathname;
+    if (!html.includes(`href="${productPath}"`)) {
+      fail(`${relativePath}: missing canonical coming-soon product link ${productPath}.`);
+    }
+    if (!/coming soon/i.test(html)) {
+      fail(`${relativePath}: coming-soon app mention must be explicitly labelled coming soon.`);
+    }
+  }
+
+  for (const requiredText of guide.requiredText || []) {
+    if (!html.includes(requiredText)) {
+      fail(`${relativePath}: required factual anchor is missing: ${requiredText}.`);
+    }
+  }
+}
+
 for (const relativePath of ['library/world-01/index.html', 'library/world-02/index.html']) {
   const html = readText(relativePath);
   if (html.includes('https://schema.org/InStock')) {
@@ -179,4 +295,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`AI discovery validation passed: ${products.length} products, ${entities.length} entities, ${requiredAppPages.length} app pages, ${warnings.length} warning(s).`);
+console.log(`AI discovery validation passed: ${products.length} products, ${entities.length} entities, ${requiredAppPages.length} app pages, ${requiredGuidePages.length} guide pages, ${warnings.length} warning(s).`);
