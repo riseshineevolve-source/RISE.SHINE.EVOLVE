@@ -4,9 +4,11 @@ import process from 'node:process';
 
 const root = process.cwd();
 const readJson = (relativePath) => JSON.parse(fs.readFileSync(path.join(root, relativePath), 'utf8'));
+const readText = (relativePath) => fs.readFileSync(path.join(root, relativePath), 'utf8');
 
 const catalog = readJson('data/rse-product-catalog.json');
 const registry = readJson('data/rse-entity-registry.json');
+const seoConfig = readJson('scripts/seo-config.json');
 
 const errors = [];
 const warnings = [];
@@ -15,9 +17,11 @@ const warn = (message) => warnings.push(message);
 
 const products = Array.isArray(catalog.products) ? catalog.products : [];
 const entities = Array.isArray(registry.entities) ? registry.entities : [];
+const aiDiscoveryPages = Array.isArray(seoConfig.aiDiscoveryPages) ? seoConfig.aiDiscoveryPages : [];
 
 if (!products.length) fail('Product catalog must contain at least one product.');
 if (!entities.length) fail('Entity registry must contain at least one entity.');
+if (!aiDiscoveryPages.length) fail('seo-config.json must declare staged aiDiscoveryPages.');
 
 const assertUnique = (items, key, label) => {
   const seen = new Map();
@@ -104,10 +108,8 @@ for (const product of products) {
     if (Array.isArray(readiness.feedBlockers) && readiness.feedBlockers.length) {
       fail(`${prefix}: openaiFeedReady=true but feedBlockers is not empty.`);
     }
-  } else {
-    if (!Array.isArray(readiness.feedBlockers) || readiness.feedBlockers.length === 0) {
-      warn(`${prefix}: not feed-ready but no explicit feed blockers are recorded.`);
-    }
+  } else if (!Array.isArray(readiness.feedBlockers) || readiness.feedBlockers.length === 0) {
+    warn(`${prefix}: not feed-ready but no explicit feed blockers are recorded.`);
   }
 }
 
@@ -121,6 +123,25 @@ for (const entity of entities) {
   }
 }
 
+const retiredCopy = /Paddle|Progressive Web App|\bPWA\b|\bSaaS\b|12[- ]month|12[- ]MONTH|browser-install|No App Store needed|\bweb app\b/i;
+for (const relativePath of aiDiscoveryPages) {
+  const absolutePath = path.join(root, relativePath);
+  if (!fs.existsSync(absolutePath)) {
+    fail(`Staged AI discovery page is missing: ${relativePath}`);
+    continue;
+  }
+
+  const html = readText(relativePath);
+  if (retiredCopy.test(html)) {
+    fail(`${relativePath}: retired PWA/Paddle/SaaS/web-app copy reappeared.`);
+  }
+
+  const canonical = html.match(/<link rel="canonical" href="([^"]+)"/i)?.[1];
+  if (!canonical?.startsWith('https://rise-shine-evolve-learning-hub.com/')) {
+    fail(`${relativePath}: missing or invalid production canonical URL.`);
+  }
+}
+
 for (const warning of warnings) console.warn(`WARN: ${warning}`);
 
 if (errors.length) {
@@ -129,4 +150,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`AI discovery validation passed: ${products.length} products, ${entities.length} entities, ${warnings.length} warning(s).`);
+console.log(`AI discovery validation passed: ${products.length} products, ${entities.length} entities, ${aiDiscoveryPages.length} staged pages, ${warnings.length} warning(s).`);
