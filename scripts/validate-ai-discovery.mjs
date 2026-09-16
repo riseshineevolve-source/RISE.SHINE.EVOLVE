@@ -17,11 +17,11 @@ const warn = (message) => warnings.push(message);
 
 const products = Array.isArray(catalog.products) ? catalog.products : [];
 const entities = Array.isArray(registry.entities) ? registry.entities : [];
-const aiDiscoveryPages = Array.isArray(seoConfig.aiDiscoveryPages) ? seoConfig.aiDiscoveryPages : [];
+const seoPages = Array.isArray(seoConfig.pages) ? seoConfig.pages : [];
+const requiredAppPages = ['adventure-app/index.html', 'unstoppable-app/index.html'];
 
 if (!products.length) fail('Product catalog must contain at least one product.');
 if (!entities.length) fail('Entity registry must contain at least one entity.');
-if (!aiDiscoveryPages.length) fail('seo-config.json must declare staged aiDiscoveryPages.');
 
 const assertUnique = (items, key, label) => {
   const seen = new Map();
@@ -124,10 +124,14 @@ for (const entity of entities) {
 }
 
 const retiredCopy = /Paddle|Progressive Web App|\bPWA\b|\bSaaS\b|12[- ]month|12[- ]MONTH|browser-install|No App Store needed|\bweb app\b/i;
-for (const relativePath of aiDiscoveryPages) {
+for (const relativePath of requiredAppPages) {
+  if (!seoPages.includes(relativePath)) {
+    fail(`${relativePath}: app page must be in the centralized SEO inventory.`);
+  }
+
   const absolutePath = path.join(root, relativePath);
   if (!fs.existsSync(absolutePath)) {
-    fail(`Staged AI discovery page is missing: ${relativePath}`);
+    fail(`AI discovery app page is missing: ${relativePath}`);
     continue;
   }
 
@@ -140,6 +144,31 @@ for (const relativePath of aiDiscoveryPages) {
   if (!canonical?.startsWith('https://rise-shine-evolve-learning-hub.com/')) {
     fail(`${relativePath}: missing or invalid production canonical URL.`);
   }
+
+  if (!html.includes('"@type":"SoftwareApplication"')) {
+    fail(`${relativePath}: missing SoftwareApplication JSON-LD.`);
+  }
+  if (!html.includes('"operatingSystem":"Android"')) {
+    fail(`${relativePath}: app schema must declare Android operating system.`);
+  }
+  if (/"offers"\s*:/.test(html)) {
+    fail(`${relativePath}: coming-soon app schema must not publish an Offer.`);
+  }
+}
+
+for (const relativePath of ['library/world-01/index.html', 'library/world-02/index.html']) {
+  const html = readText(relativePath);
+  if (html.includes('https://schema.org/InStock')) {
+    fail(`${relativePath}: Amazon stock must not be hard-coded as InStock without a verified source.`);
+  }
+}
+
+const christmasPage = readText('library/christmas-book/index.html');
+const christmasProduct = products.find((product) => product.id === 'rse-24-gentle-steps-christmas');
+if (!christmasProduct) {
+  fail('Christmas canonical product record is missing.');
+} else if (!christmasPage.includes(christmasProduct.canonicalName)) {
+  fail(`Christmas page must contain canonical name: ${christmasProduct.canonicalName}`);
 }
 
 for (const warning of warnings) console.warn(`WARN: ${warning}`);
@@ -150,4 +179,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`AI discovery validation passed: ${products.length} products, ${entities.length} entities, ${aiDiscoveryPages.length} staged pages, ${warnings.length} warning(s).`);
+console.log(`AI discovery validation passed: ${products.length} products, ${entities.length} entities, ${requiredAppPages.length} app pages, ${warnings.length} warning(s).`);
