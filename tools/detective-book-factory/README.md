@@ -36,6 +36,35 @@ python scripts/preflight.py --content content/book1_en_production.yml --pdf dist
 python scripts/make_previews.py --pdf dist/HMDA_Book1_Production_Preview_v1.pdf --out dist/previews --dpi 144
 ```
 
+## Map Factory pilot (spatial-map visual rebuild)
+
+`content/spatial_map_pilots.yml` holds two raw candidate spatial-deduction
+modules (`HMDA_10`, `HMDA_17`) imported from a native Shigai checkpoint as a
+pilot for the reusable, code-drawn, grayscale map renderer that will
+eventually replace the raw Shigai scan crops used by `spatial_puzzle_page`
+in `render_book.py`. Neither pilot case is currently mapped to a retained
+Book 1 case (see `content/shigai_module_map.yml`); they exist only to prove
+the visual system before scaling to the 14 retained maps.
+
+```bash
+cd tools/detective-book-factory
+python -m venv .venv && .venv\Scripts\activate  # or source .venv/bin/activate
+pip install -r requirements.txt
+python scripts/validate_spatial_map_pilot.py --manifest content/spatial_map_pilots.yml
+python scripts/render_spatial_map.py --manifest content/spatial_map_pilots.yml --out dist/spatial_maps
+```
+
+`validate_spatial_map_pilot.py` proves topology, room partition, furniture
+placement, answer identity and (via brute-force search) unique solvability
+against SHA-256 baselines pinned in each case's `integrity` block, and fails
+the build if a rebuild ever changes verified geometry. `render_spatial_map.py`
+draws the canonical puzzle/solution maps and rasterizes PNG previews; it
+reads geometry only from the manifest, never from artwork.
+`scripts/build_spatial_map_pilot_manifest.py` is the reusable ingestion tool
+that mechanically imports grid/room/furniture/placement data from a Shigai
+checkpoint for future cases -- constraints must still be hand-authored and
+proven by the validator, never auto-guessed from clue text.
+
 ## Cloud build
 
 Pushes to `feature/detective-book-factory` trigger `.github/workflows/build-detective-book.yml`. The workflow builds the PDF, runs preflight, creates PNG previews, and uploads everything as a GitHub Actions artifact.
