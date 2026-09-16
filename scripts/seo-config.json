@@ -21,6 +21,10 @@
     "level-up-your-brain/index.html",
     "site-map/index.html"
   ],
+  "aiDiscoveryPages": [
+    "adventure-app/index.html",
+    "unstoppable-app/index.html"
+  ],
   "expectedPaths": [
     "/",
     "/kids/",

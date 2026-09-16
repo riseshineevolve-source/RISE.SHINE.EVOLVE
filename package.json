@@ -7,7 +7,9 @@
     "seo:validate": "node scripts/validate-seo.js",
     "seo:validate:strict": "node scripts/validate-seo.js",
     "seo:audit": "node scripts/seo-audit.js",
-    "seo:all": "node scripts/seo-all.js"
+    "seo:all": "node scripts/seo-all.js",
+    "ai:validate": "node scripts/validate-ai-discovery.mjs",
+    "quality:all": "npm run seo:all && npm run ai:validate"
   },
   "devDependencies": {
     "wrangler": "^4.51.0"
