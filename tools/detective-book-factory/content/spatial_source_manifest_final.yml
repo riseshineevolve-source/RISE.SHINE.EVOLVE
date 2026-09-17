@@ -1,471 +1,197 @@
-version: 2
+version: 3
+status: spatial_source_selection_locked
+
 source:
-  checkpoint_file: HMDA_checkpoint_19_HMDA20_UPGRADE.shigai.json
-  checkpoint_sha256: cdc6de5b60117fe19e89fc4a13e2b9c1d92657f5e7fdb8ec69a18ae85ba8723e
-  source_pdf: HMDA_SHIGAI_SOURCE_15_MODULES_FINAL.pdf
-  source_pdf_sha256: 6662c292642f3d66148e41eef180bb7d2b15a0975ca822981f4f33aa7153aada
-  rule: The checkpoint/PDF are immutable logic sources. Final RSE maps may rename rooms, people and props but may not change cell topology or object blocking semantics without rerunning validation.
+  checkpoint_file: "HMDA_checkpoint_19_HMDA20_UPGRADE.shigai.json"
+  checkpoint_sha256: "cdc6de5b60117fe19e89fc4a13e2b9c1d92657f5e7fdb8ec69a18ae85ba8723e"
+  source_pdf: "HMDA_SHIGAI_SOURCE_15_MODULES_FINAL.pdf"
+  source_pdf_sha256: "6662c292642f3d66148e41eef180bb7d2b15a0975ca822981f4f33aa7153aada"
+  selection_rule: >-
+    Only the 15 modules listed below are production sources. Other boards in the
+    native checkpoint are backups/challengers. The native checkpoint is the
+    authority for grid topology, rooms, furniture/occupiable flags, placements,
+    raw clues and stored solutions.
+  immutability_rule: >-
+    RSE may rename and re-skin rooms, people and props, but may not change grid
+    topology, source clue meaning, blocked/occupiable semantics or verified source
+    placements without rerunning validation.
+
 meta_engine:
-  message: CHECK THE OLD MAP
-  cases:
-  - HMDA_02
-  - HMDA_04
-  - HMDA_06
-  - HMDA_07
-  - HMDA_10
-  - HMDA_12
-  - HMDA_13
-  - HMDA_15
-  - HMDA_17
-  - HMDA_19
-  - HMDA_20
-  - HMDA_22
-  - HMDA_23
-  - HMDA_25
-  rule: At Mission 26, count only spaces styled as ROOM, not spaces styled as ZONE. In each marked case exactly one ROOM is empty after the verified solution. Its first letter is the meta letter.
+  message: "CHECK THE OLD MAP"
+  cases: [HMDA_02, HMDA_04, HMDA_06, HMDA_07, HMDA_10, HMDA_12, HMDA_13, HMDA_15, HMDA_17, HMDA_19, HMDA_20, HMDA_22, HMDA_23, HMDA_25]
+  rule: >-
+    Mission 26 counts only spaces styled as ROOM, never spaces styled as ZONE.
+    The final RSE skin must leave exactly one ROOM empty after the verified source
+    placement in each marked case; that room's first letter is the meta letter.
+
 cases:
-- id: HMDA_02
-  final_title: The Trophy That Never Reached the Shelf
-  tier: rookie
-  meta_letter: C
-  source:
-    raw_title: The Curious Security Tag and the Secret Gem
-    theme: Ravenscroft Academy
-    checkpoint_page_index: 0
-    pdf_puzzle_page: 1
-    pdf_statements_page: 2
-    pdf_solution_page: 41
-  grid: {rows: 6, columns: 6}
-  grade: {label: easy, score: 2, guesses: 0, chain_steps: 0, relational_clues: 0, direct_clues: 4, anchor_clues: 4, force_chains: 0}
-  owner: {source_name: Bobby, coordinate: E1}
-  answer: {source_name: Drew, coordinate: D2}
-  rooms:
-  - {id: room_0, source_name: Art Room, final_name: Equipment Room, kind: room, meta_carrier: false, occupied_count: 1, cells: [E4, F4, E5, F5, C6, D6, E6, F6]}
-  - {id: room_1, source_name: Auditorium, final_name: Photo Booth, kind: room, meta_carrier: false, occupied_count: 1, cells: [A1, B1, A2, B2, C2, A3, B3]}
-  - {id: room_2, source_name: Classroom, final_name: Trophy Hall, kind: room, meta_carrier: false, occupied_count: 2, cells: [A4, B4, C4, A5, B5, C5, A6, B6]}
-  - {id: room_3, source_name: Library, final_name: Display Room, kind: room, meta_carrier: false, occupied_count: 2, cells: [C1, D1, E1, F1, D2, E2]}
-  - {id: room_4, source_name: Cafeteria, final_name: Coach's Office, kind: room, meta_carrier: true, occupied_count: 0, cells: [F2, C3, D3, E3, F3, D4, D5]}
-  objects:
-  - {id: bleacher_1, source_type: bleacher, cell: B1, blocked: false}
-  - {id: deskchair_1, source_type: deskchair, cell: C1, blocked: false}
-  - {id: globe_1, source_type: globe, cell: D1, blocked: true}
-  - {id: deskchair_2, source_type: deskchair, cell: F1, blocked: false}
-  - {id: piano_1, source_type: piano, cell: A2, blocked: true}
-  - {id: stool_1, source_type: stool, cell: F2, blocked: false}
-  - {id: bleacher_2, source_type: bleacher, cell: A3, blocked: false}
-  - {id: stool_2, source_type: stool, cell: C3, blocked: false}
-  - {id: stool_3, source_type: stool, cell: D3, blocked: false}
-  - {id: deskchair_3, source_type: deskchair, cell: C5, blocked: false}
-  - {id: labbench_1, source_type: labbench, cell: E5, blocked: true}
-  - {id: labbench_2, source_type: labbench, cell: F5, blocked: true}
-  - {id: deskchair_4, source_type: deskchair, cell: A6, blocked: false}
-  - {id: teacherdesk_1, source_type: teacherdesk, cell: B6, blocked: true}
-  - {id: stool_4, source_type: stool, cell: E6, blocked: false}
-  - {id: teacherdesk_2, source_type: teacherdesk, cell: F6, blocked: true}
-  people:
-  - {source_name: Hope, coordinate: B3, is_owner: false, is_answer: false, raw_clue: 'She was in the **3rd row**, and in **column B** as well.'}
-  - {source_name: Drew, coordinate: D2, is_owner: false, is_answer: true, raw_clue: 'He was in the **Library**; he was also in **column D**.'}
-  - {source_name: Rory, coordinate: A6, is_owner: false, is_answer: false, raw_clue: 'He was in a **corner** of the floor plan, and beside a **teacher''s desk** as well.'}
-  - {source_name: Edgar, coordinate: F4, is_owner: false, is_answer: false, raw_clue: 'He was in the **Art Room**, and in **column F** as well.'}
-  - {source_name: Vesta, coordinate: C5, is_owner: false, is_answer: false, raw_clue: 'She never left; she was on a **desk** all night.'}
-  - {source_name: Bobby, coordinate: E1, is_owner: true, is_answer: false, raw_clue: 'The victim. He saw the thief up close, they shared a room.'}
-  doors: [10, 16, 13, 19, 20, 21, 17, 23]
-  integrity: {topology_sha256: c59e12311bb6c61b7c7b4dbede61a5aef74477a3f358cdaaa7a0be9b056ba5a7}
-- id: HMDA_04
-  final_title: The Cupcake Box with Six Alibis
-  tier: rookie
-  meta_letter: H
-  source:
-    raw_title: The Hidden Display Card and the Unclaimed Relic
-    theme: The Fairground
-    checkpoint_page_index: 5
-    pdf_puzzle_page: 6
-    pdf_statements_page: 5
-    pdf_solution_page: 43
-  grid: {rows: 6, columns: 6}
-  grade: {label: easy, score: 2.2, guesses: 0, chain_steps: 0, relational_clues: 0, direct_clues: 4, anchor_clues: 5, force_chains: 0}
-  owner: {source_name: Lisa, coordinate: E1}
-  answer: {source_name: Raquel, coordinate: F4}
-  rooms:
-  - {id: room_0, source_name: Prize Tent, final_name: Pickup Tent, kind: room, meta_carrier: false, occupied_count: 2, cells: [D1, E1, F1, E2, F2, E3, F3, F4, F5]}
-  - {id: room_1, source_name: Food Court, final_name: Kitchen, kind: room, meta_carrier: false, occupied_count: 1, cells: [A5, B5, A6, B6, C6]}
-  - {id: room_2, source_name: Ferris Wheel, final_name: Hospitality Room, kind: room, meta_carrier: true, occupied_count: 0, cells: [E4, D5, E5, D6, E6, F6]}
-  - {id: room_3, source_name: Ring Toss, final_name: Packing Room, kind: room, meta_carrier: false, occupied_count: 2, cells: [C1, C2, D2, C3, D3, C4, D4, C5]}
-  - {id: room_4, source_name: Bumper Cars, final_name: Supply Room, kind: room, meta_carrier: false, occupied_count: 1, cells: [A1, B1, A2, B2, A3, B3, A4, B4]}
-  objects:
-  - {id: strongman_bell_1, source_type: strongman_bell, cell: D1, blocked: true}
-  - {id: prize_shelf_1, source_type: prize_shelf, cell: F1, blocked: true}
-  - {id: bumper_car_1, source_type: bumper_car, cell: B2, blocked: false}
-  - {id: ringtoss_stand_1, source_type: ringtoss_stand, cell: D2, blocked: true}
-  - {id: prize_shelf_2, source_type: prize_shelf, cell: F3, blocked: true}
-  - {id: bumper_car_2, source_type: bumper_car, cell: A4, blocked: false}
-  - {id: gondola_1, source_type: gondola, cell: E5, blocked: false}
-  - {id: popcorn_cart_1, source_type: popcorn_cart, cell: A6, blocked: true}
-  - {id: bench_1, source_type: bench, cell: B6, blocked: false}
-  - {id: cotton_candy_1, source_type: cotton_candy, cell: C6, blocked: true}
-  people:
-  - {source_name: Finlay, coordinate: A2, is_owner: false, is_answer: false, raw_clue: 'He was in the **2nd row**, in **column A**.'}
-  - {source_name: Ivor, coordinate: B6, is_owner: false, is_answer: false, raw_clue: 'He was in the **Food Court**, and no one else set foot there.'}
-  - {source_name: Raquel, coordinate: F4, is_owner: false, is_answer: true, raw_clue: 'She was in the **Prize Tent** and in the **4th row**.'}
-  - {source_name: Amelie, coordinate: D3, is_owner: false, is_answer: false, raw_clue: 'By every account, she was beside a **ring toss stand**.'}
-  - {source_name: Clarissa, coordinate: C5, is_owner: false, is_answer: false, raw_clue: 'She was in the **Ring Toss**; she was also in the **5th row**.'}
-  - {source_name: Lisa, coordinate: E1, is_owner: true, is_answer: false, raw_clue: 'The victim. She was alone with the thief.'}
-  doors: [13, 14, 15, 16, 19, 25, 21, 27]
-  integrity: {topology_sha256: 4af8f6cdd5ab4fa9f853fdb71b910df21d2a29bb5a24414af35d2265a18c5708}
-- id: HMDA_06
-  final_title: The Museum Label That Lied
-  tier: rookie
-  meta_letter: E
-  source:
-    raw_title: A Mysterious Hunt at the Museum
-    theme: The Museum
-    checkpoint_page_index: 7
-    pdf_puzzle_page: 8
-    pdf_statements_page: 7
-    pdf_solution_page: 44
-  grid: {rows: 6, columns: 6}
-  grade: {label: easy, score: 2.1, guesses: 0, chain_steps: 0, relational_clues: 0, direct_clues: 5, anchor_clues: 5, force_chains: 0}
-  owner: {source_name: Eunice, coordinate: B1}
-  answer: {source_name: Ava, coordinate: D2}
-  rooms:
-  - {id: room_0, source_name: Foyer, final_name: Foyer, kind: room, meta_carrier: false, occupied_count: 2, cells: [A1, B1, C1, A2, B2, C2, D2, B3, C3]}
-  - {id: room_1, source_name: Gallery, final_name: Gallery, kind: room, meta_carrier: false, occupied_count: 2, cells: [E3, F3, F4, E5, F5, E6, F6]}
-  - {id: room_2, source_name: Egyptian Wing, final_name: Egypt Room, kind: room, meta_carrier: true, occupied_count: 0, cells: [C5, D5, B6, C6, D6]}
-  - {id: room_3, source_name: Dinosaur Hall, final_name: Dinosaur Gallery, kind: room, meta_carrier: false, occupied_count: 2, cells: [A3, A4, B4, C4, D4, A5, B5, A6]}
-  - {id: room_4, source_name: Archive, final_name: Archive Passage, kind: zone, meta_carrier: false, occupied_count: 0, cells: [D1, E1, F1, E2, F2, D3]}
-  objects: []
-  people:
-  - {source_name: Stafford, coordinate: E3, is_owner: false, is_answer: false, raw_clue: 'He was in the **3rd row**, and in **column E** as well.'}
-  - {source_name: Hubert, coordinate: A6, is_owner: false, is_answer: false, raw_clue: 'He was in the **Dinosaur Hall**, beside a **display case**.'}
-  - {source_name: Ava, coordinate: D2, is_owner: false, is_answer: true, raw_clue: 'She was in the **Foyer** and in the **2nd row**.'}
-  - {source_name: Vera, coordinate: F5, is_owner: false, is_answer: false, raw_clue: 'She was in the **Gallery** and beside a **statue**.'}
-  - {source_name: Wallace, coordinate: C4, is_owner: false, is_answer: false, raw_clue: 'He was sitting on a **bench**, beside a **skeleton**.'}
-  - {source_name: Eunice, coordinate: B1, is_owner: true, is_answer: false, raw_clue: 'The victim. Only one other person was nearby when the treasure vanished, the thief.'}
-  doors: [9, 10, 13, 14, 11, 17, 21, 27, 33, 34]
-  integrity: {topology_sha256: 6fdb79f7a6830027b4d24fba907c0259b50314eeb7b74fca10779df0bde7c409}
-- id: HMDA_07
-  final_title: The Costume That Walked Away
-  tier: rookie
-  meta_letter: C
-  source: {raw_title: The Secret Alarm Record and the Mysterious Gem, theme: The Grand Hotel, checkpoint_page_index: 9, pdf_puzzle_page: 10, pdf_statements_page: 9, pdf_solution_page: 45}
-  grid: {rows: 6, columns: 6}
-  grade: {label: medium, score: 5.2, guesses: 0, chain_steps: 1, relational_clues: 0, direct_clues: 1, anchor_clues: 1, force_chains: 0}
-  owner: {source_name: Grayson, coordinate: F4}
-  answer: {source_name: Zelda, coordinate: C6}
-  rooms:
-  - {id: room_0, source_name: Kitchen, final_name: Dressing Room, kind: room, meta_carrier: false, occupied_count: 2, cells: [A1, B1, C1, D1, A2, B2, C2, D2]}
-  - {id: room_1, source_name: Laundry, final_name: Prop Room, kind: room, meta_carrier: false, occupied_count: 2, cells: [F4, F5, C6, D6, E6, F6]}
-  - {id: room_2, source_name: Spa, final_name: Costume Room, kind: room, meta_carrier: true, occupied_count: 0, cells: [E1, F1, E2, F2, E3, F3]}
-  - {id: room_3, source_name: Lounge, final_name: Rehearsal Room, kind: room, meta_carrier: false, occupied_count: 1, cells: [A3, B3, A4, B4, A5, B5, A6, B6]}
-  - {id: room_4, source_name: Ballroom, final_name: Stage Office, kind: room, meta_carrier: false, occupied_count: 1, cells: [C3, D3, C4, D4, E4, C5, D5, E5]}
-  objects: []
-  people:
-  - {source_name: Bruce, coordinate: A3, is_owner: false, is_answer: false, raw_clue: 'He was the only person in the **Lounge**.'}
-  - {source_name: Isla, coordinate: D2, is_owner: false, is_answer: false, raw_clue: 'She was in either the **Kitchen** or the **Lounge**, though she wouldn''t say which.'}
-  - {source_name: Winifred, coordinate: B1, is_owner: false, is_answer: false, raw_clue: 'She was **2 squares** from the **range**, counting the difference in rows plus the difference in columns.'}
-  - {source_name: Zelda, coordinate: C6, is_owner: false, is_answer: true, raw_clue: 'She was against an **outer wall** of the floor plan and beside a **cart**.'}
-  - {source_name: Roscoe, coordinate: E5, is_owner: false, is_answer: false, raw_clue: 'He was in the **5th row**, and in **column E** as well.'}
-  - {source_name: Grayson, coordinate: F4, is_owner: true, is_answer: false, raw_clue: 'The victim. His room held exactly one other person, the thief.'}
-  doors: [9, 10, 7, 13, 25, 26, 16, 22, 28, 29]
-  integrity: {topology_sha256: 8e1acfa8fd32e6d8e32991cfbf10f1e9b17e5dbad5a53578d387f352cce44b9c}
-- id: HMDA_10
-  final_title: The Robot with Two Owners
-  tier: field_agent
-  meta_letter: K
-  source: {raw_title: The Unexpected Fingerprint and the Secret Treasure, theme: Starship Aurora, checkpoint_page_index: 11, pdf_puzzle_page: 12, pdf_statements_page: 11, pdf_solution_page: 46}
-  grid: {rows: 7, columns: 7}
-  grade: {label: medium, score: 5.2, guesses: 0, chain_steps: 0, relational_clues: 0, direct_clues: 5, anchor_clues: 5, force_chains: 0}
-  owner: {source_name: Dora, coordinate: E3}
-  answer: {source_name: Eliza, coordinate: D5}
-  rooms:
-  - {id: room_0, source_name: Observation Deck, final_name: Demo Stage, kind: room, meta_carrier: false, occupied_count: 1, cells: [F1, G1, F2, G2, F3, G3, G4]}
-  - {id: room_1, source_name: Lab, final_name: Robotics Lab, kind: room, meta_carrier: false, occupied_count: 1, cells: [B4, A5, B5, A6, B6, C6, A7, B7, C7]}
-  - {id: room_2, source_name: Armory, final_name: Tool Room, kind: room, meta_carrier: false, occupied_count: 2, cells: [A1, B1, C1, D1, E1, A2]}
-  - {id: room_3, source_name: Bridge, final_name: Control Booth, kind: room, meta_carrier: false, occupied_count: 1, cells: [F4, F5, G5, E6, F6, G6, E7, F7, G7]}
-  - {id: room_4, source_name: Mess Hall, final_name: Assembly Hall, kind: room, meta_carrier: false, occupied_count: 2, cells: [E2, E3, C4, D4, E4, C5, D5, E5, D6, D7]}
-  - {id: room_5, source_name: Quarters, final_name: Kinetics Lab, kind: room, meta_carrier: true, occupied_count: 0, cells: [B2, C2, D2, A3, B3, C3, D3, A4]}
-  objects: []
-  people:
-  - {source_name: Eliza, coordinate: D5, is_owner: false, is_answer: true, raw_clue: 'She was sitting on a **seat**, and beside another **seat** as well.'}
-  - {source_name: Nicholas, coordinate: F6, is_owner: false, is_answer: false, raw_clue: 'He was in **column F** and sitting on a **seat**.'}
-  - {source_name: Willie, coordinate: B7, is_owner: false, is_answer: false, raw_clue: 'He was in **column B**, and beside a **cryopod** as well.'}
-  - {source_name: Frances, coordinate: A2, is_owner: false, is_answer: false, raw_clue: 'She was **7 squares** from the **tank**, counting the difference in rows plus the difference in columns.'}
-  - {source_name: Blythe, coordinate: C1, is_owner: false, is_answer: false, raw_clue: 'She was against an **outer wall** of the floor plan; she was also beside a **crate**.'}
-  - {source_name: Verity, coordinate: G4, is_owner: false, is_answer: false, raw_clue: 'She was not beside any **console** in her room.'}
-  - {source_name: Dora, coordinate: E3, is_owner: true, is_answer: false, raw_clue: 'The victim. The thief was alone with her when it happened.'}
-  doors: [9, 10, 11, 18, 26, 27, 33, 40, 37, 38, 40, 41]
-  integrity: {topology_sha256: 386cf24f5653534ba1aa3ec8aee23d39b70611f2ea44750445a3f18f8c75d2c8}
-- id: HMDA_12
-  final_title: The Parrot Who Knew the Password
-  tier: field_agent
-  meta_letter: T
-  source: {raw_title: The Last Security Tag and the Secret Relic, theme: Happy Tails Rescue, checkpoint_page_index: 13, pdf_puzzle_page: 14, pdf_statements_page: 13, pdf_solution_page: 47}
-  grid: {rows: 7, columns: 7}
-  grade: {label: medium, score: 5.3, guesses: 0, chain_steps: 1, relational_clues: 1, direct_clues: 2, anchor_clues: 3, force_chains: 0}
-  owner: {source_name: Winthrop, coordinate: D1}
-  answer: {source_name: Norris, coordinate: G2}
-  rooms:
-  - {id: room_0, source_name: Training Room, final_name: Rehearsal Room, kind: room, meta_carrier: false, occupied_count: 1, cells: [C3, D3, E3, C4, D4, E4, C5, D5, E5]}
-  - {id: room_1, source_name: Puppy Room, final_name: Green Room, kind: room, meta_carrier: false, occupied_count: 1, cells: [F4, G4, F5, G5, F6, G6, F7, G7]}
-  - {id: room_2, source_name: Bird Room, final_name: Bird Room, kind: room, meta_carrier: false, occupied_count: 1, cells: [D6, E6, C7, D7, E7]}
-  - {id: room_3, source_name: Play Yard, final_name: Stage Wing, kind: zone, meta_carrier: false, occupied_count: 2, cells: [E1, F1, G1, F2, G2, E3, F3, G3]}
-  - {id: room_4, source_name: Grooming Room, final_name: Costume Room, kind: room, meta_carrier: false, occupied_count: 2, cells: [A1, B1, C1, D1, A2, B2, C2, D2, A3, B3, A4, B4, A5, B5]}
-  - {id: room_5, source_name: Adoption Lounge, final_name: Training Room, kind: room, meta_carrier: true, occupied_count: 0, cells: [A6, B6, A7, B7]}
-  objects: []
-  people:
-  - {source_name: Kendra, coordinate: E3, is_owner: false, is_answer: false, raw_clue: 'She was in the **Bird Room**, and no one else set foot there.'}
-  - {source_name: Norris, coordinate: G2, is_owner: false, is_answer: true, raw_clue: 'He was in the **Play Yard**, in the **2nd row**.'}
-  - {source_name: Irma, coordinate: C3, is_owner: false, is_answer: false, raw_clue: 'She was the **3rd person from the south**.'}
-  - {source_name: Earlene, coordinate: F4, is_owner: false, is_answer: false, raw_clue: 'She was in either the **Puppy Room** or the **Bird Room**, though she wouldn''t say which.'}
-  - {source_name: Cleo, coordinate: B6, is_owner: false, is_answer: false, raw_clue: 'She was in **column B**, and against an **outer wall** of the floor plan as well.'}
-  - {source_name: Siobhan, coordinate: A7, is_owner: false, is_answer: false, raw_clue: 'She and Kendra were never both in the **Training Room**, yet one of them was there.'}
-  - {source_name: Winthrop, coordinate: D1, is_owner: true, is_answer: false, raw_clue: 'The victim. Only one other person was nearby when the treasure vanished, the thief.'}
-  doors: [9, 16, 17, 18, 24, 25, 31, 38, 39, 40]
-  integrity: {topology_sha256: aebde2a7c96331251b5ee03991ef4b7ac011f7e6ddb05df2fc5ebae0ac798110}
-- id: HMDA_13
-  final_title: The Camera That Blinked at 4:17
-  tier: field_agent
-  meta_letter: H
-  source: {raw_title: What Happened to the Empty Display?, theme: Dino Discovery Park, checkpoint_page_index: 31, pdf_puzzle_page: 32, pdf_statements_page: 31, pdf_solution_page: 56}
-  grid: {rows: 7, columns: 7}
-  grade: {label: expert, score: 8.4, guesses: 5, chain_steps: 0, relational_clues: 4, direct_clues: 1, anchor_clues: 1, force_chains: 5}
-  owner: {source_name: Rafferty, coordinate: D6}
-  answer: {source_name: Bronwen, coordinate: B7}
-  rooms:
-  - {id: room_0, source_name: Herbivore Paddock, final_name: Habitat Paddock, kind: room, meta_carrier: false, occupied_count: 2, cells: [F1, G1, F2, G2, F3, G3, F4, G4]}
-  - {id: room_1, source_name: Medical Center, final_name: Medical Room, kind: room, meta_carrier: false, occupied_count: 1, cells: [A1, B1, C1, D1, A2, B2, C2, D2, A3, B3, C3, A4, B4, A5, B5]}
-  - {id: room_2, source_name: Jungle Trail, final_name: Hide Room, kind: room, meta_carrier: true, occupied_count: 0, cells: [A6, A7]}
-  - {id: room_3, source_name: Research Lab, final_name: Research Lab, kind: room, meta_carrier: false, occupied_count: 2, cells: [B6, C6, B7, C7, D7, E7]}
-  - {id: room_4, source_name: Ranger Station, final_name: Ranger Station, kind: room, meta_carrier: false, occupied_count: 2, cells: [E3, D4, E4, C5, D5, E5, D6, E6]}
-  - {id: room_5, source_name: Visitor Center, final_name: Visitor Walkway, kind: zone, meta_carrier: false, occupied_count: 0, cells: [E1, E2, D3, F5, G5, F6, G6, F7, G7]}
-  objects: []
-  people:
-  - {source_name: Jewel, coordinate: B3, is_owner: false, is_answer: false, raw_clue: 'She was diagonally next to **Shirley**; their corners touched.'}
-  - {source_name: Shirley, coordinate: C2, is_owner: false, is_answer: false, raw_clue: 'She swears she was in the **Ranger Station** the entire time.'}
-  - {source_name: Elliott, coordinate: F3, is_owner: false, is_answer: false, raw_clue: 'He never lost sight of **Jewel**; they shared a room.'}
-  - {source_name: Wanda, coordinate: E2, is_owner: false, is_answer: false, raw_clue: 'She was somewhere **north of Bronwen** and somewhere **west of her**.'}
-  - {source_name: Bronwen, coordinate: B7, is_owner: false, is_answer: true, raw_clue: 'She was **south-west of Mercer**: further south AND further west, by any number of squares.'}
-  - {source_name: Mercer, coordinate: D4, is_owner: false, is_answer: false, raw_clue: 'He was in the **Ranger Station**; he was also in the **5th row**.'}
-  - {source_name: Rafferty, coordinate: D6, is_owner: true, is_answer: false, raw_clue: 'The victim. His room held exactly one other person, the thief.'}
-  doors: [8, 9, 10, 11, 17, 18, 25, 26, 31, 32, 38, 39]
-  integrity: {topology_sha256: 3b985f5c6d1eea54b8ffbb386e601176e86c0dc46d62262bf9a475f0ed8be791}
-- id: HMDA_15
-  final_title: The Backpack That Changed Owners
-  tier: field_agent
-  meta_letter: E
-  source: {raw_title: The Remarkable Puzzle: The Heirloom, theme: Pinewood Summer Camp, checkpoint_page_index: 17, pdf_puzzle_page: 18, pdf_statements_page: 17, pdf_solution_page: 49}
-  grid: {rows: 7, columns: 7}
-  grade: {label: hard, score: 6.7, guesses: 1, chain_steps: 1, relational_clues: 2, direct_clues: 0, anchor_clues: 1, force_chains: 1}
-  owner: {source_name: Mona, coordinate: A1}
-  answer: {source_name: Hiram, coordinate: D2}
-  rooms:
-  - {id: room_0, source_name: Lakeside Dock, final_name: Lakeside Dock, kind: zone, meta_carrier: false, occupied_count: 1, cells: [E1, F1, G1, F2, G2]}
-  - {id: room_1, source_name: Gear Shed, final_name: Equipment Room, kind: room, meta_carrier: true, occupied_count: 0, cells: [A1, A2, B2, A3, B3, A4, A5, A6, A7, B7]}
-  - {id: room_2, source_name: Games Cabin, final_name: Games Cabin, kind: room, meta_carrier: false, occupied_count: 2, cells: [B1, C1, D1, C2, D2, B4, C4, D4, B5]}
-  - {id: room_3, source_name: First-Aid Hut, final_name: First Aid Hut, kind: room, meta_carrier: false, occupied_count: 1, cells: [D5, E5, D6, E6, D7, E7]}
-  - {id: room_4, source_name: Welcome Lodge, final_name: Welcome Lodge, kind: room, meta_carrier: false, occupied_count: 1, cells: [F5, G5, F6, G6, F7, G7]}
-  - {id: room_5, source_name: Ranger Cabin, final_name: Ranger Cabin, kind: room, meta_carrier: false, occupied_count: 2, cells: [B6, C6, C7]}
-  objects: []
-  people:
-  - {source_name: Hiram, coordinate: D2, is_owner: false, is_answer: true, raw_clue: 'He was **north-east of Carolyn**: further north AND further east, by any number of squares.'}
-  - {source_name: Primrose, coordinate: F4, is_owner: false, is_answer: false, raw_clue: 'She was **north-east of Damian**: further north AND further east, by any number of squares.'}
-  - {source_name: Damian, coordinate: E5, is_owner: false, is_answer: false, raw_clue: 'He was in the **First-Aid Hut**, in the **5th row**.'}
-  - {source_name: Carolyn, coordinate: C3, is_owner: false, is_answer: false, raw_clue: 'She spent the whole evening beside a **cot**.'}
-  - {source_name: Jonquil, coordinate: C2, is_owner: false, is_answer: false, raw_clue: 'She was the only person in the **Welcome Lodge**.'}
-  - {source_name: Isabella, coordinate: G7, is_owner: false, is_answer: false, raw_clue: 'There was a **cot** somewhere in her room, though she was not beside it.'}
-  - {source_name: Mona, coordinate: A1, is_owner: true, is_answer: false, raw_clue: 'The victim. She was alone with the thief.'}
-  doors: [11, 15, 22, 23, 31, 32, 37, 38, 39, 40]
-  integrity: {topology_sha256: 682030d0436446f18cc021d5c2ef53fbf397db01cf2ed1cffd114e47f7c75c45}
-- id: HMDA_17
-  final_title: The Train Ticket That Wasn't Lost
-  tier: master_detective
-  meta_letter: O
-  source: {raw_title: Rhoda and the Faint Fingerprint, theme: The Midnight Express, checkpoint_page_index: 19, pdf_puzzle_page: 20, pdf_statements_page: 19, pdf_solution_page: 50}
-  grid: {rows: 7, columns: 7}
-  grade: {label: hard, score: 7.1, guesses: 2, chain_steps: 0, relational_clues: 1, direct_clues: 2, anchor_clues: 3, force_chains: 2}
-  owner: {source_name: Rhoda, coordinate: C2}
-  answer: {source_name: Ambrose, coordinate: E3}
-  rooms:
-  - {id: room_0, source_name: Kitchen Car, final_name: Ticket Office, kind: room, meta_carrier: false, occupied_count: 2, cells: [A1, A2, A3, A4, B4, A5, B5, C5, B6, C6, D6]}
-  - {id: room_1, source_name: Bar Car, final_name: Observation Car, kind: room, meta_carrier: true, occupied_count: 0, cells: [B1, C1, D1, E1, F1, G1, D2, E2, F2, G2]}
-  - {id: room_2, source_name: Lounge Car, final_name: Waiting Lounge, kind: room, meta_carrier: false, occupied_count: 3, cells: [D5, E5, E6, F6, G6, F7, G7]}
-  - {id: room_3, source_name: Corridor, final_name: Main Corridor, kind: zone, meta_carrier: false, occupied_count: 2, cells: [B2, C2, B3, C3, D3, E3, C4, D4, E4, F4]}
-  - {id: room_4, source_name: Baggage Car, final_name: Baggage Platform, kind: zone, meta_carrier: false, occupied_count: 0, cells: [A6, A7, B7, C7, D7, E7]}
-  - {id: room_5, source_name: Mail Car, final_name: Mail Platform, kind: zone, meta_carrier: false, occupied_count: 0, cells: [F3, G3, G4, F5, G5]}
-  objects: []
-  people:
-  - {source_name: Octavia, coordinate: A1, is_owner: false, is_answer: false, raw_clue: 'She was in either the **Kitchen Car** or the **Baggage Car**, though she wouldn''t say which.'}
-  - {source_name: Margaret, coordinate: B4, is_owner: false, is_answer: false, raw_clue: 'She was in the **Kitchen Car**; she was also in **column B**.'}
-  - {source_name: Kerry, coordinate: F6, is_owner: false, is_answer: false, raw_clue: 'She was in the **Lounge Car** and in the **6th row**.'}
-  - {source_name: Samuel, coordinate: D5, is_owner: false, is_answer: false, raw_clue: 'He swears he was sitting on a **bench** the entire time.'}
-  - {source_name: Lincoln, coordinate: G7, is_owner: false, is_answer: false, raw_clue: 'He was in the **Lounge Car** and in **column G**.'}
-  - {source_name: Ambrose, coordinate: E3, is_owner: false, is_answer: true, raw_clue: 'He was exactly **three rows north of Kerry**; they were not necessarily in the same column.'}
-  - {source_name: Rhoda, coordinate: C2, is_owner: true, is_answer: false, raw_clue: 'The victim. She saw the thief up close, they shared a room.'}
-  doors: [8, 9, 10, 11, 16, 18, 23, 31, 32, 39]
-  integrity: {topology_sha256: 56d459330603480a961460094509923506667417090104579082487056b32fb4fc}
-- id: HMDA_19
-  final_title: The Library Book That Checked Itself Out
-  tier: master_detective
-  meta_letter: L
-  source: {raw_title: The Relic and the Little Ledger Note, theme: Ravenscroft Academy, checkpoint_page_index: 33, pdf_puzzle_page: 34, pdf_statements_page: 33, pdf_solution_page: 57}
-  grid: {rows: 7, columns: 7}
-  grade: {label: expert, score: 8.2, guesses: 4, chain_steps: 0, relational_clues: 4, direct_clues: 1, anchor_clues: 1, force_chains: 4}
-  owner: {source_name: Sonia, coordinate: A6}
-  answer: {source_name: Madge, coordinate: A7}
-  rooms:
-  - {id: room_0, source_name: Auditorium, final_name: Study Hall, kind: room, meta_carrier: false, occupied_count: 2, cells: [D3, E3, F3, B4, C4, D4, E4, F4]}
-  - {id: room_1, source_name: Science Lab, final_name: Archive Room, kind: room, meta_carrier: false, occupied_count: 1, cells: [A2, B2, C2, A3, B3, C3, A4]}
-  - {id: room_2, source_name: Library, final_name: Library Office, kind: room, meta_carrier: true, occupied_count: 0, cells: [C5, D5, C6, D6, E6, D7, E7]}
-  - {id: room_3, source_name: Art Room, final_name: Reference Room, kind: room, meta_carrier: false, occupied_count: 2, cells: [F1, G1, E2, F2, G2, G3, G4, G5, G6, F7, G7]}
-  - {id: room_4, source_name: Corridor, final_name: Returns Hall, kind: zone, meta_carrier: false, occupied_count: 2, cells: [A5, B5, A6, B6, A7, B7, C7]}
-  - {id: room_5, source_name: Classroom, final_name: Service Corridor, kind: zone, meta_carrier: false, occupied_count: 0, cells: [A1, B1, C1, D1, E1, D2]}
-  objects: []
-  people:
-  - {source_name: Archibald, coordinate: C2, is_owner: false, is_answer: false, raw_clue: 'He was exactly **two rows north of Madge**; they were not necessarily in the same column.'}
-  - {source_name: Theodore, coordinate: C1, is_owner: false, is_answer: false, raw_clue: 'He was **7 squares** from the **piano**, counting the difference in rows plus the difference in columns.'}
-  - {source_name: Ottoline, coordinate: D3, is_owner: false, is_answer: false, raw_clue: 'She and Archibald were never both in the **Science Lab**, yet one of them was there.'}
-  - {source_name: Drew, coordinate: G2, is_owner: false, is_answer: false, raw_clue: 'He was in the same room as **Theodore**.'}
-  - {source_name: Madge, coordinate: A7, is_owner: false, is_answer: true, raw_clue: 'She was somewhere **south of Ottoline** and somewhere **west of her**.'}
-  - {source_name: Kimberly, coordinate: F4, is_owner: false, is_answer: false, raw_clue: 'She was in the **Auditorium**, in **column F**.'}
-  - {source_name: Sonia, coordinate: A6, is_owner: true, is_answer: false, raw_clue: 'The victim. She saw the thief up close, they shared a room.'}
-  doors: [8, 9, 10, 16, 23, 24, 25, 32, 39, 40]
-  integrity: {topology_sha256: 04c44b7fb704a2b427f42a73e5d679f10975774886a5c116587832fb23a45417}
-- id: HMDA_20
-  final_title: The Paint-Splattered Alibi
-  tier: master_detective
-  meta_letter: D
-  source: {raw_title: The Adventure: The Missing Relic, theme: Starship Aurora, checkpoint_page_index: 39, pdf_puzzle_page: 40, pdf_statements_page: 39, pdf_solution_page: 60}
-  grid: {rows: 7, columns: 7}
-  grade: {label: expert, score: 8.3, guesses: 4, chain_steps: 2, relational_clues: 4, direct_clues: 1, anchor_clues: 1, force_chains: 4}
-  owner: {source_name: Danielle, coordinate: E7}
-  answer: {source_name: Pamela, coordinate: F5}
-  rooms:
-  - {id: room_0, source_name: Stargazing Deck, final_name: Studio A, kind: room, meta_carrier: false, occupied_count: 1, cells: [A1, B1, C1, A2, B2, A3, B3, A4, B4, A5, B5]}
-  - {id: room_1, source_name: Cadet Quarters, final_name: Supply Room, kind: room, meta_carrier: false, occupied_count: 1, cells: [D6, E6, F6, G6, F7, G7]}
-  - {id: room_2, source_name: Orbital Lab, final_name: Drying Room, kind: room, meta_carrier: true, occupied_count: 0, cells: [E1, F1, G1, E2, F2, G2, F3, G3, G4]}
-  - {id: room_3, source_name: Propulsion Lab, final_name: Main Studio, kind: room, meta_carrier: false, occupied_count: 2, cells: [C3, D3, E3, C4, D4, E4, C5, D5, E5]}
-  - {id: room_4, source_name: Academy Mess Hall, final_name: Workshop Hall, kind: zone, meta_carrier: false, occupied_count: 1, cells: [A6, B6, C6, A7, B7, C7, D7]}
-  - {id: room_5, source_name: Safety Armory, final_name: Safety Station, kind: room, meta_carrier: false, occupied_count: 2, cells: [F4, G5, E5, F5, G5, E6]}
-  objects: []
-  people:
-  - {source_name: Standish, coordinate: A1, is_owner: false, is_answer: false, raw_clue: 'He was somewhere **south of Pamela**.'}
-  - {source_name: Pamela, coordinate: F5, is_owner: false, is_answer: true, raw_clue: 'She was somewhere **south of Millie** and somewhere **east of her**.'}
-  - {source_name: Leslie, coordinate: C3, is_owner: false, is_answer: false, raw_clue: 'She was diagonally next to **Aurora**; their corners touched.'}
-  - {source_name: Millie, coordinate: E6, is_owner: false, is_answer: false, raw_clue: 'She was in the **Propulsion Lab**; she was also in the **4th row**.'}
-  - {source_name: Aurora, coordinate: B2, is_owner: false, is_answer: false, raw_clue: 'She never lost sight of **Millie**; they shared a room.'}
-  - {source_name: Thatcher, coordinate: G3, is_owner: false, is_answer: false, raw_clue: 'The **Academy Mess Hall** held no one but him.'}
-  - {source_name: Danielle, coordinate: E7, is_owner: true, is_answer: false, raw_clue: 'The victim. Whoever shared her room took the treasure.'}
-  doors: [9, 10, 11, 17, 18, 24, 25, 31, 32, 39, 40, 41]
-  integrity: {topology_sha256: d95ba145476351d8d02984e96a85cde3b728f767c3ed9ae6af15531050783c29}
-- id: HMDA_22
-  final_title: The Music Room Mix-Up
-  tier: master_detective
-  meta_letter: M
-  source: {raw_title: The Remarkable Adventure: The Heirloom, theme: Ravenscroft Academy, checkpoint_page_index: 35, pdf_puzzle_page: 36, pdf_statements_page: 35, pdf_solution_page: 58}
-  grid: {rows: 7, columns: 7}
-  grade: {label: expert, score: 8.3, guesses: 4, chain_steps: 1, relational_clues: 4, direct_clues: 0, anchor_clues: 0, force_chains: 4}
-  owner: {source_name: Zelda, coordinate: A2}
-  answer: {source_name: Clarence, coordinate: C4}
-  rooms:
-  - {id: room_0, source_name: Locker Room, final_name: Instrument Locker Room, kind: room, meta_carrier: false, occupied_count: 2, cells: [A1, B1, C1, D1, A2, A3, B3, C3, D3]}
-  - {id: room_1, source_name: Gymnasium, final_name: Practice Hall, kind: room, meta_carrier: false, occupied_count: 2, cells: [E5, F5, G5, D6, E6, F6, G6, D7, E7, F7, G7]}
-  - {id: room_2, source_name: Auditorium, final_name: Music Archive, kind: room, meta_carrier: true, occupied_count: 0, cells: [A6, B6, C6, A7, B7, C7]}
-  - {id: room_3, source_name: Science Lab, final_name: Rehearsal Room, kind: room, meta_carrier: false, occupied_count: 2, cells: [A4, B4, C4, A5, B5, C5]}
-  - {id: room_4, source_name: Office, final_name: Office Passage, kind: zone, meta_carrier: false, occupied_count: 0, cells: [F2, G2, F3, G3, G4]}
-  - {id: room_5, source_name: Cafeteria, final_name: Green Room, kind: room, meta_carrier: false, occupied_count: 1, cells: [E1, F1, G1, B2, C2, D2, E2, E3, F4, D4, E4, D5]}
-  objects: []
-  people:
-  - {source_name: Leigh, coordinate: B1, is_owner: false, is_answer: false, raw_clue: 'She was diagonally next to **Irene**; their corners touched.'}
-  - {source_name: Irene, coordinate: E2, is_owner: false, is_answer: false, raw_clue: 'She and Natasha were in the same room.'}
-  - {source_name: Clarence, coordinate: C4, is_owner: false, is_answer: true, raw_clue: 'He stood corner to corner with William, touching diagonally.'}
-  - {source_name: Natasha, coordinate: D3, is_owner: false, is_answer: false, raw_clue: 'She and Leigh were never both in the **Gymnasium**, yet one of them was there.'}
-  - {source_name: Gemma, coordinate: F3, is_owner: false, is_answer: false, raw_clue: 'She was **7 squares** from the **piano**, counting the difference in rows plus the difference in columns.'}
-  - {source_name: William, coordinate: E6, is_owner: false, is_answer: false, raw_clue: 'He was not beside any of the **lockers** in his room.'}
-  - {source_name: Zelda, coordinate: A2, is_owner: true, is_answer: false, raw_clue: 'The victim. She saw the thief up close, they shared a room.'}
-  doors: [11, 16, 17, 24, 25, 32, 33, 39]
-  integrity: {topology_sha256: 2368b560f008729de03fb69f89e0099d09599b189d74aa77002e0d79103b4f28}
-- id: HMDA_23
-  final_title: The Wristband Switch at Adventure Park
-  tier: master_detective
-  meta_letter: A
-  source: {raw_title: The Hidden Clue and the Hidden Prize, theme: The Fairground, checkpoint_page_index: 25, pdf_puzzle_page: 26, pdf_statements_page: 25, pdf_solution_page: 53}
-  grid: {rows: 7, columns: 7}
-  grade: {label: expert, score: 8.4, guesses: 4, chain_steps: 0, relational_clues: 4, direct_clues: 0, anchor_clues: 0, force_chains: 4}
-  owner: {source_name: Judy, coordinate: E4}
-  answer: {source_name: Rebecca, coordinate: F6}
-  rooms:
-  - {id: room_0, source_name: Midway, final_name: Midway, kind: zone, meta_carrier: false, occupied_count: 2, cells: [G1, G2, G3, G4, G5, G6, G7]}
-  - {id: room_1, source_name: Prize Tent, final_name: Prize Tent, kind: room, meta_carrier: false, occupied_count: 2, cells: [F2, F3, F4, F5, E6, F6]}
-  - {id: room_2, source_name: Ferris Wheel, final_name: Access Office, kind: room, meta_carrier: true, occupied_count: 0, cells: [A6, B6, C6, D6, A7, B7, C7, D7]}
-  - {id: room_3, source_name: Popcorn Stand, final_name: Snack Stand, kind: zone, meta_carrier: false, occupied_count: 1, cells: [A1, B1, A2, B2, A3, B3, C3]}
-  - {id: room_4, source_name: Funhouse, final_name: Funhouse Queue, kind: zone, meta_carrier: false, occupied_count: 0, cells: [C1, D1, E1, C2, D2, E2, D3, E3]}
-  - {id: room_5, source_name: Balloon Corner, final_name: Balloon Corner, kind: zone, meta_carrier: false, occupied_count: 2, cells: [C4, D4, E4, A4, B4, A5, B5, C5, D5, E5]}
-  objects: []
-  people:
-  - {source_name: Vesta, coordinate: A1, is_owner: false, is_answer: false, raw_clue: 'She was **7 squares** from the **gondola**, counting the difference in rows plus the difference in columns.'}
-  - {source_name: Charlene, coordinate: F2, is_owner: false, is_answer: false, raw_clue: 'She was somewhere **north of Madge** and somewhere **east of her**.'}
-  - {source_name: Owen, coordinate: B3, is_owner: false, is_answer: false, raw_clue: 'He was **south-west of Charlene**: further south AND further west, by any number of squares.'}
-  - {source_name: Rebecca, coordinate: F6, is_owner: false, is_answer: true, raw_clue: 'She was exactly **two columns east of Charlene**; they were not necessarily in the same row.'}
-  - {source_name: Madge, coordinate: C5, is_owner: false, is_answer: false, raw_clue: 'She shared her room with a man sitting on the **bench**.'}
-  - {source_name: Peyton, coordinate: G7, is_owner: false, is_answer: false, raw_clue: 'He and Vesta were never both in the **Popcorn Stand**, yet one of them was there.'}
-  - {source_name: Judy, coordinate: E4, is_owner: true, is_answer: false, raw_clue: 'The victim. Whoever shared her room took the treasure.'}
-  doors: [8, 9, 10, 11, 16, 17, 18, 24, 25, 31, 32, 33, 39, 40]
-  integrity: {topology_sha256: 4eed36e89289fe867161c15fc0f080f223104e455c07740b7f03af66031aa42b}
-- id: HMDA_25
-  final_title: The Package with No Name
-  tier: master_detective
-  meta_letter: P
-  source: {raw_title: The Unusual Hunt: The Prize, theme: The Grand Hotel, checkpoint_page_index: 27, pdf_puzzle_page: 28, pdf_statements_page: 27, pdf_solution_page: 54}
-  grid: {rows: 7, columns: 7}
-  grade: {label: expert, score: 8.1, guesses: 4, chain_steps: 0, relational_clues: 4, direct_clues: 1, anchor_clues: 1, force_chains: 4}
-  owner: {source_name: Noreen, coordinate: A4}
-  answer: {source_name: Celia, coordinate: D5}
-  rooms:
-  - {id: room_0, source_name: Kitchen, final_name: Kitchen, kind: room, meta_carrier: false, occupied_count: 1, cells: [F1, G1, F2, G2, F3, G3, G4]}
-  - {id: room_1, source_name: Laundry, final_name: Laundry, kind: room, meta_carrier: false, occupied_count: 2, cells: [A7, B7, C7]}
-  - {id: room_2, source_name: Rooftop, final_name: Roof Terrace, kind: zone, meta_carrier: false, occupied_count: 0, cells: [D6, E6, F6, G6, D7, E7, F7, G7]}
-  - {id: room_3, source_name: Spa, final_name: Parcel Room, kind: room, meta_carrier: true, occupied_count: 0, cells: [A1, B1, C1, A2, B2, C2, A3, B3, C3]}
-  - {id: room_4, source_name: Suite, final_name: Guest Suite, kind: room, meta_carrier: false, occupied_count: 2, cells: [D3, E3, D4, E4, F4, D5, E5]}
-  - {id: room_5, source_name: Lobby, final_name: Lobby, kind: room, meta_carrier: false, occupied_count: 2, cells: [A4, B4, C4, A5, B5, C5, A6, B6, C6]}
-  objects: []
-  people:
-  - {source_name: Giselle, coordinate: F3, is_owner: false, is_answer: false, raw_clue: 'She stood corner to corner with **Regan**, touching diagonally.'}
-  - {source_name: Celia, coordinate: D5, is_owner: false, is_answer: true, raw_clue: 'She was in the **Lobby**, in **column D**.'}
-  - {source_name: Regan, coordinate: E2, is_owner: false, is_answer: false, raw_clue: 'He was somewhere **north of Giselle** and somewhere **west of her**.'}
-  - {source_name: Theodore, coordinate: B6, is_owner: false, is_answer: false, raw_clue: 'He stood corner to corner with **Warren**, touching diagonally.'}
-  - {source_name: Silas, coordinate: G1, is_owner: false, is_answer: false, raw_clue: 'He was **north-east of Giselle**: further north AND further east, by any number of squares.'}
-  - {source_name: Warren, coordinate: B7, is_owner: false, is_answer: false, raw_clue: 'He was in the **Laundry**; he was also sitting on a **bar stool**.'}
-  - {source_name: Noreen, coordinate: A4, is_owner: true, is_answer: false, raw_clue: 'The victim. Her room held exactly one other person, the thief.'}
-  doors: [9, 10, 11, 18, 26, 27, 33, 40, 37, 38, 40, 41]
-  integrity: {topology_sha256: 7394c135ed9ae8702ccca100e89dbc4575506de4739c2f22d0aed67430a35164}
-- id: HMDA_29
-  final_title: The Map Beneath the Map
-  tier: room_zero_boss
-  meta_letter: null
-  source: {raw_title: The Search for the Unclaimed Gem, theme: Ravenscroft Academy, checkpoint_page_index: 29, pdf_puzzle_page: 30, pdf_statements_page: 29, pdf_solution_page: 55}
-  grid: {rows: 9, columns: 9}
-  grade: {label: expert, score: 8.2, guesses: 4, chain_steps: 0, relational_clues: 6, direct_clues: 1, anchor_clues: 1, force_chains: 4}
-  owner: {source_name: Shepherd, coordinate: B1}
-  answer: {source_name: Vera, coordinate: D3}
-  rooms:
-  - {id: room_0, source_name: Classroom, final_name: Training Room, kind: room, meta_carrier: false, occupied_count: 2, cells: [A3, B3, C3, A4, B4, C4, A5, B5, C5]}
-  - {id: room_1, source_name: Gymnasium, final_name: Control Room, kind: room, meta_carrier: false, occupied_count: 2, cells: [H2, I2, G3, H3, I3, G4, H4, I4, G5, H5, I5]}
-  - {id: room_2, source_name: Corridor, final_name: Service Corridor, kind: zone, meta_carrier: false, occupied_count: 2, cells: [A9, B9, C9, D9, E9, F9, G9]}
-  - {id: room_3, source_name: Cafeteria, final_name: Equipment Hall, kind: zone, meta_carrier: false, occupied_count: 2, cells: [D1, E1, D2, E2, F2, D3, E3, F3]}
-  - {id: room_4, source_name: Auditorium, final_name: Archive Chamber, kind: room, meta_carrier: false, occupied_count: 0, cells: [D6, E6, F6, D7, E7, F7, D8, E8, F8]}
-  - {id: room_5, source_name: Library, final_name: Map Room, kind: room, meta_carrier: false, occupied_count: 0, cells: [A6, B6, C6, A7, B7, C7, A8, B8, C8]}
-  - {id: room_6, source_name: Science Lab, final_name: Science Lab, kind: room, meta_carrier: false, occupied_count: 0, cells: [G1, H1, I1, G2]}
-  - {id: room_7, source_name: Office, final_name: Operations Office, kind: room, meta_carrier: false, occupied_count: 1, cells: [G6, H6, I6, G7, H7, I7, G8, H8, I8, H9, I9]}
-  objects: []
-  people:
-  - {source_name: Michelle, coordinate: A1, is_owner: false, is_answer: false, raw_clue: 'She was **north-west of Vera**: further north AND further west, by any number of squares.'}
-  - {source_name: Cassandra, coordinate: H2, is_owner: false, is_answer: false, raw_clue: 'She was somewhere **north of Ransom** and somewhere **east of him**.'}
-  - {source_name: Jordana, coordinate: B7, is_owner: false, is_answer: false, raw_clue: 'She was diagonally next to **Wilhelmina**; their corners touched.'}
-  - {source_name: Betsy, coordinate: F6, is_owner: false, is_answer: false, raw_clue: 'She was in the same room as **Jordana**.'}
-  - {source_name: Vera, coordinate: D3, is_owner: false, is_answer: true, raw_clue: 'She was somewhere **north of Cassandra** and somewhere **west of her**.'}
-  - {source_name: Ransom, coordinate: G4, is_owner: false, is_answer: false, raw_clue: 'He was in the **Gymnasium**.'}
-  - {source_name: Payton, coordinate: C6, is_owner: false, is_answer: false, raw_clue: 'He never lost sight of **Michelle**; they shared a room.'}
-  - {source_name: Wilhelmina, coordinate: I4, is_owner: false, is_answer: false, raw_clue: 'She was in the **Office**; she was also beside a **teacher''s desk**.'}
-  - {source_name: Shepherd, coordinate: B1, is_owner: true, is_answer: false, raw_clue: 'The victim. He was alone with the thief.'}
-  doors: [10, 11, 12, 19, 20, 26, 27, 28, 34, 35, 36, 43, 44, 52, 53, 60, 61, 62, 69]
-  integrity: {topology_sha256: e5e1587aec14ed8281594d032fdbdcf11bf7fd883d2028b2348cbddfce270a10}
+  - id: HMDA_02
+    final_title: "The Trophy That Never Reached the Shelf"
+    tier: rookie
+    raw_title: "The Curious Security Tag and the Secret Gem"
+    grid: 6x6
+    grade: "easy 2.0"
+    source_answer: {name: Drew, coordinate: D2}
+    checkpoint: {scene_index: 0, clues_index: 1}
+    pdf: {puzzle_page: 1, statements_page: 2, solution_page: 41}
+    meta: {letter: C, room: "Coach's Office"}
+
+  - id: HMDA_04
+    final_title: "The Cupcake Box with Six Alibis"
+    tier: rookie
+    raw_title: "The Hidden Display Card and the Unclaimed Relic"
+    grid: 6x6
+    grade: "easy 2.2"
+    source_answer: {name: Raquel, coordinate: F4}
+    checkpoint: {scene_index: 5, clues_index: 4}
+    pdf: {puzzle_page: 6, statements_page: 5, solution_page: 43}
+    meta: {letter: H, room: "Hospitality Room"}
+
+  - id: HMDA_06
+    final_title: "The Museum Label That Lied"
+    tier: rookie
+    raw_title: "A Mysterious Hunt at the Museum"
+    grid: 6x6
+    grade: "easy 2.1"
+    source_answer: {name: Ava, coordinate: D2}
+    checkpoint: {scene_index: 7, clues_index: 6}
+    pdf: {puzzle_page: 8, statements_page: 7, solution_page: 44}
+    meta: {letter: E, room: "Egypt Room", excluded_empty_zone: "Archive Passage"}
+
+  - id: HMDA_07
+    final_title: "The Costume That Walked Away"
+    tier: rookie
+    raw_title: "The Secret Alarm Record and the Mysterious Gem"
+    grid: 6x6
+    grade: "medium 5.2"
+    source_answer: {name: Zelda, coordinate: C6}
+    checkpoint: {scene_index: 9, clues_index: 8}
+    pdf: {puzzle_page: 10, statements_page: 9, solution_page: 45}
+    meta: {letter: C, room: "Costume Room"}
+
+  - id: HMDA_10
+    final_title: "The Robot with Two Owners"
+    tier: field_agent
+    raw_title: "The Unexpected Fingerprint and the Secret Treasure"
+    grid: 7x7
+    grade: "medium 5.2"
+    source_answer: {name: Eliza, coordinate: D5}
+    checkpoint: {scene_index: 11, clues_index: 10}
+    pdf: {puzzle_page: 12, statements_page: 11, solution_page: 46}
+    meta: {letter: K, room: "Kinetics Lab"}
+
+  - id: HMDA_12
+    final_title: "The Parrot Who Knew the Password"
+    tier: field_agent
+    raw_title: "The Last Security Tag and the Secret Relic"
+    grid: 7x7
+    grade: "medium 5.3"
+    source_answer: {name: Norris, coordinate: G2}
+    checkpoint: {scene_index: 13, clues_index: 12}
+    pdf: {puzzle_page: 14, statements_page: 13, solution_page: 47}
+    meta: {letter: T, room: "Training Room"}
+
+  - id: HMDA_13
+    final_title: "The Camera That Blinked at 4:17"
+    tier: field_agent
+    raw_title: "What Happened to the Empty Display?"
+    grid: 7x7
+    grade: "expert 8.4"
+    source_answer: {name: Bronwen, coordinate: B7}
+    checkpoint: {scene_index: 31, clues_index: 30}
+    pdf: {puzzle_page: 32, statements_page: 31, solution_page: 56}
+    meta: {letter: H, room: "Hide Room", excluded_empty_zone: "Visitor Walkway"}
+
+  - id: HMDA_15
+    final_title: "The Backpack That Changed Owners"
+    tier: field_agent
+    raw_title: "The Remarkable Puzzle: The Heirloom"
+    grid: 7x7
+    grade: "hard 6.7"
+    source_answer: {name: Hiram, coordinate: D2}
+    checkpoint: {scene_index: 17, clues_index: 16}
+    pdf: {puzzle_page: 18, statements_page: 17, solution_page: 49}
+    meta: {letter: E, room: "Equipment Room"}
+
+  - id: HMDA_17
+    final_title: "The Train Ticket That Wasn't Lost"
+    tier: master_detective
+    raw_title: "Rhoda and the Faint Fingerprint"
+    grid: 7x7
+    grade: "hard 7.1"
+    source_answer: {name: Ambrose, coordinate: E3}
+    checkpoint: {scene_index: 19, clues_index: 18}
+    pdf: {puzzle_page: 20, statements_page: 19, solution_page: 50}
+    meta: {letter: O, room: "Observation Car", excluded_empty_zones: ["Baggage Platform", "Mail Platform"]}
+
+  - id: HMDA_19
+    final_title: "The Library Book That Checked Itself Out"
+    tier: master_detective
+    raw_title: "The Relic and the Little Ledger Note"
+    grid: 7x7
+    grade: "expert 8.2"
+    source_answer: {name: Madge, coordinate: A7}
+    checkpoint: {scene_index: 33, clues_index: 32}
+    pdf: {puzzle_page: 34, statements_page: 33, solution_page: 57}
+    meta: {letter: L, room: "Library Office", excluded_empty_zone: "Service Corridor"}
+
+  - id: HMDA_20
+    final_title: "The Paint-Splattered Alibi"
+    tier: master_detective
+    raw_title: "The Adventure: The Missing Relic"
+    grid: 7x7
+    grade: "expert 8.3"
+    source_answer: {name: Pamela, coordinate: F5}
+    checkpoint: {scene_index: 39, clues_index: 38}
+    pdf: {puzzle_page: 40, statements_page: 39, solution_page: 60}
+    meta: {letter: D, room: "Drying Room"}
+
+  - id: HMDA_22
+    final_title: "The Music Room Mix-Up"
+    tier: master_detective
+    raw_title: "The Remarkable Adventure: The Heirloom"
+    grid: 7x7
+    grade: "expert 8.3"
+    source_answer: {name: Clarence, coordinate: C4}
+    checkpoint: {scene_index: 35, clues_index: 34}
+    pdf: {puzzle_page: 36, statements_page: 35, solution_page: 58}
+    meta: {letter: M, room: "Music Archive", excluded_empty_zone: "Office Passage"}
+
+  - id: HMDA_23
+    final_title: "The Wristband Switch at Adventure Park"
+    tier: master_detective
+    raw_title: "The Hidden Clue and the Hidden Prize"
+    grid: 7x7
+    grade: "expert 8.4"
+    source_answer: {name: Rebecca, coordinate: F6}
+    checkpoint: {scene_index: 25, clues_index: 24}
+    pdf: {puzzle_page: 26, statements_page: 25, solution_page: 53}
+    meta: {letter: A, room: "Access Office", excluded_empty_zone: "Funhouse Queue"}
+
+  - id: HMDA_25
+    final_title: "The Package with No Name"
+    tier: master_detective
+    raw_title: "The Unusual Hunt: The Prize"
+    grid: 7x7
+    grade: "expert 8.1"
+    source_answer: {name: Celia, coordinate: D5}
+    checkpoint: {scene_index: 27, clues_index: 26}
+    pdf: {puzzle_page: 28, statements_page: 27, solution_page: 54}
+    meta: {letter: P, room: "Parcel Room", excluded_empty_zone: "Roof Terrace"}
+
+  - id: HMDA_29
+    final_title: "The Map Beneath the Map"
+    tier: room_zero_boss
+    raw_title: "The Search for the Unclaimed Gem"
+    grid: 9x9
+    grade: "expert 8.2"
+    source_answer: {name: Vera, coordinate: D3}
+    checkpoint: {scene_index: 29, clues_index: 28}
+    pdf: {puzzle_page: 30, statements_page: 29, solution_page: 55}
+    meta: null
+
+room_skin_contract:
+  note: >-
+    Exact source room-index to final ROOM/ZONE names is generated from the locked
+    checkpoint during Map Factory ingestion. Do not hand-edit cell topology in
+    this selection file. See SPATIAL_SOURCE_LOCK.md and MAP_FACTORY_FINAL_SPEC.md.
