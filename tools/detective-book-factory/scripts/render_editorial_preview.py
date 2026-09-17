@@ -16,11 +16,16 @@ visible while final map work proceeds.
 from __future__ import annotations
 
 import argparse
+import sys
 from pathlib import Path
 
 import yaml
 
-import render_book as rb
+SCRIPT_DIR = Path(__file__).resolve().parent
+TOOL_ROOT = SCRIPT_DIR.parent
+sys.path.insert(0, str(TOOL_ROOT))
+
+import render_book as rb  # noqa: E402
 
 
 STRICT_PREPROCESS = rb.preprocess_crop
