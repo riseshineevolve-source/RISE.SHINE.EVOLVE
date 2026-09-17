@@ -9,8 +9,9 @@ from pypdf import PdfReader
 REQUIRED_MISSION_KEYS = {"number","rank","type","title","guides","hook","objective","dialogue","meta_reveal","nudge","solution_steps"}
 
 
-def check_content(root: Path, content: Path) -> list[str]:
+def check_content(root: Path, content: Path, allow_missing_spatial_assets: bool = False) -> tuple[list[str], list[str]]:
     errors=[]
+    warnings=[]
     data=yaml.safe_load(content.read_text(encoding='utf-8'))
     missions=data.get('missions',[])
     nums=[m.get('number') for m in missions]
@@ -27,11 +28,16 @@ def check_content(root: Path, content: Path) -> list[str]:
             sp=m.get('spatial',{})
             for key in ('source_page_asset','solution_asset'):
                 p=root/sp.get(key,'')
-                if not p.exists(): errors.append(f"Case {m.get('number')}: missing {key}: {p}")
+                if not p.exists():
+                    message=f"Case {m.get('number')}: missing {key}: {p}"
+                    if allow_missing_spatial_assets:
+                        warnings.append(message)
+                    else:
+                        errors.append(message)
     for key,info in data.get('characters',{}).items():
         p=root/info.get('asset','')
         if not p.exists(): errors.append(f"Character {key}: missing asset {p}")
-    return errors
+    return errors, warnings
 
 
 def check_pdf(pdf: Path, min_pages=10) -> list[str]:
@@ -56,15 +62,30 @@ def main():
     ap.add_argument('--pdf',required=True)
     ap.add_argument('--min-pages',type=int,default=10)
     ap.add_argument('--report',default=None)
+    ap.add_argument(
+        '--allow-missing-spatial-assets',
+        action='store_true',
+        help='Editorial-preview mode only: report missing spatial rasters as warnings instead of release-blocking errors.',
+    )
     a=ap.parse_args()
     content=Path(a.content).resolve(); root=content.parent.parent
     pdf=Path(a.pdf).resolve()
-    errors=check_content(root,content)+check_pdf(pdf,a.min_pages)
-    lines=[f'HMDA PREFLIGHT: {"PASS" if not errors else "FAIL"}',f'Content: {content}',f'PDF: {pdf}']
+    content_errors,warnings=check_content(root,content,a.allow_missing_spatial_assets)
+    errors=content_errors+check_pdf(pdf,a.min_pages)
+    mode='EDITORIAL PREVIEW' if a.allow_missing_spatial_assets else 'PRODUCTION'
+    lines=[f'HMDA PREFLIGHT ({mode}): {"PASS" if not errors else "FAIL"}',f'Content: {content}',f'PDF: {pdf}']
+    if warnings:
+        lines += ['', 'Warnings:']
+        lines.extend(f'- {warning}' for warning in warnings)
     if errors:
-        lines.append(''); lines.extend(f'- {e}' for e in errors)
+        lines += ['', 'Errors:']
+        lines.extend(f'- {e}' for e in errors)
     else:
-        lines += ['', 'All required content fields are present.', 'Referenced character and spatial assets exist.', 'Mission numbers are unique and sorted.', 'PDF is openable and uses Letter 8.5x11 on every page.']
+        lines += ['', 'All required content fields are present.', 'Referenced character assets exist.', 'Mission numbers are unique and sorted.', 'PDF is openable and uses Letter 8.5x11 on every page.']
+        if warnings:
+            lines.append('Spatial raster warnings are allowed only because editorial-preview mode was explicitly requested; this output is not release-ready.')
+        else:
+            lines.append('Referenced spatial assets exist.')
     text='\n'.join(lines)+'\n'
     print(text,end='')
     if a.report:
