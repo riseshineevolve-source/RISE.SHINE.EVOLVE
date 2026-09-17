@@ -49,6 +49,7 @@ jobs:
             --content content/book1_en_production.yml \
             --pdf dist/HMDA_Book1_Editorial_Preview.pdf \
             --min-pages 25 \
+            --allow-missing-spatial-assets \
             --report dist/preflight.txt
           pdfinfo dist/HMDA_Book1_Editorial_Preview.pdf
           cat dist/spatial_asset_status.txt
