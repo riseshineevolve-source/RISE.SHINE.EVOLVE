@@ -33,38 +33,41 @@ jobs:
         working-directory: tools/detective-book-factory
         run: python scripts/sync_brand_assets.py
 
-      - name: Build production preview
+      - name: Build editorial preview
         working-directory: tools/detective-book-factory
         run: |
           mkdir -p dist
-          python render_book.py \
+          python scripts/render_editorial_preview.py \
             --content content/book1_en_production.yml \
-            --output dist/HMDA_Book1_Production_Preview_v1.pdf
+            --output dist/HMDA_Book1_Editorial_Preview.pdf \
+            --status-report dist/spatial_asset_status.txt
 
-      - name: Preflight
+      - name: Editorial preflight
         working-directory: tools/detective-book-factory
         run: |
           python scripts/preflight.py \
             --content content/book1_en_production.yml \
-            --pdf dist/HMDA_Book1_Production_Preview_v1.pdf \
+            --pdf dist/HMDA_Book1_Editorial_Preview.pdf \
             --min-pages 25 \
             --report dist/preflight.txt
-          pdfinfo dist/HMDA_Book1_Production_Preview_v1.pdf
+          pdfinfo dist/HMDA_Book1_Editorial_Preview.pdf
+          cat dist/spatial_asset_status.txt
 
       - name: Render page previews
         working-directory: tools/detective-book-factory
         run: |
           python scripts/make_previews.py \
-            --pdf dist/HMDA_Book1_Production_Preview_v1.pdf \
+            --pdf dist/HMDA_Book1_Editorial_Preview.pdf \
             --out dist/previews \
             --dpi 144
 
-      - name: Upload build artifact
+      - name: Upload editorial build artifact
         uses: actions/upload-artifact@v4
         with:
-          name: detective-academy-production-preview
+          name: detective-academy-editorial-preview
           path: |
-            tools/detective-book-factory/dist/HMDA_Book1_Production_Preview_v1.pdf
+            tools/detective-book-factory/dist/HMDA_Book1_Editorial_Preview.pdf
             tools/detective-book-factory/dist/preflight.txt
+            tools/detective-book-factory/dist/spatial_asset_status.txt
             tools/detective-book-factory/dist/previews/*.png
           if-no-files-found: error
