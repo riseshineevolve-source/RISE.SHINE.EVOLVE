@@ -1,27 +1,105 @@
 # Happy Makers Detective Academy - Book Factory
 
-Reusable content-driven PDF generator for the Rise.Shine.Evolve. Detective Academy series.
+Reusable, content-driven production system for the Rise.Shine.Evolve. Detective Academy series.
 
 ## Production model
 
-Story and puzzle data live in YAML. Layout lives in Python. Character portraits and spatial logic modules are replaceable assets. Canva is a finishing layer, not the source of pagination.
+Story and puzzle data live in YAML. Layout and validation live in Python. Character portraits and final spatial maps are replaceable assets. Canva is a finishing layer only, never the source of pagination, solutions or print logic.
 
 ## Current Book 1 state
 
-`The Mystery of Room Zero` now has a complete 30-mission production structure and a locally assembled 81-page Production Preview v3 with:
+`The Mystery of Room Zero` has a complete 30-mission editorial structure. The latest assembled editorial-lock build is **84 pages before final spatial-map replacement** and includes:
 
-- opening recruitment + Detective ID
-- six-member Happy Makers squad including Grandma Bibi
-- Rookie Files, Field Agent and Master Detective progression
-- Room Zero final act and `CHECK THE OLD MAP` meta reveal
-- corrected Quick Missions after QA
-- verified Shigai spatial modules mapped to story cases
+- reader recruitment + Detective ID
+- all six Happy Makers including Grandma Bibi
+- Rookie / Field Agent / Master Detective / Room Zero progression
+- Cases 01-30 and the complete Room Zero final act
+- `CHECK THE OLD MAP` meta reveal
 - 3-level Hint Vault for all 30 missions
-- solution entries for all 30 missions
+- reader-facing solutions for all 30 missions
 - Room Zero certificate
-- final after-credits hook: `CASE 001 // STILL OPEN`
+- final `CASE 001 // STILL OPEN` after-credits hook
+- print-safe grayscale UI with no full-black interior pages
 
-See `QA_ROUND1.md` for the current blocker list and source verdicts.
+`EDITORIAL_LOCK_v4.md` is the editorial boundary. Do not reopen the core Room Zero twist, reader-is-the-missing-detective reveal, Happy Makers roles, 30-mission architecture, rank progression, Hint Vault structure or series hook without explicit approval.
+
+## Final spatial source bank
+
+The Shigai selection phase is complete. Production now uses the locked final source files:
+
+- `HMDA_checkpoint_19_HMDA20_UPGRADE.shigai.json`
+- `HMDA_SHIGAI_SOURCE_15_MODULES_FINAL.pdf`
+
+Their SHA-256 hashes and the exact 15-module selection are stored in:
+
+- `content/spatial_source_manifest_final.yml`
+- `SPATIAL_SOURCE_LOCK.md`
+
+Final upgrades retained from the later Shigai pass include:
+
+- HMDA_13 - `What Happened to the Empty Display?` - EXPERT 8.4
+- HMDA_19 - `The Relic and the Little Ledger Note` - EXPERT 8.2
+- HMDA_20 - `The Adventure: The Missing Relic` - EXPERT 8.3
+- HMDA_22 - `The Remarkable Adventure: The Heirloom` - EXPERT 8.3
+
+The locked 9x9 boss source is **`The Search for the Unclaimed Gem`**, stored answer **Vera @ D3**. Earlier experimental boss candidates are not production sources unless a new source export is explicitly approved.
+
+## Room Zero meta engine
+
+The fourteen non-boss spatial cases spell:
+
+`CHECK THE OLD MAP`
+
+The final RSE map system distinguishes **ROOMS** from **ZONES**. Mission 26 asks the reader to inspect only spaces visibly styled as ROOM. After the verified placement, each marked case has exactly one empty ROOM. Its first letter is the hidden meta letter. Extra empty source partitions are intentionally re-skinned as corridors, platforms, queues or other ZONES and never count as the meta answer.
+
+The room/zone skin is locked in:
+
+`content/spatial_room_skin.yml`
+
+The meta carrier must never receive special visual emphasis before Mission 26. It should look like any other room.
+
+## Source validation
+
+Run the source-lock validator whenever the selection or room skin changes:
+
+```bash
+cd tools/detective-book-factory
+python scripts/validate_spatial_source_manifest.py \
+  --manifest content/spatial_source_manifest_final.yml \
+  --skin content/spatial_room_skin.yml \
+  --checkpoint /path/to/HMDA_checkpoint_19_HMDA20_UPGRADE.shigai.json
+```
+
+The gate checks:
+
+- selected raw title/page identity
+- source answer and exact coordinate
+- one-person-per-row and one-person-per-column placement
+- no person on a blocked source cell
+- source owner-answer room relation
+- full source-room coverage by the RSE room/zone skin
+- exactly one empty final ROOM in every marked case
+- final message `CHECK THE OLD MAP`
+
+This is a structural source gate. The final rewritten RSE clues receive a second semantic/solver validation before publication.
+
+## Map Factory
+
+The old two-case pilot remains useful as development history, but it is **not** the source of truth for Book 1. The final renderer must ingest the locked selection plus native source geometry and produce new RSE maps without Shigai branding or raw generator art.
+
+Final visual rules:
+
+- preserve source grid topology and blocked/occupiable meaning
+- preserve repeated-object equivalence when a clue depends on it
+- replace Shigai people, room names and story framing with final RSE case content
+- use light grayscale gaming/dossier design, not noir and not worksheet styling
+- distinguish ROOM and ZONE clearly but subtly
+- keep the meta-carrier room visually ordinary
+- puzzle map contains no answer markers
+- solution map shows placements and a short deduction trail
+- HMDA_29 resolves to a coordinate used by the Room Zero finale, not a criminal verdict
+
+See `MAP_FACTORY_FINAL_SPEC.md` for the production contract.
 
 ## Build locally
 
@@ -31,61 +109,25 @@ python -m venv .venv
 # Windows: .venv\\Scripts\\activate
 # macOS/Linux: source .venv/bin/activate
 pip install -r requirements.txt
-python render_book.py --content content/book1_en_production.yml --output dist/HMDA_Book1_Production_Preview_v1.pdf
-python scripts/preflight.py --content content/book1_en_production.yml --pdf dist/HMDA_Book1_Production_Preview_v1.pdf --min-pages 25 --report dist/preflight.txt
-python scripts/make_previews.py --pdf dist/HMDA_Book1_Production_Preview_v1.pdf --out dist/previews --dpi 144
+python render_book.py --content content/book1_en_production.yml --output dist/HMDA_Book1.pdf
+python scripts/preflight.py --content content/book1_en_production.yml --pdf dist/HMDA_Book1.pdf --min-pages 25 --report dist/preflight.txt
+python scripts/make_previews.py --pdf dist/HMDA_Book1.pdf --out dist/previews --dpi 144
 ```
-
-## Map Factory pilot (spatial-map visual rebuild)
-
-`content/spatial_map_pilots.yml` holds two raw candidate spatial-deduction
-modules (`HMDA_10`, `HMDA_17`) imported from a native Shigai checkpoint as a
-pilot for the reusable, code-drawn, grayscale map renderer that will
-eventually replace the raw Shigai scan crops used by `spatial_puzzle_page`
-in `render_book.py`. Neither pilot case is currently mapped to a retained
-Book 1 case (see `content/shigai_module_map.yml`); they exist only to prove
-the visual system before scaling to the 14 retained maps.
-
-```bash
-cd tools/detective-book-factory
-python -m venv .venv && .venv\Scripts\activate  # or source .venv/bin/activate
-pip install -r requirements.txt
-python scripts/validate_spatial_map_pilot.py --manifest content/spatial_map_pilots.yml
-python scripts/render_spatial_map.py --manifest content/spatial_map_pilots.yml --out dist/spatial_maps
-```
-
-`validate_spatial_map_pilot.py` proves topology, room partition, furniture
-placement, answer identity and (via brute-force search) unique solvability
-against SHA-256 baselines pinned in each case's `integrity` block, and fails
-the build if a rebuild ever changes verified geometry. `render_spatial_map.py`
-draws the canonical puzzle/solution maps and rasterizes PNG previews; it
-reads geometry only from the manifest, never from artwork.
-`scripts/build_spatial_map_pilot_manifest.py` is the reusable ingestion tool
-that mechanically imports grid/room/furniture/placement data from a Shigai
-checkpoint for future cases -- constraints must still be hand-authored and
-proven by the validator, never auto-guessed from clue text.
 
 ## Cloud build
 
-Pushes to `feature/detective-book-factory` trigger `.github/workflows/build-detective-book.yml`. The workflow builds the PDF, runs preflight, creates PNG previews, and uploads everything as a GitHub Actions artifact.
-
-## Asset rules
-
-- `assets/production/*.png|jpg`: normalized grayscale Happy Makers portraits and temporary verified spatial modules.
-- Temporary Shigai map assets are logic references only. Final publication art must be rebuilt/re-themed while preserving verified clue geometry.
-- Every reframed spatial case must be revalidated before publication.
-- The fourteen hidden meta outputs must spell `CHECK THE OLD MAP` after the final RSE map rebuild.
-- Avoid full-black interior pages. Use dark HUD panels on light pages for print safety.
+Pushes to `feature/detective-book-factory` use the Book Factory GitHub Actions pipeline for repeatable artifacts. The workflow should remain isolated from the live website until the book branch is explicitly approved for merge.
 
 ## Current next tranche
 
-1. Rebuild the fourteen meta-carrying spatial maps in a consistent RSE visual system.
-2. Lock the `CHECK THE OLD MAP` empty-room letter sequence into those maps.
-3. Revalidate every rebuilt spatial puzzle for uniqueness.
-4. Replace remaining schematic Quick Mission art with premium grayscale evidence art.
-5. Upgrade the renderer/workflow so GitHub Actions produces the same full-book build, not only the early preview tranche.
-6. Run final KDP print preflight and order a physical proof.
+1. Render three final-system pilots: HMDA_02, HMDA_13 and HMDA_29.
+2. Lock final case-specific prop skins and character aliases while preserving source clue semantics.
+3. Extend the true RSE vector renderer to all 15 selected spatial modules.
+4. Rewrite and independently validate the final reader-facing clues and solution trails.
+5. Replace temporary spatial assets in the full 30-mission book build.
+6. Run page-by-page visual QA, KDP print preflight and physical proof.
+7. Create the Polish localization source after the English layout is stable.
 
 ## Series reuse
 
-Book 2 or another language edition should require mostly new YAML plus new puzzle/art assets. Page templates, Happy Makers callouts, chapter gates, hint pages, solution layouts, preflight and export stay reusable.
+Book 2 or another language edition should require mostly new content YAML plus new puzzle/art assets. Reusable components include page templates, Happy Makers callouts, chapter gates, Hint Vault, solution layouts, map validation, preflight and export.
