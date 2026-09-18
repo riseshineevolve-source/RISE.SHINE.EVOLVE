@@ -2,9 +2,7 @@ name: Build Detective Academy PDF
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - feature/detective-book-factory
+  pull_request:
     paths:
       - 'tools/detective-book-factory/**'
       - 'assets/images/**'
