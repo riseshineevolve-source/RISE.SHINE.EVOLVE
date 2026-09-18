@@ -29,6 +29,12 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r tools/detective-book-factory/requirements.txt
 
+      - name: Audit durable Book 1 launch state
+        working-directory: tools/detective-book-factory
+        run: |
+          python -m py_compile scripts/audit_book1_launch_state.py scripts/extract_shigai_runtime.py
+          python scripts/audit_book1_launch_state.py
+
       - name: Sync canonical Happy Makers assets
         working-directory: tools/detective-book-factory
         run: python scripts/sync_brand_assets.py
