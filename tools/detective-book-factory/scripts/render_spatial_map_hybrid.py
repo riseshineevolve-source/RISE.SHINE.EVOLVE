@@ -1,263 +1,338 @@
 #!/usr/bin/env python3
-"""HYBRID HMDA Map Factory pilot: Shigai original art + HMDA book framing.
+"""Premium HMDA hybrid Map Factory.
 
-This does NOT redraw geometry, furniture, or room boundaries. It places the
-original, verified Shigai puzzle/solution page image (extracted losslessly
-from the source PDF, never re-generated or upscaled) as the hero visual, and
-adds only HMDA branding chrome around it using the same palette/typography
-helpers as render_book.py. This is an alternative to (not a replacement of)
-scripts/render_spatial_map.py, the validated code-drawn fallback renderer.
+Uses the ORIGINAL Shigai raster map as the scene/art layer, then applies the
+canonical RSE / Room Zero naming and book framing without changing geometry.
+
+Pipeline:
+  locked source PDF -> SHA verification -> exact embedded page image
+  -> detect map grid -> replace raw room labels with final RSE ROOM/ZONE names
+  -> HMDA puzzle/solution page
+
+The source PDF remains external/private. Only code, manifests and hashes live
+in GitHub.
 
 Usage:
-    python scripts/render_spatial_map_hybrid.py --manifest content/spatial_map_pilots.yml \
-        --case HMDA_10 --case HMDA_17 --out dist/spatial_maps_hybrid
+  python scripts/render_spatial_map_hybrid.py \
+    --source-pdf /private/HMDA_SHIGAI_SOURCE_15_MODULES_FINAL.pdf \
+    --runtime /private/HMDA_BOOK1_RUNTIME.json \
+    --case HMDA_02 --case HMDA_13 --case HMDA_29 \
+    --out dist/map_factory_hybrid
 """
 
 from __future__ import annotations
 
 import argparse
-import sys
+import hashlib
+import json
 from pathlib import Path
+import re
+import sys
+from typing import Any
 
+import cv2
 import fitz
+import numpy as np
+from PIL import Image, ImageDraw, ImageFont
 import yaml
 from reportlab.lib.units import inch
 from reportlab.pdfgen import canvas as canvas_module
-from PIL import Image
 
 HERE = Path(__file__).resolve()
 TOOL_ROOT = HERE.parents[1]
 sys.path.insert(0, str(TOOL_ROOT))
 import render_book as rb  # noqa: E402
 
-# Exact source mapping, confirmed by content match against
-# content/spatial_map_pilots.yml (rooms, furniture, placements, answer) --
-# see the pilot's completion report for the page-by-page verification.
-SOURCE_PDF = (r"C:\Users\danie\Desktop\Asia\KDP\detective adventure"
-              r"\HMDA_RECOVERY_11_CANDIDATES\HMDA_SHIGAI_SOURCE_15_MODULES_FINAL.pdf")
 
-SOURCE_PAGES = {
-    "HMDA_10": {"puzzle": 12, "solution": 46},
-    "HMDA_17": {"puzzle": 20, "solution": 50},
-}
+def sha256(path: Path) -> str:
+    h=hashlib.sha256()
+    with path.open("rb") as fh:
+        for chunk in iter(lambda: fh.read(1024*1024), b""):
+            h.update(chunk)
+    return h.hexdigest()
 
 
-EXISTING_PILOT_CACHE = TOOL_ROOT / "dist" / "spatial_maps_hybrid" / "_source_cache"
+def load_yaml(path: Path) -> dict[str, Any]:
+    data=yaml.safe_load(path.read_text(encoding="utf-8"))
+    if not isinstance(data,dict):
+        raise SystemExit(f"Invalid YAML mapping: {path}")
+    return data
 
 
-def extract_source_images(cache_dir: Path) -> dict[str, dict[str, Path]]:
-    """Reuse the already-extracted full-page source JPEGs; only pull from the
-    31 MB source PDF again if a case/mode is missing from every known cache."""
-    cache_dir.mkdir(parents=True, exist_ok=True)
-    paths: dict[str, dict[str, Path]] = {}
-    missing: list[tuple[str, str]] = []
-    for case_id, pages in SOURCE_PAGES.items():
-        paths[case_id] = {}
-        for mode in pages:
-            existing = sorted(cache_dir.glob(f"{case_id}_{mode}_source.*"))
-            if not existing:
-                existing = sorted(EXISTING_PILOT_CACHE.glob(f"{case_id}_{mode}_source.*"))
-            if existing:
-                src = existing[0]
-                dst = cache_dir / src.name
-                if src != dst:
-                    dst.write_bytes(src.read_bytes())
-                paths[case_id][mode] = dst
-            else:
-                missing.append((case_id, mode))
+def load_runtime(path: Path) -> dict[str, Any]:
+    data=json.loads(path.read_text(encoding="utf-8"))
+    if data.get("format")!="hmda-shigai-runtime":
+        raise SystemExit("Runtime is not an hmda-shigai-runtime bundle.")
+    return data
 
+
+def contiguous_groups(values: np.ndarray) -> list[tuple[int,int]]:
+    values=[int(v) for v in values]
+    if not values:
+        return []
+    groups=[]
+    start=prev=values[0]
+    for value in values[1:]:
+        if value==prev+1:
+            prev=value
+        else:
+            groups.append((start,prev))
+            start=prev=value
+    groups.append((start,prev))
+    return groups
+
+
+def detect_grid_bbox(gray: np.ndarray) -> tuple[int,int,int,int]:
+    """Find the heavy outer map border in the original Shigai raster."""
+    h,w=gray.shape
+    dark=gray<72
+
+    y0,y1=int(h*0.16),int(h*0.97)
+    col_fraction=dark[y0:y1,:].mean(axis=0)
+    col_groups=[
+        g for g in contiguous_groups(np.where(col_fraction>0.31)[0])
+        if 2 <= g[1]-g[0]+1 <= int(w*0.04)
+        and g[0] > int(w*0.02) and g[1] < int(w*0.98)
+    ]
+    if len(col_groups)<2:
+        raise SystemExit("Could not detect Shigai grid outer vertical border.")
+    left=col_groups[0][0]
+    right=col_groups[-1][1]
+
+    row_fraction=dark[:,left:right+1].mean(axis=1)
+    row_groups=[
+        g for g in contiguous_groups(np.where(row_fraction>0.31)[0])
+        if 2 <= g[1]-g[0]+1 <= int(h*0.04)
+        and g[0] > int(h*0.12) and g[1] < int(h*0.98)
+    ]
+    if len(row_groups)<2:
+        raise SystemExit("Could not detect Shigai grid outer horizontal border.")
+    top=row_groups[0][0]
+    bottom=row_groups[-1][1]
+    if right-left < w*0.45 or bottom-top < h*0.45:
+        raise SystemExit(f"Implausible grid crop: {(left,top,right,bottom)}")
+    return left,top,right,bottom
+
+
+def detect_room_label_boxes(grid_gray: np.ndarray) -> list[tuple[int,int,int,int]]:
+    """Detect Shigai's white rounded room-name pills, not furniture."""
+    inv=cv2.threshold(grid_gray,120,255,cv2.THRESH_BINARY_INV)[1]
+    contours,_=cv2.findContours(inv,cv2.RETR_LIST,cv2.CHAIN_APPROX_SIMPLE)
+    h,w=grid_gray.shape
+    candidates=[]
+    for cnt in contours:
+        x,y,bw,bh=cv2.boundingRect(cnt)
+        if not (w*0.035 <= bw <= w*0.30 and h*0.012 <= bh <= h*0.055):
+            continue
+        if bw/max(bh,1) < 1.55:
+            continue
+        area=float(cv2.contourArea(cnt))
+        rectangularity=area/max(1.0,float(bw*bh))
+        if rectangularity < 0.82:
+            continue
+        roi=grid_gray[y:y+bh,x:x+bw]
+        inset=max(2,int(min(bw,bh)*0.12))
+        inner=roi[inset:bh-inset, inset:bw-inset]
+        if inner.size==0:
+            continue
+        white_fraction=float((inner>220).mean())
+        if white_fraction < 0.40:
+            continue
+        candidates.append((x,y,bw,bh,rectangularity,white_fraction))
+
+    # One outer contour per pill. Collapse near-duplicates.
+    candidates.sort(key=lambda r:(r[4],r[5],r[2]*r[3]),reverse=True)
+    kept=[]
+    for cand in candidates:
+        x,y,bw,bh,*_=cand
+        cx,cy=x+bw/2,y+bh/2
+        duplicate=False
+        for ox,oy,ow,oh in kept:
+            ocx,ocy=ox+ow/2,oy+oh/2
+            if abs(cx-ocx)<max(bw,ow)*0.20 and abs(cy-ocy)<max(bh,oh)*0.35:
+                duplicate=True
+                break
+        if not duplicate:
+            kept.append((x,y,bw,bh))
+    return kept
+
+
+def font(size: int, bold: bool=True) -> ImageFont.FreeTypeFont:
+    candidates=[
+        "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf" if bold else "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
+        "/usr/share/fonts/truetype/liberation2/LiberationSans-Bold.ttf" if bold else "/usr/share/fonts/truetype/liberation2/LiberationSans-Regular.ttf",
+    ]
+    for candidate in candidates:
+        if Path(candidate).is_file():
+            return ImageFont.truetype(candidate,size=size)
+    return ImageFont.load_default()
+
+
+def room_for_point(case: dict[str,Any], x: float, y: float, grid_w: int, grid_h: int) -> dict[str,Any]:
+    cols=int(case["grid"]["columns"])
+    rows=int(case["grid"]["rows"])
+    col=min(cols-1,max(0,int(x/(grid_w/cols))))
+    row=min(rows-1,max(0,int(y/(grid_h/rows))))
+    cell=f"{chr(ord('A')+col)}{row+1}"
+    for room in case["rooms"]:
+        if cell in room.get("cells",[]):
+            return room
+    raise SystemExit(f"{case['id']}: no room owns detected label cell {cell}")
+
+
+def replace_room_labels(source: Image.Image, case: dict[str,Any], bbox: tuple[int,int,int,int]) -> Image.Image:
+    """Replace raw Shigai room labels while leaving art/geometry untouched."""
+    left,top,right,bottom=bbox
+    grid=source.crop((left,top,right+1,bottom+1)).convert("RGB")
+    gray=np.asarray(grid.convert("L"))
+    boxes=detect_room_label_boxes(gray)
+
+    assigned: dict[int,tuple[int,int,int,int]]={}
+    for box in boxes:
+        x,y,bw,bh=box
+        room=room_for_point(case,x+bw/2,y+bh/2,grid.width,grid.height)
+        rid=int(room["source_room_id"])
+        previous=assigned.get(rid)
+        if previous is None or bw*bh > previous[2]*previous[3]:
+            assigned[rid]=box
+
+    expected={int(room["source_room_id"]) for room in case["rooms"]}
+    missing=sorted(expected-set(assigned))
     if missing:
-        doc = fitz.open(SOURCE_PDF)
-        for case_id, mode in missing:
-            page_no = SOURCE_PAGES[case_id][mode]
-            page = doc[page_no - 1]
-            info = page.get_image_info(xrefs=True)
-            if len(info) != 1:
-                raise SystemExit(
-                    f"Expected exactly one image on page {page_no} for {case_id} {mode}, found {len(info)}."
-                )
-            xref = info[0]["xref"]
-            base = doc.extract_image(xref)
-            out_path = cache_dir / f"{case_id}_{mode}_source.{base['ext']}"
-            out_path.write_bytes(base["image"])
-            paths[case_id][mode] = out_path
-    return paths
+        raise SystemExit(
+            f"{case['id']}: could not safely identify original room labels for source room ids {missing}. "
+            "Failing closed rather than damaging the verified map."
+        )
+
+    draw=ImageDraw.Draw(grid)
+    for room in case["rooms"]:
+        rid=int(room["source_room_id"])
+        x,y,bw,bh=assigned[rid]
+        final=str(room["final_name"]).upper()
+        if room.get("kind")=="zone":
+            final += " // ZONE"
+
+        pad_x=max(8,int(bh*0.20))
+        x0=max(0,x-pad_x)
+        x1=min(grid.width,x+bw+pad_x)
+        y0=max(0,y-int(bh*0.10))
+        y1=min(grid.height,y+bh+int(bh*0.10))
+
+        # Preserve nearby wall geometry by repainting only the old label footprint.
+        draw.rounded_rectangle((x0,y0,x1,y1),radius=max(6,int(bh*0.22)),fill="white",outline=(20,20,20),width=max(2,int(bh*0.06)))
+        max_size=max(14,int(bh*0.62))
+        min_size=max(10,int(bh*0.34))
+        chosen=font(min_size)
+        for size in range(max_size,min_size-1,-1):
+            f=font(size)
+            tb=draw.textbbox((0,0),final,font=f)
+            if tb[2]-tb[0] <= (x1-x0)-14 and tb[3]-tb[1] <= (y1-y0)-8:
+                chosen=f
+                break
+        tb=draw.textbbox((0,0),final,font=chosen)
+        tw,th=tb[2]-tb[0],tb[3]-tb[1]
+        draw.text(((x0+x1-tw)/2,(y0+y1-th)/2-2),final,font=chosen,fill=(20,20,20))
+
+    return grid
 
 
-def autocrop_whitespace(img: Image.Image, pad_frac: float = 0.012, thresh: int = 245) -> Image.Image:
-    """Trim blank page margin around the printed content only. Never touches
-    a pixel inside the detected content box, so puzzle-relevant art, room
-    labels, and the legend baked into the source page are preserved exactly."""
-    mask = img.convert("L").point(lambda v: 255 if v < thresh else 0)
-    bbox = mask.getbbox()
-    if not bbox:
-        return img
-    left, top, right, bottom = bbox
-    pad_x = int(img.width * pad_frac)
-    pad_y = int(img.height * pad_frac)
-    left = max(0, left - pad_x)
-    top = max(0, top - pad_y)
-    right = min(img.width, right + pad_x)
-    bottom = min(img.height, bottom + pad_y)
-    return img.crop((left, top, right, bottom))
+def extract_embedded_page_image(doc: fitz.Document, page_no: int) -> Image.Image:
+    page=doc[page_no-1]
+    info=page.get_image_info(xrefs=True)
+    if len(info)!=1:
+        raise SystemExit(f"Source PDF page {page_no}: expected exactly one embedded page image, found {len(info)}")
+    base=doc.extract_image(info[0]["xref"])
+    from io import BytesIO
+    return Image.open(BytesIO(base["image"])).convert("RGB")
 
 
-def trim_source_images(images: dict[str, dict[str, Path]], cache_dir: Path) -> dict[str, dict[str, Path]]:
-    """Derive whitespace-trimmed copies used for layout only; the extracted
-    originals in the cache are left byte-for-byte untouched."""
-    trimmed: dict[str, dict[str, Path]] = {}
-    for case_id, modes in images.items():
-        trimmed[case_id] = {}
-        for mode, src_path in modes.items():
-            out_path = cache_dir / f"{case_id}_{mode}_trimmed.png"
-            with Image.open(src_path) as img:
-                autocrop_whitespace(img).save(out_path)
-            trimmed[case_id][mode] = out_path
-    return trimmed
+def fit_image(c, image_path: Path, x: float, y: float, w: float, h: float) -> None:
+    img=Image.open(image_path)
+    iw,ih=img.size
+    scale=min(w/iw,h/ih)
+    dw,dh=iw*scale,ih*scale
+    c.drawImage(str(image_path),x+(w-dw)/2,y+(h-dh)/2,width=dw,height=dh,preserveAspectRatio=True,anchor='c')
 
 
-def name_legend(case: dict) -> list[tuple[str, str, bool]]:
-    """Return (initial, full display name, is_answer) for each suspect."""
-    entries = []
-    for person in case["people"]:
-        initial = person["display_name"][0].upper()
-        is_answer = person["id"] == case["answer"]["person_id"]
-        entries.append((initial, person["display_name"], is_answer))
-    return entries
+def hybrid_page(c, case: dict[str,Any], map_path: Path, mode: str, page_no: int=1) -> None:
+    is_solution=mode=="solution"
+    rb.top_bar(c,"SOLUTION MAP" if is_solution else "DEDUCTION GRID",page_no,0.70)
+    y=rb.PAGE_H-0.78*inch
+    rb.pill(c,case["id"],rb.M,y,7.0,fill=rb.CHARCOAL)
+    rb.para(c,str(case.get("final_title",case["id"])).upper(),rb.M,y-0.20*inch,rb.PAGE_W-2*rb.M,0.48*inch,size=16.6,font=rb.BOLD)
+    y-=0.78*inch
 
-
-ROW_H = 0.32 * inch
-GAP_IMG_TO_LEGEND = 0.22 * inch
-GAP_LEGEND_TO_VERDICT = 0.20 * inch
-VERDICT_H = 0.40 * inch
-GAP_VERDICT_TO_FOOTER = 0.14 * inch
-
-
-def hybrid_page(c, case: dict, image_path: Path, mode: str) -> None:
-    M = rb.M
-    is_solution = mode == "solution"
-    # No production/debug label or raw case ID here -- the reader-facing
-    # title and difficulty badge are already part of the original Shigai
-    # page art being placed below, so the top bar only needs the section name.
-    rb.top_bar(c, "SOLVED" if is_solution else "DEDUCTION GRID")
-    y = rb.PAGE_H - 0.62 * inch
-
-    img = Image.open(image_path)
-    iw, ih = img.size
-    aspect = iw / ih
-
-    footer_reserve = 0.40 * inch
-    legend_reserve = 0.0
-    entries: list[tuple[str, str, bool]] = []
-    if is_solution:
-        entries = name_legend(case)
-        rows = (len(entries) + 1) // 2
-        legend_reserve = (GAP_IMG_TO_LEGEND + rows * ROW_H + GAP_LEGEND_TO_VERDICT
-                           + VERDICT_H + GAP_VERDICT_TO_FOOTER)
-    available_h = y - footer_reserve - legend_reserve
-    available_w = rb.PAGE_W - 2 * M
-
-    draw_w = available_w
-    draw_h = draw_w / aspect
-    if draw_h > available_h:
-        draw_h = available_h
-        draw_w = draw_h * aspect
-
-    x = (rb.PAGE_W - draw_w) / 2
-    top_of_image = y
-    y_img = top_of_image - draw_h
-    rb.box(c, x - 0.06 * inch, y_img - 0.06 * inch, draw_w + 0.12 * inch, draw_h + 0.12 * inch,
-           fill=rb.WHITE, stroke=rb.LINE, radius=10)
-    c.drawImage(str(image_path), x, y_img, width=draw_w, height=draw_h,
-                preserveAspectRatio=True, anchor='c')
+    hero_h=5.95*inch
+    rb.box(c,rb.M,y-hero_h,rb.PAGE_W-2*rb.M,hero_h,fill=rb.WHITE,stroke=rb.LINE,radius=12)
+    fit_image(c,map_path,rb.M+0.10*inch,y-hero_h+0.10*inch,rb.PAGE_W-2*rb.M-0.20*inch,hero_h-0.20*inch)
+    y-=hero_h+0.12*inch
 
     if is_solution:
-        ly = y_img - GAP_IMG_TO_LEGEND
-        colw = (rb.PAGE_W - 2 * M) / 2
-        c.setFont(rb.BOLD, 11.5)
-        for i, (initial, name, is_answer) in enumerate(entries):
-            col, row = i % 2, i // 2
-            lx = M + col * colw
-            top = ly - row * ROW_H
-            c.setFillColor(rb.BLACK)
-            label = f"{initial} = {name}"
-            c.drawString(lx, top, label)
-            if is_answer:
-                label_w = rb.pdfmetrics.stringWidth(label, rb.BOLD, 11.5)
-                rb.pill(c, "ANSWER", lx + label_w + 0.14 * inch, top - 3.2,
-                        font_size=7.6, fill=rb.BLACK, text_color=rb.WHITE, pad_x=8, h=15)
+        names="   ".join(f"{p['source_name'][0].upper()} = {p['source_name']}" for p in case.get("characters",[]))
+        rb.fit_para(c,names,rb.M,y,rb.PAGE_W-2*rb.M,0.28*inch,max_size=7.4,min_size=5.4,align=1)
+        y-=0.35*inch
+        ans=case.get("source_answer",{})
+        rb.box(c,rb.M,y-0.48*inch,rb.PAGE_W-2*rb.M,0.43*inch,fill=rb.BLACK,stroke=rb.BLACK,radius=9)
+        rb.fit_para(c,f"VERDICT: {str(ans.get('name','')).upper()} @ {ans.get('coordinate','')}",
+                    rb.M+0.10*inch,y-0.13*inch,rb.PAGE_W-2*rb.M-0.20*inch,0.22*inch,
+                    max_size=9.4,min_size=7.0,font=rb.BOLD,color=rb.WHITE,align=1)
+    else:
+        rb.box(c,rb.M,y-0.48*inch,rb.PAGE_W-2*rb.M,0.43*inch,fill=rb.BLACK,stroke=rb.BLACK,radius=9)
+        rb.fit_para(c,"USE THE WITNESS CLUES. WRITE YOUR VERDICT ONLY WHEN THE MAP EARNS IT.",
+                    rb.M+0.10*inch,y-0.13*inch,rb.PAGE_W-2*rb.M-0.20*inch,0.22*inch,
+                    max_size=8.4,min_size=6.4,font=rb.BOLD,color=rb.WHITE,align=1)
 
-        rows = (len(entries) + 1) // 2
-        answer_name = case["answer"]["source_identity"]
-        answer_coord = case["answer"]["coordinate"]
-        verdict_top = ly - rows * ROW_H - GAP_LEGEND_TO_VERDICT
-        rb.box(c, M, verdict_top - VERDICT_H, rb.PAGE_W - 2 * M, VERDICT_H,
-               fill=rb.BLACK, stroke=rb.BLACK, radius=9)
-        c.setFillColor(rb.WHITE)
-        c.setFont(rb.BOLD, 12.5)
-        c.drawCentredString(rb.PAGE_W / 2, verdict_top - VERDICT_H / 2 - 4.3,
-                             f"VERDICT: {answer_name.upper()} — {answer_coord}")
-
-    rb.footer(c)
+    rb.footer(c,page_no)
     c.showPage()
 
 
-def render_case(case: dict, images: dict[str, Path], out_dir: Path) -> Path:
-    pdf_path = out_dir / f"{case['id']}_hybrid.pdf"
-    c = canvas_module.Canvas(str(pdf_path), pagesize=(rb.PAGE_W, rb.PAGE_H))
-    hybrid_page(c, case, images["puzzle"], "puzzle")
-    hybrid_page(c, case, images["solution"], "solution")
-    c.save()
-    return pdf_path
-
-
-def rasterize(pdf_path: Path, out_dir: Path, case_id: str, dpi: int = 300) -> tuple[Path, Path]:
-    doc = fitz.open(pdf_path)
-    zoom = dpi / 72
-    mat = fitz.Matrix(zoom, zoom)
-    names = (f"{case_id}_hybrid_puzzle.png", f"{case_id}_hybrid_solution.png")
-    outputs = []
-    for page, name in zip(doc, names):
-        pix = page.get_pixmap(matrix=mat, alpha=False)
-        out_path = out_dir / name
-        pix.save(out_path)
-        outputs.append(out_path)
-    return outputs[0], outputs[1]
-
-
 def main() -> None:
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--manifest", default="content/spatial_map_pilots.yml")
-    parser.add_argument("--case", action="append", default=[])
-    parser.add_argument("--out", default="dist/spatial_maps_hybrid_final")
-    parser.add_argument("--dpi", type=int, default=300)
-    args = parser.parse_args()
+    ap=argparse.ArgumentParser(description=__doc__)
+    ap.add_argument("--source-pdf",required=True,type=Path)
+    ap.add_argument("--runtime",required=True,type=Path)
+    ap.add_argument("--selection",default=TOOL_ROOT/"content"/"spatial_source_manifest_final.yml",type=Path)
+    ap.add_argument("--case",action="append",default=[])
+    ap.add_argument("--out",default=TOOL_ROOT/"dist"/"map_factory_hybrid",type=Path)
+    args=ap.parse_args()
 
-    manifest_path = Path(args.manifest)
-    if not manifest_path.is_absolute():
-        manifest_path = TOOL_ROOT / manifest_path
-    document = yaml.safe_load(manifest_path.read_text(encoding="utf-8"))
-    cases = {c["id"]: c for c in document["pilots"]}
-    requested = args.case or [cid for cid in SOURCE_PAGES if cid in cases]
+    source=args.source_pdf.expanduser().resolve()
+    selection=load_yaml(args.selection.expanduser().resolve())
+    expected_hash=str(selection["source"]["source_pdf_sha256"])
+    actual_hash=sha256(source)
+    if actual_hash!=expected_hash:
+        raise SystemExit(f"BLOCKED: source PDF SHA mismatch. expected {expected_hash}, got {actual_hash}")
 
-    out_dir = Path(args.out)
-    if not out_dir.is_absolute():
-        out_dir = TOOL_ROOT / out_dir
-    out_dir.mkdir(parents=True, exist_ok=True)
-    cache_dir = out_dir / "_source_cache"
+    runtime=load_runtime(args.runtime.expanduser().resolve())
+    runtime_cases={c["id"]:c for c in runtime.get("cases",[])}
+    declarations={c["id"]:c for c in selection.get("cases",[])}
+    requested=args.case or list(declarations)
+    out=args.out.expanduser().resolve()
+    out.mkdir(parents=True,exist_ok=True)
 
-    all_images = extract_source_images(cache_dir)
-    all_images = trim_source_images(all_images, cache_dir)
+    doc=fitz.open(source)
+    for cid in requested:
+        if cid not in declarations or cid not in runtime_cases:
+            raise SystemExit(f"Unknown or unverified case {cid}")
+        decl=declarations[cid]
+        case=runtime_cases[cid]
 
-    for case_id in requested:
-        if case_id not in SOURCE_PAGES:
-            raise SystemExit(f"No confirmed source page mapping for {case_id}.")
-        case = cases[case_id]
-        pdf_path = render_case(case, all_images[case_id], out_dir)
-        puzzle_png, solution_png = rasterize(pdf_path, out_dir, case_id, dpi=args.dpi)
-        print(f"{case_id}: {pdf_path.relative_to(TOOL_ROOT)}, "
-              f"{puzzle_png.relative_to(TOOL_ROOT)}, {solution_png.relative_to(TOOL_ROOT)}")
+        assets={}
+        for mode,key in (("puzzle","puzzle_page"),("solution","solution_page")):
+            page_no=int(decl["pdf"][key])
+            original=extract_embedded_page_image(doc,page_no)
+            gray=np.asarray(original.convert("L"))
+            bbox=detect_grid_bbox(gray)
+            relabeled=replace_room_labels(original,case,bbox)
+            path=out/f"{cid}_{mode}_original_shigai_relabelled.png"
+            relabeled.save(path,quality=96,dpi=(300,300))
+            assets[mode]=path
 
+        pdf_path=out/f"{cid}_hybrid_final.pdf"
+        c=canvas_module.Canvas(str(pdf_path),pagesize=(rb.PAGE_W,rb.PAGE_H))
+        hybrid_page(c,case,assets["puzzle"],"puzzle",1)
+        hybrid_page(c,case,assets["solution"],"solution",2)
+        c.save()
+        print(f"PASS {cid}: original Shigai art retained; RSE room labels applied -> {pdf_path}")
 
-if __name__ == "__main__":
+if __name__=="__main__":
     main()
