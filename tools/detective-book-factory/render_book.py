@@ -205,39 +205,72 @@ def avatar_callout(c, chars, key, text, x, top, w, style='light', tag=None):
 
 
 def chapter_gate(c, title, subtitle, rank, page_no):
-    c.setFillColor(BLACK); c.rect(0,0,PAGE_W,PAGE_H,fill=1,stroke=0)
-    tiny_grid(c,0,0,PAGE_W,PAGE_H,step=20)
-    c.setFillColor(WHITE)
-    c.setFont(MONO,9)
+    # Print-safe level gate: premium contrast without a full-black interior page.
+    c.setFillColor(WHITE); c.rect(0,0,PAGE_W,PAGE_H,fill=1,stroke=0)
+    c.setFillColor(BLACK); c.rect(0,PAGE_H-2.65*inch,PAGE_W,2.65*inch,fill=1,stroke=0)
+    tiny_grid(c,0,PAGE_H-2.65*inch,PAGE_W,2.65*inch,step=20)
+
+    c.setFillColor(WHITE); c.setFont(MONO,9)
     c.drawString(M,PAGE_H-0.80*inch,'ACADEMY ACCESS // NEW LEVEL')
-    para(c,rank.upper(),M,PAGE_H-1.35*inch,PAGE_W-2*M,0.4*inch,size=11,font=BOLD,color=colors.HexColor('#BFC1C8'))
-    para(c,title.upper(),M,PAGE_H-1.75*inch,PAGE_W-2*M,1.2*inch,size=30,font=BOLD,color=WHITE)
-    para(c,subtitle,M,PAGE_H-3.05*inch,PAGE_W-2*M,1.0*inch,size=13,font=FONT,color=colors.HexColor('#D4D5D8'))
+    para(c,rank.upper(),M,PAGE_H-1.28*inch,PAGE_W-2*M,0.36*inch,size=11,font=BOLD,color=colors.HexColor('#BFC1C8'))
+    para(c,title.upper(),M,PAGE_H-1.65*inch,PAGE_W-2*M,0.78*inch,size=28,font=BOLD,color=WHITE)
+
+    # Oversized outlined rank marker keeps the gaming-HUD feel using mostly white paper.
+    c.setStrokeColor(colors.HexColor('#D0D2D7')); c.setLineWidth(5)
+    c.circle(PAGE_W*0.80,PAGE_H*0.50,0.95*inch,stroke=1,fill=0)
+    c.setFillColor(colors.HexColor('#D0D2D7')); c.setFont(BOLD,34)
+    c.drawCentredString(PAGE_W*0.80,PAGE_H*0.50-12,rank[:1].upper())
+
+    box(c,M,PAGE_H-5.35*inch,PAGE_W-2*M,1.55*inch,fill=PALE2,stroke=LINE,radius=16)
+    c.setFillColor(MID); c.setFont(MONO,7)
+    c.drawString(M+0.20*inch,PAGE_H-4.06*inch,'WHAT CHANGES NOW')
+    fit_para(c,subtitle,M+0.20*inch,PAGE_H-4.30*inch,PAGE_W-2*M-0.40*inch,0.78*inch,
+             max_size=12.5,min_size=9.5,font=FONT,color=BLACK)
+
     c.setStrokeColor(colors.HexColor('#64666E')); c.setLineWidth(1)
     c.line(M,0.95*inch,PAGE_W-M,0.95*inch)
-    c.setFont(BOLD,8.5); c.drawString(M,0.68*inch,'STATUS: MISSIONS UNLOCKED')
-    c.setFont(MONO,7.5); c.drawRightString(PAGE_W-M,0.68*inch,f'PAGE {page_no:03d}')
+    c.setFillColor(BLACK); c.setFont(BOLD,8.5); c.drawString(M,0.68*inch,'STATUS: MISSIONS UNLOCKED')
+    c.setFillColor(MID); c.setFont(MONO,7.5); c.drawRightString(PAGE_W-M,0.68*inch,f'PAGE {page_no:03d}')
     c.showPage()
 
 
 def title_page(c, data):
     b=data['book']
-    c.setFillColor(BLACK); c.rect(0,0,PAGE_W,PAGE_H,fill=1,stroke=0)
-    tiny_grid(c,0,0,PAGE_W,PAGE_H,step=22)
-    c.setStrokeColor(colors.HexColor('#3A3C43')); c.setLineWidth(8)
-    c.circle(PAGE_W*0.77,PAGE_H*0.66,1.15*inch,stroke=1,fill=0)
+    # Print-safe title page: one strong black command panel, then white paper.
+    c.setFillColor(WHITE); c.rect(0,0,PAGE_W,PAGE_H,fill=1,stroke=0)
+    panel_h=4.15*inch
+    c.setFillColor(BLACK); c.rect(0,PAGE_H-panel_h,PAGE_W,panel_h,fill=1,stroke=0)
+    tiny_grid(c,0,PAGE_H-panel_h,PAGE_W,panel_h,step=22)
+
+    c.setStrokeColor(colors.HexColor('#4B4D55')); c.setLineWidth(7)
+    c.circle(PAGE_W*0.79,PAGE_H-2.48*inch,0.88*inch,stroke=1,fill=0)
     c.setFillColor(WHITE); c.setFont(MONO,9)
-    c.drawString(M,PAGE_H-0.8*inch,'CASE SYSTEM // OFFLINE')
-    para(c,b['title'],M,PAGE_H-1.55*inch,PAGE_W-2*M,1.4*inch,size=28,font=BOLD,color=WHITE)
-    para(c,b['subtitle'],M,PAGE_H-2.82*inch,PAGE_W-2*M,0.7*inch,size=18,font=BOLD,color=colors.HexColor('#C8CAD0'))
+    c.drawString(M,PAGE_H-0.80*inch,'CASE SYSTEM // OFFLINE')
+    para(c,b['title'],M,PAGE_H-1.55*inch,PAGE_W-2*M,1.25*inch,size=27,font=BOLD,color=WHITE)
+    para(c,b['subtitle'],M,PAGE_H-2.74*inch,PAGE_W-2*M,0.64*inch,size=17.5,font=BOLD,color=colors.HexColor('#C8CAD0'))
     c.setFillColor(colors.HexColor('#B5B7BE')); c.setFont(MONO,8)
-    c.drawString(M,PAGE_H-3.28*inch,b['strapline'])
-    box(c,M,1.55*inch,PAGE_W-2*M,1.18*inch,fill=WHITE,stroke=WHITE,radius=14)
-    c.setFillColor(BLACK); c.setFont(BOLD,10)
-    c.drawString(M+0.22*inch,2.37*inch,'INCOMING MESSAGE')
-    para(c,b['opening_code'],M+0.22*inch,2.18*inch,PAGE_W-2*M-0.44*inch,0.45*inch,size=15,font=BOLD,color=BLACK,align=1)
-    c.setFillColor(colors.HexColor('#8D8F96')); c.setFont(MONO,7.2)
+    c.drawString(M,PAGE_H-3.22*inch,b['strapline'])
+
+    # Recruitment payload on white paper. The empty detective slot is the first clue.
+    y=PAGE_H-panel_h-0.55*inch
+    c.setFillColor(MID); c.setFont(MONO,7)
+    c.drawString(M,y,'INCOMING MESSAGE // PRIORITY')
+    para(c,b['opening_code'],M,y-0.26*inch,PAGE_W-2*M,0.72*inch,size=18,font=BOLD,color=BLACK,align=1)
+    y-=1.15*inch
+
+    box(c,M,y-1.55*inch,PAGE_W-2*M,1.42*inch,fill=PALE2,stroke=BLACK,radius=16,sw=1.0)
+    c.setFillColor(BLACK); c.setFont(BOLD,9)
+    c.drawString(M+0.22*inch,y-0.30*inch,'DETECTIVE SLOT // 06')
+    c.setFont(MONO,8); c.setFillColor(MID)
+    c.drawRightString(PAGE_W-M-0.22*inch,y-0.30*inch,'STATUS: EMPTY')
+    c.setStrokeColor(BLACK); c.setLineWidth(3)
+    c.circle(PAGE_W/2,y-0.93*inch,0.26*inch,stroke=1,fill=0)
+    c.setFillColor(BLACK); c.setFont(BOLD,20)
+    c.drawCentredString(PAGE_W/2,y-1.02*inch,'?')
+
+    c.setFillColor(MID); c.setFont(MONO,7.0)
     c.drawString(M,0.62*inch,b['edition'].upper())
+    c.drawRightString(PAGE_W-M,0.62*inch,'ROOM ZERO // CASE FILE OPEN')
     c.showPage()
 
 
