@@ -87,24 +87,47 @@ HMDA_29 is the 9x9 boss source and resolves to **Vera @ D3** in the locked sourc
 - Happy Makers asset sync
 - preflight and preview generation
 
-### Critical gap
+### Canonical English master recovery — PASS
 
-A historical local editorial-lock build reached about 84 pages, but that exact full renderer-ready source is not committed.
+The earlier reproducibility gap is now closed.
 
-The current committed `book1_en_production.yml` contains only Cases 01-05. Therefore the branch cannot yet reproduce the complete book from GitHub alone.
+The branch contains a deterministic master builder:
+- `scripts/build_book1_master.py`
 
-**Closing this gap is Launch Priority 1.**
+and a launch-state auditor:
+- `scripts/audit_book1_launch_state.py`
+
+Current CI evidence from **Build Detective Academy PDF run #72 / run id 35336391714**:
+- `PASS: assembled canonical HMDA Book 1 master with 30 missions`
+- assembled canonical master: **30 missions**
+- locked spatial sources: **15**
+- editorial preview built successfully at **141 pages**
+- editorial preflight: **PASS**
+
+The durable generated source is:
+- `dist/book1_en_master.yml`
+
+This means the complete English editorial master is now reproducible from GitHub logic/content. The remaining release blocker is no longer missing Book 1 content assembly.
+
+### Current critical gap
+
+All 15 locked spatial cases still require final Map Factory puzzle + solution raster assets. Editorial preview mode currently renders explicit placeholders and is intentionally **not release-ready** until those assets are promoted.
+
+Current pending spatial sources:
+`HMDA_02, 04, 06, 07, 10, 12, 13, 15, 17, 19, 20, 22, 23, 25, 29`.
+
+The next real gate is the three-pilot visual/print approval for HMDA_02 / HMDA_13 / HMDA_29, followed by mechanical scale-out to all 15.
 
 ## Launch order
 
-1. Recover/recreate one canonical renderer-ready English master with Cases 01-30.
-2. Add reusable page families required by the non-spatial missions.
-3. Make Hint Vault and Solutions complete and reproducible.
-4. Make Shigai ingestion external/path-independent and hash-verified.
-5. Generate final-system pilots HMDA_02 / HMDA_13 / HMDA_29.
-6. Owner approves one map visual system.
-7. Scale maps to all 15 selected modules and validate.
-8. Complete English CI build and KDP preflight.
+1. ✅ Assemble and audit one canonical renderer-ready English master with Cases 01-30.
+2. ✅ Preserve reusable page families, Hint Vault and Solutions in the canonical master.
+3. ✅ Keep Shigai ingestion external/path-independent and hash-verified at the production boundary.
+4. Generate final-system pilots HMDA_02 / HMDA_13 / HMDA_29.
+5. OWNER GATE: approve one map visual system at real KDP print size.
+6. Scale that locked system mechanically to all 15 selected modules.
+7. Validate geometry, unique answer, ROOM/ZONE meta carrier and rewritten-clue semantic equivalence.
+8. Run strict English release CI/KDP preflight with all final map assets present.
 9. Freeze English.
 10. Generate Polish edition using the Polish Localization Engine.
 11. Human proof / owner KDP publication gate.
