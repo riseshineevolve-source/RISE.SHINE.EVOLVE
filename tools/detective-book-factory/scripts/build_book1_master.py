@@ -43,12 +43,14 @@ def main() -> int:
     ap.add_argument("--base", default=TOOL_ROOT / "content" / "book1_en_phase1.yml", type=Path)
     ap.add_argument("--phase2", default=TOOL_ROOT / "content" / "book1_en_phase2.yml", type=Path)
     ap.add_argument("--phase3", default=TOOL_ROOT / "content" / "book1_en_phase3.yml", type=Path)
+    ap.add_argument("--story-spine", default=TOOL_ROOT / "content" / "book1_story_spine.yml", type=Path)
     ap.add_argument("--output", default=TOOL_ROOT / "dist" / "book1_en_master.yml", type=Path)
     args = ap.parse_args()
 
     base = load(args.base.resolve())
     phase2 = load(args.phase2.resolve())
     phase3 = load(args.phase3.resolve())
+    story_spine = load(args.story_spine.resolve())
 
     base_missions = base.get("missions", [])
     base_nums = [int(m["number"]) for m in base_missions]
@@ -65,6 +67,7 @@ def main() -> int:
         + copy.deepcopy(phase3["missions"])
     )
     master.pop("preview_end", None)
+    master["story_spine"] = copy.deepcopy(story_spine)
     master.setdefault("book", {})["edition"] = "KDP Launch Candidate EN"
     master["production_state"] = {
         "format": "hmda-book1-master",
@@ -73,6 +76,7 @@ def main() -> int:
             "content/book1_en_phase1.yml#cases-01-05",
             "content/book1_en_phase2.yml#cases-06-16",
             "content/book1_en_phase3.yml#cases-17-30",
+            "content/book1_story_spine.yml#big-case-interludes",
         ],
         "spatial_truth": [
             "content/spatial_source_manifest_final.yml",
@@ -100,6 +104,21 @@ def main() -> int:
         hints = mission.get("hints")
         if not isinstance(hints, list) or len(hints) != 3:
             raise SystemExit(f"master case {mission['number']}: expected exactly 3 hint levels")
+
+    beats = story_spine.get("beats", [])
+    expected_beats = [5, 9, 16, 21, 25, 29]
+    actual_beats = [int(b.get("after_case")) for b in beats]
+    if actual_beats != expected_beats:
+        raise SystemExit(f"story spine beats {actual_beats} != {expected_beats}")
+    for beat in beats:
+        squad = beat.get("squad") or []
+        if not squad:
+            raise SystemExit(f"story spine after Case {beat.get('after_case')} has no Happy Makers beat")
+        for line in squad:
+            if line.get("speaker") not in master.get("characters", {}):
+                raise SystemExit(
+                    f"story spine after Case {beat.get('after_case')}: unknown speaker {line.get('speaker')!r}"
+                )
 
     nums = mission_numbers(master)
     if nums != EXPECTED:
