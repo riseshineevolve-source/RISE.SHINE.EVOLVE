@@ -9,7 +9,7 @@ composition:
     - {path: "content/book1_en_phase1.yml", first: 1, last: 5}
     - {path: "content/book1_en_phase2.yml", first: 6, last: 16}
     - {path: "content/book1_en_phase3.yml", first: 17, last: 30}
-  output: "dist/book1_en_canonical.yml"
+  output: "dist/book1_en_master.yml"
 
 locks:
   editorial: "EDITORIAL_LOCK_v4.md"
@@ -52,4 +52,4 @@ publication:
 
 generation_rule: >-
   Do not hand-edit dist/book1_en_canonical.yml. Change one of the three durable
-  phase sources and re-run scripts/compose_book1_master.py.
+  phase sources and re-run scripts/build_book1_master.py.
