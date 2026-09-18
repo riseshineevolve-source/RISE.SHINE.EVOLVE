@@ -1,0 +1,116 @@
+version: 1
+status: "CANONICAL BIG-CASE SPINE"
+purpose: >-
+  These interludes make Book 1 feel like one escalating Room Zero investigation rather than
+  thirty disconnected puzzles. They do not change any locked mission answer or the Room Zero twist.
+
+beats:
+  - after_case: 5
+    code: "SIGNAL_05"
+    eyebrow: "THE BIG CASE // EVIDENCE WALL 01"
+    headline: "FIVE CASES. THE SAME ZERO."
+    question: "Why is the same plain 0 turning up on evidence from cases that should have nothing to do with one another?"
+    evidence:
+      - "The reader's blank Academy badge carried a tiny engraved 0."
+      - "The trophy evidence tag carried the same plain mark."
+      - "The cupcake quality sticker repeated it."
+      - "The museum trail is still ahead, but the pattern has already started."
+      - "Dilo's old locker envelope is sealed with a black 0."
+    squad:
+      - {speaker: "luli", text: "A pattern is not an explanation. We keep the pattern. We earn the explanation."}
+      - {speaker: "dilo", text: "My explanation currently involves a secret network."}
+      - {speaker: "alio", text: "Tunnel network?"}
+      - {speaker: "luli", text: "No networks until the evidence requests one."}
+    reader_move: "On your Detective ID, add one tiny 0 beside CASE WALL. Do not decide what it means yet."
+    progress: "SIGNAL FOUND // MEANING UNKNOWN"
+
+  - after_case: 9
+    code: "BIBI_MEMORY"
+    eyebrow: "THE BIG CASE // EVIDENCE WALL 02"
+    headline: "BIBI KNOWS THE MARK. SORT OF."
+    question: "If Grandma Bibi saw this symbol at the old Academy, why has it returned now?"
+    evidence:
+      - "The same plain 0 has appeared across unrelated cases."
+      - "Lookalike circles and dials do not match the mark."
+      - "Bibi recognizes it as something connected to the old Academy."
+      - "She cannot yet say what it meant, and nobody is allowed to fill the gap with a guess."
+    squad:
+      - {speaker: "bibi", text: "I remember the mark. I do not remember the answer. Those are two different things."}
+      - {speaker: "nini", text: "Good. We can be curious without pretending we know."}
+      - {speaker: "dilo", text: "I can pretend extremely convincingly."}
+      - {speaker: "luli", text: "Documented."}
+    reader_move: "Circle the word FACT on your case wall. Under it write: BIBI HAS SEEN THE 0 BEFORE."
+    progress: "ACADEMY CONNECTION // UNEXPLAINED"
+
+  - after_case: 16
+    code: "OLD_PHOTO"
+    eyebrow: "THE BIG CASE // EVIDENCE WALL 03"
+    headline: "THE OLD PHOTO CHANGES THE CASE."
+    question: "What was Rule 0, and why did Bibi write RULE 0 FIRST on the back of an Academy photograph?"
+    evidence:
+      - "The photograph belongs to the Old Academy Annex."
+      - "The evidence places it in 2002."
+      - "Young Bibi is standing with an earlier detective squad."
+      - "The back says RULE 0 FIRST."
+      - "The recurring zero may be an instruction, not a room number."
+    squad:
+      - {speaker: "mimi", text: "New plan: stop asking what Room Zero is and ask what zero meant to the Academy."}
+      - {speaker: "bibi", text: "That is an annoyingly good question."}
+      - {speaker: "alio", text: "I also have an annoyingly good tunnel question."}
+      - {speaker: "mimi", text: "You have a tunnel hobby."}
+    reader_move: "Add RULE 0 FIRST to the case wall. Leave space underneath it. The missing rule matters later."
+    progress: "OLD ACADEMY // RULE MISSING"
+
+  - after_case: 21
+    code: "EMPTY"
+    eyebrow: "THE BIG CASE // EVIDENCE WALL 04"
+    headline: "THE NOTE POINTS AT NOTHING."
+    question: "What if the important evidence is not an object, a person or a mark, but the thing every solved map leaves empty?"
+    evidence:
+      - "The reconstructed note reads: THE ANSWER IS IN WHAT YOU LEAVE EMPTY."
+      - "The zero signal has followed the investigation from the first badge."
+      - "Zero can mean none."
+      - "Earlier spatial cases may contain evidence the team did not know to record."
+    squad:
+      - {speaker: "nini", text: "Empty can still be something."}
+      - {speaker: "dilo", text: "Philosophically alarming."}
+      - {speaker: "luli", text: "Operationally useful."}
+    reader_move: "Do not flip back yet. Finish the next files first. You are building enough evidence to test the idea properly."
+    progress: "NEW HYPOTHESIS // EMPTY SPACE MATTERS"
+
+  - after_case: 25
+    code: "FOURTEEN_MAPS"
+    eyebrow: "THE BIG CASE // EVIDENCE WALL 05"
+    headline: "FOURTEEN MAPS ARE NOW EVIDENCE."
+    question: "Across the marked spatial cases, is there always exactly one named ROOM with zero people inside?"
+    evidence:
+      - "Fourteen marked spatial cases are complete."
+      - "Each has a verified final placement."
+      - "The note says the answer is in what you leave empty."
+      - "The recurring 0 has never been explained by a suspect, object or timestamp."
+      - "Case 26 is the first time the Academy asks you to reopen solved files."
+    squad:
+      - {speaker: "luli", text: "Nobody solves anything new until we inspect what we already solved."}
+      - {speaker: "alio", text: "My favourite kind of new case: an old case wearing a moustache."}
+      - {speaker: "mimi", text: "Get the pencils. And the old maps."}
+    reader_move: "Put a finger on Case 02. Case 26 will tell you exactly what to look for."
+    progress: "PATTERN TEST READY // REOPEN THE FILES"
+
+  - after_case: 29
+    code: "FINAL_LOCK"
+    eyebrow: "THE BIG CASE // FINAL EVIDENCE WALL"
+    headline: "EVERYTHING YOU NEED IS ALREADY IN THE BOOK."
+    question: "Who was the missing detective from the very first page?"
+    evidence:
+      - "The old-map message led to the sealed training room."
+      - "Rule Zero is restored: ZERO ASSUMPTIONS. NOTICE FIRST. THEORIZE SECOND."
+      - "The service-level map gives access coordinate D3."
+      - "Dilo's four-symbol sequence was solved much earlier."
+      - "One badge hook inside Room Zero is still empty."
+    squad:
+      - {speaker: "bibi", text: "No more hints from me."}
+      - {speaker: "luli", text: "Good. The evidence is enough."}
+      - {speaker: "nini", text: "And if your stomach is doing the nervous trampoline thing, that still counts as ready."}
+      - {speaker: "dilo", text: "I am ready to open anything labelled DO NOT OPEN."}
+    reader_move: "Before Case 30, write your detective name once more. The final answer belongs to you."
+    progress: "FINAL LOCK READY // READER MAKES THE CALL"
