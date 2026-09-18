@@ -50,6 +50,27 @@ The book must stand out through:
 A technically valid puzzle is not enough. Every mission must also serve pacing, character,
 world-building, the Room Zero mystery, or a deliberate breathing beat.
 
+## Canonical page-family system
+
+Book 1 uses a reusable family of page types rather than one repeated worksheet template:
+
+1. opening / recruitment
+2. Detective ID / reader profile
+3. Happy Makers squad introduction
+4. chapter / rank gates
+5. case mission briefs
+6. spatial deduction grids
+7. quick missions and non-spatial logic formats
+8. code / reconstruction / timeline / visual evidence pages
+9. Room Zero checkpoints and Evidence Walls
+10. three-level Hint Vault
+11. reasoning-led solutions
+12. finale / certificate / next-case hook
+
+These page families may evolve visually, but the structural purpose is locked. Future volumes should reuse them unless a genuinely new puzzle mechanic requires another family.
+
+Print rule: **no full-black interior pages.** Strong black panels, bars, stamps and chapter graphics are allowed; the page field itself should stay predominantly light for KDP readability, ink economy and consistency.
+
 ## Canonical reader loop
 
 The core case loop is:
