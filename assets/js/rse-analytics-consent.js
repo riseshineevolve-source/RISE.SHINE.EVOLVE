@@ -173,9 +173,16 @@
 
     var copy = document.createElement("div");
     var gpcActive = hasGlobalPrivacyControl();
-    copy.textContent = gpcActive
-      ? "Global Privacy Control is active in this browser, so analytics stays off. Advertising storage and ad personalization also stay off."
-      : "We use Google Analytics only if you allow analytics. It helps us understand which Rise.Shine.Evolve. pages and resources are useful. Advertising storage and ad personalization stay off.";
+    var copyText = document.createElement("span");
+    copyText.textContent = gpcActive
+      ? "Global Privacy Control is active in this browser, so analytics stays off. Advertising storage and ad personalization also stay off. "
+      : "We use Google Analytics only if you allow analytics. It helps us understand which Rise.Shine.Evolve. pages and resources are useful. Advertising storage and ad personalization stay off. ";
+    var privacyLink = document.createElement("a");
+    privacyLink.href = "/privacy/";
+    privacyLink.textContent = "Privacy Policy";
+    privacyLink.style.cssText = "color:#9ff6ff;text-decoration:underline;font-weight:700";
+    copy.appendChild(copyText);
+    copy.appendChild(privacyLink);
 
     var actions = document.createElement("div");
     actions.style.cssText = "display:flex;flex-wrap:wrap;gap:10px";
@@ -251,8 +258,21 @@
     applyAnalyticsConsent(false, false);
   }
 
+  function routeLegacyPrivacyControls() {
+    document.addEventListener("click", function (event) {
+      var target = event.target && event.target.closest ? event.target.closest('[data-legal="privacy"]') : null;
+      if (!target) return;
+      event.preventDefault();
+      event.stopPropagation();
+      if (event.stopImmediatePropagation) event.stopImmediatePropagation();
+      window.location.href = "/privacy/";
+    }, true);
+  }
+
   function initUi() {
     if (!isProduction()) return;
+
+    routeLegacyPrivacyControls();
 
     if (!choice && !hasGlobalPrivacyControl()) {
       showBanner(false);
