@@ -764,40 +764,91 @@ def certificate_page(c,data,page_no):
 
 def big_case_wall_page(c,data,beat,page_no):
     top_bar(c,beat.get('eyebrow','THE BIG CASE // EVIDENCE WALL'),page_no,0.72)
+
+    # Headline + question. The question is the current Room Zero hypothesis,
+    # not a decorative subtitle.
     y=PAGE_H-0.90*inch
-    para(c,beat.get('headline','THE CASE GETS BIGGER.'),M,y,PAGE_W-2*M,0.58*inch,size=19.5,font=BOLD)
-    y-=0.72*inch
+    para(c,beat.get('headline','THE CASE GETS BIGGER.'),M,y,PAGE_W-2*M,0.54*inch,size=19.5,font=BOLD)
+    y-=0.67*inch
+    box(c,M,y-0.84*inch,PAGE_W-2*M,0.74*inch,fill=BLACK,stroke=BLACK,radius=13)
+    fit_para(c,beat.get('question',''),M+0.18*inch,y-0.18*inch,PAGE_W-2*M-0.36*inch,0.40*inch,
+             max_size=10.0,min_size=7.7,font=BOLD,color=WHITE,align=1)
 
-    box(c,M,y-0.90*inch,PAGE_W-2*M,0.80*inch,fill=BLACK,stroke=BLACK,radius=13)
-    fit_para(c,beat.get('question',''),M+0.18*inch,y-0.20*inch,PAGE_W-2*M-0.36*inch,0.46*inch,
-             max_size=10.2,min_size=8.0,font=BOLD,color=WHITE,align=1)
-    y-=1.10*inch
+    # Evidence wall. Two columns feed a central zero-signal node so the page
+    # reads as an accumulating investigation, not a worksheet list.
+    board_top=y-1.05*inch
+    board_h=3.00*inch
+    box(c,M,board_top-board_h,PAGE_W-2*M,board_h,fill=PALE2,stroke=LINE,radius=14)
+    tiny_grid(c,M,board_top-board_h,PAGE_W-2*M,board_h,step=18)
 
-    evidence=beat.get('evidence',[])
-    c.setFillColor(MID); c.setFont(MONO,7); c.drawString(M,y,'WHAT THE EVIDENCE WALL SAYS')
-    y-=0.17*inch
-    for idx,item in enumerate(evidence[:6],1):
-        h=0.58*inch
-        box(c,M,y-h,PAGE_W-2*M,h-0.05*inch,fill=PALE2 if idx%2 else WHITE,stroke=LINE,radius=9)
-        pill(c,f'{idx:02d}',M+0.10*inch,y-0.12*inch,6.3,fill=CHARCOAL)
-        fit_para(c,item,M+0.52*inch,y-0.14*inch,PAGE_W-2*M-0.66*inch,0.30*inch,max_size=8.5,min_size=6.8)
-        y-=h
+    c.setFillColor(MID); c.setFont(MONO,6.9)
+    c.drawString(M+0.14*inch,board_top-0.20*inch,'ROOM ZERO // ACTIVE EVIDENCE WALL')
 
-    y-=0.08*inch
-    squad=beat.get('squad',[])
-    for line in squad[:4]:
-        if y < 2.0*inch:
-            break
-        h=avatar_callout(c,data['characters'],line.get('speaker'),line.get('text',''),M,y,PAGE_W-2*M)
-        y-=h+0.06*inch
+    cx=PAGE_W/2
+    cy=board_top-board_h/2-0.02*inch
+    c.setFillColor(WHITE); c.setStrokeColor(DARK); c.setLineWidth(3)
+    c.circle(cx,cy,0.42*inch,fill=1,stroke=1)
+    c.setFillColor(DARK); c.setFont(BOLD,26)
+    c.drawCentredString(cx,cy-0.14*inch,'0')
+    c.setFillColor(MID); c.setFont(MONO,5.9)
+    c.drawCentredString(cx,cy-0.62*inch,'SIGNAL // MEANING UNKNOWN')
+
+    evidence=beat.get('evidence',[])[:6]
+    col_gap=0.86*inch
+    col_w=(PAGE_W-2*M-col_gap)/2
+    left_x=M+0.14*inch
+    right_x=M+col_w+col_gap-0.14*inch
+    card_h=0.68*inch
+    row_gap=0.12*inch
+    row_y=[board_top-0.48*inch-i*(card_h+row_gap) for i in range(3)]
+
+    for idx,item in enumerate(evidence):
+        side=idx%2
+        row=idx//2
+        x=left_x if side==0 else right_x
+        top=row_y[row]
+        w=col_w-0.12*inch
+        box(c,x,top-card_h,w,card_h,fill=WHITE,stroke=LINE,radius=10)
+        pill(c,f'{idx+1:02d}',x+0.09*inch,top-0.22*inch,6.2,fill=CHARCOAL)
+        fit_para(c,item,x+0.48*inch,top-0.14*inch,w-0.58*inch,0.40*inch,
+                 max_size=7.9,min_size=6.2,font=FONT,color=BLACK)
+
+        # Thin connector into the central signal node.
+        c.setStrokeColor(colors.HexColor('#A8ABB2')); c.setLineWidth(0.7)
+        ymid=top-card_h/2
+        if side==0:
+            c.line(x+w,ymid,cx-0.46*inch,cy)
+        else:
+            c.line(cx+0.46*inch,cy,x,ymid)
+
+    # Squad interpretation: compact paired callouts keep character voice in
+    # the macro case without turning the page into a wall of speech bubbles.
+    squad=beat.get('squad',[])[:4]
+    squad_top=board_top-board_h-0.22*inch
+    if squad:
+        c.setFillColor(MID); c.setFont(MONO,6.8)
+        c.drawString(M,squad_top,'SQUAD READ // FACTS FIRST, THEORIES SECOND')
+        squad_top-=0.10*inch
+        gap=0.14*inch
+        sw=(PAGE_W-2*M-gap)/2
+        for idx,line in enumerate(squad):
+            row=idx//2
+            col=idx%2
+            x=M+col*(sw+gap)
+            top=squad_top-row*0.96*inch
+            avatar_callout(c,data['characters'],line.get('speaker'),line.get('text',''),x,top,sw)
 
     if beat.get('reader_move'):
-        box(c,M,0.88*inch,PAGE_W-2*M,0.80*inch,fill=WHITE,stroke=BLACK,radius=11)
-        c.setFillColor(MID); c.setFont(MONO,6.6); c.drawString(M+0.14*inch,1.48*inch,'YOUR MOVE')
-        fit_para(c,beat['reader_move'],M+0.14*inch,1.34*inch,PAGE_W-2*M-0.28*inch,0.31*inch,max_size=8.4,min_size=6.8,font=BOLD)
+        box(c,M,0.84*inch,PAGE_W-2*M,0.76*inch,fill=WHITE,stroke=BLACK,radius=11)
+        c.setFillColor(MID); c.setFont(MONO,6.5)
+        c.drawString(M+0.14*inch,1.39*inch,'YOUR MOVE // UPDATE THE CASE WALL')
+        fit_para(c,beat['reader_move'],M+0.14*inch,1.28*inch,PAGE_W-2*M-0.28*inch,0.28*inch,
+                 max_size=8.1,min_size=6.6,font=BOLD)
+
     if beat.get('progress'):
-        c.setFillColor(MID); c.setFont(MONO,6.3)
-        c.drawRightString(PAGE_W-M,0.70*inch,beat['progress'])
+        c.setFillColor(MID); c.setFont(MONO,6.2)
+        c.drawRightString(PAGE_W-M,0.68*inch,beat['progress'])
+
     footer(c,page_no); c.showPage()
 
 
