@@ -8,7 +8,11 @@ Story and puzzle data live in YAML. Layout and validation live in Python. Charac
 
 ## Current Book 1 state
 
-`The Mystery of Room Zero` has a complete 30-mission editorial structure. The latest assembled editorial-lock build is **84 pages before final spatial-map replacement** and includes:
+`The Mystery of Room Zero` has a complete 30-mission editorial structure. A historical local editorial-lock build reached **84 pages before final spatial-map replacement**, but that exact 30-mission renderer-ready source was not fully committed. The current `content/book1_en_production.yml` is detailed/renderable only through Case 05. `content/book_en.yml` preserves the complete 30-mission story blueprint and `content/book1_en_phase3.yml` preserves later production copy.
+
+**KDP launch priority:** rebuild one canonical renderer-ready 01-30 master in GitHub so the full book can be reproduced without the old chat or local session. See `KDP_LAUNCH_CHECKPOINT.md` and issue #585.
+
+The editorial-lock target includes:
 
 - reader recruitment + Detective ID
 - all six Happy Makers including Grandma Bibi
@@ -99,7 +103,7 @@ Final visual rules:
 - solution map shows placements and a short deduction trail
 - HMDA_29 resolves to a coordinate used by the Room Zero finale, not a criminal verdict
 
-See `MAP_FACTORY_FINAL_SPEC.md` for the production contract.
+See `MAP_FACTORY_FINAL_SPEC.md` for the production contract and `SHIGAI_BRIDGE_CONTRACT.md` for the chat-independent source handoff.
 
 ## Build locally
 
