@@ -54,14 +54,14 @@ def main() -> int:
     )
     args = ap.parse_args()
 
-    production = load("content/book1_en_production.yml")
+    phase1 = load("content/book1_en_phase1.yml")
     blueprint = load("content/book_en.yml")
     phase2 = load("content/book1_en_phase2.yml")
     phase3 = load("content/book1_en_phase3.yml")
     spatial = load("content/spatial_source_manifest_final.yml")
     skin = load("content/spatial_room_skin.yml")
 
-    prod_nums = mission_numbers(production)
+    phase1_nums = mission_numbers(phase1)
     blueprint_nums = mission_numbers(blueprint)
     phase2_nums = mission_numbers(phase2)
     phase3_nums = mission_numbers(phase3)
@@ -75,7 +75,7 @@ def main() -> int:
         master_nums = mission_numbers(master)
 
     print("HMDA BOOK 1 LAUNCH AUDIT")
-    print(f"base renderer missions:            {len(prod_nums)} -> {prod_nums}")
+    print(f"phase-1 production missions:       {len(phase1_nums)} -> {phase1_nums}")
     print(f"phase-2 production missions:       {len(phase2_nums)} -> {phase2_nums}")
     print(f"phase-3 production missions:       {len(phase3_nums)} -> {phase3_nums}")
     print(f"story blueprint missions:          {len(blueprint_nums)}")
@@ -90,8 +90,8 @@ def main() -> int:
     errors: list[str] = []
     warnings: list[str] = []
 
-    if prod_nums != [1, 2, 3, 4, 5]:
-        errors.append("book1_en_production.yml must remain the Cases 01-05 base tranche.")
+    if phase1_nums != [1, 2, 3, 4, 5]:
+        errors.append("book1_en_phase1.yml must contain exactly Cases 01-05.")
     if phase2_nums != EXPECTED_PHASE2:
         errors.append("book1_en_phase2.yml must contain exactly Cases 06-16.")
     if phase3_nums != EXPECTED_PHASE3:
@@ -104,6 +104,22 @@ def main() -> int:
         errors.append("spatial_room_skin.yml does not cover exactly the locked 15 production modules.")
     if meta != "CHECKTHEOLDMAP":
         errors.append("final spatial manifest meta message is not CHECKTHEOLDMAP.")
+
+    expected_spatial = {
+        2: "HMDA_02", 4: "HMDA_04", 6: "HMDA_06", 7: "HMDA_07", 10: "HMDA_10",
+        12: "HMDA_12", 13: "HMDA_13", 15: "HMDA_15", 17: "HMDA_17", 19: "HMDA_19",
+        20: "HMDA_20", 22: "HMDA_22", 23: "HMDA_23", 25: "HMDA_25", 29: "HMDA_29",
+    }
+    if args.master is not None:
+        actual_spatial = {
+            int(m["number"]): str(m["spatial_source_id"])
+            for m in master.get("missions", []) if m.get("spatial_source_id")
+        }
+        if actual_spatial != expected_spatial:
+            errors.append("assembled master spatial_source_id mapping does not match the locked final 15.")
+        for m in master.get("missions", []):
+            if len(m.get("hints") or []) != 3:
+                errors.append(f"Case {m.get('number')}: canonical master does not have exactly 3 hint levels.")
 
     if master_nums is not None and master_nums != EXPECTED_30:
         errors.append("assembled canonical master is not exactly Cases 01-30.")
