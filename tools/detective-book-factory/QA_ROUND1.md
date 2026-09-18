@@ -1,5 +1,7 @@
 # HMDA Book 1 - QA Round 1
 
+> **SOURCE-OF-TRUTH WARNING (2026-09-18):** This is a historical QA snapshot from an earlier spatial-source selection. Its “Verified source verdicts currently used” section contains superseded names/answers, including an obsolete boss source. Do not use those values for production. Current production spatial truth is `content/spatial_source_manifest_final.yml` + `SPATIAL_SOURCE_LOCK.md`. This file remains only as evidence of earlier editorial/visual QA findings.
+
 Status: **full Production Preview v3 assembled locally (81 pages)**. This is not yet the final KDP interior.
 
 ## Fixed in v3
