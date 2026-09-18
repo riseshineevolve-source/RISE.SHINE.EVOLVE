@@ -29,11 +29,13 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r tools/detective-book-factory/requirements.txt
 
-      - name: Audit durable Book 1 launch state
+      - name: Assemble and audit durable Book 1 master
         working-directory: tools/detective-book-factory
         run: |
-          python -m py_compile scripts/audit_book1_launch_state.py scripts/extract_shigai_runtime.py
-          python scripts/audit_book1_launch_state.py
+          mkdir -p dist
+          python -m py_compile             scripts/audit_book1_launch_state.py             scripts/build_book1_master.py             scripts/extract_shigai_runtime.py             render_book.py
+          python scripts/build_book1_master.py --output dist/book1_en_master.yml
+          python scripts/audit_book1_launch_state.py             --master dist/book1_en_master.yml             --require-canonical-30
 
       - name: Sync canonical Happy Makers assets
         working-directory: tools/detective-book-factory
@@ -44,27 +46,27 @@ jobs:
         run: |
           mkdir -p dist
           python scripts/render_editorial_preview.py \
-            --content content/book1_en_production.yml \
-            --output dist/HMDA_Book1_Editorial_Preview.pdf \
+            --content dist/book1_en_master.yml \
+            --output dist/HMDA_Book1_Full_Editorial_Preview.pdf \
             --status-report dist/spatial_asset_status.txt
 
       - name: Editorial preflight
         working-directory: tools/detective-book-factory
         run: |
           python scripts/preflight.py \
-            --content content/book1_en_production.yml \
-            --pdf dist/HMDA_Book1_Editorial_Preview.pdf \
-            --min-pages 25 \
+            --content dist/book1_en_master.yml \
+            --pdf dist/HMDA_Book1_Full_Editorial_Preview.pdf \
+            --min-pages 95 \
             --allow-missing-spatial-assets \
             --report dist/preflight.txt
-          pdfinfo dist/HMDA_Book1_Editorial_Preview.pdf
+          pdfinfo dist/HMDA_Book1_Full_Editorial_Preview.pdf
           cat dist/spatial_asset_status.txt
 
       - name: Render page previews
         working-directory: tools/detective-book-factory
         run: |
           python scripts/make_previews.py \
-            --pdf dist/HMDA_Book1_Editorial_Preview.pdf \
+            --pdf dist/HMDA_Book1_Full_Editorial_Preview.pdf \
             --out dist/previews \
             --dpi 144
 
@@ -73,7 +75,8 @@ jobs:
         with:
           name: detective-academy-editorial-preview
           path: |
-            tools/detective-book-factory/dist/HMDA_Book1_Editorial_Preview.pdf
+            tools/detective-book-factory/dist/HMDA_Book1_Full_Editorial_Preview.pdf
+            tools/detective-book-factory/dist/book1_en_master.yml
             tools/detective-book-factory/dist/preflight.txt
             tools/detective-book-factory/dist/spatial_asset_status.txt
             tools/detective-book-factory/dist/previews/*.png
