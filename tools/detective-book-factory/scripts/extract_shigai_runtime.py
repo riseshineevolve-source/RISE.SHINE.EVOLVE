@@ -57,8 +57,13 @@ def board_at(pages: list[Any], index: int, label: str) -> dict[str, Any]:
     if not isinstance(index, int) or index < 0 or index >= len(pages):
         raise BridgeError(f"{label}: page index {index!r} is outside checkpoint.")
     page = pages[index]
-    settings = page.get("settings", {}) if isinstance(page, dict) else {}
-    boards = settings.get("preGeneratedBoards", [])
+    if not isinstance(page, dict):
+        raise BridgeError(f"{label}: invalid checkpoint page at index {index}.")
+    # Current Shigai exports keep preGeneratedBoards at page level. Older
+    # snapshots may keep them under settings, so accept both without guessing.
+    boards = page.get("preGeneratedBoards")
+    if boards is None:
+        boards = page.get("settings", {}).get("preGeneratedBoards", [])
     if not isinstance(boards, list) or len(boards) != 1 or not isinstance(boards[0], dict):
         raise BridgeError(f"{label}: expected exactly one preGeneratedBoard at page index {index}.")
     return boards[0]
