@@ -762,6 +762,45 @@ def certificate_page(c,data,page_no):
     para(c,'CASE 001 // STILL OPEN',M+0.16*inch,y-0.27*inch,PAGE_W-2*M-0.32*inch,0.32*inch,size=13,font=BOLD,color=WHITE,align=1)
     footer(c,page_no); c.showPage()
 
+def big_case_wall_page(c,data,beat,page_no):
+    top_bar(c,beat.get('eyebrow','THE BIG CASE // EVIDENCE WALL'),page_no,0.72)
+    y=PAGE_H-0.90*inch
+    para(c,beat.get('headline','THE CASE GETS BIGGER.'),M,y,PAGE_W-2*M,0.58*inch,size=19.5,font=BOLD)
+    y-=0.72*inch
+
+    box(c,M,y-0.90*inch,PAGE_W-2*M,0.80*inch,fill=BLACK,stroke=BLACK,radius=13)
+    fit_para(c,beat.get('question',''),M+0.18*inch,y-0.20*inch,PAGE_W-2*M-0.36*inch,0.46*inch,
+             max_size=10.2,min_size=8.0,font=BOLD,color=WHITE,align=1)
+    y-=1.10*inch
+
+    evidence=beat.get('evidence',[])
+    c.setFillColor(MID); c.setFont(MONO,7); c.drawString(M,y,'WHAT THE EVIDENCE WALL SAYS')
+    y-=0.17*inch
+    for idx,item in enumerate(evidence[:6],1):
+        h=0.58*inch
+        box(c,M,y-h,PAGE_W-2*M,h-0.05*inch,fill=PALE2 if idx%2 else WHITE,stroke=LINE,radius=9)
+        pill(c,f'{idx:02d}',M+0.10*inch,y-0.12*inch,6.3,fill=CHARCOAL)
+        fit_para(c,item,M+0.52*inch,y-0.14*inch,PAGE_W-2*M-0.66*inch,0.30*inch,max_size=8.5,min_size=6.8)
+        y-=h
+
+    y-=0.08*inch
+    squad=beat.get('squad',[])
+    for line in squad[:4]:
+        if y < 2.0*inch:
+            break
+        h=avatar_callout(c,data['characters'],line.get('speaker'),line.get('text',''),M,y,PAGE_W-2*M)
+        y-=h+0.06*inch
+
+    if beat.get('reader_move'):
+        box(c,M,0.88*inch,PAGE_W-2*M,0.80*inch,fill=WHITE,stroke=BLACK,radius=11)
+        c.setFillColor(MID); c.setFont(MONO,6.6); c.drawString(M+0.14*inch,1.48*inch,'YOUR MOVE')
+        fit_para(c,beat['reader_move'],M+0.14*inch,1.34*inch,PAGE_W-2*M-0.28*inch,0.31*inch,max_size=8.4,min_size=6.8,font=BOLD)
+    if beat.get('progress'):
+        c.setFillColor(MID); c.setFont(MONO,6.3)
+        c.drawRightString(PAGE_W-M,0.70*inch,beat['progress'])
+    footer(c,page_no); c.showPage()
+
+
 def preview_end_page(c,data,page_no):
     top_bar(c,'ROOKIE ACCESS',page_no,0.18)
     y=PAGE_H-0.95*inch
@@ -898,6 +937,8 @@ def render(data_path: Path, output: Path):
     detective_id_page(c,data,page); page+=1
     chapter_gate(c,'ROOKIE FILES','Short cases. Bold clues. One symbol that refuses to stay in the background.','ROOKIE',page); page+=1
     missions=data['missions']
+    spine_beats=(data.get('story_spine') or {}).get('beats',[])
+    spine_by_case={int(beat['after_case']): beat for beat in spine_beats if beat.get('after_case') is not None}
     m=missions[0]; prog=0.07
     mission_brief_page(c,data,m,page,prog); page+=1
     guided_puzzle_page(c,data,m,page,prog); page+=1
@@ -937,6 +978,10 @@ def render(data_path: Path, output: Path):
         else:
             structured_puzzle_page(c,data,m,page,prog); page+=1
             meta_strip(c,data,m,page,prog); page+=1
+
+        beat=spine_by_case.get(int(m['number']))
+        if beat:
+            big_case_wall_page(c,data,beat,page); page+=1
 
     if data.get('preview_end'):
         preview_end_page(c,data,page); page+=1
