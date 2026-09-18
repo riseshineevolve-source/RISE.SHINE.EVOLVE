@@ -44,6 +44,12 @@ def main() -> int:
     ap.add_argument("--phase2", default=TOOL_ROOT / "content" / "book1_en_phase2.yml", type=Path)
     ap.add_argument("--phase3", default=TOOL_ROOT / "content" / "book1_en_phase3.yml", type=Path)
     ap.add_argument("--story-spine", default=TOOL_ROOT / "content" / "book1_story_spine.yml", type=Path)
+    ap.add_argument(
+        "--spatial-assets",
+        default=None,
+        type=Path,
+        help="Optional PRIVATE generated Map Factory asset manifest for release builds.",
+    )
     ap.add_argument("--output", default=TOOL_ROOT / "dist" / "book1_en_master.yml", type=Path)
     args = ap.parse_args()
 
@@ -100,6 +106,31 @@ def main() -> int:
     }
     if actual_spatial != expected_spatial:
         raise SystemExit(f"master spatial mapping mismatch: {actual_spatial}")
+
+    if args.spatial_assets is not None:
+        asset_doc = load(args.spatial_assets.expanduser().resolve())
+        asset_cases = asset_doc.get("cases", {})
+        if not isinstance(asset_cases, dict):
+            raise SystemExit("spatial asset manifest must contain a cases mapping")
+        expected_ids = list(expected_spatial.values())
+        if sorted(asset_cases) != sorted(expected_ids):
+            raise SystemExit(
+                "spatial asset manifest must contain exactly the locked 15 case IDs; "
+                f"got {sorted(asset_cases)}"
+            )
+        by_id = {str(m.get("spatial_source_id")): m for m in master["missions"] if m.get("spatial_source_id")}
+        for source_id in expected_ids:
+            info = copy.deepcopy(asset_cases[source_id])
+            for key in ("puzzle_asset", "solution_asset", "rows", "columns", "source_pdf_sha256"):
+                if key not in info:
+                    raise SystemExit(f"{source_id}: spatial asset manifest missing {key}")
+            if str(info["source_pdf_sha256"]) != "6662c292642f3d66148e41eef180bb7d2b15a0975ca822981f4f33aa7153aada":
+                raise SystemExit(f"{source_id}: unexpected source PDF SHA-256")
+            info["asset_manifest"] = str(args.spatial_assets.expanduser().resolve())
+            by_id[source_id]["spatial"] = info
+        master["production_state"]["spatial_assets_attached"] = True
+    else:
+        master["production_state"]["spatial_assets_attached"] = False
     for mission in master["missions"]:
         hints = mission.get("hints")
         if not isinstance(hints, list) or len(hints) != 3:
