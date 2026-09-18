@@ -180,7 +180,12 @@ def room_for_point(case: dict[str,Any], x: float, y: float, grid_w: int, grid_h:
     raise SystemExit(f"{case['id']}: no room owns detected label cell {cell}")
 
 
-def replace_room_labels(source: Image.Image, case: dict[str,Any], bbox: tuple[int,int,int,int]) -> Image.Image:
+def replace_room_labels(
+    source: Image.Image,
+    case: dict[str,Any],
+    bbox: tuple[int,int,int,int],
+    fallback_layout: dict[int, tuple[float,float,float,float]] | None = None,
+) -> tuple[Image.Image, dict[int, tuple[float,float,float,float]]]:
     """Replace raw Shigai room labels while leaving art/geometry untouched."""
     left,top,right,bottom=bbox
     grid=source.crop((left,top,right+1,bottom+1)).convert("RGB")
@@ -198,6 +203,23 @@ def replace_room_labels(source: Image.Image, case: dict[str,Any], bbox: tuple[in
 
     expected={int(room["source_room_id"]) for room in case["rooms"]}
     missing=sorted(expected-set(assigned))
+
+    # Some solution pages place a label tight against the crop edge. Use the
+    # puzzle page's normalized label position only for rooms that could not be
+    # safely detected on the current page. Detected labels always win.
+    if missing and fallback_layout:
+        for rid in list(missing):
+            if rid not in fallback_layout:
+                continue
+            nx,ny,nw,nh=fallback_layout[rid]
+            assigned[rid]=(
+                int(round(nx*grid.width)),
+                int(round(ny*grid.height)),
+                int(round(nw*grid.width)),
+                int(round(nh*grid.height)),
+            )
+        missing=sorted(expected-set(assigned))
+
     if missing:
         raise SystemExit(
             f"{case['id']}: could not safely identify original room labels for source room ids {missing}. "
@@ -233,7 +255,11 @@ def replace_room_labels(source: Image.Image, case: dict[str,Any], bbox: tuple[in
         tw,th=tb[2]-tb[0],tb[3]-tb[1]
         draw.text(((x0+x1-tw)/2,(y0+y1-th)/2-2),final,font=chosen,fill=(20,20,20))
 
-    return grid
+    normalized={
+        rid:(x/grid.width,y/grid.height,bw/grid.width,bh/grid.height)
+        for rid,(x,y,bw,bh) in assigned.items()
+    }
+    return grid, normalized
 
 
 def extract_embedded_page_image(doc: fitz.Document, page_no: int) -> Image.Image:
@@ -317,12 +343,18 @@ def main() -> None:
         case=runtime_cases[cid]
 
         assets={}
+        fallback_layout=None
         for mode,key in (("puzzle","puzzle_page"),("solution","solution_page")):
             page_no=int(decl["pdf"][key])
             original=extract_embedded_page_image(doc,page_no)
             gray=np.asarray(original.convert("L"))
             bbox=detect_grid_bbox(gray)
-            relabeled=replace_room_labels(original,case,bbox)
+            relabeled,label_layout=replace_room_labels(
+                original,case,bbox,
+                fallback_layout=fallback_layout if mode=="solution" else None,
+            )
+            if mode=="puzzle":
+                fallback_layout=label_layout
             path=out/f"{cid}_{mode}_original_shigai_relabelled.png"
             relabeled.save(path,quality=96,dpi=(300,300))
             assets[mode]=path
