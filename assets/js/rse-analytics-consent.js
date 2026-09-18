@@ -21,6 +21,7 @@
   window.gtag("set", "url_passthrough", false);
 
   var tagLoaded = false;
+  var analyticsGranted = false;
 
   function isProduction() {
     return PROD_HOSTS.indexOf(window.location.hostname) !== -1;
@@ -42,6 +43,28 @@
     }
   }
 
+  function hasGlobalPrivacyControl() {
+    return navigator.globalPrivacyControl === true;
+  }
+
+  function clearAnalyticsCookies() {
+    if (!isProduction()) return;
+
+    var names = document.cookie
+      .split(";")
+      .map(function (part) { return part.split("=")[0].trim(); })
+      .filter(function (name) {
+        return name === "_ga" || name.indexOf("_ga_") === 0 || name === "_gid" || name === "_gat";
+      });
+
+    var host = window.location.hostname.replace(/^www\./, "");
+    names.forEach(function (name) {
+      var encoded = encodeURIComponent(name);
+      document.cookie = encoded + "=; Max-Age=0; Path=/; SameSite=Lax";
+      document.cookie = encoded + "=; Max-Age=0; Path=/; Domain=." + host + "; SameSite=Lax";
+    });
+  }
+
   function loadGoogleTag() {
     if (tagLoaded || !isProduction()) return;
     tagLoaded = true;
@@ -59,15 +82,22 @@
   }
 
   function applyAnalyticsConsent(granted, persist) {
+    if (hasGlobalPrivacyControl()) granted = false;
+    analyticsGranted = granted === true;
+
     window.gtag("consent", "update", {
-      analytics_storage: granted ? "granted" : "denied",
+      analytics_storage: analyticsGranted ? "granted" : "denied",
       ad_storage: "denied",
       ad_user_data: "denied",
       ad_personalization: "denied"
     });
 
-    if (persist) saveChoice(granted ? "granted" : "denied");
-    if (granted) loadGoogleTag();
+    if (persist) saveChoice(analyticsGranted ? "granted" : "denied");
+    if (analyticsGranted) {
+      loadGoogleTag();
+    } else {
+      clearAnalyticsCookies();
+    }
   }
 
   function removeBanner() {
@@ -106,6 +136,8 @@
   }
 
   function showBanner(force) {
+    if (!isProduction()) return;
+
     if (!force && readChoice()) {
       ensureManageButton();
       return;
@@ -140,7 +172,10 @@
     title.textContent = "Analytics privacy";
 
     var copy = document.createElement("div");
-    copy.textContent = "We use Google Analytics only if you allow analytics. It helps us understand which Rise.Shine.Evolve. pages and resources are useful. Advertising storage and ad personalization stay off.";
+    var gpcActive = hasGlobalPrivacyControl();
+    copy.textContent = gpcActive
+      ? "Global Privacy Control is active in this browser, so analytics stays off. Advertising storage and ad personalization also stay off."
+      : "We use Google Analytics only if you allow analytics. It helps us understand which Rise.Shine.Evolve. pages and resources are useful. Advertising storage and ad personalization stay off.";
 
     var actions = document.createElement("div");
     actions.style.cssText = "display:flex;flex-wrap:wrap;gap:10px";
@@ -162,23 +197,25 @@
       return button;
     }
 
-    var reject = makeButton("Reject analytics");
-    var accept = makeButton("Allow analytics");
+    var reject = makeButton(gpcActive ? "Close" : "Reject analytics");
+    var accept = gpcActive ? null : makeButton("Allow analytics");
 
     reject.addEventListener("click", function () {
-      applyAnalyticsConsent(false, true);
+      if (!gpcActive) applyAnalyticsConsent(false, true);
       removeBanner();
       ensureManageButton();
     });
 
-    accept.addEventListener("click", function () {
-      applyAnalyticsConsent(true, true);
-      removeBanner();
-      ensureManageButton();
-    });
+    if (accept) {
+      accept.addEventListener("click", function () {
+        applyAnalyticsConsent(true, true);
+        removeBanner();
+        ensureManageButton();
+      });
+    }
 
     actions.appendChild(reject);
-    actions.appendChild(accept);
+    if (accept) actions.appendChild(accept);
     inner.appendChild(title);
     inner.appendChild(copy);
     inner.appendChild(actions);
@@ -194,7 +231,7 @@
   window.rseAnalytics = {
     measurementId: MEASUREMENT_ID,
     track: function (eventName, params) {
-      if (readChoice() !== "granted") return false;
+      if (!analyticsGranted || hasGlobalPrivacyControl()) return false;
       loadGoogleTag();
       window.gtag("event", eventName, params || {});
       return true;
@@ -206,14 +243,18 @@
 
   var choice = readChoice();
 
-  if (choice === "granted") {
+  if (hasGlobalPrivacyControl()) {
+    applyAnalyticsConsent(false, false);
+  } else if (choice === "granted") {
     applyAnalyticsConsent(true, false);
-  } else if (choice === "denied" || navigator.globalPrivacyControl === true) {
+  } else if (choice === "denied") {
     applyAnalyticsConsent(false, false);
   }
 
   function initUi() {
-    if (!choice && navigator.globalPrivacyControl !== true) {
+    if (!isProduction()) return;
+
+    if (!choice && !hasGlobalPrivacyControl()) {
       showBanner(false);
     } else {
       ensureManageButton();
