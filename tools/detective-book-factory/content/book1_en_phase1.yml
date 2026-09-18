@@ -223,7 +223,7 @@ missions:
     meta_reveal: "The wrong box has a round quality-control sticker with a tiny 0 printed inside it."
     hints:
       - "Start with FINLAY. Row 2 plus column A fixes A2."
-      - "RAQUEL's Prize Tent plus row-4 clue and CLARISSA's Ring Toss plus row-5 clue are strong anchors.",
+      - "RAQUEL's Prize Tent plus row-4 clue and CLARISSA's Ring Toss plus row-5 clue are strong anchors."
       - "LISA is forced to E1 in the Prize Tent. Which single person shares that final room?"
     nudge: "Use FINLAY's exact square, then the two room-plus-row clues."
     solution_steps:
