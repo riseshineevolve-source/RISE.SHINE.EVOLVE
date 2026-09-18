@@ -26,6 +26,9 @@ jobs:
       - name: Run full SEO pipeline
         run: npm run seo:all
 
+      - name: Validate analytics consent implementation
+        run: npm run analytics:validate
+
       - name: Validate AI discovery truth layer
         run: npm run ai:validate
 
