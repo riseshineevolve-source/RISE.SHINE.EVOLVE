@@ -24,16 +24,28 @@ def check_content(root: Path, content: Path, allow_missing_spatial_assets: bool 
         for d in m.get('dialogue',[]):
             if d.get('speaker') not in data.get('characters',{}):
                 errors.append(f"Case {m.get('number')}: unknown speaker {d.get('speaker')}")
-        if m.get('type')=='spatial':
-            sp=m.get('spatial',{})
-            for key in ('source_page_asset','solution_asset'):
-                p=root/sp.get(key,'')
-                if not p.exists():
-                    message=f"Case {m.get('number')}: missing {key}: {p}"
-                    if allow_missing_spatial_assets:
-                        warnings.append(message)
-                    else:
-                        errors.append(message)
+        if m.get('type') in ('spatial','boss-spatial'):
+            sp=m.get('spatial')
+            if sp:
+                for key in ('source_page_asset','solution_asset'):
+                    rel=sp.get(key)
+                    p=root/rel if rel else root/'__MISSING__'
+                    if not rel or not p.exists():
+                        message=f"Case {m.get('number')}: missing {key}: {rel or 'NO PATH DECLARED'}"
+                        if allow_missing_spatial_assets:
+                            warnings.append(message)
+                        else:
+                            errors.append(message)
+            else:
+                source_id=m.get('spatial_source_id','NO SOURCE ID')
+                message=(
+                    f"Case {m.get('number')}: final Map Factory assets not promoted yet "
+                    f"for locked source {source_id}"
+                )
+                if allow_missing_spatial_assets:
+                    warnings.append(message)
+                else:
+                    errors.append(message)
     for key,info in data.get('characters',{}).items():
         p=root/info.get('asset','')
         if not p.exists(): errors.append(f"Character {key}: missing asset {p}")
