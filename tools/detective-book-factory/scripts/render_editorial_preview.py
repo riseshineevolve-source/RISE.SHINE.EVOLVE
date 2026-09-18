@@ -54,9 +54,16 @@ def spatial_asset_report(content_path: Path) -> list[str]:
     ]
     missing: list[str] = []
     for mission in data.get("missions", []):
-        if mission.get("type") != "spatial":
+        if mission.get("type") not in ("spatial", "boss-spatial"):
             continue
-        spatial = mission["spatial"]
+        spatial = mission.get("spatial")
+        if not spatial:
+            source_id = mission.get("spatial_source_id", "NO SOURCE ID")
+            lines.append(
+                f"CASE {mission['number']:02d}: {source_id} -> LOCKED SOURCE / FINAL MAP FACTORY ASSET PENDING"
+            )
+            missing.append(f"CASE {mission['number']:02d}: {source_id}")
+            continue
         for label, key in (("puzzle", "source_page_asset"), ("solution", "solution_asset")):
             rel = spatial.get(key)
             if not rel:
