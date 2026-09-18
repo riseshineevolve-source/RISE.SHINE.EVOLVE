@@ -40,7 +40,7 @@ def validate_tranche(name: str, doc: dict, expected: list[int]) -> None:
 
 def main() -> int:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--base", default=TOOL_ROOT / "content" / "book1_en_production.yml", type=Path)
+    ap.add_argument("--base", default=TOOL_ROOT / "content" / "book1_en_phase1.yml", type=Path)
     ap.add_argument("--phase2", default=TOOL_ROOT / "content" / "book1_en_phase2.yml", type=Path)
     ap.add_argument("--phase3", default=TOOL_ROOT / "content" / "book1_en_phase3.yml", type=Path)
     ap.add_argument("--output", default=TOOL_ROOT / "dist" / "book1_en_master.yml", type=Path)
@@ -53,7 +53,7 @@ def main() -> int:
     base_missions = base.get("missions", [])
     base_nums = [int(m["number"]) for m in base_missions]
     if base_nums != [1, 2, 3, 4, 5]:
-        raise SystemExit(f"base production source must contain Cases 01-05, got {base_nums}")
+        raise SystemExit(f"phase1 source must contain Cases 01-05, got {base_nums}")
 
     validate_tranche("phase2", phase2, list(range(6, 17)))
     validate_tranche("phase3", phase3, list(range(17, 31)))
@@ -70,7 +70,7 @@ def main() -> int:
         "format": "hmda-book1-master",
         "version": 1,
         "source_tranches": [
-            "content/book1_en_production.yml#cases-01-05",
+            "content/book1_en_phase1.yml#cases-01-05",
             "content/book1_en_phase2.yml#cases-06-16",
             "content/book1_en_phase3.yml#cases-17-30",
         ],
@@ -84,6 +84,22 @@ def main() -> int:
             "until all spatial cases use validated final Map Factory assets and strict preflight passes."
         ),
     }
+
+    expected_spatial = {
+        2: "HMDA_02", 4: "HMDA_04", 6: "HMDA_06", 7: "HMDA_07", 10: "HMDA_10",
+        12: "HMDA_12", 13: "HMDA_13", 15: "HMDA_15", 17: "HMDA_17", 19: "HMDA_19",
+        20: "HMDA_20", 22: "HMDA_22", 23: "HMDA_23", 25: "HMDA_25", 29: "HMDA_29",
+    }
+    actual_spatial = {
+        int(m["number"]): str(m["spatial_source_id"])
+        for m in master["missions"] if m.get("spatial_source_id")
+    }
+    if actual_spatial != expected_spatial:
+        raise SystemExit(f"master spatial mapping mismatch: {actual_spatial}")
+    for mission in master["missions"]:
+        hints = mission.get("hints")
+        if not isinstance(hints, list) or len(hints) != 3:
+            raise SystemExit(f"master case {mission['number']}: expected exactly 3 hint levels")
 
     nums = mission_numbers(master)
     if nums != EXPECTED:
