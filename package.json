@@ -13,7 +13,8 @@
     "ai:eval:template": "node scripts/validate-ai-eval.mjs --results reports/ai-discovery/baseline-template.json",
     "production:verify": "node scripts/verify-production-delivery.mjs",
     "quality:all": "npm run seo:all && npm run ai:validate && npm run ai:eval:validate && npm run ai:eval:template",
-    "indexnow:submit": "node scripts/indexnow-submit.mjs"
+    "indexnow:submit": "node scripts/indexnow-submit.mjs",
+    "analytics:validate": "node scripts/validate-analytics-consent.mjs"
   },
   "devDependencies": {
     "wrangler": "^4.51.0"
