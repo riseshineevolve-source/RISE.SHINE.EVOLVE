@@ -570,6 +570,198 @@ def code_puzzle_page(c,data,m,page_no,progress):
     footer(c,page_no); c.showPage()
 
 
+
+def _structured_type_label(m):
+    return {
+        'route': 'ROUTE FILE',
+        'classification': 'EVIDENCE SORT',
+        'consistency': 'CONSISTENCY CHECK',
+        'timeline': 'TIMELINE',
+        'timeline-visual': 'VISUAL TIMELINE',
+        'reconstruction': 'RECONSTRUCTION',
+        'visual-sequence': 'VISUAL SEQUENCE',
+        'room-zero-checkpoint': 'ROOM ZERO CHECKPOINT',
+        'map-overlay': 'MAP OVERLAY',
+        'fact-theory-sort': 'FACT / THEORY',
+        'multi-stage-finale': 'FINAL LOCK',
+    }.get(m.get('type'), str(m.get('type','MISSION')).upper())
+
+
+def _structured_cards(m):
+    t=m.get('type')
+    cards=[]
+    footer_note=None
+    if t=='route':
+        data=m.get('route',{})
+        cards.append(f"START: {data.get('start','?')}   GOAL: {data.get('goal','?')}")
+        for opt in data.get('options',[]):
+            cards.append(f"ROUTE {opt.get('id','?')}: " + "  >  ".join(opt.get('path',[])))
+        for opt in data.get('options',[]):
+            rule=opt.get('fails')
+            if rule:
+                cards.append(f"SITE CONDITION: {rule}")
+        footer_note='Choose one route and justify it with the site conditions.'
+    elif t=='classification':
+        data=m.get('classification',{})
+        cards.append(f"CASE WINDOW: {data.get('case_window','')}")
+        for item in data.get('items',[]):
+            cards.append(f"{item.get('id','?')} // {item.get('item','')} // {item.get('label','')}")
+        footer_note=data.get('question')
+    elif t=='consistency':
+        data=m.get('consistency',{})
+        mp=data.get('map',{})
+        cards.append(f"TRAVEL RULE: each map edge = {mp.get('walking_minutes_per_edge','?')} minutes")
+        for edge in mp.get('edges',[]):
+            cards.append("MAP LINK: " + "  <->  ".join(edge))
+        for st in data.get('statements',[]):
+            cards.append(f"{st.get('speaker','?')}: {st.get('text','')}")
+        footer_note='Circle the statement that cannot fit the map and clock together.'
+    elif t=='timeline':
+        data=m.get('timeline',{})
+        cards.extend(data.get('rules',[]))
+        for rec in data.get('records',[]):
+            cards.append(f"{rec.get('id','?')} // {rec.get('source','')} // shows {rec.get('shown','')} // {rec.get('event','')}")
+        footer_note='Convert every record to real time, then write the event order.'
+    elif t=='timeline-visual':
+        data=m.get('timeline_visual',{})
+        cards.append("BUILDING OPTIONS: " + " / ".join(data.get('candidate_buildings',[])))
+        cards.append("YEAR OPTIONS: " + " / ".join(str(x) for x in data.get('candidate_years',[])))
+        cards.extend(data.get('evidence',[]))
+        footer_note='Name the building and year using only the evidence above.'
+    elif t=='reconstruction':
+        data=m.get('reconstruction',{})
+        for scrap in data.get('scraps',[]):
+            cards.append(
+                f"SCRAP {scrap.get('id','?')} // {scrap.get('left_edge','?')} | {scrap.get('text','')} | {scrap.get('right_edge','?')}"
+            )
+        footer_note='Rebuild the note. Use physical edges before sentence logic.'
+    elif t=='visual-sequence':
+        data=m.get('visual_sequence',{})
+        cards.append(f"RULE: {data.get('rule','')}")
+        for rec in data.get('prints',[]):
+            cards.append(
+                f"{rec.get('position','?')} // mud {rec.get('mud','?')} // tread arrow {rec.get('tread_arrow','?')}"
+            )
+        footer_note='Write the real direction of travel.'
+    elif t=='room-zero-checkpoint':
+        data=m.get('checkpoint',{})
+        if data.get('instruction'):
+            cards.append(data['instruction'])
+        for item in data.get('evidence',[]):
+            cards.append(f"{item.get('item','')} // mark: {item.get('mark','')}")
+        if data.get('case_numbers'):
+            cards.append("REVISIT CASES: " + ", ".join(f"{int(n):02d}" for n in data['case_numbers']))
+        footer_note='Write your conclusion before turning the page.'
+    elif t=='map-overlay':
+        data=m.get('map_overlay',{})
+        for anchor in data.get('anchors',[]):
+            cards.append(f"ANCHOR // old: {anchor.get('old','')}  <->  current: {anchor.get('current','')}")
+        cards.append(f"OLD PLAN EXTRA SPACE: {data.get('old_only_space','')}")
+        cards.append(f"CURRENT LOCATION: {data.get('current_covering_space','')}")
+        footer_note='Align the plans using permanent landmarks. Mark the sealed space.'
+    elif t=='fact-theory-sort':
+        data=m.get('fact_theory_sort',{})
+        cards.append("SORT EACH CARD INTO: FACT / THEORY / UNSUPPORTED ASSUMPTION")
+        for card in data.get('cards',[]):
+            cards.append(card.get('text',''))
+        cards.append("RULE ZERO: ZERO ____________. NOTICE FIRST. THEORIZE SECOND.")
+        footer_note='Fill the missing word only after sorting the evidence.'
+    elif t=='multi-stage-finale':
+        data=m.get('finale',{})
+        for stage in data.get('stages',[]):
+            cards.append(f"{stage.get('id','LOCK')} // {stage.get('prompt','')}")
+        footer_note='No new rule appears here. Every answer was earned earlier in the book.'
+    return [str(x) for x in cards if str(x).strip()], footer_note
+
+
+def structured_puzzle_page(c,data,m,page_no,progress):
+    top_bar(c,_structured_type_label(m),page_no,progress)
+    y=PAGE_H-0.88*inch
+    pill(c,f"CASE {m['number']:02d} // PUZZLE",M,y-0.02*inch,7.1,fill=CHARCOAL)
+    para(c,m['title'],M,y-0.42*inch,PAGE_W-2*M,0.56*inch,size=17.5,font=BOLD)
+    y-=1.02*inch
+    cards, footer_note=_structured_cards(m)
+    if not cards:
+        cards=[m.get('objective','Use the evidence from the case brief to reach one justified verdict.')]
+    col_gap=0.12*inch
+    col_w=(PAGE_W-2*M-col_gap)/2
+    card_h=0.76*inch
+    for idx,card in enumerate(cards[:12]):
+        col=idx%2; row=idx//2
+        x=M+col*(col_w+col_gap); top=y-row*(card_h+0.07*inch)
+        box(c,x,top-card_h,col_w,card_h,fill=PALE2 if idx%2==0 else WHITE,stroke=LINE,radius=9)
+        c.setFillColor(MID); c.setFont(MONO,6.2); c.drawString(x+0.10*inch,top-0.18*inch,f'EVIDENCE {idx+1:02d}')
+        fit_para(c,card,x+0.10*inch,top-0.31*inch,col_w-0.20*inch,0.39*inch,max_size=8.0,min_size=6.2)
+    if footer_note:
+        box(c,M,0.58*inch,PAGE_W-2*M,0.72*inch,fill=BLACK,stroke=BLACK,radius=11)
+        fit_para(c,footer_note,M+0.16*inch,1.02*inch,PAGE_W-2*M-0.32*inch,0.31*inch,max_size=9.1,min_size=7.0,font=BOLD,color=WHITE,align=1)
+    footer(c,page_no); c.showPage()
+
+
+def spatial_source_preview_page(c,data,m,page_no,progress):
+    """Editorial preview for final-source spatial cases before Map Factory art is promoted."""
+    top_bar(c,'DEDUCTION GRID // FINAL SOURCE',page_no,progress)
+    y=PAGE_H-0.86*inch
+    pill(c,f"{m.get('spatial_source_id','SOURCE')} // CASE {m['number']:02d}",M,y-0.02*inch,7.1,fill=CHARCOAL)
+    para(c,m['title'],M,y-0.42*inch,PAGE_W-2*M,0.52*inch,size=17.2,font=BOLD)
+    y-=0.96*inch
+    box(c,M,y-2.18*inch,PAGE_W-2*M,2.05*inch,fill=WHITE,stroke=BLACK,radius=13,sw=1.1)
+    para(c,'FINAL MAP FACTORY ASSET PENDING',M+0.18*inch,y-0.68*inch,PAGE_W-2*M-0.36*inch,0.35*inch,size=14,font=BOLD,align=1)
+    para(c,'Logic is locked to the verified Shigai source ID above. This placeholder can never pass release preflight.',
+         M+0.30*inch,y-1.20*inch,PAGE_W-2*M-0.60*inch,0.54*inch,size=8.8,color=MID,align=1)
+    y-=2.38*inch
+    sp=m.get('spatial_copy',{})
+    clues=sp.get('clue_cards',[])
+    colw=(PAGE_W-2*M-0.12*inch)/2
+    cardh=0.64*inch
+    for idx,clue in enumerate(clues[:8]):
+        col=idx%2; row=idx//2; x=M+col*(colw+0.12*inch); top=y-row*(cardh+0.06*inch)
+        box(c,x,top-cardh,colw,cardh,fill=PALE2,stroke=LINE,radius=8)
+        c.setFillColor(WHITE); c.setStrokeColor(MID); c.rect(x+0.09*inch,top-0.20*inch,8,8,fill=1,stroke=1)
+        fit_para(c,clue,x+0.25*inch,top-0.14*inch,colw-0.34*inch,cardh-0.10*inch,max_size=7.2,min_size=5.8)
+    box(c,M,0.58*inch,PAGE_W-2*M,0.68*inch,fill=BLACK,stroke=BLACK,radius=11)
+    label=m.get('verdict_label','YOUR VERDICT')
+    para(c,f'{label}: __________________________________________',M+0.15*inch,1.00*inch,PAGE_W-2*M-0.30*inch,0.28*inch,size=8.8,font=BOLD,color=WHITE,align=1)
+    footer(c,page_no); c.showPage()
+
+
+def finale_reveal_page(c,data,m,page_no):
+    top_bar(c,'ROOM ZERO // REVEAL',page_no,1.0)
+    y=PAGE_H-0.92*inch
+    para(c,'THE ROOM WAS WAITING FOR A DETECTIVE.',M,y,PAGE_W-2*M,0.55*inch,size=20,font=BOLD)
+    y-=0.82*inch
+    finale=m.get('finale',{})
+    box(c,M,y-2.25*inch,PAGE_W-2*M,2.10*inch,fill=PALE2,stroke=BLACK,radius=16,sw=1.0)
+    fit_para(c,finale.get('reveal',''),M+0.20*inch,y-0.35*inch,PAGE_W-2*M-0.40*inch,1.45*inch,max_size=9.2,min_size=7.2)
+    y-=2.52*inch
+    box(c,M,y-1.30*inch,PAGE_W-2*M,1.18*inch,fill=BLACK,stroke=BLACK,radius=14)
+    fit_para(c,finale.get('reader_payoff',''),M+0.20*inch,y-0.26*inch,PAGE_W-2*M-0.40*inch,0.72*inch,max_size=10.4,min_size=8.2,font=BOLD,color=WHITE,align=1)
+    y-=1.55*inch
+    avatar_callout(c,data['characters'],'nini','So the missing detective was here the whole time.',M,y,PAGE_W-2*M)
+    y-=0.88*inch
+    box(c,M,y-0.78*inch,PAGE_W-2*M,0.68*inch,fill=WHITE,stroke=BLACK,radius=11)
+    fit_para(c,finale.get('series_hook',''),M+0.15*inch,y-0.20*inch,PAGE_W-2*M-0.30*inch,0.36*inch,max_size=8.2,min_size=6.8,font=BOLD)
+    footer(c,page_no); c.showPage()
+
+
+def certificate_page(c,data,page_no):
+    top_bar(c,'DETECTIVE ACADEMY',page_no,1.0)
+    y=PAGE_H-1.05*inch
+    para(c,'CASE CLOSED.',M,y,PAGE_W-2*M,0.58*inch,size=27,font=BOLD,align=1)
+    para(c,'ROOM ZERO // CLEARED',M,y-0.55*inch,PAGE_W-2*M,0.38*inch,size=10,font=MONO,color=MID,align=1)
+    y-=1.35*inch
+    box(c,M,y-3.55*inch,PAGE_W-2*M,3.35*inch,fill=PALE2,stroke=BLACK,radius=18,sw=1.2)
+    para(c,'DETECTIVE ACADEMY CERTIFICATE',M+0.25*inch,y-0.52*inch,PAGE_W-2*M-0.50*inch,0.42*inch,size=17,font=BOLD,align=1)
+    para(c,'Awarded to',M+0.25*inch,y-1.04*inch,PAGE_W-2*M-0.50*inch,0.30*inch,size=9,color=MID,align=1)
+    c.setStrokeColor(BLACK); c.setLineWidth(1.0); c.line(M+0.95*inch,y-1.65*inch,PAGE_W-M-0.95*inch,y-1.65*inch)
+    para(c,'for closing THE MYSTERY OF ROOM ZERO with zero guesses required by the certificate committee.',
+         M+0.45*inch,y-2.03*inch,PAGE_W-2*M-0.90*inch,0.62*inch,size=10.2,align=1)
+    para(c,'STATUS // NEXT DETECTIVE',M+0.45*inch,y-2.84*inch,PAGE_W-2*M-0.90*inch,0.38*inch,size=12,font=BOLD,align=1)
+    y-=3.92*inch
+    box(c,M,y-0.92*inch,PAGE_W-2*M,0.82*inch,fill=BLACK,stroke=BLACK,radius=12)
+    para(c,'CASE 001 // STILL OPEN',M+0.16*inch,y-0.27*inch,PAGE_W-2*M-0.32*inch,0.32*inch,size=13,font=BOLD,color=WHITE,align=1)
+    footer(c,page_no); c.showPage()
+
 def preview_end_page(c,data,page_no):
     top_bar(c,'ROOKIE ACCESS',page_no,0.18)
     y=PAGE_H-0.95*inch
@@ -591,18 +783,64 @@ def preview_end_page(c,data,page_no):
 def hint_vault_page(c,data,missions,page_no):
     top_bar(c,'HINT VAULT',page_no,0.19)
     y=PAGE_H-0.90*inch
-    para(c,'STUCK? GOOD. PICK THE SMALLEST NUDGE.',M,y,PAGE_W-2*M,0.48*inch,size=18.5,font=BOLD)
-    para(c,'Hints are separated from the cases so you cannot accidentally spoil the next step.',M,y-0.37*inch,PAGE_W-2*M,0.42*inch,size=9.7,color=MID)
+    para(c,'STUCK? GOOD. TAKE THE SMALLEST NUDGE FIRST.',M,y,PAGE_W-2*M,0.48*inch,size=18.5,font=BOLD)
+    para(c,'Three levels when available. Stop the moment the case starts moving again.',M,y-0.37*inch,PAGE_W-2*M,0.42*inch,size=9.7,color=MID)
     y-=0.95*inch
     for m in missions:
-        h=0.88*inch
-        box(c,M,y-h,PAGE_W-2*M,h-0.06*inch,fill=PALE2,stroke=LINE,radius=10)
-        c.setFillColor(BLACK); c.setFont(BOLD,8.2); c.drawString(M+0.14*inch,y-0.24*inch,f"CASE {m['number']:02d} // NINI NUDGE")
-        fit_para(c,m.get('nudge','Look for the most exact clue first.'),M+0.14*inch,y-0.40*inch,PAGE_W-2*M-0.28*inch,0.36*inch,max_size=8.4,min_size=7)
-        y-=h
-        if y < 1.30*inch:
-            footer(c,page_no); c.showPage(); page_no+=1; top_bar(c,'HINT VAULT',page_no,0.19); y=PAGE_H-0.84*inch
+        hints=m.get('hints') or [m.get('nudge','Look for the most exact clue first.')]
+        hints=[h for h in hints if h][:3]
+        h=0.49*inch + 0.34*inch*len(hints)
+        if y-h < 0.95*inch:
+            footer(c,page_no); c.showPage(); page_no+=1
+            top_bar(c,'HINT VAULT',page_no,0.19); y=PAGE_H-0.84*inch
+        box(c,M,y-h,PAGE_W-2*M,h-0.05*inch,fill=PALE2,stroke=LINE,radius=10)
+        c.setFillColor(BLACK); c.setFont(BOLD,8.2); c.drawString(M+0.14*inch,y-0.23*inch,f"CASE {m['number']:02d} // NUDGE LADDER")
+        ty=y-0.42*inch
+        for idx,hint in enumerate(hints,1):
+            c.setFillColor(MID); c.setFont(MONO,6.1); c.drawString(M+0.14*inch,ty,f'H{idx}')
+            fit_para(c,hint,M+0.42*inch,ty+0.05*inch,PAGE_W-2*M-0.56*inch,0.24*inch,max_size=7.6,min_size=6.2)
+            ty-=0.34*inch
+        y-=h+0.08*inch
     footer(c,page_no); c.showPage(); return page_no+1
+
+
+def _solution_answer_text(m):
+    if m.get('type') in ('spatial','boss-spatial'):
+        sp=m.get('spatial_copy') or m.get('spatial') or {}
+        ans=sp.get('answer')
+        coord=sp.get('answer_coordinate')
+        return f"{ans} @ {coord}" if ans and coord else (ans or '')
+    t=m.get('type')
+    if t=='route':
+        return str(m.get('route',{}).get('answer',''))
+    if t=='classification':
+        return str(m.get('classification',{}).get('answer',''))
+    if t=='consistency':
+        return str(m.get('consistency',{}).get('answer',''))
+    if t=='timeline':
+        return '  >  '.join(m.get('timeline',{}).get('answer_order',[]))
+    if t=='timeline-visual':
+        a=m.get('timeline_visual',{}).get('answer',{})
+        return f"{a.get('building','')} // {a.get('year','')}".strip(' /')
+    if t=='reconstruction':
+        return str(m.get('reconstruction',{}).get('answer_text',''))
+    if t=='visual-sequence':
+        return str(m.get('visual_sequence',{}).get('answer',''))
+    if t=='room-zero-checkpoint':
+        return str(m.get('checkpoint',{}).get('answer',m.get('answer','')))
+    if t=='map-overlay':
+        return str(m.get('map_overlay',{}).get('answer',''))
+    if t=='fact-theory-sort':
+        return str(m.get('fact_theory_sort',{}).get('rule_zero',m.get('answer','')))
+    if t=='multi-stage-finale':
+        return 'ROOM ZERO // NEXT DETECTIVE'
+    if t=='code':
+        return '  >  '.join(m.get('code',{}).get('answer',[]))
+    if t=='visual':
+        return str(m.get('visual',{}).get('answer','')).replace(' + ','  /  ')
+    if t=='guided':
+        return str(m.get('tutorial',{}).get('verdict',''))
+    return str(m.get('answer',''))
 
 
 def solutions_pages(c,data,missions,page_no):
@@ -611,34 +849,35 @@ def solutions_pages(c,data,missions,page_no):
         y=PAGE_H-0.90*inch
         para(c,m['title'],M,y,PAGE_W-2*M,0.55*inch,size=18,font=BOLD)
         y-=0.75*inch
-        if m['type']=='spatial':
+
+        if m.get('type')=='spatial' and m.get('spatial'):
             sp=m['spatial']; src=ROOT/sp['solution_asset']; dst=ROOT/'cache'/'crops'/f"case{m['number']:02d}_solution.png"
             preprocess_crop(src,sp['solution_crop'],dst)
             box(c,M,y-3.0*inch,PAGE_W-2*M,2.88*inch,fill=WHITE,stroke=LINE,radius=12)
             draw_image_fit(c,dst,M+0.12*inch,y-2.88*inch,PAGE_W-2*M-0.24*inch,2.65*inch)
             y-=3.12*inch
-        elif m['type']=='guided':
+        elif m.get('type')=='guided':
             draw_tutorial_grid(c,m['tutorial'],M+1.0*inch,y-2.35*inch,PAGE_W-2*M-2.0*inch,2.35*inch,solution=True)
             y-=2.58*inch
-        elif m['type']=='code':
-            ans='  >  '.join(m['code']['answer'])
-            box(c,M,y-0.72*inch,PAGE_W-2*M,0.64*inch,fill=BLACK,stroke=BLACK,radius=11)
-            para(c,ans,M+0.18*inch,y-0.22*inch,PAGE_W-2*M-0.36*inch,0.30*inch,size=11.4,font=BOLD,color=WHITE,align=1)
-            y-=0.94*inch
-        elif m['type']=='visual':
-            ans=m['visual']['answer'].replace(' + ','  /  ')
-            box(c,M,y-0.80*inch,PAGE_W-2*M,0.70*inch,fill=BLACK,stroke=BLACK,radius=11)
-            fit_para(c,ans,M+0.16*inch,y-0.23*inch,PAGE_W-2*M-0.32*inch,0.36*inch,max_size=10,min_size=8,font=BOLD,color=WHITE,align=1)
-            y-=1.0*inch
+
+        answer=_solution_answer_text(m)
+        if answer:
+            box(c,M,y-0.66*inch,PAGE_W-2*M,0.58*inch,fill=BLACK,stroke=BLACK,radius=10)
+            fit_para(c,answer,M+0.15*inch,y-0.18*inch,PAGE_W-2*M-0.30*inch,0.30*inch,max_size=10.2,min_size=7.2,font=BOLD,color=WHITE,align=1)
+            y-=0.84*inch
+
         c.setFillColor(MID); c.setFont(MONO,7); c.drawString(M,y,'HOW THE CASE FALLS INTO PLACE')
         y-=0.17*inch
         for idx,step in enumerate(m['solution_steps'],1):
-            h=0.62*inch
+            h=0.59*inch
+            if y-h < 0.72*inch:
+                footer(c,page_no); c.showPage(); page_no+=1
+                top_bar(c,f"SOLUTION // CASE {m['number']:02d} // CONT.",page_no,0.20)
+                y=PAGE_H-0.88*inch
             box(c,M,y-h,PAGE_W-2*M,h-0.05*inch,fill=PALE2,stroke=LINE,radius=9)
-            c.setFillColor(BLACK); c.setFont(BOLD,7.7); c.drawString(M+0.14*inch,y-0.22*inch,f'{idx:02d}')
-            fit_para(c,step,M+0.43*inch,y-0.17*inch,PAGE_W-2*M-0.57*inch,0.32*inch,max_size=8.5,min_size=6.9)
+            c.setFillColor(BLACK); c.setFont(BOLD,7.7); c.drawString(M+0.14*inch,y-0.21*inch,f'{idx:02d}')
+            fit_para(c,step,M+0.43*inch,y-0.16*inch,PAGE_W-2*M-0.57*inch,0.30*inch,max_size=8.3,min_size=6.7)
             y-=h
-            if y<0.95*inch: break
         footer(c,page_no); c.showPage(); page_no+=1
     return page_no
 
@@ -665,19 +904,42 @@ def render(data_path: Path, output: Path):
     guided_steps_page(c,data,m,page,prog); page+=1
     verdict_reveal_page(c,data,m,page,prog); page+=1
     meta_signal_page(c,data,m,page,prog); page+=1
+
+    structured_types={
+        'route','classification','consistency','timeline','timeline-visual',
+        'reconstruction','visual-sequence','room-zero-checkpoint','map-overlay',
+        'fact-theory-sort','multi-stage-finale'
+    }
     for m in missions[1:]:
-        prog=0.07 + m['number']*0.018
+        prog=min(0.98,0.07 + m['number']*0.030)
         mission_brief_page(c,data,m,page,prog); page+=1
-        if m['type']=='spatial':
-            spatial_puzzle_page(c,data,m,page,prog); page+=1
+        typ=m.get('type')
+        if typ in ('spatial','boss-spatial'):
+            if m.get('spatial'):
+                spatial_puzzle_page(c,data,m,page,prog)
+            else:
+                spatial_source_preview_page(c,data,m,page,prog)
+            page+=1
             meta_strip(c,data,m,page,prog); page+=1
-        elif m['type']=='visual':
+        elif typ=='visual':
             visual_puzzle_page(c,data,m,page,prog); page+=1
             meta_strip(c,data,m,page,prog); page+=1
-        elif m['type']=='code':
+        elif typ=='code':
             code_puzzle_page(c,data,m,page,prog); page+=1
             meta_strip(c,data,m,page,prog); page+=1
-    preview_end_page(c,data,page); page+=1
+        elif typ in structured_types:
+            structured_puzzle_page(c,data,m,page,prog); page+=1
+            if typ=='multi-stage-finale':
+                finale_reveal_page(c,data,m,page); page+=1
+                certificate_page(c,data,page); page+=1
+            else:
+                meta_strip(c,data,m,page,prog); page+=1
+        else:
+            structured_puzzle_page(c,data,m,page,prog); page+=1
+            meta_strip(c,data,m,page,prog); page+=1
+
+    if data.get('preview_end'):
+        preview_end_page(c,data,page); page+=1
     page=hint_vault_page(c,data,missions,page)
     page=solutions_pages(c,data,missions,page)
     c.save()
