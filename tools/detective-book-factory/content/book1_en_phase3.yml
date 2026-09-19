@@ -1,0 +1,578 @@
+phase: 3
+book: "HAPPY MAKERS DETECTIVE ACADEMY"
+subtitle: "THE MYSTERY OF ROOM ZERO"
+range: "Cases 17-30"
+status: "DURABLE PRODUCTION COPY / FINAL SOURCE IDS"
+
+source_of_truth_note: >-
+  Spatial cases in this tranche are bound only by spatial_source_id to
+  spatial_source_manifest_final.yml. Historical Shigai page numbers are deliberately removed.
+  Geometry, source answer and coordinates must come through the hash-verified Shigai bridge.
+
+missions:
+  - number: 17
+    rank: "MASTER"
+    type: "spatial"
+    spatial_source_id: "HMDA_17"
+    title: "THE TRAIN TICKET THAT WASN'T LOST"
+    status: "CASE FILE 17"
+    guides: ["alio", "luli"]
+    hook: >-
+      At a heritage railway event, one special ticket appears to vanish. The real question
+      is not where it went, but who was handed it before anyone noticed.
+    objective: "Rebuild the railway positions and identify who was with Rhoda when the ticket changed hands."
+    dialogue:
+      - {speaker: "alio", text: "Can we interrogate the train?"}
+      - {speaker: "luli", text: "Only if it requests legal representation."}
+    spatial_copy:
+      clue_cards:
+        - "OCTAVIA was either in the Ticket Office or on the Baggage Platform."
+        - "MARGARET was in the Ticket Office and in column B."
+        - "KERRY was in the Waiting Lounge and in row 6."
+        - "SAMUEL was on a bench."
+        - "LINCOLN was in the Waiting Lounge and in column G."
+        - "AMBROSE was exactly three rows north of KERRY."
+        - "RHODA's final area contained exactly one other person."
+      answer: "AMBROSE"
+      answer_coordinate: "E3"
+      final_space_skin: "content/spatial_room_skin.yml"
+    meta_letter: "O"
+    meta_reveal: "The special ticket carries a plain 0 punched into one corner."
+    hints:
+      - "KERRY's Waiting Lounge plus row-6 clue is the best anchor."
+      - "Then place LINCOLN and MARGARET before resolving OCTAVIA's either/or."
+      - "AMBROSE must be exactly three rows north of KERRY. Check who shares RHODA's final area."
+    nudge: "Start with KERRY's room-plus-row clue."
+    solution_steps:
+      - "KERRY resolves to F6 and LINCOLN to G7 in the Waiting Lounge."
+      - "MARGARET is B4 in the Ticket Office; SAMUEL resolves to D5."
+      - "OCTAVIA is A1."
+      - "AMBROSE is E3, exactly three rows north of KERRY."
+      - "RHODA is C2 in the Main Corridor."
+      - "AMBROSE is the only other person in RHODA's final area."
+
+  - number: 18
+    rank: "MASTER"
+    type: "timeline"
+    title: "THE SEVEN-MINUTE ALIBI"
+    status: "TIME FILE"
+    guides: ["mimi", "dilo"]
+    hook: >-
+      One cafe clock is seven minutes slow. Dilo's watch is two minutes fast.
+      Four records look contradictory until every timestamp is converted to real time.
+    objective: "Build the only real-time sequence that fits all four records."
+    dialogue:
+      - {speaker: "mimi", text: "Which clock is correct?"}
+      - {speaker: "dilo", text: "Mine."}
+      - {speaker: "mimi", text: "Evidence?"}
+      - {speaker: "dilo", text: "Confidence."}
+    timeline:
+      rules:
+        - "CAFE CLOCK = real time minus 7 minutes."
+        - "DILO'S WATCH = real time plus 2 minutes."
+        - "STATION CAMERA = real time."
+      records:
+        - {id: "A", source: "CAFE CLOCK", shown: "15:08", real: "15:15", event: "ticket envelope placed on counter"}
+        - {id: "B", source: "DILO'S WATCH", shown: "15:18", real: "15:16", event: "team enters platform"}
+        - {id: "C", source: "STATION CAMERA", shown: "15:17", real: "15:17", event: "ticket seen in hand"}
+        - {id: "D", source: "CAFE CLOCK", shown: "15:11", real: "15:18", event: "empty envelope collected"}
+      answer_order: ["A", "B", "C", "D"]
+    meta_reveal: "The seven-minute correction produces 0:07 in the margin. It looks important. It is not."
+    hints:
+      - "Convert every time to real time before ordering any events."
+      - "Add 7 minutes to Cafe Clock records. Subtract 2 minutes from Dilo's watch."
+      - "The real times become 15:15, 15:16, 15:17 and 15:18."
+    nudge: "Normalize the clocks before building the timeline."
+    solution_steps:
+      - "Cafe 15:08 becomes real 15:15."
+      - "Dilo 15:18 becomes real 15:16."
+      - "Station 15:17 is already real 15:17."
+      - "Cafe 15:11 becomes real 15:18."
+      - "The only order is A, B, C, D."
+
+  - number: 19
+    rank: "MASTER"
+    type: "spatial"
+    spatial_source_id: "HMDA_19"
+    title: "THE LIBRARY BOOK THAT CHECKED ITSELF OUT"
+    status: "CASE FILE 19"
+    guides: ["dilo", "luli"]
+    hook: "The library system says a rare book left the building. The book is still on the shelf."
+    objective: "Rebuild the library positions and identify who was with Sonia when the wrong account was scanned."
+    dialogue:
+      - {speaker: "dilo", text: "Digital ghost."}
+      - {speaker: "luli", text: "Barcode problem until proven supernatural."}
+    spatial_copy:
+      clue_cards:
+        - "ARCHIBALD was exactly two rows north of MADGE."
+        - "THEODORE was 7 grid steps from the piano."
+        - "Exactly one of OTTOLINE and ARCHIBALD was in the Archive Room."
+        - "DREW shared a room with THEODORE."
+        - "MADGE was south-west of OTTOLINE."
+        - "KIMBERLY was in the Study Hall and in column F."
+        - "SONIA's final area contained exactly one other person."
+      answer: "MADGE"
+      answer_coordinate: "A7"
+      final_space_skin: "content/spatial_room_skin.yml"
+    meta_letter: "L"
+    meta_reveal: "The scanner log contains a plain 0 in a field that should normally be blank."
+    hints:
+      - "KIMBERLY's Study Hall plus column-F clue is the cleanest anchor."
+      - "Use THEODORE and DREW's shared-room relationship, then the OTTOLINE/ARCHIBALD exactly-one clue."
+      - "MADGE must be south-west of OTTOLINE. Check who ends with SONIA."
+    nudge: "Anchor KIMBERLY, then work the shared-room pair."
+    solution_steps:
+      - "KIMBERLY resolves to F4."
+      - "THEODORE is C1 and DREW G2 in the Reference Room."
+      - "ARCHIBALD resolves to E5 and OTTOLINE to D3."
+      - "MADGE is A7, south-west of OTTOLINE."
+      - "SONIA is B6 in the Returns Hall."
+      - "MADGE is the only other person in SONIA's final area."
+
+  - number: 20
+    rank: "MASTER"
+    type: "spatial"
+    spatial_source_id: "HMDA_20"
+    title: "THE PAINT-SPLATTERED ALIBI"
+    status: "CASE FILE 20"
+    guides: ["mimi", "nini"]
+    hook: >-
+      A community art wall ends up in the wrong order. Nobody is in trouble.
+      The challenge is reconstructing who was where before the paint dried.
+    objective: "Rebuild the studio and identify who was with Danielle when the panels were switched."
+    dialogue:
+      - {speaker: "nini", text: "This one looks better upside down."}
+      - {speaker: "mimi", text: "Not currently useful, but agreed."}
+    spatial_copy:
+      clue_cards:
+        - "STANDISH was somewhere south of PAMELA."
+        - "PAMELA was south-east of MILLIE."
+        - "LESLIE was diagonally next to AURORA."
+        - "MILLIE was in the Main Studio and in row 4."
+        - "AURORA shared a room with MILLIE."
+        - "THATCHER was the only person in the Workshop Hall."
+        - "DANIELLE's final room contained exactly one other person."
+      answer: "PAMELA"
+      answer_coordinate: "F5"
+      final_space_skin: "content/spatial_room_skin.yml"
+    meta_letter: "D"
+    meta_reveal: "A drying card from the switched panel has the same plain 0."
+    hints:
+      - "MILLIE's Main Studio plus row-4 clue is the best starting anchor."
+      - "Use AURORA's same-room clue and LESLIE's diagonal relationship before the north/south chain."
+      - "DANIELLE ends in the Safety Station. Which person shares it?"
+    nudge: "Anchor MILLIE, then resolve AURORA and LESLIE."
+    solution_steps:
+      - "MILLIE resolves to D4 and AURORA to B2 in the Main Studio."
+      - "LESLIE becomes A1."
+      - "THATCHER resolves to C6 in the Workshop Hall."
+      - "PAMELA is F5 and STANDISH E7."
+      - "DANIELLE is G3 in the Safety Station."
+      - "PAMELA is the only other person in Danielle's final room."
+
+  - number: 21
+    rank: "MASTER"
+    type: "reconstruction"
+    title: "THE NOTE IN FOUR PIECES"
+    status: "EVIDENCE RECONSTRUCTION"
+    guides: ["dilo", "nini"]
+    hook: "Four torn scraps belong to one message. Rebuild it using edges, handwriting and sentence logic."
+    objective: "Put the scraps in order and read the hidden instruction."
+    dialogue:
+      - {speaker: "dilo", text: "Paper is an unstable platform."}
+      - {speaker: "nini", text: "You ripped it."}
+    reconstruction:
+      scraps:
+        - {id: "A", text: "WHAT YOU", left_edge: "zigzag-2", right_edge: "curve-1"}
+        - {id: "B", text: "THE ANSWER IS", left_edge: "straight", right_edge: "notch-3"}
+        - {id: "C", text: "LEAVE EMPTY.", left_edge: "wave-4", right_edge: "straight"}
+        - {id: "D", text: "IN", left_edge: "notch-3", right_edge: "zigzag-2"}
+      joins:
+        - ["B", "D"]
+        - ["D", "A"]
+        - ["A", "C"]
+      answer_order: ["B", "D", "A", "C"]
+      answer_text: "THE ANSWER IS IN WHAT YOU LEAVE EMPTY."
+    meta_reveal: "For the first time, the clue points directly at absence rather than a marked object."
+    hints:
+      - "Start with the only scrap that has a straight left edge."
+      - "Match the notch pair before reading the sentence."
+      - "The physical edge order is B-D-A-C."
+    nudge: "Use torn edges first, grammar second."
+    solution_steps:
+      - "B must begin because it has the straight left edge."
+      - "B's right notch joins D."
+      - "D joins A, then A joins C."
+      - "The completed note reads: THE ANSWER IS IN WHAT YOU LEAVE EMPTY."
+
+  - number: 22
+    rank: "MASTER"
+    type: "spatial"
+    spatial_source_id: "HMDA_22"
+    title: "THE MUSIC ROOM MIX-UP"
+    status: "CASE FILE 22"
+    guides: ["luli", "alio"]
+    hook: "Three identical black instrument cases have migrated across the music school."
+    objective: "Rebuild the school positions and identify who was with Zelda when the wrong case changed hands."
+    dialogue:
+      - {speaker: "alio", text: "Open it carefully."}
+      - {speaker: "luli", text: "It is a cello case."}
+      - {speaker: "alio", text: "Exactly."}
+    spatial_copy:
+      clue_cards:
+        - "LEIGH was diagonally next to IRENE."
+        - "IRENE and NATASHA shared a room."
+        - "CLARENCE was diagonally next to WILLIAM."
+        - "Exactly one of NATASHA and LEIGH was in the Practice Hall."
+        - "GEMMA was 7 grid steps from the piano."
+        - "WILLIAM was not beside any instrument locker in his room."
+        - "ZELDA's final room contained exactly one other person."
+      answer: "CLARENCE"
+      answer_coordinate: "C4"
+      final_space_skin: "content/spatial_room_skin.yml"
+    meta_letter: "M"
+    meta_reveal: "The wrong case's inventory card has a plain 0 stamped under the barcode."
+    hints:
+      - "WILLIAM's locker clue is the best opening constraint."
+      - "Use CLARENCE's diagonal link, then GEMMA's exact distance."
+      - "ZELDA ends in the Rehearsal Room. Which person shares it?"
+    nudge: "Start with WILLIAM and the locker positions."
+    solution_steps:
+      - "WILLIAM resolves to D3 in the Instrument Locker Room."
+      - "CLARENCE resolves diagonally to C4 in the Rehearsal Room."
+      - "GEMMA is B1; LEIGH E6; IRENE F7."
+      - "NATASHA is G5 in the Practice Hall."
+      - "ZELDA is A2 in the Rehearsal Room."
+      - "CLARENCE is the only other person in Zelda's final room."
+
+  - number: 23
+    rank: "MASTER"
+    type: "spatial"
+    spatial_source_id: "HMDA_23"
+    title: "THE WRISTBAND SWITCH AT ADVENTURE PARK"
+    status: "CASE FILE 23"
+    guides: ["mimi", "dilo"]
+    hook: "One wristband opens the climbing course. Another opens the arcade-credit locker."
+    objective: "Rebuild the park positions and identify who was with Judy when the wristbands were switched."
+    dialogue:
+      - {speaker: "mimi", text: "Solve the case."}
+      - {speaker: "dilo", text: "I am studying the arcade's security architecture."}
+    spatial_copy:
+      clue_cards:
+        - "VESTA was 7 grid steps from the gondola."
+        - "CHARLENE was north-east of MADGE."
+        - "OWEN was south-west of CHARLENE."
+        - "REBECCA was exactly two columns east of CHARLENE."
+        - "MADGE shared a room with a man on a bench."
+        - "Exactly one of PEYTON and VESTA was in the Snack Stand."
+        - "JUDY's final room contained exactly one other person."
+      answer: "REBECCA"
+      answer_coordinate: "F6"
+      final_space_skin: "content/spatial_room_skin.yml"
+    meta_letter: "A"
+    meta_reveal: "The switched wristband has a small 0 embossed beside the serial number."
+    hints:
+      - "VESTA's exact distance is a strong starting constraint."
+      - "Then use PEYTON's exactly-one Snack Stand clue and MADGE's bench clue."
+      - "Place CHARLENE before REBECCA. Two columns east becomes decisive late in the solve."
+    nudge: "Start with VESTA's distance and PEYTON's exactly-one clue."
+    solution_steps:
+      - "VESTA resolves to G7 and PEYTON to B2."
+      - "MADGE resolves to C5 and CHARLENE to D1."
+      - "OWEN becomes A3."
+      - "JUDY is E4 in the Prize Tent."
+      - "REBECCA is F6, exactly two columns east of Charlene."
+      - "REBECCA is the only other person in Judy's final room."
+
+  - number: 24
+    rank: "MASTER"
+    type: "visual-sequence"
+    title: "THE FOOTPRINTS THAT WALKED BACKWARDS"
+    status: "VISUAL EVIDENCE"
+    guides: ["alio", "luli"]
+    hook: "The tread arrows point one way. The fresh mud transfer tells a different story."
+    objective: "Use the changing amount of wet mud to work out the real direction of travel."
+    dialogue:
+      - {speaker: "alio", text: "Science requires sacrifice."}
+      - {speaker: "luli", text: "The hedge disagrees."}
+    visual_sequence:
+      positions: ["WEST GATE", "P2", "P3", "EAST PATH"]
+      prints:
+        - {position: "EAST PATH", mud: 100, tread_arrow: "EAST"}
+        - {position: "P3", mud: 70, tread_arrow: "EAST"}
+        - {position: "P2", mud: 35, tread_arrow: "EAST"}
+        - {position: "WEST GATE", mud: 10, tread_arrow: "EAST"}
+      rule: "Wet mud transfers most strongly on the first print after leaving the muddy patch, then fades."
+      answer: "EAST PATH -> WEST GATE"
+    meta_reveal: "One tread has a tiny circular cut matching the Academy 0 motif."
+    hints:
+      - "Ignore the decorative arrow in the tread. Track what changes from print to print."
+      - "Mud is strongest at the first print and fades with each step."
+      - "The darkest print is at the East Path and the faintest at the West Gate."
+    nudge: "Follow the mud intensity, not the tread arrow."
+    solution_steps:
+      - "The first print after wet mud must carry the most mud."
+      - "Mud decreases 100 -> 70 -> 35 -> 10."
+      - "That sequence runs from the East Path toward the West Gate."
+      - "The tread arrow is a pattern on the sole, not proof of walking direction."
+
+  - number: 25
+    rank: "MASTER"
+    type: "spatial"
+    spatial_source_id: "HMDA_25"
+    title: "THE PACKAGE WITH NO NAME"
+    status: "CASE FILE 25"
+    guides: ["nini", "mimi"]
+    hook: "A harmless parcel has been passed around so many times that nobody remembers its destination."
+    objective: "Rebuild the guest-house positions and identify who accepted the parcel from Noreen."
+    dialogue:
+      - {speaker: "mimi", text: "Nobody stole it. Everyone was just aggressively helpful."}
+      - {speaker: "nini", text: "Teamwork, but sideways."}
+    spatial_copy:
+      clue_cards:
+        - "GISELLE was diagonally next to REGAN."
+        - "CELIA was in the Lobby and in column D."
+        - "REGAN was north-west of GISELLE."
+        - "THEODORE was diagonally next to WARREN."
+        - "SILAS was north-east of GISELLE."
+        - "WARREN was in the Laundry and on a bar stool."
+        - "NOREEN's final room contained exactly one other person."
+      answer: "CELIA"
+      answer_coordinate: "D5"
+      final_space_skin: "content/spatial_room_skin.yml"
+    meta_letter: "P"
+    meta_reveal: "The parcel-routing slip has one familiar 0 in its old-form template."
+    hints:
+      - "CELIA's Lobby plus column-D clue is the tightest anchor."
+      - "Place WARREN, then use THEODORE's diagonal relationship."
+      - "NOREEN ends in the Lobby. Check the only person sharing it."
+    nudge: "Anchor CELIA, then resolve the Laundry diagonal pair."
+    solution_steps:
+      - "CELIA resolves to D5 in the Lobby."
+      - "WARREN is B7 and THEODORE C6 in the Laundry."
+      - "GISELLE resolves to F3 and REGAN E2."
+      - "SILAS becomes G1."
+      - "NOREEN is A4 in the Lobby."
+      - "CELIA is the only other person in Noreen's final room."
+
+  - number: 26
+    rank: "MASTER"
+    type: "room-zero-checkpoint"
+    title: "THE CASE OF THE MISSING PEOPLE"
+    status: "ROOM ZERO BREAKTHROUGH"
+    guides: ["luli", "dilo", "nini"]
+    hook: "Nini looks at an old solved map and asks one tiny question: Why is one named room always empty?"
+    objective: "Revisit the fourteen marked spatial cases and record the first letter of each unique empty ROOM."
+    dialogue:
+      - {speaker: "dilo", text: "We solved fourteen cases and the clue was the room we ignored?"}
+      - {speaker: "luli", text: "The evidence would like an apology."}
+      - {speaker: "nini", text: "Empty can still be something."}
+    checkpoint:
+      case_numbers: [2, 4, 6, 7, 10, 12, 13, 15, 17, 19, 20, 22, 23, 25]
+      instruction: >-
+        On each solved map, find the one named space classified as a ROOM that contains zero people.
+        Ignore corridors, platforms, queues and other ZONES. Write the first letter of each empty ROOM.
+      answer: "CHECK THE OLD MAP"
+    meta_reveal: "The recurring 0 meant ZERO PEOPLE. The supposedly irrelevant empty rooms spell CHECK THE OLD MAP."
+    hints:
+      - "The 0 is not a room number. Read it as a quantity."
+      - "Count people only in spaces marked ROOM. Ignore ZONES."
+      - "The fourteen empty-room initials read C-H-E-C-K / T-H-E / O-L-D / M-A-P."
+    nudge: "Read 0 as zero people, then revisit the solved spatial cases."
+    solution_steps:
+      - "Each marked spatial case has exactly one empty final ROOM."
+      - "Record the first letter of that room in case order."
+      - "The fourteen letters are C H E C K T H E O L D M A P."
+      - "The hidden instruction is CHECK THE OLD MAP."
+
+  - number: 27
+    rank: "FINAL"
+    type: "map-overlay"
+    title: "BIBI'S MAP HAS ONE ROOM WITH ZERO DOORS"
+    status: "FINAL FILE"
+    guides: ["bibi", "alio"]
+    hook: "The old Academy plan contains a rectangular space surrounded by walls with no door."
+    objective: "Align the old and current plans using fixed landmarks and locate the sealed room."
+    dialogue:
+      - {speaker: "bibi", text: "This map is older than all of you. Not older than me. Choose your next words carefully."}
+      - {speaker: "alio", text: "Secret tunnel."}
+    map_overlay:
+      anchors:
+        - {old: "NORTH STAIR", current: "NORTH STAIR"}
+        - {old: "COURTYARD COLUMN", current: "COURTYARD COLUMN"}
+        - {old: "WEST LIFT SHAFT", current: "WEST LIFT SHAFT"}
+      old_only_space: "SEALED TRAINING ROOM"
+      current_covering_space: "ARCHIVE WALL / NO DOOR"
+      answer: "SEALED TRAINING ROOM BEHIND THE CURRENT ARCHIVE WALL"
+    meta_reveal: "A tiny handwritten note beside the sealed space says: RULE FIRST, ROOM SECOND."
+    hints:
+      - "Do not align the paper edges. Align permanent landmarks."
+      - "Match the stair, courtyard column and lift shaft."
+      - "After the three anchors overlap, one old rectangular room has no current doorway."
+    nudge: "Align permanent landmarks, not page edges."
+    solution_steps:
+      - "The North Stair fixes rotation."
+      - "The Courtyard Column fixes horizontal position."
+      - "The West Lift Shaft confirms scale."
+      - "The old sealed training room lands directly behind the current Archive wall."
+      - "The note says RULE FIRST, ROOM SECOND."
+
+  - number: 28
+    rank: "FINAL"
+    type: "fact-theory-sort"
+    title: "RULE ZERO"
+    status: "FINAL FILE"
+    guides: ["bibi", "mimi", "luli", "alio"]
+    hook: "Before the final map, Bibi remembers what the Academy meant by zero."
+    objective: "Sort the team's evidence into FACT, THEORY and UNSUPPORTED ASSUMPTION."
+    dialogue:
+      - {speaker: "mimi", text: "So Alio's tunnel theory is back?"}
+      - {speaker: "luli", text: "Unfortunately, yes."}
+      - {speaker: "alio", text: "Helmet vindicated."}
+    fact_theory_sort:
+      cards:
+        - {text: "The same plain 0 appeared across unrelated cases.", bucket: "FACT"}
+        - {text: "Fourteen empty-room initials spell CHECK THE OLD MAP.", bucket: "FACT"}
+        - {text: "An old room sits behind the current Archive wall.", bucket: "FACT"}
+        - {text: "Someone has been secretly watching every case.", bucket: "UNSUPPORTED ASSUMPTION"}
+        - {text: "The old Academy may have left an unfinished training system.", bucket: "THEORY"}
+        - {text: "There must be a dramatic underground tunnel.", bucket: "UNSUPPORTED ASSUMPTION"}
+      rule_zero: "ZERO ASSUMPTIONS. NOTICE FIRST. THEORIZE SECOND."
+      missing_word: "ASSUMPTIONS"
+    meta_reveal: "Bibi finally remembers the full Academy rule: ZERO ASSUMPTIONS. NOTICE FIRST. THEORIZE SECOND."
+    hints:
+      - "A fact is directly supported by evidence already earned."
+      - "A theory can fit the facts but is not yet proven. An assumption adds something the evidence never said."
+      - "The missing word in Rule Zero is ASSUMPTIONS."
+    nudge: "Ask whether each card is proven, possible or merely invented."
+    solution_steps:
+      - "Sort direct observations into FACT."
+      - "Keep the unfinished-training-system idea as a THEORY."
+      - "Move the secret watcher and guaranteed tunnel into UNSUPPORTED ASSUMPTION."
+      - "The restored rule is ZERO ASSUMPTIONS. NOTICE FIRST. THEORIZE SECOND."
+
+  - number: 29
+    rank: "GRAND MASTER"
+    type: "boss-spatial"
+    spatial_source_id: "HMDA_29"
+    title: "THE MAP BENEATH THE MAP"
+    status: "BOSS CASE"
+    guides: ["luli", "dilo", "alio"]
+    hook: "The old Academy plan hides a service level. The largest spatial case in the book protects the final access coordinate."
+    objective: "Solve the 9x9 service-level deduction and identify the coordinate shared with Shepherd."
+    dialogue:
+      - {speaker: "dilo", text: "Boss level."}
+      - {speaker: "luli", text: "No button-mashing."}
+      - {speaker: "alio", text: "Can I at least wear two helmets?"}
+    spatial_copy:
+      clue_cards:
+        - "MICHELLE was north-west of VERA."
+        - "CASSANDRA was north-east of RANSOM."
+        - "JORDANA was diagonally next to WILHELMINA."
+        - "BETSY shared a space with JORDANA."
+        - "VERA was north-west of CASSANDRA."
+        - "RANSOM was in the Control Room."
+        - "PAYTON shared a room with MICHELLE."
+        - "WILHELMINA was in the Operations Office, beside the teacher's desk."
+        - "SHEPHERD's final area contained exactly one other person."
+      answer: "VERA"
+      answer_coordinate: "D3"
+      final_space_skin: "content/spatial_room_skin.yml"
+    meta_reveal: "The final spatial answer gives access coordinate D3. No new hidden letter is introduced."
+    hints:
+      - "WILHELMINA's Operations Office plus teacher-desk clue is the best anchor."
+      - "Resolve JORDANA/BETSY and the RANSOM/CASSANDRA/VERA direction chain."
+      - "SHEPHERD ends in the Equipment Hall. The only other person there gives the access coordinate."
+    nudge: "Start with WILHELMINA, then work the directional chain."
+    solution_steps:
+      - "WILHELMINA resolves to F7."
+      - "JORDANA is E8 and BETSY G9."
+      - "RANSOM is H5 and CASSANDRA I4."
+      - "VERA resolves to D3; MICHELLE A2 and PAYTON C6."
+      - "SHEPHERD is B1 in the Equipment Hall."
+      - "VERA is the only other person in Shepherd's final area."
+      - "The final access coordinate is D3."
+
+  - number: 30
+    rank: "GRAND FINAL"
+    type: "multi-stage-finale"
+    title: "THE MYSTERY OF ROOM ZERO"
+    status: "ROOM ZERO"
+    guides: ["bibi", "mimi", "luli", "dilo", "alio", "nini"]
+    hook: "The hatch opens into a room the modern Academy forgot. Six badge hooks wait on the wall. Five are occupied."
+    objective: "Use only evidence already earned to open the final lock and identify the missing detective."
+    dialogue:
+      - {speaker: "nini", text: "So... who was the missing detective?"}
+      - {speaker: "dilo", text: "There is a drawer."}
+      - {speaker: "luli", text: "Do not open the drawer."}
+      - {speaker: "dilo", text: "Counterpoint: drawer."}
+    finale:
+      stages:
+        - id: "RULE"
+          prompt: "Complete Rule Zero."
+          answer: "ASSUMPTIONS"
+          source_case: 28
+        - id: "ROOM"
+          prompt: "Enter the access coordinate earned on the service-level map."
+          answer: "D3"
+          source_case: 29
+        - id: "CODE"
+          prompt: "Enter Dilo's four-symbol locker sequence."
+          answer: ["BALL", "STAR", "BOLT", "HEART"]
+          source_case: 5
+        - id: "DETECTIVE"
+          prompt: "Write the name printed on your Detective ID."
+          answer: "READER-WRITTEN NAME"
+          source_case: "opening"
+      reveal: >-
+        Room Zero was never room number zero. It was the original Academy training room,
+        named for Rule Zero: begin every case with zero assumptions. Grandma Bibi and her
+        childhood squad built an initiation trail here decades ago, but renovations sealed
+        the room before the trail was completed. The opening training case accidentally
+        reactivated the old mechanical clue system. Nobody has been secretly controlling
+        the adventure. The Academy itself has been replaying the unfinished test.
+      reader_payoff: >-
+        Inside Room Zero are six badge hooks. Five hold old Academy badges. The sixth is
+        empty and labelled NEXT DETECTIVE. The missing detective was the reader from page one.
+      series_hook: >-
+        After the case is closed, Dilo opens a drawer Luli explicitly told him not to open.
+        Inside is one thin file stamped CASE 001 - STILL OPEN.
+    meta_reveal: "ROOM ZERO SOLVED. THE READER IS THE NEXT DETECTIVE."
+    hints:
+      - "Every lock stage points backward. Do not invent a new rule."
+      - "Case 28 gives the word. Case 29 gives D3. Case 5 gives the four-symbol sequence."
+      - "The final answer is not another Happy Maker. Read the empty sixth badge hook and your own Detective ID."
+    nudge: "The finale uses only evidence you already earned."
+    solution_steps:
+      - "Complete Rule Zero with ASSUMPTIONS."
+      - "Use D3 from Case 29."
+      - "Use BALL, STAR, BOLT, HEART from Case 5."
+      - "Use the reader-written name from the opening Detective ID."
+      - "The sixth badge hook says NEXT DETECTIVE."
+      - "The reader has been the missing detective from page one."
+
+meta_validation:
+  spatial_case_letters:
+    2: "C"
+    4: "H"
+    6: "E"
+    7: "C"
+    10: "K"
+    12: "T"
+    13: "H"
+    15: "E"
+    17: "O"
+    19: "L"
+    20: "D"
+    22: "M"
+    23: "A"
+    25: "P"
+  expected_message: "CHECKTHEOLDMAP"
+  human_readable: "CHECK THE OLD MAP"
+
+production_notes:
+  - "No full-black interior pages. Use dark panels and light page fields for print safety."
+  - "Spatial source identity comes only from spatial_source_manifest_final.yml."
+  - "Case 26 must force the reader to physically revisit earlier solved cases."
+  - "Case 30 introduces no new puzzle rule. The payoff comes only from earned information."
+  - "The reader, not the Happy Makers, makes the final deduction."
