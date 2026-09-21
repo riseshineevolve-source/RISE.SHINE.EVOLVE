@@ -8,6 +8,7 @@ cases:
         state: absent_verified
       3:
         state: absent_verified
+    solution_page: 43
   HMDA_07:
     puzzle_page: 10
     solution_page: 45
@@ -48,3 +49,44 @@ cases:
           - 0.835079
           - 0.132751
           - 0.01982
+  HMDA_10:
+    puzzle_page: 12
+    solution_page: 46
+    rooms:
+      2:
+        state: explicit_reference
+        evidence_mode: auto_two_page_reference
+        reference_page: solution
+        normalized_footprint:
+        - 0.02793
+        - 0.254579
+        - 0.108516
+        - 0.024725
+        confidence:
+          puzzle_primary: false
+          solution_topology_overlap: 1.0
+          paired_source_footprint: true
+          puzzle_reference_normalized:
+          - 0.02793
+          - 0.384732
+          - 0.108516
+          - 0.020408
+  HMDA_15:
+    puzzle_page: 18
+    solution_page: 49
+    rooms:
+      1:
+        state: absent_verified
+        evidence_mode: auto_two_page_absence
+        confidence:
+          puzzle_primary: false
+          puzzle_broad_text_scan: false
+          solution_primary: false
+          solution_broad_text_scan: true
+          stable_broad_source_evidence: false
+          topology_safe_anchor: true
+          anchor_normalized:
+          - 0.012821
+          - 0.47848
+          - 0.116758
+          - 0.042582

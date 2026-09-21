@@ -186,7 +186,12 @@ def _paired_source_box(
     sx, _, sw, sh = solution_box
     candidates = [
         box for box in puzzle_boxes
-        if abs(box[0] - sx) <= 14 and abs(box[2] - sw) <= max(12, int(sw * 0.12)) and abs(box[3] - sh) <= 12
+        # Paired pages may have a different embedded-image scale as well as
+        # a title-driven translation.  Permit proportional drift, but accept
+        # evidence only when the resulting source-footprint match is unique.
+        if abs(box[0] - sx) <= max(24, int(sw * 0.25))
+        and abs(box[2] - sw) <= max(18, int(sw * 0.25))
+        and abs(box[3] - sh) <= max(14, int(sh * 0.25))
     ]
     if len(candidates) != 1:
         return None
@@ -268,16 +273,20 @@ def classify_two_page_evidence(
         # Absence is a stronger claim: neither primary nor broader text-like
         # evidence may locate a footprint owned by this room on either page,
         # and a topology-only anchor must exist before the claim is persisted.
-        if rid not in puzzle_broad and rid not in solution_broad:
+        broad_source_evidence = False
+        if rid in puzzle_broad and rid in solution_broad:
+            broad_source_evidence = _paired_source_box(solution_broad[rid], [puzzle_broad[rid]]) is not None
+        if rid not in puzzle_primary and rid not in solution_primary and not broad_source_evidence:
             anchor = topology_safe_anchor(case, rid, puzzle_grid.width, puzzle_grid.height)
             result[rid] = {
                 "state": "absent_verified",
                 "evidence_mode": "auto_two_page_absence",
                 "confidence": {
                     "puzzle_primary": False,
-                    "puzzle_broad_text_scan": False,
+                    "puzzle_broad_text_scan": bool(rid in puzzle_broad),
                     "solution_primary": False,
-                    "solution_broad_text_scan": False,
+                    "solution_broad_text_scan": bool(rid in solution_broad),
+                    "stable_broad_source_evidence": False,
                     "topology_safe_anchor": True,
                     "anchor_normalized": _normalized(anchor, puzzle_grid),
                 },
@@ -312,6 +321,8 @@ def persist_two_page_evidence(
                 case, puzzle, base.detect_grid_bbox(base.np.asarray(puzzle.convert("L"))),
                 solution, base.detect_grid_bbox(base.np.asarray(solution.convert("L"))),
             )
+            if not discovered:
+                continue
             case_meta = LABEL_METADATA.setdefault("cases", {}).setdefault(cid, {})
             case_meta.setdefault("puzzle_page", int(decl["pdf"]["puzzle_page"]))
             case_meta.setdefault("solution_page", int(decl["pdf"]["solution_page"]))

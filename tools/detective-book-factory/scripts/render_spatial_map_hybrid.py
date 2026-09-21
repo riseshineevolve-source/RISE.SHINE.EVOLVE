@@ -27,6 +27,7 @@ import hashlib
 import json
 from pathlib import Path
 import re
+import os
 import sys
 from typing import Any
 
@@ -114,7 +115,7 @@ def detect_grid_bbox(gray: np.ndarray) -> tuple[int,int,int,int]:
     return left,top,right,bottom
 
 
-def detect_room_label_boxes(grid_gray: np.ndarray) -> list[tuple[int,int,int,int]]:
+def detect_room_label_boxes(grid_gray: np.ndarray, broad: bool = False) -> list[tuple[int,int,int,int]]:
     """Detect Shigai's white rounded room-name pills, not furniture."""
     inv=cv2.threshold(grid_gray,120,255,cv2.THRESH_BINARY_INV)[1]
     contours,_=cv2.findContours(inv,cv2.RETR_LIST,cv2.CHAIN_APPROX_SIMPLE)
@@ -122,13 +123,15 @@ def detect_room_label_boxes(grid_gray: np.ndarray) -> list[tuple[int,int,int,int
     candidates=[]
     for cnt in contours:
         x,y,bw,bh=cv2.boundingRect(cnt)
-        if not (w*0.035 <= bw <= w*0.30 and h*0.012 <= bh <= h*0.055):
+        min_w, max_w = (w*0.025, w*0.38) if broad else (w*0.035, w*0.30)
+        min_h, max_h = (h*0.008, h*0.080) if broad else (h*0.012, h*0.055)
+        if not (min_w <= bw <= max_w and min_h <= bh <= max_h):
             continue
-        if bw/max(bh,1) < 1.55:
+        if bw/max(bh,1) < (1.25 if broad else 1.55):
             continue
         area=float(cv2.contourArea(cnt))
         rectangularity=area/max(1.0,float(bw*bh))
-        if rectangularity < 0.82:
+        if rectangularity < (0.68 if broad else 0.82):
             continue
         roi=grid_gray[y:y+bh,x:x+bw]
         inset=max(2,int(min(bw,bh)*0.12))
@@ -136,7 +139,7 @@ def detect_room_label_boxes(grid_gray: np.ndarray) -> list[tuple[int,int,int,int
         if inner.size==0:
             continue
         white_fraction=float((inner>220).mean())
-        if white_fraction < 0.40:
+        if white_fraction < (0.32 if broad else 0.40):
             continue
         candidates.append((x,y,bw,bh,rectangularity,white_fraction))
 
@@ -180,6 +183,42 @@ def room_for_point(case: dict[str,Any], x: float, y: float, grid_w: int, grid_h:
     raise SystemExit(f"{case['id']}: no room owns detected label cell {cell}")
 
 
+def room_overlap_scores(case: dict[str, Any], box: tuple[int, int, int, int], grid_w: int, grid_h: int) -> dict[int, float]:
+    """Score a detected pill against immutable runtime room masks.
+
+    A source label may straddle a grid-cell boundary; its center is therefore
+    not authoritative. The runtime topology is. Scores are exact rectangle
+    overlap areas expressed in source-grid pixel coordinates.
+    """
+    x, y, bw, bh = box
+    x2, y2 = x + bw, y + bh
+    rows, cols = int(case["grid"]["rows"]), int(case["grid"]["columns"])
+    scores: dict[int, float] = {int(room["source_room_id"]): 0.0 for room in case["rooms"]}
+    for room in case["rooms"]:
+        for cell in room["cells"]:
+            match = re.fullmatch(r"([A-Z]+)(\d+)", cell)
+            col = ord(match.group(1)) - ord("A")
+            row = int(match.group(2)) - 1
+            cx0, cy0 = col * grid_w / cols, row * grid_h / rows
+            cx1, cy1 = (col + 1) * grid_w / cols, (row + 1) * grid_h / rows
+            overlap = max(0.0, min(x2, cx1) - max(x, cx0)) * max(0.0, min(y2, cy1) - max(y, cy0))
+            scores[int(room["source_room_id"])] += overlap
+    return scores
+
+
+def assign_room_by_overlap(case: dict[str, Any], box: tuple[int, int, int, int], grid_w: int, grid_h: int) -> tuple[int, float, float]:
+    scores = room_overlap_scores(case, box, grid_w, grid_h)
+    ranked = sorted(scores.items(), key=lambda item: item[1], reverse=True)
+    best_room, best = ranked[0]
+    second = ranked[1][1] if len(ranked) > 1 else 0.0
+    total = max(1.0, sum(scores.values()))
+    # Require both substantial mask coverage and a non-trivial lead over the
+    # next room. This prevents boundary-straddling pills from being guessed.
+    if best / total < 0.60 or best - second < total * 0.18:
+        raise ValueError(f"ambiguous overlap best={best_room}:{best/total:.2f}, second={second/total:.2f}")
+    return best_room, best / total, second / total
+
+
 def replace_room_labels(
     source: Image.Image,
     case: dict[str,Any],
@@ -195,14 +234,41 @@ def replace_room_labels(
     assigned: dict[int,tuple[int,int,int,int]]={}
     for box in boxes:
         x,y,bw,bh=box
-        room=room_for_point(case,x+bw/2,y+bh/2,grid.width,grid.height)
-        rid=int(room["source_room_id"])
+        center_room=int(room_for_point(case,x+bw/2,y+bh/2,grid.width,grid.height)["source_room_id"])
+        scores=room_overlap_scores(case, box, grid.width, grid.height)
+        ranked=sorted(scores.items(), key=lambda item:item[1], reverse=True)
+        try:
+            rid, confidence, runner_up=assign_room_by_overlap(case, box, grid.width, grid.height)
+        except ValueError as error:
+            if os.environ.get("HMDA_LABEL_DIAGNOSTIC"):
+                print(f"LABEL {case['id']} box={box} center={center_room} scores={ranked} REJECT {error}")
+            continue
+        if os.environ.get("HMDA_LABEL_DIAGNOSTIC"):
+            print(f"LABEL {case['id']} box={box} center={center_room} scores={ranked} assign={rid} confidence={confidence:.2f}/{runner_up:.2f}")
         previous=assigned.get(rid)
         if previous is None or bw*bh > previous[2]*previous[3]:
             assigned[rid]=box
 
     expected={int(room["source_room_id"]) for room in case["rooms"]}
     missing=sorted(expected-set(assigned))
+
+    # Only for still-missing rooms, inspect broader pill candidates. The
+    # authoritative mask assignment and one-label-per-room rule remain intact;
+    # this recovers clipped/expanded source contours without loosening the
+    # primary detector globally.
+    if missing:
+        for box in detect_room_label_boxes(gray, broad=True):
+            x,y,bw,bh=box
+            try:
+                rid, confidence, runner_up=assign_room_by_overlap(case, box, grid.width, grid.height)
+            except ValueError:
+                continue
+            if rid not in missing or rid in assigned:
+                continue
+            assigned[rid]=box
+            if os.environ.get("HMDA_LABEL_DIAGNOSTIC"):
+                print(f"SECONDARY LABEL {case['id']} box={box} assign={rid} confidence={confidence:.2f}/{runner_up:.2f}")
+        missing=sorted(expected-set(assigned))
 
     # Some solution pages place a label tight against the crop edge. Use the
     # puzzle page's normalized label position only for rooms that could not be
