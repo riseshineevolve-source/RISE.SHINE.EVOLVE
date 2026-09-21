@@ -16,6 +16,8 @@ No case-specific pixel coordinates or source labels are stored here.
 
 from __future__ import annotations
 
+import argparse
+from pathlib import Path
 from typing import Any
 
 from PIL import Image, ImageDraw
@@ -138,6 +140,195 @@ def absent_verified_rooms(case: dict[str, Any]) -> set[int]:
     return {int(rid) for rid, data in rooms.items() if data.get("state") == "absent_verified"}
 
 
+def explicit_reference_rooms(case: dict[str, Any]) -> dict[int, dict[str, Any]]:
+    """Read hash-bound normalized source references, never pixel constants."""
+    expected = str(base.load_yaml(base.TOOL_ROOT / "content" / "spatial_source_manifest_final.yml")["source"]["source_pdf_sha256"])
+    if LABEL_METADATA.get("source_pdf_sha256") != expected:
+        raise ValueError("Source-label metadata hash does not match the locked source PDF.")
+    rooms = LABEL_METADATA.get("cases", {}).get(case["id"], {}).get("rooms", {})
+    return {
+        int(rid): data for rid, data in rooms.items()
+        if data.get("state") == "explicit_reference"
+    }
+
+
+def _grid_image(source: Image.Image, bbox: tuple[int, int, int, int]) -> Image.Image:
+    left, top, right, bottom = bbox
+    return source.crop((left, top, right + 1, bottom + 1)).convert("RGB")
+
+
+def _label_assignments(case: dict[str, Any], grid: Image.Image, *, broad: bool) -> dict[int, tuple[int, int, int, int]]:
+    boxes = base.detect_room_label_boxes(base.np.asarray(grid.convert("L")), broad=broad)
+    assigned, _ = assign_room_label_boxes(case, boxes, grid.width, grid.height)
+    return assigned
+
+
+def _owned_boxes(case: dict[str, Any], grid: Image.Image) -> dict[int, list[tuple[int, int, int, int]]]:
+    """Return all broad, topology-dominant source candidates by room."""
+    owned: dict[int, list[tuple[int, int, int, int]]] = {}
+    for box in base.detect_room_label_boxes(base.np.asarray(grid.convert("L")), broad=True):
+        rid, overlap, margin, _ = _box_room_scores(case, box, grid.width, grid.height)
+        if overlap >= MIN_ROOM_OVERLAP and margin >= MIN_ROOM_MARGIN:
+            owned.setdefault(rid, []).append(box)
+    return owned
+
+
+def _paired_source_box(
+    solution_box: tuple[int, int, int, int],
+    puzzle_boxes: list[tuple[int, int, int, int]],
+) -> tuple[int, int, int, int] | None:
+    """Pair repeat footprints despite page-title vertical translation.
+
+    Label width, height, and x position are invariant in the locked source;
+    vertical position is deliberately not used, because the paired page headers
+    have different heights.  This is source evidence, not a render placement.
+    """
+    sx, _, sw, sh = solution_box
+    candidates = [
+        box for box in puzzle_boxes
+        if abs(box[0] - sx) <= 14 and abs(box[2] - sw) <= max(12, int(sw * 0.12)) and abs(box[3] - sh) <= 12
+    ]
+    if len(candidates) != 1:
+        return None
+    return candidates[0]
+
+
+def _normalized(box: tuple[int, int, int, int], grid: Image.Image) -> list[float]:
+    x, y, width, height = box
+    return [round(x / grid.width, 6), round(y / grid.height, 6), round(width / grid.width, 6), round(height / grid.height, 6)]
+
+
+def classify_two_page_evidence(
+    case: dict[str, Any],
+    puzzle: Image.Image,
+    puzzle_bbox: tuple[int, int, int, int],
+    solution: Image.Image,
+    solution_bbox: tuple[int, int, int, int],
+) -> dict[int, dict[str, Any]]:
+    """Classify only evidence-complete missing labels from two locked pages.
+
+    The classifier never reads label text and never invents pixels.  It asks
+    whether a topology-owned label footprint exists in either page.  A broader
+    deterministic text-like scan is used only as negative/secondary evidence.
+    """
+    puzzle_grid = _grid_image(puzzle, puzzle_bbox)
+    solution_grid = _grid_image(solution, solution_bbox)
+    puzzle_primary = _label_assignments(case, puzzle_grid, broad=False)
+    puzzle_broad = _label_assignments(case, puzzle_grid, broad=True)
+    solution_primary = _label_assignments(case, solution_grid, broad=False)
+    solution_broad = _label_assignments(case, solution_grid, broad=True)
+    puzzle_boxes = base.detect_room_label_boxes(base.np.asarray(puzzle_grid.convert("L")), broad=True)
+    solution_owned = _owned_boxes(case, solution_grid)
+    result: dict[int, dict[str, Any]] = {}
+
+    for room in case["rooms"]:
+        rid = int(room["source_room_id"])
+        if rid in puzzle_primary:
+            continue
+        # A broader scan finds a real, topology-owned footprint that the
+        # primary detector rejected.  Persist the normalized reference only
+        # after it repeats on the paired source page.
+        if rid in puzzle_broad and rid in solution_broad:
+            pp = _normalized(puzzle_broad[rid], puzzle_grid)
+            sp = _normalized(solution_broad[rid], solution_grid)
+            max_delta = max(abs(a - b) for a, b in zip(pp, sp))
+            if max_delta <= 0.035:
+                result[rid] = {
+                    "state": "explicit_reference",
+                    "evidence_mode": "auto_two_page_reference",
+                    "normalized_footprint": pp,
+                    "confidence": {"normalized_max_delta": round(max_delta, 6), "puzzle_broad": True, "solution_broad": True},
+                }
+                continue
+
+        # The paired solution page can supply a verified source reference
+        # when its room-owned pill repeats as the same physical source pill on
+        # the puzzle page, even if the puzzle page's geometry intentionally
+        # maps that pill to another runtime room.  The final puzzle label is
+        # still topology-anchored below; this reference is never used to erase
+        # or relabel that other room's source art.
+        solution_candidates = solution_owned.get(rid, [])
+        if len(solution_candidates) == 1:
+            paired = _paired_source_box(solution_candidates[0], puzzle_boxes)
+            if paired is not None:
+                result[rid] = {
+                    "state": "explicit_reference",
+                    "evidence_mode": "auto_two_page_reference",
+                    "reference_page": "solution",
+                    "normalized_footprint": _normalized(solution_candidates[0], solution_grid),
+                    "confidence": {
+                        "puzzle_primary": False,
+                        "solution_topology_overlap": 1.0,
+                        "paired_source_footprint": True,
+                        "puzzle_reference_normalized": _normalized(paired, puzzle_grid),
+                    },
+                }
+                continue
+
+        # Absence is a stronger claim: neither primary nor broader text-like
+        # evidence may locate a footprint owned by this room on either page,
+        # and a topology-only anchor must exist before the claim is persisted.
+        if rid not in puzzle_broad and rid not in solution_broad:
+            anchor = topology_safe_anchor(case, rid, puzzle_grid.width, puzzle_grid.height)
+            result[rid] = {
+                "state": "absent_verified",
+                "evidence_mode": "auto_two_page_absence",
+                "confidence": {
+                    "puzzle_primary": False,
+                    "puzzle_broad_text_scan": False,
+                    "solution_primary": False,
+                    "solution_broad_text_scan": False,
+                    "topology_safe_anchor": True,
+                    "anchor_normalized": _normalized(anchor, puzzle_grid),
+                },
+            }
+    return result
+
+
+def persist_two_page_evidence(
+    source: Path,
+    runtime: Path,
+    requested: list[str],
+) -> None:
+    """Persist deterministic auto-classifications before base rendering runs."""
+    selection = base.load_yaml(base.TOOL_ROOT / "content" / "spatial_source_manifest_final.yml")
+    expected_hash = str(selection["source"]["source_pdf_sha256"])
+    if base.sha256(source) != expected_hash:
+        raise SystemExit("BLOCKED: source PDF SHA mismatch before label classification.")
+    if LABEL_METADATA.get("source_pdf_sha256") != expected_hash:
+        raise SystemExit("BLOCKED: label metadata source hash does not match the locked source.")
+    declarations = {item["id"]: item for item in selection["cases"]}
+    runtime_cases = {item["id"]: item for item in base.load_runtime(runtime)["cases"]}
+    doc = base.fitz.open(source)
+    changed = False
+    try:
+        for cid in requested:
+            if cid not in declarations or cid not in runtime_cases:
+                continue
+            decl, case = declarations[cid], runtime_cases[cid]
+            puzzle = base.extract_embedded_page_image(doc, int(decl["pdf"]["puzzle_page"]))
+            solution = base.extract_embedded_page_image(doc, int(decl["pdf"]["solution_page"]))
+            discovered = classify_two_page_evidence(
+                case, puzzle, base.detect_grid_bbox(base.np.asarray(puzzle.convert("L"))),
+                solution, base.detect_grid_bbox(base.np.asarray(solution.convert("L"))),
+            )
+            case_meta = LABEL_METADATA.setdefault("cases", {}).setdefault(cid, {})
+            case_meta.setdefault("puzzle_page", int(decl["pdf"]["puzzle_page"]))
+            case_meta.setdefault("solution_page", int(decl["pdf"]["solution_page"]))
+            rooms = case_meta.setdefault("rooms", {})
+            for rid, evidence in discovered.items():
+                key = int(rid)
+                if key not in rooms:
+                    rooms[key] = evidence
+                    changed = True
+    finally:
+        doc.close()
+    if changed:
+        metadata_path = base.TOOL_ROOT / "content" / "spatial_source_label_metadata.yml"
+        metadata_path.write_text(base.yaml.safe_dump(LABEL_METADATA, sort_keys=False, allow_unicode=True), encoding="utf-8")
+        print("PASS: persisted deterministic two-page source-label evidence")
+
+
 def topology_safe_anchor(case: dict[str, Any], rid: int, grid_w: int, grid_h: int) -> tuple[int, int, int, int]:
     """Place an absent-verified label in a clear, topology-owned source cell."""
     rows, cols = int(case["grid"]["rows"]), int(case["grid"]["columns"])
@@ -185,6 +376,23 @@ def replace_room_labels_hardened(
 
     for rid in list(missing):
         if rid in absent_verified_rooms(case):
+            assigned[rid] = topology_safe_anchor(case, rid, grid.width, grid.height)
+    for rid, reference in explicit_reference_rooms(case).items():
+        if rid not in missing:
+            continue
+        normalized = reference.get("normalized_footprint")
+        if not isinstance(normalized, list) or len(normalized) != 4:
+            raise ValueError(f"{case['id']}: explicit reference for room {rid} is not a normalized footprint.")
+        nx, ny, nw, nh = (float(value) for value in normalized)
+        candidate = (int(round(nx * grid.width)), int(round(ny * grid.height)), int(round(nw * grid.width)), int(round(nh * grid.height)))
+        best, overlap, margin, _ = _box_room_scores(case, candidate, grid.width, grid.height)
+        # A same-page reference can safely replace its own footprint.  A
+        # cross-page reference may describe a source pill whose visual
+        # geometry intentionally differs between pages; preserve that art and
+        # use the deterministic topology-safe anchor instead.
+        if best == rid and overlap >= 0.95 and margin >= 0.80:
+            assigned[rid] = candidate
+        else:
             assigned[rid] = topology_safe_anchor(case, rid, grid.width, grid.height)
     missing = sorted(expected - set(assigned))
 
@@ -299,4 +507,16 @@ base.replace_room_labels = replace_room_labels_hardened
 
 
 if __name__ == "__main__":
+    preflight = argparse.ArgumentParser(add_help=False)
+    preflight.add_argument("--source-pdf", required=True, type=Path)
+    preflight.add_argument("--runtime", required=True, type=Path)
+    preflight.add_argument("--case", action="append", default=[])
+    preflight_args, _ = preflight.parse_known_args()
+    selection = base.load_yaml(base.TOOL_ROOT / "content" / "spatial_source_manifest_final.yml")
+    requested = preflight_args.case or [case["id"] for case in selection["cases"]]
+    persist_two_page_evidence(
+        preflight_args.source_pdf.expanduser().resolve(),
+        preflight_args.runtime.expanduser().resolve(),
+        requested,
+    )
     base.main()

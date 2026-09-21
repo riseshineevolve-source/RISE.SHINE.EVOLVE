@@ -1,8 +1,50 @@
 version: 1
-source_pdf_sha256: "6662c292642f3d66148e41eef180bb7d2b15a0975ca822981f4f33aa7153aada"
+source_pdf_sha256: 6662c292642f3d66148e41eef180bb7d2b15a0975ca822981f4f33aa7153aada
 cases:
   HMDA_04:
     puzzle_page: 6
     rooms:
-      0: {state: absent_verified}
-      3: {state: absent_verified}
+      0:
+        state: absent_verified
+      3:
+        state: absent_verified
+  HMDA_07:
+    puzzle_page: 10
+    solution_page: 45
+    rooms:
+      0:
+        state: explicit_reference
+        evidence_mode: auto_two_page_reference
+        reference_page: solution
+        normalized_footprint:
+        - 0.546624
+        - 0.302112
+        - 0.108865
+        - 0.024334
+        confidence:
+          puzzle_primary: false
+          solution_topology_overlap: 1.0
+          paired_source_footprint: true
+          puzzle_reference_normalized:
+          - 0.546624
+          - 0.431937
+          - 0.108865
+          - 0.01982
+      4:
+        state: explicit_reference
+        evidence_mode: auto_two_page_reference
+        reference_page: solution
+        normalized_footprint:
+        - 0.687644
+        - 0.797521
+        - 0.132751
+        - 0.024334
+        confidence:
+          puzzle_primary: false
+          solution_topology_overlap: 1.0
+          paired_source_footprint: true
+          puzzle_reference_normalized:
+          - 0.687644
+          - 0.835079
+          - 0.132751
+          - 0.01982
