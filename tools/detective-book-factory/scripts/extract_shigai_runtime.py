@@ -167,6 +167,7 @@ def build_case(
     declaration: dict[str, Any],
     pages: list[Any],
     skin_doc: dict[str, Any],
+    aliases_doc: dict[str, Any],
     source_hash: str,
 ) -> dict[str, Any]:
     case_id = declaration.get("id")
@@ -204,6 +205,21 @@ def build_case(
     if len(characters) != len(placements):
         raise BridgeError(f"{case_id}: characters/placement length mismatch.")
 
+    aliases_by_case = aliases_doc.get("cases", {})
+    aliases = aliases_by_case.get(case_id) if isinstance(aliases_by_case, dict) else None
+    if not isinstance(aliases, dict):
+        raise BridgeError(f"{case_id}: missing presentation alias mapping.")
+    source_names = [char.get("name") for char in characters if isinstance(char, dict)]
+    if set(aliases) != set(source_names):
+        raise BridgeError(f"{case_id}: aliases must map exactly the source identities.")
+    display_names = list(aliases.values())
+    if any(not isinstance(name, str) or not name.strip() for name in display_names):
+        raise BridgeError(f"{case_id}: aliases must be non-empty strings.")
+    if len({name.casefold() for name in display_names}) != len(display_names):
+        raise BridgeError(f"{case_id}: duplicate presentation alias.")
+    if len({name.strip()[0].casefold() for name in display_names}) != len(display_names):
+        raise BridgeError(f"{case_id}: aliases must use distinct initials for map markers.")
+
     runtime_characters: list[dict[str, Any]] = []
     placement_by_name: dict[str, int] = {}
     for char, cell in zip(characters, placements):
@@ -216,6 +232,7 @@ def build_case(
         runtime_characters.append(
             {
                 "source_name": name,
+                "display_name": aliases[name],
                 "gender": char.get("gender"),
                 "portrait_id": char.get("portraitId"),
                 "is_owner": bool(char.get("isVictim", False)),
@@ -319,6 +336,7 @@ def build_case(
         "characters": runtime_characters,
         "source_answer": {
             "name": answer_name,
+            "display_name": aliases[answer_name],
             "coordinate": actual_answer_coord,
         },
         "source_owner": next(
@@ -349,12 +367,19 @@ def main() -> int:
         default=TOOL_ROOT / "content" / "spatial_room_skin.yml",
         type=Path,
     )
+    ap.add_argument(
+        "--aliases",
+        default=TOOL_ROOT / "content" / "spatial_character_aliases.yml",
+        type=Path,
+        help="Presentation-only aliases keyed by immutable source character name.",
+    )
     ap.add_argument("--output", required=True, type=Path)
     args = ap.parse_args()
 
     checkpoint_path = args.checkpoint.expanduser().resolve()
     manifest_path = args.manifest.expanduser().resolve()
     skin_path = args.skin.expanduser().resolve()
+    aliases_path = args.aliases.expanduser().resolve()
     output_path = args.output.expanduser().resolve()
 
     if not checkpoint_path.is_file():
@@ -362,6 +387,7 @@ def main() -> int:
 
     manifest = load_yaml(manifest_path)
     skin = load_yaml(skin_path)
+    aliases = load_yaml(aliases_path)
     checkpoint = load_checkpoint(checkpoint_path)
 
     actual_hash = sha256(checkpoint_path)
@@ -377,7 +403,7 @@ def main() -> int:
     for declaration in manifest.get("cases", []):
         try:
             runtime_cases.append(
-                build_case(declaration, checkpoint["pages"], skin, actual_hash)
+                build_case(declaration, checkpoint["pages"], skin, aliases, actual_hash)
             )
         except BridgeError as error:
             errors.append(str(error))
@@ -407,6 +433,7 @@ def main() -> int:
             "checkpoint_sha256": actual_hash,
             "selection_manifest": manifest_path.name,
             "room_skin": skin_path.name,
+            "character_aliases": aliases_path.name,
         },
         "production_case_count": len(runtime_cases),
         "meta_message": meta_message,

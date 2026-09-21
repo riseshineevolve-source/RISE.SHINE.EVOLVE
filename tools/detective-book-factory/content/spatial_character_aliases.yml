@@ -1,0 +1,24 @@
+version: 1
+status: presentation_only
+rule: >-
+  Every alias maps one stable source identity to one reader-facing HMDA name.
+  Never change source identities, placements, coordinates, clue meaning, or the
+  stored answer when editing this file. Aliases must be unique by full name and
+  first initial within each case.
+
+cases:
+  HMDA_02: {Hope: Nova, Drew: Dax, Rory: Rook, Edgar: Atlas, Vesta: Ivy, Bobby: Max}
+  HMDA_04: {Finlay: Echo, Ivor: Kai, Raquel: Zuri, Amelie: Bea, Clarissa: Clover, Lisa: Pixel}
+  HMDA_06: {Stafford: Scout, Hubert: Hugo, Ava: Arlo, Vera: Vega, Wallace: Wren, Eunice: Uma}
+  HMDA_07: {Bruce: Blaze, Isla: Indigo, Winifred: Willa, Zelda: Zuri, Roscoe: Rocket, Grayson: Gray}
+  HMDA_10: {Eliza: Echo, Nicholas: Nova, Willie: Wren, Frances: Finn, Blythe: Blaze, Verity: Vera, Dora: Dash}
+  HMDA_12: {Kendra: Kai, Norris: Nova, Irma: Indigo, Earlene: Echo, Cleo: Clover, Siobhan: Scout, Winthrop: Wren}
+  HMDA_13: {Jewel: Juno, Shirley: Skye, Elliot: Echo, Wanda: Wren, Bronwen: Blaze, Mercer: Moxie, Rafferty: Rook}
+  HMDA_15: {Hiram: Hugo, Primrose: Pixel, Damian: Dash, Carolyn: Clover, Jonquil: Juno, Isabella: Indigo, Mona: Moxie}
+  HMDA_17: {Octavia: Otis, Margaret: Moxie, Kerry: Kai, Samuel: Scout, Lincoln: Luna, Ambrose: Atlas, Rhoda: Rook}
+  HMDA_19: {Archibald: Arlo, Theodore: Theo, Ottoline: Otis, Drew: Dash, Madge: Moxie, Kimberly: Kai, Sonia: Skye}
+  HMDA_20: {Standish: Scout, Pamela: Pixel, Leslie: Luna, Millie: Moxie, Aurora: Arlo, Thatcher: Theo, Danielle: Dash}
+  HMDA_22: {Leigh: Luna, Irene: Indigo, Clarence: Clover, Natasha: Nova, Gemma: Gia, William: Wren, Zelda: Zuri}
+  HMDA_23: {Vesta: Vera, Charlene: Clover, Owen: Otis, Rebecca: Rook, Madge: Moxie, Peyton: Pixel, Judy: Juno}
+  HMDA_25: {Giselle: Gia, Celia: Clover, Regan: Rook, Theodore: Theo, Silas: Scout, Warren: Wren, Noreen: Nova}
+  HMDA_29: {Michelle: Moxie, Cassandra: Clover, Jordana: Juno, Betsy: Blaze, Vera: Vega, Ransom: Rook, Payton: Pixel, Wilhelmina: Wren, Shepherd: Scout}

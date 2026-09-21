@@ -242,8 +242,11 @@ def replace_room_labels(
 
         # Preserve nearby wall geometry by repainting only the old label footprint.
         draw.rounded_rectangle((x0,y0,x1,y1),radius=max(6,int(bh*0.22)),fill="white",outline=(20,20,20),width=max(2,int(bh*0.06)))
-        max_size=max(14,int(bh*0.62))
-        min_size=max(10,int(bh*0.34))
+        # The source labels are sized for a smaller original page. This
+        # presentation layer deliberately allocates a larger, bold print label
+        # without moving a wall, object, cell, or source placement.
+        max_size=max(20,int(bh*0.86))
+        min_size=max(15,int(bh*0.52))
         chosen=font(min_size)
         for size in range(max_size,min_size-1,-1):
             f=font(size)
@@ -272,34 +275,50 @@ def extract_embedded_page_image(doc: fitz.Document, page_no: int) -> Image.Image
     return Image.open(BytesIO(base["image"])).convert("RGB")
 
 
-def fit_image(c, image_path: Path, x: float, y: float, w: float, h: float) -> None:
+def fit_image(c, image_path: Path, x: float, y: float, w: float, h: float) -> tuple[float,float,float,float]:
     img=Image.open(image_path)
     iw,ih=img.size
     scale=min(w/iw,h/ih)
     dw,dh=iw*scale,ih*scale
-    c.drawImage(str(image_path),x+(w-dw)/2,y+(h-dh)/2,width=dw,height=dh,preserveAspectRatio=True,anchor='c')
+    px,py=x+(w-dw)/2,y+(h-dh)/2
+    c.drawImage(str(image_path),px,py,width=dw,height=dh,preserveAspectRatio=True,anchor='c')
+    return px,py,dw,dh
+
+
+def coordinate_rail(c, case: dict[str, Any], x: float, y: float, w: float, h: float) -> None:
+    """Place high-contrast, print-sized coordinates outside the preserved art."""
+    rows=int(case["grid"]["rows"]); cols=int(case["grid"]["columns"])
+    c.saveState()
+    c.setFillColor(rb.BLACK); c.setFont(rb.BOLD, 10.0 if cols <= 7 else 9.0)
+    for col in range(cols):
+        c.drawCentredString(x+(col+0.5)*w/cols, y+h+10, chr(ord("A")+col))
+    for row in range(rows):
+        c.drawRightString(x-9, y+h-(row+0.57)*h/rows, str(row+1))
+    c.restoreState()
 
 
 def hybrid_page(c, case: dict[str,Any], map_path: Path, mode: str, page_no: int=1) -> None:
     is_solution=mode=="solution"
     rb.top_bar(c,"SOLUTION MAP" if is_solution else "DEDUCTION GRID",page_no,0.70)
     y=rb.PAGE_H-0.78*inch
-    rb.pill(c,case["id"],rb.M,y,7.0,fill=rb.CHARCOAL)
+    rank=str(case.get("tier", "field agent")).replace("_", " ").upper()
+    rb.pill(c,f"{case['id']} // {rank}",rb.M,y,7.0,fill=rb.CHARCOAL)
     rb.para(c,str(case.get("final_title",case["id"])).upper(),rb.M,y-0.20*inch,rb.PAGE_W-2*rb.M,0.48*inch,size=16.6,font=rb.BOLD)
     y-=0.78*inch
 
     hero_h=5.95*inch
     rb.box(c,rb.M,y-hero_h,rb.PAGE_W-2*rb.M,hero_h,fill=rb.WHITE,stroke=rb.LINE,radius=12)
-    fit_image(c,map_path,rb.M+0.10*inch,y-hero_h+0.10*inch,rb.PAGE_W-2*rb.M-0.20*inch,hero_h-0.20*inch)
+    image_box=fit_image(c,map_path,rb.M+0.10*inch,y-hero_h+0.10*inch,rb.PAGE_W-2*rb.M-0.20*inch,hero_h-0.20*inch)
+    coordinate_rail(c,case,*image_box)
     y-=hero_h+0.12*inch
 
     if is_solution:
-        names="   ".join(f"{p['source_name'][0].upper()} = {p['source_name']}" for p in case.get("characters",[]))
-        rb.fit_para(c,names,rb.M,y,rb.PAGE_W-2*rb.M,0.28*inch,max_size=7.4,min_size=5.4,align=1)
+        names="   ".join(f"{p['display_name'][0].upper()} = {p['display_name']}" for p in case.get("characters",[]))
+        rb.fit_para(c,names,rb.M,y,rb.PAGE_W-2*rb.M,0.30*inch,max_size=9.0,min_size=7.2,font=rb.BOLD,align=1)
         y-=0.35*inch
         ans=case.get("source_answer",{})
         rb.box(c,rb.M,y-0.48*inch,rb.PAGE_W-2*rb.M,0.43*inch,fill=rb.BLACK,stroke=rb.BLACK,radius=9)
-        rb.fit_para(c,f"VERDICT: {str(ans.get('name','')).upper()} @ {ans.get('coordinate','')}",
+        rb.fit_para(c,f"VERDICT: {str(ans.get('display_name', ans.get('name',''))).upper()} @ {ans.get('coordinate','')}",
                     rb.M+0.10*inch,y-0.13*inch,rb.PAGE_W-2*rb.M-0.20*inch,0.22*inch,
                     max_size=9.4,min_size=7.0,font=rb.BOLD,color=rb.WHITE,align=1)
     else:
