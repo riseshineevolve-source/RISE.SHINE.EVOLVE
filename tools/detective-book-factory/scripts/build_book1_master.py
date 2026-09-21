@@ -119,6 +119,7 @@ def main() -> int:
                 f"got {sorted(asset_cases)}"
             )
         by_id = {str(m.get("spatial_source_id")): m for m in master["missions"] if m.get("spatial_source_id")}
+        asset_dir = args.spatial_assets.expanduser().resolve().parent
         for source_id in expected_ids:
             info = copy.deepcopy(asset_cases[source_id])
             for key in ("puzzle_asset", "solution_asset", "rows", "columns", "source_pdf_sha256"):
@@ -126,8 +127,25 @@ def main() -> int:
                     raise SystemExit(f"{source_id}: spatial asset manifest missing {key}")
             if str(info["source_pdf_sha256"]) != "6662c292642f3d66148e41eef180bb7d2b15a0975ca822981f4f33aa7153aada":
                 raise SystemExit(f"{source_id}: unexpected source PDF SHA-256")
+            for asset_key in ("puzzle_asset", "solution_asset"):
+                asset = Path(str(info[asset_key]))
+                if not asset.is_absolute() and (asset_dir / asset).exists():
+                    info[asset_key] = str((asset_dir / asset).relative_to(TOOL_ROOT))
+            # The durable asset manifest calls the puzzle raster
+            # ``puzzle_asset``; the established book renderer consumes the
+            # same full-frame raster as ``source_page_asset`` plus an optional
+            # crop.  Normalize this presentation contract here so no
+            # case-specific renderer branch or source-art mutation is needed.
+            info["source_page_asset"] = info["puzzle_asset"]
+            info["crop"] = None
+            info["solution_crop"] = None
             info["asset_manifest"] = str(args.spatial_assets.expanduser().resolve())
-            by_id[source_id]["spatial"] = info
+            # Preserve the canonical clue/answer presentation copy while
+            # attaching immutable renderer assets.  The book renderer reads
+            # its spatial clue cards from this single merged contract.
+            spatial_copy = copy.deepcopy(by_id[source_id].get("spatial_copy", {}))
+            spatial_copy.update(info)
+            by_id[source_id]["spatial"] = spatial_copy
         master["production_state"]["spatial_assets_attached"] = True
     else:
         master["production_state"]["spatial_assets_attached"] = False
