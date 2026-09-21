@@ -69,10 +69,12 @@ def witness_board(c: Canvas, mission: dict, case: dict, page_no: int) -> None:
     paragraph(c, html.escape(mission["hook"]), rb.M + 0.14 * inch, y - 0.31 * inch, rb.PAGE_W - 2 * rb.M - 0.28 * inch, 0.43 * inch, 9.5)
     y -= 1.04 * inch
 
-    rb.box(c, rb.M, y - 0.72 * inch, rb.PAGE_W - 2 * rb.M, 0.64 * inch, fill=rb.WHITE, stroke=rb.BLACK, radius=11)
+    # Objectives are intentionally given two readable lines at print size. Do
+    # not shrink this into microtype merely to preserve an older compact box.
+    rb.box(c, rb.M, y - 0.86 * inch, rb.PAGE_W - 2 * rb.M, 0.78 * inch, fill=rb.WHITE, stroke=rb.BLACK, radius=11)
     c.setFillColor(rb.MID); c.setFont(rb.MONO, 7.0); c.drawString(rb.M + 0.14 * inch, y - 0.20 * inch, "YOUR OBJECTIVE")
-    paragraph(c, html.escape(mission["objective"]), rb.M + 0.14 * inch, y - 0.29 * inch, rb.PAGE_W - 2 * rb.M - 0.28 * inch, 0.30 * inch, 9.6, bold=True)
-    y -= 0.88 * inch
+    paragraph(c, html.escape(mission["objective"]), rb.M + 0.14 * inch, y - 0.30 * inch, rb.PAGE_W - 2 * rb.M - 0.28 * inch, 0.40 * inch, 9.6, bold=True)
+    y -= 1.02 * inch
 
     notes = mission.get("dialogue", [])[:3]
     if notes:
