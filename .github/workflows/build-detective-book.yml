@@ -31,9 +31,19 @@ jobs:
         working-directory: tools/detective-book-factory
         run: |
           mkdir -p dist
-          python -m py_compile             scripts/audit_book1_launch_state.py             scripts/build_book1_master.py             scripts/extract_shigai_runtime.py             render_book.py
+          python -m py_compile \
+            scripts/audit_book1_launch_state.py \
+            scripts/build_book1_master.py \
+            scripts/extract_shigai_runtime.py \
+            scripts/render_spatial_map_hybrid.py \
+            scripts/render_spatial_map_hybrid_hardened.py \
+            scripts/test_spatial_label_assignment.py \
+            render_book.py
+          python scripts/test_spatial_label_assignment.py
           python scripts/build_book1_master.py --output dist/book1_en_master.yml
-          python scripts/audit_book1_launch_state.py             --master dist/book1_en_master.yml             --require-canonical-30
+          python scripts/audit_book1_launch_state.py \
+            --master dist/book1_en_master.yml \
+            --require-canonical-30
 
       - name: Sync canonical Happy Makers assets
         working-directory: tools/detective-book-factory
