@@ -140,3 +140,37 @@ Because the owner selected **APPROVE WITH SMALL FIXES**, automation may now:
 No additional visual owner gate is required for the mechanical scale-out unless implementation would materially depart from the approved fixes above.
 
 KDP publication, irreversible pricing, final cover acceptance and physical-proof acceptance remain separate owner gates.
+
+
+## Owner decision — 2026-09-21
+
+Outcome: **APPROVE WITH SMALL FIXES**
+
+Approved visual-system direction:
+- keep the hybrid Map Factory;
+- switch map page field/background to white rather than gray;
+- increase and bold room/zone names;
+- increase and bold row/column coordinate labels;
+- increase legend and person/object labels so a child never has to guess what text says;
+- redesign Witness Board to feel more premium and more like a detective mission dossier than a worksheet;
+- use the full page better with stronger hierarchy, spacing and larger typography;
+- bold character/person names in Witness Board clue text where safe;
+- naming direction **B: branded / academy / adventure** for presentation aliases, with short distinctive names such as Nova, Echo, Blaze, Clover, Scout, Pixel-style naming;
+- avoid confusingly similar names within the same case;
+- naming changes are presentation-only and must preserve exact clue-to-entity mapping and all puzzle logic.
+
+Logic remains immutable:
+- no geometry/topology changes;
+- no blocked/occupiable changes;
+- no clue-semantic changes;
+- no answer/coordinate changes;
+- no meta-room leakage;
+- no changes that would require guessing instead of deduction.
+
+After applying only these listed presentation fixes:
+1. rerender HMDA_02 / HMDA_13 / HMDA_29;
+2. verify print readability and logic invariants;
+3. if the fixes are faithfully implemented and no logic/visual regression is detected, scale the same visual language mechanically across all 15 locked spatial modules;
+4. rebuild puzzle + solution assets and run strict preflight.
+
+KDP publication itself remains a separate owner gate.
