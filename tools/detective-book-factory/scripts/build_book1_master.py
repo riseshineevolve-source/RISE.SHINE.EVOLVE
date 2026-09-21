@@ -74,7 +74,7 @@ def main() -> int:
     )
     master.pop("preview_end", None)
     master["story_spine"] = copy.deepcopy(story_spine)
-    master.setdefault("book", {})["edition"] = "KDP Launch Candidate EN"
+    master.setdefault("book", {})["edition"] = "English Edition"
     master["production_state"] = {
         "format": "hmda-book1-master",
         "version": 1,
