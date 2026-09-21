@@ -132,9 +132,10 @@ def footer(c, page_no=None):
     c.setStrokeColor(PALE)
     c.setLineWidth(0.5)
     c.line(M, 0.34*inch, PAGE_W-M, 0.34*inch)
-    c.setFillColor(MID)
-    c.setFont(FONT, 6.7)
-    c.drawString(M, 0.20*inch, 'RISE.SHINE.EVOLVE.  //  OFFLINE MYSTERY ADVENTURE')
+    # Keep the page number; remove repeating micro-brand chrome that competes
+    # with child-facing instructions and pencil space.
+    c.setFillColor(BLACK)
+    c.setFont(FONT, 7.2)
     if page_no is not None:
         c.drawRightString(PAGE_W-M, 0.20*inch, f'{page_no:03d}')
 
@@ -167,6 +168,9 @@ def preprocess_crop(src: Path, crop, dst: Path):
         x1, y1, x2, y2 = crop
         im = im.crop((x1, y1, x2, y2))
     crop_im = ImageOps.autocontrast(im, cutoff=0.5)
+    # White-map treatment: retain dark walls, labels and object art while
+    # lifting the neutral Shigai paper/grid field to clean print white.
+    crop_im = crop_im.point(lambda value: 255 if value >= 205 else value)
     crop_im.save(dst, optimize=True)
 
 
@@ -286,13 +290,12 @@ def acceptance_page(c,data,page_no):
     c.drawString(M+0.22*inch,y-0.25*inch,'SOURCE: UNKNOWN  //  DELIVERY: IMPOSSIBLE')
     para(c,o['body'],M+0.22*inch,y-0.52*inch,PAGE_W-2*M-0.44*inch,1.45*inch,size=11.4)
     y-=2.72*inch
-    box(c,M,y-1.42*inch,PAGE_W-2*M,1.32*inch,fill=BLACK,stroke=BLACK,radius=15)
-    c.setFillColor(WHITE); c.setFont(BOLD,9)
-    c.drawString(M+0.22*inch,y-0.32*inch,'DETECTIVE ACADEMY // MEMBER ID')
-    c.setFont(BOLD,15); c.drawString(M+0.22*inch,y-0.72*inch,'DETECTIVE NAME: ____________________')
-    c.setFont(MONO,8); c.drawRightString(PAGE_W-M-0.22*inch,y-0.72*inch,'STATUS: INCOMPLETE')
-    c.setStrokeColor(colors.HexColor('#767880')); c.setLineWidth(3); c.circle(PAGE_W-M-0.55*inch,y-1.02*inch,0.18*inch,stroke=1,fill=0)
-    y-=1.70*inch
+    # The final Player Profile page is the single pencil-friendly Detective
+    # ID.  Do not duplicate an earlier name-entry panel here.
+    box(c,M,y-0.76*inch,PAGE_W-2*M,0.66*inch,fill=WHITE,stroke=BLACK,radius=13)
+    c.setFillColor(BLACK); c.setFont(BOLD,10)
+    c.drawString(M+0.22*inch,y-0.31*inch,'YOUR ACADEMY INVITATION IS READY.')
+    y-=1.10*inch
     avatar_callout(c,data['characters'],'mimi',o['note'],M,y,PAGE_W-2*M)
     footer(c,page_no); c.showPage()
 
@@ -301,7 +304,7 @@ def squad_page(c,data,page_no):
     top_bar(c,'YOUR SQUAD',page_no,0.03)
     y=PAGE_H-0.90*inch
     para(c,'YOU ARE THE DETECTIVE.',M,y,PAGE_W-2*M,0.42*inch,size=21,font=BOLD)
-    para(c,'THEY ARE YOUR SQUAD.',M,y-0.43*inch,PAGE_W-2*M,0.4*inch,size=17,font=BOLD,color=MID)
+    para(c,'THEY ARE YOUR SQUAD.',M,y-0.43*inch,PAGE_W-2*M,0.4*inch,size=17,font=BOLD,color=BLACK)
     y-=0.98*inch
     squad=data['characters']['squad']['asset']
     box(c,M,y-3.12*inch,PAGE_W-2*M,3.0*inch,fill=PALE2,stroke=LINE,radius=16)

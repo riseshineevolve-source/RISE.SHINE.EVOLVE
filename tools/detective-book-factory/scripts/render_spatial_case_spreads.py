@@ -65,15 +65,15 @@ def witness_board(c: Canvas, mission: dict, case: dict, page_no: int) -> None:
     y -= 0.78 * inch
 
     rb.box(c, rb.M, y - 0.88 * inch, rb.PAGE_W - 2 * rb.M, 0.80 * inch, fill=rb.PALE2, stroke=rb.LINE, radius=12)
-    c.setFillColor(rb.MID); c.setFont(rb.MONO, 7.0); c.drawString(rb.M + 0.14 * inch, y - 0.20 * inch, "CASE HOOK")
-    paragraph(c, html.escape(mission["hook"]), rb.M + 0.14 * inch, y - 0.31 * inch, rb.PAGE_W - 2 * rb.M - 0.28 * inch, 0.43 * inch, 9.5)
+    c.setFillColor(rb.BLACK); c.setFont(rb.MONO, 8.0); c.drawString(rb.M + 0.14 * inch, y - 0.20 * inch, "CASE HOOK")
+    paragraph(c, html.escape(mission["hook"]), rb.M + 0.14 * inch, y - 0.31 * inch, rb.PAGE_W - 2 * rb.M - 0.28 * inch, 0.43 * inch, 10.4)
     y -= 1.04 * inch
 
     # Objectives are intentionally given two readable lines at print size. Do
     # not shrink this into microtype merely to preserve an older compact box.
     rb.box(c, rb.M, y - 0.86 * inch, rb.PAGE_W - 2 * rb.M, 0.78 * inch, fill=rb.WHITE, stroke=rb.BLACK, radius=11)
-    c.setFillColor(rb.MID); c.setFont(rb.MONO, 7.0); c.drawString(rb.M + 0.14 * inch, y - 0.20 * inch, "YOUR OBJECTIVE")
-    paragraph(c, html.escape(mission["objective"]), rb.M + 0.14 * inch, y - 0.30 * inch, rb.PAGE_W - 2 * rb.M - 0.28 * inch, 0.40 * inch, 9.6, bold=True)
+    c.setFillColor(rb.BLACK); c.setFont(rb.MONO, 8.0); c.drawString(rb.M + 0.14 * inch, y - 0.20 * inch, "YOUR OBJECTIVE")
+    paragraph(c, html.escape(mission["objective"]), rb.M + 0.14 * inch, y - 0.30 * inch, rb.PAGE_W - 2 * rb.M - 0.28 * inch, 0.40 * inch, 10.4, bold=True)
     y -= 1.02 * inch
 
     notes = mission.get("dialogue", [])[:3]
@@ -92,8 +92,8 @@ def witness_board(c: Canvas, mission: dict, case: dict, page_no: int) -> None:
         top = y - (index - 1) * (card_h + 0.055 * inch)
         rb.box(c, rb.M, top-card_h, rb.PAGE_W-2*rb.M, card_h, fill=rb.WHITE if index % 2 else rb.PALE2, stroke=rb.LINE, radius=8)
         c.setStrokeColor(rb.MID); c.rect(rb.M+0.12*inch, top-0.28*inch, 11, 11, fill=0, stroke=1)
-        c.setFillColor(rb.MID); c.setFont(rb.MONO, 6.3); c.drawString(rb.M+0.36*inch, top-0.17*inch, f"EVIDENCE {index:02d}")
-        paragraph(c, alias_text(clue, case), rb.M+0.36*inch, top-0.26*inch, rb.PAGE_W-2*rb.M-0.52*inch, card_h-0.20*inch, 8.9)
+        c.setFillColor(rb.BLACK); c.setFont(rb.MONO, 7.0); c.drawString(rb.M+0.36*inch, top-0.17*inch, f"EVIDENCE {index:02d}")
+        paragraph(c, alias_text(clue, case), rb.M+0.36*inch, top-0.26*inch, rb.PAGE_W-2*rb.M-0.52*inch, card_h-0.20*inch, 9.5)
     rb.box(c, rb.M, 0.54*inch, rb.PAGE_W-2*rb.M, 0.40*inch, fill=rb.BLACK, stroke=rb.BLACK, radius=9)
     paragraph(c, "FOLLOW THE EVIDENCE. DON'T GUESS.", rb.M+0.10*inch, 0.80*inch, rb.PAGE_W-2*rb.M-0.20*inch, 0.20*inch, 8.5, bold=True, color=rb.WHITE, align=TA_CENTER)
     rb.footer(c, page_no); c.showPage()
