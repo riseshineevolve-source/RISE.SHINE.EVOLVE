@@ -184,3 +184,14 @@ Owner approves the generic source-label metadata contract in:
 For the currently locked HMDA source, HMDA_04 source rooms 0 and 3 are classified as `absent_verified`: no trustworthy standard source label footprint is present to replace. The renderer must therefore leave source art untouched at those locations and place the final HMDA labels using a deterministic topology-bound safe anchor inside the verified room masks.
 
 This is not permission for guessed pixel coordinates or case-specific art hacks. If a future case has a real but undetectable source label, use an explicit source-hash-bound normalized reference under the same contract.
+
+
+## Repeated source-label blocker policy — 2026-09-21
+
+Owner authorizes the two-page automated evidence-classification rules in `SOURCE_LABEL_FOOTPRINT_CONTRACT.md`.
+
+This means unresolved room labels in later cases should no longer create a manual owner gate when the renderer can prove either:
+- two-page source-label absence, or
+- one stable two-page explicit source-label reference.
+
+Only genuinely ambiguous rooms that fail both evidence paths should return to human review.
