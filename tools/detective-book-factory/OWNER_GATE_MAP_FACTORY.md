@@ -174,3 +174,13 @@ After applying only these listed presentation fixes:
 4. rebuild puzzle + solution assets and run strict preflight.
 
 KDP publication itself remains a separate owner gate.
+
+
+## Source-label fallback decision — 2026-09-21
+
+Owner approves the generic source-label metadata contract in:
+`SOURCE_LABEL_FOOTPRINT_CONTRACT.md`.
+
+For the currently locked HMDA source, HMDA_04 source rooms 0 and 3 are classified as `absent_verified`: no trustworthy standard source label footprint is present to replace. The renderer must therefore leave source art untouched at those locations and place the final HMDA labels using a deterministic topology-bound safe anchor inside the verified room masks.
+
+This is not permission for guessed pixel coordinates or case-specific art hacks. If a future case has a real but undetectable source label, use an explicit source-hash-bound normalized reference under the same contract.
