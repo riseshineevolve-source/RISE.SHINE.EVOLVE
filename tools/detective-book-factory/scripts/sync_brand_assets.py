@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import argparse
 from pathlib import Path
 from PIL import Image, ImageOps
 
@@ -10,17 +11,37 @@ SOURCE = REPO_ROOT / "assets" / "images"
 TARGET = TOOL_ROOT / "assets" / "production"
 TARGET.mkdir(parents=True, exist_ok=True)
 
-ASSETS = {
+OWNER_APPROVED_SQUAD = "Happy Makers detectives.png"
+LEGACY_SQUAD_FALLBACK = "Happy Makers floating box.png"
+
+BASE_ASSETS = {
     "bibi.png": "Grandma Bibi.png",
     "luli.png": "Luli.png",
     "dilo.png": "Dilo.png",
     "alio.png": "Alio.png",
     "nini.png": "Nini.png",
     "mimi.png": "Mimi.png",
-    # Existing RSE group/brand art. Can later be replaced with the dedicated
-    # Detective Academy squad composition without changing YAML or templates.
-    "squad.jpg": "Happy Makers floating box.png",
 }
+
+
+def asset_map(require_approved_squad: bool = False) -> dict[str, str]:
+    """Resolve production asset sources without silently claiming V2 readiness.
+
+    The owner-review V2 path must use the owner-approved Detective squad. Remote
+    CI/checkouts created before that binary is durable may still use the legacy
+    group art for non-V2 regression builds, but the strict V2 switch fails closed.
+    """
+    approved = SOURCE / OWNER_APPROVED_SQUAD
+    if approved.exists():
+        squad = OWNER_APPROVED_SQUAD
+    elif require_approved_squad:
+        raise FileNotFoundError(
+            f"Owner-review V2 requires approved squad asset: {approved}. "
+            "Do not substitute the legacy group image."
+        )
+    else:
+        squad = LEGACY_SQUAD_FALLBACK
+    return {**BASE_ASSETS, "squad.jpg": squad}
 
 
 def normalize(src: Path, dst: Path) -> None:
@@ -38,11 +59,27 @@ def normalize(src: Path, dst: Path) -> None:
             im.save(dst, optimize=True)
 
 
-if __name__ == "__main__":
+def main() -> None:
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--require-approved-squad",
+        action="store_true",
+        help="Fail unless assets/images/Happy Makers detectives.png is present; required for owner-review V2.",
+    )
+    args = parser.parse_args()
+
+    assets = asset_map(args.require_approved_squad)
     print(f"RSE asset source: {SOURCE}")
     print(f"Book factory target: {TARGET}")
-    for output_name, source_name in ASSETS.items():
+    print(f"Detective squad source: {assets['squad.jpg']}")
+    if assets["squad.jpg"] != OWNER_APPROVED_SQUAD:
+        print("NOTICE: legacy squad fallback in use; this build is NOT owner-review V2 squad-ready.")
+    for output_name, source_name in assets.items():
         src = SOURCE / source_name
         dst = TARGET / output_name
         normalize(src, dst)
         print(f"OK  {source_name} -> {dst.relative_to(REPO_ROOT)}")
+
+
+if __name__ == "__main__":
+    main()

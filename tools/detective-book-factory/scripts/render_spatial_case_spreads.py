@@ -56,65 +56,57 @@ def paragraph(c: Canvas, markup: str, x: float, top: float, width: float, height
 
 
 def witness_board(c: Canvas, mission: dict, case: dict, page_no: int) -> None:
-    rb.top_bar(c, "WITNESS BOARD // CASE FILE", page_no, 0.68)
-    y = rb.PAGE_H - 0.80 * inch
-    rank = mission["rank"].upper()
-    rb.pill(c, f"CASE {mission['number']:02d} // {rank}", rb.M, y, 8.0, fill=rb.CHARCOAL)
-    rb.pill(c, mission.get("status", "ACTIVE FILE"), rb.PAGE_W - rb.M - 1.65 * inch, y, 7.2, fill=rb.MID)
-    paragraph(c, html.escape(mission["title"]), rb.M, y - 0.26 * inch, rb.PAGE_W - 2 * rb.M, 0.48 * inch, 17.5, bold=True)
-    y -= 0.78 * inch
-
-    rb.box(c, rb.M, y - 0.88 * inch, rb.PAGE_W - 2 * rb.M, 0.80 * inch, fill=rb.PALE2, stroke=rb.LINE, radius=12)
-    c.setFillColor(rb.BLACK); c.setFont(rb.MONO, 8.0); c.drawString(rb.M + 0.14 * inch, y - 0.20 * inch, "CASE HOOK")
-    paragraph(c, html.escape(mission["hook"]), rb.M + 0.14 * inch, y - 0.31 * inch, rb.PAGE_W - 2 * rb.M - 0.28 * inch, 0.43 * inch, 10.4)
-    y -= 1.04 * inch
-
-    # Objectives are intentionally given two readable lines at print size. Do
-    # not shrink this into microtype merely to preserve an older compact box.
-    rb.box(c, rb.M, y - 0.86 * inch, rb.PAGE_W - 2 * rb.M, 0.78 * inch, fill=rb.WHITE, stroke=rb.BLACK, radius=11)
-    c.setFillColor(rb.BLACK); c.setFont(rb.MONO, 8.0); c.drawString(rb.M + 0.14 * inch, y - 0.20 * inch, "YOUR OBJECTIVE")
-    paragraph(c, html.escape(mission["objective"]), rb.M + 0.14 * inch, y - 0.30 * inch, rb.PAGE_W - 2 * rb.M - 0.28 * inch, 0.40 * inch, 10.4, bold=True)
-    y -= 1.02 * inch
-
-    notes = mission.get("dialogue", [])[:3]
+    rb.top_bar(c, "WITNESS BOARD // CASE FILE", page_no)
+    x=rb.M; w=rb.PAGE_W-2*x; y=rb.PAGE_H-61
+    c.setFillColor(rb.BLACK); c.setFont(rb.BOLD,10)
+    c.drawString(x,y,f"CASE {mission['number']:02d}  /  {mission['rank'].upper()}")
+    c.drawRightString(rb.PAGE_W-x,y,"STATUS: OPEN")
+    y-=14
+    used=paragraph(c,html.escape(mission['title']),x,y,w,52,21,bold=True); y-=used+14
+    used=paragraph(c,alias_text(mission['hook'],case),x,y,w,65,11.5); y-=used+15
+    # One strong objective card, with evidence flowing down the dossier.
+    obj=Paragraph(alias_text(mission['objective'],case),ParagraphStyle('objective',fontName=rb.BOLD,fontSize=11.5,leading=14.5))
+    _,oh=obj.wrap(w-28,100)
+    rb.box(c,x,y-oh-44,w,oh+44,fill=rb.WHITE,stroke=rb.BLACK,radius=11,sw=1.3)
+    c.setFillColor(rb.BLACK); c.setFont(rb.BOLD,10); c.drawString(x+14,y-19,'YOUR OBJECTIVE')
+    obj.drawOn(c,x+14,y-30-oh); y-=oh+58
+    notes=mission.get('dialogue',[])
     if notes:
-        note = "  ".join(f"{item['speaker'].upper()}: {item['text']}" for item in notes)
-        rb.box(c, rb.M, y - 0.48 * inch, rb.PAGE_W - 2 * rb.M, 0.40 * inch, fill=rb.WHITE, stroke=rb.LINE, radius=9)
-        paragraph(c, html.escape(note), rb.M + 0.14 * inch, y - 0.15 * inch, rb.PAGE_W - 2 * rb.M - 0.28 * inch, 0.20 * inch, 7.7, color=rb.MID)
-        y -= 0.64 * inch
+        note='  '.join(f"{item['speaker'].upper()}: {item['text']}" for item in notes)
+        used=paragraph(c,alias_text(note,case),x,y,w,65,11); y-=used+16
+    c.setFillColor(rb.BLACK); c.setFont(rb.BOLD,12); c.drawString(x,y,'WITNESS STATEMENTS')
+    c.setFont(rb.FONT,10); c.drawRightString(rb.PAGE_W-x,y,'Tick each fact you use.')
+    y-=16
+    clues=mission['spatial_copy']['clue_cards']
+    cards=[]
+    for clue in clues:
+        markup=alias_text(clue,case)
+        for person in case['characters']:
+            name=person['display_name']
+            # Generated masters already contain aliases; bold those too.
+            markup=re.sub(rf'(?<!>)\b{re.escape(name)}\b(?!</b>)',f'<b>{name}</b>',markup,flags=re.IGNORECASE)
+        p=Paragraph(markup,ParagraphStyle('evidence',fontName=rb.FONT,fontSize=11.5,leading=14.5,textColor=rb.BLACK))
+        _,height=p.wrap(w-61,100)
+        cards.append((p,height+20))
+    available=y-87
+    needed=sum(h for _,h in cards)+5*(len(cards)-1)
+    if needed>available: raise ValueError(f"Case {mission['number']}: evidence needs {needed:.1f}pt, has {available:.1f}pt")
+    extra=min(9,(available-needed)/len(cards))
+    for index,(p,h) in enumerate(cards,1):
+        h+=extra
+        rb.box(c,x,y-h,w,h,fill=rb.WHITE,stroke=rb.LINE,radius=8)
+        c.setFillColor(rb.BLACK); c.setFont(rb.BOLD,11); c.drawString(x+12,y-20,f'{index:02d}')
+        c.setStrokeColor(rb.BLACK); c.rect(x+13,y-h+10,10,10,fill=0,stroke=1)
+        p.drawOn(c,x+45,y-10-p.height)
+        y-=h+5
+    c.setFillColor(rb.BLACK); c.setFont(rb.BOLD,11)
+    c.drawString(x,58,"FOLLOW THE EVIDENCE. DON'T GUESS.")
+    rb.footer(c,page_no); c.showPage()
 
-    c.setFillColor(rb.BLACK); c.setFont(rb.BOLD, 10.5); c.drawString(rb.M, y, "WITNESS STATEMENTS")
-    c.setFillColor(rb.MID); c.setFont(rb.MONO, 6.8); c.drawRightString(rb.PAGE_W-rb.M, y, "TICK EACH FACT YOU USE")
-    y -= 0.16 * inch
-    clues = mission["spatial_copy"]["clue_cards"]
-    card_h = 0.49 * inch if len(clues) >= 8 else 0.55 * inch
-    for index, clue in enumerate(clues, 1):
-        top = y - (index - 1) * (card_h + 0.055 * inch)
-        rb.box(c, rb.M, top-card_h, rb.PAGE_W-2*rb.M, card_h, fill=rb.WHITE if index % 2 else rb.PALE2, stroke=rb.LINE, radius=8)
-        c.setStrokeColor(rb.MID); c.rect(rb.M+0.12*inch, top-0.28*inch, 11, 11, fill=0, stroke=1)
-        c.setFillColor(rb.BLACK); c.setFont(rb.MONO, 7.0); c.drawString(rb.M+0.36*inch, top-0.17*inch, f"EVIDENCE {index:02d}")
-        paragraph(c, alias_text(clue, case), rb.M+0.36*inch, top-0.26*inch, rb.PAGE_W-2*rb.M-0.52*inch, card_h-0.20*inch, 9.5)
-    rb.box(c, rb.M, 0.54*inch, rb.PAGE_W-2*rb.M, 0.40*inch, fill=rb.BLACK, stroke=rb.BLACK, radius=9)
-    paragraph(c, "FOLLOW THE EVIDENCE. DON'T GUESS.", rb.M+0.10*inch, 0.80*inch, rb.PAGE_W-2*rb.M-0.20*inch, 0.20*inch, 8.5, bold=True, color=rb.WHITE, align=TA_CENTER)
-    rb.footer(c, page_no); c.showPage()
 
-
-def map_page(c: Canvas, mission: dict, map_path: Path, page_no: int) -> None:
-    rb.top_bar(c, "LIVE CASE MAP", page_no, 0.70)
-    y=rb.PAGE_H-0.82*inch
-    rb.pill(c, f"CASE {mission['number']:02d} // LIVE EVIDENCE", rb.M, y, 7.6, fill=rb.CHARCOAL)
-    paragraph(c, html.escape(mission["title"]), rb.M, y-0.26*inch, rb.PAGE_W-2*rb.M, 0.42*inch, 16.0, bold=True)
-    y -= 0.70*inch
-    rb.box(c, rb.M, y-5.92*inch, rb.PAGE_W-2*rb.M, 5.82*inch, fill=rb.WHITE, stroke=rb.LINE, radius=12)
-    image=map_path
-    from PIL import Image
-    img=Image.open(image); iw,ih=img.size
-    scale=min((rb.PAGE_W-2*rb.M-0.18*inch)/iw, (5.64*inch)/ih)
-    w,h=iw*scale,ih*scale
-    c.drawImage(str(image), rb.PAGE_W/2-w/2, y-5.82*inch+(5.82*inch-h)/2, width=w, height=h)
-    rb.box(c, rb.M, 0.54*inch, rb.PAGE_W-2*rb.M, 0.40*inch, fill=rb.WHITE, stroke=rb.BLACK, radius=9)
-    paragraph(c, "YOUR VERDICT: ________________________________    COORDINATE: ______", rb.M+0.12*inch, 0.80*inch, rb.PAGE_W-2*rb.M-0.24*inch, 0.20*inch, 8.4, bold=True, align=TA_CENTER)
-    rb.footer(c, page_no); c.showPage()
+def map_page(c: Canvas, mission: dict, map_path: Path, page_no: int, case=None) -> None:
+    from spatial_presentation import map_page as draw_map
+    draw_map(c,mission,map_path,page_no,case)
 
 
 def main() -> None:
@@ -135,7 +127,7 @@ def main() -> None:
         map_path=args.maps/f"{cid}_puzzle_original_shigai_relabelled.png"
         if not map_path.is_file(): raise SystemExit(f"Missing map asset: {map_path}")
         out=args.out/f"{cid}_paired_spread.pdf"; c=Canvas(str(out), pagesize=(rb.PAGE_W, rb.PAGE_H))
-        witness_board(c, missions[cid], cases[cid], 1); map_page(c, missions[cid], map_path, 2); c.save()
+        witness_board(c, missions[cid], cases[cid], 1); map_page(c, missions[cid], map_path, 2, cases[cid]); c.save()
         print(f"PASS {cid}: {out}")
 
 if __name__ == "__main__": main()

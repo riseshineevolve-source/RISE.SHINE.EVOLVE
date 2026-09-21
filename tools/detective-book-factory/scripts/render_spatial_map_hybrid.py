@@ -110,6 +110,21 @@ def detect_grid_bbox(gray: np.ndarray) -> tuple[int,int,int,int]:
         raise SystemExit("Could not detect Shigai grid outer horizontal border.")
     top=row_groups[0][0]
     bottom=row_groups[-1][1]
+    # Short solution headers can put the real top border above the legacy
+    # 12%-of-page cutoff. Require the complete square outer frame instead of
+    # accepting an interior wall and silently dropping the first grid rows.
+    outer_rows=[g for g in contiguous_groups(np.where(row_fraction>.85)[0])
+                if 2<=g[1]-g[0]+1<=int(h*.04)]
+    candidates=[]
+    for upper in outer_rows:
+        for lower in outer_rows:
+            gh=lower[1]-upper[0]
+            if abs(gh-(right-left))>max(5,(right-left)*.01): continue
+            edge=dark[upper[0]:lower[1]+1,[left,right]].mean()
+            if edge>.85: candidates.append((abs(gh-(right-left)),upper[0],lower[1]))
+    if not candidates:
+        raise SystemExit('Could not verify a complete square source-grid outer frame.')
+    _,top,bottom=min(candidates)
     if right-left < w*0.45 or bottom-top < h*0.45:
         raise SystemExit(f"Implausible grid crop: {(left,top,right,bottom)}")
     return left,top,right,bottom
@@ -164,11 +179,12 @@ def font(size: int, bold: bool=True) -> ImageFont.FreeTypeFont:
     candidates=[
         "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf" if bold else "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
         "/usr/share/fonts/truetype/liberation2/LiberationSans-Bold.ttf" if bold else "/usr/share/fonts/truetype/liberation2/LiberationSans-Regular.ttf",
+        "C:/Windows/Fonts/arialbd.ttf" if bold else "C:/Windows/Fonts/arial.ttf",
     ]
     for candidate in candidates:
         if Path(candidate).is_file():
             return ImageFont.truetype(candidate,size=size)
-    return ImageFont.load_default()
+    raise RuntimeError("A scalable print font is required; bitmap fallback makes map labels unreadable.")
 
 
 def room_for_point(case: dict[str,Any], x: float, y: float, grid_w: int, grid_h: int) -> dict[str,Any]:
@@ -333,10 +349,17 @@ def replace_room_labels(
 
 def extract_embedded_page_image(doc: fitz.Document, page_no: int) -> Image.Image:
     page=doc[page_no-1]
-    info=page.get_image_info(xrefs=True)
-    if len(info)!=1:
-        raise SystemExit(f"Source PDF page {page_no}: expected exactly one embedded page image, found {len(info)}")
-    base=doc.extract_image(info[0]["xref"])
+    invoked=re.findall(rb'/([A-Za-z0-9]+)\s+Do\b',page.read_contents())
+    resources=page.get_images(full=True)
+    matches=[item[0] for item in resources if len(invoked)==1 and item[7]==invoked[0].decode('ascii')]
+    if len(matches)==1:
+        xref=matches[0]
+    else:
+        info=page.get_image_info(xrefs=True)
+        if len(info)!=1:
+            raise SystemExit(f"Source PDF page {page_no}: expected exactly one embedded page image, found {len(info)}")
+        xref=info[0]['xref']
+    base=doc.extract_image(xref)
     from io import BytesIO
     return Image.open(BytesIO(base["image"])).convert("RGB")
 
@@ -351,50 +374,43 @@ def fit_image(c, image_path: Path, x: float, y: float, w: float, h: float) -> tu
     return px,py,dw,dh
 
 
+def alias_solution_markers(image: Image.Image, case: dict[str,Any]) -> Image.Image:
+    """Replace source initials at detected markers inside the locked cells."""
+    image=image.convert('L'); gray=np.asarray(image); draw=ImageDraw.Draw(image)
+    rows,cols=int(case['grid']['rows']),int(case['grid']['columns'])
+    cw,ch=image.width/cols,image.height/rows
+    for person in case['characters']:
+        col=ord(person['placement'][0])-65; row=int(person['placement'][1:])-1
+        x0,y0=round(col*cw),round(row*ch)
+        roi=gray[y0:round((row+1)*ch),x0:round((col+1)*cw)]
+        circles=cv2.HoughCircles(roi,cv2.HOUGH_GRADIENT,1.1,cw*.3,param1=100,param2=28,minRadius=round(cw*.1),maxRadius=round(cw*.23))
+        if circles is None: raise ValueError(f"{case['id']}: missing solution marker at {person['placement']}")
+        mx,my,r=min(circles[0],key=lambda v:(v[0]/cw-.73)**2+(v[1]/ch-.27)**2)
+        if ((mx/cw-.73)**2+(my/ch-.27)**2)**.5>.13:
+            raise ValueError(f"{case['id']}: ambiguous solution marker at {person['placement']}")
+        cx,cy=x0+float(mx),y0+float(my); r=float(r)+2
+        draw.ellipse((cx-r,cy-r,cx+r,cy+r),fill=255,outline=0,width=4)
+        text=person['display_name'][0].upper(); f=font(round(cw*.23)); bb=draw.textbbox((0,0),text,font=f)
+        draw.text((cx-(bb[2]-bb[0])/2-bb[0],cy-(bb[3]-bb[1])/2-bb[1]),text,font=f,fill=0)
+    return image
+
+
 def coordinate_rail(c, case: dict[str, Any], x: float, y: float, w: float, h: float) -> None:
     """Place high-contrast, print-sized coordinates outside the preserved art."""
     rows=int(case["grid"]["rows"]); cols=int(case["grid"]["columns"])
     c.saveState()
-    c.setFillColor(rb.BLACK); c.setFont(rb.BOLD, 10.0 if cols <= 7 else 9.0)
+    c.setFillColor(rb.BLACK); c.setFont(rb.BOLD, 16.0 if cols <= 7 else 14.0)
     for col in range(cols):
-        c.drawCentredString(x+(col+0.5)*w/cols, y+h+10, chr(ord("A")+col))
+        c.drawCentredString(x+(col+0.5)*w/cols, y+h+14, chr(ord("A")+col))
     for row in range(rows):
-        c.drawRightString(x-9, y+h-(row+0.57)*h/rows, str(row+1))
+        c.drawRightString(x-12, y+h-(row+0.60)*h/rows, str(row+1))
     c.restoreState()
 
 
 def hybrid_page(c, case: dict[str,Any], map_path: Path, mode: str, page_no: int=1) -> None:
-    is_solution=mode=="solution"
-    rb.top_bar(c,"SOLUTION MAP" if is_solution else "DEDUCTION GRID",page_no,0.70)
-    y=rb.PAGE_H-0.78*inch
-    rank=str(case.get("tier", "field agent")).replace("_", " ").upper()
-    rb.pill(c,f"{case['id']} // {rank}",rb.M,y,7.0,fill=rb.CHARCOAL)
-    rb.para(c,str(case.get("final_title",case["id"])).upper(),rb.M,y-0.20*inch,rb.PAGE_W-2*rb.M,0.48*inch,size=16.6,font=rb.BOLD)
-    y-=0.78*inch
-
-    hero_h=5.95*inch
-    rb.box(c,rb.M,y-hero_h,rb.PAGE_W-2*rb.M,hero_h,fill=rb.WHITE,stroke=rb.LINE,radius=12)
-    image_box=fit_image(c,map_path,rb.M+0.10*inch,y-hero_h+0.10*inch,rb.PAGE_W-2*rb.M-0.20*inch,hero_h-0.20*inch)
-    coordinate_rail(c,case,*image_box)
-    y-=hero_h+0.12*inch
-
-    if is_solution:
-        names="   ".join(f"{p['display_name'][0].upper()} = {p['display_name']}" for p in case.get("characters",[]))
-        rb.fit_para(c,names,rb.M,y,rb.PAGE_W-2*rb.M,0.30*inch,max_size=9.0,min_size=7.2,font=rb.BOLD,align=1)
-        y-=0.35*inch
-        ans=case.get("source_answer",{})
-        rb.box(c,rb.M,y-0.48*inch,rb.PAGE_W-2*rb.M,0.43*inch,fill=rb.BLACK,stroke=rb.BLACK,radius=9)
-        rb.fit_para(c,f"VERDICT: {str(ans.get('display_name', ans.get('name',''))).upper()} @ {ans.get('coordinate','')}",
-                    rb.M+0.10*inch,y-0.13*inch,rb.PAGE_W-2*rb.M-0.20*inch,0.22*inch,
-                    max_size=9.4,min_size=7.0,font=rb.BOLD,color=rb.WHITE,align=1)
-    else:
-        rb.box(c,rb.M,y-0.48*inch,rb.PAGE_W-2*rb.M,0.43*inch,fill=rb.BLACK,stroke=rb.BLACK,radius=9)
-        rb.fit_para(c,"USE THE WITNESS CLUES. WRITE YOUR VERDICT ONLY WHEN THE MAP EARNS IT.",
-                    rb.M+0.10*inch,y-0.13*inch,rb.PAGE_W-2*rb.M-0.20*inch,0.22*inch,
-                    max_size=8.4,min_size=6.4,font=rb.BOLD,color=rb.WHITE,align=1)
-
-    rb.footer(c,page_no)
-    c.showPage()
+    from spatial_presentation import map_page
+    mission = {'number': int(case['id'].split('_')[-1]), 'title': case['final_title'], 'rank': str(case.get('tier','')).replace('_',' ')}
+    map_page(c, mission, map_path, page_no, case, solution=mode=='solution')
 
 
 def main() -> None:
@@ -440,6 +456,8 @@ def main() -> None:
             )
             if mode=="puzzle":
                 fallback_layout=label_layout
+            else:
+                relabeled=alias_solution_markers(relabeled,case)
             path=out/f"{cid}_{mode}_original_shigai_relabelled.png"
             relabeled.save(path,quality=96,dpi=(300,300))
             assets[mode]=path

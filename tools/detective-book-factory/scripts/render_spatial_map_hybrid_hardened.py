@@ -108,7 +108,13 @@ def assign_room_label_boxes(
 
     for box in boxes:
         rid, overlap, margin, raw_scores = _box_room_scores(case, box, grid_w, grid_h)
-        accepted = overlap >= min_overlap and margin >= min_margin
+        x,y,bw,bh=box
+        cx,cy=(x+bw/2)/grid_w*case['grid']['columns'],(y+bh/2)/grid_h*case['grid']['rows']
+        # Bench seats can have the same white rectangular contour as a label.
+        # A contour centered on locked object artwork is not source text.
+        on_object=any(abs(cx-(col+.5))<.30 and abs(cy-(row+.5))<.30
+                      for col,row in (_parse_cell(obj['cell']) for obj in case.get('objects',[])))
+        accepted = overlap >= min_overlap and margin >= min_margin and not on_object
         diagnostics.append(
             {
                 "box": box,
@@ -116,6 +122,7 @@ def assign_room_label_boxes(
                 "overlap": round(overlap, 4),
                 "margin": round(margin, 4),
                 "accepted": accepted,
+                "object_center": on_object,
                 "scores": {key: round(value, 2) for key, value in raw_scores.items()},
             }
         )
@@ -385,6 +392,12 @@ def replace_room_labels_hardened(
     expected = {int(room["source_room_id"]) for room in case["rooms"]}
     missing = sorted(expected - set(assigned))
 
+    if missing:
+        broader,_=assign_room_label_boxes(case,base.detect_room_label_boxes(gray,broad=True),grid.width,grid.height)
+        for rid in missing:
+            if rid in broader: assigned[rid]=broader[rid]
+        missing=sorted(expected-set(assigned))
+
     for rid in list(missing):
         if rid in absent_verified_rooms(case):
             assigned[rid] = topology_safe_anchor(case, rid, grid.width, grid.height)
@@ -432,7 +445,23 @@ def replace_room_labels_hardened(
             f"Candidates: {summary}. Failing closed rather than guessing."
         )
 
+    # Remove only verified legacy label footprints, then whiten the paper.
+    # All walls, object art and source placements remain in the source raster.
     draw = ImageDraw.Draw(grid)
+    for x, y, bw, bh in assigned.values():
+        draw.rounded_rectangle((x-4, y-4, x+bw+4, y+bh+4), radius=max(4, int(bh*.18)), fill="white")
+    grid = grid.convert("L").point(lambda value: 255 if value >= 185 else value)
+    draw = ImageDraw.Draw(grid)
+    minimum = int(__import__('math').ceil(grid.width * 10.5 / (6.0 * 72)))
+    label_font = base.font(minimum)
+    rows, cols = int(case['grid']['rows']), int(case['grid']['columns'])
+    owner = base.np.full((grid.height, grid.width), -1, dtype=base.np.int16)
+    for room in case['rooms']:
+        for cell in room['cells']:
+            col, row = _parse_cell(cell)
+            owner[round(row*grid.height/rows):round((row+1)*grid.height/rows),
+                  round(col*grid.width/cols):round((col+1)*grid.width/cols)] = int(room['source_room_id'])
+    used_cards = []
     for room in case["rooms"]:
         rid = int(room["source_room_id"])
         x, y, bw, bh = assigned[rid]
@@ -440,33 +469,85 @@ def replace_room_labels_hardened(
         if room.get("kind") == "zone":
             final += " // ZONE"
 
-        pad_x = max(8, int(bh * 0.20))
-        x0 = max(0, x - pad_x)
-        x1 = min(grid.width, x + bw + pad_x)
-        y0 = max(0, y - int(bh * 0.10))
-        y1 = min(grid.height, y + bh + int(bh * 0.10))
+        # Search actual white space owned entirely by this room. Never shrink
+        # type, cover a wall/object/person, or infer ownership from a label's center.
+        words = final.split()
+        # Enumerate word boundaries, including three-line ROOM / ZONE names.
+        # A narrow platform can fit "MAIL / PLATFORM / // ZONE" without
+        # reducing type or moving its label into a neighbouring room.
+        layouts=[]
+        for breaks in range(1 << (len(words)-1)):
+            label=words[0]
+            for i,word in enumerate(words[1:]):
+                label+=('\n' if breaks & (1<<i) else ' ')+word
+            layouts.append(label)
+        tone=base.np.asarray(grid)
+        ink = tone < 180
+        # A label may span the thin coordinate lattice within its own room.
+        # Preserve dark walls and art; only the known light grid-line strips
+        # are eligible to sit behind a readable card.
+        for col in range(1,cols):
+            pos=round(col*grid.width/cols)
+            ink[:,pos-4:pos+5] &= tone[:,pos-4:pos+5] < 145
+        for row in range(1,rows):
+            pos=round(row*grid.height/rows)
+            ink[pos-4:pos+5,:] &= tone[pos-4:pos+5,:] < 145
+        occupied = ink.copy()
+        for a,b,cc,d in used_cards:
+            occupied[b:d,a:cc] = True
+        bad = (owner != rid) | occupied
+        integral = base.cv2.integral(bad.astype(base.np.uint8))
+        best = None
+        pad = max(10, minimum//5)
+        for label in layouts:
+            tb = draw.multiline_textbbox((0,0), label, font=label_font, spacing=3, align='center')
+            cw,ch = int(__import__('math').ceil(tb[2]-tb[0]+2*pad)), int(__import__('math').ceil(tb[3]-tb[1]+2*pad))
+            if cw>=grid.width or ch>=grid.height: continue
+            xs=base.np.arange(8,grid.width-cw-8,10); ys=base.np.arange(8,grid.height-ch-8,10)
+            if not len(xs) or not len(ys): continue
+            xx,yy=base.np.meshgrid(xs,ys)
+            count=integral[yy+ch,xx+cw]-integral[yy,xx+cw]-integral[yy+ch,xx]+integral[yy,xx]
+            valid=count==0
+            if not valid.any(): continue
+            distance=(xx+cw/2-x-bw/2)**2+(yy+ch/2-y-bh/2)**2 + label.count('\n')*grid.width
+            distance=base.np.where(valid,distance,base.np.inf)
+            iy,ix=base.np.unravel_index(distance.argmin(),distance.shape)
+            candidate=(float(distance[iy,ix]),int(xx[iy,ix]),int(yy[iy,ix]),cw,ch,label,tb)
+            if best is None or candidate[0]<best[0]: best=candidate
+        if best is None:
+            if base.os.environ.get('HMDA_LABEL_DIAGNOSTIC'):
+                debug=base.TOOL_ROOT/'tmp'/'owner_review_v2_recovery'
+                debug.mkdir(parents=True,exist_ok=True)
+                grid.save(debug/f'{case["id"]}_label_failure.png')
+                Image.fromarray((~bad).astype(base.np.uint8)*255).save(debug/f'{case["id"]}_label_clearance.png')
+                print('LABEL CLEARANCE',final,minimum,[(label,draw.multiline_textbbox((0,0),label,font=label_font,spacing=3)) for label in layouts])
+            raise ValueError(f"{case['id']} room {rid}: no topology-owned clear area for 10.5pt label {final!r}")
+        _,x0,y0,cw,ch,label,tb=best
+        x1,y1=x0+cw,y0+ch
+        draw.rounded_rectangle((x0,y0,x1,y1),radius=8,fill=255,outline=0,width=2)
+        draw.multiline_text((x0+pad-tb[0],y0+pad-tb[1]),label,font=label_font,fill=0,spacing=3,align='center')
+        used_cards.append((x0-5,y0-5,x1+5,y1+5))
 
-        # Detected/reference labels replace only their source footprint. An
-        # absent_verified label is anchored wholly inside an empty topology cell.
-        draw.rounded_rectangle(
-            (x0, y0, x1, y1),
-            radius=max(6, int(bh * 0.22)),
-            fill="white",
-            outline=(20, 20, 20),
-            width=max(2, int(bh * 0.06)),
-        )
-        max_size = max(20, int(bh * 0.86))
-        min_size = max(15, int(bh * 0.52))
-        chosen = base.font(min_size)
-        for size in range(max_size, min_size - 1, -1):
-            candidate_font = base.font(size)
-            tb = draw.textbbox((0, 0), final, font=candidate_font)
-            if tb[2] - tb[0] <= (x1 - x0) - 14 and tb[3] - tb[1] <= (y1 - y0) - 8:
-                chosen = candidate_font
-                break
-        tb = draw.textbbox((0, 0), final, font=chosen)
-        tw, th = tb[2] - tb[0], tb[3] - tb[1]
-        draw.text(((x0 + x1 - tw) / 2, (y0 + y1 - th) / 2 - 2), final, font=chosen, fill=(20, 20, 20))
+    # Preserve the exact coordinate lattice on white paper, including cells
+    # whose old faint gray lines disappeared with the source paper tint.
+    pixels=base.np.array(grid)
+    lattice=base.np.zeros(pixels.shape,dtype=bool)
+    for col in range(1,cols):
+        pos=round(col*grid.width/cols); lattice[:,pos-1:pos+2]=True
+    for row in range(1,rows):
+        pos=round(row*grid.height/rows); lattice[pos-1:pos+2,:]=True
+    for a,b,cc,d in used_cards:
+        lattice[max(0,b):d,max(0,a):cc]=False
+    pixels[lattice & (pixels==255)]=190
+    # Edge-touching source labels must not erase the original outer frame.
+    # Restore only its existing dark pixels, never inferred room walls.
+    edge=max(3,round(grid.width*.004))
+    frame=base.np.zeros(pixels.shape,dtype=bool)
+    frame[:edge,:]=True; frame[-edge:,:]=True
+    frame[:,:edge]=True; frame[:,-edge:]=True
+    preserve=frame & (gray<72)
+    pixels[preserve]=gray[preserve]
+    grid=Image.fromarray(pixels)
 
     normalized = {
         rid: (x / grid.width, y / grid.height, bw / grid.width, bh / grid.height)

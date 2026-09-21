@@ -36,6 +36,11 @@ jobs:
             scripts/build_book1_master.py \
             scripts/extract_shigai_runtime.py \
             scripts/render_spatial_case_spreads.py \
+            scripts/spatial_presentation.py \
+            scripts/build_owner_review_v2.py \
+            scripts/audit_owner_review_v2.py \
+            scripts/test_spatial_grid_crop.py \
+            scripts/validate_spatial_object_art.py \
             scripts/render_spatial_map_hybrid.py \
             scripts/render_spatial_map_hybrid_hardened.py \
             scripts/test_spatial_case_spreads_smoke.py \
@@ -50,7 +55,7 @@ jobs:
 
       - name: Sync canonical Happy Makers assets
         working-directory: tools/detective-book-factory
-        run: python scripts/sync_brand_assets.py
+        run: python scripts/sync_brand_assets.py --require-approved-squad
 
       - name: Build editorial preview
         working-directory: tools/detective-book-factory
