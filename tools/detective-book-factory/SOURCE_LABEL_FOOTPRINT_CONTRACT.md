@@ -81,3 +81,66 @@ This classification is tied to the currently locked HMDA source PDF/checkpoint o
 The renderer may therefore use the topology-bound safe-anchor policy for those two rooms instead of requiring a nonexistent source pill footprint.
 
 This is a presentation-layer repair only. It does not authorize any change to puzzle logic, source identity, source room partition, placement, clues, answer, or Room Zero meta behavior.
+
+
+## Automated evidence classification — owner authorization 2026-09-21
+
+To prevent repeated owner gates for the same source-image artifact class, the renderer is authorized to classify unresolved source-room labels automatically when the decision is supported by **two-page source evidence** and verified topology.
+
+This is a production rule, not a heuristic permission to guess.
+
+### Evidence window
+
+For a case, compare both locked source images whenever available:
+- puzzle/scene page;
+- solution page.
+
+Use the same detected grid bbox normalization and the same verified room mask on both pages.
+
+### Auto-classify as absent_verified
+
+A room may be classified automatically as `absent_verified` only when ALL are true:
+
+1. primary standard-pill detector finds no valid label candidate assigned to that room on the puzzle page;
+2. broader secondary detector also finds no valid candidate for that room;
+3. the same absence is independently observed on the solution page, or the solution page uses the puzzle-page image layer without a distinct source label;
+4. a generic text-like-region scan inside the verified room mask finds no stable high-confidence source-label-shaped region that repeats at a compatible normalized location across puzzle/solution pages;
+5. topology-bound safe-anchor placement exists and passes the normal no-wall/no-object/no-overlap/readability checks;
+6. the decision is written to durable metadata with source PDF hash, case ID, room ID and evidence mode `auto_two_page_absence`.
+
+If any condition is ambiguous, do not classify absent.
+
+### Auto-classify as explicit_reference
+
+A room may receive an automated `explicit_reference` only when ALL are true:
+
+1. a source text/label-like region exists inside the verified room mask but fails the standard pill detector;
+2. exactly one candidate is materially stronger than alternatives;
+3. the same candidate is present at a compatible normalized location on both puzzle and solution source pages;
+4. candidate geometry is wholly or overwhelmingly inside the same verified room mask;
+5. the normalized reference footprint can be recorded without touching room topology;
+6. a regression render proves that only the source label region is replaced and nearby wall/furniture/object art is preserved;
+7. the decision is written to durable metadata with evidence mode `auto_two_page_reference`.
+
+No OCR text recognition is required for production. If OCR is used during diagnosis, it is advisory only and must not become a runtime dependency.
+
+### Persist evidence, not repeated owner gates
+
+For every auto-classified room, store:
+- source PDF SHA-256,
+- case ID,
+- source room ID,
+- source puzzle page,
+- source solution page,
+- state,
+- evidence mode,
+- normalized reference footprint only when state is `explicit_reference`,
+- detector confidence/margin values needed to explain the decision.
+
+Once persisted and regression-tested, the classification is treated as source-bound production metadata and does not require separate owner approval per room.
+
+### Hard stop
+
+If neither two-page absence nor two-page explicit-reference criteria are met, fail closed and escalate only that room for human visual review.
+
+Do not weaken thresholds globally just to finish the batch.
