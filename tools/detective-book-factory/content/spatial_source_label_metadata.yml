@@ -1,0 +1,8 @@
+version: 1
+source_pdf_sha256: "6662c292642f3d66148e41eef180bb7d2b15a0975ca822981f4f33aa7153aada"
+cases:
+  HMDA_04:
+    puzzle_page: 6
+    rooms:
+      0: {state: absent_verified}
+      3: {state: absent_verified}

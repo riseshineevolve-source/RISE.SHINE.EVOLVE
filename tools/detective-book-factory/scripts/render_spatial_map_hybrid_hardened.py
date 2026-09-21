@@ -25,6 +25,7 @@ import render_spatial_map_hybrid as base
 
 MIN_ROOM_OVERLAP = 0.52
 MIN_ROOM_MARGIN = 0.08
+LABEL_METADATA = base.load_yaml(base.TOOL_ROOT / "content" / "spatial_source_label_metadata.yml")
 
 
 def _parse_cell(cell: str) -> tuple[int, int]:
@@ -129,6 +130,43 @@ def assign_room_label_boxes(
     return assigned, diagnostics
 
 
+def absent_verified_rooms(case: dict[str, Any]) -> set[int]:
+    expected = str(base.load_yaml(base.TOOL_ROOT / "content" / "spatial_source_manifest_final.yml")["source"]["source_pdf_sha256"])
+    if LABEL_METADATA.get("source_pdf_sha256") != expected:
+        raise ValueError("Source-label metadata hash does not match the locked source PDF.")
+    rooms = LABEL_METADATA.get("cases", {}).get(case["id"], {}).get("rooms", {})
+    return {int(rid) for rid, data in rooms.items() if data.get("state") == "absent_verified"}
+
+
+def topology_safe_anchor(case: dict[str, Any], rid: int, grid_w: int, grid_h: int) -> tuple[int, int, int, int]:
+    """Place an absent-verified label in a clear, topology-owned source cell."""
+    rows, cols = int(case["grid"]["rows"]), int(case["grid"]["columns"])
+    room = next(room for room in case["rooms"] if int(room["source_room_id"]) == rid)
+    occupied = {obj["cell"] for obj in case.get("objects", [])}
+    occupied |= {person["placement"] for person in case.get("characters", [])}
+    candidates = []
+    for cell in room["cells"]:
+        if cell in occupied:
+            continue
+        col, row = _parse_cell(cell)
+        cell_w, cell_h = grid_w / cols, grid_h / rows
+        # Prefer cells surrounded by matching-room neighbours: a conservative
+        # clear interior score derived exclusively from topology.
+        neighbours = [(col-1,row),(col+1,row),(col,row-1),(col,row+1)]
+        interior = sum(
+            1 for nc,nr in neighbours
+            if 0 <= nc < cols and 0 <= nr < rows and f"{chr(65+nc)}{nr+1}" in room["cells"]
+        )
+        candidates.append((interior, -row, -col, col, row, cell_w, cell_h))
+    if not candidates:
+        raise ValueError(f"{case['id']}: absent_verified room {rid} has no clear topology cell.")
+    _, _, _, col, row, cell_w, cell_h = max(candidates)
+    width, height = int(cell_w * 0.82), int(cell_h * 0.30)
+    x = int(col * cell_w + (cell_w - width) / 2)
+    y = int(row * cell_h + (cell_h - height) / 2)
+    return x, y, width, height
+
+
 def replace_room_labels_hardened(
     source: Image.Image,
     case: dict[str, Any],
@@ -143,6 +181,11 @@ def replace_room_labels_hardened(
     assigned, diagnostics = assign_room_label_boxes(case, boxes, grid.width, grid.height)
 
     expected = {int(room["source_room_id"]) for room in case["rooms"]}
+    missing = sorted(expected - set(assigned))
+
+    for rid in list(missing):
+        if rid in absent_verified_rooms(case):
+            assigned[rid] = topology_safe_anchor(case, rid, grid.width, grid.height)
     missing = sorted(expected - set(assigned))
 
     # Existing production rule retained: only the solution page may borrow the
@@ -184,8 +227,8 @@ def replace_room_labels_hardened(
         y0 = max(0, y - int(bh * 0.10))
         y1 = min(grid.height, y + bh + int(bh * 0.10))
 
-        # Preserve nearby wall geometry by repainting only the detected source
-        # pill footprint plus the existing tightly bounded presentation padding.
+        # Detected/reference labels replace only their source footprint. An
+        # absent_verified label is anchored wholly inside an empty topology cell.
         draw.rounded_rectangle(
             (x0, y0, x1, y1),
             radius=max(6, int(bh * 0.22)),
