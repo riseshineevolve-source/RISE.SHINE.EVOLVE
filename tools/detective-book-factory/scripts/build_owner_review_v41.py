@@ -2,8 +2,10 @@
 """Build HMDA Book 1 V4.1 from the locked V4 composition plus bounded polish.
 
 This wrapper deliberately preserves V4 story, puzzle logic, spatial geometry,
-reader premise and pagination. It integrates deterministic V4.1 external visual
-assets and bounded premium-polish surfaces without reopening accepted logic.
+reader premise and pagination. Owner-gated Case 03 / Book 2 art is NEVER
+generated or silently selected by this builder: it can be integrated only from
+an explicit owner-locked visual manifest. All asset-independent V4.1 polish
+continues normally while that gate is pending.
 
 English is NOT frozen by this builder.
 """
@@ -19,11 +21,16 @@ from pathlib import Path
 import yaml
 
 import build_owner_review_v4 as v4
-import generate_v41_visual_assets as v41_assets
 
 ROOT = v4.ROOT
 rb = v4.rb
-ASSET_DIR = ROOT / "cache" / "v41_visual_assets"
+ACTIVE_ASSET_DIR: Path | None = None
+EXPECTED_OWNER_ASSETS = {
+    "case03_photo_A.png",
+    "case03_photo_B.png",
+    "book2_archive_photo.png",
+}
+OWNER_CASE03_SPEC_STATUS = "OWNER_APPROVED_EXACT_10_DIFFERENCE_CONTRACT"
 
 
 # Thirty deterministic field-note lines guarantee that whichever spatial cases
@@ -63,39 +70,66 @@ INTERLUDE_QUIPS = (
 )
 
 
-def _prepare_assets() -> dict:
-    """Generate and validate the deterministic V4.1 visual packet."""
-    manifest = v41_assets.generate(ASSET_DIR)
-    if manifest.get("version") != "v4.1":
-        raise ValueError("V4.1 visual manifest version mismatch")
-    if manifest.get("english_frozen") is not False:
-        raise ValueError("V4.1 visual generation must never freeze English")
+def _load_owner_visual_packet(manifest_path: Path | None) -> dict:
+    """Validate owner-gated visual slots without generating or choosing art.
 
-    expected = {
-        "case03_photo_A.png",
-        "case03_photo_B.png",
-        "book2_archive_photo.png",
-    }
-    present = set(manifest.get("assets", {}))
-    if present != expected:
-        raise ValueError(f"V4.1 visual packet mismatch: expected {sorted(expected)}, got {sorted(present)}")
+    No manifest means the visual gate is intentionally pending. When a manifest
+    is supplied, it must explicitly attest that the owner approved the exact
+    ten-difference Case 03 contract and the Book 2 archival hook, and every
+    referenced asset must match its locked SHA-256.
+    """
+    if manifest_path is None:
+        return {
+            "status": "OWNER_GATE_PENDING",
+            "owner_locked": False,
+            "integrated": False,
+            "case03_difference_count_required": 10,
+            "case03_spec_status_required": OWNER_CASE03_SPEC_STATUS,
+            "assets": {},
+        }
 
-    case03 = manifest.get("case03_controlled_differences", {})
-    if case03.get("uncontrolled_pixel_deltas_allowed") is not False:
-        raise ValueError("Case 03 uncontrolled pixel deltas are forbidden")
-    if case03.get("material") != [
-        "parcel knot position",
-        "evidence tag 0417 -> 0471",
-        "muddy footprint direction toward the door",
-    ]:
-        raise ValueError("Case 03 material-difference contract changed")
+    if not manifest_path.is_file():
+        raise FileNotFoundError(f"Owner visual manifest not found: {manifest_path}")
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    if not isinstance(manifest, dict):
+        raise ValueError("Owner visual manifest must be a JSON object")
+    if manifest.get("owner_locked") is not True:
+        raise ValueError("Owner visual manifest is not owner-locked")
+    if manifest.get("case03_difference_count") != 10:
+        raise ValueError("Case 03 owner visual contract must contain exactly 10 differences")
+    if manifest.get("case03_spec_status") != OWNER_CASE03_SPEC_STATUS:
+        raise ValueError("Case 03 exact 10-difference specification is not owner-approved")
+    if manifest.get("book2_visual_owner_locked") is not True:
+        raise ValueError("Book 2 archival-hook visual is not owner-locked")
 
-    for name, expected_sha in manifest["assets"].items():
-        path = ASSET_DIR / name
+    assets = manifest.get("assets", {})
+    if set(assets) != EXPECTED_OWNER_ASSETS:
+        raise ValueError(
+            f"Owner visual packet mismatch: expected {sorted(EXPECTED_OWNER_ASSETS)}, "
+            f"got {sorted(assets)}"
+        )
+    asset_dir = manifest_path.parent
+    for name, expected_sha in assets.items():
+        path = asset_dir / name
+        if not path.is_file():
+            raise FileNotFoundError(f"Owner visual asset missing: {path}")
         actual_sha = hashlib.sha256(path.read_bytes()).hexdigest()
         if actual_sha != expected_sha:
-            raise ValueError(f"V4.1 asset hash mismatch for {name}")
-    return manifest
+            raise ValueError(f"Owner visual asset hash mismatch for {name}")
+
+    result = dict(manifest)
+    result["status"] = "OWNER_LOCKED_ASSETS_VALIDATED"
+    result["integrated"] = True
+    result["manifest_path"] = str(manifest_path)
+    return result
+
+
+def _owner_asset(name: str) -> Path:
+    if ACTIVE_ASSET_DIR is None:
+        raise RuntimeError("Owner-gated visual asset requested while visual gate is pending")
+    if name not in EXPECTED_OWNER_ASSETS:
+        raise ValueError(f"Unsupported owner visual asset: {name}")
+    return ACTIVE_ASSET_DIR / name
 
 
 def _interlude_note(data: dict, case_number: int) -> tuple[str, str]:
@@ -167,7 +201,7 @@ def parity_pause_v41(c, data, mission, page):
 
 
 def case03_photo_page(c, data, mission, page, progress):
-    """Render the deterministic photo pair without changing Case 03 logic."""
+    """Render only an explicitly owner-locked Case 03 photo pair."""
     rb.top_bar(c, "VISUAL EVIDENCE // PHOTO PAIR", page, progress)
     y = rb.PAGE_H - 64
     rb.para(c, "SAME TABLE. ONE MINUTE APART.", rb.M, y, rb.PAGE_W - 2 * rb.M, 38,
@@ -189,14 +223,14 @@ def case03_photo_page(c, data, mission, page, progress):
         rb.box(c, x, y - panel_h, panel_w, panel_h,
                fill=rb.WHITE, stroke=rb.BLACK, radius=8)
         rb.label(c, f"PHOTO {label} // 15:{42 + idx:02d}", x + 10, y - 18, size=9.5)
-        image = ASSET_DIR / f"case03_photo_{label}.png"
+        image = _owner_asset(f"case03_photo_{label}.png")
         rb.draw_image_fit(c, image, x + 10, y - 262, panel_w - 20, 224)
         rb.label(c, "EVIDENCE PHOTO // SAME CAMERA POSITION", x + 10, y - 282, size=8.4)
-        rb.para(c, "Three evidence changes + three harmless decoys.",
+        rb.para(c, "Find the 10 approved differences. Decide which ones change the evidence.",
                 x + 10, y - 292, panel_w - 20, 20, size=8.8, align=1)
 
     y -= panel_h + 18
-    rb.writing_card(c, "CIRCLE THE 3 CHANGES THAT ALTER THE EVIDENCE",
+    rb.writing_card(c, "MARK THE DIFFERENCES THAT ALTER THE EVIDENCE",
                     rb.M, y, rb.PAGE_W - 2 * rb.M, 72)
     v4.compact_signal_bar(c, mission)
     rb.footer(c, page)
@@ -204,7 +238,7 @@ def case03_photo_page(c, data, mission, page, progress):
 
 
 def book2_scene_page(c, data, page):
-    """Use the deterministic archival photograph in the existing V4 scene."""
+    """Render only an explicitly owner-locked Book 2 archival photograph."""
     scene = data.get("book2_scene", {})
     rb.top_bar(c, "NEW FILE // AFTER CERTIFICATION", page, 1.0)
     y = rb.PAGE_H - 62
@@ -218,7 +252,7 @@ def book2_scene_page(c, data, page):
            fill=rb.WHITE, stroke=rb.BLACK, radius=5, sw=1.4)
     rb.label(c, "ARCHIVE RELEASE // CASE 001", folder_x + 16, y - 47, size=10)
 
-    photo = ASSET_DIR / "book2_archive_photo.png"
+    photo = _owner_asset("book2_archive_photo.png")
     rb.draw_image_fit(c, photo, folder_x + 22, y - 257, folder_w - 44, 190)
     rb.label(c, "ARCHIVE GROUP PHOTO // CENTRAL FIGURE PHYSICALLY REMOVED",
              folder_x + 22, y - 272, size=8.5)
@@ -256,16 +290,26 @@ def book2_scene_page(c, data, page):
 
 
 def main() -> None:
+    global ACTIVE_ASSET_DIR
+
     parser = argparse.ArgumentParser()
     parser.add_argument("--master", required=True, type=Path)
     parser.add_argument("--runtime", required=True, type=Path)
     parser.add_argument("--maps", required=True, type=Path)
     parser.add_argument("--overrides", default=ROOT / "content/book1_v4_overrides.yml", type=Path)
     parser.add_argument("--aliases", default=ROOT / "content/spatial_character_aliases.yml", type=Path)
+    parser.add_argument("--owner-visual-manifest", type=Path,
+                        help="Optional explicit owner-locked Case 03 + Book 2 asset manifest. "
+                             "Without it, V4 baseline visuals remain and the owner visual gate stays pending.")
     parser.add_argument("--output", required=True, type=Path)
     args = parser.parse_args()
 
-    manifest = _prepare_assets()
+    visual_manifest_path = args.owner_visual_manifest.resolve() if args.owner_visual_manifest else None
+    manifest = _load_owner_visual_packet(visual_manifest_path)
+    visuals_integrated = manifest.get("integrated") is True
+    if visuals_integrated and visual_manifest_path is not None:
+        ACTIVE_ASSET_DIR = visual_manifest_path.parent
+
     data, cases, _v4_master, runtime = v4.build_data(
         args.master.resolve(),
         args.runtime.resolve(),
@@ -276,21 +320,28 @@ def main() -> None:
     )
 
     data.setdefault("production_state", {})["owner_review_revision"] = "4.1"
-    data["production_state"]["v41_visual_manifest"] = "cache/v41_visual_assets/manifest.json"
     data["production_state"]["english_frozen"] = False
+    data["production_state"]["v41_owner_visual_gate"] = (
+        "OWNER_LOCKED_ASSETS_INTEGRATED" if visuals_integrated
+        else "PENDING_CASE03_EXACT_10_DIFFERENCE_AND_BOOK2_ART"
+    )
+    if visual_manifest_path is not None:
+        data["production_state"]["v41_visual_manifest"] = str(visual_manifest_path)
     v41_master = args.output.resolve().parent / "book1_en_master_owner_review_v41.yml"
     v41_master.write_text(
         yaml.safe_dump(data, sort_keys=False, allow_unicode=True, width=110),
         encoding="utf-8",
     )
 
-    # render_v4 resolves these module globals at runtime, so bounded patching
-    # replaces only the V4 surfaces approved for V4.1 premium polish.
+    # render_v4 resolves these module globals at runtime. Asset-independent V4.1
+    # polish is always applied; owner-gated visual surfaces are patched only when
+    # an explicit owner-locked manifest passes the gate above.
     original_case03 = v4.case03_photo_page
     original_book2 = v4.book2_scene_page
     original_parity = v4.parity_pause
-    v4.case03_photo_page = case03_photo_page
-    v4.book2_scene_page = book2_scene_page
+    if visuals_integrated:
+        v4.case03_photo_page = case03_photo_page
+        v4.book2_scene_page = book2_scene_page
     v4.parity_pause = parity_pause_v41
     try:
         pages, _index = v4.render_v4(data, cases, v41_master, args.output.resolve())
@@ -298,6 +349,7 @@ def main() -> None:
         v4.case03_photo_page = original_case03
         v4.book2_scene_page = original_book2
         v4.parity_pause = original_parity
+        ACTIVE_ASSET_DIR = None
 
     v4_index = args.output.resolve().parent / "HMDA_Book1_EN_OwnerReview_v4_page_index.json"
     v41_index = args.output.resolve().parent / "HMDA_Book1_EN_OwnerReview_v41_page_index.json"
@@ -309,9 +361,10 @@ def main() -> None:
         "revision": "v4.1",
         "pages": pages,
         "pdf_sha256": sha,
-        "visual_manifest": manifest,
+        "owner_visual_gate": manifest,
         "premium_polish": {
             "parity_interludes": "unique case-specific Case Wall pages",
+            "owner_gated_visuals_integrated": visuals_integrated,
             "logic_changed": False,
             "pagination_changed": False,
         },
@@ -325,6 +378,7 @@ def main() -> None:
     print(f"RUNTIME: {runtime}")
     print(f"PDF: {args.output.resolve()}")
     print(f"SHA256: {sha}")
+    print(f"Owner visuals integrated: {str(visuals_integrated).lower()}")
     print("English frozen: false")
 
 
