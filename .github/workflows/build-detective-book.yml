@@ -38,6 +38,7 @@ jobs:
             scripts/render_spatial_case_spreads.py \
             scripts/spatial_presentation.py \
             scripts/build_owner_review_v2.py \
+            scripts/build_owner_review_v31.py \
             scripts/audit_owner_review_v2.py \
             scripts/test_spatial_grid_crop.py \
             scripts/validate_spatial_object_art.py \
