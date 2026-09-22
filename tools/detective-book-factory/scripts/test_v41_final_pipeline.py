@@ -8,6 +8,7 @@ from pathlib import Path
 
 from pypdf import PdfReader, PdfWriter
 from pypdf.generic import NameObject, NumberObject
+import yaml
 
 import apply_v41_reverse_backmatter as rbm
 import build_owner_review_v41_final as finalizer
@@ -20,6 +21,57 @@ def synthetic_index() -> dict:
     for n in range(1, 31):
         index[f"{n:02d}_solution"] = 115 + n
     return index
+
+
+def test_case26_lookup_master() -> None:
+    with tempfile.TemporaryDirectory() as tmp:
+        root = Path(tmp)
+        master_path = root / "master.yml"
+        overrides_path = root / "overrides.yml"
+        output_path = root / "lookup-master.yml"
+
+        spatial_cases = {2, 4, 6, 7, 10, 12, 13, 15, 17, 19, 20, 22, 23, 25}
+        missions = []
+        for n in range(1, 31):
+            mission = {
+                "number": n,
+                "type": "spatial" if n in spatial_cases else "guided",
+                "hints": [f"Case {n} hint one", f"Case {n} hint two", f"Case {n} hint three"],
+            }
+            missions.append(mission)
+
+        master_path.write_text(
+            yaml.safe_dump({
+                "missions": missions,
+                "story_spine": {"beats": []},
+                "production_state": {},
+            }, sort_keys=False),
+            encoding="utf-8",
+        )
+        overrides_path.write_text(
+            yaml.safe_dump({
+                "production": {"compact_cases": [], "artifact_cases": []},
+                "cases": {},
+            }, sort_keys=False),
+            encoding="utf-8",
+        )
+
+        refs = finalizer.prepare_case26_lookup_master(
+            master_path, overrides_path, output_path
+        )
+        assert len(refs) == 14
+        assert [item["case"] for item in refs] == sorted(spatial_cases)
+
+        prepared = yaml.safe_load(output_path.read_text(encoding="utf-8"))
+        case26 = next(m for m in prepared["missions"] if int(m["number"]) == 26)
+        hint = case26["hints"][0]
+        assert hint.startswith("Case 26 hint one\n\nMAP LOOKUP //")
+        for item in refs:
+            assert f"Case {item['case']:02d} p. {item['page']}" in hint
+        assert prepared["production_state"]["case26_lookup_scope"] == "HINT_LEVEL_1_ONLY"
+        assert prepared["production_state"]["case26_lookup_changes_logic"] is False
+        assert case26["hints"][1] == "Case 26 hint two"
+        assert case26["hints"][2] == "Case 26 hint three"
 
 
 def test_finalizer() -> None:
@@ -78,5 +130,6 @@ def test_finalizer() -> None:
 
 
 if __name__ == "__main__":
+    test_case26_lookup_master()
     test_finalizer()
     print("PASS: complete V4.1 final artifact pipeline contract")
