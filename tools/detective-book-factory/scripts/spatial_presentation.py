@@ -32,7 +32,7 @@ def verdict_card(c, top, answer=None):
     x=rb.M; w=rb.PAGE_W-2*x
     rb.box(c,x,top-62,w,62,fill=rb.WHITE,stroke=rb.BLACK,radius=10,sw=1.3)
     c.setFillColor(rb.BLACK); c.setFont(rb.BOLD,10)
-    c.drawString(x+12,top-18,'WITNESS / PERSON' if not answer else 'VERIFIED WITNESS / PERSON')
+    c.drawString(x+12,top-18,'YOUR VERDICT // WITNESS / PERSON' if not answer else 'VERIFIED WITNESS / PERSON')
     c.drawString(x+w-120,top-18,'COORDINATE')
     c.setLineWidth(.9)
     c.line(x+12,top-49,x+w-148,top-49)
