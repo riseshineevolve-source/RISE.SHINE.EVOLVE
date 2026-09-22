@@ -11,7 +11,10 @@ import render_book as rb
 def draw_grid(c, path, case, top, height=7.0*inch):
     with Image.open(path) as im:
         iw, ih = im.size
-    scale = min((rb.PAGE_W-2*rb.M-28)/iw, height/ih, 72/300)
+    # The normalized source rasters vary by a pixel at their outer crop.  A
+    # 72.1pt/300px cap keeps effective resolution above 299 DPI while ensuring
+    # a nominal six-inch writable field does not become 431.76pt.
+    scale = min((rb.PAGE_W-2*rb.M-28)/iw, height/ih, 72.1/300)
     w,h=iw*scale,ih*scale
     x=rb.PAGE_W/2-w/2+9; y=top-h
     c.drawImage(str(path),x,y,w,h)
@@ -29,7 +32,7 @@ def verdict_card(c, top, answer=None):
     x=rb.M; w=rb.PAGE_W-2*x
     rb.box(c,x,top-62,w,62,fill=rb.WHITE,stroke=rb.BLACK,radius=10,sw=1.3)
     c.setFillColor(rb.BLACK); c.setFont(rb.BOLD,10)
-    c.drawString(x+12,top-18,'VERIFIED VERDICT' if answer else 'YOUR VERDICT')
+    c.drawString(x+12,top-18,'WITNESS / PERSON' if not answer else 'VERIFIED WITNESS / PERSON')
     c.drawString(x+w-120,top-18,'COORDINATE')
     c.setLineWidth(.9)
     c.line(x+12,top-49,x+w-148,top-49)
@@ -55,10 +58,19 @@ def map_page(c, mission, map_path, page_no, case=None, solution=False):
         key='One person per row and column. Usable: empty floor; '+', '.join(allowed)+'. Other objects block squares.'
     if solution:
         key='  |  '.join(f"{index:02d} = {p['display_name']}" for index,p in enumerate(case.get('characters',[]),1))
-    rb.label(c,'MAP RULES / WITNESS KEY',rb.M,top-62,size=10)
-    key_h=rb.text_height(html.escape(key),rb.PAGE_W-2*rb.M,11)
-    rb.para(c,html.escape(key),rb.M,top-75,rb.PAGE_W-2*rb.M,key_h+1,size=11)
-    grid_top=rb.PAGE_H-126-key_h-20
-    bottom,_,_=draw_grid(c,map_path,case,grid_top,6.45*inch)
-    verdict_card(c,bottom-48,case.get('source_answer') if solution else None)
+    # The coordinate glyphs occupy a real reserved band.  The old formula
+    # placed that band inside the rules paragraph on eleven maps.  Measure the
+    # copy, then stack rules -> 10pt clearance -> coordinates -> 6pt -> map.
+    rules_top=top-60
+    key_h=rb.text_height(html.escape(key),rb.PAGE_W-2*rb.M-24,10.5)
+    rules_h=key_h+34
+    rb.box(c,rb.M,rules_top-rules_h,rb.PAGE_W-2*rb.M,rules_h,
+           fill=rb.WHITE,stroke=rb.BLACK,radius=7,sw=0.9)
+    rb.label(c,'MAP RULES / WITNESS KEY',rb.M+12,rules_top-17,size=9.5)
+    rb.para(c,html.escape(key),rb.M+12,rules_top-27,rb.PAGE_W-2*rb.M-24,key_h+1,size=10.5)
+    rules_bottom=rules_top-rules_h
+    coordinate_band=20
+    grid_top=rules_bottom-10-coordinate_band-6
+    bottom,_,_=draw_grid(c,map_path,case,grid_top,6.02*inch)
+    verdict_card(c,bottom-12,case.get('source_answer') if solution else None)
     rb.footer(c,page_no); c.showPage()

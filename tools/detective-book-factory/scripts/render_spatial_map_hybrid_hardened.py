@@ -503,7 +503,9 @@ def replace_room_labels_hardened(
             tb = draw.multiline_textbbox((0,0), label, font=label_font, spacing=3, align='center')
             cw,ch = int(__import__('math').ceil(tb[2]-tb[0]+2*pad)), int(__import__('math').ceil(tb[3]-tb[1]+2*pad))
             if cw>=grid.width or ch>=grid.height: continue
-            xs=base.np.arange(8,grid.width-cw-8,10); ys=base.np.arange(8,grid.height-ch-8,10)
+            edge_safe=max(32,round(grid.width*.018))
+            xs=base.np.arange(edge_safe,grid.width-cw-edge_safe,10)
+            ys=base.np.arange(edge_safe,grid.height-ch-edge_safe,10)
             if not len(xs) or not len(ys): continue
             xx,yy=base.np.meshgrid(xs,ys)
             count=integral[yy+ch,xx+cw]-integral[yy,xx+cw]-integral[yy+ch,xx]+integral[yy,xx]
@@ -524,6 +526,8 @@ def replace_room_labels_hardened(
             raise ValueError(f"{case['id']} room {rid}: no topology-owned clear area for 10.5pt label {final!r}")
         _,x0,y0,cw,ch,label,tb=best
         x1,y1=x0+cw,y0+ch
+        if base.os.environ.get('HMDA_LABEL_TRACE'):
+            print('LABEL PLACEMENT',case['id'],rid,final,(x0,y0,cw,ch),label.replace('\n',' / '))
         draw.rounded_rectangle((x0,y0,x1,y1),radius=8,fill=255,outline=0,width=2)
         draw.multiline_text((x0+pad-tb[0],y0+pad-tb[1]),label,font=label_font,fill=0,spacing=3,align='center')
         used_cards.append((x0-5,y0-5,x1+5,y1+5))

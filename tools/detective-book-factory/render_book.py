@@ -24,7 +24,10 @@ DARK = colors.HexColor('#343434')
 MID = colors.HexColor('#777777')
 LINE = colors.HexColor('#C7C7C7')
 PALE = colors.HexColor('#EEEEEE')
-PALE2 = colors.HexColor('#F7F7F7')
+# V4 interiors use paper white for all interface panels.  Keep the token so
+# established layouts remain source-compatible without introducing dirty-gray
+# cards in the printed book.
+PALE2 = colors.white
 WHITE = colors.white
 
 

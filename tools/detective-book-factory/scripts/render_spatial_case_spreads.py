@@ -74,6 +74,9 @@ def witness_board(c: Canvas, mission: dict, case: dict, page_no: int) -> None:
     roster_h=paragraph(c,html.escape(roster),x,y,w,46,11,bold=True); y-=roster_h+12
     notes=mission.get('dialogue',[])
     if notes:
+        c.setFillColor(rb.BLACK); c.setFont(rb.BOLD,10)
+        c.drawString(x,y,'HAPPY MAKERS CHAT')
+        y-=15
         note='  '.join(f"{item['speaker'].upper()}: {item['text']}" for item in notes)
         used=paragraph(c,alias_text(note,case),x,y,w,65,11); y-=used+16
     c.setFillColor(rb.BLACK); c.setFont(rb.BOLD,12); c.drawString(x,y,'WITNESS STATEMENTS')
