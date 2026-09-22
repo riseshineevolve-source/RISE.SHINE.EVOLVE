@@ -126,6 +126,8 @@ def main() -> int:
                         help="Explicit additional full-span metadata exclusion; repeatable and reported.")
     parser.add_argument("--skip-previews", action="store_true",
                         help="Focused machine recheck only; does not create or certify a QA packet.")
+    parser.add_argument("--report-title", default="HMDA OWNER REVIEW V2 MACHINE AUDIT",
+                        help="Heading written to audit.txt.")
     args = parser.parse_args()
     if args.dpi < 72 or args.expected_pages < 1:
         parser.error("dpi must be >=72 and expected-pages must be positive")
@@ -417,7 +419,7 @@ def main() -> int:
                          "No-bleed margins and gutter are measured; paper, binding and pencil feel require a physical proof.",
                          "Squad source identity is checked numerically; page composition still needs visual review."]}
     (args.out / "audit.json").write_text(json.dumps(report, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-    lines = ["HMDA OWNER REVIEW V2 MACHINE AUDIT", status,
+    lines = [args.report_title, status,
              f"PDF: {args.pdf.resolve()}", f"SHA256: {report['inputs']['pdf_sha256']}",
              f"Pages: {len(doc)} (expected {args.expected_pages}); missions: {len(missions)}; spatial assets: {len(asset_records)}",
              f"Errors: {counts['error']}; warnings: {counts['warning']}; previews: {report['preview_count']}",

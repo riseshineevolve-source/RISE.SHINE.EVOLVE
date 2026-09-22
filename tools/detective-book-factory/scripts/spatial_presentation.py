@@ -47,15 +47,18 @@ def map_page(c, mission, map_path, page_no, case=None, solution=False):
     c.setFillColor(rb.BLACK); c.setFont(rb.BOLD,10)
     c.drawString(rb.M,top,f"CASE {number:02d}  /  {str(mission.get('rank','')).upper()}")
     rb.para(c,html.escape(mission['title']),rb.M,top-13,rb.PAGE_W-2*rb.M,46,size=18,font=rb.BOLD)
-    bottom,_,_=draw_grid(c,map_path,case,rb.PAGE_H-126)
-    # A concise rules/key strip stays readable and separate from writing space.
+    # Rules and roster belong before the grid so children know how to mark it.
     key='One person per row and column. Use each witness clue.'
     if case and not solution:
         allowed=sorted({('desk chair' if o['type']=='deskchair' else o['display_label'])
                         for o in case.get('objects',[]) if o.get('occupiable')})
         key='One person per row and column. Usable: empty floor; '+', '.join(allowed)+'. Other objects block squares.'
     if solution:
-        key='  |  '.join(f"{p['display_name'][0]} = {p['display_name']}" for p in case.get('characters',[]))
-    rb.para(c,html.escape(key),rb.M,bottom-10,rb.PAGE_W-2*rb.M,32,size=11)
+        key='  |  '.join(f"{index:02d} = {p['display_name']}" for index,p in enumerate(case.get('characters',[]),1))
+    rb.label(c,'MAP RULES / WITNESS KEY',rb.M,top-62,size=10)
+    key_h=rb.text_height(html.escape(key),rb.PAGE_W-2*rb.M,11)
+    rb.para(c,html.escape(key),rb.M,top-75,rb.PAGE_W-2*rb.M,key_h+1,size=11)
+    grid_top=rb.PAGE_H-126-key_h-20
+    bottom,_,_=draw_grid(c,map_path,case,grid_top,6.45*inch)
     verdict_card(c,bottom-48,case.get('source_answer') if solution else None)
     rb.footer(c,page_no); c.showPage()

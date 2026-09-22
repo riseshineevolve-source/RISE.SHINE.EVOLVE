@@ -70,6 +70,8 @@ def witness_board(c: Canvas, mission: dict, case: dict, page_no: int) -> None:
     rb.box(c,x,y-oh-44,w,oh+44,fill=rb.WHITE,stroke=rb.BLACK,radius=11,sw=1.3)
     c.setFillColor(rb.BLACK); c.setFont(rb.BOLD,10); c.drawString(x+14,y-19,'YOUR OBJECTIVE')
     obj.drawOn(c,x+14,y-30-oh); y-=oh+58
+    roster='  |  '.join(f"{index:02d} {person['display_name']}" for index,person in enumerate(case['characters'],1))
+    roster_h=paragraph(c,html.escape(roster),x,y,w,46,11,bold=True); y-=roster_h+12
     notes=mission.get('dialogue',[])
     if notes:
         note='  '.join(f"{item['speaker'].upper()}: {item['text']}" for item in notes)
@@ -86,7 +88,7 @@ def witness_board(c: Canvas, mission: dict, case: dict, page_no: int) -> None:
             # Generated masters already contain aliases; bold those too.
             markup=re.sub(rf'(?<!>)\b{re.escape(name)}\b(?!</b>)',f'<b>{name}</b>',markup,flags=re.IGNORECASE)
         p=Paragraph(markup,ParagraphStyle('evidence',fontName=rb.FONT,fontSize=11.5,leading=14.5,textColor=rb.BLACK))
-        _,height=p.wrap(w-61,100)
+        _,height=p.wrap(w-82,100)
         cards.append((p,height+20))
     available=y-87
     needed=sum(h for _,h in cards)+5*(len(cards)-1)
@@ -96,8 +98,8 @@ def witness_board(c: Canvas, mission: dict, case: dict, page_no: int) -> None:
         h+=extra
         rb.box(c,x,y-h,w,h,fill=rb.WHITE,stroke=rb.LINE,radius=8)
         c.setFillColor(rb.BLACK); c.setFont(rb.BOLD,11); c.drawString(x+12,y-20,f'{index:02d}')
-        c.setStrokeColor(rb.BLACK); c.rect(x+13,y-h+10,10,10,fill=0,stroke=1)
         p.drawOn(c,x+45,y-10-p.height)
+        c.setStrokeColor(rb.BLACK); c.rect(x+w-24,y-h/2-5,10,10,fill=0,stroke=1)
         y-=h+5
     c.setFillColor(rb.BLACK); c.setFont(rb.BOLD,11)
     c.drawString(x,58,"FOLLOW THE EVIDENCE. DON'T GUESS.")

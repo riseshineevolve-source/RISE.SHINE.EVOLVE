@@ -92,7 +92,7 @@ missions:
         - {name: "DELIVERY", cells: ["D1","D2","D3","D4"]}
       clues:
         - "ARI was in row 1, column B."
-        - "COLE was in the Library, column A."
+        - "COLE was in row 3, column A."
         - "BEA was in column C, but not in row 2."
         - "Each person used a different row and a different column."
         - "The badge appeared at the Delivery desk."
@@ -172,6 +172,7 @@ missions:
       - speaker: "luli"
         text: "Glitter is currently not a crime."
     visual:
+      relevance_rule: "Choose changes to parcel identity, evidence-tag identity or travel direction. The poster, cup and pencil are not part of the evidence record."
       meaningful:
         - "The ribbon knot changes from LEFT to RIGHT."
         - "Evidence tag 0417 becomes 0471."
@@ -256,7 +257,7 @@ missions:
         - "BOLT comes immediately after STAR."
         - "BALL appears before HEART."
         - "STAR is not first."
-        - "HEART is not third."
+        - "HEART comes after BOLT."
       answer: ["BALL", "STAR", "BOLT", "HEART"]
     meta_reveal: "When the locker opens, an old envelope inside is sealed with a plain black 0."
     hints:

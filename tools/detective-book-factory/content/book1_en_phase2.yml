@@ -97,7 +97,8 @@ missions:
     guides: ["alio", "mimi"]
     hook: >-
       Alio has drawn three routes to the prop room. Two are impressively fast. One has the
-      additional advantage of not crossing wet paint, a locked staff door or a wall.
+      additional advantage of not crossing wet paint, a locked staff door or a wall. It is
+      16:20, the team must arrive now, and waiting for a closure to end is not an option.
     objective: "Choose the only route that legally reaches the prop room."
     dialogue:
       - {speaker: "alio", text: "Route B is fastest."}
@@ -157,7 +158,7 @@ missions:
     hints:
       - "Compare shape and context, not just anything circular."
       - "The true marks are plain, deliberate and attached to case evidence."
-      - "Four independent cases plus the opening badge use the same plain 0. Treat that as a pattern, not an explanation."
+      - "Three independent case files plus the opening badge use the same plain 0. Treat four matching records as a pattern, not an explanation."
     nudge: "Compare the marks by shape and where they appear."
     solution_steps:
       - "Remove the poster circle and stage dial; their shapes and functions differ."
@@ -186,7 +187,7 @@ missions:
         - "WILLIE was in column B and beside a charging pod."
         - "FRANCES was 7 grid steps from the coolant tank. Count row difference plus column difference."
         - "BLYTHE was against an outer wall and beside a parts crate."
-        - "VERITY was not beside any control console in her room."
+        - "VERITY's room contained a control console, but she was not beside any control console in that room."
         - "DORA's area contained exactly one other person."
       answer: "ELIZA"
       answer_coordinate: "D5"
@@ -214,7 +215,7 @@ missions:
     hook: >-
       Mimi empties her evidence bag. It contains three science-fair case items, two pens,
       one snack and the phone she has been looking for since breakfast.
-    objective: "Use the case labels and timestamps to identify the object that definitely does not belong to this evidence set."
+    objective: "Compare timestamped records A-D and identify the one created outside the 15:20-16:05 case window."
     dialogue:
       - {speaker: "nini", text: "You found your phone!"}
       - {speaker: "mimi", text: "I prefer to say the evidence surrendered."}
@@ -228,21 +229,21 @@ missions:
         - {id: "E", item: "black pen", label: "team notes", relevant: false}
         - {id: "F", item: "blue pen", label: "team notes", relevant: false}
         - {id: "G", item: "oat bar", label: "MIMI - DO NOT CATALOGUE", relevant: false}
-      question: "Which item cannot possibly be science-fair evidence from the stated case window?"
+      question: "Among timestamped records A-D, which record was created outside the 15:20-16:05 case window?"
       answer: "D"
       reason: "The phone photo is timestamped 08:07, hours before the science-fair case window."
     meta_reveal: "The unrelated 08:07 phone photo shows an old circular Academy seal in the background."
     hints:
       - "Use the hard time window before judging what an object looks like."
       - "The science-fair case begins at 15:20. One item's only timestamp is 08:07."
-      - "Item D is Mimi's phone. It is unrelated to the case, but its old photo contains something interesting."
+      - "Record D is the 08:07 phone photo. It falls outside the case window, but the image still contains something interesting."
     nudge: "Use timestamps before appearances."
     solution_steps:
       - "The science-fair evidence window begins at 15:20."
       - "Items A-C are labelled inside that window."
       - "Pens and snack are ordinary bag contents but not contradictory evidence."
-      - "The phone's relevant photo is from 08:07, so it cannot belong to the science-fair event."
-      - "Item D is the impossible evidence item."
+      - "The phone photo record is from 08:07, so it was created outside the science-fair event window."
+      - "Record D is the only timestamped record outside 15:20-16:05."
 
   - number: 12
     rank: "FIELD AGENT"
@@ -432,10 +433,10 @@ missions:
       candidate_years: [1998, 2002, 2008]
       evidence:
         - "A plaque behind the group shows the old Academy crest and the words TRAINING ANNEX."
-        - "The badge style sheet on-page says the striped badge was used from 1999 through 2003."
-        - "A maintenance sticker on the door says SECURITY UPGRADE COMPLETED 2001."
-        - "The photo lab envelope is printed with EXPIRES 2004."
-        - "The 2008 candidate is therefore too late, and 1998 is too early for the security sticker."
+        - "The archive rule says striped badges were issued and worn at official events only from 1999 through 2003."
+        - "A maintenance sticker on the door says SECURITY UPGRADE COMPLETED 2001; the photo record says it was taken after that sticker was installed."
+        - "The photo lab envelope is printed with EXPIRES 2004 and the processing log confirms it was used before expiry."
+        - "The 2008 candidate is therefore too late, and 1998 is too early for the installed security sticker."
       answer:
         building: "OLD ACADEMY ANNEX"
         year: 2002
@@ -449,7 +450,7 @@ missions:
       - "The visible crest and TRAINING ANNEX plaque identify the Old Academy Annex."
       - "The striped badge can only be from 1999-2003."
       - "The security sticker requires 2001 or later."
-      - "The photo envelope must still be valid before 2004."
+      - "The processing log says the envelope was used before its 2004 expiry."
       - "Of the three offered years, only 2002 satisfies every clue."
       - "The back of the photograph adds the unexplained message: RULE 0 FIRST."
 

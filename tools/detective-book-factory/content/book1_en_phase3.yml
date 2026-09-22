@@ -185,7 +185,7 @@ missions:
       scraps:
         - {id: "A", text: "WHAT YOU", left_edge: "zigzag-2", right_edge: "curve-1"}
         - {id: "B", text: "THE ANSWER IS", left_edge: "straight", right_edge: "notch-3"}
-        - {id: "C", text: "LEAVE EMPTY.", left_edge: "wave-4", right_edge: "straight"}
+        - {id: "C", text: "LEAVE EMPTY.", left_edge: "curve-1", right_edge: "straight"}
         - {id: "D", text: "IN", left_edge: "notch-3", right_edge: "zigzag-2"}
       joins:
         - ["B", "D"]
@@ -225,7 +225,7 @@ missions:
         - "CLARENCE was diagonally next to WILLIAM."
         - "Exactly one of NATASHA and LEIGH was in the Practice Hall."
         - "GEMMA was 7 grid steps from the piano."
-        - "WILLIAM was not beside any instrument locker in his room."
+        - "WILLIAM's room contained an instrument locker, but he was not beside any instrument locker in that room."
         - "ZELDA's final room contained exactly one other person."
       answer: "CLARENCE"
       answer_coordinate: "C4"
@@ -263,7 +263,7 @@ missions:
         - "CHARLENE was north-east of MADGE."
         - "OWEN was south-west of CHARLENE."
         - "REBECCA was exactly two columns east of CHARLENE."
-        - "MADGE shared a room with a man on a bench."
+        - "MADGE shared a room with either OWEN or PEYTON, who was on a bench."
         - "Exactly one of PEYTON and VESTA was in the Snack Stand."
         - "JUDY's final room contained exactly one other person."
       answer: "REBECCA"
@@ -290,7 +290,7 @@ missions:
     title: "THE FOOTPRINTS THAT WALKED BACKWARDS"
     status: "VISUAL EVIDENCE"
     guides: ["alio", "luli"]
-    hook: "The tread arrows point one way. The fresh mud transfer tells a different story."
+    hook: "The tread arrows point one way. The fresh mud transfer from one uninterrupted controlled-track walk tells a different story; no fresh mud was added between prints."
     objective: "Use the changing amount of wet mud to work out the real direction of travel."
     dialogue:
       - {speaker: "alio", text: "Science requires sacrifice."}
@@ -302,7 +302,7 @@ missions:
         - {position: "P3", mud: 70, tread_arrow: "EAST"}
         - {position: "P2", mud: 35, tread_arrow: "EAST"}
         - {position: "WEST GATE", mud: 10, tread_arrow: "EAST"}
-      rule: "Wet mud transfers most strongly on the first print after leaving the muddy patch, then fades."
+      rule: "During one uninterrupted walk with no new mud added, wet mud transfers most strongly on the first print after leaving the patch, then fades."
       answer: "EAST PATH -> WEST GATE"
     meta_reveal: "One tread has a tiny circular cut matching the Academy 0 motif."
     hints:
@@ -397,10 +397,14 @@ missions:
       - {speaker: "bibi", text: "This map is older than all of you. Not older than me. Choose your next words carefully."}
       - {speaker: "alio", text: "Secret tunnel."}
     map_overlay:
+      grid: {columns: 6, rows: 5}
       anchors:
-        - {old: "NORTH STAIR", current: "NORTH STAIR"}
-        - {old: "COURTYARD COLUMN", current: "COURTYARD COLUMN"}
-        - {old: "WEST LIFT SHAFT", current: "WEST LIFT SHAFT"}
+        - {old: "NORTH STAIR", current: "NORTH STAIR", old_cell: "C1", current_cell: "C1"}
+        - {old: "COURTYARD COLUMN", current: "COURTYARD COLUMN", old_cell: "F3", current_cell: "F3"}
+        - {old: "WEST LIFT SHAFT", current: "WEST LIFT SHAFT", old_cell: "A5", current_cell: "A5"}
+      old_room_cells: ["D2", "E2", "D3", "E3"]
+      current_archive_wall_cells: ["D2", "E2", "D3", "E3"]
+      transform: "NO ROTATION; SAME SCALE; ALIGN C1, F3 AND A5"
       old_only_space: "SEALED TRAINING ROOM"
       current_covering_space: "ARCHIVE WALL / NO DOOR"
       answer: "SEALED TRAINING ROOM BEHIND THE CURRENT ARCHIVE WALL"
@@ -430,6 +434,10 @@ missions:
       - {speaker: "luli", text: "Unfortunately, yes."}
       - {speaker: "alio", text: "Helmet vindicated."}
     fact_theory_sort:
+      definitions:
+        FACT: "Directly observed or deduced from evidence."
+        THEORY: "A tentative explanation linked to the facts but not yet proved."
+        UNSUPPORTED ASSUMPTION: "An extra claim with no supporting evidence."
       cards:
         - {text: "The same plain 0 appeared across unrelated cases.", bucket: "FACT"}
         - {text: "Fourteen empty-room initials spell CHECK THE OLD MAP.", bucket: "FACT"}
@@ -459,7 +467,7 @@ missions:
     status: "BOSS CASE"
     guides: ["luli", "dilo", "alio"]
     hook: "The old Academy plan hides a service level. The largest spatial case in the book protects the final access coordinate."
-    objective: "Solve the 9x9 service-level deduction and identify the coordinate shared with Shepherd."
+    objective: "Solve the 9x9 service-level deduction and identify the coordinate of the only witness sharing Shepherd's room."
     dialogue:
       - {speaker: "dilo", text: "Boss level."}
       - {speaker: "luli", text: "No button-mashing."}
@@ -528,15 +536,20 @@ missions:
         Room Zero was never room number zero. It was the original Academy training room,
         named for Rule Zero: begin every case with zero assumptions. Grandma Bibi and her
         childhood squad built an initiation trail here decades ago, but renovations sealed
-        the room before the trail was completed. The opening training case accidentally
-        reactivated the old mechanical clue system. Nobody has been secretly controlling
-        the adventure. The Academy itself has been replaying the unfinished test.
+        the room before the trail was completed. Logging Case 01 reactivated its intake queue.
+        The queue selected real new calls and archived case packets whose verified empty rooms
+        carried its stored initiation message, then stamped only Academy-controlled paperwork.
+        It never caused an incident, moved a witness or changed testimony. Its dated routing log
+        shows every selection, including the Case 05 field-locker sequence copied into this session.
       reader_payoff: >-
         Inside Room Zero are six badge hooks. Five hold old Academy badges. The sixth is
         empty and labelled NEXT DETECTIVE. The missing detective was the reader from page one.
       series_hook: >-
         After the case is closed, Dilo opens a drawer Luli explicitly told him not to open.
-        Inside is one thin file stamped CASE 001 - STILL OPEN.
+        Inside is one thin file stamped CASE 001 // STILL OPEN. A triangular archive symbol
+        appears on an old team photograph with one place cut out. On the back: RETURN BEFORE
+        THE FIRST MEETING. Bibi recognizes the cover, but not the answer. Mimi looks at the
+        reader and asks, "Detective, are you still with us?"
     meta_reveal: "ROOM ZERO SOLVED. THE READER IS THE NEXT DETECTIVE."
     hints:
       - "Every lock stage points backward. Do not invent a new rule."

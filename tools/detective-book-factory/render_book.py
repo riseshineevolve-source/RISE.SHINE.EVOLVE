@@ -259,7 +259,8 @@ def title_page(c, data):
     label(c,'STATUS: EMPTY',PAGE_W-M-115,y-24)
     c.setStrokeColor(BLACK); c.setLineWidth(3); c.circle(PAGE_W/2,y-68,19,stroke=1,fill=0)
     c.setFillColor(BLACK); c.setFont(BOLD,20.0); c.drawCentredString(PAGE_W/2,y-75,'?')
-    label(c,b['edition'].upper(),M,0.62*inch)
+    if str(b.get('edition','')).strip():
+        label(c,str(b['edition']).upper(),M,0.62*inch)
     c.showPage()
 
 def acceptance_page(c,data,page_no):
@@ -515,7 +516,9 @@ def visual_puzzle_page(c,data,m,page_no,progress):
     top_bar(c,'VISUAL EVIDENCE',page_no,progress)
     y=PAGE_H-0.87*inch
     para(c,'LOOK TWICE. ONLY THREE CHANGES MATTER.',M,y,PAGE_W-2*M,0.48*inch,size=18.5,font=BOLD)
-    y-=0.72*inch
+    rule=m.get('visual',{}).get('relevance_rule','Meaningful changes affect who, when or where.')
+    para(c,rule,M,y-0.38*inch,PAGE_W-2*M,0.45*inch,size=11,font=BOLD)
+    y-=0.90*inch
     gap=0.18*inch; pw=(PAGE_W-2*M-gap)/2; ph=3.42*inch
     for i,label in enumerate(['PHOTO A // 15:42','PHOTO B // 15:43']):
         x=M+i*(pw+gap)
@@ -550,7 +553,7 @@ def visual_puzzle_page(c,data,m,page_no,progress):
         c.setFont(FONT,11); c.drawString(x+0.44*inch,y-2.82*inch,'cup handle >' if i==0 else '< cup handle')
         c.setStrokeColor(MID); c.line(x+0.50*inch,y-3.05*inch,x+1.25*inch,y-3.05*inch)
     y-=ph+0.20*inch
-    avatar_callout(c,data['characters'],'luli','Do not count differences. Rank them. Which ones can change who, when or where?',M,y,PAGE_W-2*M)
+    avatar_callout(c,data['characters'],'luli','Do not count differences. Test them. Which ones change the parcel, the evidence tag or the recorded route?',M,y,PAGE_W-2*M)
     box(c,M,0.58*inch,PAGE_W-2*M,0.68*inch,fill=BLACK,stroke=BLACK,radius=11)
     para(c,'CIRCLE 3 MEANINGFUL CHANGES.  IGNORE THE NOISE.',M+0.15*inch,1.00*inch,PAGE_W-2*M-0.30*inch,0.28*inch,size=11,font=BOLD,color=WHITE,align=1)
     footer(c,page_no); c.showPage()
@@ -678,6 +681,8 @@ def _structured_cards(m):
     elif t=='fact-theory-sort':
         data=m.get('fact_theory_sort',{})
         cards.append("SORT EACH CARD INTO: FACT / THEORY / UNSUPPORTED ASSUMPTION")
+        for name,definition in data.get('definitions',{}).items():
+            cards.append(f"{name}: {definition}")
         for card in data.get('cards',[]):
             cards.append(card.get('text',''))
         cards.append("RULE ZERO: ZERO ____________. NOTICE FIRST. THEORIZE SECOND.")
