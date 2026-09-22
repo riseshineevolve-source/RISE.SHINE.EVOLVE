@@ -41,9 +41,11 @@ jobs:
             scripts/build_owner_review_v31.py \
             scripts/build_owner_review_v4.py \
             scripts/build_owner_review_v41.py \
+            scripts/build_owner_review_v41_final.py \
             scripts/generate_v41_visual_assets.py \
             scripts/apply_v41_reverse_backmatter.py \
             scripts/test_v41_reverse_backmatter.py \
+            scripts/test_v41_final_pipeline.py \
             scripts/test_v41_owner_visual_gate.py \
             scripts/audit_owner_review_v2.py \
             scripts/test_spatial_grid_crop.py \
@@ -54,6 +56,7 @@ jobs:
             scripts/test_spatial_label_assignment.py \
             render_book.py
           python scripts/test_v41_reverse_backmatter.py
+          python scripts/test_v41_final_pipeline.py
           python scripts/test_v41_owner_visual_gate.py
           python scripts/test_spatial_label_assignment.py
           python scripts/test_spatial_case_spreads_smoke.py
