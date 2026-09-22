@@ -39,6 +39,9 @@ jobs:
             scripts/spatial_presentation.py \
             scripts/build_owner_review_v2.py \
             scripts/build_owner_review_v31.py \
+            scripts/build_owner_review_v4.py \
+            scripts/build_owner_review_v41.py \
+            scripts/generate_v41_visual_assets.py \
             scripts/audit_owner_review_v2.py \
             scripts/test_spatial_grid_crop.py \
             scripts/validate_spatial_object_art.py \
@@ -47,6 +50,7 @@ jobs:
             scripts/test_spatial_case_spreads_smoke.py \
             scripts/test_spatial_label_assignment.py \
             render_book.py
+          python scripts/generate_v41_visual_assets.py --output-dir cache/v41_visual_assets
           python scripts/test_spatial_label_assignment.py
           python scripts/test_spatial_case_spreads_smoke.py
           python scripts/build_book1_master.py --output dist/book1_en_master.yml
