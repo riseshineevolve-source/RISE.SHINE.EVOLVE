@@ -69,6 +69,13 @@ INTERLUDE_QUIPS = (
     "Last case rule: confidence is useful; verification is better.",
 )
 
+INTERLUDE_FAMILIES = (
+    "TRIAGE_COLUMNS",
+    "EVIDENCE_RAIL",
+    "CASE_STRIPS",
+    "CROSSCHECK_GRID",
+)
+
 
 def _load_owner_visual_packet(manifest_path: Path | None) -> dict:
     """Validate owner-gated visual slots without generating or choosing art.
@@ -142,56 +149,168 @@ def _interlude_note(data: dict, case_number: int) -> tuple[str, str]:
     return speaker, INTERLUDE_QUIPS[case_number - 1]
 
 
+def _interlude_family(case_number: int, page: int) -> str:
+    """Choose a stable visual family without introducing render-order state."""
+    return INTERLUDE_FAMILIES[(case_number * 7 + page * 3) % len(INTERLUDE_FAMILIES)]
+
+
+def _writing_lines(c, x: float, top: float, w: float, count: int, step: float) -> None:
+    c.setStrokeColor(rb.LINE)
+    c.setLineWidth(0.7)
+    y = top
+    for _ in range(count):
+        c.line(x, y, x + w, y)
+        y -= step
+
+
+def _interlude_columns(c, top: float, total_w: float) -> None:
+    gap = 12
+    panel_w = (total_w - 2 * gap) / 3
+    panel_h = 330
+    labels = (
+        ("FACTS", "What is directly stated or visibly verified?"),
+        ("SIGNALS", "What may matter, repeat, shift, or connect?"),
+        ("QUESTIONS", "What still needs testing on the map?"),
+    )
+    for idx, (label, prompt) in enumerate(labels):
+        x = rb.M + idx * (panel_w + gap)
+        rb.box(c, x, top - panel_h, panel_w, panel_h,
+               fill=rb.WHITE, stroke=rb.BLACK, radius=9, sw=1.1)
+        rb.label(c, label, x + 12, top - 23, size=10)
+        rb.para(c, prompt, x + 12, top - 42, panel_w - 24, 48,
+                size=9.2, font=rb.BOLD)
+        _writing_lines(c, x + 12, top - 108, panel_w - 24, 6, 32)
+
+
+def _interlude_rail(c, top: float, total_w: float, case_number: int) -> None:
+    h = 330
+    rail_w = 92
+    gap = 12
+    rb.box(c, rb.M, top - h, rail_w, h,
+           fill=rb.BLACK, stroke=rb.BLACK, radius=10, sw=1.0)
+    c.setFillColor(rb.WHITE)
+    c.setFont(rb.BOLD, 28)
+    c.drawCentredString(rb.M + rail_w / 2, top - 58, f"{case_number:02d}")
+    rb.label(c, "PIN", rb.M + 20, top - 88, size=9.2, color=rb.WHITE)
+    rb.label(c, "BEFORE", rb.M + 20, top - 108, size=9.2, color=rb.WHITE)
+    rb.label(c, "THE MAP", rb.M + 20, top - 128, size=9.2, color=rb.WHITE)
+    rb.para(c, "FACTS → SIGNALS → QUESTIONS",
+            rb.M + 13, top - 178, rail_w - 26, 88,
+            size=9.4, font=rb.BOLD, color=rb.WHITE, align=1)
+
+    x = rb.M + rail_w + gap
+    w = total_w - rail_w - gap
+    labels = (
+        ("FACTS", "Pin only what the file actually proves."),
+        ("SIGNALS", "Mark a repeat, shift, contradiction, or link."),
+        ("QUESTIONS", "Write the one thing the map still has to test."),
+    )
+    gap_y = 8
+    box_h = (h - 2 * gap_y) / 3
+    for idx, (label, prompt) in enumerate(labels):
+        box_top = top - idx * (box_h + gap_y)
+        rb.box(c, x, box_top - box_h, w, box_h,
+               fill=rb.WHITE, stroke=rb.BLACK, radius=8, sw=1.0)
+        rb.label(c, label, x + 12, box_top - 22, size=9.8)
+        rb.para(c, prompt, x + 12, box_top - 40, w - 24, 34,
+                size=9.2, font=rb.BOLD)
+        _writing_lines(c, x + 12, box_top - 77, w - 24, 2, 24)
+
+
+def _interlude_strips(c, top: float, total_w: float) -> None:
+    labels = (
+        ("FACTS", "What survives if every guess is removed?"),
+        ("SIGNALS", "What deserves a pin before you open the map?"),
+        ("QUESTIONS", "What must the map answer before you commit?"),
+    )
+    h = 98
+    gap = 12
+    label_w = 112
+    for idx, (label, prompt) in enumerate(labels):
+        box_top = top - idx * (h + gap)
+        rb.box(c, rb.M, box_top - h, total_w, h,
+               fill=rb.WHITE, stroke=rb.BLACK, radius=9, sw=1.1)
+        rb.box(c, rb.M, box_top - h, label_w, h,
+               fill=rb.BLACK, stroke=rb.BLACK, radius=9, sw=1.0)
+        rb.label(c, label, rb.M + 16, box_top - 32, size=10.2, color=rb.WHITE)
+        rb.para(c, prompt, rb.M + label_w + 14, box_top - 18,
+                total_w - label_w - 28, 34, size=9.3, font=rb.BOLD)
+        _writing_lines(c, rb.M + label_w + 14, box_top - 61,
+                       total_w - label_w - 28, 2, 20)
+
+
+def _interlude_grid(c, top: float, total_w: float) -> None:
+    gap = 12
+    half = (total_w - gap) / 2
+    upper_h = 148
+    lower_h = 168
+    upper = (
+        ("FACTS", "What is certain enough to pin?"),
+        ("SIGNALS", "What may connect to an older file?"),
+    )
+    for idx, (label, prompt) in enumerate(upper):
+        x = rb.M + idx * (half + gap)
+        rb.box(c, x, top - upper_h, half, upper_h,
+               fill=rb.WHITE, stroke=rb.BLACK, radius=9, sw=1.1)
+        rb.label(c, label, x + 12, top - 22, size=9.8)
+        rb.para(c, prompt, x + 12, top - 40, half - 24, 34,
+                size=9.2, font=rb.BOLD)
+        _writing_lines(c, x + 12, top - 82, half - 24, 3, 22)
+
+    lower_top = top - upper_h - gap
+    rb.box(c, rb.M, lower_top - lower_h, total_w, lower_h,
+           fill=rb.WHITE, stroke=rb.BLACK, radius=9, sw=1.1)
+    rb.label(c, "QUESTIONS // CROSS-CHECK", rb.M + 12, lower_top - 22, size=9.8)
+    rb.para(c, "Write the test that could prove your favorite theory wrong.",
+            rb.M + 12, lower_top - 40, total_w - 24, 34,
+            size=9.2, font=rb.BOLD)
+    _writing_lines(c, rb.M + 12, lower_top - 82, total_w - 24, 4, 22)
+
+
 def parity_pause_v41(c, data, mission, page):
-    """Replace cloned parity filler with a usable, case-specific Case Wall.
+    """Render a case-specific field interlude through deterministic visual families.
 
     Pagination and case order remain untouched. The page exists only where V4
     already inserted a parity page before a spatial spread.
     """
     n = int(mission["number"])
     speaker, quip = _interlude_note(data, n)
-    rb.top_bar(c, "CASE WALL // FIELD INTERLUDE", page)
+    family = _interlude_family(n, page)
+    rb.top_bar(c, f"CASE WALL // {family.replace('_', ' ')}", page)
     y = rb.PAGE_H - 64
     rb.para(c, f"CASE {n:02d} // CLEAR THE BOARD BEFORE THE MAP",
             rb.M, y, rb.PAGE_W - 2 * rb.M, 44, size=21, font=rb.BOLD)
-    y -= 58
+    y -= 42
+    title = str(mission.get("title", f"CASE {n:02d}"))
+    rb.label(c, f"CURRENT FILE // {title[:68].upper()}", rb.M, y, size=9.2)
+    y -= 18
     rb.para(
         c,
         "Use this wall before the facing Witness Board + Live Case Map. "
         "Write only what the current file gives you; do not solve ahead.",
-        rb.M, y, rb.PAGE_W - 2 * rb.M, 46, size=10.8,
+        rb.M, y, rb.PAGE_W - 2 * rb.M, 42, size=10.6,
     )
-    y -= 58
+    y -= 52
 
-    gap = 12
-    panel_w = (rb.PAGE_W - 2 * rb.M - 2 * gap) / 3
-    labels = (
-        ("FACTS", "What is directly stated or visibly verified?"),
-        ("SIGNALS", "What may matter, repeat, shift, or connect?"),
-        ("QUESTIONS", "What still needs testing on the map?"),
-    )
-    panel_h = 330
-    for idx, (label, prompt) in enumerate(labels):
-        x = rb.M + idx * (panel_w + gap)
-        rb.box(c, x, y - panel_h, panel_w, panel_h,
-               fill=rb.WHITE, stroke=rb.BLACK, radius=9, sw=1.1)
-        rb.label(c, label, x + 12, y - 23, size=10)
-        rb.para(c, prompt, x + 12, y - 42, panel_w - 24, 48,
-                size=9.2, font=rb.BOLD)
-        line_y = y - 108
-        c.setStrokeColor(rb.LINE)
-        c.setLineWidth(0.7)
-        for _ in range(6):
-            c.line(x + 12, line_y, x + panel_w - 12, line_y)
-            line_y -= 32
+    total_w = rb.PAGE_W - 2 * rb.M
+    if family == "TRIAGE_COLUMNS":
+        _interlude_columns(c, y, total_w)
+    elif family == "EVIDENCE_RAIL":
+        _interlude_rail(c, y, total_w, n)
+    elif family == "CASE_STRIPS":
+        _interlude_strips(c, y, total_w)
+    elif family == "CROSSCHECK_GRID":
+        _interlude_grid(c, y, total_w)
+    else:
+        raise ValueError(f"Unknown interlude family: {family}")
 
-    y -= panel_h + 18
-    rb.box(c, rb.M, y - 92, rb.PAGE_W - 2 * rb.M, 92,
+    note_top = y - 348
+    rb.box(c, rb.M, note_top - 88, total_w, 88,
            fill=rb.BLACK, stroke=rb.BLACK, radius=9)
-    rb.label(c, f"FIELD NOTE // {speaker}", rb.M + 14, y - 24,
+    rb.label(c, f"FIELD NOTE // {speaker}", rb.M + 14, note_top - 23,
              size=9.5, color=rb.WHITE)
-    rb.para(c, html.escape(quip), rb.M + 14, y - 46,
-            rb.PAGE_W - 2 * rb.M - 28, 38, size=11.2,
+    rb.para(c, html.escape(quip), rb.M + 14, note_top - 44,
+            total_w - 28, 36, size=11.0,
             font=rb.BOLD, color=rb.WHITE)
 
     rb.label(c, f"NEXT // WITNESS BOARD + LIVE CASE MAP // CASE {n:02d}",
@@ -350,47 +469,72 @@ def case03_photo_page(c, data, mission, page, progress):
 
 
 def book2_scene_page(c, data, page):
-    """Render only an explicitly owner-locked Book 2 archival photograph."""
+    """Render the owner-locked Book 2 archival hook as a cinematic final beat."""
     scene = data.get("book2_scene", {})
     rb.top_bar(c, "NEW FILE // AFTER CERTIFICATION", page, 1.0)
     y = rb.PAGE_H - 62
     rb.para(c, scene.get("heading", "CASE 001 // STILL OPEN"), rb.M, y,
             rb.PAGE_W - 2 * rb.M, 40, size=21, font=rb.BOLD)
-    y -= 55
+    y -= 52
+    rb.label(c, "ARCHIVE WAKE // 00:01 AFTER CERTIFICATION", rb.M, y, size=9.3)
+    y -= 18
 
-    folder_x = rb.M + 30
-    folder_w = rb.PAGE_W - 2 * rb.M - 60
-    rb.box(c, folder_x, y - 305, folder_w, 285,
-           fill=rb.WHITE, stroke=rb.BLACK, radius=5, sw=1.4)
-    rb.label(c, "ARCHIVE RELEASE // CASE 001", folder_x + 16, y - 47, size=10)
+    frame_x = rb.M + 18
+    frame_w = rb.PAGE_W - 2 * rb.M - 36
+    frame_h = 270
+    rb.box(c, frame_x, y - frame_h, frame_w, frame_h,
+           fill=rb.WHITE, stroke=rb.BLACK, radius=5, sw=1.5)
+    rb.box(c, frame_x, y - 42, 96, 42,
+           fill=rb.BLACK, stroke=rb.BLACK, radius=4)
+    rb.label(c, "CASE 001", frame_x + 15, y - 26, size=10, color=rb.WHITE)
+    rb.label(c, "ARCHIVE RELEASE // IMAGE RECOVERED", frame_x + 112, y - 27, size=9.3)
 
     photo = _owner_asset("book2_archive_photo.png")
-    rb.draw_image_fit(c, photo, folder_x + 22, y - 257, folder_w - 44, 190)
-    rb.label(c, "ARCHIVE GROUP PHOTO // CENTRAL FIGURE PHYSICALLY REMOVED",
-             folder_x + 22, y - 272, size=8.5)
+    rb.draw_image_fit(c, photo, frame_x + 18, y - 230, frame_w - 36, 174)
+    rb.label(c, "GROUP PHOTO // CENTRAL FIGURE PHYSICALLY REMOVED",
+             frame_x + 18, y - 247, size=8.5)
 
-    rb.box(c, folder_x + 68, y - 294, folder_w - 136, 38,
+    rb.box(c, frame_x + 72, y - 264, frame_w - 144, 34,
            fill=rb.BLACK, stroke=rb.BLACK, radius=2)
-    rb.para(c, "RETURN BEFORE THE FIRST MEETING", folder_x + 76, y - 270,
-            folder_w - 152, 24, size=11, font=rb.BOLD,
+    rb.para(c, "RETURN BEFORE THE FIRST MEETING", frame_x + 80, y - 242,
+            frame_w - 160, 22, size=10.8, font=rb.BOLD,
             color=rb.WHITE, align=1)
 
-    y -= 330
-    for beat in scene.get("beats", [])[:5]:
-        h = rb.text_height(str(beat), rb.PAGE_W - 2 * rb.M - 24, 9.5)
-        rb.para(c, "• " + html.escape(str(beat)), rb.M + 12, y,
-                rb.PAGE_W - 2 * rb.M - 24, h + 1, size=9.5)
-        y -= h + 5
+    y -= frame_h + 14
+    beats = [str(item) for item in scene.get("beats", []) if str(item).strip()]
+    groups = (beats[:2], beats[2:4], beats[4:])
+    gap = 10
+    card_w = (rb.PAGE_W - 2 * rb.M - 2 * gap) / 3
+    card_h = 82
+    for idx, group in enumerate(groups, 1):
+        x = rb.M + (idx - 1) * (card_w + gap)
+        rb.box(c, x, y - card_h, card_w, card_h,
+               fill=rb.WHITE, stroke=rb.BLACK, radius=7, sw=1.0)
+        rb.label(c, f"CUT {idx:02d}", x + 10, y - 19, size=8.8)
+        text = " ".join(group) if group else "The file waits in silence."
+        rb.para(c, html.escape(text), x + 10, y - 34,
+                card_w - 20, 43, size=8.8, font=rb.BOLD)
 
+    y -= card_h + 12
     chat = scene.get("chat", [])
+    rb.box(c, rb.M, y - 118, rb.PAGE_W - 2 * rb.M, 118,
+           fill=rb.BLACK, stroke=rb.BLACK, radius=8)
+    rb.label(c, "VOICE TRACK // HAPPY MAKERS", rb.M + 14, y - 22,
+             size=9.2, color=rb.WHITE)
+    chat_y = y - 42
     if chat:
-        rb.label(c, "HAPPY MAKERS CHAT", rb.M, y - 2, size=9.5)
-        y -= 15
         for item in chat[:4]:
-            text = f"<b>{data['characters'][item['speaker']]['name']}:</b> {html.escape(item['text'])}"
-            h = rb.text_height(text, rb.PAGE_W - 2 * rb.M, 9.5)
-            rb.para(c, text, rb.M, y, rb.PAGE_W - 2 * rb.M, h + 1, size=9.5)
-            y -= h + 3
+            speaker = data["characters"][item["speaker"]]["name"]
+            text = f"<b>{html.escape(speaker)}:</b> {html.escape(item['text'])}"
+            h = rb.text_height(text, rb.PAGE_W - 2 * rb.M - 28, 8.9)
+            rb.para(c, text, rb.M + 14, chat_y,
+                    rb.PAGE_W - 2 * rb.M - 28, h + 1,
+                    size=8.9, color=rb.WHITE)
+            chat_y -= h + 2
+    else:
+        rb.para(c, "No one speaks. The missing center of the photograph says enough.",
+                rb.M + 14, chat_y, rb.PAGE_W - 2 * rb.M - 28, 38,
+                size=9.1, font=rb.BOLD, color=rb.WHITE)
 
     rb.box(c, rb.M, 55, rb.PAGE_W - 2 * rb.M, 44,
            fill=rb.BLACK, stroke=rb.BLACK, radius=8)
@@ -442,6 +586,19 @@ def main() -> None:
         "field_detective_id_normalized": True,
         "solution_internal_note_removed": True,
     }
+    data["production_state"]["v41_interlude_visual_contract"] = {
+        "families": list(INTERLUDE_FAMILIES),
+        "selector": "(case_number * 7 + physical_page * 3) mod 4",
+        "case_specific_copy": True,
+        "pagination_changed": False,
+    }
+    data["production_state"]["v41_book2_hook_contract"] = {
+        "presentation": "CINEMATIC_ARCHIVE_WAKE_V1",
+        "owner_art_required": True,
+        "owner_art_transform": "FIT_ONLY_PRESERVE_ASPECT_RATIO",
+        "premise_changed": False,
+        "pagination_changed": False,
+    }
     if visual_manifest_path is not None:
         data["production_state"]["v41_visual_manifest"] = str(visual_manifest_path)
     v41_master = args.output.resolve().parent / "book1_en_master_owner_review_v41.yml"
@@ -489,7 +646,18 @@ def main() -> None:
         "pdf_sha256": sha,
         "owner_visual_gate": manifest,
         "premium_polish": {
-            "parity_interludes": "unique case-specific Case Wall pages",
+            "parity_interludes": {
+                "status": "case-specific deterministic visual-family rotation",
+                "families": list(INTERLUDE_FAMILIES),
+                "case_specific_copy": True,
+            },
+            "book2_hook": {
+                "presentation": "CINEMATIC_ARCHIVE_WAKE_V1",
+                "owner_art_required": True,
+                "owner_art_regenerated": False,
+                "owner_art_destructively_cropped": False,
+                "premise_changed": False,
+            },
             "reader_surface_cleanup": {
                 "publication_internal_copy_removed": True,
                 "field_detective_id_normalized": True,
