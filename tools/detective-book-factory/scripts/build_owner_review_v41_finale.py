@@ -150,7 +150,7 @@ def certificate_page_v41(c, data: dict, page: int) -> None:
         x + 35,
         rack_y - 58,
         w - 70,
-        44,
+        60,
         size=18,
         font=rb.BOLD,
         align=1,
