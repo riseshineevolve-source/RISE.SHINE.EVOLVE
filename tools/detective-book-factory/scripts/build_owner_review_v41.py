@@ -200,6 +200,118 @@ def parity_pause_v41(c, data, mission, page):
     c.showPage()
 
 
+def publication_page_v41(c, data, page):
+    """Render publication data with no owner-review / proof-only leakage."""
+    rb.top_bar(c, "PUBLICATION RECORD", page)
+    y = rb.PAGE_H - 83
+    rb.para(c, "HAPPY MAKERS DETECTIVE ACADEMY", rb.M, y,
+            rb.PAGE_W - 2 * rb.M, 40, size=19, font=rb.BOLD)
+    y -= 58
+    pub = data.get("publication", {})
+    copy = (
+        f"{pub.get('copyright', '© 2026 Rise.Shine.Evolve. All rights reserved.')}<br/><br/>"
+        f"{pub.get('isbn', 'ISBN Paperback: ______')}<br/><br/>"
+        f"{pub.get('rights', 'No part of this publication may be reproduced, stored in a retrieval system, or transmitted in any form or by any means without prior written permission from the publisher, except for brief quotations used in reviews.')}<br/><br/>"
+        f"{pub.get('ai_disclosure', 'The development of this book was supported by AI-assisted tools.')}<br/><br/>"
+        f"{pub.get('website', 'Website: Rise.Shine.Evolve')}<br/>"
+        f"{pub.get('facebook', 'Facebook: Rise.Shine.Evolve')}"
+    )
+    rb.text_card(c, copy, rb.M, y, rb.PAGE_W - 2 * rb.M,
+                 heading="PUBLICATION RECORD", size=11.5,
+                 fill=rb.WHITE, stroke=rb.BLACK)
+    rb.footer(c, page)
+    c.showPage()
+
+
+def id_page_v41(c, data, page):
+    """Keep one canonical Field Detective identity field plus signature.
+
+    V4's source card already labels the identity line DETECTIVE NAME / CALL SIGN;
+    rendering a second fallback CALL SIGN field duplicated the same identity.
+    """
+    card = data["opening"].get("id_card", {})
+    rb.top_bar(c, "DETECTIVE SIX // FIELD DETECTIVE ID", page)
+    y = rb.PAGE_H - 70
+    rb.para(c, card.get("heading", "FIELD DETECTIVE ID"), rb.M, y,
+            rb.PAGE_W - 2 * rb.M, 48, size=21, font=rb.BOLD)
+    y -= 70
+    rb.box(c, rb.M, y - 415, rb.PAGE_W - 2 * rb.M, 415,
+           fill=rb.WHITE, stroke=rb.BLACK, radius=16, sw=1.6)
+    rb.label(c, card.get("designation", "DETECTIVE SIX // RECRUIT"),
+             rb.M + 18, y - 27, size=11)
+    c.setStrokeColor(rb.BLACK)
+    c.setLineWidth(4)
+    c.circle(rb.PAGE_W - rb.M - 72, y - 67, 37, fill=0, stroke=1)
+    c.setFillColor(rb.BLACK)
+    c.setFont(rb.BOLD, 30)
+    c.drawCentredString(rb.PAGE_W - rb.M - 72, y - 78, "06")
+
+    fields = [card.get("name_label", "DETECTIVE NAME / CALL SIGN"), "SIGNATURE"]
+    ty = y - 118
+    for label in fields:
+        rb.label(c, label, rb.M + 18, ty, size=9.5)
+        c.setStrokeColor(rb.BLACK)
+        c.setLineWidth(0.9)
+        c.line(rb.M + 18, ty - 25, rb.PAGE_W - rb.M - 18, ty - 25)
+        ty -= 92
+
+    acceptance = card.get(
+        "acceptance",
+        "I accept the Academy rule: notice first, test the evidence, and explain my verdict.",
+    )
+    rb.para(c, html.escape(acceptance), rb.M + 18, ty,
+            rb.PAGE_W - 2 * rb.M - 36, 52, size=11, font=rb.BOLD)
+    rb.label(c, card.get("case_wall_label", "CASE WALL // FACTS, SIGNALS, QUESTIONS"),
+             rb.M, y - 445, size=10)
+    rb.writing_card(c, "FIRST CASE NOTES", rb.M, y - 465,
+                    rb.PAGE_W - 2 * rb.M, 118)
+    rb.para(c, card.get("footer", "Your name begins the file. Your evidence closes it."),
+            rb.M, 62, rb.PAGE_W - 2 * rb.M, 28,
+            size=10.5, font=rb.BOLD, align=1)
+    rb.footer(c, page)
+    c.showPage()
+
+
+def nonspatial_solution_page_v41(c, mission, page):
+    """Render the V4 solution without the internal spoiler-treatment note."""
+    rb.top_bar(c, f"SOLUTION // CASE {mission['number']:02d}", page)
+    w = rb.PAGE_W - 2 * rb.M
+    y = rb.PAGE_H - 58
+    rb.para(c, html.escape(mission["title"]), rb.M, y, w, 44,
+            size=17, font=rb.BOLD)
+    y -= 60
+    answer = rb._solution_answer_text(mission) or mission.get(
+        "verdict", mission.get("meta_reveal", "CHECK THE REASONING BELOW")
+    )
+    rb.box(c, rb.M, y - 76, w, 76,
+           fill=rb.BLACK, stroke=rb.BLACK, radius=9)
+    rb.label(c, "SPOILER // VERIFIED VERDICT", rb.M + 14, y - 20,
+             size=9.5, color=rb.WHITE)
+    rb.para(c, html.escape(str(answer)), rb.M + 14, y - 34,
+            w - 28, 36, size=13, font=rb.BOLD, color=rb.WHITE)
+    y -= 96
+    rb.label(c, "HOW THE CASE FALLS INTO PLACE", rb.M, y, size=10)
+    y -= 16
+    steps = mission.get("solution_steps", [])
+    if not steps:
+        steps = [
+            mission.get("objective", "Use the evidence to justify the verdict."),
+            mission.get("meta_reveal", ""),
+        ]
+    for idx, step in enumerate([s for s in steps if str(s).strip()], 1):
+        h = max(52, rb.text_height(str(step), w - 58, 11) + 18)
+        if y - h < 105:
+            raise ValueError(f"Case {mission['number']}: solution reasoning overflows")
+        rb.box(c, rb.M, y - h, w, h,
+               fill=rb.WHITE, stroke=rb.BLACK, radius=7)
+        rb.label(c, f"{idx:02d}", rb.M + 11, y - 21, size=9.5)
+        rb.para(c, html.escape(str(step)), rb.M + 43, y - 10,
+                w - 56, h - 14, size=11)
+        y -= h + 6
+    rb.footer(c, page)
+    c.showPage()
+
+
 def case03_photo_page(c, data, mission, page, progress):
     """Render only an explicitly owner-locked Case 03 photo pair."""
     rb.top_bar(c, "VISUAL EVIDENCE // PHOTO PAIR", page, progress)
@@ -325,6 +437,11 @@ def main() -> None:
         "OWNER_LOCKED_ASSETS_INTEGRATED" if visuals_integrated
         else "PENDING_CASE03_EXACT_10_DIFFERENCE_AND_BOOK2_ART"
     )
+    data["production_state"]["v41_reader_surface_cleanup"] = {
+        "publication_internal_copy_removed": True,
+        "field_detective_id_normalized": True,
+        "solution_internal_note_removed": True,
+    }
     if visual_manifest_path is not None:
         data["production_state"]["v41_visual_manifest"] = str(visual_manifest_path)
     v41_master = args.output.resolve().parent / "book1_en_master_owner_review_v41.yml"
@@ -339,16 +456,25 @@ def main() -> None:
     original_case03 = v4.case03_photo_page
     original_book2 = v4.book2_scene_page
     original_parity = v4.parity_pause
+    original_publication = v4.publication_page
+    original_id_page = v4.id_page
+    original_nonspatial_solution = v4.nonspatial_solution_page
     if visuals_integrated:
         v4.case03_photo_page = case03_photo_page
         v4.book2_scene_page = book2_scene_page
     v4.parity_pause = parity_pause_v41
+    v4.publication_page = publication_page_v41
+    v4.id_page = id_page_v41
+    v4.nonspatial_solution_page = nonspatial_solution_page_v41
     try:
         pages, _index = v4.render_v4(data, cases, v41_master, args.output.resolve())
     finally:
         v4.case03_photo_page = original_case03
         v4.book2_scene_page = original_book2
         v4.parity_pause = original_parity
+        v4.publication_page = original_publication
+        v4.id_page = original_id_page
+        v4.nonspatial_solution_page = original_nonspatial_solution
         ACTIVE_ASSET_DIR = None
 
     v4_index = args.output.resolve().parent / "HMDA_Book1_EN_OwnerReview_v4_page_index.json"
@@ -364,6 +490,11 @@ def main() -> None:
         "owner_visual_gate": manifest,
         "premium_polish": {
             "parity_interludes": "unique case-specific Case Wall pages",
+            "reader_surface_cleanup": {
+                "publication_internal_copy_removed": True,
+                "field_detective_id_normalized": True,
+                "solution_internal_note_removed": True,
+            },
             "owner_gated_visuals_integrated": visuals_integrated,
             "logic_changed": False,
             "pagination_changed": False,
