@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Build the complete HMDA Book 1 V4.1 owner-review artifact.
 
-This is the canonical V4.1 render wrapper. It runs the bounded premium V4.1
+This is the canonical V4.1 render wrapper. It runs the bounded owner-audit V4.1
 builder first, then applies the already-validated reverse-entry Hint Vault /
 Solutions architecture to the freshly rendered 145-page PDF. It does not
 change story, puzzle logic, spatial geometry, owner-gated visual selections,
@@ -24,16 +24,18 @@ from pypdf import PdfReader
 import yaml
 
 import apply_v41_reverse_backmatter as rbm
+import audit_pdf_grayscale as grayscale_audit
 import audit_v41_final_artifact as final_audit
 import build_owner_review_v4 as v4
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 ROOT = SCRIPT_DIR.parent
-V41_BUILDER = SCRIPT_DIR / "build_owner_review_v41_finale.py"
+V41_BUILDER = SCRIPT_DIR / "build_owner_review_v41_owner_audit.py"
 INDEX_NAME = "HMDA_Book1_EN_OwnerReview_v41_page_index.json"
 MANIFEST_NAME = "HMDA_Book1_EN_OwnerReview_v41_manifest.json"
 REVERSE_CONTRACT_NAME = "HMDA_Book1_EN_OwnerReview_v41_reverse_entry.json"
 FINAL_AUDIT_NAME = "HMDA_Book1_EN_OwnerReview_v41_final_audit.json"
+GRAYSCALE_AUDIT_NAME = "HMDA_Book1_EN_OwnerReview_v41_grayscale_audit.json"
 DEFAULT_OVERRIDES = ROOT / "content/book1_v4_overrides.yml"
 CASE26_LOOKUP_INPUT_NAME = "book1_en_master_v41_case26_lookup_input.yml"
 
@@ -208,6 +210,8 @@ def main() -> None:
     manifest_path = final_pdf.parent / MANIFEST_NAME
     reverse_contract_path = final_pdf.parent / REVERSE_CONTRACT_NAME
     audit_report_path = final_pdf.parent / FINAL_AUDIT_NAME
+    grayscale_report_path = final_pdf.parent / GRAYSCALE_AUDIT_NAME
+
     manifest = finalize_rendered_artifact(
         pre_reverse_pdf,
         final_pdf,
@@ -221,6 +225,21 @@ def main() -> None:
         "spatial_case_count": len(case26_refs),
         "references": case26_refs,
         "logic_changed": False,
+    }
+    manifest_path.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
+
+    grayscale_report = grayscale_audit.audit_pdf_grayscale(
+        final_pdf,
+        grayscale_report_path,
+    )
+    manifest["grayscale_audit"] = {
+        "status": grayscale_report["status"],
+        "report_file": grayscale_report_path.name,
+        "vector_color_operators_checked": grayscale_report[
+            "vector_color_operators_checked"
+        ],
+        "embedded_images_checked": grayscale_report["embedded_images_checked"],
+        "grayscale_only": grayscale_report["grayscale_only"],
     }
     manifest_path.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
 
@@ -242,6 +261,7 @@ def main() -> None:
     print(f"SHA256: {manifest['pdf_sha256']}")
     print(f"INDEX: {index_path}")
     print(f"REVERSE CONTRACT: {reverse_contract_path}")
+    print(f"GRAYSCALE AUDIT: {grayscale_report_path} // {grayscale_report['status']}")
     print(f"FINAL AUDIT: {audit_report_path} // {audit_report['status']}")
     print(f"CASE 26 LOOKUP: {len(case26_refs)} generated map references")
     print("English frozen: false")
