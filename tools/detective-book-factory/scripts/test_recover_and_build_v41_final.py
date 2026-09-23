@@ -2,6 +2,8 @@
 from __future__ import annotations
 
 import json
+import subprocess
+import sys
 import tempfile
 from pathlib import Path
 
@@ -11,7 +13,7 @@ import recover_and_build_v41_final as bridge
 import recover_v4_embedded_spatial_assets as recovery
 
 ROOT = Path(__file__).resolve().parents[1]
-MASTER = ROOT / "content/book1_en_master.yml"
+MASTER_BUILDER = ROOT / "scripts/build_book1_master.py"
 OVERRIDES = ROOT / "content/book1_v4_overrides.yml"
 LOCKED_V4_SHA256 = "1b2b908763e76b42321035fb1faf91056bd2a8a1301ea0a2f84944c91287e1cb"
 
@@ -21,8 +23,15 @@ def main() -> None:
 
     with tempfile.TemporaryDirectory(prefix="hmda-v41-recovery-bridge-test-") as tmp:
         work = Path(tmp)
+        assembled_master = work / "book1_en_master.yml"
+        subprocess.run(
+            [sys.executable, str(MASTER_BUILDER), "--output", str(assembled_master)],
+            check=True,
+            cwd=ROOT,
+        )
+
         recovery_master, recovery_index, page_index = bridge.build_recovery_index(
-            MASTER, OVERRIDES, work
+            assembled_master, OVERRIDES, work
         )
 
         assert recovery_master.is_file()
