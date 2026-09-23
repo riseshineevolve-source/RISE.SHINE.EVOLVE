@@ -50,11 +50,11 @@ def finale_page_v41(c, data: dict, mission: dict, page: int) -> None:
         x,
         y,
         w,
-        42,
+        54,
         size=18.5,
         font=rb.BOLD,
     )
-    y -= 50
+    y -= 58
 
     # Keep the seven canonical explanation sections verbatim; improve scan order.
     sections = data.get("finale_sections", [])
