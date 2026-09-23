@@ -1,14 +1,15 @@
 #!/usr/bin/env python3
-"""Fail-closed structural audit for the complete 145-page HMDA V4.1 artifact.
+"""Fail-closed structural audit for the complete HMDA V4.1 artifact.
 
 This validator is intentionally independent of the owner-gated Case 03 / Book 2
 artwork. It verifies the physical final PDF produced by
-``build_owner_review_v41_final.py``: page count/trim, reverse-entry rotations and
-reading order, remapped index integrity, Case 26 generated map references,
-manifest hashes, visual-gate state, and the explicit non-freeze state.
+``build_owner_review_v41_final.py``: page count/trim, the dedicated upright
+STOP / HINT VAULT divider, reverse-entry rotations and reading order, remapped
+index integrity, Case 26 generated map references, manifest hashes, visual-gate
+state, and the explicit non-freeze state.
 
-It does not alter story, puzzle logic, spatial geometry, pagination, visual
-selection, or English freeze state.
+It does not alter story, puzzle logic, spatial geometry, visual selection, or
+English freeze state.
 """
 from __future__ import annotations
 
@@ -69,11 +70,7 @@ def audit_final_artifact(
     reverse_contract_path: Path,
     report_path: Path | None = None,
 ) -> dict[str, Any]:
-    """Audit a fully rendered V4.1 artifact and return a durable report.
-
-    All checks are presentation/packaging checks. Any mismatch fails closed so a
-    malformed physical artifact cannot be mistaken for the owner-review final.
-    """
+    """Audit a fully rendered V4.1 artifact and return a durable report."""
     pdf_path = pdf_path.resolve()
     index_path = index_path.resolve()
     manifest_path = manifest_path.resolve()
@@ -119,16 +116,46 @@ def audit_final_artifact(
                 f"page {page_number} rotation {rotation} != expected {expected_rotation}"
             )
 
+    if page_count >= rbm.SUPPORT_DIVIDER_PAGE:
+        divider = reader.pages[rbm.SUPPORT_DIVIDER_PAGE - 1]
+        divider_text = (divider.extract_text() or "").upper()
+        for required in ("STOP", "HINT VAULT", "TURN", "BACK"):
+            if required not in divider_text:
+                errors.append(f"support divider page 110 missing required cue: {required}")
+        if int(divider.rotation or 0) % 360 != 0:
+            errors.append("support divider page 110 must remain upright")
+
     if index.get("page_count") != rbm.PAGE_COUNT:
-        errors.append("final page index does not declare 145 pages")
+        errors.append(f"final page index does not declare {rbm.PAGE_COUNT} pages")
+    if index.get("support_divider") != rbm.SUPPORT_DIVIDER_PAGE:
+        errors.append("final page index does not lock support divider to page 110")
     if manifest.get("revision") != "v4.1":
         errors.append("manifest revision is not v4.1")
     if manifest.get("pages") != rbm.PAGE_COUNT:
-        errors.append("manifest does not declare 145 pages")
+        errors.append(f"manifest does not declare {rbm.PAGE_COUNT} pages")
+    if manifest.get("builder_pages") != 145:
+        errors.append("manifest does not preserve the locked 145-page builder source count")
     if manifest.get("english_frozen") is not False:
         errors.append("English freeze state must remain false")
     if manifest.get("pdf_sha256") != actual_sha:
         errors.append("manifest pdf_sha256 does not match final PDF")
+
+    divider_manifest = manifest.get("support_divider")
+    if not isinstance(divider_manifest, dict):
+        errors.append("manifest support_divider contract is missing")
+    else:
+        if divider_manifest.get("integrated") is not True:
+            errors.append("support divider must be marked integrated")
+        if divider_manifest.get("page") != rbm.SUPPORT_DIVIDER_PAGE:
+            errors.append("manifest support divider page changed")
+        if divider_manifest.get("upright") is not True:
+            errors.append("manifest support divider must remain upright")
+        if divider_manifest.get("main_case_pages_unchanged") != [1, rbm.MAIN_CONTENT_END]:
+            errors.append("support divider contract does not preserve main case pages 1-109")
+        if divider_manifest.get("logic_changed") is not False:
+            errors.append("support divider must remain presentation-only")
+        if divider_manifest.get("owner_gated_art_changed") is not False:
+            errors.append("support divider cannot change owner-gated art")
 
     if contract.get("revision") != "v4.1":
         errors.append("reverse-entry contract revision is not v4.1")
@@ -137,8 +164,12 @@ def audit_final_artifact(
     if contract.get("english_frozen") is not False:
         errors.append("reverse-entry contract must keep english_frozen=false")
     if contract.get("page_count") != rbm.PAGE_COUNT:
-        errors.append("reverse-entry contract does not declare 145 pages")
-    if contract.get("front_section_unchanged_pages") != [1, rbm.BACKMATTER_START - 1]:
+        errors.append(f"reverse-entry contract does not declare {rbm.PAGE_COUNT} pages")
+    if contract.get("locked_main_content_pages") != [1, rbm.MAIN_CONTENT_END]:
+        errors.append("reverse-entry locked main-content boundary changed")
+    if contract.get("support_divider_page") != rbm.SUPPORT_DIVIDER_PAGE:
+        errors.append("reverse-entry support divider page changed")
+    if contract.get("front_section_unchanged_pages") != [1, rbm.SUPPORT_DIVIDER_PAGE]:
         errors.append("reverse-entry front-section boundary changed")
     if contract.get("reverse_entry_pages") != [rbm.BACKMATTER_START, rbm.BACKMATTER_END]:
         errors.append("reverse-entry page range changed")
@@ -153,12 +184,16 @@ def audit_final_artifact(
 
     sequence = contract.get("source_page_sequence")
     if not isinstance(sequence, list) or len(sequence) != rbm.PAGE_COUNT:
-        errors.append("reverse-entry source_page_sequence is not a 145-page list")
+        errors.append(
+            f"reverse-entry source_page_sequence is not a {rbm.PAGE_COUNT}-page list"
+        )
         sequence = []
     elif sorted(sequence) != list(range(1, rbm.PAGE_COUNT + 1)):
         errors.append("reverse-entry source_page_sequence is not a lossless permutation")
-    elif sequence[: rbm.BACKMATTER_START - 1] != list(range(1, rbm.BACKMATTER_START)):
-        errors.append("pages 1-109 are not preserved in source order")
+    elif sequence[: rbm.SUPPORT_DIVIDER_PAGE] != list(
+        range(1, rbm.SUPPORT_DIVIDER_PAGE + 1)
+    ):
+        errors.append("pages 1-110 are not preserved in source order")
 
     if sequence:
         for key, expected_page in _expected_remapped_backmatter(sequence).items():
@@ -229,8 +264,10 @@ def audit_final_artifact(
                     f"Case 26 lookup page mismatch for Case {int(case_number):02d}: "
                     f"{page_number!r} != {expected_page}"
                 )
-            if isinstance(page_number, int) and page_number >= rbm.BACKMATTER_START:
-                errors.append(f"Case 26 map reference for Case {int(case_number):02d} points into back matter")
+            if isinstance(page_number, int) and page_number > rbm.MAIN_CONTENT_END:
+                errors.append(
+                    f"Case 26 map reference for Case {int(case_number):02d} points beyond locked main content"
+                )
 
     report = {
         "status": "PASS" if not errors else "FAIL",
@@ -239,6 +276,7 @@ def audit_final_artifact(
         "pages": page_count,
         "pdf_sha256": actual_sha,
         "letter_trim_verified": not any("trim" in error for error in errors),
+        "support_divider_verified": not any("support divider" in error for error in errors),
         "reverse_entry_verified": not any("reverse-entry" in error or "rotation" in error for error in errors),
         "case26_lookup_verified": not any("Case 26" in error for error in errors),
         "owner_visual_gate_status": owner_status,
