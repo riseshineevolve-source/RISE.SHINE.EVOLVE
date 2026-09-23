@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Deterministic contract test for V4.1 premium Signal Log presentation."""
+"""Deterministic contract test for V4.1 premium presentation layers."""
 from __future__ import annotations
 
 import json
@@ -26,6 +26,7 @@ def test_family_routing() -> None:
 
 def test_wrapper_patches_only_during_delegate() -> None:
     original_signal = v4.signal_page
+    original_witness = v4.witness_board
     original_main = v41.main
     original_argv = list(sys.argv)
     with tempfile.TemporaryDirectory() as tmp:
@@ -34,6 +35,7 @@ def test_wrapper_patches_only_during_delegate() -> None:
 
         def fake_main() -> None:
             assert v4.signal_page is premium.signal_page_v41
+            assert v4.witness_board is premium.witness_board_v41
             manifest.write_text(json.dumps({
                 "revision": "v4.1",
                 "english_frozen": False,
@@ -52,6 +54,7 @@ def test_wrapper_patches_only_during_delegate() -> None:
             sys.argv = original_argv
 
         assert v4.signal_page is original_signal
+        assert v4.witness_board is original_witness
         packet = json.loads(manifest.read_text(encoding="utf-8"))
         assert packet["english_frozen"] is False
         signal = packet["premium_polish"]["signal_log_visual_families"]
@@ -61,9 +64,16 @@ def test_wrapper_patches_only_during_delegate() -> None:
         room_zero = packet["premium_polish"]["room_zero_trace_presentation"]
         assert room_zero["mechanism_changed"] is False
         assert room_zero["chain"] == "CASE -> SIGNAL CODE -> VERIFIED STATUS"
+        witness = packet["premium_polish"]["witness_board_presentation"]
+        assert witness["status"] == "INTEGRATED"
+        assert witness["style"] == premium.WITNESS_BOARD_STYLE
+        assert witness["clue_text_changed"] is False
+        assert witness["witness_identity_changed"] is False
+        assert witness["pagination_changed"] is False
+        assert witness["spatial_geometry_changed"] is False
 
 
 if __name__ == "__main__":
     test_family_routing()
     test_wrapper_patches_only_during_delegate()
-    print("PASS: V4.1 premium Signal Log presentation contract")
+    print("PASS: V4.1 premium presentation contract")
