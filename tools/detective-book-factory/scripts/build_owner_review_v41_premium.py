@@ -74,8 +74,8 @@ def _signal_panel_routing(c, s: dict, mission: dict, x: float, top: float, w: fl
         (str(s["code"]), "SIGNAL"),
         (str(s["status"]), "STATUS"),
     )
-    left = x + 18
-    right = x + w - 18
+    left = x + 64
+    right = x + w - 64
     cy = top - 72
     c.setStrokeColor(rb.BLACK)
     c.setLineWidth(2)
