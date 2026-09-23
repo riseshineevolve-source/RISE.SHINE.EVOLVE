@@ -37,10 +37,17 @@ def main() -> None:
         assert isinstance(master_data.get("missions"), list)
         assert len(master_data["missions"]) == 30
 
-        map_keys = sorted(key for key in page_index if key.endswith("_map"))
-        solution_keys = sorted(key for key in page_index if key.endswith("_solution"))
-        assert len(map_keys) == 15
-        assert len(solution_keys) == 15
+        spatial_case_numbers = sorted(
+            int(mission["number"])
+            for mission in master_data["missions"]
+            if mission.get("spatial_source_id")
+        )
+        assert len(spatial_case_numbers) == 15
+
+        map_keys = [f"{number:02d}_map" for number in spatial_case_numbers]
+        solution_keys = [f"{number:02d}_solution" for number in spatial_case_numbers]
+        assert all(key in page_index for key in map_keys)
+        assert all(key in page_index for key in solution_keys)
 
         spatial_pages = [page_index[key] for key in map_keys + solution_keys]
         assert len(spatial_pages) == 30
