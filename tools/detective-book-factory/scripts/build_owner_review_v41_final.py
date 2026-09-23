@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """Build the complete HMDA Book 1 V4.1 owner-review artifact.
 
-This is the canonical V4.1 render wrapper. It runs the bounded V4.1 builder
-first, then applies the already-validated reverse-entry Hint Vault / Solutions
-architecture to the freshly rendered 145-page PDF. It does not change story,
-puzzle logic, spatial geometry, owner-gated visual selections, or English
-freeze state.
+This is the canonical V4.1 render wrapper. It runs the bounded premium V4.1
+builder first, then applies the already-validated reverse-entry Hint Vault /
+Solutions architecture to the freshly rendered 145-page PDF. It does not
+change story, puzzle logic, spatial geometry, owner-gated visual selections,
+or English freeze state.
 
 Case 03 and Book 2 art remain fail-closed in build_owner_review_v41.py unless an
 explicit owner-locked visual manifest is supplied.
@@ -28,7 +28,7 @@ import build_owner_review_v4 as v4
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 ROOT = SCRIPT_DIR.parent
-V41_BUILDER = SCRIPT_DIR / "build_owner_review_v41.py"
+V41_BUILDER = SCRIPT_DIR / "build_owner_review_v41_premium.py"
 INDEX_NAME = "HMDA_Book1_EN_OwnerReview_v41_page_index.json"
 MANIFEST_NAME = "HMDA_Book1_EN_OwnerReview_v41_manifest.json"
 REVERSE_CONTRACT_NAME = "HMDA_Book1_EN_OwnerReview_v41_reverse_entry.json"
@@ -56,7 +56,7 @@ def prepare_case26_lookup_master(
 
     Case 26 asks the reader to compare the fourteen completed spatial maps.
     The durable V4 contract intentionally keeps case numbers in the main
-    ledger and adds physical page references only to Hint Level 1.  Generate
+    ledger and adds physical page references only to Hint Level 1. Generate
     those references from the locked page plan so they cannot drift when
     parity/interlude placement changes.
 
