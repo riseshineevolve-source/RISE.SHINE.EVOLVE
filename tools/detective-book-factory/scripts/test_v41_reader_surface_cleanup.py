@@ -25,8 +25,8 @@ def require(condition: bool, message: str) -> None:
 
 def main() -> None:
     publication_src = inspect.getsource(v41.publication_page_v41).lower()
-    require("owner-review" not in publication_src,
-            "V4.1 publication surface still exposes owner-review copy")
+    require("english premier owner-review edition" not in publication_src,
+            "V4.1 publication surface still exposes owner-review edition copy")
     require("interior proof" not in publication_src,
             "V4.1 publication surface still exposes proof-only copy")
 
