@@ -28,7 +28,7 @@ import build_owner_review_v4 as v4
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 ROOT = SCRIPT_DIR.parent
-V41_BUILDER = SCRIPT_DIR / "build_owner_review_v41_premium.py"
+V41_BUILDER = SCRIPT_DIR / "build_owner_review_v41_finale.py"
 INDEX_NAME = "HMDA_Book1_EN_OwnerReview_v41_page_index.json"
 MANIFEST_NAME = "HMDA_Book1_EN_OwnerReview_v41_manifest.json"
 REVERSE_CONTRACT_NAME = "HMDA_Book1_EN_OwnerReview_v41_reverse_entry.json"
