@@ -5,8 +5,9 @@ Status: **V4.1 SOURCE POLISH ACTIVE / OWNER VISUAL GATE OPEN / ENGLISH NOT FROZE
 Updated: 2026-09-23
 Canonical branch: `feature/detective-book-factory`
 PR: #571 (Draft; do not merge without owner approval)
-Current checkpoint head: `76b00df396d1b219b8d90c4f2676a3f9bd8c5406`
-Latest Detective build: **#147 PASS**
+Verified implementation head before this checkpoint sync: `4ce70c1ccb19b78e5aad58e63a2509ad72f28988`
+Latest Detective build: **#153 PASS**
+Latest SEO validation: **#671 PASS**
 
 ## Protected product decisions
 
@@ -24,7 +25,7 @@ cleanup, Signal Log / Witness Board / finale / certificate presentation layers,
 print typography QA, grayscale audit, final-artifact audit, and the locked-V4
 spatial recovery bridge.
 
-The owner-audit layer now also provides:
+The owner-audit layer also provides:
 
 - exact Field Detective ID fields `DETECTIVE NAME` + `OFFICIAL CALL SIGN` with
   field slot `06`;
@@ -39,6 +40,27 @@ The owner-audit layer now also provides:
 
 These are presentation/navigation corrections only. They do not change case
 logic, clue text, spatial geometry, answers, or English freeze state.
+
+## Physical STOP / Hint Vault boundary — completed
+
+The canonical V4.1 finalizer now inserts one dedicated upright support divider
+at **physical page 110** after locked main-content page 109.
+
+Deterministic contract:
+
+- locked V4 recovery/source builder remains **145 pages**;
+- final V4.1 physical artifact is **146 pages**;
+- physical pages **1-109 remain unchanged in position**;
+- page **110** is the upright `STOP // HINT VAULT // SOLUTIONS` boundary;
+- reverse-entry Hint Vault / Solutions starts on page **111** and continues to
+  page 146;
+- the divider explicitly says to turn the whole book upside down, open from the
+  back, take the smallest needed hint, then return to the case;
+- reverse-entry constants, index, manifest and fail-closed artifact audit were
+  updated deterministically for the 146-page contract.
+
+Build #153 passed the complete Detective workflow at implementation head
+`4ce70c1ccb19b78e5aad58e63a2509ad72f28988`; SEO #671 also passed.
 
 ## Owner visual gate
 
@@ -60,37 +82,38 @@ four final files, the local final pass must:
 5. never regenerate, restyle, destructively crop, or silently substitute any
    owner-supplied visual.
 
-## Remaining source-side owner-audit work
+## Remaining safe source-side owner-audit work
 
-Safe work still independent of the final owner assets:
+Independent of the final owner assets:
 
-- explicit physical STOP / HINT VAULT boundary between normal main content and
-  reverse support; final artifact may become 146 pages only if a dedicated
-  divider page is required, while case/map pages 1-109 must remain unchanged;
-- diversify the 11 parity interludes so they remain case-specific but also use
-  visibly varied page families rather than one repeated template;
+- diversify the 11 parity interludes so they remain case-specific **and** use
+  visibly varied deterministic page families rather than one repeated template;
 - make the Book 2 hook cinematic rather than bullet-report-like, without
-  changing the locked Book 2 premise;
+  changing the locked Book 2 premise or selecting/replacing owner-gated art;
 - final human visual QA on every page and a physical back-entry simulation once
-  the exact final artifact can be rendered.
+  the exact final owner-review artifact can be rendered with the four owner
+  visuals.
 
 ## Validation
 
-- Detective Build #147: **PASS** at checkpoint head
-  `76b00df396d1b219b8d90c4f2676a3f9bd8c5406`.
-- The owner-audit smoke test now verifies the dedicated Case Wall, page-008
-  reverse-entry onboarding, exact identity fields, Case 30 call-sign contract,
-  certificate cleanup, Signal Log ARCHIVE family, and grayscale fail-closed
-  behavior.
+- Detective Build #153: **PASS** at implementation head
+  `4ce70c1ccb19b78e5aad58e63a2509ad72f28988`.
+- SEO Validation #671: **PASS** at the same implementation head.
+- The final-artifact contract now verifies 146 Letter pages, page 110 divider
+  orientation/content, unchanged case/map pages 1-109, correct 180-degree
+  reverse support, index/manifest/reverse-contract integrity, Case 26 generated
+  references, grayscale-only output and `english_frozen=false`.
 - English remains **NOT FROZEN**.
-- `main` must remain untouched until explicit owner approval.
+- `main` remains outside this PR lane and must not be touched until explicit
+  owner approval.
 
 ## Owner-only gates
 
 Do not automatically:
 
 - freeze English;
-- select or alter owner-gated visuals;
+- select, regenerate, restyle, destructively crop or silently substitute
+  owner-gated visuals;
 - merge PR #571 or touch `main`;
 - publish or upload to KDP;
 - change cover or price;
