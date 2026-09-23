@@ -24,6 +24,7 @@ from pypdf import PdfReader
 import yaml
 
 import apply_v41_reverse_backmatter as rbm
+import audit_v41_final_artifact as final_audit
 import build_owner_review_v4 as v4
 
 SCRIPT_DIR = Path(__file__).resolve().parent
@@ -32,6 +33,7 @@ V41_BUILDER = SCRIPT_DIR / "build_owner_review_v41_finale.py"
 INDEX_NAME = "HMDA_Book1_EN_OwnerReview_v41_page_index.json"
 MANIFEST_NAME = "HMDA_Book1_EN_OwnerReview_v41_manifest.json"
 REVERSE_CONTRACT_NAME = "HMDA_Book1_EN_OwnerReview_v41_reverse_entry.json"
+FINAL_AUDIT_NAME = "HMDA_Book1_EN_OwnerReview_v41_final_audit.json"
 DEFAULT_OVERRIDES = ROOT / "content/book1_v4_overrides.yml"
 CASE26_LOOKUP_INPUT_NAME = "book1_en_master_v41_case26_lookup_input.yml"
 
@@ -205,6 +207,7 @@ def main() -> None:
     index_path = final_pdf.parent / INDEX_NAME
     manifest_path = final_pdf.parent / MANIFEST_NAME
     reverse_contract_path = final_pdf.parent / REVERSE_CONTRACT_NAME
+    audit_report_path = final_pdf.parent / FINAL_AUDIT_NAME
     manifest = finalize_rendered_artifact(
         pre_reverse_pdf,
         final_pdf,
@@ -221,6 +224,16 @@ def main() -> None:
     }
     manifest_path.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
 
+    # Fail closed on the actual physical artifact, not merely on synthetic
+    # transform contracts. This remains independent of owner-gated art choice.
+    audit_report = final_audit.audit_final_artifact(
+        final_pdf,
+        index_path,
+        manifest_path,
+        reverse_contract_path,
+        audit_report_path,
+    )
+
     pre_reverse_pdf.unlink(missing_ok=True)
     lookup_master.unlink(missing_ok=True)
 
@@ -229,6 +242,7 @@ def main() -> None:
     print(f"SHA256: {manifest['pdf_sha256']}")
     print(f"INDEX: {index_path}")
     print(f"REVERSE CONTRACT: {reverse_contract_path}")
+    print(f"FINAL AUDIT: {audit_report_path} // {audit_report['status']}")
     print(f"CASE 26 LOOKUP: {len(case26_refs)} generated map references")
     print("English frozen: false")
 

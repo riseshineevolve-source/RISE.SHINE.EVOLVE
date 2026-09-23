@@ -11,11 +11,17 @@ from pypdf.generic import NameObject, NumberObject
 import yaml
 
 import apply_v41_reverse_backmatter as rbm
+import audit_v41_final_artifact as final_audit
 import build_owner_review_v41_final as finalizer
+
+
+SPATIAL_CASES = (2, 4, 6, 7, 10, 12, 13, 15, 17, 19, 20, 22, 23, 25)
 
 
 def synthetic_index() -> dict:
     index = {"title": 1, "page_count": 145, "26_brief": 86, "26_puzzle": 87}
+    for i, case_number in enumerate(SPATIAL_CASES, start=24):
+        index[f"{case_number:02d}_map"] = i
     for i, key in enumerate(rbm.HINT_KEYS, start=110):
         index[key] = i
     for n in range(1, 31):
@@ -30,7 +36,7 @@ def test_case26_lookup_master() -> None:
         overrides_path = root / "overrides.yml"
         output_path = root / "lookup-master.yml"
 
-        spatial_cases = {2, 4, 6, 7, 10, 12, 13, 15, 17, 19, 20, 22, 23, 25}
+        spatial_cases = set(SPATIAL_CASES)
         missions = []
         for n in range(1, 31):
             mission = {
@@ -82,21 +88,27 @@ def test_finalizer() -> None:
         index_path = root / finalizer.INDEX_NAME
         manifest_path = root / finalizer.MANIFEST_NAME
         contract_path = root / finalizer.REVERSE_CONTRACT_NAME
+        audit_path = root / finalizer.FINAL_AUDIT_NAME
 
         writer = PdfWriter()
         for n in range(1, 146):
-            page = writer.add_blank_page(width=100, height=200)
+            page = writer.add_blank_page(width=612, height=792)
             page[NameObject("/RSESourcePage")] = NumberObject(n)
         with source.open("wb") as fh:
             writer.write(fh)
 
-        index_path.write_text(json.dumps(synthetic_index()), encoding="utf-8")
+        source_index = synthetic_index()
+        index_path.write_text(json.dumps(source_index), encoding="utf-8")
         manifest_path.write_text(
             json.dumps({
                 "revision": "v4.1",
                 "pages": 145,
                 "pdf_sha256": finalizer.sha256(source),
-                "owner_visual_gate": {"status": "OWNER_GATE_PENDING"},
+                "owner_visual_gate": {
+                    "status": "OWNER_GATE_PENDING",
+                    "owner_locked": False,
+                    "integrated": False,
+                },
                 "english_frozen": False,
             }),
             encoding="utf-8",
@@ -127,6 +139,42 @@ def test_finalizer() -> None:
         assert manifest["pdf_sha256"] == finalizer.sha256(final)
         assert manifest["reverse_entry"]["integrated"] is True
         assert manifest["owner_visual_gate"]["status"] == "OWNER_GATE_PENDING"
+
+        refs = [
+            {"case": case_number, "page": remapped[f"{case_number:02d}_map"]}
+            for case_number in SPATIAL_CASES
+        ]
+        manifest["case26_lookup"] = {
+            "scope": "HINT_LEVEL_1_ONLY",
+            "generated_from_page_plan": True,
+            "spatial_case_count": len(refs),
+            "references": refs,
+            "logic_changed": False,
+        }
+        manifest_path.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
+
+        audit = final_audit.audit_final_artifact(
+            final, index_path, manifest_path, contract_path, audit_path
+        )
+        assert audit["status"] == "PASS"
+        assert audit["pages"] == 145
+        assert audit["case26_lookup_verified"] is True
+        assert audit["reverse_entry_verified"] is True
+        assert json.loads(audit_path.read_text(encoding="utf-8"))["status"] == "PASS"
+
+        # Fail closed when packaging metadata no longer identifies the bytes that
+        # are being reviewed. This catches stale manifests after a PDF rewrite.
+        bad_manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        bad_manifest["pdf_sha256"] = "0" * 64
+        manifest_path.write_text(json.dumps(bad_manifest), encoding="utf-8")
+        try:
+            final_audit.audit_final_artifact(
+                final, index_path, manifest_path, contract_path
+            )
+        except final_audit.FinalArtifactAuditError as exc:
+            assert any("pdf_sha256" in error for error in exc.errors)
+        else:
+            raise AssertionError("final artifact audit accepted a stale manifest hash")
 
 
 if __name__ == "__main__":
