@@ -5,6 +5,8 @@ This layer is intentionally bounded:
 - preserves all locked case logic, spatial geometry, pagination and owner-gated art;
 - normalizes Field Detective identity surfaces to DETECTIVE NAME + OFFICIAL CALL SIGN + 06;
 - makes Case 30 ask for the OFFICIAL CALL SIGN rather than a vague name;
+- provides a dedicated front-matter CASE WALL / EVIDENCE LOG without shifting case pages;
+- explains the physical reverse-entry support flow: stop, turn upside down, open from back;
 - removes non-ceremonial certificate meta copy;
 - diversifies the ARCHIVE Signal Log family so it no longer repeats a giant zero.
 
@@ -25,6 +27,8 @@ import build_owner_review_v41_finale as finale
 
 rb = v4.rb
 MANIFEST_NAME = "HMDA_Book1_EN_OwnerReview_v41_manifest.json"
+CASE_WALL_PAGE = 9
+HOW_TO_PAGE = 8
 
 _ORIGINAL_BUILD_DATA = v4.build_data
 
@@ -36,6 +40,7 @@ def _patched_build_data(*args, **kwargs):
     card = opening.setdefault("id_card", {})
     card["name_label"] = "DETECTIVE NAME"
     card["call_sign_label"] = "OFFICIAL CALL SIGN"
+    card["case_wall_label"] = f"CASE WALL / EVIDENCE LOG // P. {CASE_WALL_PAGE:03d}"
 
     acceptance = opening.get("acceptance_letter")
     if isinstance(acceptance, dict):
@@ -100,6 +105,13 @@ def _patched_build_data(*args, **kwargs):
         "field_slot": "06",
         "case30_requests_official_call_sign": True,
         "logic_changed": False,
+        "pagination_changed": False,
+    }
+    state["owner_audit_navigation_contract"] = {
+        "how_to_page": HOW_TO_PAGE,
+        "case_wall_evidence_log_page": CASE_WALL_PAGE,
+        "reverse_support_instruction": "STOP_TURN_UPSIDE_DOWN_OPEN_FROM_BACK",
+        "case_pages_shifted": False,
         "pagination_changed": False,
     }
     return data, cases, v4_master, runtime
@@ -183,15 +195,21 @@ def id_page_owner_audit(c, data: dict, page: int) -> None:
         radius=9,
         sw=1.0,
     )
-    rb.label(c, "FIELD ID // KEEP THIS CARD", rb.M + 14, y - 469, size=9.5)
+    rb.label(
+        c,
+        card.get("case_wall_label", f"CASE WALL / EVIDENCE LOG // P. {CASE_WALL_PAGE:03d}"),
+        rb.M + 14,
+        y - 469,
+        size=9.5,
+    )
     rb.para(
         c,
-        "Use the same OFFICIAL CALL SIGN when the final certification check asks for it.",
+        "Keep the shared evidence thread there. Use the same OFFICIAL CALL SIGN again at final certification.",
         rb.M + 14,
         y - 488,
         rb.PAGE_W - 2 * rb.M - 28,
         48,
-        size=10.8,
+        size=10.4,
         font=rb.BOLD,
     )
 
@@ -204,6 +222,144 @@ def id_page_owner_audit(c, data: dict, page: int) -> None:
         28,
         size=10.5,
         font=rb.BOLD,
+        align=1,
+    )
+    rb.footer(c, page)
+    c.showPage()
+
+
+def how_to_page_owner_audit(c, data: dict, page: int) -> None:
+    """Keep the case cycle compact and make reverse-entry help unmistakable."""
+    rb.top_bar(c, "HOW TO WORK A CASE", page)
+    y = rb.PAGE_H - 64
+    rb.para(
+        c,
+        "WORK FORWARD. GET HELP FROM THE BACK.",
+        rb.M,
+        y,
+        rb.PAGE_W - 2 * rb.M,
+        40,
+        size=19,
+        font=rb.BOLD,
+    )
+    y -= 54
+
+    steps = (
+        "Read the situation and the objective before marking anything.",
+        "Record exact facts first; separate what you know from what you suspect.",
+        "Cross out what cannot work and test the map rules before guessing.",
+        "Use numeric witness IDs and write the requested verdict or coordinate.",
+        f"Keep cross-case facts, signal codes and open questions on the CASE WALL / EVIDENCE LOG on p. {CASE_WALL_PAGE:03d}.",
+        "Commit to your best answer before checking support. Then return to the case.",
+    )
+    for i, item in enumerate(steps, 1):
+        h = 50
+        rb.box(c, rb.M, y - h, rb.PAGE_W - 2 * rb.M, h,
+               fill=rb.WHITE, stroke=rb.BLACK, radius=7)
+        c.setFillColor(rb.BLACK)
+        c.circle(rb.M + 20, y - h / 2, 12, fill=1, stroke=0)
+        c.setFillColor(rb.WHITE)
+        c.setFont(rb.BOLD, 9.5)
+        c.drawCentredString(rb.M + 20, y - h / 2 - 3, str(i))
+        rb.para(c, html.escape(item), rb.M + 43, y - 8,
+                rb.PAGE_W - 2 * rb.M - 54, h - 12, size=10.4)
+        y -= h + 5
+
+    support_h = 150
+    rb.box(c, rb.M, y - support_h, rb.PAGE_W - 2 * rb.M, support_h,
+           fill=rb.BLACK, stroke=rb.BLACK, radius=10)
+    rb.label(c, "WHEN YOU NEED HELP // PHYSICAL BACK ENTRY", rb.M + 14, y - 24,
+             size=9.5, color=rb.WHITE)
+    rb.para(
+        c,
+        "STOP. Keep your place. Turn this book upside down, then open it from the BACK. "
+        "The Hint Vault and Solutions are built to read from that direction. Take the smallest hint you need, close the support section, turn the book back, and continue the case.",
+        rb.M + 14,
+        y - 43,
+        rb.PAGE_W - 2 * rb.M - 28,
+        74,
+        size=10.7,
+        font=rb.BOLD,
+        color=rb.WHITE,
+    )
+    rb.para(
+        c,
+        "HINT 1 = nudge   //   HINT 2 = stronger constraint   //   HINT 3 = decisive next step",
+        rb.M + 14,
+        y - 121,
+        rb.PAGE_W - 2 * rb.M - 28,
+        24,
+        size=9.2,
+        color=rb.WHITE,
+        align=1,
+    )
+    rb.footer(c, page)
+    c.showPage()
+
+
+def case_wall_page_owner_audit(c, data: dict, page: int) -> None:
+    """Dedicated shared CASE WALL / EVIDENCE LOG using the locked front-matter slot."""
+    rb.top_bar(c, "CASE WALL / EVIDENCE LOG", page)
+    y = rb.PAGE_H - 64
+    rb.para(
+        c,
+        "KEEP THE THREAD BETWEEN CASES.",
+        rb.M,
+        y,
+        rb.PAGE_W - 2 * rb.M,
+        40,
+        size=20,
+        font=rb.BOLD,
+    )
+    y -= 50
+    rb.para(
+        c,
+        "Return here when a case tells you to log a signal, pin a clue, compare earlier files, or check the wall. This page is for cross-case evidence — not guesses dressed as facts.",
+        rb.M,
+        y,
+        rb.PAGE_W - 2 * rb.M,
+        54,
+        size=10.7,
+    )
+    y -= 68
+
+    gap = 12
+    panel_w = (rb.PAGE_W - 2 * rb.M - gap) / 2
+    panel_h = 214
+    panels = (
+        ("VERIFIED FACTS", "What is now certain across cases?"),
+        ("SIGNAL CODES", "Code + case number + what changed."),
+        ("OPEN QUESTIONS", "What still needs testing or comparing?"),
+        ("CROSS-CASE LINKS", "Old map, repeated detail, contradiction, or callback."),
+    )
+    for idx, (label, prompt) in enumerate(panels):
+        row, col = divmod(idx, 2)
+        x = rb.M + col * (panel_w + gap)
+        top = y - row * (panel_h + gap)
+        rb.box(c, x, top - panel_h, panel_w, panel_h,
+               fill=rb.WHITE, stroke=rb.BLACK, radius=9, sw=1.1)
+        rb.label(c, label, x + 12, top - 22, size=9.5)
+        rb.para(c, prompt, x + 12, top - 40, panel_w - 24, 34,
+                size=9.2, font=rb.BOLD)
+        c.setStrokeColor(rb.LINE)
+        c.setLineWidth(0.7)
+        line_y = top - 92
+        for _ in range(4):
+            c.line(x + 12, line_y, x + panel_w - 12, line_y)
+            line_y -= 28
+
+    rb.box(c, rb.M, 62, rb.PAGE_W - 2 * rb.M, 58,
+           fill=rb.BLACK, stroke=rb.BLACK, radius=9)
+    rb.para(
+        c,
+        "CALLBACK // IF A LATER FILE SAYS CHECK THE WALL, THIS IS THE WALL.",
+        rb.M + 14,
+        98,
+        rb.PAGE_W - 2 * rb.M - 28,
+        28,
+        size=10.5,
+        font=rb.BOLD,
+        color=rb.WHITE,
         align=1,
     )
     rb.footer(c, page)
@@ -391,6 +547,13 @@ def _mark_manifest(path: Path) -> None:
             "combined_name_call_sign_removed": True,
         },
         "case30_official_call_sign_prompt": True,
+        "front_navigation": {
+            "how_to_page": HOW_TO_PAGE,
+            "case_wall_evidence_log_page": CASE_WALL_PAGE,
+            "reverse_support_instruction": "STOP_TURN_UPSIDE_DOWN_OPEN_FROM_BACK",
+            "case_pages_shifted": False,
+            "pagination_changed": False,
+        },
         "certificate_nonceremonial_meta_removed": True,
         "signal_archive_giant_zero_removed": True,
         "owner_gated_art_changed": False,
@@ -406,11 +569,15 @@ def main() -> None:
 
     original_build_data = v4.build_data
     original_id = v41.id_page_v41
+    original_how_to = v4.how_to_page
+    original_hint_guide = v4.hint_guide_page
     original_archive_panel = premium._signal_panel_archive
     original_certificate = finale.certificate_page_v41
 
     v4.build_data = _patched_build_data
     v41.id_page_v41 = id_page_owner_audit
+    v4.how_to_page = how_to_page_owner_audit
+    v4.hint_guide_page = case_wall_page_owner_audit
     premium._signal_panel_archive = archive_signal_panel_owner_audit
     finale.certificate_page_v41 = certificate_page_owner_audit
     try:
@@ -418,11 +585,13 @@ def main() -> None:
     finally:
         v4.build_data = original_build_data
         v41.id_page_v41 = original_id
+        v4.how_to_page = original_how_to
+        v4.hint_guide_page = original_hint_guide
         premium._signal_panel_archive = original_archive_panel
         finale.certificate_page_v41 = original_certificate
 
     _mark_manifest(manifest_path)
-    print("PASS: V4.1 owner-audit identity / Case 30 / certificate / Signal Log corrections integrated")
+    print("PASS: V4.1 owner-audit identity / navigation / certificate / Signal Log corrections integrated")
     print("English frozen: false")
 
 
