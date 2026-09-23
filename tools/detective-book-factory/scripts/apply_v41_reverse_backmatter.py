@@ -5,13 +5,15 @@ This is a presentation-only post-process. It does not alter story, case logic,
 spatial geometry, answers, owner-gated visual assets, or English freeze state.
 
 Physical reading contract:
-- enter from the back of the printed book,
+- pages 1-109 remain the locked normal main-content sequence,
+- page 110 is the dedicated upright STOP / HINT VAULT divider,
+- enter support from the back of the printed book,
 - rotate the book 180 degrees,
 - read Hint Vault Level 1 -> Level 2 -> Level 3,
 - then read Solutions Case 01 -> Case 30.
 
-The PDF remains 145 pages. Front matter and case pages 1-109 stay byte-order
-stable as PDF pages; only pages 110-145 are reordered and marked Rotate=180.
+The final PDF is 146 pages. Pages 1-110 stay in source order and upright;
+only pages 111-146 are reordered and marked Rotate=180.
 """
 from __future__ import annotations
 
@@ -22,9 +24,11 @@ from pathlib import Path
 
 from pypdf import PdfReader, PdfWriter
 
-PAGE_COUNT = 145
-BACKMATTER_START = 110
-BACKMATTER_END = 145
+PAGE_COUNT = 146
+MAIN_CONTENT_END = 109
+SUPPORT_DIVIDER_PAGE = 110
+BACKMATTER_START = 111
+BACKMATTER_END = 146
 
 HINT_KEYS = (
     "hints_level_1_cases_01_15",
@@ -43,6 +47,8 @@ def _solution_key(case_number: int) -> str:
 def validate_source_index(index: dict) -> None:
     if index.get("page_count") != PAGE_COUNT:
         raise ValueError(f"Expected {PAGE_COUNT}-page source index")
+    if index.get("support_divider") != SUPPORT_DIVIDER_PAGE:
+        raise ValueError("Dedicated STOP / HINT VAULT divider must be page 110")
 
     expected_hints = list(range(BACKMATTER_START, BACKMATTER_START + 6))
     actual_hints = [index.get(key) for key in HINT_KEYS]
@@ -65,7 +71,7 @@ def forward_source_page_sequence(index: dict) -> list[int]:
 
     sequence = list(range(1, BACKMATTER_START))
 
-    # Physical reader moves backward from page 145. Therefore PDF-forward order
+    # Physical reader moves backward from page 146. Therefore PDF-forward order
     # must be the reverse of the desired physical reading order.
     sequence.extend(index[_solution_key(n)] for n in range(30, 0, -1))
     sequence.extend(
@@ -81,7 +87,9 @@ def forward_source_page_sequence(index: dict) -> list[int]:
     )
 
     if len(sequence) != PAGE_COUNT or sorted(sequence) != list(range(1, PAGE_COUNT + 1)):
-        raise ValueError("Reverse-entry sequence must be a lossless 145-page permutation")
+        raise ValueError("Reverse-entry sequence must be a lossless 146-page permutation")
+    if sequence[:SUPPORT_DIVIDER_PAGE] != list(range(1, SUPPORT_DIVIDER_PAGE + 1)):
+        raise ValueError("Pages 1-110, including the support divider, must remain in source order")
     return sequence
 
 
@@ -152,7 +160,9 @@ def apply_reverse_backmatter(
         "presentation_only": True,
         "english_frozen": False,
         "page_count": PAGE_COUNT,
-        "front_section_unchanged_pages": [1, BACKMATTER_START - 1],
+        "locked_main_content_pages": [1, MAIN_CONTENT_END],
+        "support_divider_page": SUPPORT_DIVIDER_PAGE,
+        "front_section_unchanged_pages": [1, SUPPORT_DIVIDER_PAGE],
         "reverse_entry_pages": [BACKMATTER_START, BACKMATTER_END],
         "rotation_degrees": 180,
         "physical_entry": "back cover",
