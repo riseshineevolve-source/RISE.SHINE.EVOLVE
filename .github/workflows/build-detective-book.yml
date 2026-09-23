@@ -33,6 +33,7 @@ jobs:
           mkdir -p dist
           python -m py_compile \
             scripts/audit_book1_launch_state.py \
+            scripts/audit_print_typography.py \
             scripts/build_book1_master.py \
             scripts/extract_shigai_runtime.py \
             scripts/render_spatial_case_spreads.py \
@@ -98,6 +99,14 @@ jobs:
           pdfinfo dist/HMDA_Book1_Full_Editorial_Preview.pdf
           cat dist/spatial_asset_status.txt
 
+      - name: Typography and print-safety QA
+        working-directory: tools/detective-book-factory
+        run: |
+          python scripts/audit_print_typography.py \
+            --pdf dist/HMDA_Book1_Full_Editorial_Preview.pdf \
+            --min-pages 95 \
+            --report dist/typography_print_qa.json
+
       - name: Render page previews
         working-directory: tools/detective-book-factory
         run: |
@@ -114,6 +123,7 @@ jobs:
             tools/detective-book-factory/dist/HMDA_Book1_Full_Editorial_Preview.pdf
             tools/detective-book-factory/dist/book1_en_master.yml
             tools/detective-book-factory/dist/preflight.txt
+            tools/detective-book-factory/dist/typography_print_qa.json
             tools/detective-book-factory/dist/spatial_asset_status.txt
             tools/detective-book-factory/dist/previews/*.png
           if-no-files-found: error
