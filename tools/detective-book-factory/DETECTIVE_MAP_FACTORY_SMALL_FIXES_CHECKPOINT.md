@@ -43,3 +43,54 @@ legends use the alias only.
 - Produce paired spread/contact-sheet previews, inspect all pilot pages at
   print scale, then scale unchanged logic mechanically to all 15.
 - Run strict full-book preflight only after all final spatial assets are attached.
+
+---
+
+## Delta — 2026-09-24: modern-prop audit and safe scaffolding
+
+This delta supersedes only the object-art assumption above; later Book 1
+checkpoints remain authoritative for work completed after 2026-09-21.
+
+### Audit result
+
+**NOT INTEGRATED:** the current production map path still uses
+`hybrid-original-shigai`, and `render_spatial_map_hybrid_hardened.py`
+explicitly preserves original object art in the source raster.
+`validate_spatial_object_art.py` also protects the dark-pixel core of every
+locked object cell. The existing maps therefore do **not** yet contain a
+modern-prop replacement layer.
+
+### Safe work completed
+
+- Added `MODERN_PROP_PRESENTATION_CONTRACT.md`.
+- Added `content/modern_prop_catalog.template.yml` without guessing source
+  object types.
+- Added `scripts/validate_modern_prop_contract.py`.
+- The validator checks runtime cell/type/variant/blocked/occupiable semantics,
+  rejects blocked/occupiable drift, checks catalog compatibility, inventories
+  unmapped object types and emits `object_semantics_sha256`.
+- Added a deterministic self-test proving that presentation-key changes do not
+  change the semantic fingerprint, missing mappings fail closed in release
+  mode, and semantic drift is rejected.
+- No source raster, puzzle geometry, clue, answer, witness placement, Room Zero
+  meta logic or owner visual asset was changed.
+
+### Verification
+
+- LOCAL PASS: `python scripts/validate_modern_prop_contract.py --self-test`.
+- CI hook added to the Detective build so the contract self-test runs on every
+  relevant pull-request build.
+- Real all-15 object inventory remains a private-runtime step; no source object
+  types were invented in GitHub.
+
+### Next safe slice
+
+1. Run inventory-only validation against the generated private all-15 runtime
+   when that runtime is available to the execution environment.
+2. Populate a private/release catalog from the exact discovered object types.
+3. Add opt-in renderer support and a footprint-safety validator before any
+   original Shigai object pixels are replaced.
+4. Preview representative 6x6 / 7x7 / boss 9x9 maps before all-15 scale-out.
+
+Production modern-prop substitution is intentionally **not** performed in this
+delta.
