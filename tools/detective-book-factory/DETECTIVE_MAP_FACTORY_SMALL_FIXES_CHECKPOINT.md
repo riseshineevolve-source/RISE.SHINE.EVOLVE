@@ -146,3 +146,64 @@ cannot be populated without guessing. No guessing was performed.
    generate isolated overlays for representative 6x6 / 7x7 / 9x9 cases.
 3. Production substitution stays disabled until the footprint validator and
    representative visual QA both pass.
+
+---
+
+## Delta — 2026-09-24: independent before/after footprint guard
+
+### Safe work completed
+
+- Added `scripts/validate_modern_prop_footprint.py` and wired it into the
+  Detective Academy build workflow.
+- The validator compares a pre-composite and candidate post-composite raster and
+  permits changed pixels only inside deterministic object boxes already emitted
+  by the presentation-only modern-prop plan.
+- It fails closed on raster-size mismatch, invalid/out-of-grid object cells,
+  duplicate object cells, semantic `blocked`/`occupiable` drift, no-op output
+  when changes are required, and any RGB or alpha pixel escaping an approved
+  object box.
+- Reports retain per-object cell/type/variant/semantics plus changed-pixel counts
+  for later representative visual QA evidence.
+- Production rendering remains unchanged; no modern prop was silently selected
+  or composited into a canonical map.
+
+### Verification and bounded self-repair
+
+- The first CI attempt exposed an undeclared NumPy dependency in the new guard;
+  the implementation was reduced to Pillow-only rather than expanding the
+  production dependency surface.
+- The next CI attempt exposed a Pillow mode-`1` binary-mask edge case: painting
+  approved pixels with integer `1` caused `ImageChops.invert` to yield `254`,
+  which is still truthy for logical operations. The approved mask now uses
+  canonical binary `255` values and documents the invariant.
+- PASS: synthetic 6x6 / 7x7 / 9x9 footprint tests.
+- PASS: a single RGB pixel outside the approved footprint fails closed.
+- PASS: an alpha-only pixel leak outside the approved footprint fails closed.
+- PASS: no-op composite rejection when `--require-changes` is set.
+- PASS: raster mismatch and out-of-grid approved-cell rejection.
+- GitHub Actions `Build Detective Academy PDF` run **#165** at head
+  `71dc5f6fffdbeecd745627c4fa8dd48f570e5ca4` completed **SUCCESS**, including
+  durable master assembly, owner-gate tests, modern-prop contract/planner/
+  footprint self-tests, editorial preview, preflight, typography QA and preview
+  artifact upload.
+
+### Current boundary
+
+The exact generated all-15 private runtime is still absent from the remote
+execution surface. Therefore exact real source object type/variant inventory and
+modern sprite keys remain intentionally unpopulated. No source type, variant,
+cell, asset or visual replacement has been guessed.
+
+### Next safe slice
+
+1. Keep production substitution disabled.
+2. When the exact private runtime becomes available, run
+   `validate_modern_prop_contract.py --inventory-only` and SHA-lock its semantic
+   inventory before populating any release catalog.
+3. Populate catalog + asset manifest only from discovered type/variant pairs,
+   generate isolated representative 6x6 / 7x7 / boss 9x9 overlays, and run the
+   new before/after footprint guard on each.
+4. Only after representative footprint PASS **and** human visual QA may the same
+   presentation-only mechanism be considered for mechanical all-15 scale-out;
+   puzzle geometry, clue meaning, witness placement, answers, coordinates and
+   Room Zero logic remain immutable.
