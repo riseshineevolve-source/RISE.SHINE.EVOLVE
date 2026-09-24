@@ -124,7 +124,11 @@ def approved_mask(
             raise FootprintError(str(exc)) from exc
         if not (0 <= left < right <= width and 0 <= top < bottom <= height):
             raise FootprintError(f"{case.get('id')}/{cell}: approved box outside raster")
-        draw.rectangle((left, top, right - 1, bottom - 1), fill=1)
+        # Mode "1" must be painted with canonical 255 values. Pillow accepts
+        # integer 1 but ImageChops.invert then yields 254, which is still truthy
+        # for logical operations and would incorrectly classify approved pixels
+        # as outside. Keep the binary mask canonical before inversion.
+        draw.rectangle((left, top, right - 1, bottom - 1), fill=255)
         records.append(
             {
                 "cell": cell,
