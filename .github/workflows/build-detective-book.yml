@@ -37,6 +37,7 @@ jobs:
             scripts/audit_print_typography.py \
             scripts/build_book1_master.py \
             scripts/extract_shigai_runtime.py \
+            scripts/build_modern_prop_source_inventory.py \
             scripts/render_spatial_case_spreads.py \
             scripts/spatial_presentation.py \
             scripts/build_owner_review_v2.py \
@@ -83,6 +84,7 @@ jobs:
           python scripts/test_v41_owner_audit_corrections.py
           python scripts/test_spatial_label_assignment.py
           python scripts/test_spatial_case_spreads_smoke.py
+          python scripts/build_modern_prop_source_inventory.py --self-test
           python scripts/validate_modern_prop_contract.py --self-test
           python scripts/modern_prop_presentation.py --self-test
           python scripts/validate_modern_prop_footprint.py --self-test
