@@ -18,8 +18,7 @@ from pathlib import Path
 import sys
 from typing import Any
 
-import numpy as np
-from PIL import Image, ImageDraw
+from PIL import Image, ImageChops, ImageDraw
 
 import modern_prop_presentation as props
 
@@ -58,16 +57,27 @@ def select_case(plan: dict[str, Any], case_id: str | None) -> dict[str, Any]:
     return case
 
 
-def _bbox(mask: np.ndarray) -> list[int] | None:
-    ys, xs = np.nonzero(mask)
-    if len(xs) == 0:
-        return None
-    return [int(xs.min()), int(ys.min()), int(xs.max()) + 1, int(ys.max()) + 1]
+def _bbox(mask: Image.Image) -> list[int] | None:
+    box = mask.getbbox()
+    return list(box) if box is not None else None
+
+
+def _pixel_count(mask: Image.Image) -> int:
+    return int(sum(mask.histogram()[1:]))
+
+
+def _changed_mask(before: Image.Image, after: Image.Image) -> Image.Image:
+    diff = ImageChops.difference(before.convert("RGBA"), after.convert("RGBA"))
+    bands = diff.split()
+    combined = bands[0]
+    for band in bands[1:]:
+        combined = ImageChops.lighter(combined, band)
+    return combined.point(lambda value: 255 if value else 0, mode="1")
 
 
 def approved_mask(
     case: dict[str, Any], width: int, height: int
-) -> tuple[np.ndarray, list[dict[str, Any]]]:
+) -> tuple[Image.Image, list[dict[str, Any]]]:
     grid = case.get("grid") or {}
     rows, cols = int(grid.get("rows", 0)), int(grid.get("columns", 0))
     if rows <= 0 or cols <= 0:
@@ -127,7 +137,7 @@ def approved_mask(
             }
         )
 
-    return np.asarray(mask_image, dtype=bool), records
+    return mask_image, records
 
 
 def validate_images(
@@ -143,14 +153,12 @@ def validate_images(
         )
     width, height = before.size
     allowed, object_records = approved_mask(case, width, height)
-    before_rgba = np.asarray(before.convert("RGBA"), dtype=np.uint8)
-    after_rgba = np.asarray(after.convert("RGBA"), dtype=np.uint8)
-    changed = np.any(before_rgba != after_rgba, axis=2)
-    changed_count = int(changed.sum())
+    changed = _changed_mask(before, after)
+    changed_count = _pixel_count(changed)
     if require_changes and changed_count == 0:
         raise FootprintError("candidate composite made no pixel changes")
-    outside = changed & ~allowed
-    outside_count = int(outside.sum())
+    outside = ImageChops.logical_and(changed, ImageChops.invert(allowed))
+    outside_count = _pixel_count(outside)
     if outside_count:
         raise FootprintError(
             f"{case.get('id')}: {outside_count} changed pixels escaped approved object boxes; "
@@ -163,7 +171,7 @@ def validate_images(
         per_object.append(
             {
                 **record,
-                "changed_pixels": int(changed[top:bottom, left:right].sum()),
+                "changed_pixels": _pixel_count(changed.crop((left, top, right, bottom))),
             }
         )
 
@@ -173,7 +181,7 @@ def validate_images(
         "image_size": [width, height],
         "changed_pixels": changed_count,
         "changed_bbox": _bbox(changed),
-        "approved_pixels": int(allowed.sum()),
+        "approved_pixels": _pixel_count(allowed),
         "outside_changed_pixels": 0,
         "object_count": len(object_records),
         "objects": per_object,
@@ -258,6 +266,16 @@ def self_test() -> None:
         else:
             raise AssertionError(f"{n}x{n}: require_changes must reject no-op composite")
 
+    alpha_before = Image.new("RGBA", (60, 60), (255, 255, 255, 255))
+    alpha_after = alpha_before.copy()
+    alpha_after.putpixel((2, 2), (255, 255, 255, 0))
+    try:
+        validate_images(alpha_before, alpha_after, _synthetic_case(6))
+    except FootprintError as exc:
+        assert "escaped approved object boxes" in str(exc)
+    else:
+        raise AssertionError("alpha-only leak must fail closed")
+
     try:
         validate_images(
             Image.new("RGBA", (100, 100), "white"),
@@ -280,7 +298,7 @@ def self_test() -> None:
 
     print(
         "PASS: modern-prop footprint guard confines all changes to approved "
-        "object boxes for 6x6/7x7/9x9 and catches a one-pixel leak"
+        "object boxes for 6x6/7x7/9x9 and catches RGB/alpha pixel leaks"
     )
 
 
