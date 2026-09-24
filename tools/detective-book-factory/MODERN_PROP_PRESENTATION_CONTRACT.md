@@ -112,6 +112,32 @@ baseline. It must not simply be weakened or disabled. A modern-prop integration
 must first add an equivalent semantic-parity and footprint-safety gate for the
 explicitly replaced object regions.
 
+## Runtime binding and solution-person protection
+
+`validate_modern_prop_footprint.py` must be run against the exact locked runtime
+for any solution-map candidate. The guard now verifies both:
+
+- the plan-level `object_semantics_sha256` against the complete runtime object
+  inventory; and
+- the selected case's object records directly, so a moved/tampered approved box
+  cannot pass merely by carrying an old fingerprint.
+
+For `--surface solution`, every runtime `characters[].placement` cell is
+protected as a whole cell. A modern prop may still be modernized in that same
+cell on the puzzle map, but the solution-map composite may not change any pixel
+inside the protected object box when a witness/person occupies the cell. This
+is deliberately conservative: preserving the person marker has priority over
+visual consistency between puzzle and solution maps.
+
+Representative synthetic 6x6 / 7x7 / 9x9 tests must prove that:
+
+- puzzle-surface changes inside approved prop boxes pass;
+- the same change fails on a solution surface when the object cell is occupied
+  by a person;
+- an unoccupied object can still change on the solution surface;
+- moved plan cells, runtime semantic drift, RGB leaks and alpha-only leaks all
+  fail closed.
+
 ## Verification order
 
 1. Runtime object inventory — deterministic.
@@ -121,6 +147,23 @@ explicitly replaced object regions.
 5. Representative 6x6 / 7x7 / 9x9 preview.
 6. Independent visual/print QA.
 7. Mechanical all-15 scale-out only after the representative set passes.
+
+## Current bounded implementation checkpoint
+
+At branch head immediately before this contract update, the modern-prop layer
+contains:
+
+- deterministic runtime inventory/catalog validation;
+- SHA-locked transparent PNG asset validation;
+- isolated cell-confined overlay rendering;
+- before/after RGBA footprint validation;
+- direct locked-runtime plan binding;
+- solution witness/person-cell protection.
+
+None of those mechanisms selects final prop artwork or changes a production map.
+The next safe step remains the exact all-15 runtime inventory when the private
+runtime is available, followed by representative real-map proofs before any
+production substitution.
 
 ## Owner boundary
 
