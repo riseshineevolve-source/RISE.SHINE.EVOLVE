@@ -1,0 +1,149 @@
+name: Build Detective Academy PDF
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'tools/detective-book-factory/**'
+      - 'assets/images/**'
+      - '.github/workflows/build-detective-book.yml'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install fonts and dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y fonts-dejavu-core poppler-utils
+          python -m pip install --upgrade pip
+          pip install -r tools/detective-book-factory/requirements.txt
+
+      - name: Assemble and audit durable Book 1 master
+        working-directory: tools/detective-book-factory
+        run: |
+          mkdir -p dist
+          python -m py_compile \
+            scripts/audit_book1_launch_state.py \
+            scripts/audit_pdf_grayscale.py \
+            scripts/audit_print_typography.py \
+            scripts/build_book1_master.py \
+            scripts/extract_shigai_runtime.py \
+            scripts/build_modern_prop_source_inventory.py \
+            scripts/render_spatial_case_spreads.py \
+            scripts/spatial_presentation.py \
+            scripts/build_owner_review_v2.py \
+            scripts/build_owner_review_v31.py \
+            scripts/build_owner_review_v4.py \
+            scripts/build_owner_review_v41.py \
+            scripts/build_owner_review_v41_premium.py \
+            scripts/build_owner_review_v41_finale.py \
+            scripts/build_owner_review_v41_owner_audit.py \
+            scripts/build_owner_review_v41_final.py \
+            scripts/generate_v41_visual_assets.py \
+            scripts/recover_v4_embedded_spatial_assets.py \
+            scripts/recover_and_build_v41_final.py \
+            scripts/apply_v41_reverse_backmatter.py \
+            scripts/test_recover_v4_embedded_spatial_assets.py \
+            scripts/test_recover_and_build_v41_final.py \
+            scripts/test_v41_reverse_backmatter.py \
+            scripts/test_v41_final_pipeline.py \
+            scripts/test_v41_owner_visual_gate.py \
+            scripts/test_v41_reader_surface_cleanup.py \
+            scripts/test_v41_premium_presentation.py \
+            scripts/test_v41_finale_certificate.py \
+            scripts/test_v41_owner_audit_corrections.py \
+            scripts/audit_owner_review_v2.py \
+            scripts/test_spatial_grid_crop.py \
+            scripts/validate_spatial_object_art.py \
+            scripts/validate_modern_prop_contract.py \
+            scripts/modern_prop_presentation.py \
+            scripts/validate_modern_prop_footprint.py \
+            scripts/validate_modern_prop_structure.py \
+            scripts/render_spatial_map_hybrid.py \
+            scripts/render_spatial_map_hybrid_hardened.py \
+            scripts/test_spatial_case_spreads_smoke.py \
+            scripts/test_spatial_label_assignment.py \
+            render_book.py
+          python scripts/test_recover_v4_embedded_spatial_assets.py
+          python scripts/test_recover_and_build_v41_final.py
+          python scripts/test_v41_reverse_backmatter.py
+          python scripts/test_v41_final_pipeline.py
+          python scripts/test_v41_owner_visual_gate.py
+          python scripts/test_v41_reader_surface_cleanup.py
+          python scripts/test_v41_premium_presentation.py
+          python scripts/test_v41_finale_certificate.py
+          python scripts/test_v41_owner_audit_corrections.py
+          python scripts/test_spatial_label_assignment.py
+          python scripts/test_spatial_case_spreads_smoke.py
+          python scripts/build_modern_prop_source_inventory.py --self-test
+          python scripts/validate_modern_prop_contract.py --self-test
+          python scripts/modern_prop_presentation.py --self-test
+          python scripts/validate_modern_prop_footprint.py --self-test
+          python scripts/validate_modern_prop_structure.py --self-test
+          python scripts/build_book1_master.py --output dist/book1_en_master.yml
+          python scripts/audit_book1_launch_state.py \
+            --master dist/book1_en_master.yml \
+            --require-canonical-30
+
+      - name: Sync canonical Happy Makers assets
+        working-directory: tools/detective-book-factory
+        run: python scripts/sync_brand_assets.py --require-approved-squad
+
+      - name: Build editorial preview
+        working-directory: tools/detective-book-factory
+        run: |
+          mkdir -p dist
+          python scripts/render_editorial_preview.py \
+            --content dist/book1_en_master.yml \
+            --output dist/HMDA_Book1_Full_Editorial_Preview.pdf \
+            --status-report dist/spatial_asset_status.txt
+
+      - name: Editorial preflight
+        working-directory: tools/detective-book-factory
+        run: |
+          python scripts/preflight.py \
+            --content dist/book1_en_master.yml \
+            --pdf dist/HMDA_Book1_Full_Editorial_Preview.pdf \
+            --min-pages 95 \
+            --allow-missing-spatial-assets \
+            --report dist/preflight.txt
+          pdfinfo dist/HMDA_Book1_Full_Editorial_Preview.pdf
+          cat dist/spatial_asset_status.txt
+
+      - name: Typography and print-safety QA
+        working-directory: tools/detective-book-factory
+        run: |
+          python scripts/audit_print_typography.py \
+            --pdf dist/HMDA_Book1_Full_Editorial_Preview.pdf \
+            --min-pages 95 \
+            --report dist/typography_print_qa.json
+
+      - name: Render page previews
+        working-directory: tools/detective-book-factory
+        run: |
+          python scripts/make_previews.py \
+            --pdf dist/HMDA_Book1_Full_Editorial_Preview.pdf \
+            --out dist/previews \
+            --dpi 144
+
+      - name: Upload editorial build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: detective-academy-editorial-preview
+          path: |
+            tools/detective-book-factory/dist/HMDA_Book1_Full_Editorial_Preview.pdf
+            tools/detective-book-factory/dist/book1_en_master.yml
+            tools/detective-book-factory/dist/preflight.txt
+            tools/detective-book-factory/dist/typography_print_qa.json
+            tools/detective-book-factory/dist/spatial_asset_status.txt
+            tools/detective-book-factory/dist/previews/*.png
+          if-no-files-found: error

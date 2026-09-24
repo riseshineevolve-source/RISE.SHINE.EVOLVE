@@ -1,0 +1,365 @@
+version: 1
+status: source_locked_assets_pending
+mode: presentation_only
+source_checkpoint_sha256: "cdc6de5b60117fe19e89fc4a13e2b9c1d92657f5e7fdb8ec69a18ae85ba8723e"
+object_semantics_sha256: "54a03f3ee4ef474c74c1dd2cd44fb601ae7fd552c1ca6d46ccce03f4837471ca"
+production_case_count: 15
+object_count: 260
+
+note: >-
+  Generated mechanically from the SHA-locked Shigai checkpoint inventory.
+  Exact source variants remain protected by the semantic fingerprint; this first
+  catalog stage assigns only stable type-level presentation keys. No artwork is
+  selected or approved here, and production composition remains disabled.
+
+types:
+  agility_tunnel:
+    presentation_key: "modern_prop/agility_tunnel"
+    allowed_occupiable: [false]
+    render_box: cell_center_safe
+    # locked variants: illustrated-2
+  backpack_pile:
+    presentation_key: "modern_prop/backpack_pile"
+    allowed_occupiable: [false]
+    render_box: cell_center_safe
+    # locked variants: illustrated-3
+  balloon_cart:
+    presentation_key: "modern_prop/balloon_cart"
+    allowed_occupiable: [false]
+    render_box: cell_center_safe
+    # locked variants: illustrated-2
+  bed:
+    presentation_key: "modern_prop/bed"
+    allowed_occupiable: [true]
+    render_box: cell_center_safe
+    # locked variants: illustrated-2
+  bench:
+    presentation_key: "modern_prop/bench"
+    allowed_occupiable: [true]
+    render_box: cell_center_safe
+    # locked variants: illustrated-3, illustrated-4
+  bird_cage:
+    presentation_key: "modern_prop/bird_cage"
+    allowed_occupiable: [false]
+    render_box: cell_center_safe
+    # locked variants: illustrated-2
+  bleacher:
+    presentation_key: "modern_prop/bleacher"
+    allowed_occupiable: [true]
+    render_box: cell_center_safe
+    # locked variants: illustrated-1, illustrated-2, illustrated-3
+  buffet:
+    presentation_key: "modern_prop/buffet"
+    allowed_occupiable: [false]
+    render_box: cell_center_safe
+    # locked variants: illustrated-1, illustrated-3
+  bumper_car:
+    presentation_key: "modern_prop/bumper_car"
+    allowed_occupiable: [true]
+    render_box: cell_center_safe
+    # locked variants: illustrated-2
+  bunk:
+    presentation_key: "modern_prop/bunk"
+    allowed_occupiable: [true]
+    render_box: cell_center_safe
+    # locked variants: illustrated-1
+  camp_cot:
+    presentation_key: "modern_prop/camp_cot"
+    allowed_occupiable: [true]
+    render_box: cell_center_safe
+    # locked variants: illustrated-4
+  canoe:
+    presentation_key: "modern_prop/canoe"
+    allowed_occupiable: [true]
+    render_box: cell_center_safe
+    # locked variants: illustrated-4
+  canoe_rack:
+    presentation_key: "modern_prop/canoe_rack"
+    allowed_occupiable: [false]
+    render_box: cell_center_safe
+    # locked variants: illustrated-4
+  cart:
+    presentation_key: "modern_prop/cart"
+    allowed_occupiable: [false]
+    render_box: cell_center_safe
+    # locked variants: illustrated-1, illustrated-3
+  case:
+    presentation_key: "modern_prop/case"
+    allowed_occupiable: [false]
+    render_box: cell_center_safe
+    # locked variants: illustrated-1
+  chair:
+    presentation_key: "modern_prop/chair"
+    allowed_occupiable: [true]
+    render_box: cell_center_safe
+    # locked variants: illustrated-2, illustrated-4
+  commercial_range:
+    presentation_key: "modern_prop/commercial_range"
+    allowed_occupiable: [false]
+    render_box: cell_center_safe
+    # locked variants: illustrated-1, illustrated-3
+  commercial_washer:
+    presentation_key: "modern_prop/commercial_washer"
+    allowed_occupiable: [false]
+    render_box: cell_center_safe
+    # locked variants: illustrated-2, illustrated-4
+  console:
+    presentation_key: "modern_prop/console"
+    allowed_occupiable: [false]
+    render_box: cell_center_safe
+    # locked variants: illustrated-4
+  cotton_candy:
+    presentation_key: "modern_prop/cotton_candy"
+    allowed_occupiable: [false]
+    render_box: cell_center_safe
+    # locked variants: illustrated-3
+  craft_stool:
+    presentation_key: "modern_prop/craft_stool"
+    allowed_occupiable: [true]
+    render_box: cell_center_safe
+    # locked variants: illustrated-4
+  crate:
+    presentation_key: "modern_prop/crate"
+    allowed_occupiable: [false]
+    render_box: cell_center_safe
+    # locked variants: illustrated-2
+  cryopod:
+    presentation_key: "modern_prop/cryopod"
+    allowed_occupiable: [false]
+    render_box: cell_center_safe
+    # locked variants: illustrated-3
+  desk:
+    presentation_key: "modern_prop/desk"
+    allowed_occupiable: [false]
+    render_box: cell_center_safe
+    # locked variants: illustrated-4
+  deskchair:
+    presentation_key: "modern_prop/deskchair"
+    allowed_occupiable: [true]
+    render_box: cell_center_safe
+    # locked variants: illustrated-1, illustrated-2, illustrated-3
+  dino_statue:
+    presentation_key: "modern_prop/dino_statue"
+    allowed_occupiable: [false]
+    render_box: cell_center_safe
+    # locked variants: illustrated-3
+  dog_bed:
+    presentation_key: "modern_prop/dog_bed"
+    allowed_occupiable: [true]
+    render_box: cell_center_safe
+    # locked variants: illustrated-4
+  feeding_trough:
+    presentation_key: "modern_prop/feeding_trough"
+    allowed_occupiable: [false]
+    render_box: cell_center_safe
+    # locked variants: illustrated-2
+  fern:
+    presentation_key: "modern_prop/fern"
+    allowed_occupiable: [false]
+    render_box: cell_center_safe
+    # locked variants: illustrated-2
+  funhouse_mirror:
+    presentation_key: "modern_prop/funhouse_mirror"
+    allowed_occupiable: [false]
+    render_box: cell_center_safe
+    # locked variants: illustrated-3
+  games_shelf:
+    presentation_key: "modern_prop/games_shelf"
+    allowed_occupiable: [false]
+    render_box: cell_center_safe
+    # locked variants: illustrated-2
+  giant_fern:
+    presentation_key: "modern_prop/giant_fern"
+    allowed_occupiable: [false]
+    render_box: cell_center_safe
+    # locked variants: illustrated-3
+  globe:
+    presentation_key: "modern_prop/globe"
+    allowed_occupiable: [false]
+    render_box: cell_center_safe
+    # locked variants: illustrated-2, illustrated-3, illustrated-4
+  gondola:
+    presentation_key: "modern_prop/gondola"
+    allowed_occupiable: [true]
+    render_box: cell_center_safe
+    # locked variants: illustrated-4
+  grooming_tub:
+    presentation_key: "modern_prop/grooming_tub"
+    allowed_occupiable: [true]
+    render_box: cell_center_safe
+    # locked variants: illustrated-2
+  info_kiosk:
+    presentation_key: "modern_prop/info_kiosk"
+    allowed_occupiable: [false]
+    render_box: cell_center_safe
+    # locked variants: illustrated-2
+  kennel_crate:
+    presentation_key: "modern_prop/kennel_crate"
+    allowed_occupiable: [false]
+    render_box: cell_center_safe
+    # locked variants: illustrated-3
+  labbench:
+    presentation_key: "modern_prop/labbench"
+    allowed_occupiable: [false]
+    render_box: cell_center_safe
+    # locked variants: illustrated-2, illustrated-3, illustrated-4
+  locker:
+    presentation_key: "modern_prop/locker"
+    allowed_occupiable: [false]
+    render_box: cell_center_safe
+    # locked variants: illustrated-3
+  lockers:
+    presentation_key: "modern_prop/lockers"
+    allowed_occupiable: [false]
+    render_box: cell_center_safe
+    # locked variants: illustrated-3, illustrated-4
+  massage_table:
+    presentation_key: "modern_prop/massage_table"
+    allowed_occupiable: [true]
+    render_box: cell_center_safe
+    # locked variants: illustrated-1, illustrated-3
+  med_table:
+    presentation_key: "modern_prop/med_table"
+    allowed_occupiable: [true]
+    render_box: cell_center_safe
+    # locked variants: illustrated-3
+  palm:
+    presentation_key: "modern_prop/palm"
+    allowed_occupiable: [false]
+    render_box: cell_center_safe
+    # locked variants: illustrated-1, illustrated-3
+  pedestal:
+    presentation_key: "modern_prop/pedestal"
+    allowed_occupiable: [false]
+    render_box: cell_center_safe
+    # locked variants: illustrated-3
+  piano:
+    presentation_key: "modern_prop/piano"
+    allowed_occupiable: [false]
+    render_box: cell_center_safe
+    # locked variants: illustrated-2, illustrated-3, illustrated-4
+  popcorn_cart:
+    presentation_key: "modern_prop/popcorn_cart"
+    allowed_occupiable: [false]
+    render_box: cell_center_safe
+    # locked variants: illustrated-4
+  prize_shelf:
+    presentation_key: "modern_prop/prize_shelf"
+    allowed_occupiable: [false]
+    render_box: cell_center_safe
+    # locked variants: illustrated-3
+  rack:
+    presentation_key: "modern_prop/rack"
+    allowed_occupiable: [false]
+    render_box: cell_center_safe
+    # locked variants: illustrated-4
+  ranger_desk:
+    presentation_key: "modern_prop/ranger_desk"
+    allowed_occupiable: [false]
+    render_box: cell_center_safe
+    # locked variants: illustrated-1
+  reactor:
+    presentation_key: "modern_prop/reactor"
+    allowed_occupiable: [false]
+    render_box: cell_center_safe
+    # locked variants: illustrated-1
+  ringtoss_stand:
+    presentation_key: "modern_prop/ringtoss_stand"
+    allowed_occupiable: [false]
+    render_box: cell_center_safe
+    # locked variants: illustrated-2
+  rooftop_bar:
+    presentation_key: "modern_prop/rooftop_bar"
+    allowed_occupiable: [false]
+    render_box: cell_center_safe
+    # locked variants: illustrated-2
+  safari_jeep:
+    presentation_key: "modern_prop/safari_jeep"
+    allowed_occupiable: [true]
+    render_box: cell_center_safe
+    # locked variants: illustrated-3
+  sarcophagus:
+    presentation_key: "modern_prop/sarcophagus"
+    allowed_occupiable: [false]
+    render_box: cell_center_safe
+    # locked variants: illustrated-1
+  seat:
+    presentation_key: "modern_prop/seat"
+    allowed_occupiable: [true]
+    render_box: cell_center_safe
+    # locked variants: illustrated-2, illustrated-4
+  skeleton:
+    presentation_key: "modern_prop/skeleton"
+    allowed_occupiable: [false]
+    render_box: cell_center_safe
+    # locked variants: illustrated-4
+  statue:
+    presentation_key: "modern_prop/statue"
+    allowed_occupiable: [false]
+    render_box: cell_center_safe
+    # locked variants: illustrated-1
+  stool:
+    presentation_key: "modern_prop/stool"
+    allowed_occupiable: [true]
+    render_box: cell_center_safe
+    # locked variants: illustrated-1, illustrated-2, illustrated-4
+  stove:
+    presentation_key: "modern_prop/stove"
+    allowed_occupiable: [false]
+    render_box: cell_center_safe
+    # locked variants: illustrated-2
+  strongman_bell:
+    presentation_key: "modern_prop/strongman_bell"
+    allowed_occupiable: [false]
+    render_box: cell_center_safe
+    # locked variants: illustrated-1
+  supply_crates:
+    presentation_key: "modern_prop/supply_crates"
+    allowed_occupiable: [false]
+    render_box: cell_center_safe
+    # locked variants: illustrated-4
+  table:
+    presentation_key: "modern_prop/table"
+    allowed_occupiable: [false]
+    render_box: cell_center_safe
+    # locked variants: illustrated-1
+  tank:
+    presentation_key: "modern_prop/tank"
+    allowed_occupiable: [false]
+    render_box: cell_center_safe
+    # locked variants: illustrated-3
+  teacherdesk:
+    presentation_key: "modern_prop/teacherdesk"
+    allowed_occupiable: [false]
+    render_box: cell_center_safe
+    # locked variants: illustrated-1, illustrated-2, illustrated-4
+  toy_basket:
+    presentation_key: "modern_prop/toy_basket"
+    allowed_occupiable: [false]
+    render_box: cell_center_safe
+    # locked variants: illustrated-1
+  training_platform:
+    presentation_key: "modern_prop/training_platform"
+    allowed_occupiable: [false]
+    render_box: cell_center_safe
+    # locked variants: illustrated-2
+  trunk:
+    presentation_key: "modern_prop/trunk"
+    allowed_occupiable: [false]
+    render_box: cell_center_safe
+    # locked variants: illustrated-3
+  viewing_bench:
+    presentation_key: "modern_prop/viewing_bench"
+    allowed_occupiable: [true]
+    render_box: cell_center_safe
+    # locked variants: illustrated-2
+  waiting_bench:
+    presentation_key: "modern_prop/waiting_bench"
+    allowed_occupiable: [true]
+    render_box: cell_center_safe
+    # locked variants: illustrated-4
+  welcome_desk:
+    presentation_key: "modern_prop/welcome_desk"
+    allowed_occupiable: [false]
+    render_box: cell_center_safe
+    # locked variants: illustrated-4

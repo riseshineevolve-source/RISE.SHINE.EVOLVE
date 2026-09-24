@@ -1,0 +1,378 @@
+book:
+  title: "HAPPY MAKERS DETECTIVE ACADEMY"
+  subtitle: "The Mystery of Room Zero"
+  hook: "Thirty cases. One impossible room. A clue that has been hiding in the empty space all along."
+  premise: >-
+    A black envelope arrives with no stamp, no sender and one silver symbol: 0. Inside is an Academy badge with a blank name line for the reader and a note: ONE DETECTIVE IS STILL MISSING. Mimi turns the kitchen into emergency headquarters, Alio puts on his helmet, Dilo announces that anonymous mail is always ninety percent more suspicious, Luli asks for evidence, and Nini saves the snacks. The trail leads through thirty playful mysteries. Some are real calls for help, some are strange messages, and some seem completely unrelated. Yet every solved case leaves something behind. The family slowly realizes that someone is not asking them to find a person. Someone is asking them to notice what everybody keeps ignoring.
+  zero_rule: "RULE ZERO: ZERO ASSUMPTIONS. NOTICE FIRST. THEORIZE SECOND."
+  meta_engine: >-
+    Fourteen spatial-deduction cases contain a hidden second answer. After every suspect is placed, exactly one named room is left with zero people inside. The first letter of those fourteen empty rooms spells CHECK THE OLD MAP. The reader is never told to record the empty rooms until late in the book. When Luli finally notices the pattern, earlier solved cases suddenly become evidence again. The twist rewards observation, not guessing, and makes the child physically flip back through the book to crack the larger mystery.
+  final_twist: >-
+    Room Zero is real, but 0 was never its room number. Grandma Bibi reveals that the original Detective Academy called it Room Zero because every investigation began there with Rule Zero: start with zero assumptions. The room was sealed during an old renovation and disappeared from modern plans. The mysterious trail was created decades ago by Bibi and her childhood detective squad as an unfinished initiation puzzle. A forgotten mechanical clue system was accidentally reactivated when the reader completed the opening training case. Nobody has been secretly controlling the adventure. The old Academy has simply been waiting for a new detective clever enough to finish it. Inside Room Zero is an empty badge hook marked NEXT DETECTIVE. It belongs to the reader.
+  series_hook: >-
+    Just when the team thinks the mystery is finished, Dilo opens the wrong drawer. Inside is one thin file stamped CASE 001 - STILL OPEN. Grandma Bibi goes very quiet. Luli reads the first line twice. Alio puts his helmet back on. The next adventure has already started.
+
+squad:
+  - name: "LULI"
+    role: "Lead Clue Analyst"
+    voice: "Logic Guardian, Mystery Brain and Clue Collector. She spots contradictions, protects facts from wild theories and has a dry one-line answer ready when the evidence disagrees."
+  - name: "DILO"
+    role: "Code & Tech Agent"
+    voice: "Tech Whiz, Level Crusher and proud inventor of extremely questionable facts. He owns ciphers, numbers and security puzzles, but every theory must survive Luli's fact-check."
+  - name: "ALIO"
+    role: "Field Agent"
+    voice: "Chief Inspector of Imaginary Dangers. He brings 120 percent curiosity, physical exploration, maps, routes and hypotheses nobody sensible would try first. Some of them are brilliant."
+  - name: "NINI"
+    role: "People & Courage Specialist"
+    voice: "Joy Spark and Bucket Filler. She helps nervous witnesses feel safe, gives the gentlest first hint and reminds the reader that being stuck is part of detecting, not the end of it."
+  - name: "MIMI"
+    role: "Case Captain"
+    voice: "Brain Captain, Lost-Things Finder and Chaos Queen. She turns confusion into a plan, handles evidence bags and somehow finds a tiny clue instantly while looking for the pencil behind her ear."
+  - name: "GRANDMA BIBI"
+    role: "Adventure Keeper"
+    voice: "Royal Glow and keeper of old stories, odd keys and mysterious objects. She knows pieces of the Academy's past, but never steals the solution from the reader."
+
+chapters:
+  - number: 1
+    title: "ROOKIE FILES"
+    promise: "Learn the rules without feeling like you are learning rules. Short cases, bold clues and the first signs that the zero symbol is following the squad."
+  - number: 2
+    title: "FIELD AGENT"
+    promise: "Cases get stranger, clues begin to depend on one another, and the Happy Makers realize the anonymous trail knows more about the old Academy than they do."
+  - number: 3
+    title: "MASTER DETECTIVE"
+    promise: "The obvious answer is no longer enough. Solved grids hide second answers, witnesses contradict each other, and old history starts leaking into new cases."
+  - number: 4
+    title: "THE ROOM THAT ISN'T THERE"
+    promise: "Everything comes back. Old cases become new evidence, the map lies by omission, and Rule Zero finally explains why the room vanished."
+
+missions:
+  - number: 1
+    chapter: 1
+    type: "Guided Training Case"
+    title: "The Badge That Arrived Before the Mail"
+    guides: ["Mimi", "Luli"]
+    objective: "Solve a tiny Academy mystery while learning how to place one clue at a time."
+    story: "The reader's blank Detective Academy badge appears on the kitchen table before the post arrives. Mimi declares the table a protected evidence zone, then immediately moves a mug off it. Luli quietly puts the mug back where it was and asks the reader to begin with facts."
+    puzzle: "Guided 6x6 spatial deduction. Exact room, row, object and simple elimination. Every step is demonstrated once, then the reader completes the last two placements alone."
+    meta: "The badge carries a small 0 symbol. Nobody knows what it means. Grandma Bibi recognizes the design but cannot place where she saw it."
+    banter: "Mimi: 'Nobody touches the evidence.' Luli: 'You just touched the evidence.' Mimi: 'I was establishing authority.'"
+
+  - number: 2
+    chapter: 1
+    type: "Spatial Case"
+    title: "The Trophy That Never Reached the Shelf"
+    guides: ["Luli", "Alio"]
+    objective: "Work out who was in the display room when the missing trophy was last seen."
+    story: "A junior sports trophy vanishes between the photo booth and its display shelf. Alio wants to search the vents. Luli wants to know why a trophy would crawl into a vent."
+    puzzle: "6x6. Room + row/column + object adjacency. Raw Shigai module rebuilt as witness-location case."
+    meta: "Hidden second answer: the unique empty room begins with C. Do not call attention to it."
+    banter: "Alio: 'Vent theory is still alive.' Luli: 'Barely.'"
+
+  - number: 3
+    chapter: 1
+    type: "Quick Mission"
+    title: "Luli's Look-Twice File"
+    guides: ["Luli", "Nini"]
+    objective: "Spot the three differences that actually change the evidence."
+    story: "Two photos of the trophy table look identical until Nini notices that one ribbon is tied differently. Luli asks the reader to find only differences that matter to the case."
+    puzzle: "Visual evidence comparison. Three meaningful differences, several harmless decorative distractions."
+    meta: "One changed object carries the same tiny 0 mark as the reader's badge."
+    banter: "Nini: 'I found glitter.' Luli: 'Glitter is currently not a crime.'"
+
+  - number: 4
+    chapter: 1
+    type: "Spatial Case"
+    title: "The Cupcake Box with Six Alibis"
+    guides: ["Mimi", "Dilo"]
+    objective: "Find who collected the wrong cupcake box before the school fair."
+    story: "Six identical boxes leave the kitchen, one containing salt-sprinkle cupcakes by mistake. Mimi has a list. Dilo has a theory involving sabotage by a rival bakery empire."
+    puzzle: "6x6. Corner + room + exact coordinate + blocked object. Final target is the collector, not a thief."
+    meta: "Hidden empty room initial: H."
+    banter: "Dilo: 'Classic pastry espionage.' Mimi: 'Classic label problem.'"
+
+  - number: 5
+    chapter: 1
+    type: "Quick Mission"
+    title: "Dilo's Code That Definitely Wasn't 1234"
+    guides: ["Dilo", "Luli"]
+    objective: "Crack a four-symbol locker code from a pattern without guessing."
+    story: "Dilo announces that his code is unhackable. Luli opens the first two digits in nine seconds. He immediately upgrades the description to 'medium hackable'."
+    puzzle: "Sequence and symbol substitution puzzle. One clean solution."
+    meta: "The solved symbols include the same circular zero motif, but here it is only visual foreshadowing."
+    banter: "Dilo: 'Security level: legendary.' Luli: 'Your first digit is your football number.'"
+
+  - number: 6
+    chapter: 1
+    type: "Spatial Case"
+    title: "The Museum Label That Lied"
+    guides: ["Luli", "Nini"]
+    objective: "Work out who was alone near the display when two museum labels were switched."
+    story: "A harmless label swap makes a tiny Roman spoon suddenly become 'CEREMONIAL DRAGON TOOTH'. Nini rather likes the dragon version. Luli insists archaeology deserves fewer dragons."
+    puzzle: "6x6. Outer wall + room + object + relative position."
+    meta: "Hidden empty room initial: E."
+    banter: "Nini: 'Can we keep Dragon Tooth?' Luli: 'Only in the gift shop.'"
+
+  - number: 7
+    chapter: 1
+    type: "Spatial Case"
+    title: "The Costume That Walked Away"
+    guides: ["Alio", "Mimi"]
+    objective: "Find the last person who saw a theatre costume before it vanished backstage."
+    story: "A giant moon costume disappears ten minutes before rehearsal. Alio volunteers to test whether it can walk by itself and gets stuck in the costume rack."
+    puzzle: "6x6. Diagonal + corner + room/column + object-in-room."
+    meta: "Hidden empty room initial: C."
+    banter: "Mimi: 'Any useful findings?' Alio, from inside a curtain: 'The moon has poor visibility.'"
+
+  - number: 8
+    chapter: 1
+    type: "Quick Mission"
+    title: "Alio's Absolutely Safe Shortcut"
+    guides: ["Alio", "Mimi"]
+    objective: "Choose the only route that reaches the prop room without crossing wet paint or locked doors."
+    story: "Alio draws three possible routes. Two are fast. One is legal. Mimi asks the reader to identify the rare third category."
+    puzzle: "Mini route deduction with map constraints."
+    meta: "A blocked corridor on the mini-map is marked 0. It looks like a maintenance label."
+    banter: "Alio: 'Route B is fastest.' Mimi: 'Route B is a wall.'"
+
+  - number: 9
+    chapter: 1
+    type: "Room Zero Checkpoint"
+    title: "The Symbol That Shouldn't Be Here"
+    guides: ["Grandma Bibi", "Luli", "Dilo"]
+    objective: "Compare the first four cases and decide whether the 0 marks are coincidence or a pattern."
+    story: "Grandma Bibi studies the symbol and admits it looks like an old Academy mark. She remembers a rule, a room and a terrible biscuit recipe, but not which memory belongs to which."
+    puzzle: "Meta observation page. Match recurring 0 marks and eliminate decorative lookalikes."
+    meta: "The first clear promise that Room Zero connects the book. No solution yet."
+    banter: "Bibi: 'My memory is excellent.' Dilo: 'What was the rule?' Bibi: 'I said excellent, not obedient.'"
+
+  - number: 10
+    chapter: 2
+    type: "Spatial Case"
+    title: "The Robot with Two Owners"
+    guides: ["Dilo", "Luli"]
+    objective: "Identify who had access to the prototype when two teams claim the same robot."
+    story: "At a science fair, two teams insist the silver rover is theirs. Dilo is deeply offended by its cable management. Luli asks him to solve the case before redesigning the robot."
+    puzzle: "7x7. Either/or + room + order + object relation."
+    meta: "Hidden empty room initial: K."
+    banter: "Dilo: 'Whoever owns it needs technical supervision.' Luli: 'From someone else.'"
+
+  - number: 11
+    chapter: 2
+    type: "Quick Mission"
+    title: "Mimi's Evidence Bag Problem"
+    guides: ["Mimi", "Nini"]
+    objective: "Work out which object cannot belong to the science-fair evidence set."
+    story: "Mimi empties her evidence bag. It contains three case items, one snack, two pens and her missing phone. This is apparently a personal record."
+    puzzle: "Classification and exclusion based on labels, timestamps and context."
+    meta: "The unrelated phone photo accidentally shows an old circular Academy seal in the background."
+    banter: "Nini: 'You found your phone!' Mimi: 'I prefer to say the evidence surrendered.'"
+
+  - number: 12
+    chapter: 2
+    type: "Spatial Case"
+    title: "The Parrot Who Knew the Password"
+    guides: ["Nini", "Dilo"]
+    objective: "Find who was alone with a runaway parrot when it learned a suspicious four-word phrase."
+    story: "A theatre parrot keeps shouting a code phrase nobody admits teaching it. Nini conducts the gentlest bird interview in detective history. Dilo attempts a cross-examination involving crackers."
+    puzzle: "7x7. Same room + distance + outer wall + diagonal. Reframed from safe Shigai found-by logic."
+    meta: "Hidden empty room initial: T."
+    banter: "Dilo: 'State your name for the record.' Parrot: 'CRACKER.' Nini: 'Strong opening statement.'"
+
+  - number: 13
+    chapter: 2
+    type: "Spatial Case"
+    title: "The Camera That Blinked at 4:17"
+    guides: ["Luli", "Alio"]
+    objective: "Determine who was in the room when a wildlife camera took its final image."
+    story: "At an animal centre, a camera snaps one blurry photo just before disappearing behind a stack of supplies. Alio is convinced the fox moved it. Luli points out the fox does not have pockets."
+    puzzle: "7x7. Distance + diagonal + room + relative direction."
+    meta: "Hidden empty room initial: H."
+    banter: "Alio: 'No pockets that we know of.' Luli: 'Please stop helping the fox.'"
+
+  - number: 14
+    chapter: 2
+    type: "Quick Mission"
+    title: "One Witness Is Accidentally Impossible"
+    guides: ["Nini", "Luli"]
+    objective: "Find the one statement that cannot be true without accusing anyone of lying on purpose."
+    story: "Four kids describe where they were during a backstage mix-up. One remembers the timing wrong. Nini reminds Dilo that being mistaken is not the same as being dishonest."
+    puzzle: "Statement consistency puzzle using a tiny map and clock."
+    meta: "The impossible statement contains a room number that does not exist: 0."
+    banter: "Dilo: 'Aha! A liar.' Nini: 'Or a person with a memory.' Luli: 'Wild concept.'"
+
+  - number: 15
+    chapter: 2
+    type: "Spatial Case"
+    title: "The Backpack That Changed Owners"
+    guides: ["Mimi", "Alio"]
+    objective: "Work out who picked up the wrong identical backpack at adventure camp."
+    story: "Six black backpacks, one bus, zero readable name tags. Mimi calls it a system failure. Alio calls it camouflage training."
+    puzzle: "7x7. Row/column elimination + room + object + directional relation."
+    meta: "Hidden empty room initial: E."
+    banter: "Mimi: 'Tomorrow we use name tags.' Alio: 'Tomorrow we use tracking satellites.'"
+
+  - number: 16
+    chapter: 2
+    type: "Room Zero Checkpoint"
+    title: "Grandma Bibi's Very Old, Very Embarrassing Photograph"
+    guides: ["Grandma Bibi", "Mimi", "Alio"]
+    objective: "Use visual clues in an old photo to identify the building and decade."
+    story: "Bibi finally produces an old photograph of five children wearing Detective Academy badges. One is unmistakably her. The hat is enormous. The family behaves with admirable restraint for almost four seconds."
+    puzzle: "Visual timeline and object-dating puzzle. No outside knowledge required; all evidence appears on-page."
+    meta: "The back of the photo says: RULE 0 FIRST. The phrase is still unexplained."
+    banter: "Alio: 'That hat has its own postcode.' Bibi: 'And yet I survived fashion.'"
+
+  - number: 17
+    chapter: 3
+    type: "Spatial Case"
+    title: "The Train Ticket That Wasn't Lost"
+    guides: ["Alio", "Luli"]
+    objective: "Find who received a ticket that everyone assumed had disappeared."
+    story: "At a heritage railway event, one special ticket seems to vanish. The real question is not where it went, but who was handed it before anyone noticed."
+    puzzle: "7x7. Chained relative positions + object distance + room logic."
+    meta: "Hidden empty room initial: O."
+    banter: "Alio: 'Can we interrogate the train?' Luli: 'Only if it requests legal representation.'"
+
+  - number: 18
+    chapter: 3
+    type: "Quick Mission"
+    title: "The Seven-Minute Alibi"
+    guides: ["Mimi", "Dilo"]
+    objective: "Build the only timeline that fits four timestamps and one delayed clock."
+    story: "A cafe clock is seven minutes slow, Dilo's watch is two minutes fast, and Mimi wishes time would stop entirely until she finishes her coffee."
+    puzzle: "Timeline deduction with explicit clock offsets."
+    meta: "Corrected times produce 0:07 as a side result, a deliberate false lead."
+    banter: "Mimi: 'Which clock is correct?' Dilo: 'Mine.' Mimi: 'Evidence?' Dilo: 'Confidence.'"
+
+  - number: 19
+    chapter: 3
+    type: "Spatial Case"
+    title: "The Library Book That Checked Itself Out"
+    guides: ["Luli", "Dilo"]
+    objective: "Identify who was near the return desk when a rare book was scanned under the wrong account."
+    story: "The library system says a book left the building, but the book is still inside. Dilo calls it a digital ghost. Luli calls it a barcode problem until proven supernatural."
+    puzzle: "7x7. Same-room chains + exact relative rows + diagonal."
+    meta: "Hidden empty room initial: L."
+    banter: "Dilo: 'Ghost.' Luli: 'Scanner.' Dilo: 'Ghost scanner.'"
+
+  - number: 20
+    chapter: 3
+    type: "Spatial Case"
+    title: "The Paint-Splattered Alibi"
+    guides: ["Mimi", "Nini"]
+    objective: "Work out who shared the art room when a set of canvases was accidentally rearranged."
+    story: "A community art wall ends up in the wrong order. Nobody is in trouble; the challenge is reconstructing who was where before the paint dried."
+    puzzle: "7x7. Distance + room + order + object relation + wall clue."
+    meta: "Hidden empty room initial: D."
+    banter: "Nini: 'This one looks better upside down.' Mimi: 'That is not currently helping, but I agree.'"
+
+  - number: 21
+    chapter: 3
+    type: "Quick Mission"
+    title: "The Note in Four Pieces"
+    guides: ["Dilo", "Nini"]
+    objective: "Rebuild a torn note using edges, handwriting and sentence logic."
+    story: "Dilo insists digital notes do not tear. Nini points to the paper in his hand. He revises his statement."
+    puzzle: "Four-piece reconstruction followed by a simple substitution clue."
+    meta: "The reconstructed note says: THE ANSWER IS IN WHAT YOU LEAVE EMPTY."
+    banter: "Dilo: 'Paper is an unstable platform.' Nini: 'You ripped it.'"
+
+  - number: 22
+    chapter: 3
+    type: "Spatial Case"
+    title: "The Music Room Mix-Up"
+    guides: ["Luli", "Alio"]
+    objective: "Determine who received the wrong instrument case before rehearsal."
+    story: "Three identical black cases have migrated across the music school. Alio is disappointed none contains a secret violin-shaped sword."
+    puzzle: "7x7. Column + diagonal + north/east relation + same-room dependency."
+    meta: "Hidden empty room initial: M."
+    banter: "Alio: 'Open it carefully.' Luli: 'It is a cello case.' Alio: 'Exactly.'"
+
+  - number: 23
+    chapter: 3
+    type: "Spatial Case"
+    title: "The Wristband Switch at Adventure Park"
+    guides: ["Mimi", "Dilo"]
+    objective: "Find who accidentally received the wrong access wristband."
+    story: "One wristband opens the climbing course and another opens the arcade credit locker. Dilo develops a sudden academic interest in access-control systems."
+    puzzle: "7x7. Object/person relationship + outer wall + distance + chained rooms."
+    meta: "Hidden empty room initial: A."
+    banter: "Mimi: 'Solve the case.' Dilo: 'I am studying the arcade's security architecture.'"
+
+  - number: 24
+    chapter: 3
+    type: "Quick Mission"
+    title: "The Footprints That Walked Backwards"
+    guides: ["Alio", "Luli"]
+    objective: "Use tread direction and mud transfer to work out which way someone actually walked."
+    story: "Alio demonstrates by walking backward and nearly joining a hedge. Luli records the result under 'avoidable field research'."
+    puzzle: "Visual footprint sequencing."
+    meta: "One print contains a tiny circular cut in the tread matching the Academy 0 symbol."
+    banter: "Alio: 'Science requires sacrifice.' Luli: 'The hedge disagrees.'"
+
+  - number: 25
+    chapter: 3
+    type: "Spatial Case"
+    title: "The Package with No Name"
+    guides: ["Nini", "Mimi"]
+    objective: "Find who accepted an unlabelled package at a guest house and where it should have gone."
+    story: "A perfectly harmless parcel has been politely passed around so many times that nobody remembers its destination. Nini interviews everyone without making them feel accused."
+    puzzle: "7x7 advanced mixed deduction. Distance + relative direction + same-room + exact column + object."
+    meta: "Hidden empty room initial: P. This completes the fourteen-letter hidden message."
+    banter: "Mimi: 'Nobody stole it. Everyone was just aggressively helpful.'"
+
+  - number: 26
+    chapter: 3
+    type: "Room Zero Checkpoint"
+    title: "The Case of the Missing People"
+    guides: ["Luli", "Dilo", "Nini"]
+    objective: "Revisit solved maps and notice the answer nobody asked for."
+    story: "Luli is staring at an old solution when Nini asks why one room is always empty. Silence. Dilo flips back three cases. Then six. Then fourteen. The team realizes the 0 never meant room number zero. It meant zero people."
+    puzzle: "Meta backtracking puzzle. Record the first letter of the unique empty room in each of fourteen marked spatial cases."
+    meta: "The letters spell CHECK THE OLD MAP. First major twist lands here."
+    banter: "Dilo: 'We solved fourteen cases and the clue was the room we ignored?' Luli: 'The evidence would like an apology.'"
+
+  - number: 27
+    chapter: 4
+    type: "Quick Mission"
+    title: "Bibi's Map Has One Room with Zero Doors"
+    guides: ["Grandma Bibi", "Alio"]
+    objective: "Compare an old Academy floor plan with the modern plan and locate the impossible sealed space."
+    story: "Bibi opens a trunk and produces the old map. Alio puts on his helmet for archival dust. The old plan contains one space surrounded by walls with no door at all."
+    puzzle: "Overlay comparison. Align fixed landmarks, identify renovation changes and locate the doorless room."
+    meta: "The room is physically real, but 0 is still not its number. A tiny note beside it says RULE FIRST, ROOM SECOND."
+    banter: "Bibi: 'Why the helmet?' Alio: 'Historical ceilings are unpredictable.'"
+
+  - number: 28
+    chapter: 4
+    type: "Room Zero Checkpoint"
+    title: "Rule Zero"
+    guides: ["Grandma Bibi", "Mimi", "Luli"]
+    objective: "Decode what the Academy meant by zero before attempting the final map."
+    story: "Bibi finally remembers the phrase her childhood team used before every case. Rule Zero was not a secret password. It was a promise: begin with zero assumptions."
+    puzzle: "Short logic reset. Four tempting conclusions are shown; the reader marks which are facts, which are theories and which have no evidence."
+    meta: "Full meaning revealed: ZERO ASSUMPTIONS. The final clue says the entrance cannot be on the current floor."
+    banter: "Mimi: 'So Alio's tunnel theory is back?' Luli: 'Unfortunately, yes.' Alio: 'Helmet vindicated.'"
+
+  - number: 29
+    chapter: 4
+    type: "Grand Master Spatial Case"
+    title: "The Map Beneath the Map"
+    guides: ["Luli", "Dilo", "Alio"]
+    objective: "Solve the largest spatial case to determine the single square directly below the sealed room."
+    story: "The old map includes a service level nobody remembered. The team must place nine people from an old Academy training night, then use one final coordinate hidden in their positions to find the access point below Room Zero."
+    puzzle: "9x9 boss grid rebuilt from the strongest expert Shigai skeleton. Chained relations, distance, diagonal, outer-wall and room dependencies. Solution yields a coordinate, not a culprit."
+    meta: "The correct coordinate points to an old storage hatch beneath the Academy footprint."
+    banter: "Dilo: 'Boss level.' Luli: 'No button-mashing.' Alio: 'Can I at least wear two helmets?'"
+
+  - number: 30
+    chapter: 4
+    type: "Grand Final"
+    title: "The Mystery of Room Zero"
+    guides: ["Grandma Bibi", "Mimi", "Luli", "Dilo", "Alio", "Nini"]
+    objective: "Open the sealed room, solve the final lock and discover who the missing detective has been from page one."
+    story: "The hatch leads to a dust-covered Academy room with an old case board, six hooks and a mechanical clue printer that suddenly coughs out one last strip of paper. Bibi recognizes the room. Decades ago, she and her childhood squad built an initiation trail here, but renovations sealed it before anyone completed it. The opening training case accidentally reactivated the old mechanism. Nobody has been secretly staging the adventure. The Academy itself has been replaying the unfinished trail."
+    puzzle: "Final lock combines one symbol from a Quick Mission, one coordinate from Mission 29, one word from Rule Zero and the reader's opening badge. No new rule is introduced at the end."
+    meta: "The sixth hook is labelled NEXT DETECTIVE. The reader writes their name on the badge and closes the case. Then Dilo opens a drawer labelled CASE 001 - STILL OPEN."
+    banter: "Nini: 'So who was the missing detective?' Bibi looks at the reader. Dilo: 'Plot twist with excellent replay value.' Luli: 'For once, accurate.'"

@@ -1,0 +1,4468 @@
+{
+  "status": "PASS",
+  "mode": "Final V4 machine gate",
+  "scope": "30 encoded logic models, locked runtime identity, reviewed publication evidence and map/PDF text geometry. No visual approval.",
+  "bindings": {
+    "master": {
+      "path": "dist\\book1_en_master_owner_review_v4.yml",
+      "sha256": "0a61b726e6335cc731f114749db632b6b0a50f2a8da76ef763a8961e066feacc"
+    },
+    "runtime": {
+      "path": "dist\\hmda_spatial_runtime_v4.json",
+      "sha256": "06bb284162ab62e993c8eee9237c58b67b6b545a425d2b04085725a81d50afc8"
+    },
+    "pdf": {
+      "path": "dist\\HMDA_Book1_EN_OwnerReview_v4.pdf",
+      "sha256": "1b2b908763e76b42321035fb1faf91056bd2a8a1301ea0a2f84944c91287e1cb"
+    },
+    "page_index": {
+      "path": "dist\\HMDA_Book1_EN_OwnerReview_v4_page_index.json",
+      "sha256": "309176917a571fbd13b2e8ac15bec850439793acb20308bcc1d389f56d6c56cb"
+    }
+  },
+  "publication_issues": [],
+  "publication_reviews": {
+    "1": {
+      "payload_sha256": "52bd5cf0284834362d2b48f713fd76d678af68cb3b49de5b4efa89434cdccbe3",
+      "changed_paths": [],
+      "reviewed": true,
+      "rationale": "Evidence payload unchanged from verified V3 baseline."
+    },
+    "2": {
+      "payload_sha256": "1af40ed6ab7865b051a898d38caaa732d99811fd481097ad9eb93c00555b477e",
+      "changed_paths": [
+        "spatial.clue_cards[4]"
+      ],
+      "reviewed": true,
+      "rationale": "Terminology correction only: the locked ON predicate targets the deskchair at C5; teacher desks remain blocked."
+    },
+    "3": {
+      "payload_sha256": "c3076e47363e5a4a731ed80608c1950c608095d94ae9b525fdd9646612f4a6c3",
+      "changed_paths": [],
+      "reviewed": true,
+      "rationale": "Evidence payload unchanged from verified V3 baseline."
+    },
+    "4": {
+      "payload_sha256": "8ac701713284d004fce84f15dab5a66c93d724838fab4f7005ebc40b0d61fcc0",
+      "changed_paths": [],
+      "reviewed": true,
+      "rationale": "Evidence payload unchanged from verified V3 baseline."
+    },
+    "5": {
+      "payload_sha256": "0523cd84bad3c47703a775a5738058ccd146c95ff04272fa6d5fb0b53e9daa5c",
+      "changed_paths": [],
+      "reviewed": true,
+      "rationale": "Evidence payload unchanged from verified V3 baseline."
+    },
+    "6": {
+      "payload_sha256": "60f8ecbf7e009e759db3da35a32d7eb0dee412a710f7abffa60e2526cb32fced",
+      "changed_paths": [],
+      "reviewed": true,
+      "rationale": "Evidence payload unchanged from verified V3 baseline."
+    },
+    "7": {
+      "payload_sha256": "b4b27abc028c175cdb4c9e4c219137ef4e2de25da8c0f2233316ead2da895d52",
+      "changed_paths": [],
+      "reviewed": true,
+      "rationale": "Evidence payload unchanged from verified V3 baseline."
+    },
+    "8": {
+      "payload_sha256": "d77ad48880f97b592a235406ce804d5ed2ebac8ad1a1fbff691de79d665a244b",
+      "changed_paths": [],
+      "reviewed": true,
+      "rationale": "Evidence payload unchanged from verified V3 baseline."
+    },
+    "9": {
+      "payload_sha256": "bc944b36f35a160b1c7ba32845926f87d2b7f752599367fc248189e8dbf57907",
+      "changed_paths": [],
+      "reviewed": true,
+      "rationale": "Evidence payload unchanged from verified V3 baseline."
+    },
+    "10": {
+      "payload_sha256": "821620d5b1bebc8e826772d8c411cf4394bfbd08df74648f4cbbc8b9bd0a296c",
+      "changed_paths": [],
+      "reviewed": true,
+      "rationale": "Evidence payload unchanged from verified V3 baseline."
+    },
+    "11": {
+      "payload_sha256": "68e8744c246880341902ddea71859cd55486afc921526decca9636f024f4dab0",
+      "changed_paths": [],
+      "reviewed": true,
+      "rationale": "Evidence payload unchanged from verified V3 baseline."
+    },
+    "12": {
+      "payload_sha256": "9aa1c63bf67373e20fe55c353fc3402d188e46a82b8ea9de13913373f75339e0",
+      "changed_paths": [],
+      "reviewed": true,
+      "rationale": "Evidence payload unchanged from verified V3 baseline."
+    },
+    "13": {
+      "payload_sha256": "d6fc639dc938850fa41c84a3e126864e773610bffa9f875a1ae6497456481da6",
+      "changed_paths": [],
+      "reviewed": true,
+      "rationale": "Evidence payload unchanged from verified V3 baseline."
+    },
+    "14": {
+      "payload_sha256": "fc37ed115423de4657c12fd02faff717fe40192dafdcce9e1d8be38036c40775",
+      "changed_paths": [],
+      "reviewed": true,
+      "rationale": "Evidence payload unchanged from verified V3 baseline."
+    },
+    "15": {
+      "payload_sha256": "13571cf1d809ff5b4fac1611f042c43997dd79bc42776ea4556617d938c286c6",
+      "changed_paths": [],
+      "reviewed": true,
+      "rationale": "Evidence payload unchanged from verified V3 baseline."
+    },
+    "16": {
+      "payload_sha256": "17daef8258f56fcdae4bc4194b3dd823685cfa8bf118e54c271d352204568b5d",
+      "changed_paths": [],
+      "reviewed": true,
+      "rationale": "Evidence payload unchanged from verified V3 baseline."
+    },
+    "17": {
+      "payload_sha256": "42721435b2464f03387d417eafd1cb44f04f4fd8613ef4d14aedaf4c8da5c164",
+      "changed_paths": [],
+      "reviewed": true,
+      "rationale": "Evidence payload unchanged from verified V3 baseline."
+    },
+    "18": {
+      "payload_sha256": "5367ee8b48e9a63fdfabc5c797546b46d6a86a2383a768fb09ce032641f001b5",
+      "changed_paths": [],
+      "reviewed": true,
+      "rationale": "Evidence payload unchanged from verified V3 baseline."
+    },
+    "19": {
+      "payload_sha256": "3c908ab08dfd80b7456ea03e154885a51c624fd0fae3203154628bcefdafb66d",
+      "changed_paths": [],
+      "reviewed": true,
+      "rationale": "Evidence payload unchanged from verified V3 baseline."
+    },
+    "20": {
+      "payload_sha256": "e2f327ed1d60e70794b6ea085f0ff3810863c3c52804bbdd1a29a3c4d9cf85dd",
+      "changed_paths": [],
+      "reviewed": true,
+      "rationale": "Evidence payload unchanged from verified V3 baseline."
+    },
+    "21": {
+      "payload_sha256": "a40fd59eb93d5de04e787817fe058b82f4794f80e21f44ce28396f04d41e93e6",
+      "changed_paths": [],
+      "reviewed": true,
+      "rationale": "Evidence payload unchanged from verified V3 baseline."
+    },
+    "22": {
+      "payload_sha256": "7f6c8568dde019810438c6941284751d64ec27072f3e08cf8d9951a1a373b7da",
+      "changed_paths": [],
+      "reviewed": true,
+      "rationale": "Evidence payload unchanged from verified V3 baseline."
+    },
+    "23": {
+      "payload_sha256": "039f54ce91ef7bac769a933600f5d44450e75c8317693f0f61d1007dbe63bc6b",
+      "changed_paths": [
+        "spatial.clue_cards[4]"
+      ],
+      "reviewed": true,
+      "rationale": "Grammar correction makes the existing OR bench predicate unambiguous without changing either candidate or answer."
+    },
+    "24": {
+      "payload_sha256": "7fe5a9ccb9ad9ee623426fff655d709d3aebc47f30bf9903be4b471f50679c4b",
+      "changed_paths": [],
+      "reviewed": true,
+      "rationale": "Evidence payload unchanged from verified V3 baseline."
+    },
+    "25": {
+      "payload_sha256": "ab02b4e7dc108a3a30c90268f5e70cd7f6da0180613765d68593f0bfb998f04f",
+      "changed_paths": [],
+      "reviewed": true,
+      "rationale": "Evidence payload unchanged from verified V3 baseline."
+    },
+    "26": {
+      "payload_sha256": "8bb309162443ba51abe8ce292df4c512eb20ae9004ec23ec05e717176fb041e5",
+      "changed_paths": [],
+      "reviewed": true,
+      "rationale": "Evidence payload unchanged from verified V3 baseline."
+    },
+    "27": {
+      "payload_sha256": "6257f3cdeee15633b00179eb742869fb6ac15b07903ead1be69e83ff09486935",
+      "changed_paths": [],
+      "reviewed": true,
+      "rationale": "Evidence payload unchanged from verified V3 baseline."
+    },
+    "28": {
+      "payload_sha256": "b103b15ea087083850a23992dc2b08471bb1a828cfd72933bfdf37d0620cf6db",
+      "changed_paths": [],
+      "reviewed": true,
+      "rationale": "Evidence payload unchanged from verified V3 baseline."
+    },
+    "29": {
+      "payload_sha256": "e7d700d1aa9eb1a39d64d2dd54a066a80af8856abbd1aeb026488f2b135d2105",
+      "changed_paths": [],
+      "reviewed": true,
+      "rationale": "Evidence payload unchanged from verified V3 baseline."
+    },
+    "30": {
+      "payload_sha256": "e5dd7995c00147a823a7e1b376c777e30506b875839ecac4f199b93001fb1148",
+      "changed_paths": [
+        "finale.reader_payoff",
+        "finale.reveal",
+        "finale.series_hook"
+      ],
+      "reviewed": true,
+      "rationale": "Narrative reveal, reader payoff and series hook were rewritten for continuity; all four locked finale stages, prompts and answers are unchanged."
+    }
+  },
+  "cases": {
+    "1": {
+      "status": "PASS",
+      "proof": "Exhaustive 4! × 4! row/column assignments: 1 valid complete placement(s).",
+      "answer": "DANI",
+      "solutions": [
+        {
+          "ARI": "B1",
+          "BEA": "C4",
+          "COLE": "A3",
+          "DANI": "D2"
+        }
+      ],
+      "solution_count": 1,
+      "before_repair_solution_count": 2,
+      "before_repair_counterexamples": [
+        {
+          "ARI": "B1",
+          "BEA": "C3",
+          "COLE": "A4",
+          "DANI": "D2"
+        },
+        {
+          "ARI": "B1",
+          "BEA": "C4",
+          "COLE": "A3",
+          "DANI": "D2"
+        }
+      ]
+    },
+    "2": {
+      "solution_count": 1,
+      "exhaustive": true,
+      "nodes": 1,
+      "solutions": [
+        {
+          "Hope": "B3",
+          "Drew": "D2",
+          "Rory": "A6",
+          "Edgar": "F4",
+          "Vesta": "C5",
+          "Bobby": "E1"
+        }
+      ],
+      "canonical_match": true,
+      "derived_companion_answer": {
+        "name": "Drew",
+        "coordinate": "D2"
+      },
+      "answer_matches": true,
+      "initial_domains": {
+        "Hope": [
+          "B3"
+        ],
+        "Drew": [
+          "D2"
+        ],
+        "Rory": [
+          "A6"
+        ],
+        "Edgar": [
+          "F4"
+        ],
+        "Vesta": [
+          "A6",
+          "C1",
+          "C5",
+          "F1"
+        ],
+        "Bobby": [
+          "A1",
+          "A3",
+          "A4",
+          "A5",
+          "A6",
+          "B1",
+          "B2",
+          "B3",
+          "B4",
+          "B5",
+          "C1",
+          "C2",
+          "C3",
+          "C4",
+          "C5",
+          "C6",
+          "D2",
+          "D3",
+          "D4",
+          "D5",
+          "D6",
+          "E1",
+          "E2",
+          "E3",
+          "E4",
+          "E6",
+          "F1",
+          "F2",
+          "F3",
+          "F4"
+        ]
+      },
+      "constraints": [
+        [
+          "Hope",
+          "row",
+          3
+        ],
+        [
+          "Hope",
+          "col",
+          "B"
+        ],
+        [
+          "Drew",
+          "room",
+          "Library"
+        ],
+        [
+          "Drew",
+          "col",
+          "D"
+        ],
+        [
+          "Rory",
+          "corner"
+        ],
+        [
+          "Rory",
+          "beside",
+          "teacherdesk"
+        ],
+        [
+          "Edgar",
+          "room",
+          "Art Room"
+        ],
+        [
+          "Edgar",
+          "col",
+          "F"
+        ],
+        [
+          "Vesta",
+          "on",
+          "deskchair"
+        ]
+      ],
+      "status": "PASS"
+    },
+    "3": {
+      "status": "PASS",
+      "proof": "Printed relevance rule distinguishes parcel identity, evidence-tag identity and route. Three named changes fit those categories; background decoration/loose props do not.",
+      "answer": "RIBBON KNOT + TAG NUMBER + SHOEPRINT DIRECTION",
+      "declared_meaningful": [
+        "The ribbon knot changes from LEFT to RIGHT.",
+        "Evidence tag 0417 becomes 0471.",
+        "The muddy shoeprint points toward the door in Photo B."
+      ],
+      "printed_rubric": "Choose changes to parcel identity, evidence-tag identity or travel direction. The poster, cup and pencil are not part of the evidence record.",
+      "visual_qa": "Evidence photos and all six differences must be inspected in the rendered PDF."
+    },
+    "4": {
+      "solution_count": 1,
+      "exhaustive": true,
+      "nodes": 1,
+      "solutions": [
+        {
+          "Finlay": "A2",
+          "Ivor": "B6",
+          "Raquel": "F4",
+          "Amelie": "D3",
+          "Clarissa": "C5",
+          "Lisa": "E1"
+        }
+      ],
+      "canonical_match": true,
+      "derived_companion_answer": {
+        "name": "Raquel",
+        "coordinate": "F4"
+      },
+      "answer_matches": true,
+      "initial_domains": {
+        "Finlay": [
+          "A2"
+        ],
+        "Ivor": [
+          "A5",
+          "B5",
+          "B6"
+        ],
+        "Raquel": [
+          "F4"
+        ],
+        "Amelie": [
+          "C2",
+          "D3"
+        ],
+        "Clarissa": [
+          "C5"
+        ],
+        "Lisa": [
+          "A1",
+          "A2",
+          "A3",
+          "A4",
+          "A5",
+          "B1",
+          "B2",
+          "B3",
+          "B4",
+          "B5",
+          "B6",
+          "C1",
+          "C2",
+          "C3",
+          "C4",
+          "C5",
+          "D3",
+          "D4",
+          "D5",
+          "D6",
+          "E1",
+          "E2",
+          "E3",
+          "E4",
+          "E5",
+          "E6",
+          "F2",
+          "F4",
+          "F5",
+          "F6"
+        ]
+      },
+      "constraints": [
+        [
+          "Finlay",
+          "row",
+          2
+        ],
+        [
+          "Finlay",
+          "col",
+          "A"
+        ],
+        [
+          "Ivor",
+          "solo",
+          "Food Court"
+        ],
+        [
+          "Raquel",
+          "room",
+          "Prize Tent"
+        ],
+        [
+          "Raquel",
+          "row",
+          4
+        ],
+        [
+          "Amelie",
+          "beside",
+          "ringtoss_stand"
+        ],
+        [
+          "Clarissa",
+          "room",
+          "Ring Toss"
+        ],
+        [
+          "Clarissa",
+          "row",
+          5
+        ]
+      ],
+      "status": "PASS"
+    },
+    "5": {
+      "status": "PASS",
+      "proof": "Exhaustive 4! symbol permutations: 1 valid code(s).",
+      "answer": [
+        "BALL",
+        "STAR",
+        "BOLT",
+        "HEART"
+      ],
+      "solution_count": 1,
+      "solutions": [
+        [
+          "BALL",
+          "STAR",
+          "BOLT",
+          "HEART"
+        ]
+      ],
+      "before_repair_solution_count": 2,
+      "before_repair_counterexamples": [
+        [
+          "BALL",
+          "STAR",
+          "BOLT",
+          "HEART"
+        ],
+        [
+          "BALL",
+          "HEART",
+          "STAR",
+          "BOLT"
+        ]
+      ]
+    },
+    "6": {
+      "solution_count": 1,
+      "exhaustive": true,
+      "nodes": 1,
+      "solutions": [
+        {
+          "Stafford": "E3",
+          "Hubert": "A6",
+          "Ava": "D2",
+          "Vera": "F5",
+          "Wallace": "C4",
+          "Eunice": "B1"
+        }
+      ],
+      "canonical_match": true,
+      "derived_companion_answer": {
+        "name": "Ava",
+        "coordinate": "D2"
+      },
+      "answer_matches": true,
+      "initial_domains": {
+        "Stafford": [
+          "E3"
+        ],
+        "Hubert": [
+          "A4",
+          "A6"
+        ],
+        "Ava": [
+          "D2"
+        ],
+        "Vera": [
+          "F3",
+          "F5"
+        ],
+        "Wallace": [
+          "C4"
+        ],
+        "Eunice": [
+          "A1",
+          "A4",
+          "A6",
+          "B1",
+          "B3",
+          "B6",
+          "C1",
+          "C3",
+          "C4",
+          "C5",
+          "D2",
+          "D4",
+          "D5",
+          "D6",
+          "E1",
+          "E2",
+          "E3",
+          "E6",
+          "F1",
+          "F2",
+          "F3",
+          "F5",
+          "F6"
+        ]
+      },
+      "constraints": [
+        [
+          "Stafford",
+          "row",
+          3
+        ],
+        [
+          "Stafford",
+          "col",
+          "E"
+        ],
+        [
+          "Hubert",
+          "room",
+          "Dinosaur Hall"
+        ],
+        [
+          "Hubert",
+          "beside",
+          "case"
+        ],
+        [
+          "Ava",
+          "room",
+          "Foyer"
+        ],
+        [
+          "Ava",
+          "row",
+          2
+        ],
+        [
+          "Vera",
+          "room",
+          "Gallery"
+        ],
+        [
+          "Vera",
+          "beside",
+          "statue"
+        ],
+        [
+          "Wallace",
+          "on",
+          "bench"
+        ],
+        [
+          "Wallace",
+          "beside",
+          "skeleton"
+        ]
+      ],
+      "status": "PASS"
+    },
+    "7": {
+      "solution_count": 1,
+      "exhaustive": true,
+      "nodes": 5,
+      "solutions": [
+        {
+          "Bruce": "A3",
+          "Isla": "D2",
+          "Winifred": "B1",
+          "Zelda": "C6",
+          "Roscoe": "E5",
+          "Grayson": "F4"
+        }
+      ],
+      "canonical_match": true,
+      "derived_companion_answer": {
+        "name": "Zelda",
+        "coordinate": "C6"
+      },
+      "answer_matches": true,
+      "initial_domains": {
+        "Bruce": [
+          "A3",
+          "A4",
+          "B3",
+          "B4",
+          "B5",
+          "B6"
+        ],
+        "Isla": [
+          "A2",
+          "A3",
+          "A4",
+          "B1",
+          "B2",
+          "B3",
+          "B4",
+          "B5",
+          "B6",
+          "D2"
+        ],
+        "Winifred": [
+          "A2",
+          "B1",
+          "B3",
+          "E2"
+        ],
+        "Zelda": [
+          "A2",
+          "B1",
+          "C6"
+        ],
+        "Roscoe": [
+          "E5"
+        ],
+        "Grayson": [
+          "A2",
+          "A3",
+          "A4",
+          "B1",
+          "B2",
+          "B3",
+          "B4",
+          "B5",
+          "B6",
+          "C5",
+          "C6",
+          "D2",
+          "D4",
+          "D5",
+          "E1",
+          "E2",
+          "E3",
+          "E4",
+          "E5",
+          "F1",
+          "F3",
+          "F4",
+          "F5"
+        ]
+      },
+      "constraints": [
+        [
+          "Bruce",
+          "solo",
+          "Lounge"
+        ],
+        [
+          "Isla",
+          "rooms",
+          "Kitchen",
+          "Lounge"
+        ],
+        [
+          "Winifred",
+          "distance",
+          "commercial_range",
+          2
+        ],
+        [
+          "Zelda",
+          "wall"
+        ],
+        [
+          "Zelda",
+          "beside",
+          "cart"
+        ],
+        [
+          "Roscoe",
+          "row",
+          5
+        ],
+        [
+          "Roscoe",
+          "col",
+          "E"
+        ]
+      ],
+      "status": "PASS"
+    },
+    "8": {
+      "status": "PASS",
+      "proof": "Hard closures eliminate A/B; remaining route(s) ['C']. Closure until16:30 requires a stated current time before16:30 and no waiting.",
+      "answer": "C",
+      "valid_options": [
+        "C"
+      ],
+      "departure_time_explicit": true
+    },
+    "9": {
+      "status": "PASS",
+      "proof": "4 matching plain-zero items; decorative ring/pointer patterns excluded. These establish recurrence, not cause.",
+      "answer": "THE PLAIN 0 IS A RECURRING ACADEMY SIGNAL.",
+      "matching_items": [
+        {
+          "item": "opening Academy badge",
+          "mark": "plain engraved 0",
+          "recurring": true
+        },
+        {
+          "item": "trophy evidence record",
+          "mark": "plain stamped 0",
+          "recurring": true
+        },
+        {
+          "item": "cupcake quality sticker",
+          "mark": "plain printed 0",
+          "recurring": true
+        },
+        {
+          "item": "museum label reverse",
+          "mark": "plain printed 0",
+          "recurring": true
+        }
+      ],
+      "temporal_audit": "Badge/case2/case4/case6 already occurred; any added item must cite an earlier source event."
+    },
+    "10": {
+      "solution_count": 1,
+      "exhaustive": true,
+      "nodes": 9,
+      "solutions": [
+        {
+          "Eliza": "D5",
+          "Nicholas": "F6",
+          "Willie": "B7",
+          "Frances": "A2",
+          "Blythe": "C1",
+          "Verity": "G4",
+          "Dora": "E3"
+        }
+      ],
+      "canonical_match": true,
+      "derived_companion_answer": {
+        "name": "Eliza",
+        "coordinate": "D5"
+      },
+      "answer_matches": true,
+      "initial_domains": {
+        "Eliza": [
+          "D4",
+          "D5"
+        ],
+        "Nicholas": [
+          "F4",
+          "F6"
+        ],
+        "Willie": [
+          "B7"
+        ],
+        "Frances": [
+          "A2",
+          "D1",
+          "E2",
+          "F3",
+          "G4"
+        ],
+        "Blythe": [
+          "C1",
+          "D1"
+        ],
+        "Verity": [
+          "A6",
+          "A7",
+          "B7",
+          "C6",
+          "E6",
+          "E7",
+          "F3",
+          "F4",
+          "F6",
+          "F7",
+          "G4",
+          "G7"
+        ],
+        "Dora": [
+          "A2",
+          "A3",
+          "A4",
+          "A6",
+          "A7",
+          "B3",
+          "B4",
+          "B7",
+          "C1",
+          "C2",
+          "C3",
+          "C4",
+          "C5",
+          "C6",
+          "D1",
+          "D3",
+          "D4",
+          "D5",
+          "D6",
+          "D7",
+          "E2",
+          "E3",
+          "E4",
+          "E5",
+          "E6",
+          "E7",
+          "F2",
+          "F3",
+          "F4",
+          "F5",
+          "F6",
+          "F7",
+          "G1",
+          "G3",
+          "G4",
+          "G6",
+          "G7"
+        ]
+      },
+      "constraints": [
+        [
+          "Eliza",
+          "on",
+          "seat"
+        ],
+        [
+          "Eliza",
+          "beside",
+          "seat"
+        ],
+        [
+          "Nicholas",
+          "col",
+          "F"
+        ],
+        [
+          "Nicholas",
+          "on",
+          "seat"
+        ],
+        [
+          "Willie",
+          "col",
+          "B"
+        ],
+        [
+          "Willie",
+          "beside",
+          "cryopod"
+        ],
+        [
+          "Frances",
+          "distance",
+          "tank",
+          7
+        ],
+        [
+          "Blythe",
+          "wall"
+        ],
+        [
+          "Blythe",
+          "beside",
+          "crate"
+        ],
+        [
+          "Verity",
+          "room_object_not_beside",
+          "console"
+        ]
+      ],
+      "status": "PASS"
+    },
+    "11": {
+      "status": "PASS",
+      "proof": "Only timestamped record(s) ['D'] fall outside 15:20–16:05; untimestamped personal objects are not contradictory records.",
+      "answer": "D",
+      "outside_records": [
+        "D"
+      ],
+      "objective_scoped_to_records": true
+    },
+    "12": {
+      "solution_count": 1,
+      "exhaustive": true,
+      "nodes": 9,
+      "solutions": [
+        {
+          "Kendra": "E6",
+          "Norris": "G2",
+          "Irma": "A5",
+          "Earlene": "F4",
+          "Cleo": "B7",
+          "Siobhan": "C3",
+          "Winthrop": "D1"
+        }
+      ],
+      "canonical_match": true,
+      "derived_companion_answer": {
+        "name": "Norris",
+        "coordinate": "G2"
+      },
+      "answer_matches": true,
+      "initial_domains": {
+        "Kendra": [
+          "B5",
+          "B6",
+          "C7",
+          "D5",
+          "D6",
+          "E5",
+          "E6"
+        ],
+        "Norris": [
+          "F2",
+          "G2"
+        ],
+        "Irma": [
+          "A5",
+          "B5",
+          "C5",
+          "D5",
+          "E5",
+          "F5",
+          "G5"
+        ],
+        "Earlene": [
+          "B5",
+          "B6",
+          "C7",
+          "D5",
+          "D6",
+          "D7",
+          "E5",
+          "E6",
+          "F4",
+          "F5",
+          "F6",
+          "G5",
+          "G6",
+          "G7"
+        ],
+        "Cleo": [
+          "B7"
+        ],
+        "Siobhan": [
+          "A1",
+          "A2",
+          "A3",
+          "A4",
+          "A5",
+          "A6",
+          "A7",
+          "B2",
+          "B3",
+          "B4",
+          "B5",
+          "B6",
+          "B7",
+          "C1",
+          "C2",
+          "C3",
+          "C5",
+          "C7",
+          "D1",
+          "D2",
+          "D3",
+          "D4",
+          "D5",
+          "D6",
+          "D7",
+          "E2",
+          "E3",
+          "E4",
+          "E5",
+          "E6",
+          "F2",
+          "F3",
+          "F4",
+          "F5",
+          "F6",
+          "G1",
+          "G2",
+          "G3",
+          "G4",
+          "G5",
+          "G6",
+          "G7"
+        ],
+        "Winthrop": [
+          "A1",
+          "A2",
+          "A3",
+          "A4",
+          "A5",
+          "A6",
+          "A7",
+          "B2",
+          "B3",
+          "B4",
+          "B5",
+          "B6",
+          "B7",
+          "C1",
+          "C2",
+          "C3",
+          "C5",
+          "C7",
+          "D1",
+          "D2",
+          "D3",
+          "D4",
+          "D5",
+          "D6",
+          "D7",
+          "E2",
+          "E3",
+          "E4",
+          "E5",
+          "E6",
+          "F2",
+          "F3",
+          "F4",
+          "F5",
+          "F6",
+          "G1",
+          "G2",
+          "G3",
+          "G4",
+          "G5",
+          "G6",
+          "G7"
+        ]
+      },
+      "constraints": [
+        [
+          "Kendra",
+          "solo",
+          "Bird Room"
+        ],
+        [
+          "Norris",
+          "room",
+          "Play Yard"
+        ],
+        [
+          "Norris",
+          "row",
+          2
+        ],
+        [
+          "Irma",
+          "rank_south",
+          3
+        ],
+        [
+          "Earlene",
+          "rooms",
+          "Puppy Room",
+          "Bird Room"
+        ],
+        [
+          "Cleo",
+          "col",
+          "B"
+        ],
+        [
+          "Cleo",
+          "wall"
+        ],
+        [
+          "Siobhan",
+          "xor_room",
+          "Kendra",
+          "Training Room"
+        ]
+      ],
+      "status": "PASS"
+    },
+    "13": {
+      "solution_count": 1,
+      "exhaustive": true,
+      "nodes": 16,
+      "solutions": [
+        {
+          "Jewel": "F3",
+          "Shirley": "E4",
+          "Elliot": "G2",
+          "Wanda": "A1",
+          "Bronwen": "B7",
+          "Mercer": "C5",
+          "Rafferty": "D6"
+        }
+      ],
+      "canonical_match": true,
+      "derived_companion_answer": {
+        "name": "Bronwen",
+        "coordinate": "B7"
+      },
+      "answer_matches": true,
+      "initial_domains": {
+        "Jewel": [
+          "A1",
+          "A2",
+          "A3",
+          "A4",
+          "A5",
+          "A7",
+          "B1",
+          "B2",
+          "B3",
+          "B4",
+          "B5",
+          "B6",
+          "B7",
+          "C1",
+          "C3",
+          "C5",
+          "C6",
+          "C7",
+          "D1",
+          "D2",
+          "D3",
+          "D4",
+          "D5",
+          "D6",
+          "D7",
+          "E1",
+          "E2",
+          "E4",
+          "E5",
+          "E6",
+          "E7",
+          "F2",
+          "F3",
+          "F4",
+          "F5",
+          "F6",
+          "G2",
+          "G4",
+          "G5",
+          "G7"
+        ],
+        "Shirley": [
+          "C5",
+          "C6",
+          "D3",
+          "D4",
+          "D5",
+          "E4"
+        ],
+        "Elliot": [
+          "A1",
+          "A2",
+          "A3",
+          "A4",
+          "A5",
+          "A7",
+          "B1",
+          "B2",
+          "B3",
+          "B4",
+          "B5",
+          "B6",
+          "B7",
+          "C1",
+          "C3",
+          "C5",
+          "C6",
+          "C7",
+          "D1",
+          "D2",
+          "D3",
+          "D4",
+          "D5",
+          "D6",
+          "D7",
+          "E1",
+          "E2",
+          "E4",
+          "E5",
+          "E6",
+          "E7",
+          "F2",
+          "F3",
+          "F4",
+          "F5",
+          "F6",
+          "G2",
+          "G4",
+          "G5",
+          "G7"
+        ],
+        "Wanda": [
+          "A1",
+          "A2",
+          "A3",
+          "A4",
+          "A5",
+          "A7",
+          "B1",
+          "B2",
+          "B3",
+          "B4",
+          "B5",
+          "B6",
+          "B7",
+          "C1",
+          "C3",
+          "C5",
+          "C6",
+          "C7",
+          "D1",
+          "D2",
+          "D3",
+          "D4",
+          "D5",
+          "D6",
+          "D7",
+          "E1",
+          "E2",
+          "E4",
+          "E5",
+          "E6",
+          "E7",
+          "F2",
+          "F3",
+          "F4",
+          "F5",
+          "F6",
+          "G2",
+          "G4",
+          "G5",
+          "G7"
+        ],
+        "Bronwen": [
+          "A1",
+          "A2",
+          "A3",
+          "A4",
+          "A5",
+          "A7",
+          "B1",
+          "B2",
+          "B3",
+          "B4",
+          "B5",
+          "B6",
+          "B7",
+          "C1",
+          "C3",
+          "C5",
+          "C6",
+          "C7",
+          "D1",
+          "D2",
+          "D3",
+          "D4",
+          "D5",
+          "D6",
+          "D7",
+          "E1",
+          "E2",
+          "E4",
+          "E5",
+          "E6",
+          "E7",
+          "F2",
+          "F3",
+          "F4",
+          "F5",
+          "F6",
+          "G2",
+          "G4",
+          "G5",
+          "G7"
+        ],
+        "Mercer": [
+          "C5",
+          "D5"
+        ],
+        "Rafferty": [
+          "A1",
+          "A2",
+          "A3",
+          "A4",
+          "A5",
+          "A7",
+          "B1",
+          "B2",
+          "B3",
+          "B4",
+          "B5",
+          "B6",
+          "B7",
+          "C1",
+          "C3",
+          "C5",
+          "C6",
+          "C7",
+          "D1",
+          "D2",
+          "D3",
+          "D4",
+          "D5",
+          "D6",
+          "D7",
+          "E1",
+          "E2",
+          "E4",
+          "E5",
+          "E6",
+          "E7",
+          "F2",
+          "F3",
+          "F4",
+          "F5",
+          "F6",
+          "G2",
+          "G4",
+          "G5",
+          "G7"
+        ]
+      },
+      "constraints": [
+        [
+          "Jewel",
+          "diagonal",
+          "Shirley"
+        ],
+        [
+          "Shirley",
+          "room",
+          "Ranger Station"
+        ],
+        [
+          "Elliot",
+          "same_room",
+          "Jewel"
+        ],
+        [
+          "Wanda",
+          "northwest",
+          "Bronwen"
+        ],
+        [
+          "Bronwen",
+          "southwest",
+          "Mercer"
+        ],
+        [
+          "Mercer",
+          "room",
+          "Ranger Station"
+        ],
+        [
+          "Mercer",
+          "row",
+          5
+        ]
+      ],
+      "status": "PASS"
+    },
+    "14": {
+      "status": "PASS",
+      "proof": "Shortest path Stage → Hall → Dressing has two edges, 2min each, so4min; claimed16:10→16:12 allows only2min. Other statements admit placements.",
+      "answer": "NOAH",
+      "minimum_travel_minutes": 4,
+      "available_minutes": 2,
+      "statements": [
+        {
+          "speaker": "MAYA",
+          "possible": true,
+          "basis": "One location/time assertion; no contradictory second endpoint."
+        },
+        {
+          "speaker": "LEO",
+          "possible": true,
+          "basis": "One location/time assertion; no contradictory second endpoint."
+        },
+        {
+          "speaker": "SOFIA",
+          "possible": true,
+          "basis": "One location/time assertion; no contradictory second endpoint."
+        },
+        {
+          "speaker": "NOAH",
+          "minimum_minutes": 4,
+          "claimed_minutes": 2,
+          "possible": false
+        }
+      ],
+      "assumption": "Edges are all available routes and 2min is the minimum traversal time, including for the witness; no unstated shortcuts."
+    },
+    "15": {
+      "solution_count": 1,
+      "exhaustive": true,
+      "nodes": 65,
+      "solutions": [
+        {
+          "Hiram": "D2",
+          "Primrose": "F4",
+          "Damian": "E5",
+          "Carolyn": "C3",
+          "Jonquil": "G7",
+          "Isabella": "B6",
+          "Mona": "A1"
+        }
+      ],
+      "canonical_match": true,
+      "derived_companion_answer": {
+        "name": "Hiram",
+        "coordinate": "D2"
+      },
+      "answer_matches": true,
+      "initial_domains": {
+        "Hiram": [
+          "A1",
+          "A4",
+          "A5",
+          "A6",
+          "B1",
+          "B2",
+          "B3",
+          "B4",
+          "B5",
+          "B6",
+          "B7",
+          "C1",
+          "C2",
+          "C3",
+          "C4",
+          "C5",
+          "C6",
+          "C7",
+          "D1",
+          "D2",
+          "D3",
+          "D4",
+          "D5",
+          "D6",
+          "D7",
+          "E1",
+          "E3",
+          "E4",
+          "E5",
+          "E6",
+          "E7",
+          "F1",
+          "F4",
+          "F5",
+          "F7",
+          "G1",
+          "G3",
+          "G4",
+          "G5",
+          "G6",
+          "G7"
+        ],
+        "Primrose": [
+          "A1",
+          "A4",
+          "A5",
+          "A6",
+          "B1",
+          "B2",
+          "B3",
+          "B4",
+          "B5",
+          "B6",
+          "B7",
+          "C1",
+          "C2",
+          "C3",
+          "C4",
+          "C5",
+          "C6",
+          "C7",
+          "D1",
+          "D2",
+          "D3",
+          "D4",
+          "D5",
+          "D6",
+          "D7",
+          "E1",
+          "E3",
+          "E4",
+          "E5",
+          "E6",
+          "E7",
+          "F1",
+          "F4",
+          "F5",
+          "F7",
+          "G1",
+          "G3",
+          "G4",
+          "G5",
+          "G6",
+          "G7"
+        ],
+        "Damian": [
+          "C5",
+          "D5",
+          "E5"
+        ],
+        "Carolyn": [
+          "B4",
+          "C3",
+          "D4",
+          "D7"
+        ],
+        "Jonquil": [
+          "F7",
+          "G3",
+          "G4",
+          "G5",
+          "G6",
+          "G7"
+        ],
+        "Isabella": [
+          "B5",
+          "B6",
+          "C4",
+          "C5",
+          "C6",
+          "C7",
+          "D3",
+          "D5",
+          "D6",
+          "E5",
+          "E6",
+          "E7"
+        ],
+        "Mona": [
+          "A1",
+          "A4",
+          "A5",
+          "A6",
+          "B1",
+          "B2",
+          "B3",
+          "B4",
+          "B5",
+          "B6",
+          "B7",
+          "C1",
+          "C2",
+          "C3",
+          "C4",
+          "C5",
+          "C6",
+          "C7",
+          "D1",
+          "D2",
+          "D3",
+          "D4",
+          "D5",
+          "D6",
+          "D7",
+          "E1",
+          "E3",
+          "E4",
+          "E5",
+          "E6",
+          "E7",
+          "F1",
+          "F4",
+          "F5",
+          "F7",
+          "G1",
+          "G3",
+          "G4",
+          "G5",
+          "G6",
+          "G7"
+        ]
+      },
+      "constraints": [
+        [
+          "Hiram",
+          "northeast",
+          "Carolyn"
+        ],
+        [
+          "Primrose",
+          "northeast",
+          "Damian"
+        ],
+        [
+          "Damian",
+          "room",
+          "First-Aid Hut"
+        ],
+        [
+          "Damian",
+          "row",
+          5
+        ],
+        [
+          "Carolyn",
+          "beside",
+          "camp_cot"
+        ],
+        [
+          "Jonquil",
+          "solo",
+          "Welcome Lodge"
+        ],
+        [
+          "Isabella",
+          "room_object_not_beside",
+          "camp_cot"
+        ]
+      ],
+      "status": "PASS"
+    },
+    "16": {
+      "status": "PASS",
+      "proof": "Candidate years intersect the printed badge period1999–2003 and installed security date≥2001: only2002. Crest/plaque identifies the Training Annex. Envelope expiry is unnecessary and cannot alone date a photo.",
+      "answer": {
+        "building": "OLD ACADEMY ANNEX",
+        "year": 2002
+      },
+      "candidate_years": [
+        2002
+      ],
+      "printed_event_rule": true,
+      "assumption": "Badge-period evidence describes the official event date, not merely a vintage badge worn later; sticker was already installed when photo taken."
+    },
+    "17": {
+      "solution_count": 1,
+      "exhaustive": true,
+      "nodes": 7,
+      "solutions": [
+        {
+          "Octavia": "A1",
+          "Margaret": "B4",
+          "Kerry": "F6",
+          "Samuel": "D5",
+          "Lincoln": "G7",
+          "Ambrose": "E3",
+          "Rhoda": "C2"
+        }
+      ],
+      "canonical_match": true,
+      "derived_companion_answer": {
+        "name": "Ambrose",
+        "coordinate": "E3"
+      },
+      "answer_matches": true,
+      "initial_domains": {
+        "Octavia": [
+          "A1",
+          "A2",
+          "A3",
+          "A5",
+          "A6",
+          "B4",
+          "B5",
+          "B6",
+          "C5",
+          "C6",
+          "C7",
+          "D6",
+          "E7"
+        ],
+        "Margaret": [
+          "B4",
+          "B5",
+          "B6"
+        ],
+        "Kerry": [
+          "F6",
+          "G6"
+        ],
+        "Samuel": [
+          "C2",
+          "D5",
+          "F7"
+        ],
+        "Lincoln": [
+          "G6",
+          "G7"
+        ],
+        "Ambrose": [
+          "A1",
+          "A2",
+          "A3",
+          "A5",
+          "A6",
+          "B1",
+          "B3",
+          "B4",
+          "B5",
+          "B6",
+          "C2",
+          "C3",
+          "C4",
+          "C5",
+          "C6",
+          "C7",
+          "D1",
+          "D2",
+          "D3",
+          "D4",
+          "D5",
+          "D6",
+          "E1",
+          "E2",
+          "E3",
+          "E4",
+          "E5",
+          "E7",
+          "F2",
+          "F5",
+          "F6",
+          "F7",
+          "G1",
+          "G2",
+          "G3",
+          "G5",
+          "G6",
+          "G7"
+        ],
+        "Rhoda": [
+          "A1",
+          "A2",
+          "A3",
+          "A5",
+          "A6",
+          "B1",
+          "B3",
+          "B4",
+          "B5",
+          "B6",
+          "C2",
+          "C3",
+          "C4",
+          "C5",
+          "C6",
+          "C7",
+          "D1",
+          "D2",
+          "D3",
+          "D4",
+          "D5",
+          "D6",
+          "E1",
+          "E2",
+          "E3",
+          "E4",
+          "E5",
+          "E7",
+          "F2",
+          "F5",
+          "F6",
+          "F7",
+          "G1",
+          "G2",
+          "G3",
+          "G5",
+          "G6",
+          "G7"
+        ]
+      },
+      "constraints": [
+        [
+          "Octavia",
+          "rooms",
+          "Kitchen Car",
+          "Baggage Car"
+        ],
+        [
+          "Margaret",
+          "room",
+          "Kitchen Car"
+        ],
+        [
+          "Margaret",
+          "col",
+          "B"
+        ],
+        [
+          "Kerry",
+          "room",
+          "Lounge Car"
+        ],
+        [
+          "Kerry",
+          "row",
+          6
+        ],
+        [
+          "Samuel",
+          "on",
+          "bench"
+        ],
+        [
+          "Lincoln",
+          "room",
+          "Lounge Car"
+        ],
+        [
+          "Lincoln",
+          "col",
+          "G"
+        ],
+        [
+          "Ambrose",
+          "rows_north",
+          "Kerry",
+          3
+        ]
+      ],
+      "status": "PASS"
+    },
+    "18": {
+      "status": "PASS",
+      "proof": "Subtract each clock offset from its displayed time; all four real timestamps differ, so their ascending order is unique.",
+      "answer": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "computed_real_minutes": {
+        "A": 915,
+        "B": 916,
+        "C": 917,
+        "D": 918
+      },
+      "assumption": "Same day, fixed clock offsets, no midnight rollover."
+    },
+    "19": {
+      "solution_count": 1,
+      "exhaustive": true,
+      "nodes": 16,
+      "solutions": [
+        {
+          "Archibald": "E5",
+          "Theodore": "C1",
+          "Ottoline": "D3",
+          "Drew": "G2",
+          "Madge": "A7",
+          "Kimberly": "F4",
+          "Sonia": "B6"
+        }
+      ],
+      "canonical_match": true,
+      "derived_companion_answer": {
+        "name": "Madge",
+        "coordinate": "A7"
+      },
+      "answer_matches": true,
+      "initial_domains": {
+        "Archibald": [
+          "A1",
+          "A3",
+          "A7",
+          "B1",
+          "B2",
+          "B4",
+          "B6",
+          "B7",
+          "C1",
+          "C2",
+          "C3",
+          "C4",
+          "C5",
+          "C7",
+          "D2",
+          "D3",
+          "D4",
+          "D5",
+          "D6",
+          "D7",
+          "E1",
+          "E3",
+          "E4",
+          "E5",
+          "E7",
+          "F1",
+          "F2",
+          "F3",
+          "F4",
+          "F5",
+          "F6",
+          "G2",
+          "G4",
+          "G5",
+          "G6",
+          "G7"
+        ],
+        "Theodore": [
+          "A3",
+          "B2",
+          "C1"
+        ],
+        "Ottoline": [
+          "A1",
+          "A3",
+          "A7",
+          "B1",
+          "B2",
+          "B4",
+          "B6",
+          "B7",
+          "C1",
+          "C2",
+          "C3",
+          "C4",
+          "C5",
+          "C7",
+          "D2",
+          "D3",
+          "D4",
+          "D5",
+          "D6",
+          "D7",
+          "E1",
+          "E3",
+          "E4",
+          "E5",
+          "E7",
+          "F1",
+          "F2",
+          "F3",
+          "F4",
+          "F5",
+          "F6",
+          "G2",
+          "G4",
+          "G5",
+          "G6",
+          "G7"
+        ],
+        "Drew": [
+          "A1",
+          "A3",
+          "A7",
+          "B1",
+          "B2",
+          "B4",
+          "B6",
+          "B7",
+          "C1",
+          "C2",
+          "C3",
+          "C4",
+          "C5",
+          "C7",
+          "D2",
+          "D3",
+          "D4",
+          "D5",
+          "D6",
+          "D7",
+          "E1",
+          "E3",
+          "E4",
+          "E5",
+          "E7",
+          "F1",
+          "F2",
+          "F3",
+          "F4",
+          "F5",
+          "F6",
+          "G2",
+          "G4",
+          "G5",
+          "G6",
+          "G7"
+        ],
+        "Madge": [
+          "A1",
+          "A3",
+          "A7",
+          "B1",
+          "B2",
+          "B4",
+          "B6",
+          "B7",
+          "C1",
+          "C2",
+          "C3",
+          "C4",
+          "C5",
+          "C7",
+          "D2",
+          "D3",
+          "D4",
+          "D5",
+          "D6",
+          "D7",
+          "E1",
+          "E3",
+          "E4",
+          "E5",
+          "E7",
+          "F1",
+          "F2",
+          "F3",
+          "F4",
+          "F5",
+          "F6",
+          "G2",
+          "G4",
+          "G5",
+          "G6",
+          "G7"
+        ],
+        "Kimberly": [
+          "F3",
+          "F4"
+        ],
+        "Sonia": [
+          "A1",
+          "A3",
+          "A7",
+          "B1",
+          "B2",
+          "B4",
+          "B6",
+          "B7",
+          "C1",
+          "C2",
+          "C3",
+          "C4",
+          "C5",
+          "C7",
+          "D2",
+          "D3",
+          "D4",
+          "D5",
+          "D6",
+          "D7",
+          "E1",
+          "E3",
+          "E4",
+          "E5",
+          "E7",
+          "F1",
+          "F2",
+          "F3",
+          "F4",
+          "F5",
+          "F6",
+          "G2",
+          "G4",
+          "G5",
+          "G6",
+          "G7"
+        ]
+      },
+      "constraints": [
+        [
+          "Archibald",
+          "rows_north",
+          "Madge",
+          2
+        ],
+        [
+          "Theodore",
+          "distance",
+          "piano",
+          7
+        ],
+        [
+          "Ottoline",
+          "xor_room",
+          "Archibald",
+          "Science Lab"
+        ],
+        [
+          "Drew",
+          "same_room",
+          "Theodore"
+        ],
+        [
+          "Madge",
+          "southwest",
+          "Ottoline"
+        ],
+        [
+          "Kimberly",
+          "room",
+          "Auditorium"
+        ],
+        [
+          "Kimberly",
+          "col",
+          "F"
+        ]
+      ],
+      "status": "PASS"
+    },
+    "20": {
+      "solution_count": 1,
+      "exhaustive": true,
+      "nodes": 27,
+      "solutions": [
+        {
+          "Standish": "E7",
+          "Pamela": "F5",
+          "Leslie": "A1",
+          "Millie": "D4",
+          "Aurora": "B2",
+          "Thatcher": "C6",
+          "Danielle": "G3"
+        }
+      ],
+      "canonical_match": true,
+      "derived_companion_answer": {
+        "name": "Pamela",
+        "coordinate": "F5"
+      },
+      "answer_matches": true,
+      "initial_domains": {
+        "Standish": [
+          "A1",
+          "A3",
+          "A4",
+          "A5",
+          "A7",
+          "B1",
+          "B2",
+          "B3",
+          "B4",
+          "B5",
+          "B6",
+          "B7",
+          "C4",
+          "C5",
+          "C6",
+          "C7",
+          "D3",
+          "D4",
+          "D5",
+          "D7",
+          "E1",
+          "E2",
+          "E3",
+          "E4",
+          "E5",
+          "E7",
+          "F2",
+          "F4",
+          "F5",
+          "F7",
+          "G2",
+          "G3",
+          "G5",
+          "G6",
+          "G7"
+        ],
+        "Pamela": [
+          "A1",
+          "A3",
+          "A4",
+          "A5",
+          "A7",
+          "B1",
+          "B2",
+          "B3",
+          "B4",
+          "B5",
+          "B6",
+          "B7",
+          "C4",
+          "C5",
+          "C6",
+          "C7",
+          "D3",
+          "D4",
+          "D5",
+          "D7",
+          "E1",
+          "E2",
+          "E3",
+          "E4",
+          "E5",
+          "E7",
+          "F2",
+          "F4",
+          "F5",
+          "F7",
+          "G2",
+          "G3",
+          "G5",
+          "G6",
+          "G7"
+        ],
+        "Leslie": [
+          "A1",
+          "A3",
+          "A4",
+          "A5",
+          "A7",
+          "B1",
+          "B2",
+          "B3",
+          "B4",
+          "B5",
+          "B6",
+          "B7",
+          "C4",
+          "C5",
+          "C6",
+          "C7",
+          "D3",
+          "D4",
+          "D5",
+          "D7",
+          "E1",
+          "E2",
+          "E3",
+          "E4",
+          "E5",
+          "E7",
+          "F2",
+          "F4",
+          "F5",
+          "F7",
+          "G2",
+          "G3",
+          "G5",
+          "G6",
+          "G7"
+        ],
+        "Millie": [
+          "D4",
+          "E4"
+        ],
+        "Aurora": [
+          "A1",
+          "A3",
+          "A4",
+          "A5",
+          "A7",
+          "B1",
+          "B2",
+          "B3",
+          "B4",
+          "B5",
+          "B6",
+          "B7",
+          "C4",
+          "C5",
+          "C6",
+          "C7",
+          "D3",
+          "D4",
+          "D5",
+          "D7",
+          "E1",
+          "E2",
+          "E3",
+          "E4",
+          "E5",
+          "E7",
+          "F2",
+          "F4",
+          "F5",
+          "F7",
+          "G2",
+          "G3",
+          "G5",
+          "G6",
+          "G7"
+        ],
+        "Thatcher": [
+          "B6",
+          "B7",
+          "C4",
+          "C5",
+          "C6",
+          "C7",
+          "D5",
+          "D7"
+        ],
+        "Danielle": [
+          "A1",
+          "A3",
+          "A4",
+          "A5",
+          "A7",
+          "B1",
+          "B2",
+          "B3",
+          "B4",
+          "B5",
+          "B6",
+          "B7",
+          "C4",
+          "C5",
+          "C6",
+          "C7",
+          "D3",
+          "D4",
+          "D5",
+          "D7",
+          "E1",
+          "E2",
+          "E3",
+          "E4",
+          "E5",
+          "E7",
+          "F2",
+          "F4",
+          "F5",
+          "F7",
+          "G2",
+          "G3",
+          "G5",
+          "G6",
+          "G7"
+        ]
+      },
+      "constraints": [
+        [
+          "Standish",
+          "south",
+          "Pamela"
+        ],
+        [
+          "Pamela",
+          "southeast",
+          "Millie"
+        ],
+        [
+          "Leslie",
+          "diagonal",
+          "Aurora"
+        ],
+        [
+          "Millie",
+          "room",
+          "Propulsion Lab"
+        ],
+        [
+          "Millie",
+          "row",
+          4
+        ],
+        [
+          "Aurora",
+          "same_room",
+          "Millie"
+        ],
+        [
+          "Thatcher",
+          "solo",
+          "Academy Mess Hall"
+        ]
+      ],
+      "status": "PASS"
+    },
+    "21": {
+      "status": "PASS",
+      "proof": "Enumerated24 scrap orders using physical edge labels alone: 1 complete chain(s); sentence read only afterward.",
+      "answer": [
+        "THE ANSWER IS IN WHAT YOU LEAVE EMPTY."
+      ],
+      "solution_count": 1,
+      "chains": [
+        [
+          "B",
+          "D",
+          "A",
+          "C"
+        ]
+      ],
+      "before_repair_solution_count": 0,
+      "before_repair_defect": "A.right_edge=curve-1 did not match C.left_edge=wave-4."
+    },
+    "22": {
+      "solution_count": 1,
+      "exhaustive": true,
+      "nodes": 136,
+      "solutions": [
+        {
+          "Leigh": "E6",
+          "Irene": "F7",
+          "Clarence": "C4",
+          "Natasha": "G5",
+          "Gemma": "B1",
+          "William": "D3",
+          "Zelda": "A2"
+        }
+      ],
+      "canonical_match": true,
+      "derived_companion_answer": {
+        "name": "Clarence",
+        "coordinate": "C4"
+      },
+      "answer_matches": true,
+      "initial_domains": {
+        "Leigh": [
+          "A2",
+          "A3",
+          "A5",
+          "A6",
+          "B1",
+          "B2",
+          "B3",
+          "B5",
+          "B6",
+          "B7",
+          "C2",
+          "C3",
+          "C4",
+          "C5",
+          "C6",
+          "C7",
+          "D2",
+          "D3",
+          "D4",
+          "D5",
+          "D6",
+          "D7",
+          "E1",
+          "E2",
+          "E3",
+          "E4",
+          "E5",
+          "E6",
+          "E7",
+          "F1",
+          "F3",
+          "F4",
+          "F5",
+          "F6",
+          "F7",
+          "G1",
+          "G2",
+          "G3",
+          "G4",
+          "G5",
+          "G6"
+        ],
+        "Irene": [
+          "A2",
+          "A3",
+          "A5",
+          "A6",
+          "B1",
+          "B2",
+          "B3",
+          "B5",
+          "B6",
+          "B7",
+          "C2",
+          "C3",
+          "C4",
+          "C5",
+          "C6",
+          "C7",
+          "D2",
+          "D3",
+          "D4",
+          "D5",
+          "D6",
+          "D7",
+          "E1",
+          "E2",
+          "E3",
+          "E4",
+          "E5",
+          "E6",
+          "E7",
+          "F1",
+          "F3",
+          "F4",
+          "F5",
+          "F6",
+          "F7",
+          "G1",
+          "G2",
+          "G3",
+          "G4",
+          "G5",
+          "G6"
+        ],
+        "Clarence": [
+          "A2",
+          "A3",
+          "A5",
+          "A6",
+          "B1",
+          "B2",
+          "B3",
+          "B5",
+          "B6",
+          "B7",
+          "C2",
+          "C3",
+          "C4",
+          "C5",
+          "C6",
+          "C7",
+          "D2",
+          "D3",
+          "D4",
+          "D5",
+          "D6",
+          "D7",
+          "E1",
+          "E2",
+          "E3",
+          "E4",
+          "E5",
+          "E6",
+          "E7",
+          "F1",
+          "F3",
+          "F4",
+          "F5",
+          "F6",
+          "F7",
+          "G1",
+          "G2",
+          "G3",
+          "G4",
+          "G5",
+          "G6"
+        ],
+        "Natasha": [
+          "A2",
+          "A3",
+          "A5",
+          "A6",
+          "B1",
+          "B2",
+          "B3",
+          "B5",
+          "B6",
+          "B7",
+          "C2",
+          "C3",
+          "C4",
+          "C5",
+          "C6",
+          "C7",
+          "D2",
+          "D3",
+          "D4",
+          "D5",
+          "D6",
+          "D7",
+          "E1",
+          "E2",
+          "E3",
+          "E4",
+          "E5",
+          "E6",
+          "E7",
+          "F1",
+          "F3",
+          "F4",
+          "F5",
+          "F6",
+          "F7",
+          "G1",
+          "G2",
+          "G3",
+          "G4",
+          "G5",
+          "G6"
+        ],
+        "Gemma": [
+          "B1",
+          "C2",
+          "D3",
+          "E4",
+          "F5",
+          "G6"
+        ],
+        "William": [
+          "B2",
+          "C3",
+          "D3",
+          "D7",
+          "E7",
+          "F4",
+          "F5",
+          "F6",
+          "G5"
+        ],
+        "Zelda": [
+          "A2",
+          "A3",
+          "A5",
+          "A6",
+          "B1",
+          "B2",
+          "B3",
+          "B5",
+          "B6",
+          "B7",
+          "C2",
+          "C3",
+          "C4",
+          "C5",
+          "C6",
+          "C7",
+          "D2",
+          "D3",
+          "D4",
+          "D5",
+          "D6",
+          "D7",
+          "E1",
+          "E2",
+          "E3",
+          "E4",
+          "E5",
+          "E6",
+          "E7",
+          "F1",
+          "F3",
+          "F4",
+          "F5",
+          "F6",
+          "F7",
+          "G1",
+          "G2",
+          "G3",
+          "G4",
+          "G5",
+          "G6"
+        ]
+      },
+      "constraints": [
+        [
+          "Leigh",
+          "diagonal",
+          "Irene"
+        ],
+        [
+          "Irene",
+          "same_room",
+          "Natasha"
+        ],
+        [
+          "Clarence",
+          "diagonal",
+          "William"
+        ],
+        [
+          "Natasha",
+          "xor_room",
+          "Leigh",
+          "Gymnasium"
+        ],
+        [
+          "Gemma",
+          "distance",
+          "piano",
+          7
+        ],
+        [
+          "William",
+          "room_object_not_beside",
+          "lockers"
+        ]
+      ],
+      "status": "PASS"
+    },
+    "23": {
+      "solution_count": 1,
+      "exhaustive": true,
+      "nodes": 22,
+      "solutions": [
+        {
+          "Vesta": "G7",
+          "Charlene": "D1",
+          "Owen": "A3",
+          "Rebecca": "F6",
+          "Madge": "C5",
+          "Peyton": "B2",
+          "Judy": "E4"
+        }
+      ],
+      "canonical_match": true,
+      "derived_companion_answer": {
+        "name": "Rebecca",
+        "coordinate": "F6"
+      },
+      "answer_matches": true,
+      "initial_domains": {
+        "Vesta": [
+          "C1",
+          "E3",
+          "G5",
+          "G7"
+        ],
+        "Charlene": [
+          "A1",
+          "A3",
+          "A5",
+          "A6",
+          "A7",
+          "B1",
+          "B2",
+          "B3",
+          "B4",
+          "B5",
+          "B6",
+          "B7",
+          "C1",
+          "C3",
+          "C5",
+          "C6",
+          "C7",
+          "D1",
+          "D3",
+          "D4",
+          "D5",
+          "D6",
+          "D7",
+          "E1",
+          "E2",
+          "E3",
+          "E4",
+          "E5",
+          "E6",
+          "E7",
+          "F1",
+          "F3",
+          "F5",
+          "F6",
+          "G1",
+          "G2",
+          "G3",
+          "G4",
+          "G5",
+          "G6",
+          "G7"
+        ],
+        "Owen": [
+          "A1",
+          "A3",
+          "A5",
+          "A6",
+          "A7",
+          "B1",
+          "B2",
+          "B3",
+          "B4",
+          "B5",
+          "B6",
+          "B7",
+          "C1",
+          "C3",
+          "C5",
+          "C6",
+          "C7",
+          "D1",
+          "D3",
+          "D4",
+          "D5",
+          "D6",
+          "D7",
+          "E1",
+          "E2",
+          "E3",
+          "E4",
+          "E5",
+          "E6",
+          "E7",
+          "F1",
+          "F3",
+          "F5",
+          "F6",
+          "G1",
+          "G2",
+          "G3",
+          "G4",
+          "G5",
+          "G6",
+          "G7"
+        ],
+        "Rebecca": [
+          "A1",
+          "A3",
+          "A5",
+          "A6",
+          "A7",
+          "B1",
+          "B2",
+          "B3",
+          "B4",
+          "B5",
+          "B6",
+          "B7",
+          "C1",
+          "C3",
+          "C5",
+          "C6",
+          "C7",
+          "D1",
+          "D3",
+          "D4",
+          "D5",
+          "D6",
+          "D7",
+          "E1",
+          "E2",
+          "E3",
+          "E4",
+          "E5",
+          "E6",
+          "E7",
+          "F1",
+          "F3",
+          "F5",
+          "F6",
+          "G1",
+          "G2",
+          "G3",
+          "G4",
+          "G5",
+          "G6",
+          "G7"
+        ],
+        "Madge": [
+          "A1",
+          "A3",
+          "A5",
+          "A6",
+          "A7",
+          "B1",
+          "B2",
+          "B3",
+          "B4",
+          "B5",
+          "B6",
+          "B7",
+          "C1",
+          "C3",
+          "C5",
+          "C6",
+          "C7",
+          "D1",
+          "D3",
+          "D4",
+          "D5",
+          "D6",
+          "D7",
+          "E1",
+          "E2",
+          "E3",
+          "E4",
+          "E5",
+          "E6",
+          "E7",
+          "F1",
+          "F3",
+          "F5",
+          "F6",
+          "G1",
+          "G2",
+          "G3",
+          "G4",
+          "G5",
+          "G6",
+          "G7"
+        ],
+        "Peyton": [
+          "A1",
+          "A3",
+          "A5",
+          "A6",
+          "A7",
+          "B1",
+          "B2",
+          "B3",
+          "B4",
+          "B5",
+          "B6",
+          "B7",
+          "C1",
+          "C3",
+          "C5",
+          "C6",
+          "C7",
+          "D1",
+          "D3",
+          "D4",
+          "D5",
+          "D6",
+          "D7",
+          "E1",
+          "E2",
+          "E3",
+          "E4",
+          "E5",
+          "E6",
+          "E7",
+          "F1",
+          "F3",
+          "F5",
+          "F6",
+          "G1",
+          "G2",
+          "G3",
+          "G4",
+          "G5",
+          "G6",
+          "G7"
+        ],
+        "Judy": [
+          "A1",
+          "A3",
+          "A5",
+          "A6",
+          "A7",
+          "B1",
+          "B2",
+          "B3",
+          "B4",
+          "B5",
+          "B6",
+          "B7",
+          "C1",
+          "C3",
+          "C5",
+          "C6",
+          "C7",
+          "D1",
+          "D3",
+          "D4",
+          "D5",
+          "D6",
+          "D7",
+          "E1",
+          "E2",
+          "E3",
+          "E4",
+          "E5",
+          "E6",
+          "E7",
+          "F1",
+          "F3",
+          "F5",
+          "F6",
+          "G1",
+          "G2",
+          "G3",
+          "G4",
+          "G5",
+          "G6",
+          "G7"
+        ]
+      },
+      "constraints": [
+        [
+          "Vesta",
+          "distance",
+          "gondola",
+          7
+        ],
+        [
+          "Charlene",
+          "northeast",
+          "Madge"
+        ],
+        [
+          "Owen",
+          "southwest",
+          "Charlene"
+        ],
+        [
+          "Rebecca",
+          "columns_east",
+          "Charlene",
+          2
+        ],
+        [
+          "Madge",
+          "male_on_bench"
+        ],
+        [
+          "Peyton",
+          "xor_room",
+          "Vesta",
+          "Popcorn Stand"
+        ]
+      ],
+      "status": "PASS"
+    },
+    "24": {
+      "status": "PASS",
+      "proof": "Strictly decreasing transfer100→70→35→10 gives one ordered trail from EastPath to WestGate; tread decoration does not encode movement.",
+      "answer": "EAST PATH -> WEST GATE",
+      "ordered_prints": [
+        {
+          "position": "EAST PATH",
+          "mud": 100,
+          "tread_arrow": "EAST"
+        },
+        {
+          "position": "P3",
+          "mud": 70,
+          "tread_arrow": "EAST"
+        },
+        {
+          "position": "P2",
+          "mud": 35,
+          "tread_arrow": "EAST"
+        },
+        {
+          "position": "WEST GATE",
+          "mud": 10,
+          "tread_arrow": "EAST"
+        }
+      ],
+      "printed_controlled_track_rule": true,
+      "assumption": "One uninterrupted walk; same wet-mud source, no fresh mud added, comparable ground and print pressure."
+    },
+    "25": {
+      "solution_count": 1,
+      "exhaustive": true,
+      "nodes": 14,
+      "solutions": [
+        {
+          "Giselle": "F3",
+          "Celia": "D5",
+          "Regan": "E2",
+          "Theodore": "C6",
+          "Silas": "G1",
+          "Warren": "B7",
+          "Noreen": "A4"
+        }
+      ],
+      "canonical_match": true,
+      "derived_companion_answer": {
+        "name": "Celia",
+        "coordinate": "D5"
+      },
+      "answer_matches": true,
+      "initial_domains": {
+        "Giselle": [
+          "A4",
+          "A5",
+          "A6",
+          "B1",
+          "B2",
+          "B4",
+          "B5",
+          "B6",
+          "B7",
+          "C1",
+          "C2",
+          "C3",
+          "C5",
+          "C6",
+          "C7",
+          "D2",
+          "D3",
+          "D4",
+          "D5",
+          "D7",
+          "E1",
+          "E2",
+          "E3",
+          "E4",
+          "E5",
+          "E6",
+          "F2",
+          "F3",
+          "F4",
+          "F5",
+          "F6",
+          "F7",
+          "G1",
+          "G2",
+          "G5",
+          "G6",
+          "G7"
+        ],
+        "Celia": [
+          "D4",
+          "D5"
+        ],
+        "Regan": [
+          "A4",
+          "A5",
+          "A6",
+          "B1",
+          "B2",
+          "B4",
+          "B5",
+          "B6",
+          "B7",
+          "C1",
+          "C2",
+          "C3",
+          "C5",
+          "C6",
+          "C7",
+          "D2",
+          "D3",
+          "D4",
+          "D5",
+          "D7",
+          "E1",
+          "E2",
+          "E3",
+          "E4",
+          "E5",
+          "E6",
+          "F2",
+          "F3",
+          "F4",
+          "F5",
+          "F6",
+          "F7",
+          "G1",
+          "G2",
+          "G5",
+          "G6",
+          "G7"
+        ],
+        "Theodore": [
+          "A4",
+          "A5",
+          "A6",
+          "B1",
+          "B2",
+          "B4",
+          "B5",
+          "B6",
+          "B7",
+          "C1",
+          "C2",
+          "C3",
+          "C5",
+          "C6",
+          "C7",
+          "D2",
+          "D3",
+          "D4",
+          "D5",
+          "D7",
+          "E1",
+          "E2",
+          "E3",
+          "E4",
+          "E5",
+          "E6",
+          "F2",
+          "F3",
+          "F4",
+          "F5",
+          "F6",
+          "F7",
+          "G1",
+          "G2",
+          "G5",
+          "G6",
+          "G7"
+        ],
+        "Silas": [
+          "A4",
+          "A5",
+          "A6",
+          "B1",
+          "B2",
+          "B4",
+          "B5",
+          "B6",
+          "B7",
+          "C1",
+          "C2",
+          "C3",
+          "C5",
+          "C6",
+          "C7",
+          "D2",
+          "D3",
+          "D4",
+          "D5",
+          "D7",
+          "E1",
+          "E2",
+          "E3",
+          "E4",
+          "E5",
+          "E6",
+          "F2",
+          "F3",
+          "F4",
+          "F5",
+          "F6",
+          "F7",
+          "G1",
+          "G2",
+          "G5",
+          "G6",
+          "G7"
+        ],
+        "Warren": [
+          "A5",
+          "B7",
+          "C5"
+        ],
+        "Noreen": [
+          "A4",
+          "A5",
+          "A6",
+          "B1",
+          "B2",
+          "B4",
+          "B5",
+          "B6",
+          "B7",
+          "C1",
+          "C2",
+          "C3",
+          "C5",
+          "C6",
+          "C7",
+          "D2",
+          "D3",
+          "D4",
+          "D5",
+          "D7",
+          "E1",
+          "E2",
+          "E3",
+          "E4",
+          "E5",
+          "E6",
+          "F2",
+          "F3",
+          "F4",
+          "F5",
+          "F6",
+          "F7",
+          "G1",
+          "G2",
+          "G5",
+          "G6",
+          "G7"
+        ]
+      },
+      "constraints": [
+        [
+          "Giselle",
+          "diagonal",
+          "Regan"
+        ],
+        [
+          "Celia",
+          "room",
+          "Lobby"
+        ],
+        [
+          "Celia",
+          "col",
+          "D"
+        ],
+        [
+          "Regan",
+          "northwest",
+          "Giselle"
+        ],
+        [
+          "Theodore",
+          "diagonal",
+          "Warren"
+        ],
+        [
+          "Silas",
+          "northeast",
+          "Giselle"
+        ],
+        [
+          "Warren",
+          "room",
+          "Laundry"
+        ],
+        [
+          "Warren",
+          "on",
+          "stool"
+        ]
+      ],
+      "status": "PASS"
+    },
+    "26": {
+      "status": "PASS",
+      "proof": "Count occupants in each ROOM using independently solved placements, exclude ZONES, take the sole empty-room initial in ascending case order.",
+      "answer": "CHECKTHEOLDMAP",
+      "rooms": [
+        {
+          "case": 2,
+          "room": "Coach's Office",
+          "letter": "C"
+        },
+        {
+          "case": 4,
+          "room": "Hospitality Room",
+          "letter": "H"
+        },
+        {
+          "case": 6,
+          "room": "Egypt Room",
+          "letter": "E"
+        },
+        {
+          "case": 7,
+          "room": "Costume Room",
+          "letter": "C"
+        },
+        {
+          "case": 10,
+          "room": "Kinetics Lab",
+          "letter": "K"
+        },
+        {
+          "case": 12,
+          "room": "Training Room",
+          "letter": "T"
+        },
+        {
+          "case": 13,
+          "room": "Hide Room",
+          "letter": "H"
+        },
+        {
+          "case": 15,
+          "room": "Equipment Room",
+          "letter": "E"
+        },
+        {
+          "case": 17,
+          "room": "Observation Car",
+          "letter": "O"
+        },
+        {
+          "case": 19,
+          "room": "Library Office",
+          "letter": "L"
+        },
+        {
+          "case": 20,
+          "room": "Drying Room",
+          "letter": "D"
+        },
+        {
+          "case": 22,
+          "room": "Music Archive",
+          "letter": "M"
+        },
+        {
+          "case": 23,
+          "room": "Access Office",
+          "letter": "A"
+        },
+        {
+          "case": 25,
+          "room": "Parcel Room",
+          "letter": "P"
+        }
+      ],
+      "callbacks": [
+        2,
+        4,
+        6,
+        7,
+        10,
+        12,
+        13,
+        15,
+        17,
+        19,
+        20,
+        22,
+        23,
+        25
+      ],
+      "assumption": "Reader was told to preserve each full placement; final ROOM/ZONE labels match the locked runtime."
+    },
+    "27": {
+      "status": "PASS",
+      "proof": "Three named non-collinear landmarks fix the alignment. Enumerated all eight square-grid rotations/reflections with translation fixed by the first anchor; exactly one maps all anchors and the old target onto the current Archive wall.",
+      "answer": "SEALED TRAINING ROOM BEHIND THE CURRENT ARCHIVE WALL",
+      "transforms": [
+        {
+          "matrix": [
+            1,
+            0,
+            0,
+            1
+          ],
+          "translation": [
+            0,
+            0
+          ]
+        }
+      ],
+      "solution_count": 1,
+      "noncollinear": true,
+      "geometry": {
+        "grid": {
+          "columns": 6,
+          "rows": 5
+        },
+        "anchors": [
+          {
+            "old": "NORTH STAIR",
+            "current": "NORTH STAIR",
+            "old_cell": "C1",
+            "current_cell": "C1"
+          },
+          {
+            "old": "COURTYARD COLUMN",
+            "current": "COURTYARD COLUMN",
+            "old_cell": "F3",
+            "current_cell": "F3"
+          },
+          {
+            "old": "WEST LIFT SHAFT",
+            "current": "WEST LIFT SHAFT",
+            "old_cell": "A5",
+            "current_cell": "A5"
+          }
+        ],
+        "old_room_cells": [
+          "D2",
+          "E2",
+          "D3",
+          "E3"
+        ],
+        "current_archive_wall_cells": [
+          "D2",
+          "E2",
+          "D3",
+          "E3"
+        ],
+        "transform": "NO ROTATION; SAME SCALE; ALIGN C1, F3 AND A5"
+      },
+      "required": "Rendered plan landmarks and wall/target cells must use these same source coordinates; no doorway may be drawn into the sealed footprint."
+    },
+    "28": {
+      "status": "PASS",
+      "proof": "Three claims repeat earned observations (zero marks, empty-room message, sealed-space match). Unfinished-training explanation remains possible, not proven. Watcher/tunnel claims have no observed support.",
+      "answer": "ASSUMPTIONS",
+      "classified": {
+        "FACT": [
+          "The same plain 0 appeared across unrelated cases.",
+          "Fourteen empty-room initials spell CHECK THE OLD MAP.",
+          "An old room sits behind the current Archive wall."
+        ],
+        "THEORY": [
+          "The old Academy may have left an unfinished training system."
+        ],
+        "UNSUPPORTED ASSUMPTION": [
+          "Someone has been secretly watching every case.",
+          "There must be a dramatic underground tunnel."
+        ]
+      },
+      "printed_definitions": {
+        "FACT": "Directly observed or deduced from evidence.",
+        "THEORY": "A tentative explanation linked to the facts but not yet proved.",
+        "UNSUPPORTED ASSUMPTION": "An extra claim with no supporting evidence."
+      },
+      "assumption": "Printed rubric distinguishes an evidence-linked tentative explanation from an unsupported assertion; Case27 observation must actually be earned."
+    },
+    "29": {
+      "solution_count": 1,
+      "exhaustive": true,
+      "nodes": 39,
+      "solutions": [
+        {
+          "Michelle": "A2",
+          "Cassandra": "I4",
+          "Jordana": "E8",
+          "Betsy": "G9",
+          "Vera": "D3",
+          "Ransom": "H5",
+          "Payton": "C6",
+          "Wilhelmina": "F7",
+          "Shepherd": "B1"
+        }
+      ],
+      "canonical_match": true,
+      "derived_companion_answer": {
+        "name": "Vera",
+        "coordinate": "D3"
+      },
+      "answer_matches": true,
+      "initial_domains": {
+        "Michelle": [
+          "A2",
+          "A3",
+          "A4",
+          "A6",
+          "A7",
+          "A8",
+          "B1",
+          "B2",
+          "B3",
+          "B4",
+          "B5",
+          "B6",
+          "B7",
+          "B8",
+          "B9",
+          "C1",
+          "C2",
+          "C3",
+          "C4",
+          "C5",
+          "C6",
+          "C7",
+          "C9",
+          "D1",
+          "D2",
+          "D3",
+          "D4",
+          "D5",
+          "D6",
+          "D7",
+          "D8",
+          "E1",
+          "E2",
+          "E3",
+          "E4",
+          "E5",
+          "E6",
+          "E8",
+          "F1",
+          "F2",
+          "F4",
+          "F5",
+          "F6",
+          "F7",
+          "F8",
+          "F9",
+          "G1",
+          "G2",
+          "G4",
+          "G6",
+          "G7",
+          "G8",
+          "G9",
+          "H1",
+          "H2",
+          "H3",
+          "H4",
+          "H5",
+          "H6",
+          "H7",
+          "H8",
+          "H9",
+          "I2",
+          "I4",
+          "I5",
+          "I6",
+          "I7",
+          "I8"
+        ],
+        "Cassandra": [
+          "A2",
+          "A3",
+          "A4",
+          "A6",
+          "A7",
+          "A8",
+          "B1",
+          "B2",
+          "B3",
+          "B4",
+          "B5",
+          "B6",
+          "B7",
+          "B8",
+          "B9",
+          "C1",
+          "C2",
+          "C3",
+          "C4",
+          "C5",
+          "C6",
+          "C7",
+          "C9",
+          "D1",
+          "D2",
+          "D3",
+          "D4",
+          "D5",
+          "D6",
+          "D7",
+          "D8",
+          "E1",
+          "E2",
+          "E3",
+          "E4",
+          "E5",
+          "E6",
+          "E8",
+          "F1",
+          "F2",
+          "F4",
+          "F5",
+          "F6",
+          "F7",
+          "F8",
+          "F9",
+          "G1",
+          "G2",
+          "G4",
+          "G6",
+          "G7",
+          "G8",
+          "G9",
+          "H1",
+          "H2",
+          "H3",
+          "H4",
+          "H5",
+          "H6",
+          "H7",
+          "H8",
+          "H9",
+          "I2",
+          "I4",
+          "I5",
+          "I6",
+          "I7",
+          "I8"
+        ],
+        "Jordana": [
+          "A2",
+          "A3",
+          "A4",
+          "A6",
+          "A7",
+          "A8",
+          "B1",
+          "B2",
+          "B3",
+          "B4",
+          "B5",
+          "B6",
+          "B7",
+          "B8",
+          "B9",
+          "C1",
+          "C2",
+          "C3",
+          "C4",
+          "C5",
+          "C6",
+          "C7",
+          "C9",
+          "D1",
+          "D2",
+          "D3",
+          "D4",
+          "D5",
+          "D6",
+          "D7",
+          "D8",
+          "E1",
+          "E2",
+          "E3",
+          "E4",
+          "E5",
+          "E6",
+          "E8",
+          "F1",
+          "F2",
+          "F4",
+          "F5",
+          "F6",
+          "F7",
+          "F8",
+          "F9",
+          "G1",
+          "G2",
+          "G4",
+          "G6",
+          "G7",
+          "G8",
+          "G9",
+          "H1",
+          "H2",
+          "H3",
+          "H4",
+          "H5",
+          "H6",
+          "H7",
+          "H8",
+          "H9",
+          "I2",
+          "I4",
+          "I5",
+          "I6",
+          "I7",
+          "I8"
+        ],
+        "Betsy": [
+          "A2",
+          "A3",
+          "A4",
+          "A6",
+          "A7",
+          "A8",
+          "B1",
+          "B2",
+          "B3",
+          "B4",
+          "B5",
+          "B6",
+          "B7",
+          "B8",
+          "B9",
+          "C1",
+          "C2",
+          "C3",
+          "C4",
+          "C5",
+          "C6",
+          "C7",
+          "C9",
+          "D1",
+          "D2",
+          "D3",
+          "D4",
+          "D5",
+          "D6",
+          "D7",
+          "D8",
+          "E1",
+          "E2",
+          "E3",
+          "E4",
+          "E5",
+          "E6",
+          "E8",
+          "F1",
+          "F2",
+          "F4",
+          "F5",
+          "F6",
+          "F7",
+          "F8",
+          "F9",
+          "G1",
+          "G2",
+          "G4",
+          "G6",
+          "G7",
+          "G8",
+          "G9",
+          "H1",
+          "H2",
+          "H3",
+          "H4",
+          "H5",
+          "H6",
+          "H7",
+          "H8",
+          "H9",
+          "I2",
+          "I4",
+          "I5",
+          "I6",
+          "I7",
+          "I8"
+        ],
+        "Vera": [
+          "A2",
+          "A3",
+          "A4",
+          "A6",
+          "A7",
+          "A8",
+          "B1",
+          "B2",
+          "B3",
+          "B4",
+          "B5",
+          "B6",
+          "B7",
+          "B8",
+          "B9",
+          "C1",
+          "C2",
+          "C3",
+          "C4",
+          "C5",
+          "C6",
+          "C7",
+          "C9",
+          "D1",
+          "D2",
+          "D3",
+          "D4",
+          "D5",
+          "D6",
+          "D7",
+          "D8",
+          "E1",
+          "E2",
+          "E3",
+          "E4",
+          "E5",
+          "E6",
+          "E8",
+          "F1",
+          "F2",
+          "F4",
+          "F5",
+          "F6",
+          "F7",
+          "F8",
+          "F9",
+          "G1",
+          "G2",
+          "G4",
+          "G6",
+          "G7",
+          "G8",
+          "G9",
+          "H1",
+          "H2",
+          "H3",
+          "H4",
+          "H5",
+          "H6",
+          "H7",
+          "H8",
+          "H9",
+          "I2",
+          "I4",
+          "I5",
+          "I6",
+          "I7",
+          "I8"
+        ],
+        "Ransom": [
+          "H2",
+          "H5",
+          "I2",
+          "I4",
+          "I5",
+          "I6",
+          "I7"
+        ],
+        "Payton": [
+          "A2",
+          "A3",
+          "A4",
+          "A6",
+          "A7",
+          "A8",
+          "B1",
+          "B2",
+          "B3",
+          "B4",
+          "B5",
+          "B6",
+          "B7",
+          "B8",
+          "B9",
+          "C1",
+          "C2",
+          "C3",
+          "C4",
+          "C5",
+          "C6",
+          "C7",
+          "C9",
+          "D1",
+          "D2",
+          "D3",
+          "D4",
+          "D5",
+          "D6",
+          "D7",
+          "D8",
+          "E1",
+          "E2",
+          "E3",
+          "E4",
+          "E5",
+          "E6",
+          "E8",
+          "F1",
+          "F2",
+          "F4",
+          "F5",
+          "F6",
+          "F7",
+          "F8",
+          "F9",
+          "G1",
+          "G2",
+          "G4",
+          "G6",
+          "G7",
+          "G8",
+          "G9",
+          "H1",
+          "H2",
+          "H3",
+          "H4",
+          "H5",
+          "H6",
+          "H7",
+          "H8",
+          "H9",
+          "I2",
+          "I4",
+          "I5",
+          "I6",
+          "I7",
+          "I8"
+        ],
+        "Wilhelmina": [
+          "D7",
+          "F7"
+        ],
+        "Shepherd": [
+          "A2",
+          "A3",
+          "A4",
+          "A6",
+          "A7",
+          "A8",
+          "B1",
+          "B2",
+          "B3",
+          "B4",
+          "B5",
+          "B6",
+          "B7",
+          "B8",
+          "B9",
+          "C1",
+          "C2",
+          "C3",
+          "C4",
+          "C5",
+          "C6",
+          "C7",
+          "C9",
+          "D1",
+          "D2",
+          "D3",
+          "D4",
+          "D5",
+          "D6",
+          "D7",
+          "D8",
+          "E1",
+          "E2",
+          "E3",
+          "E4",
+          "E5",
+          "E6",
+          "E8",
+          "F1",
+          "F2",
+          "F4",
+          "F5",
+          "F6",
+          "F7",
+          "F8",
+          "F9",
+          "G1",
+          "G2",
+          "G4",
+          "G6",
+          "G7",
+          "G8",
+          "G9",
+          "H1",
+          "H2",
+          "H3",
+          "H4",
+          "H5",
+          "H6",
+          "H7",
+          "H8",
+          "H9",
+          "I2",
+          "I4",
+          "I5",
+          "I6",
+          "I7",
+          "I8"
+        ]
+      },
+      "constraints": [
+        [
+          "Michelle",
+          "northwest",
+          "Vera"
+        ],
+        [
+          "Cassandra",
+          "northeast",
+          "Ransom"
+        ],
+        [
+          "Jordana",
+          "diagonal",
+          "Wilhelmina"
+        ],
+        [
+          "Betsy",
+          "same_room",
+          "Jordana"
+        ],
+        [
+          "Vera",
+          "northwest",
+          "Cassandra"
+        ],
+        [
+          "Ransom",
+          "room",
+          "Gymnasium"
+        ],
+        [
+          "Payton",
+          "same_room",
+          "Michelle"
+        ],
+        [
+          "Wilhelmina",
+          "room",
+          "Office"
+        ],
+        [
+          "Wilhelmina",
+          "beside",
+          "teacherdesk"
+        ]
+      ],
+      "status": "PASS"
+    },
+    "30": {
+      "status": "PASS",
+      "proof": "All four lock fields equal answers earned earlier: RuleZero word, boss coordinate, unique four-symbol code, and the reader’s one opening ID. Reader name is intentionally variable, not a fixed spelling puzzle.",
+      "answer": {
+        "RULE": "ASSUMPTIONS",
+        "ROOM": "D3",
+        "CODE": [
+          "BALL",
+          "STAR",
+          "BOLT",
+          "HEART"
+        ],
+        "DETECTIVE": "READER-WRITTEN NAME"
+      },
+      "source_cases": {
+        "RULE": 28,
+        "ROOM": 29,
+        "CODE": 5,
+        "DETECTIVE": "opening"
+      },
+      "assumption": "Reader identity reveal depends on the invitation and NEXT DETECTIVE hook being shown before asking for identification; causal system explanation needs story QA."
+    }
+  },
+  "pdf_geometry": {
+    "status": "PASS",
+    "pdf_sha256": "1b2b908763e76b42321035fb1faf91056bd2a8a1301ea0a2f84944c91287e1cb",
+    "page_index_sha256": "309176917a571fbd13b2e8ac15bec850439793acb20308bcc1d389f56d6c56cb",
+    "page_count": 145,
+    "maps": {
+      "2": {
+        "page": 17,
+        "board_page": 16,
+        "grid_bbox": [
+          98.37950134277344,
+          201.33502197265625,
+          531.6204833984375,
+          634.7750244140625
+        ],
+        "rules_bottom": 157.855,
+        "columns_top": 178.923,
+        "rules_to_coordinates_pt": 21.068,
+        "coordinates_to_grid_pt": 6.412,
+        "intersection_count": 0,
+        "intersections": [],
+        "facing_spread": true,
+        "failures": [],
+        "status": "PASS"
+      },
+      "4": {
+        "page": 23,
+        "board_page": 22,
+        "grid_bbox": [
+          98.27999877929688,
+          214.66998291015625,
+          531.719970703125,
+          648.1099853515625
+        ],
+        "rules_bottom": 171.19,
+        "columns_top": 192.258,
+        "rules_to_coordinates_pt": 21.068,
+        "coordinates_to_grid_pt": 6.412,
+        "intersection_count": 0,
+        "intersections": [],
+        "facing_spread": true,
+        "failures": [],
+        "status": "PASS"
+      },
+      "6": {
+        "page": 29,
+        "board_page": 28,
+        "grid_bbox": [
+          98.37950134277344,
+          201.33502197265625,
+          531.6204833984375,
+          634.7750244140625
+        ],
+        "rules_bottom": 157.855,
+        "columns_top": 178.923,
+        "rules_to_coordinates_pt": 21.068,
+        "coordinates_to_grid_pt": 6.412,
+        "intersection_count": 0,
+        "intersections": [],
+        "facing_spread": true,
+        "failures": [],
+        "status": "PASS"
+      },
+      "7": {
+        "page": 33,
+        "board_page": 32,
+        "grid_bbox": [
+          98.27999877929688,
+          214.66998291015625,
+          531.719970703125,
+          648.1099853515625
+        ],
+        "rules_bottom": 171.19,
+        "columns_top": 192.258,
+        "rules_to_coordinates_pt": 21.068,
+        "coordinates_to_grid_pt": 6.412,
+        "intersection_count": 0,
+        "intersections": [],
+        "facing_spread": true,
+        "failures": [],
+        "status": "PASS"
+      },
+      "10": {
+        "page": 41,
+        "board_page": 40,
+        "grid_bbox": [
+          98.27999877929688,
+          201.33502197265625,
+          531.719970703125,
+          634.7750244140625
+        ],
+        "rules_bottom": 157.855,
+        "columns_top": 178.923,
+        "rules_to_coordinates_pt": 21.068,
+        "coordinates_to_grid_pt": 6.412,
+        "intersection_count": 0,
+        "intersections": [],
+        "facing_spread": true,
+        "failures": [],
+        "status": "PASS"
+      },
+      "12": {
+        "page": 47,
+        "board_page": 46,
+        "grid_bbox": [
+          98.27999877929688,
+          214.66998291015625,
+          531.719970703125,
+          648.1099853515625
+        ],
+        "rules_bottom": 171.19,
+        "columns_top": 192.258,
+        "rules_to_coordinates_pt": 21.068,
+        "coordinates_to_grid_pt": 6.412,
+        "intersection_count": 0,
+        "intersections": [],
+        "facing_spread": true,
+        "failures": [],
+        "status": "PASS"
+      },
+      "13": {
+        "page": 51,
+        "board_page": 50,
+        "grid_bbox": [
+          98.38231658935547,
+          201.33502197265625,
+          531.6177368164062,
+          634.7750244140625
+        ],
+        "rules_bottom": 157.855,
+        "columns_top": 178.923,
+        "rules_to_coordinates_pt": 21.068,
+        "coordinates_to_grid_pt": 6.412,
+        "intersection_count": 0,
+        "intersections": [],
+        "facing_spread": true,
+        "failures": [],
+        "status": "PASS"
+      },
+      "15": {
+        "page": 57,
+        "board_page": 56,
+        "grid_bbox": [
+          98.27999877929688,
+          201.33502197265625,
+          531.719970703125,
+          634.7750244140625
+        ],
+        "rules_bottom": 157.855,
+        "columns_top": 178.923,
+        "rules_to_coordinates_pt": 21.068,
+        "coordinates_to_grid_pt": 6.412,
+        "intersection_count": 0,
+        "intersections": [],
+        "facing_spread": true,
+        "failures": [],
+        "status": "PASS"
+      },
+      "17": {
+        "page": 65,
+        "board_page": 64,
+        "grid_bbox": [
+          98.27999877929688,
+          201.33502197265625,
+          531.719970703125,
+          634.7750244140625
+        ],
+        "rules_bottom": 157.855,
+        "columns_top": 178.923,
+        "rules_to_coordinates_pt": 21.068,
+        "coordinates_to_grid_pt": 6.412,
+        "intersection_count": 0,
+        "intersections": [],
+        "facing_spread": true,
+        "failures": [],
+        "status": "PASS"
+      },
+      "19": {
+        "page": 71,
+        "board_page": 70,
+        "grid_bbox": [
+          98.27999877929688,
+          201.33502197265625,
+          531.719970703125,
+          634.7750244140625
+        ],
+        "rules_bottom": 157.855,
+        "columns_top": 178.923,
+        "rules_to_coordinates_pt": 21.068,
+        "coordinates_to_grid_pt": 6.412,
+        "intersection_count": 0,
+        "intersections": [],
+        "facing_spread": true,
+        "failures": [],
+        "status": "PASS"
+      },
+      "20": {
+        "page": 75,
+        "board_page": 74,
+        "grid_bbox": [
+          98.38231658935547,
+          201.33502197265625,
+          531.6177368164062,
+          634.7750244140625
+        ],
+        "rules_bottom": 157.855,
+        "columns_top": 178.923,
+        "rules_to_coordinates_pt": 21.068,
+        "coordinates_to_grid_pt": 6.412,
+        "intersection_count": 0,
+        "intersections": [],
+        "facing_spread": true,
+        "failures": [],
+        "status": "PASS"
+      },
+      "22": {
+        "page": 83,
+        "board_page": 82,
+        "grid_bbox": [
+          98.27999877929688,
+          201.33502197265625,
+          531.719970703125,
+          634.7750244140625
+        ],
+        "rules_bottom": 157.855,
+        "columns_top": 178.923,
+        "rules_to_coordinates_pt": 21.068,
+        "coordinates_to_grid_pt": 6.412,
+        "intersection_count": 0,
+        "intersections": [],
+        "facing_spread": true,
+        "failures": [],
+        "status": "PASS"
+      },
+      "23": {
+        "page": 87,
+        "board_page": 86,
+        "grid_bbox": [
+          98.38231658935547,
+          201.33502197265625,
+          531.6177368164062,
+          634.7750244140625
+        ],
+        "rules_bottom": 157.855,
+        "columns_top": 178.923,
+        "rules_to_coordinates_pt": 21.068,
+        "coordinates_to_grid_pt": 6.412,
+        "intersection_count": 0,
+        "intersections": [],
+        "facing_spread": true,
+        "failures": [],
+        "status": "PASS"
+      },
+      "25": {
+        "page": 93,
+        "board_page": 92,
+        "grid_bbox": [
+          98.38449096679688,
+          214.66998291015625,
+          531.615478515625,
+          648.1099853515625
+        ],
+        "rules_bottom": 171.19,
+        "columns_top": 192.258,
+        "rules_to_coordinates_pt": 21.068,
+        "coordinates_to_grid_pt": 6.412,
+        "intersection_count": 0,
+        "intersections": [],
+        "facing_spread": true,
+        "failures": [],
+        "status": "PASS"
+      },
+      "29": {
+        "page": 103,
+        "board_page": 102,
+        "grid_bbox": [
+          98.382080078125,
+          201.33502197265625,
+          531.617919921875,
+          634.7750244140625
+        ],
+        "rules_bottom": 157.855,
+        "columns_top": 180.474,
+        "rules_to_coordinates_pt": 22.62,
+        "coordinates_to_grid_pt": 6.861,
+        "intersection_count": 0,
+        "intersections": [],
+        "facing_spread": true,
+        "failures": [],
+        "status": "PASS"
+      }
+    },
+    "errors": [],
+    "boundary": "Vector text geometry and raster map placement only; internal map labels, art semantics and contrast require visual inspection."
+  },
+  "pdf_evidence": {
+    "status": "PASS",
+    "errors": [],
+    "case11_required_timestamps": [
+      "08:07",
+      "15:31",
+      "15:44",
+      "15:52"
+    ],
+    "scope": "Known essential timestamp omissions and direct contradiction/answer-leak regressions; illustrations require separate visual review."
+  },
+  "visual_review": "Separate hash-bound human assessment in V4_MAP_LAYOUT_AUDIT.md and V4_VISUAL_EVIDENCE_AUDIT.md; not certified by this machine gate.",
+  "self_tests": [
+    "Stored-placement corruption does not alter computed solutions and fails canonical equality.",
+    "Blocking the exact B3 clue cell yields zero spatial solutions.",
+    "Old four-symbol clues yield two codes; repaired clues yield exactly the intended one.",
+    "Changed printed row clue is rejected even when the locked abstract CSP is unchanged."
+  ]
+}
