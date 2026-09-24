@@ -66,6 +66,7 @@ jobs:
             scripts/validate_modern_prop_contract.py \
             scripts/modern_prop_presentation.py \
             scripts/validate_modern_prop_footprint.py \
+            scripts/validate_modern_prop_structure.py \
             scripts/render_spatial_map_hybrid.py \
             scripts/render_spatial_map_hybrid_hardened.py \
             scripts/test_spatial_case_spreads_smoke.py \
@@ -85,6 +86,7 @@ jobs:
           python scripts/validate_modern_prop_contract.py --self-test
           python scripts/modern_prop_presentation.py --self-test
           python scripts/validate_modern_prop_footprint.py --self-test
+          python scripts/validate_modern_prop_structure.py --self-test
           python scripts/build_book1_master.py --output dist/book1_en_master.yml
           python scripts/audit_book1_launch_state.py \
             --master dist/book1_en_master.yml \
