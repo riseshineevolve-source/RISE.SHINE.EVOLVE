@@ -14,8 +14,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "content" / "DETECTIVE_ACADEMY_BOOK1_TEXT_GOLD_MASTER_V3.md"
 
-EXPECTED_BLOB_SHA1 = "6278c8cf60159b35daa259c489f250da43cea397"
-EXPECTED_SOURCE_COMMIT = "367a8c994890e2dc4e064226e412d0d9476f9f38"
+EXPECTED_BLOB_SHA1 = "8370026a811ad3354aaa8e422ebe2edf58464845"
+EXPECTED_SOURCE_COMMIT = "3c0caedbcc313658767cb4251b2c1741c4a7edcf"
 EXPECTED_CASE26_MAPS = [2, 4, 6, 7, 10, 12, 13, 15, 17, 19, 20, 22, 23, 25]
 
 
@@ -95,6 +95,10 @@ def verify() -> dict[str, object]:
         "Bibi trainee route-note proof": "**ROUTE NOTE AUTHOR: BIBI // TRAINEE ARCHIVE TEAM**",
         "Case 24 Rule Zero callback": "The arrow shouts. The mud explains.",
         "Book 2 triangle callback": "difference number eight - the same three-part shape is hiding in plain sight.",
+        "Case 06 Uma incident bridge": "I'm glad you're here. Something very odd happened.",
+        "Case 07 spoon/label closure": "Nothing was stolen; the **dragon-tooth label card** was the thing that moved.",
+        "cozy website line": "WE HAVE SAVED A COZY SPOT JUST FOR YOU.",
+        "Case 03 progress tracker": "Color one question mark for each difference you find.",
     }
     for label, fragment in required_fragments.items():
         require(fragment in text, f"missing locked V3 invariant: {label}")
