@@ -113,7 +113,7 @@ def verify() -> dict[str, object]:
 
     # Case 21 causal message and physical reconstruction order must both survive.
     case21_solution = section_between(solutions, "## CASE 21 //", "## CASE 22 //")
-    require("B-D-A-C" in case21_solution, "Case 21 physical scrap order B-D-A-C missing")
+    require("**ANSWER:** B → D → A → C;" in case21_solution, "Case 21 physical scrap order B → D → A → C missing")
     require(
         "THE ANSWER IS IN WHAT YOU LEAVE EMPTY" in case21_solution,
         "Case 21 recovered sentence missing from Solution File",
