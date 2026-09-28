@@ -14,13 +14,13 @@ Source file:
 `orchestration/detective/DETECTIVE_ACADEMY_BOOK1_TEXT_GOLD_MASTER_V3.md`
 
 Latest commit touching the canonical text at handoff:
-`f6a7deb2a8a2bbdb4b6573b36fa523fc6613cc4a`
+`6c2e21a24d760218923cfd8d47655a3cbf72c575`
 
 Canonical text blob:
-`c857b20e56287b600be5ef3cc8a365b1f2f4d0bc`
+`f6e16e99084562ddf56825ccc7bfdd12baad0656`
 
 Central checkpoint:
-`orchestration/brain/checkpoints/2026-09-28-detective-v3-owner-feedback-final-microfix.md`
+`orchestration/brain/checkpoints/2026-09-28-detective-v3-kdp-final-text-pass.md`
 
 Do not replace this with older V4/V4.1 reader-facing copy. Historical V4/V4.1 files remain useful only for locked puzzle/render/visual truth where they do not conflict with current V3 text.
 
@@ -40,6 +40,18 @@ Do not:
 - invent extra Room Zero marks or signals.
 
 Reflow first. Add pages before deleting earned story text.
+
+## Final KDP text pass delta
+
+The final owner-directed read-through after the uploaded editorial PDF caught and corrected additional issues that the earlier microfix pass missed:
+- Case 02 now states explicitly that Max signed the Founders' Cup out for the Hall demonstration before the missing return handoff;
+- the Case 17 -> Old Academy Annex -> Case 19 travel/records bridge is explicit;
+- Case 22 no longer implies unexplained future/open files; it waits for a complete map set;
+- the book now explicitly distinguishes 15 solved spatial maps in total from the 14 route-selected maps used in Case 26; Case 01 is the intake trigger and is not part of the empty-room extraction;
+- Case 11 Level 3 no longer teases unsupported later significance for the 08:07 phone photo;
+- Case 21 Solution File now includes both the piece order and the recovered message;
+- Room Zero explanation now preserves the exact causal chain: Case 21 -> THE ANSWER IS IN WHAT YOU LEAVE EMPTY -> Case 26 map initials -> CHECK THE OLD MAP;
+- final terminology uses "sixth field detective" instead of the stale "Detective Six" label in the solution explanation.
 
 ## Locked text non-regression
 
