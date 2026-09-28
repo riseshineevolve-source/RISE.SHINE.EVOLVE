@@ -1,0 +1,73 @@
+{
+  "schema": "hmda-v3-locked-spatial-evidence-contract-v1",
+  "status": "EXACT_MAP_RECOVERY_SOURCE_VERIFIED_RUNTIME_PROVENANCE_SPLIT",
+  "version_family": "V3",
+  "english_frozen": false,
+  "source_packet": {
+    "filename": "final-book-owner-review(1).zip",
+    "sha256": "55439b308d6d7a2db7b40485665bcc46aceeb9dffde528afffb276790378680c"
+  },
+  "runtime": {
+    "locked_source_runtime_sha256": "3b3328fe9072bb4e62ef51589410f3193bb1c5c0b67de2c48c0f2173670b6d45",
+    "packet_render_runtime_member": "01_FINAL_PDF/hmda_spatial_runtime_v4.json",
+    "packet_render_runtime_sha256": "06bb284162ab62e993c8eee9237c58b67b6b545a425d2b04085725a81d50afc8",
+    "packet_render_runtime_bytes": 275271,
+    "locked_source_runtime_bytes_recovered": false,
+    "packet_qa_attests_locked_runtime_unchanged": true,
+    "policy": "Do not mislabel the packet render runtime as the byte-identical locked source runtime. It may be used only as an audited render bridge while source-locked logic is revalidated."
+  },
+  "spatial_cases": [2, 4, 6, 7, 10, 12, 13, 15, 17, 19, 20, 22, 23, 25, 29],
+  "case26_extraction_cases": [2, 4, 6, 7, 10, 12, 13, 15, 17, 19, 20, 22, 23, 25],
+  "case01_in_case26_extraction": false,
+  "maps": {
+    "HMDA_02_puzzle.png": "7db99b5ece06d8ebc693b7d7d6c3e33e456aa7d20785352cbb28148e689b964a",
+    "HMDA_02_solution.png": "424b07624cf9a36575c671da0efa2c89e5fac56e5f81e2d2412cd8146396e7d0",
+    "HMDA_04_puzzle.png": "6d1109a0584a059190267c94feac7ff86552c31ad68fa41eabd5cee733221c52",
+    "HMDA_04_solution.png": "effec3914d85ab0c4f57ca3bdb8014f565396a205a908efef4ac575c01abce2b",
+    "HMDA_06_puzzle.png": "ea919c2459d09a5f1f29ecce45f77c4d5c71b473402b7337427c68a79ec37aca",
+    "HMDA_06_solution.png": "ff64fe21584b25ccb7d0c7b35fa061e7e2c196079ed51b6609d71e270f1dc373",
+    "HMDA_07_puzzle.png": "d4fa6cdcdd45cd587e343b571ac9a07694f33200a6787a4cb95ec0f57ec5b906",
+    "HMDA_07_solution.png": "6e85a0910928d5893ec1bed1b11abe58484ef1e66b8967fb18e3c289f75c3efc",
+    "HMDA_10_puzzle.png": "9ed7ebee5b3e4d7dcf90ee0c39b84c9e9ab11af840eb17a0319e50893137706e",
+    "HMDA_10_solution.png": "5d38a0b77e7370f32ef2bd66be609d119f4c9e572ee200b70dff1ab9462f8937",
+    "HMDA_12_puzzle.png": "6e749aa3570473e8cea79e4d1721020b51fdb5a71c50c3d328f666ffe37bec58",
+    "HMDA_12_solution.png": "d97f059503220c9e6b87590264a1cc0556176f1c58084a9e179a33d23a0b6614",
+    "HMDA_13_puzzle.png": "40343c424d146f417341421b086c9d99e88f82c05c8a300fd3d56be7f67bd81b",
+    "HMDA_13_solution.png": "f3965c3851c3b61d86eaf2ffe1299a0a2e6f14a0b33a713961f46f3d317e8139",
+    "HMDA_15_puzzle.png": "1ffb2fbb6ebb566b256c0944a454df1610f887a15e63def04852339fa81b58db",
+    "HMDA_15_solution.png": "28e3d35f9eaccb121f1bed8338b11e24c4a5eb97f19ebd3fdd386c5a261ef0df",
+    "HMDA_17_puzzle.png": "6d340e16312e3923102bf863fc9c9299e8e0e15f335df8429a49a926241ce579",
+    "HMDA_17_solution.png": "4f57dea5fdb2458097f59cd686b0a337cfcb6c1ef4f40cebcf5a4c8d8af258a6",
+    "HMDA_19_puzzle.png": "9587e9271b95df5905dfaae439b610bbbea85f8132efce010939698a832c6ad6",
+    "HMDA_19_solution.png": "7e7cae531a6c8bd0c425813f2dfa4fcb098cae059c79da090c8891d90c6dada5",
+    "HMDA_20_puzzle.png": "99808578117b2215bbcedee58532ca024c3ac4fcc9f6aa58dcc3035765ef1b8a",
+    "HMDA_20_solution.png": "2ea190c17fb9342df8e3feabeee2f039ea8ad6d60720f7b21ae6f2e23705258c",
+    "HMDA_22_puzzle.png": "05a6175863fe2ad697015d0492904cedae14a60b7130d0f68e5cd95f4da2801b",
+    "HMDA_22_solution.png": "de80fa90ee7e883afa69a85ae33776404899886c1a2bc62c1634bc0cc90c7528",
+    "HMDA_23_puzzle.png": "61677a44856807f0550e0dec45916b5d5b846cfb58a81ccb7b708e08f983e9e8",
+    "HMDA_23_solution.png": "ef8cac705fc88998e4d7a706570a5ac2fe7e5691cda0ce662f7da42db6d16dd6",
+    "HMDA_25_puzzle.png": "4b77722f079df0ec38c3f36124d6a3bcf8409c201e4e2ea228f9f10e1e7af25a",
+    "HMDA_25_solution.png": "09096c0cdcce4dbdcb9c3a3d788b3629e97b043ef1a5cc28407a8da1730bbdd9",
+    "HMDA_29_puzzle.png": "f8ef98772f236da2fca89d4ecddd37e18113660a9463a388cf699015eebff4c3",
+    "HMDA_29_solution.png": "72d33b9cefa510ca63501af84e91e77f42b27af2ed11d0eacd94c70c6ebb83c2"
+  },
+  "packet_qa": {
+    "map_gate_member": "05_MAP_QA/final_gate.json",
+    "hybrid_render_qa_member": "05_MAP_QA/hybrid_render_qa.json",
+    "all15_render": 15,
+    "locked_field_differences": 0,
+    "unique_solution": "15/15 exhaustive unique; canonical answers match",
+    "room_zero_meta": "PASS",
+    "check_the_old_map": "PASS"
+  },
+  "policy": {
+    "exact_map_bytes_required": true,
+    "map_regeneration": false,
+    "map_geometry_changes": false,
+    "reader_copy_authority": "V3 only",
+    "historic_v4_reader_copy_authority": false,
+    "force_145_or_146_pages": false,
+    "merge_main_authorized": false,
+    "kdp_publication_authorized": false
+  }
+}
