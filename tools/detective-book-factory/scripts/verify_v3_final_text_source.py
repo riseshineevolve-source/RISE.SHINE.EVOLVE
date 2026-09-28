@@ -14,8 +14,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "content" / "DETECTIVE_ACADEMY_BOOK1_TEXT_GOLD_MASTER_V3.md"
 
-EXPECTED_BLOB_SHA1 = "f6e16e99084562ddf56825ccc7bfdd12baad0656"
-EXPECTED_SOURCE_COMMIT = "6c2e21a24d760218923cfd8d47655a3cbf72c575"
+EXPECTED_BLOB_SHA1 = "6278c8cf60159b35daa259c489f250da43cea397"
+EXPECTED_SOURCE_COMMIT = "367a8c994890e2dc4e064226e412d0d9476f9f38"
 EXPECTED_CASE26_MAPS = [2, 4, 6, 7, 10, 12, 13, 15, 17, 19, 20, 22, 23, 25]
 
 
@@ -81,7 +81,7 @@ def verify() -> dict[str, object]:
 
     # Owner-locked reader logic and narrative invariants.
     required_fragments = {
-        "Max/Cup clarification": "Max - who signed it out for a Hall demonstration - never completed the return form.",
+        "Max/Cup clarification": "Max signed it out for a Hall demonstration - but his return form was never completed.",
         "Case 03 exact-ten objective": "FIND ALL 10 DIFFERENCES between Photo A and Photo B.",
         "Case 05 six-symbol solution": "**ANSWER:** BALL -> STAR -> BOLT -> HEART -> KEY -> MOON",
         "Case 21 recovered message": "THE ANSWER IS IN WHAT YOU LEAVE EMPTY",
@@ -90,6 +90,11 @@ def verify() -> dict[str, object]:
         "Case 29 access coordinate": "D3",
         "Book 2 archive hook": "# ARCHIVE FILE 001 // STILL OPEN",
         "final field role wording": "sixth field detective",
+        "Case 03 to 06 017/071 payoff": "**017** is a current storage reference; **071** belongs to the retired intake series kept in Heritage.",
+        "Case 25 to 27 restoration payoff": "Inside are transparent overlay sleeves and old alignment clips borrowed long ago from **Archive Restoration**",
+        "Bibi trainee route-note proof": "**ROUTE NOTE AUTHOR: BIBI // TRAINEE ARCHIVE TEAM**",
+        "Case 24 Rule Zero callback": "The arrow shouts. The mud explains.",
+        "Book 2 triangle callback": "difference number eight - the same three-part shape is hiding in plain sight.",
     }
     for label, fragment in required_fragments.items():
         require(fragment in text, f"missing locked V3 invariant: {label}")
