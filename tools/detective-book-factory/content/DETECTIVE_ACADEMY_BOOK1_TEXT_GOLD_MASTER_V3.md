@@ -1,8 +1,8 @@
 # HAPPY MAKERS DETECTIVE ACADEMY
 ## THE MYSTERY OF ROOM ZERO — BOOK 1
-### TEXT-ONLY GOLD MASTER V3 // FINAL STORY-FLOW + WOW MASTER // KDP PRODUCTION INTEGRATION SOURCE
+### TEXT-ONLY GOLD MASTER V3 // FINAL PRE-CODEX TEXT MASTER // STORY FLOW + WOW LOCK
 
-**Status:** FINAL STORY-FLOW + WOW TEXT MASTER FOR PRODUCTION INTEGRATION. This remains the same V3 version family. The owner-directed pass now locks causal Case-to-Case flow, non-repetitive mission architecture, richer Happy Makers voice, delayed evidence payoffs, the Bibi route-note reveal and the Case 03 triangle Book 2 stinger. Locked puzzle mechanics, answers, Hint Vault truth and Solution File truth remain unchanged. Production renderer integration is authorized as the next step. English remains **NOT FROZEN** until the exact hydrated interior passes final regression, print/KDP preflight, representative physical proof and explicit owner freeze.
+**Status:** FINAL PRE-CODEX TEXT MASTER FOR PRODUCTION INTEGRATION. This remains the same V3 version family. The owner-directed pass locks causal Case-to-Case flow, non-repetitive mission architecture, richer Happy Makers voice, delayed evidence payoffs, the Bibi route-note reveal, the Case 03 triangle Book 2 stinger and the final transition audit. Locked puzzle mechanics, answers, Hint Vault truth and Solution File truth remain unchanged. The next step is restoration of the premium Book Factory graphic system around this exact copy. English remains **NOT FROZEN** until the exact hydrated interior passes final regression, print/KDP preflight, representative physical proof and explicit owner freeze.
 
 **Authority rule:** current locked puzzle mechanics, answers, Case 03 exact-ten art contract, Room Zero chain and reverse-entry behavior remain unchanged. Story/layout work may add causal bridges, humor and fair-play callbacks only when they do not change puzzle truth. Layout must serve this copy; it may not silently shorten or flatten it.
 
@@ -49,6 +49,9 @@ No part of this publication may be reproduced, stored in a retrieval system, or 
 
 
 The development of this book was supported by AI-assisted tools.
+
+
+**WE HAVE SAVED A COZY SPOT JUST FOR YOU.**
 
 
 rise-shine-evolve-learning-hub.com
@@ -632,7 +635,12 @@ Trophy Hall replies faster than expected. The room contact says the Cup was alre
 ### YOUR VERDICT / RESPONSE
 
 
-**ALL 10 FOUND**  [ ]
+### DIFFERENCE TRACKER
+
+**?  ?  ?  ?  ?  ?  ?  ?  ?  ?**
+
+Color one question mark for each difference you find.
+
 Mark the ten changes directly on Photo A / Photo B.
 
 
@@ -799,7 +807,11 @@ Do not add the Look-Twice file as a fifth mark. It was routed, not marked.
 ### CASE FILE // WHAT HAPPENED
 
 
-The next morning Luli checks the Look-Twice mismatch list against the Academy file index before Bibi leaves. Difference number one suddenly stops looking decorative: **017** is a current storage reference; **071** belongs to the retired intake series kept in Heritage. One swapped pair of digits has been pointing at the wrong drawer all along. Bibi copies the plain **0** from the Case Wall, takes reference **071** to the Academy Heritage Gallery and opens the older intake trail. Three steps through the door, Uma the registrar waves her over to a glass case. The label says **CEREMONIAL DRAGON TOOTH**. The object underneath is a very ordinary Roman spoon. Uma's place in the gallery record is fixed. The only other person in her room is the best chance of learning when the label changed.
+The next morning Luli checks the Look-Twice mismatch list against the Academy file index before Bibi leaves. Difference number one finally makes sense: **017** is a current storage reference; **071** belongs to the retired intake series kept in Heritage. One swapped pair of digits has been pointing at the wrong drawer all along. Bibi copies the plain **0** from the Case Wall, takes reference **071** to the Academy Heritage Gallery and opens the older intake trail.
+
+She gets only three steps through the door before Uma, the registrar, spots her and hurries over. "I'm glad you're here. Something very odd happened."
+
+Uma leads Bibi to a glass case. The label says **CEREMONIAL DRAGON TOOTH**. The object underneath is a very ordinary Roman spoon. Nobody yet knows whether the object was swapped, the label was moved, or somebody thought this was a joke. Uma is the last person the gallery record can place with certainty. One other person shared her room during the relevant window and may know **which part changed - and when**.
 
 
 ### YOUR OBJECTIVE
@@ -820,11 +832,11 @@ The next morning Luli checks the Look-Twice mismatch list against the Academy fi
 
 
 - **NINI:** I had emotionally prepared for a dragon tooth.
-- **LULI:** We have a Roman spoon.
-- **NINI:** Less dramatic. Better for soup.
+- **DILO:** Do we currently have a missing dragon tooth or an overpromoted spoon?
+- **LULI:** We currently have a label and an object that disagree.
+- **BIBI:** Which is why we ask before we name a crime.
+- **NINI:** The spoon is taking this very well.
 - **BIBI:** And the photo difference mattered after all. Tiny numbers can move whole investigations.
-- **NINI:** Inspector Glitter must be devastated.
-- **BIBI:** Inspector Glitter may recover in the canteen.
 
 
 ### PUZZLE / EVIDENCE SURFACE
@@ -862,7 +874,9 @@ Now the team has a pattern - and no explanation yet.
 ### CASE FILE // WHAT HAPPENED
 
 
-Uma's interview narrows the label switch to one short window, and Bibi leaves with copies of the old intake forms. On the way back, the team cuts through the Undercover Training Wing - mock hotel rooms, fake kitchens and disguise storage for field exercises. A trainer stops them mid-corridor: the giant moon costume has vanished from its rack. Gray signed the last inventory check, and his area is the final reliable checkpoint before the costume disappears from the record.
+The follow-up interview gives Uma the answer she needed: the spoon belongs to the neighboring Roman display. Nothing was stolen; the **dragon-tooth label card** was the thing that moved. That narrows the switch to one short window, and Bibi leaves with copies of the old intake forms she came for.
+
+On the way back, the team cuts through the Undercover Training Wing - mock hotel rooms, fake kitchens and disguise storage for field exercises. A trainer stops them mid-corridor: the giant moon costume has vanished from its rack. Gray signed the last inventory check, and his area is the final reliable checkpoint before the costume disappears from the record.
 
 
 ### YOUR OBJECTIVE
@@ -3052,7 +3066,7 @@ A correct answer matters. Knowing why it is correct matters more. Your route thr
 6. Arlo is the only other person with Uma, so Arlo is the answer.
 
 
-**WHY IT MATTERS:** The team has a next witness to ask about when the gallery label changed; the map still proves contact, not blame.
+**WHY IT MATTERS:** The team now has the witness who can tell Uma whether the display object or the label changed during the missing window; the map still proves contact, not blame.
 
 
 
