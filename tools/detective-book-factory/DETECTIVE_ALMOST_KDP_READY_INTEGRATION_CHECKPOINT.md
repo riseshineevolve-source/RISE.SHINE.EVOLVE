@@ -25,7 +25,7 @@ SHA-256:
 `eda3f5767339b36b3f17633bfca9305c2b12b4204c2fe96667ce3fc35442ce76`
 
 Pages:
-**127**
+**127 in the compact integration-proof renderer; NOT authoritative final production pagination**
 
 The artifact was built from the current V3 story-flow/WOW reader text and the exact verified owner packet:
 `final-book-owner-review(1).zip`
@@ -65,6 +65,31 @@ PASS:
 - stale one-minute Case 03 wording absent;
 - stale CASE 001 hook absent.
 
+## Pagination correction
+
+The owner questioned the drop from the prior long-form production artifact, and the comparison confirms the concern.
+
+Exact prior owner packet:
+- 146 pages total;
+- main reader flow pages 1-109;
+- support divider page 110;
+- reverse Hint Vault/Solutions pages 111-146.
+
+Compact integration-proof artifact:
+- 127 pages total;
+- main reader flow pages 1-89;
+- divider page 90;
+- reverse section pages 91-127.
+
+Net difference:
+- main interior: **-20 pages**;
+- back section: **+1 page**;
+- total: **-19 pages**.
+
+Conclusion: the shortening is **not primarily caused by editorial repetition removal**. The compact proof renderer compressed production page families, combined spatial Witness Board/map functions and did not preserve all historical dedicated signal/parity/interlude surfaces. The 127-page artifact is valid as a source/evidence integration proof, but it is not the final production pagination authority.
+
+The next production render must use the premium production layout/page-family system with current V3 text and exact evidence. Do not force 127 and do not force 146. Reflow/add pages before cutting current copy. A final count near or above the prior 146 is plausible because current V3 contains more earned narrative than the historical release candidate.
+
 ## Gate
 
 Do NOT call EN frozen or KDP publication ready yet.
@@ -72,4 +97,4 @@ Do NOT call EN frozen or KDP publication ready yet.
 Next gates are:
 owner page-by-page visual review -> bounded fixes -> KDP Previewer -> representative physical proof -> explicit EN freeze -> final cover spine from frozen page count -> owner-controlled KDP upload/publication.
 
-Do not revert to the old 146-page contract merely to preserve historical pagination.
+Do not revert reader copy to the old 146-page artifact, but do not preserve the compact 127-page pagination either. Let the proper production renderer determine the count from current V3.
