@@ -1,0 +1,455 @@
+{
+  "schema": "hmda-v3-witness-board-copy-v1",
+  "status": "OWNER_REVIEW_REGRESSION_LOCK",
+  "authority": "Current V3 presentation copy recovered from the pre-premium integrated proof; overrides raw Shigai prose only. Geometry/logic unchanged.",
+  "cases": {
+    "10": [
+      [
+        "Ember",
+        "Ember was on a demo seat and beside another demo seat."
+      ],
+      [
+        "Nico",
+        "Nico was in column F and on a demo seat."
+      ],
+      [
+        "Wyatt",
+        "Wyatt was in column B and beside a charging pod."
+      ],
+      [
+        "Finn",
+        "Finn was 7 grid steps from the coolant tank. Count row difference plus column difference."
+      ],
+      [
+        "Beck",
+        "Beck was against an outer wall and beside a parts crate."
+      ],
+      [
+        "Vera",
+        "Vera's room contained a control console, but she was not beside any control console in that room."
+      ],
+      [
+        "Dash",
+        "Dash's area contained exactly one other person."
+      ]
+    ],
+    "12": [
+      [
+        "Kira",
+        "Kira was in the Bird Room, and nobody else entered it."
+      ],
+      [
+        "Nell",
+        "Nell was in the Stage Wing and in row 2."
+      ],
+      [
+        "Iris",
+        "Iris was the third person from the south."
+      ],
+      [
+        "Eli",
+        "Eli was either in the Green Room or the Bird Room."
+      ],
+      [
+        "Cove",
+        "Cove was in column B and against an outer wall."
+      ],
+      [
+        "Sage",
+        "Exactly one of Sage and Kira was in the Rehearsal Room."
+      ],
+      [
+        "Winter",
+        "Winter's area contained exactly one other person."
+      ]
+    ],
+    "13": [
+      [
+        "Juno",
+        "Juno was diagonally next to Skye; their corners touched."
+      ],
+      [
+        "Skye",
+        "Skye stayed in the Ranger Station."
+      ],
+      [
+        "Eden",
+        "Eden shared a room with Juno."
+      ],
+      [
+        "Willow",
+        "Willow was north-west of Bodhi: north and west by any number of squares."
+      ],
+      [
+        "Bodhi",
+        "Bodhi was south-west of Moxie: south and west by any number of squares."
+      ],
+      [
+        "Moxie",
+        "Moxie was in the Ranger Station and in row 5."
+      ],
+      [
+        "Remy",
+        "Remy's room contained exactly one other person."
+      ]
+    ],
+    "15": [
+      [
+        "Harper",
+        "Harper was north-east of Cruz: north and east by any number of squares."
+      ],
+      [
+        "Piper",
+        "Piper was north-east of Duke."
+      ],
+      [
+        "Duke",
+        "Duke was in the First Aid Hut and in row 5."
+      ],
+      [
+        "Cruz",
+        "Cruz was beside a camp cot."
+      ],
+      [
+        "Jett",
+        "Jett was the only person in the Welcome Lodge."
+      ],
+      [
+        "Inez",
+        "Inez shared a room with a cot but was not beside it."
+      ],
+      [
+        "Milo",
+        "Milo's room contained exactly one other person."
+      ]
+    ],
+    "17": [
+      [
+        "Otis",
+        "Otis was either in the Ticket Office or on the Baggage Platform."
+      ],
+      [
+        "Mika",
+        "Mika was in the Ticket Office and in column B."
+      ],
+      [
+        "Koa",
+        "Koa was in the Waiting Lounge and in row 6."
+      ],
+      [
+        "Sunny",
+        "Sunny was on a bench."
+      ],
+      [
+        "Luna",
+        "Luna was in the Waiting Lounge and in column G."
+      ],
+      [
+        "Axel",
+        "Axel was exactly three rows north of Koa."
+      ],
+      [
+        "Reed",
+        "Reed's final area contained exactly one other person."
+      ]
+    ],
+    "19": [
+      [
+        "Avery",
+        "Avery was exactly two rows north of Mack."
+      ],
+      [
+        "Theo",
+        "Theo was 7 grid steps from the piano."
+      ],
+      [
+        "Ollie",
+        "Exactly one of Ollie and Avery was in the Archive Room."
+      ],
+      [
+        "Dex",
+        "Dex shared a room with Theo."
+      ],
+      [
+        "Mack",
+        "Mack was south-west of Ollie."
+      ],
+      [
+        "Kian",
+        "Kian was in the Study Hall and in column F."
+      ],
+      [
+        "Sasha",
+        "Sasha's final area contained exactly one other person."
+      ]
+    ],
+    "20": [
+      [
+        "Sid",
+        "Sid was somewhere south of Pax."
+      ],
+      [
+        "Pax",
+        "Pax was south-east of Mara."
+      ],
+      [
+        "Luca",
+        "Luca was diagonally next to Asa."
+      ],
+      [
+        "Mara",
+        "Mara was in the Main Studio and in row 4."
+      ],
+      [
+        "Asa",
+        "Asa shared a room with Mara."
+      ],
+      [
+        "Toby",
+        "Toby was the only person in the Workshop Hall."
+      ],
+      [
+        "Demi",
+        "Demi's final room contained exactly one other person."
+      ]
+    ],
+    "22": [
+      [
+        "Lex",
+        "Lex was diagonally next to Imani."
+      ],
+      [
+        "Imani",
+        "Imani and Nia shared a room."
+      ],
+      [
+        "Cody",
+        "Cody was diagonally next to Wes."
+      ],
+      [
+        "Nia",
+        "Exactly one of Nia and Lex was in the Practice Hall."
+      ],
+      [
+        "Gia",
+        "Gia was 7 grid steps from the piano."
+      ],
+      [
+        "Wes",
+        "Wes's room contained an instrument locker, but he was not beside any instrument locker in that room."
+      ],
+      [
+        "Zara",
+        "Zara's final room contained exactly one other person."
+      ]
+    ],
+    "23": [
+      [
+        "Vivi",
+        "Vivi was 7 grid steps from the gondola."
+      ],
+      [
+        "Cora",
+        "Cora was north-east of Mae."
+      ],
+      [
+        "Ozzy",
+        "Ozzy was south-west of Cora."
+      ],
+      [
+        "Rae",
+        "Rae was exactly two columns east of Cora."
+      ],
+      [
+        "Mae",
+        "Mae shared a room with a person who was on a bench. That person was either Ozzy or Pia."
+      ],
+      [
+        "Pia",
+        "Exactly one of Pia and Vivi was in the Snack Stand."
+      ],
+      [
+        "Jude",
+        "Jude's final room contained exactly one other person."
+      ]
+    ],
+    "25": [
+      [
+        "Gabe",
+        "Gabe was diagonally next to Rio."
+      ],
+      [
+        "Casey",
+        "Casey was in the Lobby and in column D."
+      ],
+      [
+        "Rio",
+        "Rio was north-west of Gabe."
+      ],
+      [
+        "Tate",
+        "Tate was diagonally next to Wynn."
+      ],
+      [
+        "Sol",
+        "Sol was north-east of Gabe."
+      ],
+      [
+        "Wynn",
+        "Wynn was in the Laundry and on a bar stool."
+      ],
+      [
+        "Nori",
+        "Nori's final room contained exactly one other person."
+      ]
+    ],
+    "29": [
+      [
+        "Mavis",
+        "Mavis was north-west of Vega."
+      ],
+      [
+        "Cato",
+        "Cato was north-east of Ren."
+      ],
+      [
+        "Jules",
+        "Jules was diagonally next to Wade."
+      ],
+      [
+        "Bryn",
+        "Bryn shared a space with Jules."
+      ],
+      [
+        "Vega",
+        "Vega was north-west of Cato."
+      ],
+      [
+        "Ren",
+        "Ren was in the Control Room."
+      ],
+      [
+        "Poppy",
+        "Poppy shared a room with Mavis."
+      ],
+      [
+        "Wade",
+        "Wade was in the Operations Office, beside the teacher's desk."
+      ],
+      [
+        "Seth",
+        "Seth's final area contained exactly one other person."
+      ]
+    ],
+    "02": [
+      [
+        "Nova",
+        "Nova was in row 3 and column B."
+      ],
+      [
+        "Dax",
+        "Dax was in the Display Room and in column D."
+      ],
+      [
+        "Rook",
+        "Rook was in a corner and beside a teacher's desk."
+      ],
+      [
+        "Atlas",
+        "Atlas was in the Equipment Room and in column F."
+      ],
+      [
+        "Ivy",
+        "Ivy was standing on a desk chair."
+      ],
+      [
+        "Max",
+        "Max was the trophy keeper. Exactly one other person shared his room."
+      ]
+    ],
+    "04": [
+      [
+        "Echo",
+        "Echo was in row 2 and column A."
+      ],
+      [
+        "Kai",
+        "Kai was the only person in the Kitchen."
+      ],
+      [
+        "Zuri",
+        "Zuri was in the Pickup Tent and in row 4."
+      ],
+      [
+        "Briar",
+        "Briar was beside a ring-toss stand."
+      ],
+      [
+        "Clover",
+        "Clover was in the Packing Room and in row 5."
+      ],
+      [
+        "Pixel",
+        "Pixel had the collection list. Exactly one other person shared her room."
+      ]
+    ],
+    "06": [
+      [
+        "Scout",
+        "Scout was in row 3 and column E."
+      ],
+      [
+        "Hugo",
+        "Hugo was in the Dinosaur Gallery, beside a display case."
+      ],
+      [
+        "Arlo",
+        "Arlo was in the Foyer and in row 2."
+      ],
+      [
+        "Vale",
+        "Vale was in the Gallery, beside a statue."
+      ],
+      [
+        "Wren",
+        "Wren was on a bench, beside the skeleton display."
+      ],
+      [
+        "Uma",
+        "Uma checked the labels. Exactly one other person was with her."
+      ]
+    ],
+    "07": [
+      [
+        "Blaze",
+        "Blaze was the only person in the Rehearsal Room."
+      ],
+      [
+        "Indigo",
+        "Indigo was either in the Dressing Room or the Rehearsal Room."
+      ],
+      [
+        "Willa",
+        "Willa was 2 grid steps from the stage range marker. Count row difference plus column difference."
+      ],
+      [
+        "Zoe",
+        "Zoe was against an outer wall and beside a costume cart."
+      ],
+      [
+        "Rocket",
+        "Rocket was in row 5 and column E."
+      ],
+      [
+        "Gray",
+        "Gray's space contained exactly one other person."
+      ]
+    ]
+  },
+  "forbidden_reader_words": [
+    "victim",
+    "thief",
+    "treasure vanished",
+    "took the treasure"
+  ]
+}
