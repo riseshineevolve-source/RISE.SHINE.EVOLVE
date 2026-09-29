@@ -84,6 +84,11 @@ def audit(pdf: Path, index_path: Path) -> dict:
     all_text = norm(" ".join(page_text))
     if "story bridge continuation" in all_text:
         errors.append("internal story bridge continuation label printed")
+    raw_joined = " ".join(page_text)
+    if "ROOM ZERO THREAD // BIBI REMEMBER /" in raw_joined:
+        errors.append("truncated Bibi-remembers running header printed")
+    if "ROOM ZERO CHECKPOINT // RULE 0 FI /" in raw_joined:
+        errors.append("truncated Rule 0 running header printed")
 
     titles = {case["number"]: case["title"] for case in source["main_cases"]}
     for item in index:
@@ -179,6 +184,10 @@ def audit(pdf: Path, index_path: Path) -> dict:
         "Room Zero access": "D3",
         "Book2 heading": "ARCHIVE FILE 001 STILL OPEN",
         "Evidence Grid motif": "EVIDENCE GRID",
+        "Case28 damaged rule": "ZERO ____________. NOTICE FIRST. THEORIZE SECOND.",
+        "Case27 margin note": "RULE FIRST ROOM SECOND",
+        "Case22 witness-aligned snapshot": "who was beside her before the instrument cases were moved",
+        "parcel handoff confirmation": "After Reception confirms the handoff with Nori's room companion",
     }
     for label, phrase in required.items():
         if norm(phrase) not in all_text:
@@ -189,6 +198,13 @@ def audit(pdf: Path, index_path: Path) -> dict:
         "ONE TINY MISMATCH WILL MATTER LATER",
         "PREP THE EVIDENCE",
         "POSSIBLE LINKS",
+        "UPSIDE-DOWN SECTION",
+        "DO NOT CATALOGUE",
+        "PAGE 4 // WELCOME TO THE DETECTIVE ACADEMY",
+        "PAGE 5 // CLAIM YOUR RECRUIT CREDENTIAL",
+        "PAGE 6 // WHAT YOU ARE ABOUT TO WALK INTO",
+        "PAGE 7 // HOW EVERY CASE WORKS",
+        "PAGE 8 // MAP CASES",
     )
     for phrase in forbidden:
         if norm(phrase) in all_text:
@@ -242,13 +258,17 @@ def audit(pdf: Path, index_path: Path) -> dict:
     case27 = norm(evidence_text(27))
     if any(norm(token) not in case27 for token in
            ("OLD PLAN", "CURRENT PLAN", "TRAINING ROOM", "ARCHIVE WALL",
-            "C1", "F3", "A5")):
-        errors.append("Case 27 overlay visual labels or anchors missing")
+            "C1", "F3", "A5", "NORTH STAIR", "COURTYARD COLUMN", "WEST LIFT SHAFT",
+            "RULE FIRST ROOM SECOND")):
+        errors.append("Case 27 overlay visual labels, full anchor names, or margin note missing")
     case28 = norm(evidence_text(28))
     if any(norm(token) not in case28 for token in
            ("CLAIM A", "CLAIM B", "CLAIM C", "CLAIM D", "CLAIM E", "CLAIM F",
-            "FACT", "THEORY", "UNSUPPORTED ASSUMPTION")):
-        errors.append("Case 28 claim cards or three sorting zones missing")
+            "FACT", "THEORY", "UNSUPPORTED ASSUMPTION",
+            "ZERO NOTICE FIRST THEORIZE SECOND")):
+        errors.append("Case 28 claim cards, sorting zones, or damaged Rule Zero template missing")
+    if norm("Write each claim letter A-F in the correct zone") not in all_text:
+        errors.append("Case 28 reader instruction does not match the physical sort zones")
     case30 = norm(evidence_text(30))
     if norm("OFFICIAL CALL SIGN from your Recruit Credential") not in case30:
         errors.append("Case 30 DETECTIVE field does not request the official call sign")
