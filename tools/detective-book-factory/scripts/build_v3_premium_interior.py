@@ -28,6 +28,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 import render_book as rb
 from build_v3_final_text_contract import build_contract
+from prepare_v3_print_derivatives import OUTPUT as PRINT_DERIVATIVES, prepare as prepare_print_derivatives
 from prepare_v3_premium_inputs import MASTER_SHA256, SQUAD_SCANNER_SHA256
 
 W, H = letter
@@ -86,16 +87,38 @@ def plain(source: str) -> str:
     return re.sub(r"\*\*|\*|`", "", source).strip()
 
 
+def project_case_markdown(number: int, markdown: str) -> str:
+    """Apply only owner-approved reader microfixes to the locked V3 source."""
+    if number == 2:
+        old = "Before the reply comes back, Trophy Hall sends a live alert."
+        new = ("The reply is brief: the helper saw no courier; the printer simply "
+               "released the black envelope. Then Trophy Hall sends a live alert.")
+        if markdown.count(old) != 1:
+            raise ValueError("Case 02 reply closure source drift")
+        return markdown.replace(old, new)
+    return markdown
+
+
+def project_solution_markdown(number: int, markdown: str) -> str:
+    if number != 8:
+        return markdown
+    old = "2. Route B fails because the staff door is locked and the line crosses a wall."
+    new = "2. Route B fails because the staff door is locked."
+    if markdown.count(old) != 1:
+        raise ValueError("Case 08 unsupported wall-crossing source drift")
+    return markdown.replace(old, new)
+
+
 def draw_dark_grid(canvas_obj, x: float, y: float, w: float, h: float,
-                   step: float = 16, radius: float = 8) -> None:
+                   step: float = 16, radius: float = 8, alpha: float = 0.25) -> None:
     """Signature HMDA evidence-grid motif: black field + thin white grid."""
     canvas_obj.setFillColor(INK)
     canvas_obj.setStrokeColor(INK)
     canvas_obj.roundRect(x, y, w, h, radius, fill=1, stroke=0)
     canvas_obj.saveState()
     canvas_obj.setStrokeColor(colors.HexColor("#FFFFFF"))
-    canvas_obj.setStrokeAlpha(0.25)
-    canvas_obj.setLineWidth(0.22)
+    canvas_obj.setStrokeAlpha(alpha)
+    canvas_obj.setLineWidth(0.85)
     xx = x + step
     while xx < x + w:
         canvas_obj.line(xx, y, xx, y + h)
@@ -166,6 +189,7 @@ class Book:
         self.open = False
         self.y = TOP
         self.current: dict = {}
+        self.continuation_label = ""
         self.index: list[dict] = []
         self.errors: list[str] = []
 
@@ -181,6 +205,7 @@ class Book:
             "physical_side": "verso / left" if self.page % 2 == 0 else "recto / right",
             "side": side,
         }
+        self.continuation_label = label or family
         self.index.append(self.current)
         self.y = TOP
         c = self.canvas
@@ -198,7 +223,7 @@ class Book:
 
     def grid(self, x: float, y: float, w: float, h: float) -> None:
         c = self.canvas
-        c.setStrokeColor(colors.HexColor("#D3D3D3")); c.setLineWidth(.3)
+        c.setStrokeColor(colors.HexColor("#D3D3D3")); c.setLineWidth(.85)
         for xx in range(int(x), int(x+w)+1, 9):
             c.line(xx, y, xx, y+h)
         for yy in range(int(y), int(y+h)+1, 9):
@@ -215,11 +240,12 @@ class Book:
     def ensure(self, height: float, gap: float = 8) -> None:
         if self.y - height - gap < BOTTOM:
             meta = self.current.copy()
-            self.begin(meta["family"] + " continuation", meta["case"], meta["side"])
+            self.begin(meta["family"] + " continuation", meta["case"], meta["side"],
+                       label=self.continuation_label)
 
     def rule(self) -> None:
         self.ensure(8)
-        self.canvas.setStrokeColor(LINE); self.canvas.setLineWidth(.7)
+        self.canvas.setStrokeColor(LINE); self.canvas.setLineWidth(.85)
         self.canvas.line(M, self.y, W-M, self.y)
         self.y -= 13
 
@@ -253,7 +279,7 @@ class Book:
         x, top = M, self.y
         c = self.canvas
         c.setFillColor(WHITE); c.setStrokeColor(INK if kind == "objective" else LINE)
-        c.setLineWidth(1.35 if kind == "objective" else .75)
+        c.setLineWidth(1.35 if kind == "objective" else .85)
         c.roundRect(x, top-h, TEXT_W, h, 8, fill=1, stroke=1)
         c.setFillColor(INK); c.setFont(rb.BOLD, 9.3)
         c.drawString(x+16, top-19, plain(heading).upper())
@@ -306,16 +332,6 @@ def evidence_cards(mission: dict, number: int) -> list[str]:
     payload_key = {"room-zero-checkpoint": "checkpoint", "multi-stage-finale": "finale"}.get(t, t.replace("-", "_"))
     data = mission.get(payload_key, {})
     cards: list[str] = []
-    if number == 9:
-        return [
-            "RECRUIT BADGE RECORD: plain Academy 0",
-            "TROPHY HALL TAG: plain Academy 0",
-            "OPEN NIGHT EVIDENCE LABEL: plain Academy 0",
-            "OLD LOCKER ENVELOPE: plain Academy 0",
-            "LOOK-TWICE ROUTING FILE: no Academy mark",
-            "POSTER DECORATION: striped circle",
-            "STAGE-LIGHT DIAL: ring with pointer",
-        ]
     if t == "route":
         cards += [f"START: {data.get('start')}    GOAL: {data.get('goal')}"]
         cards += [f"ROUTE {v.get('id')}: " + " → ".join(v.get("path", [])) for v in data.get("options", [])]
@@ -334,7 +350,13 @@ def evidence_cards(mission: dict, number: int) -> list[str]:
     elif t == "timeline-visual":
         cards += ["BUILDINGS: " + " / ".join(data.get("candidate_buildings", [])),
                   "YEARS: " + " / ".join(str(v) for v in data.get("candidate_years", []))]
-        cards += data.get("evidence", [])
+        evidence = list(data.get("evidence", []))
+        if number == 16:
+            revealing = "The 2008 candidate is therefore too late, and 1998 is too early"
+            if len(evidence) != 5 or not evidence[-1].startswith(revealing):
+                raise ValueError("Case 16 year evidence source drift")
+            evidence.pop()
+        cards += evidence
     elif t == "reconstruction":
         cards += [f"SCRAP {v.get('id')}: {v.get('left_edge')} | {v.get('text')} | {v.get('right_edge')}" for v in data.get("scraps", [])]
     elif t == "visual-sequence":
@@ -355,13 +377,15 @@ def evidence_cards(mission: dict, number: int) -> list[str]:
             prompt = stage.get("prompt", "")
             if stage.get("id") == "CODE":
                 prompt = "Enter Dilo's six-symbol locker sequence from Case 05."
+            elif stage.get("id") == "DETECTIVE":
+                prompt = "Enter the OFFICIAL CALL SIGN from your Recruit Credential."
             cards.append(f"{stage.get('id')}: {prompt}")
     return [str(v) for v in cards if str(v).strip()]
 
 
 def draw_case_brief(book: Book, case: dict) -> dict[str, str]:
     number = case["number"]
-    opening, sections = split_case(case["markdown"])
+    opening, sections = split_case(project_case_markdown(number, case["markdown"]))
     book.begin("case brief", number, label=f"case {number:02d} / case file")
     # Signature evidence-grid band belongs to every new case without becoming a worksheet.
     banner_h = 30
@@ -378,8 +402,12 @@ def draw_case_brief(book: Book, case: dict) -> dict[str, str]:
         if name == "HAPPY MAKERS CHAT":
             beats = [line for kind, line in paragraphs(content) if kind == "bullet"]
             rendered = []
+            featured = number == 6
+            beat_gap = 9 if featured else 7
             style = ParagraphStyle(
-                "chat_transcript", fontName=rb.FONT, fontSize=10.0, leading=13.2,
+                "chat_transcript", fontName=rb.FONT,
+                fontSize=11.2 if featured else 10.0,
+                leading=15.4 if featured else 13.2,
                 textColor=WHITE)
             for line in beats:
                 speaker, speech = line.split(":", 1) if ":" in line else ("CHAT", line)
@@ -390,18 +418,23 @@ def draw_case_brief(book: Book, case: dict) -> dict[str, str]:
                 p = Paragraph(markup, style)
                 _, ph = p.wrap(TEXT_W-32, H)
                 rendered.append((p, ph))
-            panel_h = 37 + sum(ph + 7 for _, ph in rendered) + 8
-            if book.y - panel_h - 9 < BOTTOM:
+            panel_h = 37 + sum(ph + beat_gap for _, ph in rendered) + 8
+            if featured:
+                book.begin("comms transcript", number, label="case 06 / live comms")
+                book.heading("HERITAGE GALLERY // LIVE COMMS", 18)
+                book.y = (book.y + BOTTOM + panel_h) / 2
+            elif book.y - panel_h - 9 < BOTTOM:
                 book.begin("comms transcript", number, label=f"case {number:02d} / comms")
             book.ensure(panel_h, 9)
             x, top = M, book.y
-            draw_dark_grid(book.canvas, x, top-panel_h, TEXT_W, panel_h, step=17, radius=8)
+            draw_dark_grid(book.canvas, x, top-panel_h, TEXT_W, panel_h, step=17, radius=8,
+                           alpha=0.13 if featured else 0.25)
             book.canvas.setFillColor(WHITE); book.canvas.setFont(rb.BOLD, 9.4)
             book.canvas.drawString(x+16, top-20, "HAPPY MAKERS // COMMS")
             yy = top-38
             for p, ph in rendered:
                 p.drawOn(book.canvas, x+16, yy-ph)
-                yy -= ph + 7
+                yy -= ph + beat_gap
             book.y -= panel_h + 8
         elif name == "YOUR OBJECTIVE":
             book.card(name, content, "objective")
@@ -411,35 +444,55 @@ def draw_case_brief(book: Book, case: dict) -> dict[str, str]:
             book.render_md(content, 12)
             if book.page == panel_page:
                 book.canvas.setStrokeColor(LINE)
-                book.canvas.setLineWidth(.7)
+                book.canvas.setLineWidth(.85)
                 book.canvas.roundRect(M-7, book.y+2, TEXT_W+14,
                                       panel_top-book.y-2, 6, fill=0, stroke=1)
+    # These three physical records are already named in the Room Zero trail.
+    # Print their unobtrusive marks before the Case 09 comparison.
+    marked_records = {
+        2: "TROPHY HALL TAG",
+        4: "OPEN NIGHT EVIDENCE LABEL",
+        5: "OLD LOCKER ENVELOPE",
+    }
+    if number in marked_records:
+        book.ensure(42, 5)
+        c = book.canvas
+        top = book.y
+        c.setFillColor(WHITE); c.setStrokeColor(INK); c.setLineWidth(.85)
+        c.roundRect(M, top-42, TEXT_W, 42, 5, fill=1, stroke=1)
+        c.setFillColor(INK); c.setFont(rb.BOLD, 9.5)
+        c.drawString(M+12, top-25, marked_records[number])
+        c.setFont(rb.BOLD, 22)
+        c.drawRightString(W-M-14, top-29, "0")
+        book.y -= 47
     book.end()
     return sections
 
 
-def parity_prep(book: Book, number: int, label: str) -> None:
+def parity_prep(book: Book, number: int, title: str, spread_label: str) -> None:
     """Preserve Witness Board LEFT / Map RIGHT without adding fake worksheet tasks."""
     if (book.page + 1) % 2 == 1:
-        book.begin("evidence grid interstitial", number, label=label)
-        book.heading(f"CASE {number:02d} // EVIDENCE GRID", 18)
+        book.begin("evidence grid interstitial", number, label=f"case {number:02d} / evidence grid")
         x = M
         h = 410
         y = book.y-h
         draw_dark_grid(book.canvas, x, y, TEXT_W, h, step=18, radius=9)
         book.canvas.setFillColor(WHITE)
-        book.canvas.setFont(rb.BOLD, 30)
-        book.canvas.drawString(x+24, y+h-58, f"{number:02d}")
-        book.canvas.setFont(rb.BOLD, 13)
-        book.canvas.drawString(x+24, y+h-91, "WITNESS BOARD  ->  LIVE CASE MAP")
-        book.canvas.setFont(rb.BOLD, 10.5)
-        book.canvas.drawString(x+24, y+34, "FOLLOW THE EVIDENCE. DO NOT GUESS.")
+        book.canvas.setFont(rb.BOLD, 36)
+        book.canvas.drawString(x+24, y+h-61, f"{number:02d}")
+        title_style = ParagraphStyle("interstitial_title", fontName=rb.BOLD,
+                                     fontSize=17, leading=21, textColor=WHITE)
+        title_text = Paragraph(inline(title.upper()), title_style)
+        _, title_h = title_text.wrap(TEXT_W-48, H)
+        title_text.drawOn(book.canvas, x+24, y+h-90-title_h)
+        book.canvas.setFont(rb.BOLD, 12.5)
+        book.canvas.drawString(x+24, y+h-119-title_h, spread_label)
         book.y = y-12
         book.end()
 
 
-def draw_witness_board(book: Book, case: dict, number: int) -> None:
-    parity_prep(book, number, "evidence grid")
+def draw_witness_board(book: Book, case: dict, number: int, title: str) -> None:
+    parity_prep(book, number, title, "WITNESS BOARD  ->  LIVE CASE MAP")
     book.begin("witness board", number, label=f"case {number:02d} / witness board")
     if book.page % 2:
         raise ValueError("Witness Board must be on physical left/even page")
@@ -534,7 +587,8 @@ def draw_case01(book: Book, mission: dict, sections: dict) -> None:
     tut = mission["tutorial"]
     grid_size = 282
     grid_y = book.y-grid_size-20
-    rb.draw_tutorial_grid(book.canvas, tut, (W-grid_size)/2, grid_y, grid_size, grid_size, False)
+    rb.draw_tutorial_grid(book.canvas, tut, (W-grid_size)/2, grid_y,
+                          grid_size, grid_size, False, stroke_width=.85)
     book.y = grid_y-15
     aliases = {"ARI":"QUILL", "BEA":"MORSE", "COLE":"PIP", "DANI":"KNOX"}
     clues = []
@@ -563,14 +617,14 @@ def draw_case01(book: Book, mission: dict, sections: dict) -> None:
     book.end()
 
 
-def draw_case03(book: Book, sections: dict) -> None:
-    parity_prep(book, 3, "photo evidence grid")
+def draw_case03(book: Book, sections: dict, title: str) -> None:
+    parity_prep(book, 3, title, "PHOTO A  ->  PHOTO B")
     for letter in ("A", "B"):
         book.begin(f"photo {letter}", 3, label=f"case 03 / photo {letter}")
         if (book.page % 2 == 0) != (letter == "A"):
             raise ValueError("Case 03 photographs are not facing left/right pages")
         book.heading(f"CASE 03 // PHOTO {letter}", 18)
-        book.image(OWNER_DIR / f"case03_photo_{letter}.png", 450, 500, gap=5)
+        book.image(PRINT_DERIVATIVES / f"case03_photo_{letter}_print.png", 450, 500, gap=5)
         if letter == "B":
             if book.y < 111:
                 raise ValueError("Case 03 ten-mark tracker cannot fit below Photo B")
@@ -587,9 +641,132 @@ def draw_case03(book: Book, sections: dict) -> None:
         book.end()
 
 
+def draw_case09_marks(book: Book) -> None:
+    """Show the seven record samples without printing their classification."""
+    records = (
+        ("RECRUIT BADGE RECORD", "zero"),
+        ("TROPHY HALL TAG", "zero"),
+        ("OPEN NIGHT EVIDENCE LABEL", "zero"),
+        ("OLD LOCKER ENVELOPE", "zero"),
+        ("LOOK-TWICE ROUTING FILE", "blank"),
+        ("POSTER DECORATION", "stripe"),
+        ("STAGE-LIGHT DIAL", "pointer"),
+    )
+    c = book.canvas
+    col_w = (TEXT_W-12)/2
+    for start in range(0, len(records), 2):
+        row = records[start:start+2]
+        h = 84
+        book.ensure(h, 9)
+        for col, (label, mark) in enumerate(row):
+            x, top = M+col*(col_w+12), book.y
+            c.setFillColor(WHITE); c.setStrokeColor(INK); c.setLineWidth(.85)
+            c.roundRect(x, top-h, col_w, h, 6, fill=1, stroke=1)
+            c.setFillColor(INK); c.setFont(rb.BOLD, 9)
+            c.drawString(x+12, top-19, label)
+            cx, cy = x+col_w-33, top-49
+            c.setStrokeColor(INK); c.setLineWidth(1.2)
+            c.roundRect(cx-20, cy-20, 40, 40, 3, fill=0, stroke=1)
+            if mark == "zero":
+                c.setFont(rb.BOLD, 27)
+                c.drawCentredString(cx, cy-9, "0")
+            elif mark == "stripe":
+                c.circle(cx, cy, 13, fill=0, stroke=1)
+                c.saveState()
+                clip = c.beginPath(); clip.circle(cx, cy, 12)
+                c.clipPath(clip, stroke=0, fill=0)
+                for yy in range(-12, 15, 6):
+                    c.line(cx-13, cy+yy, cx+13, cy+yy)
+                c.restoreState()
+            elif mark == "pointer":
+                c.circle(cx, cy, 13, fill=0, stroke=1)
+                c.line(cx, cy, cx+8, cy+8)
+                c.circle(cx, cy, 2.2, fill=1, stroke=0)
+        book.y -= h+9
+
+
+def draw_case26_boxes(book: Book, mission: dict) -> None:
+    expected = [2, 4, 6, 7, 10, 12, 13, 15, 17, 19, 20, 22, 23, 25]
+    numbers = mission["checkpoint"]["case_numbers"]
+    if numbers != expected:
+        raise ValueError("Case 26 extraction order drift")
+    book.heading("EMPTY-ROOM INITIALS // CASE ORDER", 12)
+    cell_w = TEXT_W/7
+    row_h = 58
+    book.ensure(row_h*2+8, 10)
+    c = book.canvas
+    for idx, number in enumerate(numbers):
+        col, row = idx % 7, idx // 7
+        x = M+col*cell_w
+        top = book.y-row*row_h
+        c.setFillColor(INK); c.setFont(rb.BOLD, 9)
+        c.drawCentredString(x+cell_w/2, top-12, f"{number:02d}")
+        c.setFillColor(WHITE); c.setStrokeColor(INK); c.setLineWidth(1)
+        c.rect(x+cell_w/2-20, top-49, 40, 31, fill=1, stroke=1)
+    book.y -= row_h*2+8
+
+
+def draw_case28_sort(book: Book, mission: dict) -> None:
+    cards = mission["fact_theory_sort"]["cards"]
+    if len(cards) != 6:
+        raise ValueError("Case 28 claim-card count drift")
+    c = book.canvas
+    col_w = (TEXT_W-12)/2
+    for start in range(0, 6, 2):
+        book.ensure(75, 7)
+        for col, item in enumerate(cards[start:start+2]):
+            x, top = M+col*(col_w+12), book.y
+            c.setFillColor(WHITE); c.setStrokeColor(LINE); c.setLineWidth(.85)
+            c.roundRect(x, top-75, col_w, 75, 5, fill=1, stroke=1)
+            c.setFillColor(INK); c.setFont(rb.BOLD, 9.4)
+            c.drawString(x+11, top-17, f"CLAIM {chr(65+start+col)}")
+            p = Paragraph(inline(item["text"]), ParagraphStyle(
+                "claim", fontName=rb.FONT, fontSize=10.2, leading=13))
+            _, ph = p.wrap(col_w-22, H)
+            p.drawOn(c, x+11, top-24-ph)
+        book.y -= 82
+    book.heading("SORT THE CLAIMS", 12)
+    zone_labels = ("FACT", "THEORY", "UNSUPPORTED ASSUMPTION")
+    gap = 9
+    zone_w = (TEXT_W-2*gap)/3
+    h = 112
+    book.ensure(h, 7)
+    for i, label in enumerate(zone_labels):
+        x, top = M+i*(zone_w+gap), book.y
+        c.setFillColor(WHITE); c.setStrokeColor(INK); c.setLineWidth(.85)
+        c.roundRect(x, top-h, zone_w, h, 5, fill=1, stroke=1)
+        p = Paragraph(label, ParagraphStyle("zone", fontName=rb.BOLD,
+                          fontSize=9.5, leading=11, textColor=INK))
+        _, ph = p.wrap(zone_w-16, H)
+        p.drawOn(c, x+8, top-11-ph)
+        for line in range(3):
+            y = top-43-line*23
+            c.line(x+11, y, x+zone_w-11, y)
+    book.y -= h+7
+
+
+def draw_case30_response(book: Book) -> None:
+    book.heading("YOUR VERDICT / RESPONSE", 12)
+    for label in ("RULE", "ROOM"):
+        book.text(f"{label}: __________________________________________", 10.8, True, gap=7)
+    book.ensure(51, 6)
+    c = book.canvas
+    c.setFillColor(INK); c.setFont(rb.BOLD, 10.8)
+    c.drawString(M, book.y-17, "CODE:")
+    for i in range(6):
+        x = M+70+i*73
+        c.setFillColor(WHITE); c.setStrokeColor(INK); c.setLineWidth(1)
+        c.rect(x, book.y-39, 55, 30, fill=1, stroke=1)
+    book.y -= 50
+    book.text("DETECTIVE: OFFICIAL CALL SIGN __________________________", 10.8, True, gap=5)
+
+
 def draw_visual_payload(book: Book, number: int, mission: dict) -> bool:
     """Draw the nonspatial evidence as an inspectable physical surface."""
     c = book.canvas
+    if number == 9:
+        draw_case09_marks(book)
+        return True
     if number == 8:
         route = mission["route"]
         book.text(f"START: {route['start']}     GOAL: {route['goal']}", 10.5, True)
@@ -605,7 +782,7 @@ def draw_visual_payload(book: Book, number: int, mission: dict) -> bool:
             for name, col, row in sites:
                 bx, by = gx+col*cw, gy+(1-row)*ch
                 c.setStrokeColor(LINE); c.setFillColor(WHITE); c.rect(bx, by, cw-7, ch-5, fill=1, stroke=1)
-                c.setFillColor(INK); c.setFont(rb.BOLD, 7.5)
+                c.setFillColor(INK); c.setFont(rb.BOLD, 9.0)
                 c.drawCentredString(bx+(cw-7)/2, by+9, name)
             path = " → ".join(option.get("path", []))
             book.y = top-h+24
@@ -629,7 +806,7 @@ def draw_visual_payload(book: Book, number: int, mission: dict) -> bool:
                 c.drawString(x+10, top-17, f"RECORD {item.get('id', start+col+1)}")
                 c.setLineWidth(1.1); c.roundRect(x+12, top-77, 47, 42, 3, fill=0, stroke=1)
                 c.line(x+20, top-46, x+52, top-46)
-                p = Paragraph(inline(f"{item.get('item','')}<br/>{item.get('label','')}"),
+                p = Paragraph(inline(str(item.get('item',''))) + "<br/>" + inline(str(item.get('label',''))),
                               ParagraphStyle("item", fontName=rb.FONT, fontSize=9.4, leading=12.3))
                 _, ph = p.wrap(col_w-78, H)
                 p.drawOn(c, x+69, top-31-ph)
@@ -679,8 +856,6 @@ def draw_visual_payload(book: Book, number: int, mission: dict) -> bool:
                     "scrap", fontName=rb.BOLD, fontSize=11.2, leading=14))
                 _, pheight = ptext.wrap(165, H)
                 ptext.drawOn(c, x+29, top-54-pheight)
-                c.setFont(rb.FONT, 8.6)
-                c.drawString(x+29, top-94, f"{scrap['left_edge']}  /  {scrap['right_edge']}")
             book.y -= h+14
         return True
     if number == 24:
@@ -720,15 +895,28 @@ def draw_visual_payload(book: Book, number: int, mission: dict) -> bool:
             x = M+side*(gw+gap)
             c.setFillColor(INK); c.setFont(rb.BOLD, 11); c.drawString(x, top-15, label)
             gy = top-30-gh
-            c.setStrokeColor(INK); c.setLineWidth(.75); c.rect(x, gy, gw, gh, fill=0, stroke=1)
+            c.setStrokeColor(INK); c.setLineWidth(.85); c.rect(x, gy, gw, gh, fill=0, stroke=1)
             for i in range(1, cols): c.line(x+i*gw/cols, gy, x+i*gw/cols, gy+gh)
             for i in range(1, rows): c.line(x, gy+i*gh/rows, x+gw, gy+i*gh/rows)
             cells = overlay["old_room_cells"] if side == 0 else overlay["current_archive_wall_cells"]
-            for cell in cells:
-                col, row = ord(cell[0])-65, int(cell[1:])-1
-                xx = x+col*gw/cols; yy = gy+gh-(row+1)*gh/rows
-                c.setFillColor(PALE if side else WHITE); c.setStrokeColor(INK)
-                c.rect(xx+1, yy+1, gw/cols-2, gh/rows-2, fill=1, stroke=1)
+            if set(cells) != {"D2", "E2", "D3", "E3"}:
+                raise ValueError("Case 27 locked old/current footprint drift")
+            rx = x+3*gw/cols
+            ry = gy+gh-3*gh/rows
+            rw, rh = 2*gw/cols, 2*gh/rows
+            if side == 0:
+                c.setFillColor(WHITE); c.setStrokeColor(INK); c.setLineWidth(1.6)
+                c.rect(rx, ry, rw, rh, fill=1, stroke=1)
+                room_label = "TRAINING ROOM"
+                c.setFillColor(INK)
+            else:
+                c.setFillColor(colors.HexColor("#555555")); c.setStrokeColor(INK)
+                c.setLineWidth(1.6)
+                c.rect(rx, ry, rw, rh, fill=1, stroke=1)
+                room_label = "ARCHIVE WALL"
+                c.setFillColor(WHITE)
+            c.setFont(rb.BOLD, 8.0)
+            c.drawCentredString(rx+rw/2, ry+rh/2-3, room_label)
             c.setFillColor(INK); c.setFont(rb.BOLD, 8.5)
             for a in overlay["anchors"]:
                 cell = a["old_cell"] if side == 0 else a["current_cell"]
@@ -741,6 +929,9 @@ def draw_visual_payload(book: Book, number: int, mission: dict) -> bool:
                 c.drawString(x+2, gy+gh-(row+.55)*gh/rows, str(row+1))
         book.y = top-gh-52
         book.text(overlay["transform"], 10.2, True)
+        return True
+    if number == 28:
+        draw_case28_sort(book, mission)
         return True
     return False
 
@@ -763,10 +954,15 @@ def draw_other_evidence(book: Book, number: int, mission: dict, sections: dict) 
                 raise ValueError(f"Case {number:02d}: no source-backed evidence payload")
             for idx, card in enumerate(cards, 1):
                 book.card(f"EVIDENCE {idx:02d}", card)
+    if number == 26:
+        draw_case26_boxes(book, mission)
     response = sections.get("YOUR VERDICT / RESPONSE", "")
     if response:
-        book.heading("YOUR VERDICT / RESPONSE", 12)
-        book.render_md(response, 11)
+        if number == 30:
+            draw_case30_response(book)
+        else:
+            book.heading("YOUR VERDICT / RESPONSE", 12)
+            book.render_md(response, 11)
     for extra in ("DIFFERENCE TRACKER", "CASE WALL -> PAGE 9"):
         if sections.get(extra):
             book.heading(extra, 12)
@@ -795,7 +991,7 @@ def draw_front(book: Book, front: list[dict]) -> None:
             book.render_md("\n".join(item["markdown"].splitlines()[1:]), 11)
         elif number == 3:
             book.heading("YOUR SQUAD", 21)
-            book.image(ROOT/"assets/production/squad-scanner.png", TEXT_W, 350)
+            book.image(PRINT_DERIVATIVES/"squad_scanner_print.png", TEXT_W, 350)
             book.render_md("\n".join(item["markdown"].splitlines()[1:]), 12, compact=True)
         elif number == 9:
             book.heading("YOUR CASE WALL + HINT VAULT", 19)
@@ -840,7 +1036,7 @@ def draw_front(book: Book, front: list[dict]) -> None:
                                   fontSize=9.4, leading=12.4))
                     _, ph = p.wrap(col_w-35, H)
                     h = max(30, ph+12)
-                    book.canvas.setStrokeColor(LINE); book.canvas.setLineWidth(.55)
+                    book.canvas.setStrokeColor(LINE); book.canvas.setLineWidth(.85)
                     book.canvas.line(x, y-h, x+col_w, y-h)
                     book.canvas.setFillColor(INK); book.canvas.setFont(rb.BOLD, 10)
                     book.canvas.drawString(x+2, y-15, number_text)
@@ -856,9 +1052,102 @@ def draw_front(book: Book, front: list[dict]) -> None:
         book.end()
 
 
+def draw_story_comms(book: Book, beats: list[tuple[str, str]], label: str) -> None:
+    """Keep meta-thread dialogue in readable, ordered full-width transcripts."""
+    style = ParagraphStyle("story_comms", fontName=rb.FONT, fontSize=10.4,
+                           leading=14.4, textColor=WHITE)
+    rendered = []
+    for kind, line in beats:
+        if kind == "narration":
+            markup = f"<i>{inline(line)}</i>"
+        else:
+            speaker, speech = line.split(":", 1) if ":" in line else ("CHAT", line)
+            if speaker.startswith("**") and speech.startswith("**"):
+                speech = speech[2:].lstrip()
+            markup = f"<b>{html.escape(plain(speaker).upper())}</b>  {inline(speech.strip())}"
+        paragraph = Paragraph(markup, style)
+        _, height = paragraph.wrap(TEXT_W-36, H)
+        rendered.append((paragraph, height))
+
+    def paint(chunk: list[tuple[Paragraph, float]]) -> None:
+        panel_h = 45 + sum(height + 8 for _, height in chunk)
+        if book.y - panel_h - 12 < BOTTOM:
+            book.begin("story bridge", label=label)
+        x, top = M, book.y
+        draw_dark_grid(book.canvas, x, top-panel_h, TEXT_W, panel_h,
+                       step=17, radius=8, alpha=0.13)
+        book.canvas.setFillColor(WHITE); book.canvas.setFont(rb.BOLD, 9.4)
+        book.canvas.drawString(x+18, top-21, "HAPPY MAKERS // COMMS")
+        yy = top-40
+        for paragraph, height in chunk:
+            paragraph.drawOn(book.canvas, x+18, yy-height)
+            yy -= height + 8
+        book.y -= panel_h + 12
+
+    chunk: list[tuple[Paragraph, float]] = []
+    chunk_h = 45
+    for item in rendered:
+        if chunk and chunk_h + item[1] + 8 > 600:
+            paint(chunk)
+            chunk, chunk_h = [], 45
+        chunk.append(item)
+        chunk_h += item[1] + 8
+    if chunk:
+        paint(chunk)
+
+
+def draw_story_bridge(book: Book, block: dict) -> None:
+    """Use the case COMMS language for the three explicit Room Zero chats."""
+    finale = block["title"] == "ROOM ZERO // THE EXPLANATION"
+    if finale:
+        label = "ROOM ZERO // DEBRIEF"
+    elif block["title"] == "ROOM ZERO THREAD // FOUR MATCHING MARKS":
+        label = "ROOM ZERO // FOUR MATCHING MARKS"
+    else:
+        label = "ROOM ZERO // OLD CASES RETURN"
+    book.begin("story bridge", label=label)
+    in_chat = False
+    beats: list[tuple[str, str]] = []
+
+    def flush() -> None:
+        if beats:
+            draw_story_comms(book, beats, label)
+            beats.clear()
+
+    blocks = paragraphs(block["markdown"])
+    for position, (kind, value) in enumerate(blocks):
+        if kind == "heading":
+            flush()
+            title = plain(value).upper()
+            if title == "HAPPY MAKERS CHAT":
+                in_chat = True
+                continue
+            if finale and title == "THE SIXTH HOOK":
+                book.begin("story bridge", label="THE SIXTH HOOK")
+                label = "THE SIXTH HOOK"
+            in_chat = False
+            book.heading(value, 18)
+        elif kind == "bullet" and in_chat:
+            beats.append(("speaker", value))
+        elif (kind == "body" and in_chat and position + 1 < len(blocks)
+              and blocks[position + 1][0] == "bullet"):
+            beats.append(("narration", value))
+        else:
+            flush()
+            if kind == "bullet":
+                book.text("• " + value, size=10.6, gap=5)
+            elif kind == "number":
+                book.text(value, size=10.6, gap=5)
+            else:
+                book.text(value, size=10.8, gap=10)
+    flush()
+    book.end()
+
+
 def build(pdf_path: Path) -> dict:
     source = build_contract()
     assets = verify_assets()
+    derivatives = prepare_print_derivatives()
     old = yaml.safe_load(MASTER.read_text(encoding="utf-8"))
     missions = {int(m["number"]): m for m in old["missions"]}
     runtime = json.loads(RUNTIME.read_text(encoding="utf-8"))
@@ -869,17 +1158,24 @@ def build(pdf_path: Path) -> dict:
     draw_front(book, source["front_pages"])
     for block in source["main_flow"]:
         if block["kind"] == "section":
-            book.begin("story bridge", label=block["title"][:33])
-            book.render_md(block["markdown"], 18)
-            if block["title"].startswith("ARCHIVE FILE 001"):
-                book.image(OWNER_DIR/"book2_archive_photo.png", 250, 340)
-            book.end()
+            if block["title"] in (
+                "ROOM ZERO THREAD // FOUR MATCHING MARKS",
+                "ROOM ZERO THREAD // THE OLD CASES COME BACK",
+                "ROOM ZERO // THE EXPLANATION",
+            ):
+                draw_story_bridge(book, block)
+            else:
+                book.begin("story bridge", label=block["title"][:33])
+                book.render_md(block["markdown"], 18)
+                if block["title"].startswith("ARCHIVE FILE 001"):
+                    book.image(PRINT_DERIVATIVES/"book2_archive_photo_canon_print.png", 250, 340)
+                book.end()
         else:
             number = block["number"]
             case = next(v for v in source["main_cases"] if v["number"] == number)
             sections = draw_case_brief(book, case)
             if number in spatial:
-                draw_witness_board(book, spatial[number], number)
+                draw_witness_board(book, spatial[number], number, case["title"])
                 draw_map(book, spatial[number], number, response=sections.get("YOUR VERDICT / RESPONSE", ""))
                 if sections.get("CASE WALL -> PAGE 9"):
                     book.begin("case wall update", number, label=f"case {number:02d} / case wall")
@@ -888,7 +1184,7 @@ def build(pdf_path: Path) -> dict:
             elif number == 1:
                 draw_case01(book, missions[number], sections)
             elif number == 3:
-                draw_case03(book, sections)
+                draw_case03(book, sections, case["title"])
             else:
                 draw_other_evidence(book, number, missions[number], sections)
     book.begin("stop divider", label="STOP / HINT VAULT")
@@ -911,17 +1207,24 @@ def build(pdf_path: Path) -> dict:
     for case in source["solution_files"]:
         number = case["number"]
         book.begin("solution", number, "reverse", f"solution / case {number:02d}")
-        book.render_md(case["markdown"], 15)
+        book.render_md(project_solution_markdown(number, case["markdown"]), 15)
         if number == 3:
             book.image(OWNER_DIR/"case03_solution.png", 370, 460)
         book.end()
         if number in spatial:
             draw_map(book, spatial[number], number, True)
+    if book.page % 2:
+        book.begin("reverse closing", side="reverse", label="case closed")
+        book.y = 510
+        book.heading("CASE CLOSED", 27)
+        draw_scanner_question_mark(book.canvas, W/2, 330)
+        book.end()
     book.save()
     qa = {
         "status": "RENDERED_REVIEW_REQUIRED" if not book.errors else "BLOCKED",
         "source_blob_sha1": source["authority"]["blob_sha1"],
         "assets": assets,
+        "derived_print_assets": derivatives["derivatives"],
         "physical_pages": len(book.index),
         "front_pages": 10,
         "main_cases": 30,

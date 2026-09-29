@@ -13,7 +13,7 @@ from pypdf.generic import ContentStream
 from audit_pdf_grayscale import audit_pdf_grayscale
 from audit_v3_premium_interior import audit as audit_regression, norm
 from build_v3_final_text_contract import build_contract
-from build_v3_premium_interior import DEFAULT_PDF, ROOT, sha, verify_assets
+from build_v3_premium_interior import DEFAULT_PDF, PRINT_DERIVATIVES, ROOT, sha, verify_assets
 
 
 def check(pdf: Path) -> dict:
@@ -40,6 +40,13 @@ def check(pdf: Path) -> dict:
         errors.append("a locked spatial case does not have a unique verified solution")
     if verify_assets() != render["assets"]:
         errors.append("owner or map asset contract drift")
+    derivatives = render.get("derived_print_assets", {})
+    if len(derivatives) != 4:
+        errors.append("expected four traceable print derivatives")
+    for name, record in derivatives.items():
+        if sha(ROOT / record["source"]) != record["source_sha256"] or \
+                sha(PRINT_DERIVATIVES / name) != record["derivative_sha256"]:
+            errors.append(f"print derivative hash drift: {name}")
 
     # ReportLab registers unused Helvetica as /F1. Inspect text-show operators so
     # the embedding gate applies to fonts actually used to print the book.
@@ -68,6 +75,8 @@ def check(pdf: Path) -> dict:
     # the 30 pt horizontal / 18 pt vertical trim inset.
     unsafe_glyphs: list[dict] = []
     unsafe_images: list[dict] = []
+    image_dpi: list[dict] = []
+    thin_vector_strokes: list[dict] = []
     with pdfplumber.open(pdf) as document:
         for page_number, page in enumerate(document.pages, 1):
             for glyph in page.chars:
@@ -76,8 +85,21 @@ def check(pdf: Path) -> dict:
             for picture in page.images:
                 if picture["x0"] < 30 or picture["x1"] > 582 or picture["top"] < 18 or picture["bottom"] > 774:
                     unsafe_images.append({"page": page_number, "bbox": [picture[k] for k in ("x0", "top", "x1", "bottom")]})
+                src_w, src_h = picture["srcsize"]
+                dpi = min(src_w * 72 / picture["width"], src_h * 72 / picture["height"])
+                image_dpi.append({"page": page_number, "effective_dpi": round(dpi, 1)})
+                if dpi < 300:
+                    errors.append(f"page {page_number}: embedded picture is {dpi:.1f} effective DPI")
+            for shape in page.lines + page.rects + page.curves:
+                width = float(shape.get("linewidth") or 0)
+                if 0 < width < 0.849:
+                    thin_vector_strokes.append({"page": page_number, "width_pt": width})
     if unsafe_glyphs or unsafe_images:
         errors.append(f"trim inset exceeded: {len(unsafe_glyphs)} glyphs, {len(unsafe_images)} images")
+    if thin_vector_strokes:
+        errors.append(f"{len(thin_vector_strokes)} vector strokes thinner than 0.85 pt")
+    if len(reader.pages) % 2:
+        errors.append("odd manuscript page count would create an uncontrolled KDP blank")
 
     cases = source["main_cases"]
     index_text = norm(reader.pages[9].extract_text())
@@ -136,6 +158,12 @@ def check(pdf: Path) -> dict:
         "source_commit": source["authority"]["source_commit"],
         "source_blob_sha1": source["authority"]["blob_sha1"],
         "exact_assets": render["assets"],
+        "derived_print_assets": derivatives,
+        "print_images": {"count": len(image_dpi), "minimum_effective_dpi": min(v["effective_dpi"] for v in image_dpi),
+                         "under_300_dpi": [v for v in image_dpi if v["effective_dpi"] < 300],
+                         "source_detail_note": "Lanczos derivatives increase effective print DPI but add no source detail."},
+        "vector_lines": {"minimum_required_pt": 0.85, "thin_strokes": thin_vector_strokes[:30]},
+        "effective_kdp_page_count": len(reader.pages),
         "used_embedded_fonts": sorted(used_font_names),
         "unused_unembedded_default_font": "/Helvetica" if "/Helvetica" not in used_font_names else None,
         "grayscale": {"status": grayscale["status"], "vector_operators": grayscale["vector_color_operators_checked"], "images": grayscale["embedded_images_checked"]},

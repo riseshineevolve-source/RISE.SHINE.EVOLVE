@@ -366,10 +366,10 @@ def mission_brief_page(c,data,m,page_no,progress):
     if y>110: label(c,'CASE STATUS // OPEN / EVIDENCE NOT YET VERIFIED',M,65)
     footer(c,page_no); c.showPage()
 
-def draw_tutorial_grid(c,tut,x,y,w,h,solution=False):
+def draw_tutorial_grid(c,tut,x,y,w,h,solution=False,stroke_width=0.6):
     n=tut['size']; cw=w/n; ch=h/n
     c.setFillColor(WHITE); c.rect(x,y,w,h,fill=1,stroke=0)
-    c.setStrokeColor(LINE); c.setLineWidth(0.6)
+    c.setStrokeColor(LINE); c.setLineWidth(stroke_width)
     for i in range(n+1):
         c.line(x+i*cw,y,x+i*cw,y+h); c.line(x,y+i*ch,x+w,y+i*ch)
     # All writable grid cells are white. Room ownership is shown by walls,
@@ -383,7 +383,7 @@ def draw_tutorial_grid(c,tut,x,y,w,h,solution=False):
         cell=room['cells'][0]; col=ord(cell[0])-65; row=int(cell[1:])-1
         cx=x+(col+0.08)*cw; cy=y+h-(row+0.20)*ch
         c.setFillColor(BLACK); c.setFont(BOLD,11); c.drawString(cx,cy,room['name'])
-    c.setStrokeColor(colors.HexColor('#B8B8B8')); c.setLineWidth(0.6)
+    c.setStrokeColor(colors.HexColor('#B8B8B8')); c.setLineWidth(stroke_width)
     for i in range(n+1):
         c.line(x+i*cw,y,x+i*cw,y+h); c.line(x,y+i*ch,x+w,y+i*ch)
     c.setStrokeColor(BLACK); c.setLineWidth(1.3)
