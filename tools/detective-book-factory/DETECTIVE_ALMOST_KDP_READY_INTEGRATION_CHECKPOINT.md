@@ -98,3 +98,7 @@ Next gates are:
 owner page-by-page visual review -> bounded fixes -> KDP Previewer -> representative physical proof -> explicit EN freeze -> final cover spine from frozen page count -> owner-controlled KDP upload/publication.
 
 Do not revert reader copy to the old 146-page artifact, but do not preserve the compact 127-page pagination either. Let the proper production renderer determine the count from current V3.
+
+## Verified premium interior delta — 2026-09-29
+
+The premium V3 owner-review interior has now been rendered with 180 naturally paginated Letter pages. Its PDF SHA-256 is `2a2fffebfe43ddc4d3e50c22e27b1e9bb68225d01a6a786ca9e0c118996af858`. All 15 Witness Board/map pairs are even-left/next-odd-right, and Case 03 Photo A/B are pages 20/21. Automated source, asset, unique spatial solution, reader-copy, print geometry, grayscale, font-use and reverse-entry checks pass. All 180 pages were rendered and inspected in nine numbered contact sheets, with representative enlarged inspection. Exact results, paths, provenance caveats and the remaining owner gates are in `HMDA_BOOK1_V3_PREMIUM_INTERIOR_CHECKPOINT_2026-09-29.md`. English remains unfrozen; this does not authorize KDP publication or a merge to `main`.

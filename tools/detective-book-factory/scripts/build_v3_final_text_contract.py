@@ -40,7 +40,7 @@ def _blocks(section: str, pattern: str) -> list[dict]:
         stop = matches[index + 1].start() if index + 1 < len(matches) else len(section)
         blocks.append({
             "number": int(match.group("number")),
-            "title": match.groupdict().get("title", "").strip(),
+            "title": (match.groupdict().get("title") or "").strip(),
             "markdown": section[start:stop].rstrip() + "\n",
         })
     return blocks
@@ -64,7 +64,7 @@ def _cases(main: str) -> list[dict]:
         rank = re.search(r"^\*\*RANK:\*\*\s*(.+?)\s*$", raw, flags=re.MULTILINE)
         block["status"] = status.group(1).strip() if status else None
         block["rank"] = rank.group(1).strip() if rank else None
-        block["evidence_hydration_marker_present"] = "### EVIDENCE / PUZZLE TEXT" in raw
+        block["evidence_hydration_marker_present"] = "### PUZZLE / EVIDENCE SURFACE" in raw
     return blocks
 
 
@@ -73,6 +73,30 @@ def _support_cases(section: str) -> list[dict]:
         section,
         r"^## CASE (?P<number>\d{2})(?: // (?P<title>.+))?$",
     )
+
+
+def _support_intro(section: str) -> str:
+    match = re.search(r"^## CASE 01", section, flags=re.MULTILINE)
+    if match is None:
+        raise ValueError("support section lacks Case 01")
+    return section[:match.start()].strip() + "\n"
+
+
+def _ordered_main_flow(section: str) -> list[dict]:
+    """Keep act gates, Room Zero threads and cases in their source order."""
+    matches = list(re.finditer(r"^(?:# (?!#)(?P<section>.+)|## CASE (?P<number>\d{2}) // (?P<title>.+))$", section, re.MULTILINE))
+    blocks = []
+    for index, match in enumerate(matches):
+        stop = matches[index + 1].start() if index + 1 < len(matches) else len(section)
+        blocks.append({
+            "kind": "case" if match.group("number") else "section",
+            "number": int(match.group("number")) if match.group("number") else None,
+            "title": match.group("title") or match.group("section"),
+            "markdown": section[match.start():stop].rstrip() + "\n",
+        })
+    if [item["number"] for item in blocks if item["kind"] == "case"] != list(range(1, 31)):
+        raise ValueError("ordered V3 main flow lost or reordered a case")
+    return blocks
 
 
 def build_contract() -> dict:
@@ -84,14 +108,18 @@ def build_contract() -> dict:
         "# FRONT MATTER // LOCKED READER PAGES 1-10",
         "# ACT 1 // SOMETHING IS OFF",
     )
-    main = _between(text, "# ACT 1 // SOMETHING IS OFF", "# HINT VAULT // LEVEL 1")
+    main = "# ACT 1 // SOMETHING IS OFF" + _between(text, "# ACT 1 // SOMETHING IS OFF", "# HINT VAULT // LEVEL 1")
     level1 = _between(text, "# HINT VAULT // LEVEL 1", "# HINT VAULT // LEVEL 2")
     level2 = _between(text, "# HINT VAULT // LEVEL 2", "# HINT VAULT // LEVEL 3")
     level3 = _between(text, "# HINT VAULT // LEVEL 3", "# SOLUTION FILES")
-    solutions = _between(text, "# SOLUTION FILES", None)
+    solutions = _between(text, "# SOLUTION FILES", "# EDITORIAL LOCKS // NOT PRINTED")
 
     front_pages = _front_pages(front)
     cases = _cases(main)
+    main_flow = _ordered_main_flow(main)
+    ordered_cases = {item["number"]: item for item in main_flow if item["kind"] == "case"}
+    for case in cases:
+        case["markdown"] = ordered_cases[case["number"]]["markdown"]
     hint_levels = {
         "1": _support_cases(level1),
         "2": _support_cases(level2),
@@ -130,8 +158,15 @@ def build_contract() -> dict:
             "kdp_publication_authorized": False,
         },
         "front_pages": front_pages,
+        "main_flow": main_flow,
         "main_cases": cases,
         "hint_levels": hint_levels,
+        "hint_intros": {
+            "1": _support_intro(level1),
+            "2": _support_intro(level2),
+            "3": _support_intro(level3),
+        },
+        "solutions_intro": _support_intro(solutions),
         "solution_files": solution_cases,
         "regression_contract": {
             "case01_reader_aliases": ["QUILL", "MORSE", "PIP", "KNOX"],

@@ -50,7 +50,9 @@ def section_between(text: str, start: str, end: str | None) -> str:
 
 def verify() -> dict[str, object]:
     require(SOURCE.is_file(), f"missing canonical V3 source snapshot: {SOURCE}")
-    data = SOURCE.read_bytes()
+    # Git's canonical blob is LF; a Windows checkout may materialize CRLF.
+    # Normalize only line endings before checking the exact repository blob.
+    data = SOURCE.read_bytes().replace(b"\r\n", b"\n")
     blob = git_blob_sha1(data)
     require(
         blob == EXPECTED_BLOB_SHA1,
@@ -59,7 +61,7 @@ def verify() -> dict[str, object]:
     text = data.decode("utf-8")
 
     require(
-        "FINAL TEXT MASTER FOR PRODUCTION INTEGRATION" in text,
+        "FINAL PRE-CODEX TEXT MASTER FOR PRODUCTION INTEGRATION" in text,
         "V3 source does not identify itself as the final production-integration text master",
     )
     require(
@@ -149,7 +151,7 @@ def verify() -> dict[str, object]:
         require(alias in case01_solution.upper(), f"Case 01 alias {alias} missing from Solution File")
 
     # The master contains placeholders by design; they are a production hydration gate, not release evidence.
-    placeholder_count = text.count("### EVIDENCE / PUZZLE TEXT")
+    placeholder_count = text.count("### PUZZLE / EVIDENCE SURFACE")
     require(
         placeholder_count > 0,
         "expected evidence placeholders are absent; do not silently treat prose as evidence source truth",

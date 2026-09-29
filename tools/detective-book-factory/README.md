@@ -120,6 +120,38 @@ python scripts/make_previews.py --pdf dist/HMDA_Book1.pdf --out dist/previews --
 
 ## Cloud build
 
+### V3 premium owner-review interior
+
+The 180-page V3 owner-review renderer uses the tracked final V3 text and three
+private, hash-pinned inputs: the exact owner-review ZIP, the audited V4 evidence
+master YAML used only to hydrate puzzle surfaces, and the owner-approved scanner
+squad variant. Supply these through an approved private artifact path; do not
+commit them or the generated `dist/` files. The packet's V4 master YAML is a
+different version and must not replace the audited evidence master.
+
+From `tools/detective-book-factory/`, after `pip install -r requirements.txt`:
+
+```bash
+python scripts/prepare_v3_premium_inputs.py --packet /private/final-book-owner-review.zip --evidence-master /private/book1_en_master_owner_review_v4.yml --squad-variant /private/squad-scanner.png
+python scripts/verify_v3_final_text_source.py
+python scripts/build_v3_premium_interior.py
+python scripts/validate_book1_v3_logic.py --spatial-only --runtime dist/hmda_spatial_runtime_v4.json --report dist/HMDA_Book1_EN_PREMIUM_ALMOST_KDP_READY_V3_spatial_logic.json
+python scripts/finalize_v3_premium_qa.py
+```
+
+The preparer rejects changed or missing bytes and preserves any differing local
+file. Its `--check-only` option validates the private inputs without staging
+them. The final QA JSON binds its results to the PDF SHA-256. To make the
+180-page visual review set, use Poppler's `pdftoppm` at 72 dpi to render all
+pages into `dist/v3_premium_review/final/pages/page-*.png`, then run
+`python scripts/make_v3_premium_contact_sheets.py --root dist/v3_premium_review/final`.
+The nine contact sheets and 180 page PNGs remain ignored production artifacts.
+
+Current GitHub Actions builds do not receive these private inputs. A green
+branch CI result therefore does not certify the V3 premium PDF; use the bound
+local QA report and the owner-review checkpoint until a private CI input path
+is approved.
+
 Pushes to `feature/detective-book-factory` use the Book Factory GitHub Actions pipeline for repeatable artifacts. The workflow should remain isolated from the live website until the book branch is explicitly approved for merge.
 
 ## Current next tranche
