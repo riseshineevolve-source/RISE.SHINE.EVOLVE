@@ -1,0 +1,152 @@
+{
+  "ok": true,
+  "trackedPageCount": 8,
+  "canonicalInventoryCount": 26,
+  "sitemapUrlCount": 26,
+  "retiredClaimOccurrences": [],
+  "pages": [
+    {
+      "route": "/",
+      "title": "Rise Shine Evolve Learning Hub | Coping Skills for Kids & Busy Families",
+      "description": "Books, 5-minute missions, and simple brain hacks that help kids build habits, manage big feelings, and make better daily choices—without long lectures.",
+      "canonical": "https://rise-shine-evolve-learning-hub.com/",
+      "ogTitle": "Rise Shine Evolve Learning Hub | Coping Skills for Kids & Busy Families",
+      "ogDescription": "Books, 5-minute missions, and simple brain hacks that help kids build habits, manage big feelings, and make better daily choices—without long lectures.",
+      "ogUrl": "https://rise-shine-evolve-learning-hub.com/",
+      "twitterTitle": "Rise Shine Evolve Learning Hub | Coping Skills for Kids & Busy Families",
+      "twitterDescription": "Books, 5-minute missions, and simple brain hacks that help kids build habits, manage big feelings, and make better daily choices—without long lectures.",
+      "robots": "index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1",
+      "schemaTypes": [
+        "WebSite",
+        "Organization",
+        "WebPage"
+      ],
+      "sourceLastModified": "2026-09-26"
+    },
+    {
+      "route": "/adventure-app/",
+      "title": "The Confident, Mindful & Happy Me Adventure App — Coming Soon on Google Play",
+      "description": "Discover The Confident, Mindful & Happy Me Adventure App, a 31-day mobile adventure for kids, coming soon on Google Play.",
+      "canonical": "https://rise-shine-evolve-learning-hub.com/adventure-app/",
+      "ogTitle": "The Confident, Mindful & Happy Me Adventure App — Coming Soon on Google Play",
+      "ogDescription": "A 31-day mobile adventure for kids focused on confidence, big feelings and courageous growth. Coming soon on Google Play.",
+      "ogUrl": "https://rise-shine-evolve-learning-hub.com/adventure-app/",
+      "twitterTitle": "The Confident, Mindful & Happy Me Adventure App — Coming Soon on Google Play",
+      "twitterDescription": "A 31-day mobile adventure for kids focused on confidence, big feelings and courageous growth. Coming soon on Google Play.",
+      "robots": "index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1",
+      "schemaTypes": [
+        "SoftwareApplication",
+        "WebPage"
+      ],
+      "sourceLastModified": "2026-09-16"
+    },
+    {
+      "route": "/unstoppable-app/",
+      "title": "Project Unstoppable App — Coming Soon on Google Play | Rise Shine Evolve",
+      "description": "Project Unstoppable is a 31-day mobile experience for teens to level up focus, mindset, and confidence. Coming soon on Google Play.",
+      "canonical": "https://rise-shine-evolve-learning-hub.com/unstoppable-app/",
+      "ogTitle": "Project Unstoppable App — Coming Soon on Google Play | Rise Shine Evolve",
+      "ogDescription": "A 31-day Android experience for teens focused on focus, mindset and confidence. Coming soon on Google Play.",
+      "ogUrl": "https://rise-shine-evolve-learning-hub.com/unstoppable-app/",
+      "twitterTitle": "Project Unstoppable App — Coming Soon on Google Play | Rise Shine Evolve",
+      "twitterDescription": "A 31-day Android experience for teens focused on focus, mindset and confidence. Coming soon on Google Play.",
+      "robots": "index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1",
+      "schemaTypes": [
+        "SoftwareApplication",
+        "WebPage"
+      ],
+      "sourceLastModified": "2026-09-16"
+    },
+    {
+      "route": "/seniors/",
+      "title": "Seniors | Rise Shine Evolve",
+      "description": "Seniors from Rise Shine Evolve: a coming-soon mobile experience for older adults, designed around clarity, confidence, connection, and everyday usefulness.",
+      "canonical": "https://rise-shine-evolve-learning-hub.com/seniors/",
+      "ogTitle": "Seniors | Rise Shine Evolve",
+      "ogDescription": "A simple, friendly mobile experience for older adults is coming soon on Google Play.",
+      "ogUrl": "https://rise-shine-evolve-learning-hub.com/seniors/",
+      "twitterTitle": "Seniors | Rise Shine Evolve",
+      "twitterDescription": "A simple, friendly mobile experience for older adults is coming soon on Google Play.",
+      "robots": "index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1",
+      "schemaTypes": [
+        "CollectionPage",
+        "BreadcrumbList",
+        "WebPage"
+      ],
+      "sourceLastModified": "2026-09-16"
+    },
+    {
+      "route": "/guides/big-feelings/",
+      "title": "Big Feelings in Kids: Simple Everyday Tools | Rise Shine Evolve",
+      "description": "A practical guide to helping kids move through big feelings with less pressure: pause, connect, name what is happening, then choose one small next step.",
+      "canonical": "https://rise-shine-evolve-learning-hub.com/guides/big-feelings/",
+      "ogTitle": "Big Feelings in Kids: Simple Everyday Tools | Rise Shine Evolve",
+      "ogDescription": "A practical guide to helping kids move through big feelings with less pressure: pause, connect, name what is happening, then choose one small next step.",
+      "ogUrl": "https://rise-shine-evolve-learning-hub.com/guides/big-feelings/",
+      "twitterTitle": "Big Feelings in Kids: Simple Everyday Tools | Rise Shine Evolve",
+      "twitterDescription": "A practical guide to helping kids move through big feelings with less pressure: pause, connect, name what is happening, then choose one small next step.",
+      "robots": "index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1",
+      "schemaTypes": [
+        "WebPage",
+        "FAQPage",
+        "BreadcrumbList"
+      ],
+      "sourceLastModified": "2026-09-16"
+    },
+    {
+      "route": "/guides/confidence-for-kids/",
+      "title": "Confidence for Kids: Build It Through Practice | Rise Shine Evolve",
+      "description": "Help kids build confidence through small brave actions, useful self-talk, specific feedback and repeatable practice instead of pressure to feel fearless.",
+      "canonical": "https://rise-shine-evolve-learning-hub.com/guides/confidence-for-kids/",
+      "ogTitle": "Confidence for Kids: Build It Through Practice | Rise Shine Evolve",
+      "ogDescription": "Help kids build confidence through small brave actions, useful self-talk, specific feedback and repeatable practice instead of pressure to feel fearless.",
+      "ogUrl": "https://rise-shine-evolve-learning-hub.com/guides/confidence-for-kids/",
+      "twitterTitle": "Confidence for Kids: Build It Through Practice | Rise Shine Evolve",
+      "twitterDescription": "Help kids build confidence through small brave actions, useful self-talk, specific feedback and repeatable practice instead of pressure to feel fearless.",
+      "robots": "index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1",
+      "schemaTypes": [
+        "WebPage",
+        "FAQPage",
+        "BreadcrumbList"
+      ],
+      "sourceLastModified": "2026-09-16"
+    },
+    {
+      "route": "/guides/after-school-crash/",
+      "title": "After-School Crash: A Gentler Reset for Kids | Rise Shine Evolve",
+      "description": "A practical after-school reset for kids who come home tired, snappy or overwhelmed: lower demands, meet basic needs, reconnect, then talk when the pressure drops.",
+      "canonical": "https://rise-shine-evolve-learning-hub.com/guides/after-school-crash/",
+      "ogTitle": "After-School Crash: A Gentler Reset for Kids | Rise Shine Evolve",
+      "ogDescription": "A practical after-school reset for kids who come home tired, snappy or overwhelmed: lower demands, meet basic needs, reconnect, then talk when the pressure drops.",
+      "ogUrl": "https://rise-shine-evolve-learning-hub.com/guides/after-school-crash/",
+      "twitterTitle": "After-School Crash: A Gentler Reset for Kids | Rise Shine Evolve",
+      "twitterDescription": "A practical after-school reset for kids who come home tired, snappy or overwhelmed: lower demands, meet basic needs, reconnect, then talk when the pressure drops.",
+      "robots": "index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1",
+      "schemaTypes": [
+        "WebPage",
+        "FAQPage",
+        "BreadcrumbList"
+      ],
+      "sourceLastModified": "2026-09-16"
+    },
+    {
+      "route": "/guides/screen-balance/",
+      "title": "Screen Balance for Kids: Fewer Battles, Better Transitions | Rise Shine Evolve",
+      "description": "Make screen transitions easier with clear endings, predictable routines, replacement activities and fewer in-the-moment negotiations. A practical family guide.",
+      "canonical": "https://rise-shine-evolve-learning-hub.com/guides/screen-balance/",
+      "ogTitle": "Screen Balance for Kids: Fewer Battles, Better Transitions | Rise Shine Evolve",
+      "ogDescription": "Make screen transitions easier with clear endings, predictable routines, replacement activities and fewer in-the-moment negotiations. A practical family guide.",
+      "ogUrl": "https://rise-shine-evolve-learning-hub.com/guides/screen-balance/",
+      "twitterTitle": "Screen Balance for Kids: Fewer Battles, Better Transitions | Rise Shine Evolve",
+      "twitterDescription": "Make screen transitions easier with clear endings, predictable routines, replacement activities and fewer in-the-moment negotiations. A practical family guide.",
+      "robots": "index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1",
+      "schemaTypes": [
+        "WebPage",
+        "FAQPage",
+        "BreadcrumbList"
+      ],
+      "sourceLastModified": "2026-09-16"
+    }
+  ],
+  "errors": []
+}
