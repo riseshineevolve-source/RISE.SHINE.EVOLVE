@@ -9,10 +9,11 @@
     "seo:audit": "node scripts/seo-audit.js",
     "seo:all": "node scripts/seo-all.js",
     "ai:validate": "node scripts/validate-ai-discovery.mjs",
+    "ai:technical": "node scripts/audit-discovery.mjs",
     "ai:eval:validate": "node scripts/validate-ai-eval.mjs",
     "ai:eval:template": "node scripts/validate-ai-eval.mjs --results reports/ai-discovery/baseline-template.json",
     "production:verify": "node scripts/verify-production-delivery.mjs",
-    "quality:all": "npm run seo:all && npm run ai:validate && npm run ai:eval:validate && npm run ai:eval:template",
+    "quality:all": "npm run seo:all && npm run ai:validate && npm run ai:technical && npm run ai:eval:validate && npm run ai:eval:template",
     "indexnow:submit": "node scripts/indexnow-submit.mjs",
     "analytics:validate": "node scripts/validate-analytics-consent.mjs"
   },

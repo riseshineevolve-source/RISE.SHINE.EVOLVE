@@ -50,7 +50,7 @@
 
 - ✅ Open Graph image dimensions/type added (`og:image:width`, `og:image:height`, `og:image:type`) across SEO pages
 
-- ✅ Added explicit `WebPage` JSON-LD (+ `primaryImageOfPage`) for hubs/landing pages and `SearchAction` on homepage `WebSite`
+- ✅ Added explicit `WebPage` JSON-LD (+ `primaryImageOfPage`) for hubs/landing pages. Removed the homepage `SearchAction` because `/site-map/` is a static index, not a working search endpoint.
 
 - ✅ `sitemap.xml` enriched with image sitemap entries (`image:image`) for richer discovery signals
 

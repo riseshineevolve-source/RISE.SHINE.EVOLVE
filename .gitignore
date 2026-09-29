@@ -3,3 +3,5 @@ node_modules/
 npm-debug.log*
 .yarn*
 .pnp.*
+reports/seo-status.json
+reports/ai-discovery/production-delivery-run.json

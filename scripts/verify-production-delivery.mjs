@@ -39,6 +39,12 @@ const checks = [
     forbidden: retiredAppPatterns
   },
   {
+    route: '/seniors/',
+    localPath: 'seniors/index.html',
+    required: ['Coming soon on Google Play'],
+    forbidden: retiredAppPatterns
+  },
+  {
     route: '/guides/big-feelings/',
     localPath: 'guides/big-feelings/index.html',
     required: ['Big feelings in kids', 'pause, connect, name, choose'],
@@ -60,6 +66,12 @@ const checks = [
     route: '/guides/screen-balance/',
     localPath: 'guides/screen-balance/index.html',
     required: ['Screen balance for kids', 'four-part screen transition'],
+    forbidden: []
+  },
+  {
+    route: '/site-map/',
+    localPath: 'site-map/index.html',
+    required: ['/adventure-app/', '/unstoppable-app/', '/guides/big-feelings/'],
     forbidden: []
   },
   {
@@ -168,7 +180,8 @@ async function runCheck(check) {
       }
     }
 
-    result.passed = result.okHttp && result.missingRequiredMarkers.length === 0 && result.forbiddenMarkersFound.length === 0;
+    result.passed = result.okHttp && result.exactBodyMatch &&
+      result.missingRequiredMarkers.length === 0 && result.forbiddenMarkersFound.length === 0;
   } catch (error) {
     result.error = `${error.name || 'Error'}: ${error.message || String(error)}`;
   }
