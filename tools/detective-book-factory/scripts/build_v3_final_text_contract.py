@@ -47,10 +47,38 @@ def _blocks(section: str, pattern: str) -> list[dict]:
 
 
 def _front_pages(front: str) -> list[dict]:
-    return _blocks(
-        front,
-        r"^## PAGE (?P<number>\d{1,2}) // (?P<title>.+)$",
+    # Canonical V3 keeps production page labels only on the first three pages.
+    # The remaining seven section titles are the reader-facing page markers.
+    markers = (
+        r"## PAGE 1 // TITLE + THE UNEXPLAINED SLOT",
+        r"## PAGE 2 // PUBLICATION RECORD",
+        r"## PAGE 3 // THE BLACK ENVELOPE",
+        r"## WELCOME TO THE DETECTIVE ACADEMY",
+        r"## CLAIM YOUR RECRUIT CREDENTIAL",
+        r"## WHAT YOU ARE ABOUT TO WALK INTO",
+        r"## HOW EVERY CASE WORKS",
+        r"## MAP CASES — READ THIS ONCE",
+        r"## YOUR CASE WALL + HINT VAULT",
+        r"## CASE INDEX",
     )
+    matches = []
+    for number, marker in enumerate(markers, 1):
+        found = list(re.finditer(r"^" + re.escape(marker) + r"$", front, re.MULTILINE))
+        if len(found) != 1:
+            raise ValueError(f"V3 front page {number} marker missing or duplicated: {marker}")
+        matches.append(found[0])
+    if [match.start() for match in matches] != sorted(match.start() for match in matches):
+        raise ValueError("V3 front page markers are out of order")
+    if len(re.findall(r"^## ", front, re.MULTILINE)) != len(markers):
+        raise ValueError("V3 front matter contains an unexpected page section")
+    return [
+        {
+            "number": number,
+            "title": marker[3:],
+            "markdown": front[match.start():matches[number].start() if number < len(matches) else len(front)].rstrip() + "\n",
+        }
+        for number, (marker, match) in enumerate(zip(markers, matches), 1)
+    ]
 
 
 def _cases(main: str) -> list[dict]:

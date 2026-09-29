@@ -174,6 +174,8 @@ class Book:
         self.canvas = canvas.Canvas(str(path), pagesize=letter, pageCompression=1)
         self.canvas.setTitle("Happy Makers Detective Academy - The Mystery of Room Zero - Book 1")
         self.canvas.setAuthor("Rise.Shine.Evolve")
+        self.canvas.setCreator("Rise.Shine.Evolve")
+        self.canvas.setSubject("Detective puzzle and logic activity book for ages 8-12")
         self.path = path
         self.page = 0
         self.open = False
@@ -710,26 +712,27 @@ def draw_case28_sort(book: Book, mission: dict) -> None:
         raise ValueError("Case 28 claim-card count drift")
     c = book.canvas
     col_w = (TEXT_W-12)/2
+    card_h, card_step = 60, 65
     for start in range(0, 6, 2):
-        book.ensure(75, 7)
+        book.ensure(card_h, 5)
         for col, item in enumerate(cards[start:start+2]):
             x, top = M+col*(col_w+12), book.y
             c.setFillColor(WHITE); c.setStrokeColor(LINE); c.setLineWidth(.85)
-            c.roundRect(x, top-75, col_w, 75, 5, fill=1, stroke=1)
+            c.roundRect(x, top-card_h, col_w, card_h, 5, fill=1, stroke=1)
             c.setFillColor(INK); c.setFont(rb.BOLD, 9.4)
             c.drawString(x+11, top-17, f"CLAIM {chr(65+start+col)}")
             p = Paragraph(inline(item["text"]), ParagraphStyle(
                 "claim", fontName=rb.FONT, fontSize=10.2, leading=13))
             _, ph = p.wrap(col_w-22, H)
             p.drawOn(c, x+11, top-24-ph)
-        book.y -= 82
+        book.y -= card_step
     book.heading("DAMAGED RULE CARD", 12)
     book.card("RULE ZERO", "**ZERO ____________. NOTICE FIRST. THEORIZE SECOND.**", "objective")
     book.heading("SORT THE CLAIMS", 12)
     zone_labels = ("FACT", "THEORY", "UNSUPPORTED ASSUMPTION")
     gap = 9
     zone_w = (TEXT_W-2*gap)/3
-    h = 112
+    h = 96
     book.ensure(h, 7)
     for i, label in enumerate(zone_labels):
         x, top = M+i*(zone_w+gap), book.y
@@ -740,7 +743,7 @@ def draw_case28_sort(book: Book, mission: dict) -> None:
         _, ph = p.wrap(zone_w-16, H)
         p.drawOn(c, x+8, top-11-ph)
         for line in range(3):
-            y = top-43-line*23
+            y = top-38-line*22
             c.line(x+11, y, x+zone_w-11, y)
     book.y -= h+7
 
@@ -973,8 +976,43 @@ def draw_other_evidence(book: Book, number: int, mission: dict, sections: dict) 
     for extra in ("DIFFERENCE TRACKER", "CASE WALL -> PAGE 9"):
         if sections.get(extra):
             book.heading(extra, 12)
-            book.render_md(sections[extra], 11)
+            if number == 28 and extra == "CASE WALL -> PAGE 9":
+                blocks = paragraphs(sections[extra])
+                if len(blocks) != 3 or any(kind != "body" for kind, _ in blocks):
+                    raise ValueError("Case 28 canonical Case Wall handoff drift")
+                book.text(" ".join(value for _, value in blocks), size=9.35, gap=4)
+            else:
+                book.render_md(sections[extra], 11)
     book.end()
+
+
+def draw_front_comms(book: Book, beats: list[str], x: float, top: float,
+                     width: float, font_size: float, leading: float,
+                     beat_gap: float) -> float:
+    """Render canonical front-matter dialogue in the established COMMS family."""
+    style = ParagraphStyle("front_comms", fontName=rb.FONT, fontSize=font_size,
+                           leading=leading, textColor=WHITE)
+    rendered = []
+    for beat in beats:
+        speaker, speech = beat.split(":", 1)
+        if speaker.startswith("**") and speech.startswith("**"):
+            speech = speech[2:].lstrip()
+        markup = f"<b>{html.escape(plain(speaker).upper())}:</b>&nbsp;{inline(speech.strip())}"
+        paragraph = Paragraph(markup, style)
+        _, height = paragraph.wrap(width-28, H)
+        rendered.append((paragraph, height))
+    panel_h = 31 + sum(height + beat_gap for _, height in rendered)
+    if top-panel_h < BOTTOM:
+        raise ValueError("front-matter COMMS panel does not fit")
+    draw_dark_grid(book.canvas, x, top-panel_h, width, panel_h,
+                   step=17, radius=7, alpha=0.13)
+    book.canvas.setFillColor(WHITE); book.canvas.setFont(rb.BOLD, 9.0)
+    book.canvas.drawString(x+14, top-18, "HAPPY MAKERS // COMMS")
+    y = top-29
+    for paragraph, height in rendered:
+        paragraph.drawOn(book.canvas, x+14, y-height)
+        y -= height + beat_gap
+    return top-panel_h
 
 
 def draw_front(book: Book, front: list[dict]) -> None:
@@ -1000,6 +1038,14 @@ def draw_front(book: Book, front: list[dict]) -> None:
             book.heading("YOUR SQUAD", 21)
             book.image(PRINT_DERIVATIVES/"squad_scanner_print.png", TEXT_W, 350)
             book.render_md("\n".join(item["markdown"].splitlines()[1:]), 12, compact=True)
+        elif number == 4:
+            body, chat = item["markdown"].split("### HAPPY MAKERS CHAT", 1)
+            beats = [value for kind, value in paragraphs(chat) if kind == "bullet"]
+            if len(beats) != 6:
+                raise ValueError("welcome-page canonical COMMS dialogue drift")
+            book.render_md(body, 17, compact=True)
+            book.y = draw_front_comms(book, beats, M, book.y-2, TEXT_W,
+                                      font_size=9.5, leading=13.2, beat_gap=4) - 5
         elif number == 9:
             book.heading("YOUR CASE WALL + HINT VAULT", 19)
             body = "\n".join(project_front_markdown(number, item["markdown"]).splitlines()[1:])
@@ -1009,7 +1055,27 @@ def draw_front(book: Book, front: list[dict]) -> None:
             copy_right_w = TEXT_W-copy_left_w-19
             def column(markdown: str, x: float, top: float, width: float) -> float:
                 y = top
-                for kind, value in paragraphs(markdown):
+                blocks = paragraphs(markdown)
+                position = 0
+                while position < len(blocks):
+                    kind, value = blocks[position]
+                    if kind == "heading" and plain(value) == "HAPPY MAKERS CHAT":
+                        beats = []
+                        position += 1
+                        while position < len(blocks) and blocks[position][0] == "bullet":
+                            beats.append(blocks[position][1])
+                            position += 1
+                        if len(beats) != 5:
+                            raise ValueError("page 9 canonical COMMS dialogue drift")
+                        y = draw_front_comms(book, beats, x, y-2, width,
+                                             font_size=8.6, leading=10.8, beat_gap=2) - 4
+                        continue
+                    if kind == "body" and value == (
+                        "**MATCHING MARKS** **MESSAGES / RULES** "
+                        "**CODES / COORDINATES** **OPEN QUESTIONS**"
+                    ):
+                        value = ("**MATCHING MARKS** / **MESSAGES / RULES** / "
+                                 "**CODES / COORDINATES** / **OPEN QUESTIONS**")
                     size = 10.5 if kind == "heading" else 9.1
                     p = Paragraph(inline(("• " if kind == "bullet" else "") + value),
                                   ParagraphStyle("front9", fontName=rb.BOLD if kind == "heading" else rb.FONT,
@@ -1019,6 +1085,7 @@ def draw_front(book: Book, front: list[dict]) -> None:
                         raise ValueError("physical page 9 Case Wall copy does not fit")
                     p.drawOn(book.canvas, x, y-h)
                     y -= h + (7 if kind == "heading" else 3)
+                    position += 1
                 return y
             left_y = column(left, M, book.y, copy_left_w)
             right_y = column("### HINT VAULT + SOLUTION FILES" + right,
@@ -1211,7 +1278,18 @@ def build(pdf_path: Path) -> dict:
                     "ROOM ZERO CHECKPOINT // RULE 0 FIRST": "ROOM ZERO // RULE 0 FIRST",
                 }
                 book.begin("story bridge", label=section_labels.get(block["title"], block["title"][:33]))
-                book.render_md(block["markdown"], 18)
+                if block["title"] == "FIELD CERTIFICATION":
+                    signature = ("Signed: **Happy Makers Detective Academy**  \n"
+                                 "Archive confirmation: **BIBI // ARCHIVE MENTOR**")
+                    if block["markdown"].count(signature) != 1:
+                        raise ValueError("canonical Field Certification signature drift")
+                    before, after = block["markdown"].split(signature, 1)
+                    book.render_md(before, 18)
+                    book.text("Signed: **Happy Makers Detective Academy**", gap=5)
+                    book.text("Archive confirmation: **BIBI // ARCHIVE MENTOR**", gap=10)
+                    book.render_md(after, 18)
+                else:
+                    book.render_md(block["markdown"], 18)
                 if block["title"].startswith("ARCHIVE FILE 001"):
                     book.image(PRINT_DERIVATIVES/"book2_archive_photo_canon_print.png", 250, 340)
                 book.end()

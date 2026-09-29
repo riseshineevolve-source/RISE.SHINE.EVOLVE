@@ -320,7 +320,7 @@ def audit(pdf: Path, index_path: Path) -> dict:
                        if abs(shape["width"]-width) < 1 and abs(shape["height"]-height) < 1)
         if sized_rectangles(26, 40, 31) != 14:
             errors.append("Case 26 must provide exactly fourteen visible letter boxes")
-        if sized_rectangles(28, (522-18)/3, 112) != 3:
+        if sized_rectangles(28, (522-18)/3, 96) != 3:
             errors.append("Case 28 must provide three visible sort zones")
         if sized_rectangles(30, 55, 30) != 6:
             errors.append("Case 30 CODE must provide six visible slots")
