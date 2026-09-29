@@ -14,6 +14,8 @@ from pypdf import PdfReader
 from build_v3_final_text_contract import build_contract
 from build_v3_premium_interior import DEFAULT_PDF, paragraphs, plain, sha, split_case
 
+WITNESS_COPY = Path(__file__).resolve().parents[1] / "content/v3_witness_board_copy.json"
+
 
 def norm(value: str) -> str:
     value = unicodedata.normalize("NFKC", plain(value)).lower()
@@ -101,14 +103,33 @@ def audit(pdf: Path, index_path: Path) -> dict:
         "Rule Zero": "ZERO ASSUMPTIONS NOTICE FIRST THEORIZE SECOND",
         "Room Zero access": "D3",
         "Book2 heading": "ARCHIVE FILE 001 STILL OPEN",
+        "Evidence Grid motif": "EVIDENCE GRID",
     }
     for label, phrase in required.items():
         if norm(phrase) not in all_text:
             errors.append(f"missing locked printed invariant: {label}")
-    forbidden = ("FOUR SYMBOL", "CASE 001 STILL OPEN", "ONE TINY MISMATCH WILL MATTER LATER")
+    forbidden = (
+        "FOUR SYMBOL",
+        "CASE 001 STILL OPEN",
+        "ONE TINY MISMATCH WILL MATTER LATER",
+        "PREP THE EVIDENCE",
+        "POSSIBLE LINKS",
+    )
     for phrase in forbidden:
         if norm(phrase) in all_text:
             errors.append(f"superseded phrase printed: {phrase}")
+
+    # Reader-facing Witness Boards must use the V3 presentation layer, never raw Shigai crime prose.
+    witness_copy = json.loads(WITNESS_COPY.read_text(encoding="utf-8"))
+    for case_id, rows in witness_copy["cases"].items():
+        for display_name, clue in rows:
+            if norm(display_name) not in all_text:
+                errors.append(f"Case {case_id}: Witness Board display name missing: {display_name}")
+            if norm(clue) not in all_text:
+                errors.append(f"Case {case_id}: locked Witness Board clue missing: {clue}")
+    for phrase in witness_copy.get("forbidden_reader_words", []):
+        if norm(phrase) in all_text:
+            errors.append(f"raw-source crime wording leaked into reader PDF: {phrase}")
 
     report = {
         "status": "PASS" if not errors else "BLOCKED",
