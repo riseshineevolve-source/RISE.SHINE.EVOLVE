@@ -14,8 +14,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "content" / "DETECTIVE_ACADEMY_BOOK1_TEXT_GOLD_MASTER_V3.md"
 
-EXPECTED_BLOB_SHA1 = "c10c6d20456d75df6e952f9d2d3e1d9a6637b221"
-EXPECTED_SOURCE_COMMIT = "e8e97f5738f9e37887b7b788cd67161bbd3c9bf3"
+EXPECTED_BLOB_SHA1 = "a85a5941852930f6b88711af26b16ea1651d2fbc"
+EXPECTED_SOURCE_COMMIT = "d52933a70f78e768e23c54d997cf55489236879d"
 EXPECTED_CASE26_MAPS = [2, 4, 6, 7, 10, 12, 13, 15, 17, 19, 20, 22, 23, 25]
 
 
@@ -101,6 +101,11 @@ def verify() -> dict[str, object]:
         "Case 07 spoon/label closure": "Nothing was stolen; the **dragon-tooth label card** was the thing that moved.",
         "cozy website line": "WE HAVE SAVED A COZY SPOT JUST FOR YOU.",
         "Case 03 progress tracker": "Color one question mark for each difference you find.",
+        "upright Hint Vault wording": "Need help? Turn to the Hint Vault at the back, behind the **STOP // HINT VAULT** divider.",
+        "Case 13 parrot closure": "Nini's follow-up closes the parrot file: the phrase came from an ordinary rehearsal cue repeated near the Stage Wing.",
+        "Case 22 witness-aligned story": "Her Rehearsal Room is the last clean snapshot of who was beside her before the instrument cases were moved.",
+        "parcel handoff wording": "After Reception confirms the handoff with Nori's room companion, staff finally open the parcel.",
+        "Case 28 damaged rule": "ZERO ____________. NOTICE FIRST. THEORIZE SECOND.",
     }
     for label, fragment in required_fragments.items():
         require(fragment in text, f"missing locked V3 invariant: {label}")
