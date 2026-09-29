@@ -7,6 +7,7 @@ const ROOT = process.cwd();
 const BASE = 'https://rise-shine-evolve-learning-hub.com';
 const REPORT_PATH = path.join(ROOT, 'reports/ai-discovery/production-delivery-run.json');
 const USER_AGENT = 'RiseShineEvolve-ProductionVerifier/1.0 (+https://rise-shine-evolve-learning-hub.com/)';
+const REQUIRE_EXACT_BODY_MATCH = process.env.RSE_REQUIRE_EXACT_BODY_MATCH === '1';
 
 const retiredAppPatterns = [
   /Progressive Web App/i,
@@ -60,6 +61,18 @@ const checks = [
     route: '/guides/screen-balance/',
     localPath: 'guides/screen-balance/index.html',
     required: ['Screen balance for kids', 'four-part screen transition'],
+    forbidden: []
+  },
+  {
+    route: '/seniors/',
+    localPath: 'seniors/index.html',
+    required: ['Coming Soon', 'Google Play'],
+    forbidden: []
+  },
+  {
+    route: '/site-map/',
+    localPath: 'site-map/index.html',
+    required: ['/adventure-app/', '/unstoppable-app/'],
     forbidden: []
   },
   {
@@ -168,7 +181,7 @@ async function runCheck(check) {
       }
     }
 
-    result.passed = result.okHttp && result.missingRequiredMarkers.length === 0 && result.forbiddenMarkersFound.length === 0;
+    result.passed = result.okHttp && result.missingRequiredMarkers.length === 0 && result.forbiddenMarkersFound.length === 0 && (!REQUIRE_EXACT_BODY_MATCH || result.exactBodyMatch);
   } catch (error) {
     result.error = `${error.name || 'Error'}: ${error.message || String(error)}`;
   }
@@ -192,6 +205,7 @@ const report = {
   schemaVersion: 1,
   checkedAt: new Date().toISOString(),
   baseUrl: BASE,
+  requireExactBodyMatch: REQUIRE_EXACT_BODY_MATCH,
   providerSignals,
   passed: results.every((result) => result.passed),
   exactBodyMatchCount: results.filter((result) => result.exactBodyMatch).length,
