@@ -88,68 +88,16 @@ def plain(source: str) -> str:
 
 
 def project_front_markdown(number: int, markdown: str) -> str:
-    """Keep the locked source intact while updating page 9 for upright back matter."""
-    if number != 9:
-        return markdown
-    replacements = {
-        "**FALSE LEADS**  \n": "",
-        "**MATCHING MARKS**  \n**MESSAGES / RULES**  \n**CODES / COORDINATES**  \n**OPEN QUESTIONS**":
-            "**MATCHING MARKS** / **MESSAGES / RULES** / **CODES / COORDINATES** / **OPEN QUESTIONS**",
-        "and printed **upside down from the main story on purpose**.":
-            "behind the **STOP // HINT VAULT** divider.",
-        "To read them, turn the whole book around.":
-            "Go there only when you want a hint or are ready to check a solution.",
-        "- **DILO:** We put the answers upside down.":
-            "- **DILO:** We put the answers at the back.",
-        "- **LULI:** They are not encrypted. The reader turns the book.":
-            "- **LULI:** They are not encrypted. The reader chooses when to look.",
-        "- **NINI:** Also known as wrists.":
-            "- **NINI:** Also known as patience.",
-    }
-    for old, new in replacements.items():
-        if markdown.count(old) != 1:
-            raise ValueError(f"page 9 source drift: {old}")
-        markdown = markdown.replace(old, new)
+    """Canonical V3 already contains final reader-facing front-matter wording."""
     return markdown
-
 
 def project_case_markdown(number: int, markdown: str) -> str:
-    """Apply only owner-approved reader microfixes to the locked V3 source."""
-    if number == 2:
-        old = "Before the reply comes back, Trophy Hall sends a live alert."
-        new = ("The reply is brief: the helper saw no courier; the printer simply "
-               "released the black envelope. Then Trophy Hall sends a live alert.")
-        if markdown.count(old) != 1:
-            raise ValueError("Case 02 reply closure source drift")
-        markdown = markdown.replace(old, new)
-    if number == 8:
-        replacements = {
-            "One meets wet paint, one meets a locked staff door and one attempts to negotiate with a wall.":
-                "One hits the closed Paint Corridor, one depends on the locked Staff Stairs, and one stays on the open route.",
-            "- A route fails if it uses a closed corridor, a locked staff door or passes through a wall.":
-                "- A route fails if it uses the closed Paint Corridor or the locked Staff Stairs.",
-        }
-        for old, new in replacements.items():
-            if markdown.count(old) != 1:
-                raise ValueError(f"Case 08 route-copy source drift: {old}")
-            markdown = markdown.replace(old, new)
+    """Canonical V3 is the sole authority for reader-facing case copy."""
     return markdown
 
-
 def project_solution_markdown(number: int, markdown: str) -> str:
-    if number != 8:
-        return markdown
-    old = "2. Route B fails because the staff door is locked and the line crosses a wall."
-    new = "2. Route B fails because the Staff Stairs are locked."
-    if markdown.count(old) != 1:
-        raise ValueError("Case 08 unsupported wall-crossing source drift")
-    markdown = markdown.replace(old, new)
-    old = "**WHY IT MATTERS:** The squad reaches the prop room without breaking a rule, a lock or a wall."
-    new = "**WHY IT MATTERS:** The squad reaches the prop room without entering the closed corridor or using the locked Staff Stairs."
-    if markdown.count(old) != 1:
-        raise ValueError("Case 08 unsupported wall claim source drift")
-    return markdown.replace(old, new)
-
+    """Canonical V3 is the sole authority for solution wording."""
+    return markdown
 
 def draw_dark_grid(canvas_obj, x: float, y: float, w: float, h: float,
                    step: float = 16, radius: float = 8, alpha: float = 0.25) -> None:
@@ -775,6 +723,8 @@ def draw_case28_sort(book: Book, mission: dict) -> None:
             _, ph = p.wrap(col_w-22, H)
             p.drawOn(c, x+11, top-24-ph)
         book.y -= 82
+    book.heading("DAMAGED RULE CARD", 12)
+    book.card("RULE ZERO", "**ZERO ____________. NOTICE FIRST. THEORIZE SECOND.**", "objective")
     book.heading("SORT THE CLAIMS", 12)
     zone_labels = ("FACT", "THEORY", "UNSUPPORTED ASSUMPTION")
     gap = 9
@@ -856,7 +806,8 @@ def draw_visual_payload(book: Book, number: int, mission: dict) -> bool:
                 c.drawString(x+10, top-17, f"RECORD {item.get('id', start+col+1)}")
                 c.setLineWidth(1.1); c.roundRect(x+12, top-77, 47, 42, 3, fill=0, stroke=1)
                 c.line(x+20, top-46, x+52, top-46)
-                p = Paragraph(inline(str(item.get('item',''))) + "<br/>" + inline(str(item.get('label',''))),
+                label = str(item.get('label','')).replace("DO NOT CATALOGUE", "DO NOT CATALOG")
+                p = Paragraph(inline(str(item.get('item',''))) + "<br/>" + inline(label),
                               ParagraphStyle("item", fontName=rb.FONT, fontSize=9.4, leading=12.3))
                 _, ph = p.wrap(col_w-78, H)
                 p.drawOn(c, x+69, top-31-ph)
@@ -982,6 +933,8 @@ def draw_visual_payload(book: Book, number: int, mission: dict) -> bool:
             for row in range(rows):
                 c.drawString(x+2, gy+gh-(row+.55)*gh/rows, str(row+1))
         book.y = top-gh-52
+        book.text("ANCHORS // NORTH STAIR (C1) / COURTYARD COLUMN (F3) / WEST LIFT SHAFT (A5)", 8.8, True, gap=4)
+        book.text("OLD-PLAN MARGIN NOTE // RULE FIRST, ROOM SECOND.", 9.4, True, gap=4)
         book.text(overlay["transform"], 10.2, True)
         return True
     if number == 28:
@@ -1253,7 +1206,11 @@ def build(pdf_path: Path) -> dict:
             ):
                 draw_story_bridge(book, block)
             else:
-                book.begin("story bridge", label=block["title"][:33])
+                section_labels = {
+                    "ROOM ZERO THREAD // BIBI REMEMBERS THE FORM": "ROOM ZERO // BIBI REMEMBERS",
+                    "ROOM ZERO CHECKPOINT // RULE 0 FIRST": "ROOM ZERO // RULE 0 FIRST",
+                }
+                book.begin("story bridge", label=section_labels.get(block["title"], block["title"][:33]))
                 book.render_md(block["markdown"], 18)
                 if block["title"].startswith("ARCHIVE FILE 001"):
                     book.image(PRINT_DERIVATIVES/"book2_archive_photo_canon_print.png", 250, 340)
