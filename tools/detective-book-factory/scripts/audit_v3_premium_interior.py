@@ -64,6 +64,8 @@ def audit(pdf: Path, index_path: Path) -> dict:
         errors.append("missing upright STOP divider before reverse back matter")
 
     page_text = [page.extract_text() or "" for page in reader.pages]
+    if any("\x00" in text for text in page_text):
+        errors.append("missing-font glyph printed in reader PDF")
     if any("**" in text for text in page_text):
         errors.append("unrendered Markdown emphasis markers appear in reader PDF")
     all_text = norm(" ".join(page_text))
@@ -121,12 +123,24 @@ def audit(pdf: Path, index_path: Path) -> dict:
 
     # Reader-facing Witness Boards must use the V3 presentation layer, never raw Shigai crime prose.
     witness_copy = json.loads(WITNESS_COPY.read_text(encoding="utf-8"))
+    board_pages = {
+        f"{item['case']:02d}": item["physical_page"]
+        for item in index if item["family"] == "witness board"
+    }
     for case_id, rows in witness_copy["cases"].items():
+        board_page = board_pages.get(case_id)
+        if board_page is None:
+            errors.append(f"Case {case_id}: Witness Board page missing")
+            continue
+        board_text = norm(page_text[board_page - 1])
         for display_name, clue in rows:
-            if norm(display_name) not in all_text:
-                errors.append(f"Case {case_id}: Witness Board display name missing: {display_name}")
-            if norm(clue) not in all_text:
-                errors.append(f"Case {case_id}: locked Witness Board clue missing: {clue}")
+            if norm(display_name) not in board_text:
+                errors.append(f"Case {case_id}: Witness Board display name missing on page {board_page}: {display_name}")
+            if norm(clue) not in board_text:
+                errors.append(f"Case {case_id}: locked Witness Board clue missing on page {board_page}: {clue}")
+        for phrase in witness_copy.get("forbidden_reader_words", []):
+            if norm(phrase) in board_text:
+                errors.append(f"Case {case_id}: raw-source crime wording on Witness Board page {board_page}: {phrase}")
     for phrase in witness_copy.get("forbidden_reader_words", []):
         if norm(phrase) in all_text:
             errors.append(f"raw-source crime wording leaked into reader PDF: {phrase}")

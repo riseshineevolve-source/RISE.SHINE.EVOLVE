@@ -94,6 +94,7 @@ def draw_dark_grid(canvas_obj, x: float, y: float, w: float, h: float,
     canvas_obj.roundRect(x, y, w, h, radius, fill=1, stroke=0)
     canvas_obj.saveState()
     canvas_obj.setStrokeColor(colors.HexColor("#FFFFFF"))
+    canvas_obj.setStrokeAlpha(0.25)
     canvas_obj.setLineWidth(0.22)
     xx = x + step
     while xx < x + w:
@@ -120,10 +121,8 @@ def draw_scanner_question_mark(canvas_obj, cx: float, cy: float) -> None:
         y = cy + sy * size
         canvas_obj.line(x, y, x - sx * corner, y)
         canvas_obj.line(x, y, x, y - sy * corner)
-    # Scanner rings and crosshair.
+    # Scanner crosshair around the question mark, without a badge circle.
     canvas_obj.setLineWidth(1.0)
-    canvas_obj.circle(cx, cy, 56, fill=0, stroke=1)
-    canvas_obj.circle(cx, cy, 72, fill=0, stroke=1)
     canvas_obj.line(cx - 82, cy, cx - 62, cy)
     canvas_obj.line(cx + 62, cy, cx + 82, cy)
     canvas_obj.line(cx, cy - 82, cx, cy - 62)
@@ -392,6 +391,8 @@ def draw_case_brief(book: Book, case: dict) -> dict[str, str]:
                 _, ph = p.wrap(TEXT_W-32, H)
                 rendered.append((p, ph))
             panel_h = 37 + sum(ph + 7 for _, ph in rendered) + 8
+            if book.y - panel_h - 9 < BOTTOM:
+                book.begin("comms transcript", number, label=f"case {number:02d} / comms")
             book.ensure(panel_h, 9)
             x, top = M, book.y
             draw_dark_grid(book.canvas, x, top-panel_h, TEXT_W, panel_h, step=17, radius=8)
@@ -438,7 +439,7 @@ def parity_prep(book: Book, number: int, label: str) -> None:
 
 
 def draw_witness_board(book: Book, case: dict, number: int) -> None:
-    parity_prep(book, number, "spread preparation")
+    parity_prep(book, number, "evidence grid")
     book.begin("witness board", number, label=f"case {number:02d} / witness board")
     if book.page % 2:
         raise ValueError("Witness Board must be on physical left/even page")
@@ -505,12 +506,12 @@ def draw_map(book: Book, case: dict, number: int, solution: bool = False,
     c = book.canvas
     img = map_crop(MAP_DIR / filename)
     rows, cols = int(case["grid"]["rows"]), int(case["grid"]["columns"])
-    image_size = 500
+    image_size = 489
     x = (W-image_size)/2 + 7
-    top = book.y - 25
+    top = book.y - 20
     y = top-image_size
     if y < 162:
-        raise ValueError(f"Case {number:02d}: map does not fit the page")
+        raise ValueError(f"Case {number:02d}: map does not fit the page (bottom={y:.1f} pt)")
     c.drawImage(img, x, y, image_size, image_size)
     c.setFillColor(INK); c.setFont(rb.BOLD, 17 if cols <= 7 else 14)
     for col in range(cols):
@@ -522,7 +523,7 @@ def draw_map(book: Book, case: dict, number: int, solution: bool = False,
         answer = case["source_answer"]
         book.text(f"VERIFIED VERDICT: {answer['display_name']} at {answer['coordinate']}", 11.5, True, gap=4)
     else:
-        book.text("MAP KEY  /  □ usable floor   ■ blocked object   ━ wall   · doorway", 9.7, True, gap=7)
+        book.text("MAP KEY  /  □ usable floor; ■ blocked object; heavy line = wall; gap = doorway", 9.7, True, gap=7)
         book.card("YOUR VERDICT / RESPONSE", response or "PERSON / WITNESS: ____________________    COORDINATE: ______")
     book.end()
 
@@ -563,7 +564,7 @@ def draw_case01(book: Book, mission: dict, sections: dict) -> None:
 
 
 def draw_case03(book: Book, sections: dict) -> None:
-    parity_prep(book, 3, "photo comparison preparation")
+    parity_prep(book, 3, "photo evidence grid")
     for letter in ("A", "B"):
         book.begin(f"photo {letter}", 3, label=f"case 03 / photo {letter}")
         if (book.page % 2 == 0) != (letter == "A"):
