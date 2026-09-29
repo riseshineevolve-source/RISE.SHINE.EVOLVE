@@ -832,11 +832,13 @@ Uma leads Bibi to a glass case. The label says **CEREMONIAL DRAGON TOOTH**. The 
 
 
 - **NINI:** I had emotionally prepared for a dragon tooth.
-- **DILO:** Do we currently have a missing dragon tooth or an overpromoted spoon?
-- **LULI:** We currently have a label and an object that disagree.
+- **LULI:** We have a Roman spoon.
+- **NINI:** Less dramatic. Better for soup.
+- **DILO:** So do we have a missing dragon tooth or an overpromoted spoon?
+- **LULI:** Right now, we have a label and an object that disagree.
 - **BIBI:** Which is why we ask before we name a crime.
 - **NINI:** The spoon is taking this very well.
-- **BIBI:** And the photo difference mattered after all. Tiny numbers can move whole investigations.
+- **BIBI:** And one tiny number from the Look-Twice file got us here. Good catch.
 
 
 ### PUZZLE / EVIDENCE SURFACE
