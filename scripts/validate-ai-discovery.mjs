@@ -192,6 +192,24 @@ for (const relativePath of requiredAppPages) {
 
 const productById = new Map(products.map((product) => [product.id, product]));
 const productionBase = 'https://rise-shine-evolve-learning-hub.com';
+
+const homepageHtml = readText('index.html');
+if (/"@type"\s*:\s*"SearchAction"/.test(homepageHtml)) {
+  fail('index.html: WebSite SearchAction must not be published without a working site search endpoint.');
+}
+if (homepageHtml.includes('/site-map/?q={search_term_string}')) {
+  fail('index.html: static Site Map must not be advertised as a search endpoint.');
+}
+
+const siteMapHtml = readText('site-map/index.html');
+for (const appPath of ['/adventure-app/', '/unstoppable-app/']) {
+  const visibleLink = siteMapHtml.includes(`href="${appPath}"`) || siteMapHtml.includes(`href="${productionBase}${appPath}"`);
+  const structuredLink = siteMapHtml.includes(`"url":"${productionBase}${appPath}"`);
+  if (!visibleLink || !structuredLink) {
+    fail(`site-map/index.html: ${appPath} must appear in both visible HTML and ItemList JSON-LD.`);
+  }
+}
+
 const prohibitedGuideClaims = /guaranteed results|clinically proven|therapy replacement|medical treatment for/i;
 
 for (const guide of requiredGuidePages) {
