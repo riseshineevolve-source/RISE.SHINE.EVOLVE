@@ -86,6 +86,53 @@ def plain(source: str) -> str:
     return re.sub(r"\*\*|\*|`", "", source).strip()
 
 
+def draw_dark_grid(canvas_obj, x: float, y: float, w: float, h: float,
+                   step: float = 16, radius: float = 8) -> None:
+    """Signature HMDA evidence-grid motif: black field + thin white grid."""
+    canvas_obj.setFillColor(INK)
+    canvas_obj.setStrokeColor(INK)
+    canvas_obj.roundRect(x, y, w, h, radius, fill=1, stroke=0)
+    canvas_obj.saveState()
+    canvas_obj.setStrokeColor(colors.HexColor("#FFFFFF"))
+    canvas_obj.setLineWidth(0.22)
+    xx = x + step
+    while xx < x + w:
+        canvas_obj.line(xx, y, xx, y + h)
+        xx += step
+    yy = y + step
+    while yy < y + h:
+        canvas_obj.line(x, yy, x + w, yy)
+        yy += step
+    canvas_obj.restoreState()
+
+
+def draw_scanner_question_mark(canvas_obj, cx: float, cy: float) -> None:
+    """Vector scanner-question-mark brand mark; no generic circle badge."""
+    canvas_obj.saveState()
+    canvas_obj.setStrokeColor(INK)
+    canvas_obj.setFillColor(INK)
+    canvas_obj.setLineWidth(2.2)
+    size = 86
+    corner = 25
+    # Four scanner brackets.
+    for sx, sy in ((-1, 1), (1, 1), (-1, -1), (1, -1)):
+        x = cx + sx * size
+        y = cy + sy * size
+        canvas_obj.line(x, y, x - sx * corner, y)
+        canvas_obj.line(x, y, x, y - sy * corner)
+    # Scanner rings and crosshair.
+    canvas_obj.setLineWidth(1.0)
+    canvas_obj.circle(cx, cy, 56, fill=0, stroke=1)
+    canvas_obj.circle(cx, cy, 72, fill=0, stroke=1)
+    canvas_obj.line(cx - 82, cy, cx - 62, cy)
+    canvas_obj.line(cx + 62, cy, cx + 82, cy)
+    canvas_obj.line(cx, cy - 82, cx, cy - 62)
+    canvas_obj.line(cx, cy + 62, cx, cy + 82)
+    canvas_obj.setFont(rb.BOLD, 88)
+    canvas_obj.drawCentredString(cx, cy - 31, "?")
+    canvas_obj.restoreState()
+
+
 def paragraphs(markdown: str) -> list[tuple[str, str]]:
     blocks: list[tuple[str, str]] = []
     pending: list[str] = []
@@ -317,39 +364,44 @@ def draw_case_brief(book: Book, case: dict) -> dict[str, str]:
     number = case["number"]
     opening, sections = split_case(case["markdown"])
     book.begin("case brief", number, label=f"case {number:02d} / case file")
-    book.text(f"CASE {number:02d}  /  {case.get('rank') or 'DETECTIVE'}  /  {case.get('status') or 'ACTIVE'}", 9.5, True)
+    # Signature evidence-grid band belongs to every new case without becoming a worksheet.
+    banner_h = 30
+    draw_dark_grid(book.canvas, M, book.y-banner_h, TEXT_W, banner_h, step=12, radius=5)
+    book.canvas.setFillColor(WHITE); book.canvas.setFont(rb.BOLD, 9.5)
+    book.canvas.drawString(M+12, book.y-19,
+        f"CASE {number:02d}  //  {(case.get('rank') or 'DETECTIVE').upper()}  //  {(case.get('status') or 'ACTIVE').upper()}")
+    book.y -= banner_h + 10
     book.heading(case["title"], 19)
     for name in ("CASE FILE // WHAT HAPPENED", "YOUR OBJECTIVE", "INVESTIGATION RULES", "HAPPY MAKERS CHAT"):
         content = sections.get(name, "")
         if not content:
             raise ValueError(f"Case {number:02d}: missing {name}")
         if name == "HAPPY MAKERS CHAT":
-            book.heading(name, 12)
             beats = [line for kind, line in paragraphs(content) if kind == "bullet"]
-            col_w = (TEXT_W-11)/2
-            for start in range(0, len(beats), 2):
-                pair = beats[start:start+2]
-                rendered = []
-                for line in pair:
-                    speaker, speech = line.split(":", 1) if ":" in line else ("CHAT", line)
-                    # V3 speaker labels are **NAME:**; the closing Markdown
-                    # asterisks after the colon belong to the label, not speech.
-                    if speaker.startswith("**") and speech.startswith("**"):
-                        speech = speech[2:].lstrip()
-                    p = Paragraph(inline(speech.strip()), ParagraphStyle(
-                        "chat", fontName=rb.FONT, fontSize=9.8, leading=12.8))
-                    _, ph = p.wrap(col_w-22, H)
-                    rendered.append((plain(speaker).upper(), p, ph))
-                h = max(53, max(v[2] for v in rendered)+34)
-                book.ensure(h, 6)
-                for col, (speaker, p, ph) in enumerate(rendered):
-                    x = M+col*(col_w+11)
-                    book.canvas.setFillColor(WHITE); book.canvas.setStrokeColor(LINE)
-                    book.canvas.roundRect(x, book.y-h, col_w, h, 6, fill=1, stroke=1)
-                    book.canvas.setFillColor(INK); book.canvas.setFont(rb.BOLD, 9.2)
-                    book.canvas.drawString(x+11, book.y-17, speaker)
-                    p.drawOn(book.canvas, x+11, book.y-27-ph)
-                book.y -= h+6
+            rendered = []
+            style = ParagraphStyle(
+                "chat_transcript", fontName=rb.FONT, fontSize=10.0, leading=13.2,
+                textColor=WHITE)
+            for line in beats:
+                speaker, speech = line.split(":", 1) if ":" in line else ("CHAT", line)
+                if speaker.startswith("**") and speech.startswith("**"):
+                    speech = speech[2:].lstrip()
+                who = plain(speaker).upper()
+                markup = f"<b>{html.escape(who)}</b>  {inline(speech.strip())}"
+                p = Paragraph(markup, style)
+                _, ph = p.wrap(TEXT_W-32, H)
+                rendered.append((p, ph))
+            panel_h = 37 + sum(ph + 7 for _, ph in rendered) + 8
+            book.ensure(panel_h, 9)
+            x, top = M, book.y
+            draw_dark_grid(book.canvas, x, top-panel_h, TEXT_W, panel_h, step=17, radius=8)
+            book.canvas.setFillColor(WHITE); book.canvas.setFont(rb.BOLD, 9.4)
+            book.canvas.drawString(x+16, top-20, "HAPPY MAKERS // COMMS")
+            yy = top-38
+            for p, ph in rendered:
+                p.drawOn(book.canvas, x+16, yy-ph)
+                yy -= ph + 7
+            book.y -= panel_h + 8
         elif name == "YOUR OBJECTIVE":
             book.card(name, content, "objective")
         else:
@@ -366,26 +418,22 @@ def draw_case_brief(book: Book, case: dict) -> dict[str, str]:
 
 
 def parity_prep(book: Book, number: int, label: str) -> None:
+    """Preserve Witness Board LEFT / Map RIGHT without adding fake worksheet tasks."""
     if (book.page + 1) % 2 == 1:
-        book.begin("evidence notes", number, label=label)
-        book.heading(f"CASE {number:02d} // PREP THE EVIDENCE", 18)
-        book.text("The paired evidence begins on the next facing spread. Keep your deductions here while you inspect it.")
-        for name in ("FACTS", "POSSIBLE LINKS", "OPEN QUESTIONS"):
-            height = 145
-            book.ensure(height, 10)
-            x, top = M, book.y
-            book.canvas.setStrokeColor(LINE)
-            book.canvas.setLineWidth(.8)
-            book.canvas.roundRect(x, top-height, TEXT_W, height, 7, fill=0, stroke=1)
-            book.canvas.setFillColor(INK)
-            book.canvas.setFont(rb.BOLD, 10)
-            book.canvas.drawString(x+16, top-21, name)
-            book.grid(x+TEXT_W-76, top-23, 58, 5)
-            for offset in (48, 72, 96, 120):
-                book.canvas.setStrokeColor(LINE)
-                book.canvas.setLineWidth(.45)
-                book.canvas.line(x+16, top-offset, x+TEXT_W-16, top-offset)
-            book.y -= height+10
+        book.begin("evidence grid interstitial", number, label=label)
+        book.heading(f"CASE {number:02d} // EVIDENCE GRID", 18)
+        x = M
+        h = 410
+        y = book.y-h
+        draw_dark_grid(book.canvas, x, y, TEXT_W, h, step=18, radius=9)
+        book.canvas.setFillColor(WHITE)
+        book.canvas.setFont(rb.BOLD, 30)
+        book.canvas.drawString(x+24, y+h-58, f"{number:02d}")
+        book.canvas.setFont(rb.BOLD, 13)
+        book.canvas.drawString(x+24, y+h-91, "WITNESS BOARD  ->  LIVE CASE MAP")
+        book.canvas.setFont(rb.BOLD, 10.5)
+        book.canvas.drawString(x+24, y+34, "FOLLOW THE EVIDENCE. DO NOT GUESS.")
+        book.y = y-12
         book.end()
 
 
@@ -457,14 +505,14 @@ def draw_map(book: Book, case: dict, number: int, solution: bool = False,
     c = book.canvas
     img = map_crop(MAP_DIR / filename)
     rows, cols = int(case["grid"]["rows"]), int(case["grid"]["columns"])
-    image_size = 482
+    image_size = 500
     x = (W-image_size)/2 + 7
     top = book.y - 25
     y = top-image_size
     if y < 162:
         raise ValueError(f"Case {number:02d}: map does not fit the page")
     c.drawImage(img, x, y, image_size, image_size)
-    c.setFillColor(INK); c.setFont(rb.BOLD, 14 if cols <= 7 else 12)
+    c.setFillColor(INK); c.setFont(rb.BOLD, 17 if cols <= 7 else 14)
     for col in range(cols):
         c.drawCentredString(x+(col+.5)*image_size/cols, top+5, chr(65+col))
     for row in range(rows):
@@ -735,13 +783,13 @@ def draw_front(book: Book, front: list[dict]) -> None:
             book.heading("HAPPY MAKERS DETECTIVE ACADEMY", 28)
             book.text("THE MYSTERY OF ROOM ZERO", 21, True)
             book.text("BOOK 1", 15, True)
-            book.grid(M+5, 400, TEXT_W-10, 155)
+            draw_dark_grid(book.canvas, M+5, 400, TEXT_W-10, 155, step=15, radius=4)
+            book.canvas.setFillColor(WHITE); book.canvas.setFont(rb.BOLD, 10)
+            book.canvas.drawString(M+19, 528, "EVIDENCE GRID // ROOM ZERO FILE")
             book.y = 360
             book.render_md(item["markdown"].splitlines()[1:], 13) if False else None
         elif number == 2:
-            c=book.canvas; c.setStrokeColor(INK); c.setLineWidth(2)
-            c.circle(W/2, 508, 84, fill=0, stroke=1)
-            c.setFont(rb.BOLD, 103); c.drawCentredString(W/2, 477, "?")
+            draw_scanner_question_mark(book.canvas, W/2, 505)
             book.y = 245
             book.render_md("\n".join(item["markdown"].splitlines()[1:]), 11)
         elif number == 3:
