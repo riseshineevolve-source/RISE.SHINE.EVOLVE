@@ -102,7 +102,7 @@ A coincidence?
 ---
 
 
-## PAGE 4 // WELCOME TO THE DETECTIVE ACADEMY
+## WELCOME TO THE DETECTIVE ACADEMY
 
 
 You turn the page.
@@ -163,7 +163,7 @@ Knows the old Academy records, says when a memory is incomplete and refuses to l
 ---
 
 
-## PAGE 5 // CLAIM YOUR RECRUIT CREDENTIAL
+## CLAIM YOUR RECRUIT CREDENTIAL
 
 
 If you are in, this is the moment.
@@ -207,7 +207,7 @@ The cases decide what kind of detective you become.
 ---
 
 
-## PAGE 6 // WHAT YOU ARE ABOUT TO WALK INTO
+## WHAT YOU ARE ABOUT TO WALK INTO
 
 
 The Academy is not one room, and this investigation will not happen in one afternoon.
@@ -249,7 +249,7 @@ And somewhere inside the Academy, one question keeps returning:
 ---
 
 
-## PAGE 7 // HOW EVERY CASE WORKS
+## HOW EVERY CASE WORKS
 
 
 You never need to guess what to do next. Every case uses the same simple rhythm.
@@ -285,7 +285,7 @@ Then move on.
 The book does **not** print an answer after every case. Your verdict stays yours until you choose to check the Hint Vault or Solution Files.
 
 
-Need help? Turn to the upside-down section at the back. Otherwise, file your verdict and keep investigating.
+Need help? Turn to the Hint Vault at the back, behind the **STOP // HINT VAULT** divider. Otherwise, file your verdict and keep investigating.
 
 
 When a case gives you a bigger-mystery clue worth saving, you will see one clear instruction:
@@ -303,7 +303,7 @@ Only then do you copy something to the Case Wall.
 ---
 
 
-## PAGE 8 // MAP CASES — READ THIS ONCE
+## MAP CASES — READ THIS ONCE
 
 
 Some cases use an Academy floor grid to reconstruct where people were standing.
@@ -348,7 +348,7 @@ There is no secret gray category. If something is blocked, the map shows why.
 ---
 
 
-## PAGE 9 // YOUR CASE WALL + HINT VAULT
+## YOUR CASE WALL + HINT VAULT
 
 
 ### THIS PAGE IS YOUR CASE WALL
@@ -372,7 +372,6 @@ Then copy the named item into the matching evidence zone:
 **MATCHING MARKS**  
 **MESSAGES / RULES**  
 **CODES / COORDINATES**  
-**FALSE LEADS**  
 **OPEN QUESTIONS**
 
 
@@ -386,19 +385,19 @@ Completed spatial maps stay on their own pages because later evidence may depend
 ### HINT VAULT + SOLUTION FILES
 
 
-The Hint Vault and Solution Files are at the **back of the book** and printed **upside down from the main story on purpose**.
+The Hint Vault and Solution Files are at the **back of the book**, behind the **STOP // HINT VAULT** divider.
 
 
-To read them, turn the whole book around.
+Go there only when you want a hint or are ready to check a solution.
 
 
 ### HAPPY MAKERS CHAT
 
 
-- **DILO:** We put the answers upside down.
-- **LULI:** They are not encrypted. The reader turns the book.
+- **DILO:** We put the answers at the back.
+- **LULI:** They are not encrypted. The reader chooses when to look.
 - **DILO:** Exactly. Advanced anti-accidental-peeking technology.
-- **NINI:** Also known as wrists.
+- **NINI:** Also known as patience.
 - **MIMI:** One hint at a time, Detective.
 
 
@@ -428,7 +427,7 @@ Read one level, turn back to your case and try again before taking the next.
 ---
 
 
-## PAGE 10 // CASE INDEX
+## CASE INDEX
 
 
 **30 ACTIVE FILES**
@@ -498,7 +497,7 @@ For the first few files, do exactly what a good detective does when the larger s
 ### CASE FILE // WHAT HAPPENED
 
 
-Your Recruit Credential is barely signed when Mimi slides the black-envelope file across the Case Table. The intake receipt proves the badge came from inside the Academy. No courier. No outside delivery. But four visiting helpers were in the intake area when the tray released it. The strange **0** can wait. The floor record from that exact minute is the only lead to who was close enough to see the envelope arrive.
+Your Recruit Credential is barely signed when Mimi slides the black-envelope file across the Case Table. The intake receipt proves the black envelope and its Recruit Credential came from inside the Academy. No courier. No outside delivery. But four visiting helpers were in the intake area when the tray released it. The strange **0** can wait. The floor record from that exact minute is the only lead to who was close enough to see the envelope arrive.
 
 
 ### YOUR OBJECTIVE
@@ -549,7 +548,7 @@ Your Recruit Credential is barely signed when Mimi slides the black-envelope fil
 ### CASE FILE // WHAT HAPPENED
 
 
-Mimi seals your first verdict and sends a message to the intake contact you identified. Before the reply comes back, Trophy Hall sends a live alert. The Founders' Cup is back in its display case. Max signed it out for a Hall demonstration - but his return form was never completed. The Hall log stops at Max's last verified check. Only one other witness can be tied to his room during the missing handoff.
+Mimi seals your first verdict and sends a message to the intake contact you identified. The reply is brief: the helper saw no courier; the printer simply released the black envelope. Then Trophy Hall sends a live alert. The Founders' Cup is back in its display case. Max signed it out for a Hall demonstration - but his return form was never completed. The Hall log stops at Max's last verified check. Only one other witness can be tied to his room during the missing handoff.
 
 
 ### YOUR OBJECTIVE
@@ -929,7 +928,7 @@ On the way back, the team cuts through the Undercover Training Wing - mock hotel
 ### CASE FILE // WHAT HAPPENED
 
 
-The trainer now has someone to question about Gray's checkpoint, but the rehearsal clock is still running. The prop room is on the far side of the Undercover Wing, and Alio has already drawn three "faster" routes. One meets wet paint, one meets a locked staff door and one attempts to negotiate with a wall. The costume search cannot move until the team gets there.
+The trainer now has someone to question about Gray's checkpoint, but the rehearsal clock is still running. The prop room is on the far side of the Undercover Wing, and Alio has already drawn three "faster" routes. One hits the closed Paint Corridor, one depends on the locked Staff Stairs, and one stays on the open route. The costume search cannot move until the team gets there.
 
 
 ### YOUR OBJECTIVE
@@ -942,7 +941,7 @@ The trainer now has someone to question about Gray's checkpoint, but the rehears
 
 
 - The team must reach the prop room now; waiting is not an option.
-- A route fails if it uses a closed corridor, a locked staff door or passes through a wall.
+- A route fails if it uses the closed Paint Corridor or the locked Staff Stairs.
 
 
 ### HAPPY MAKERS CHAT
@@ -1220,7 +1219,7 @@ Old photographs, saved maps and records that looked ordinary at first begin to m
 ### CASE FILE // WHAT HAPPENED
 
 
-Nini now has a real person to ask about the parrot's phrase. While she does that, a ranger from the Academy Field Research Wing brings over another problem from the same day. A camera captured a blurry frame at **4:17** and was later found in a different position from the one shown on the maintenance sheet. Remy signed that sheet and is the last reliable anchor. His room is the one place where the maintenance record can overlap with a second witness.
+Nini's follow-up closes the parrot file: the phrase came from an ordinary rehearsal cue repeated near the Stage Wing. That same afternoon, a ranger from the Academy Field Research Wing brings over another problem from the same day. A camera captured a blurry frame at **4:17** and was later found in a different position from the one shown on the maintenance sheet. Remy signed that sheet and is the last reliable anchor. His room is the one place where the maintenance record can overlap with a second witness.
 
 
 ### YOUR OBJECTIVE
@@ -1741,7 +1740,7 @@ So the squad does what good detectives do when the big clue refuses to explain i
 ### CASE FILE // WHAT HAPPENED
 
 
-The next morning, the Academy Sound Lab brings a new case when three nearly identical instrument cases are returned to the wrong shelves after rehearsal. Zara is the one reliable placement before the mix-up. Her Rehearsal Room is the last clean snapshot of which instrument case was beside her. Mimi keeps the completed map with the other solved spatial files - just in case the strange message ever starts making sense.
+The next morning, the Academy Sound Lab brings a new case when three nearly identical instrument cases are returned to the wrong shelves after rehearsal. Zara is the one reliable placement before the mix-up. Her Rehearsal Room is the last clean snapshot of who was beside her before the instrument cases were moved. Mimi keeps the completed map with the other solved spatial files - just in case the strange message ever starts making sense.
 
 
 ### YOUR OBJECTIVE
@@ -1940,7 +1939,7 @@ The footprint trail ends at the West Gate with no backwards walker - only proof 
 
 Mimi files the Guest House map.
 
-Reception finally opens the parcel using the witness route you reconstructed. Inside are transparent overlay sleeves and old alignment clips borrowed long ago from **Archive Restoration** - exactly the kind Bibi needs for delicate plan work.
+After Reception confirms the handoff with Nori's room companion, staff finally open the parcel. Inside are transparent overlay sleeves and old alignment clips borrowed long ago from **Archive Restoration** - exactly the kind Bibi needs for delicate plan work.
 
 Then the dormant routing light under the Case Table turns on.
 
@@ -2065,7 +2064,8 @@ After you save the fourteen-letter instruction, turn back to the Case Wall. The 
 ### PUZZLE / EVIDENCE SURFACE
 
 
-
+**OLD-PLAN MARGIN NOTE:**  
+**RULE FIRST, ROOM SECOND.**
 
 
 
@@ -2116,13 +2116,14 @@ The overlay puts a sealed training room directly behind the modern Archive wall.
 ### PUZZLE / EVIDENCE SURFACE
 
 
-
+**DAMAGED RULE CARD:**  
+**ZERO ____________. NOTICE FIRST. THEORIZE SECOND.**
 
 
 ### YOUR VERDICT / RESPONSE
 
 
-Sort every card into the three printed zones.
+Write each claim letter **A-F** in the correct zone.
 **MISSING WORD IN RULE ZERO:** _____________________________
 
 
@@ -3105,12 +3106,12 @@ A correct answer matters. Knowing why it is correct matters more. Your route thr
 
 
 1. Route A fails because the Paint Corridor is closed.
-2. Route B fails because the staff door is locked and the line crosses a wall.
+2. Route B fails because the Staff Stairs are locked.
 3. Route C uses Costume Storage and the Side Hall, both open.
 4. Route C is the only valid shortcut.
 
 
-**WHY IT MATTERS:** The squad reaches the prop room without breaking a rule, a lock or a wall.
+**WHY IT MATTERS:** The squad reaches the prop room without entering the closed Paint Corridor or using the locked Staff Stairs.
 
 
 
