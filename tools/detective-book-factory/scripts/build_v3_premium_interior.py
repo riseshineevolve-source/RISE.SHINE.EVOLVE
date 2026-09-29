@@ -44,6 +44,7 @@ OWNER_DIR = ROOT / "assets/production/v3_owner_locked"
 MAP_DIR = ROOT / "assets/production/v3_spatial_locked"
 OWNER_CONTRACT = ROOT / "content/v3_owner_visual_contract.json"
 MAP_CONTRACT = ROOT / "content/v3_locked_spatial_evidence_contract.json"
+WITNESS_COPY = ROOT / "content/v3_witness_board_copy.json"
 MASTER = ROOT / "dist/book1_en_master_owner_review_v4.yml"
 RUNTIME = ROOT / "dist/hmda_spatial_runtime_v4.json"
 DEFAULT_PDF = ROOT / "dist/HMDA_Book1_EN_PREMIUM_ALMOST_KDP_READY_V3.pdf"
@@ -397,11 +398,28 @@ def draw_witness_board(book: Book, case: dict, number: int) -> None:
     book.text("Place every witness once. Tick each statement as you use it. Keep the completed map for later evidence.")
     col_w = (TEXT_W-12)/2
     people = case["characters"]
+
+    copy_contract = json.loads(WITNESS_COPY.read_text(encoding="utf-8"))
+    locked = copy_contract["cases"].get(f"{number:02d}")
+    if locked is None or len(locked) != len(people):
+        raise ValueError(f"Case {number:02d}: missing or incomplete V3 Witness Board copy lock")
+    for idx, (person, row_copy) in enumerate(zip(people, locked), 1):
+        display_name, clue = row_copy
+        if str(person["display_name"]).casefold() != str(display_name).casefold():
+            raise ValueError(
+                f"Case {number:02d}: Witness Board display-name drift at {idx}: "
+                f"{person['display_name']} != {display_name}"
+            )
+        forbidden = tuple(v.casefold() for v in copy_contract.get("forbidden_reader_words", []))
+        if any(word in clue.casefold() for word in forbidden):
+            raise ValueError(f"Case {number:02d}: forbidden raw-source crime wording in Witness Board")
+        person["presentation_clue"] = clue
+
     for start in range(0, len(people), 2):
         row = people[start:start+2]
         rendered = []
         for person in row:
-            p = Paragraph(inline(person["raw_clue"]), ParagraphStyle(
+            p = Paragraph(inline(person["presentation_clue"]), ParagraphStyle(
                 "witness", fontName=rb.FONT, fontSize=10.5, leading=14.0))
             _, ph = p.wrap(col_w-24, H)
             rendered.append((p, ph))
