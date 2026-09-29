@@ -3,7 +3,7 @@
 
 This is an interior proof, not an English freeze or publication action. The
 source verifier and asset hashes are mandatory. The physical page plan grows
-with the copy, and reverse back matter is drawn upside down in the PDF.
+with the copy, and the back matter remains upright for paperback printing.
 """
 from __future__ import annotations
 
@@ -87,6 +87,32 @@ def plain(source: str) -> str:
     return re.sub(r"\*\*|\*|`", "", source).strip()
 
 
+def project_front_markdown(number: int, markdown: str) -> str:
+    """Keep the locked source intact while updating page 9 for upright back matter."""
+    if number != 9:
+        return markdown
+    replacements = {
+        "**FALSE LEADS**  \n": "",
+        "**MATCHING MARKS**  \n**MESSAGES / RULES**  \n**CODES / COORDINATES**  \n**OPEN QUESTIONS**":
+            "**MATCHING MARKS** / **MESSAGES / RULES** / **CODES / COORDINATES** / **OPEN QUESTIONS**",
+        "and printed **upside down from the main story on purpose**.":
+            "behind the **STOP // HINT VAULT** divider.",
+        "To read them, turn the whole book around.":
+            "Go there only when you want a hint or are ready to check a solution.",
+        "- **DILO:** We put the answers upside down.":
+            "- **DILO:** We put the answers at the back.",
+        "- **LULI:** They are not encrypted. The reader turns the book.":
+            "- **LULI:** They are not encrypted. The reader chooses when to look.",
+        "- **NINI:** Also known as wrists.":
+            "- **NINI:** Also known as patience.",
+    }
+    for old, new in replacements.items():
+        if markdown.count(old) != 1:
+            raise ValueError(f"page 9 source drift: {old}")
+        markdown = markdown.replace(old, new)
+    return markdown
+
+
 def project_case_markdown(number: int, markdown: str) -> str:
     """Apply only owner-approved reader microfixes to the locked V3 source."""
     if number == 2:
@@ -95,7 +121,18 @@ def project_case_markdown(number: int, markdown: str) -> str:
                "released the black envelope. Then Trophy Hall sends a live alert.")
         if markdown.count(old) != 1:
             raise ValueError("Case 02 reply closure source drift")
-        return markdown.replace(old, new)
+        markdown = markdown.replace(old, new)
+    if number == 8:
+        replacements = {
+            "One meets wet paint, one meets a locked staff door and one attempts to negotiate with a wall.":
+                "One hits the closed Paint Corridor, one depends on the locked Staff Stairs, and one stays on the open route.",
+            "- A route fails if it uses a closed corridor, a locked staff door or passes through a wall.":
+                "- A route fails if it uses the closed Paint Corridor or the locked Staff Stairs.",
+        }
+        for old, new in replacements.items():
+            if markdown.count(old) != 1:
+                raise ValueError(f"Case 08 route-copy source drift: {old}")
+            markdown = markdown.replace(old, new)
     return markdown
 
 
@@ -103,9 +140,14 @@ def project_solution_markdown(number: int, markdown: str) -> str:
     if number != 8:
         return markdown
     old = "2. Route B fails because the staff door is locked and the line crosses a wall."
-    new = "2. Route B fails because the staff door is locked."
+    new = "2. Route B fails because the Staff Stairs are locked."
     if markdown.count(old) != 1:
         raise ValueError("Case 08 unsupported wall-crossing source drift")
+    markdown = markdown.replace(old, new)
+    old = "**WHY IT MATTERS:** The squad reaches the prop room without breaking a rule, a lock or a wall."
+    new = "**WHY IT MATTERS:** The squad reaches the prop room without entering the closed corridor or using the locked Staff Stairs."
+    if markdown.count(old) != 1:
+        raise ValueError("Case 08 unsupported wall claim source drift")
     return markdown.replace(old, new)
 
 
@@ -182,7 +224,7 @@ class Book:
     def __init__(self, path: Path):
         path.parent.mkdir(parents=True, exist_ok=True)
         self.canvas = canvas.Canvas(str(path), pagesize=letter, pageCompression=1)
-        self.canvas.setTitle("Happy Makers Detective Academy - The Mystery of Room Zero - V3 Interior Proof")
+        self.canvas.setTitle("Happy Makers Detective Academy - The Mystery of Room Zero - Book 1")
         self.canvas.setAuthor("Rise.Shine.Evolve")
         self.path = path
         self.page = 0
@@ -194,6 +236,8 @@ class Book:
         self.errors: list[str] = []
 
     def begin(self, family: str, case: int | None = None, side: str = "upright", label: str | None = None) -> None:
+        if side != "upright":
+            raise ValueError("paperback pages must remain physically upright")
         if self.open:
             self.end()
         self.page += 1
@@ -209,8 +253,6 @@ class Book:
         self.index.append(self.current)
         self.y = TOP
         c = self.canvas
-        if side == "reverse":
-            c.saveState(); c.translate(W, H); c.rotate(180)
         c.setFillColor(WHITE); c.rect(0, 0, W, H, fill=1, stroke=0)
         c.setFillColor(INK); c.rect(M, H-43, TEXT_W, 25, fill=1, stroke=0)
         c.setFillColor(WHITE); c.setFont(rb.BOLD, 9.3)
@@ -232,8 +274,6 @@ class Book:
     def end(self) -> None:
         if not self.open:
             return
-        if self.current["side"] == "reverse":
-            self.canvas.restoreState()
         self.canvas.showPage()
         self.open = False
 
@@ -550,8 +590,7 @@ def map_crop(path: Path) -> ImageReader:
 def draw_map(book: Book, case: dict, number: int, solution: bool = False,
              response: str = "") -> None:
     family = "solution map" if solution else "live case map"
-    side = "reverse" if solution else "upright"
-    book.begin(family, number, side, label=f"case {number:02d} / {family}")
+    book.begin(family, number, label=f"case {number:02d} / {family}")
     if not solution and book.page % 2 != 1:
         raise ValueError("live map must immediately follow Witness Board on right/odd page")
     book.heading(f"CASE {number:02d} // {family.upper()}", 17)
@@ -584,6 +623,7 @@ def draw_map(book: Book, case: dict, number: int, solution: bool = False,
 def draw_case01(book: Book, mission: dict, sections: dict) -> None:
     book.begin("intake evidence", 1, label="case 01 / intake board")
     book.heading("CASE 01 // THE INTAKE GRID", 18)
+    book.text("HELPER ROSTER // QUILL / PIP / MORSE / KNOX", 10.4, True, gap=7)
     tut = mission["tutorial"]
     grid_size = 282
     grid_y = book.y-grid_size-20
@@ -613,6 +653,16 @@ def draw_case01(book: Book, mission: dict, sections: dict) -> None:
             book.canvas.drawString(x+10, book.y-16, f"WITNESS CLUE {start+col+1:02d}")
             p.drawOn(book.canvas, x+10, book.y-25-ph)
         book.y -= h+7
+    book.ensure(34, 5)
+    top = book.y
+    c = book.canvas
+    c.setFillColor(WHITE); c.setStrokeColor(INK); c.setLineWidth(.85)
+    c.roundRect(M, top-34, TEXT_W, 34, 5, fill=1, stroke=1)
+    c.setFillColor(INK); c.setFont(rb.BOLD, 9.3)
+    c.drawString(M+12, top-21, "RECRUIT BADGE RECORD")
+    c.setFont(rb.BOLD, 18)
+    c.drawRightString(W-M-14, top-24, "0")
+    book.y -= 39
     book.render_md(sections.get("YOUR VERDICT / RESPONSE", ""), 11)
     book.end()
 
@@ -788,7 +838,7 @@ def draw_visual_payload(book: Book, number: int, mission: dict) -> bool:
             book.y = top-h+24
             book.text(f"PATH: {path}", 8.9, True, width=TEXT_W-24, x=x+12, gap=0, keep=False)
             book.y = top-h-9
-        book.text("SITE CONDITIONS: Paint Corridor closes at 16:30. Staff Stairs are locked. Walls cannot be crossed.", 10.2, True)
+        book.text("SITE CONDITIONS: Paint Corridor closes at 16:30. Staff Stairs are locked.", 10.2, True)
         return True
     if number == 11:
         items = mission["classification"]["items"]
@@ -870,6 +920,10 @@ def draw_visual_payload(book: Book, number: int, mission: dict) -> bool:
             c.roundRect(x, top-h, panel_w, h, 5, fill=1, stroke=1)
             c.setFillColor(INK); c.setFont(rb.BOLD, 9.2)
             c.drawCentredString(x+panel_w/2, top-20, f"PRINT {i+1}")
+            if i in (0, 3):
+                c.setFont(rb.BOLD, 8.7)
+                c.drawCentredString(x+panel_w/2, top-37,
+                                    "EAST PATH" if i == 0 else "WEST GATE")
             cx, sole_y = x+panel_w/2, top-203
             c.setStrokeColor(INK); c.setLineWidth(1.4)
             c.ellipse(cx-20, sole_y+72, cx+20, sole_y+126, fill=0, stroke=1)
@@ -995,33 +1049,67 @@ def draw_front(book: Book, front: list[dict]) -> None:
             book.render_md("\n".join(item["markdown"].splitlines()[1:]), 12, compact=True)
         elif number == 9:
             book.heading("YOUR CASE WALL + HINT VAULT", 19)
-            body = "\n".join(item["markdown"].splitlines()[1:])
+            body = "\n".join(project_front_markdown(number, item["markdown"]).splitlines()[1:])
             left, right = body.split("### HINT VAULT + SOLUTION FILES", 1)
             col_w = (TEXT_W-19)/2
-            def column(markdown: str, x: float, top: float) -> float:
+            copy_left_w = 220
+            copy_right_w = TEXT_W-copy_left_w-19
+            def column(markdown: str, x: float, top: float, width: float) -> float:
                 y = top
                 for kind, value in paragraphs(markdown):
                     size = 10.5 if kind == "heading" else 9.1
                     p = Paragraph(inline(("• " if kind == "bullet" else "") + value),
                                   ParagraphStyle("front9", fontName=rb.BOLD if kind == "heading" else rb.FONT,
                                                  fontSize=size, leading=size*1.25))
-                    _, h = p.wrap(col_w, H)
+                    _, h = p.wrap(width, H)
                     if y-h < BOTTOM:
                         raise ValueError("physical page 9 Case Wall copy does not fit")
                     p.drawOn(book.canvas, x, y-h)
                     y -= h + (7 if kind == "heading" else 3)
                 return y
-            left_y = column(left, M, book.y)
-            right_y = column("### HINT VAULT + SOLUTION FILES" + right, M+col_w+19, book.y)
-            for zone in ("MATCHING MARKS", "MESSAGES / RULES", "CODES / COORDINATES", "FALSE LEADS", "OPEN QUESTIONS"):
-                left_y -= 38
-                if left_y < BOTTOM:
-                    raise ValueError("physical page 9 Evidence Log zones do not fit")
-                book.canvas.setStrokeColor(LINE)
-                book.canvas.roundRect(M, left_y, col_w, 35, 4, fill=0, stroke=1)
-                book.canvas.setFillColor(INK); book.canvas.setFont(rb.BOLD, 8.7)
-                book.canvas.drawString(M+8, left_y+23, zone)
-            book.y = min(left_y, right_y)
+            left_y = column(left, M, book.y, copy_left_w)
+            right_y = column("### HINT VAULT + SOLUTION FILES" + right,
+                             M+copy_left_w+19, book.y, copy_right_w)
+            top = min(left_y, right_y)-10
+            if top-308 < BOTTOM+4:
+                raise ValueError(f"physical page 9 writable Case Wall does not fit (top={top:.1f})")
+            c = book.canvas
+            right_x = M+col_w+19
+
+            def zone(x: float, zone_top: float, height: float, title: str,
+                     line_offsets: tuple[int, ...]) -> None:
+                c.setFillColor(WHITE); c.setStrokeColor(LINE); c.setLineWidth(.85)
+                c.roundRect(x, zone_top-height, col_w, height, 5, fill=1, stroke=1)
+                c.setFillColor(INK); c.setFont(rb.BOLD, 9.1)
+                c.drawString(x+10, zone_top-18, title)
+                for offset in line_offsets:
+                    c.setStrokeColor(LINE); c.setLineWidth(.85)
+                    c.line(x+12, zone_top-offset, x+col_w-12, zone_top-offset)
+
+            zone(M, top, 150, "MATCHING MARKS", (52, 77, 102, 127))
+            c.setFillColor(INK); c.setFont(rb.BOLD, 8)
+            c.drawString(M+col_w-78, top-20, "MARK")
+            c.setFillColor(WHITE); c.setStrokeColor(INK); c.setLineWidth(.85)
+            c.rect(M+col_w-43, top-60, 29, 29, fill=1, stroke=1)
+
+            zone(right_x, top, 178, "MESSAGES / RULES", (52, 77, 102, 127, 152))
+
+            codes_top = top-160
+            zone(M, codes_top, 120, "CODES / COORDINATES", ())
+            c.setFillColor(INK); c.setFont(rb.BOLD, 8.4)
+            c.drawString(M+10, codes_top-39, "CASE 05 CODE")
+            for slot in range(6):
+                x = M+10+slot*37
+                c.setFillColor(WHITE); c.setStrokeColor(INK); c.setLineWidth(.85)
+                c.rect(x, codes_top-76, 29, 29, fill=1, stroke=1)
+            c.setFillColor(INK); c.setFont(rb.BOLD, 8.4)
+            c.drawString(M+10, codes_top-101, "COORDINATE")
+            c.setStrokeColor(LINE); c.setLineWidth(.85)
+            c.line(M+91, codes_top-103, M+col_w-12, codes_top-103)
+
+            open_top = top-188
+            zone(right_x, open_top, 120, "OPEN QUESTIONS", (42, 62, 82, 102))
+            book.y = min(codes_top-120, open_top-120)
         elif number == 10:
             book.heading("30 ACTIVE FILES", 20)
             entries = re.findall(r"^(\d{2})\s+—\s+(.+?)\s*$", item["markdown"], flags=re.MULTILINE)
@@ -1190,23 +1278,23 @@ def build(pdf_path: Path) -> dict:
     book.begin("stop divider", label="STOP / HINT VAULT")
     book.y = 540
     book.heading("STOP // HINT VAULT", 29)
-    book.text("Turn the whole book around to enter the Hint Vault and Solution Files.", 15)
+    book.text("The Hint Vault and Solution Files begin on the next page.", 15)
     book.text("Try one hint level at a time. Keep your verdict yours until you choose a solution.", 11)
     book.end()
     for level in ("1", "2", "3"):
-        book.begin(f"hint vault level {level}", side="reverse", label=f"hint vault / level {level}")
+        book.begin(f"hint vault level {level}", label=f"hint vault / level {level}")
         book.render_md(f"# HINT VAULT // LEVEL {level}", 20)
         book.render_md(source["hint_intros"][level], 12)
         for case in source["hint_levels"][level]:
             book.render_md(case["markdown"], 12)
         book.end()
-    book.begin("solutions entry", side="reverse", label="solution files")
+    book.begin("solutions entry", label="solution files")
     book.render_md("# SOLUTION FILES", 20)
     book.render_md(source["solutions_intro"], 12)
     book.end()
     for case in source["solution_files"]:
         number = case["number"]
-        book.begin("solution", number, "reverse", f"solution / case {number:02d}")
+        book.begin("solution", number, label=f"solution / case {number:02d}")
         book.render_md(project_solution_markdown(number, case["markdown"]), 15)
         if number == 3:
             book.image(OWNER_DIR/"case03_solution.png", 370, 460)
@@ -1214,7 +1302,7 @@ def build(pdf_path: Path) -> dict:
         if number in spatial:
             draw_map(book, spatial[number], number, True)
     if book.page % 2:
-        book.begin("reverse closing", side="reverse", label="case closed")
+        book.begin("closing", label="case closed")
         book.y = 510
         book.heading("CASE CLOSED", 27)
         draw_scanner_question_mark(book.canvas, W/2, 330)

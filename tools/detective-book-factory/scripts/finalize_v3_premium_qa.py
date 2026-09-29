@@ -2,6 +2,7 @@
 """Bind the V3 premium interior's source, assets, print and layout checks."""
 from __future__ import annotations
 
+import argparse
 import json
 import itertools
 from pathlib import Path
@@ -27,6 +28,9 @@ def check(pdf: Path) -> dict:
     grayscale = audit_pdf_grayscale(pdf)
     reader = PdfReader(str(pdf))
     errors: list[str] = []
+    expected_title = "Happy Makers Detective Academy - The Mystery of Room Zero - Book 1"
+    if str(reader.metadata.title or "") != expected_title:
+        errors.append("PDF metadata title drift")
 
     if render["pdf_sha256"] != sha(pdf) or render["errors"]:
         errors.append("renderer result is stale or has overflow errors")
@@ -143,10 +147,19 @@ def check(pdf: Path) -> dict:
         else:
             answer_witnesses += 1
 
-    reverse_pages = [item["physical_page"] for item in index if item["side"] == "reverse"]
-    bad_rotation = [n for n in reverse_pages if b"-1 0 0 -1 612 792 cm" not in reader.pages[n - 1].get_contents().get_data()]
-    if bad_rotation:
-        errors.append(f"reverse content transform missing on pages {bad_rotation[:10]}")
+    stop_page = next(item["physical_page"] for item in index if item["family"] == "stop divider")
+    back_pages = list(range(stop_page + 1, len(reader.pages) + 1))
+    bad_orientation = []
+    for page_number in back_pages:
+        page = reader.pages[page_number - 1]
+        whole_page_turn = any(
+            operator == b"cm" and [float(value) for value in operands] == [-1, 0, 0, -1, 612, 792]
+            for operands, operator in ContentStream(page.get_contents(), reader).operations
+        )
+        if int(page.get("/Rotate", 0)) % 360 or whole_page_turn or index[page_number-1]["side"] != "upright":
+            bad_orientation.append(page_number)
+    if bad_orientation:
+        errors.append(f"back matter pages are not physically upright: {bad_orientation[:10]}")
     if any(item["physical_side"] != ("verso / left" if item["physical_page"] % 2 == 0 else "recto / right") for item in index):
         errors.append("page-index physical side mismatch")
 
@@ -178,8 +191,8 @@ def check(pdf: Path) -> dict:
         "answer_witnesses_on_boards": answer_witnesses,
         "reader_fragments_checked": regression["reader_fragments_checked"],
         "reader_fragments_missing": regression["missing_reader_fragment_count"],
-        "reverse_pages_with_180_degree_transform": len(reverse_pages) - len(bad_rotation),
-        "reverse_page_count": len(reverse_pages),
+        "upright_back_matter_pages": len(back_pages) - len(bad_orientation),
+        "back_matter_page_count": len(back_pages),
         "errors": errors,
         "english_frozen": False,
         "kdp_publication_authorized": False,
@@ -187,8 +200,11 @@ def check(pdf: Path) -> dict:
 
 
 if __name__ == "__main__":
-    report = check(DEFAULT_PDF)
-    path = DEFAULT_PDF.with_name(DEFAULT_PDF.stem + "_final_QA.json")
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--pdf", type=Path, default=DEFAULT_PDF)
+    pdf = parser.parse_args().pdf.resolve()
+    report = check(pdf)
+    path = pdf.with_name(pdf.stem + "_final_QA.json")
     path.write_text(json.dumps(report, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     print(f"{report['status']}: {report['page_count']} pages, {report['title_matches_index_brief_solution']} matched titles, {report['case03_tracker_count']} tracker marks")
     for error in report["errors"]:

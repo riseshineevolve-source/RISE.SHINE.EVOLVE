@@ -14,7 +14,7 @@ from pypdf import PdfReader
 
 from build_v3_final_text_contract import build_contract
 from build_v3_premium_interior import (
-    DEFAULT_PDF, paragraphs, plain, project_case_markdown,
+    DEFAULT_PDF, paragraphs, plain, project_case_markdown, project_front_markdown,
     project_solution_markdown, sha, split_case,
 )
 
@@ -61,11 +61,20 @@ def audit(pdf: Path, index_path: Path) -> dict:
         errors.append("missing Solution Files")
     if len([item for item in index if item["family"] == "front matter"]) != 10:
         errors.append("front matter physical page count drift")
-    reverse = [item for item in index if item["side"] == "reverse"]
-    if not reverse or any(item["side"] != "reverse" for item in index[reverse[0]["physical_page"]-1:]):
-        errors.append("reverse back matter is discontinuous")
-    if index[reverse[0]["physical_page"]-2]["family"] != "stop divider":
-        errors.append("missing upright STOP divider before reverse back matter")
+    stops = [item for item in index if item["family"] == "stop divider"]
+    if len(stops) != 1:
+        errors.append("expected one STOP divider before the back matter")
+    else:
+        back_matter = index[stops[0]["physical_page"]:]
+        if not back_matter or back_matter[0]["family"] != "hint vault level 1":
+            errors.append("Hint Vault does not begin immediately after STOP divider")
+        if any(item["side"] != "upright" for item in back_matter):
+            errors.append("back matter page marked with non-upright orientation")
+        if any(not item["family"].startswith(("hint vault level", "solution"))
+               and item["family"] != "closing" for item in back_matter):
+            errors.append("unexpected page family in Hint Vault or Solution Files")
+        if any(families[f"hint vault level {level}"] < 1 for level in (1, 2, 3)):
+            errors.append("one or more Hint Vault levels are missing")
 
     page_text = [page.extract_text() or "" for page in reader.pages]
     if any("\x00" in text for text in page_text):
@@ -133,7 +142,8 @@ def audit(pdf: Path, index_path: Path) -> dict:
         errors.append("Case 06 COMMS page lacks its reader-facing heading")
     checks: list[tuple[str,str]] = []
     for front in source["front_pages"]:
-        checks += [(f"front {front['number']:02d}", p) for p in substantive_lines(front["markdown"])]
+        checks += [(f"front {front['number']:02d}", p) for p in
+                   substantive_lines(project_front_markdown(front["number"], front["markdown"]))]
     for block in source["main_flow"]:
         if block["kind"] == "section":
             checks += [(block["title"], p) for p in substantive_lines(block["markdown"])]
@@ -188,6 +198,28 @@ def audit(pdf: Path, index_path: Path) -> dict:
         return " ".join(page_text[item["physical_page"]-1] for item in index
                         if item["case"] == number and item["family"].startswith("puzzle evidence"))
 
+    wall_text = norm(page_text[8])
+    if any(norm(name) not in wall_text for name in
+           ("MATCHING MARKS", "MESSAGES / RULES", "CODES / COORDINATES", "OPEN QUESTIONS")):
+        errors.append("page 9 Case Wall zones missing")
+    if norm("FALSE LEADS") in wall_text or norm("upside down") in wall_text:
+        errors.append("page 9 still describes obsolete Case Wall or page orientation")
+    intake_page = next(item["physical_page"] for item in index if item["family"] == "intake evidence")
+    intake = norm(page_text[intake_page-1])
+    if norm("HELPER ROSTER QUILL PIP MORSE KNOX") not in intake:
+        errors.append("Case 01 four-candidate roster is missing")
+    if intake.count("knox") != 1:
+        errors.append("Case 01 must introduce Knox only on the roster")
+    if norm("RECRUIT BADGE RECORD 0") not in intake:
+        errors.append("Case 01 recruit badge 0 seed is missing")
+    for case_number, record in ((2, "TROPHY HALL TAG 0"),
+                                (4, "OPEN NIGHT EVIDENCE LABEL 0"),
+                                (5, "OLD LOCKER ENVELOPE 0")):
+        brief = next(item["physical_page"] for item in index
+                     if item["family"] == "case brief" and item["case"] == case_number)
+        if norm(record) not in norm(page_text[brief-1]):
+            errors.append(f"Case {case_number:02d} pre-Case09 mark seed is missing")
+
     if "<br/>" in " ".join(page_text):
         errors.append("literal HTML line-break token printed")
     for token in ("zigzag-2", "notch-3", "curve-1"):
@@ -224,10 +256,42 @@ def audit(pdf: Path, index_path: Path) -> dict:
         errors.append("Case 01 contact reply is not closed before Case 02")
     solution08 = next(item["physical_page"] for item in index
                       if item["family"] == "solution" and item["case"] == 8)
-    if norm("line crosses a wall") in norm(page_text[solution08-1]):
-        errors.append("Case 08 solution asserts an unshown wall crossing")
+    brief08 = next(item["physical_page"] for item in index
+                   if item["family"] == "case brief" and item["case"] == 8)
+    case08 = norm(page_text[brief08-1] + evidence_text(8) + page_text[solution08-1])
+    if any(norm(phrase) in case08 for phrase in
+           ("passes through a wall", "Walls cannot be crossed", "line crosses a wall",
+            "or a wall")):
+        errors.append("Case 08 claims unsupported wall-crossing logic")
+    if any(norm(phrase) not in case08 for phrase in
+           ("Route A fails because the Paint Corridor is closed",
+            "Route B fails because the Staff Stairs are locked",
+            "Route C is the only valid shortcut")):
+        errors.append("Case 08 visible restrictions or C verdict drift")
+    case24 = norm(evidence_text(24))
+    if any(norm(phrase) not in case24 for phrase in
+           ("PRINT 1 EAST PATH", "PRINT 4 WEST GATE")):
+        errors.append("Case 24 printed endpoint names are missing")
+    solution24 = next(item["physical_page"] for item in index
+                      if item["family"] == "solution" and item["case"] == 24)
+    if norm("EAST PATH -> WEST GATE") not in norm(page_text[solution24-1]):
+        errors.append("Case 24 locked answer drift")
 
     with pdfplumber.open(pdf) as visual_pdf:
+        wall = visual_pdf.pages[8]
+        wall_shapes = wall.rects + wall.curves
+        zone_w = (522-19)/2
+        def wall_shapes_of_size(width: float, height: float) -> int:
+            return sum(1 for shape in wall_shapes
+                       if abs(shape["width"]-width) < 1 and abs(shape["height"]-height) < 1)
+        if any(wall_shapes_of_size(zone_w, height) != count for height, count in
+               ((150, 1), (178, 1), (120, 2))):
+            errors.append("page 9 four writable Case Wall zones are missing")
+        if wall_shapes_of_size(29, 29) != 7:
+            errors.append("page 9 mark space or six code slots are missing")
+        writing_lines = sum(1 for line in wall.lines if abs(line["width"]-(zone_w-24)) < 1)
+        if writing_lines < 13:
+            errors.append("page 9 lacks the required writing lines")
         def sized_rectangles(number: int, width: float, height: float) -> int:
             pages = [item["physical_page"] for item in index
                      if item["case"] == number and item["family"].startswith("puzzle evidence")]
