@@ -6,7 +6,8 @@ const APP_SHELL = [
   './app.js',
   './manifest.webmanifest',
   './content/days-01-03.json',
-  '../assets/images/24%20Gentle%20Steps%20to%20Christmas%20cover.jpg'
+  '../assets/images/24%20Gentle%20Steps%20to%20Christmas%20cover.jpg',
+  '../assets/js/rse-analytics-consent.js'
 ];
 
 self.addEventListener('install', function (event) {
