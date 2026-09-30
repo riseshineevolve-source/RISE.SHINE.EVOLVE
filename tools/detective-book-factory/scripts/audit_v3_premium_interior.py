@@ -81,6 +81,18 @@ def audit(pdf: Path, index_path: Path) -> dict:
         errors.append("missing-font glyph printed in reader PDF")
     if any("**" in text for text in page_text):
         errors.append("unrendered Markdown emphasis markers appear in reader PDF")
+    page3 = norm(page_text[2]) if len(page_text) >= 3 else ""
+    page4 = norm(page_text[3]) if len(page_text) >= 4 else ""
+    if norm("YOUR SQUAD") in page3:
+        errors.append("opening page 3 incorrectly contains YOUR SQUAD")
+    if norm("WILL YOU CLAIM IT") not in page3:
+        errors.append("opening page 3 lost the cold-open invitation")
+    if norm("IF ACCEPTED REPORT TO THE CASE TABLE") in page3:
+        errors.append("opening page 3 leaks Academy/team explanation")
+    if norm("YOUR SQUAD") not in page4:
+        errors.append("opening page 4 is not the squad page")
+    if norm("New recruit at the Case Table") not in page4:
+        errors.append("opening page 4 lost the owner-approved general squad opener")
     all_text = norm(" ".join(page_text))
     if "story bridge continuation" in all_text:
         errors.append("internal story bridge continuation label printed")
@@ -172,7 +184,9 @@ def audit(pdf: Path, index_path: Path) -> dict:
         errors.append(f"{len(missing)} reader-copy fragments not found in PDF extraction")
 
     required = {
-        "page2 welcome": "WE HAVE SAVED A COZY SPOT JUST FOR YOU.",
+        "page2 website CTA": "Come visit us online - we saved a cozy spot just for you:",
+        "page2 Facebook CTA": "Rise.Shine.Evolve.Learning Hub.",
+        "page4 squad opener": "New recruit at the Case Table.",
         "Case01 alias QUILL": "QUILL",
         "Case01 alias MORSE": "MORSE",
         "Case01 alias PIP": "PIP",
