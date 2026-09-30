@@ -51,10 +51,16 @@ No part of this publication may be reproduced, stored in a retrieval system, or 
 The development of this book was supported by AI-assisted tools.
 
 
-**WE HAVE SAVED A COZY SPOT JUST FOR YOU.**
+Come visit us online - we saved a cozy spot just for you:
 
 
-rise-shine-evolve-learning-hub.com
+https://rise-shine-evolve-learning-hub.com
+
+
+Follow us on Facebook:
+
+
+Rise.Shine.Evolve.Learning Hub.
 
 
 
@@ -102,7 +108,7 @@ A coincidence?
 ---
 
 
-## WELCOME TO THE DETECTIVE ACADEMY
+## YOUR SQUAD
 
 
 You turn the page.
@@ -111,7 +117,7 @@ The intake printer has added one line beneath the slot:
 
 **IF ACCEPTED: REPORT TO THE CASE TABLE.**
 
-Welcome to the **Detective Academy**.
+### WELCOME TO THE DETECTIVE ACADEMY
 
 
 This is where small real-world mysteries become case files. New calls, reopened records and strange pieces of evidence arrive through the Academy intake desk. The Happy Makers do not begin by choosing a suspect. They begin with a better question:
@@ -150,12 +156,12 @@ Knows the old Academy records, says when a memory is incomplete and refuses to l
 ### HAPPY MAKERS CHAT
 
 
-- **DILO:** Is this the official team photo?
-- **LULI:** You have been posing for thirty seconds.
-- **ALIO:** Helmet on or off?
-- **MIMI:** We are not opening a helmet sub-case.
-- **NINI:** Too late. I already named it.
-- **BIBI:** No.
+- **MIMI:** New recruit at the Case Table.
+- **DILO:** Excellent. We look almost organized.
+- **LULI:** We do not.
+- **NINI:** Don't worry. We solve things before we tidy them.
+- **ALIO:** Usually.
+- **BIBI:** Welcome, Detective. Bring questions. Leave guesses at the door.
 
 
 
