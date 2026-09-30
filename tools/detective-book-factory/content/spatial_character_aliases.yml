@@ -1,0 +1,24 @@
+version: 2
+status: presentation_only_v3
+rule: >-
+  Every alias maps one stable source identity to one unique reader-facing HMDA
+  name. Source identities, placements, coordinates, clue meaning and stored
+  answers never change. Each case also assigns numeric witness IDs 01..NN in
+  stable source-roster order; map columns remain alphabetic.
+
+cases:
+  HMDA_02: {Hope: Nova, Drew: Dax, Rory: Rook, Edgar: Atlas, Vesta: Ivy, Bobby: Max}
+  HMDA_04: {Finlay: Echo, Ivor: Kai, Raquel: Zuri, Amelie: Briar, Clarissa: Clover, Lisa: Pixel}
+  HMDA_06: {Stafford: Scout, Hubert: Hugo, Ava: Arlo, Vera: Vale, Wallace: Wren, Eunice: Uma}
+  HMDA_07: {Bruce: Blaze, Isla: Indigo, Winifred: Willa, Zelda: Zoe, Roscoe: Rocket, Grayson: Gray}
+  HMDA_10: {Eliza: Ember, Nicholas: Nico, Willie: Wyatt, Frances: Finn, Blythe: Beck, Verity: Vera, Dora: Dash}
+  HMDA_12: {Kendra: Kira, Norris: Nell, Irma: Iris, Earlene: Eli, Cleo: Cove, Siobhan: Sage, Winthrop: Winter}
+  HMDA_13: {Jewel: Juno, Shirley: Skye, Elliot: Eden, Wanda: Willow, Bronwen: Bodhi, Mercer: Moxie, Rafferty: Remy}
+  HMDA_15: {Hiram: Harper, Primrose: Piper, Damian: Duke, Carolyn: Cruz, Jonquil: Jett, Isabella: Inez, Mona: Milo}
+  HMDA_17: {Octavia: Otis, Margaret: Mika, Kerry: Koa, Samuel: Sunny, Lincoln: Luna, Ambrose: Axel, Rhoda: Reed}
+  HMDA_19: {Archibald: Avery, Theodore: Theo, Ottoline: Ollie, Drew: Dex, Madge: Mack, Kimberly: Kian, Sonia: Sasha}
+  HMDA_20: {Standish: Sid, Pamela: Pax, Leslie: Luca, Millie: Mara, Aurora: Asa, Thatcher: Toby, Danielle: Demi}
+  HMDA_22: {Leigh: Lex, Irene: Imani, Clarence: Cody, Natasha: Nia, Gemma: Gia, William: Wes, Zelda: Zara}
+  HMDA_23: {Vesta: Vivi, Charlene: Cora, Owen: Ozzy, Rebecca: Rae, Madge: Mae, Peyton: Pia, Judy: Jude}
+  HMDA_25: {Giselle: Gabe, Celia: Casey, Regan: Rio, Theodore: Tate, Silas: Sol, Warren: Wynn, Noreen: Nori}
+  HMDA_29: {Michelle: Mavis, Cassandra: Cato, Jordana: Jules, Betsy: Bryn, Vera: Vega, Ransom: Ren, Payton: Poppy, Wilhelmina: Wade, Shepherd: Seth}

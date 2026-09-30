@@ -1,0 +1,37 @@
+version: 1
+status: template
+mode: presentation_only
+
+note: >-
+  Populate a private/release copy from the deterministic runtime inventory.
+  This public template intentionally contains no guessed source object types.
+  The locked Shigai runtime remains authoritative for object cell, type,
+  variant, occupiable and blocked semantics.
+
+invariants:
+  preserve_runtime_fields:
+    - cell
+    - type
+    - variant
+    - occupiable
+    - blocked
+  permitted_render_boxes:
+    - cell_core
+    - cell_center_safe
+
+# Schema:
+#
+# types:
+#   <exact source runtime type>:
+#     presentation_key: <stable modern visual id>
+#     allowed_occupiable: [true]   # or [false], or [true, false] only if proven
+#     render_box: cell_center_safe
+#     variants:
+#       <exact stringified source variant>:
+#         presentation_key: <variant-specific modern visual id>
+#         allowed_occupiable: [true]
+#         render_box: cell_center_safe
+#
+# `variants` is optional. `__none__` is the key for a null source variant.
+# Catalog mappings may never override source puzzle semantics.
+types: {}

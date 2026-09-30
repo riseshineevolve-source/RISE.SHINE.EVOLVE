@@ -1,0 +1,1446 @@
+version: 4
+status: CANONICAL_V4_OWNER_REVIEW
+purpose: Merge story patches over the durable phase sources. Preserve all logic payloads and answer values.
+book:
+  edition: ''
+  opening_code: 'FIVE FIELD DETECTIVES.
+
+    ONE EMPTY BADGE HOOK.
+
+    THE SIGNAL NEEDS DETECTIVE SIX.'
+  rule_zero_teaser: RULE ZERO // SEALED UNTIL THE EVIDENCE EARNS IT
+  pdf_subject: Thirty fair-play cases, one Academy mystery and a place for Detective Six.
+  pdf_keywords: detective puzzles, logic puzzles, screen-free, kids activity book, Room Zero
+  opening_lines:
+  - FIVE FIELD DETECTIVES.
+  - ONE EMPTY BADGE HOOK.
+  - THE SIGNAL NEEDS DETECTIVE SIX.
+opening:
+  squad_intro: Five field detectives work together at the Happy Makers Detective Academy. They help people untangle
+    mix-ups, test suspicious stories and return missing things. Grandma Bibi is their archive mentor. She knows
+    the old Academy; she also knows who cannot be left alone with an interesting button.
+  academy_intro:
+    headline: WELCOME TO THE ACADEMY
+    body: 'A maker room, a case wall, a very busy intake desk. People bring questions here. The Happy Makers turn
+      them into files: what happened, what can be checked, and what still needs proving. They disagree cheerfully.
+      They keep the evidence.'
+    chat:
+    - speaker: mimi
+      text: Everything has a place.
+    - speaker: nini
+      text: Your phone is in the snack basket.
+    - speaker: mimi
+      text: That was its temporary place.
+  acceptance_letter:
+    headline: TO THE PERSON HOLDING THIS BOOK
+    body: 'Five field detectives have checked in. One badge hook is still empty.
+
+
+      The Academy needs another pair of eyes. Thirty files are waiting: genuine new calls and real incidents from
+      the archive. Some details may return. Keep what you discover.
+
+
+      You are invited to train for the empty place: DETECTIVE SIX. Bibi will guide the archive work. The five field
+      detectives will work beside you. The verdicts are yours.'
+    note: 'Complete the one FIELD DETECTIVE ID.
+
+      Write your call sign.
+
+      Open Case 01.
+
+      Notice what repeats.'
+    status: ONE FIELD DETECTIVE REQUIRED
+    letter_lines:
+    - FIVE FIELD DETECTIVES.
+    - SIX BADGE HOOKS.
+    - ONE PLACE TO EARN.
+  id_card:
+    heading: FIELD DETECTIVE ID
+    designation: DETECTIVE SIX // RECRUIT
+    name_label: DETECTIVE NAME / CALL SIGN
+    acceptance: I will follow the evidence, record what I find and ask for a nudge when I need one.
+    case_wall_label: CASE WALL // DETAILS TO KEEP
+    footer: This is your one official recruit card. Keep the same call sign through the final file.
+  how_to_play:
+  - READ THE MISSION BRIEF. Find out what happened.
+  - CHECK YOUR OBJECTIVE. Know what your verdict must identify.
+  - READ INVESTIGATION RULES before starting.
+  - STUDY THE EVIDENCE. Pictures and words can hold clues.
+  - MARK WHAT YOU KNOW. Tick each clue after using it.
+  - KEEP FINAL POSITIONS. Write every witness number in their final square.
+  - WRITE YOUR VERDICT and its supporting evidence.
+  - STUCK? Use only your case’s next Hint Vault level.
+  - CHECK THE SOLUTION after trying. It explains why.
+  - KEEP YOUR BOOK. An old case may become useful again.
+  hint_instructions:
+  - Go to HINT VAULT // LEVEL 1.
+  - Find YOUR case number. Read ONLY that hint.
+  - Return to your case and try the next step.
+  - Still stuck? Find the SAME case in LEVEL 2.
+  - LEVEL 3 is the strongest nudge. Choose it only when needed.
+  - SOLUTION FILES are at the back. Check after trying; read the reasoning as well as the answer.
+  hint_heading: STUCK? ONE NUDGE AT A TIME.
+  solution_heading: CHECK THE REASON, NOT JUST THE ANSWER.
+  sequence:
+  - id: meet
+    heading: MEET THE HAPPY MAKERS
+    body: Mimi, Luli, Dilo, Alio and Nini are the Academy’s five field detectives. Bibi is their archive mentor.
+      Different jobs. Different ideas. One very well-used case table.
+    visual: approved squad portrait and six large individual cards
+  - id: academy
+    heading: FIVE DETECTIVES. SIX HOOKS.
+    body: Beside the intake desk stands the portable field-certification rack. Five badges hang under MIMI, LULI,
+      DILO, ALIO and NINI. Hook 06 is empty. Bibi’s card reads ARCHIVE MENTOR; she does not use a field slot.
+    visual: one rack; five named badges; empty06; separate Bibi mentor card
+  - id: wake
+    heading: THE EMPTY PLACE WAKES THE INTAKE DESK
+    body: 'At closing time, Mimi saves the day’s roster. The old display flickers: FIVE FIELD DETECTIVES CHECKED
+      IN. FIELD SLOT 06 UNASSIGNED. Inside the desk, a latch clicks.'
+    chat:
+    - speaker: dilo
+      text: That button has excellent timing.
+    - speaker: luli
+      text: Mimi pressed Save. Please let the button stay modest.
+    visual: roster display, five checked in and06unassigned
+  - id: envelope
+    heading: ONE BLACK ENVELOPE
+    body: 'A sealed black envelope slides from the internal tray. Its receipt reads INTERNAL BADGE STOCK. EXTERNAL
+      DELIVERY: NONE. Through its window is an unassigned badge. On the front: TO THE PERSON HOLDING THIS BOOK.'
+    visual: black envelope INTAKE01; badge06; readable receipt
+  - id: letter
+    heading: THE LETTER IS FOR YOU
+    body: Mimi opens the flap at the tear strip and unfolds the letter. The blank badge stays on the white evidence
+      mat beside it. The invitation is yours to accept.
+    visual: opened flap; unfolded letter containing acceptance_letter text
+  - id: accept
+    heading: CHOOSE YOUR CALL SIGN
+    body: If you accept, complete the Field Detective ID on the next page. You become the recruit for slot 06. Official
+      field certification comes after the investigation.
+    chat:
+    - speaker: nini
+      text: There is room for your pencil beside mine.
+    - speaker: alio
+      text: I have a spare helmet.
+    - speaker: mimi
+      text: Start with the pencil.
+    visual: pointer to singleID page; no second name-writing invitation form
+  - id: first_case
+    heading: START WHERE THE ENVELOPE ARRIVED
+    body: Before the desk sends another file, the team must log who was at Delivery when the black envelope emerged.
+      Four visiting helpers were recorded on the floor plan. This is Case 01.
+    visual: same tray and badge; no second arrival
+  character_cards:
+  - speaker: mimi
+    name: MIMI
+    role: FIELD DETECTIVE // CASE CAPTAIN
+    lines:
+    - Runs the case table.
+    - Finds the tiny clue.
+    - May need help finding her own phone.
+    strength: Turns a muddle into the next useful step.
+    funny_habit: Organizes everything except what she just put down.
+  - speaker: luli
+    name: LULI
+    role: FIELD DETECTIVE // CLUE ANALYST
+    lines:
+    - Reads the small print.
+    - Questions the big claim.
+    - Short replies. Long books.
+    strength: Spots contradictions and tests what evidence proves.
+    funny_habit: Can forget a book is not a substitute for lunch.
+  - speaker: dilo
+    name: DILO
+    role: FIELD DETECTIVE // CODE & TECH
+    lines:
+    - Loves codes, games and close scores.
+    - Invents impressive-sounding facts.
+    - Will help you test them.
+    strength: Connects numbers, machines and clever experiments.
+    funny_habit: His confidence can finish before the test does.
+  - speaker: alio
+    name: ALIO
+    role: FIELD DETECTIVE // ROUTES & RECON
+    lines:
+    - Asks the extra question.
+    - Checks the unexpected corner.
+    - Packed a helmet for this introduction.
+    strength: Notices routes and useful physical details.
+    funny_habit: Prepares for imaginary dangers before reading ordinary signs.
+  - speaker: nini
+    name: NINI
+    role: FIELD DETECTIVE // PEOPLE & COURAGE
+    lines:
+    - Gives nervous people room to speak.
+    - Gives serious objects cute names.
+    - Asks small, surprisingly good questions.
+    strength: Notices feelings and details everyone skipped.
+    funny_habit: Can become fond of a theory before it earns its place.
+  - speaker: bibi
+    name: GRANDMA BIBI
+    role: ARCHIVE MENTOR // OLD ACADEMY GUIDE
+    lines:
+    - Knows old shelves and stranger stories.
+    - Says when a memory is incomplete.
+    - Stops nonsense without putting down her tea.
+    strength: Connects historical records and knows what to verify.
+    funny_habit: Remembers the adventure; the date may need a label.
+production:
+  hint_mode: level_major
+  compact_cases:
+  - 8
+  - 9
+  - 11
+  - 14
+  - 18
+  - 24
+  - 28
+  artifact_cases:
+  - 16
+  - 21
+  - 27
+  require_spatial_facing: true
+  witness_marker_mode: numeric
+  case_pacing: 2/3/4-page rhythm with evidence artifacts and meaningful parity pauses
+  chat_heading: HAPPY MAKERS CHAT
+  record_positions: 'WHEN YOU SOLVE IT:
+
+    WRITE EACH WITNESS NUMBER IN THEIR FINAL SQUARE.'
+  case26_lookup: 'Hint Level1 only: generated page references; main ledger retains case numbers'
+  id_page_count: 1
+  case_index_required: true
+acts:
+- number: 1
+  title: SOMETHING IS OFF
+  cases:
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+  - 6
+- number: 2
+  title: THE PATTERN
+  cases:
+  - 7
+  - 8
+  - 9
+  - 10
+  - 11
+  - 12
+- number: 3
+  title: THE BOOK REMEMBERS
+  cases:
+  - 13
+  - 14
+  - 15
+  - 16
+  - 17
+  - 18
+  - 19
+  - 20
+  - 21
+- number: 4
+  title: ROOM ZERO
+  cases:
+  - 22
+  - 23
+  - 24
+  - 25
+  - 26
+  - 27
+  - 28
+  - 29
+- number: 5
+  title: THE DOOR OPENS
+  cases:
+  - 30
+reader_arc:
+  1: RECRUIT
+  2: NEW FIELD DETECTIVE
+  10: TRUSTED TEAM MEMBER
+  22: ESSENTIAL INVESTIGATOR
+  30: DETECTIVE SIX // FINAL CHECK
+cases:
+  1:
+    signal_log:
+      code: INTAKE-01
+      label: BADGE REVERSE
+      status: FIRST RECORD LOGGED
+      speaker: mimi
+      reaction: You found the intake witness. I logged your verdict; the desk has released the next file.
+      reader_move: Add INTAKE-01 to the Case Wall on your Field Detective ID.
+    hook: 'The black envelope from the opening is now on the Academy’s evidence mat, with the unassigned badge beside
+      it. Its receipt says INTERNAL BADGE STOCK and EXTERNAL DELIVERY: NONE. Four visiting helpers—Ari, Bea, Cole
+      and Dani—were recorded when it emerged. Use that snapshot to find who was at Delivery.'
+    objective: IDENTIFY who was at Delivery when the black envelope emerged.
+    dialogue:
+    - speaker: mimi
+      text: Sealed envelope. No delivery van.
+    - speaker: alio
+      text: Tiny underground delivery van?
+    - speaker: luli
+      text: Let us begin with the people we can place.
+    - speaker: mimi
+      text: Imaginary vehicles can wait.
+    chat_is_evidence: false
+    guides:
+    - mimi
+    - luli
+    - alio
+    verdict_fields:
+    - WITNESS NUMBER / NAME
+    - COORDINATE
+    intake_receipt:
+      heading: INTAKE-01 // ORIGINAL RECEIPT
+      lines:
+      - 'SOURCE: INTERNAL BADGE STOCK'
+      - 'OUTPUT: ONE SEALED BLACK ENVELOPE'
+      - 'ITEM: UNASSIGNED FIELD BADGE 06'
+      - 'EXTERNAL DELIVERY: NONE'
+      continuity: Same envelope, badge, event and snapshot as the opening; receipt facts are given, not extra deductions.
+    meta_reveal: The badge from the black envelope carries the small engraved 0 seen in the invitation. Mimi logs
+      Case 01 after the reader verdict. The dormant case queue starts.
+  2:
+    signal_log:
+      code: INTAKE-02
+      label: TROPHY EVIDENCE TAG
+      status: SECOND MARK
+      speaker: alio
+      reaction: The trophy has a shelf problem. Its tag has a familiar mark.
+      reader_move: Keep the completed map. Add TROPHY TAG to your Case Wall.
+    hook: A reopened sports-showcase file records a trophy leaving its shelf. Max was the trophy keeper. Rebuild
+      the recorded positions to identify the one person who shared Max’s room; that contact is the next useful person
+      to ask about the trophy.
+    objective: FIND Max’s only room companion and record their coordinate.
+    dialogue:
+    - speaker: alio
+      text: 'Trophy rescue kit: rope, torch, emergency biscuit.'
+    - speaker: luli
+      text: What is the biscuit for?
+    - speaker: alio
+      text: Morale. The rope is negotiable.
+    chat_is_evidence: false
+    guides:
+    - luli
+    - alio
+    record_positions: 'WHEN YOU SOLVE IT:
+
+      WRITE EACH WITNESS NUMBER IN THEIR FINAL SQUARE.'
+    verdict_fields:
+    - WITNESS NUMBER / NAME
+    - COORDINATE
+    meta_reveal: A plain 0 is stamped on the Academy evidence tag attached to the trophy record.
+  3:
+    signal_log:
+      code: INTAKE-03
+      label: RECORD 0471
+      status: MATCH ON THE REVERSE
+      speaker: nini
+      reaction: The front changes the evidence trail. The back gives us a match.
+      reader_move: Keep the three meaningful changes and log TAG 0471.
+    hook: The trophy file includes two Academy evidence snapshots. Compare the parcel, its tag and the muddy print.
+      The printed relevance rule explains which kinds of change matter. Background decoration must not create an
+      extra answer.
+    objective: CIRCLE the three meaningful changes under the printed relevance rule.
+    dialogue:
+    - speaker: nini
+      text: I have named the important-looking sparkle Inspector Glitter.
+    - speaker: luli
+      text: Inspector Glitter needs a connection to the case.
+    - speaker: nini
+      text: Fair. Nobody gets promoted just for shining.
+    chat_is_evidence: false
+    guides:
+    - luli
+    - nini
+    verdict_fields:
+    - THREE MEANINGFUL DIFFERENCES
+    meta_reveal: The reverse of Academy evidence-tag copy 0471 carries a printed 0 matching the badge mark in shape.
+  4:
+    signal_log:
+      code: INTAKE-04
+      label: CUPCAKE INTAKE LABEL
+      status: FOURTH SIGNAL
+      speaker: mimi
+      reaction: Box enquiry filed. Its intake sticker can join our collection of questions.
+      reader_move: Log CUPCAKE LABEL after recording the map.
+    hook: The maker-fair kitchen mixed up a test-batch cupcake box and an ordinary collection. Pixel kept the collection
+      list. The saved floor record identifies the only person in Pixel’s room when the mix-up was logged.
+    objective: LOCATE Pixel’s one room contact. Give name and square.
+    dialogue:
+    - speaker: dilo
+      text: I can test every cupcake.
+    - speaker: mimi
+      text: The collection list will tell us more.
+    - speaker: dilo
+      text: Could we compare methods?
+    - speaker: mimi
+      text: You may hold the list.
+    chat_is_evidence: false
+    guides:
+    - mimi
+    - dilo
+    record_positions: 'WHEN YOU SOLVE IT:
+
+      WRITE EACH WITNESS NUMBER IN THEIR FINAL SQUARE.'
+    verdict_fields:
+    - WITNESS NUMBER / NAME
+    - COORDINATE
+    meta_reveal: The Academy cupcake-box record has a quality label with a plain 0 inside it.
+  5:
+    signal_log:
+      code: INTAKE-05
+      label: LOCKER ENVELOPE
+      status: FIVE REAL SIGNALS
+      speaker: dilo
+      reaction: The code worked. The envelope is old. Two different kinds of interesting.
+      reader_move: Keep the solved sequence. Add LOCKER ENVELOPE as the fifth signal.
+    hook: Dilo has linked the field evidence locker to the intake desk. Its active four-symbol sequence is saved
+      automatically in the session record. An old sealed file is inside, and the keypad gives four clues to its
+      order.
+    objective: DECODE the one four-symbol order fitting every clue.
+    dialogue:
+    - speaker: dilo
+      text: I challenge you to beat my locker.
+    - speaker: luli
+      text: Does it know this is a competition?
+    - speaker: dilo
+      text: It has been briefed.
+    - speaker: luli
+      text: Then we shall read its clues politely.
+    chat_is_evidence: false
+    guides:
+    - dilo
+    - luli
+    verdict_fields:
+    - SYMBOL 1
+    - SYMBOL 2
+    - SYMBOL 3
+    - SYMBOL 4
+    meta_reveal: Inside the opened locker is an old envelope sealed with 0. The linked-session receipt confirms
+      that the active symbol sequence was saved.
+  6:
+    signal_log:
+      code: QUEUE-06
+      label: MUSEUM LABEL COPY
+      status: ARCHIVE ECHO
+      speaker: nini
+      reaction: An older file has joined our question. At least the spoon has its name back.
+      reader_move: Mark the matching shape; leave its meaning open.
+    hook: 'The museum asks the Academy to reopen a label mix-up: a Roman spoon was described as a CEREMONIAL DRAGON
+      TOOTH. Uma checked the display labels. Find the one person sharing Uma’s recorded room before the team asks
+      the next question.'
+    objective: FIND the witness sharing Uma’s room. Record their square.
+    dialogue:
+    - speaker: nini
+      text: I was rather looking forward to meeting a dragon.
+    - speaker: luli
+      text: Would a correctly labelled spoon be acceptable?
+    - speaker: nini
+      text: A small disappointment. Excellent for soup.
+    chat_is_evidence: false
+    guides:
+    - luli
+    - nini
+    record_positions: 'WHEN YOU SOLVE IT:
+
+      WRITE EACH WITNESS NUMBER IN THEIR FINAL SQUARE.'
+    verdict_fields:
+    - WITNESS NUMBER / NAME
+    - COORDINATE
+    meta_reveal: The Academy copy of the switched museum label has a plain 0 on its reverse.
+  7:
+    signal_log:
+      code: QUEUE-07
+      label: COSTUME PAPER RECORD
+      status: NEW CONTEXT
+      speaker: mimi
+      reaction: The moon did not write its own paperwork. Keep the inventory copy.
+      reader_move: Keep the paper record with the completed map.
+    hook: A film-club record shows the giant moon costume missing before rehearsal. Gray handled the inventory.
+      The backstage snapshot identifies the only person sharing Gray’s area. Alio has put on the spare demonstration
+      costume while the team studies the file.
+    objective: REBUILD the positions. Name Gray’s one companion and their square.
+    dialogue:
+    - speaker: mimi
+      text: Has anyone seen Alio?
+    - speaker: alio
+      text: I am the unusually talkative moon.
+    - speaker: nini
+      text: That explains the helmet sticking out.
+    - speaker: mimi
+      text: Please bring the moon back to the case table.
+    chat_is_evidence: false
+    guides:
+    - alio
+    - mimi
+    - nini
+    record_positions: 'WHEN YOU SOLVE IT:
+
+      WRITE EACH WITNESS NUMBER IN THEIR FINAL SQUARE.'
+    verdict_fields:
+    - WITNESS NUMBER / NAME
+    - COORDINATE
+    meta_reveal: A plain 0 appears on the Academy paper inventory record. The costume has not gained a new stitch.
+  8:
+    signal_log:
+      code: CHECK-08
+      label: ROUTE CHECK
+      status: A USEFUL REJECTION
+      speaker: alio
+      reaction: I have retired one shortcut. The wall seemed relieved.
+      reader_move: Keep the legal route and the rule that proved it.
+    hook: The team needs the prop room at 16:20. Alio has drawn three routes. Wet paint, a locked staff door and
+      a wall block some options. They must arrive now; waiting for a closure to end is not allowed.
+    objective: CHOOSE the only permitted route to the prop room.
+    dialogue:
+    - speaker: alio
+      text: My route is beautifully straight.
+    - speaker: mimi
+      text: Buildings sometimes interrupt a straight line.
+    - speaker: alio
+      text: I shall discuss that with the building.
+    - speaker: mimi
+      text: After you read its door signs.
+    chat_is_evidence: false
+    guides:
+    - alio
+    - mimi
+    verdict_fields:
+    - ROUTE
+    meta_reveal: The route verdict follows access rules, not speed. This file adds no new Academy mark.
+  9:
+    signal_log:
+      code: ARCHIVE-09
+      label: BIBI’S ARCHIVE MEMORY
+      status: PATTERN CONFIRMED
+      speaker: bibi
+      reaction: I used forms with that mark. What its zero meant is the part I need to check.
+      reader_move: 'Write FACT: BIBI RECOGNIZES THE OLD FORM.'
+    hook: Several case records carry a plain 0. A poster circle and stage-light dial also look round. Decide which
+      samples really match. Bibi remembers the Academy form, but a memory is not a complete explanation.
+    objective: MATCH the true Academy marks and exclude the lookalikes.
+    dialogue:
+    - speaker: bibi
+      text: I know that mark.
+    - speaker: dilo
+      text: A complete explanation!
+    - speaker: bibi
+      text: That was the complete sentence. The explanation needs work.
+    - speaker: luli
+      text: We can work with an honest gap.
+    chat_is_evidence: false
+    guides:
+    - bibi
+    - luli
+    - dilo
+    verdict_fields:
+    - MATCHING MARKS / REASON
+    meta_reveal: The plain marks match; the striped circle and dial do not. Bibi recognizes an old Academy intake
+      form.
+  10:
+    signal_log:
+      code: QUEUE-10
+      label: ROVER DIAGNOSTIC
+      status: RECORD SAVED
+      speaker: dilo
+      reaction: Cable opinions postponed. Our detective has given us a contact to check.
+      reader_move: Keep all final witness positions and the diagnostic record.
+    hook: Two science-fair teams claimed the same silver rover. Dash kept the prototype access record. The saved
+      positions identify who shared Dash’s area, giving the team a contact to question before deciding anything
+      about ownership.
+    objective: IDENTIFY the contact sharing Dash’s prototype area and their square.
+    dialogue:
+    - speaker: dilo
+      text: Look at that cable tangle. The rover needs me.
+    - speaker: luli
+      text: So does the access question.
+    - speaker: dilo
+      text: Case first. Dramatic cable rescue second.
+    chat_is_evidence: false
+    guides:
+    - dilo
+    - luli
+    record_positions: 'WHEN YOU SOLVE IT:
+
+      WRITE EACH WITNESS NUMBER IN THEIR FINAL SQUARE.'
+    verdict_fields:
+    - WITNESS NUMBER / NAME
+    - COORDINATE
+    meta_reveal: A plain 0 appears on the Academy diagnostic record filed with the rover enquiry.
+  11:
+    signal_log:
+      code: ARCHIVE-11
+      label: 08:07 PHOTO
+      status: WRONG CASE, USEFUL DETAIL
+      speaker: nini
+      reaction: That photo cannot be a fair-time record. It can help our other question.
+      reader_move: Keep the 08:07 photograph as archive context.
+    hook: Mimi empties the evidence bag from the science fair. Three case items, two pens, an oat bar and her missing
+      phone land on the table. Compare only the timestamped records A–D against the printed 15:20–16:05 case window.
+    objective: FIND which timestamped record A–D falls outside 15:20–16:05.
+    dialogue:
+    - speaker: nini
+      text: Your phone has been living beside the oat bar.
+    - speaker: mimi
+      text: It was undercover.
+    - speaker: nini
+      text: Does the oat bar know?
+    - speaker: mimi
+      text: We protect our sources.
+    chat_is_evidence: false
+    guides:
+    - mimi
+    - nini
+    verdict_fields:
+    - RECORD
+    - TIME / REASON
+    meta_reveal: The earlier phone photograph shows an old Academy seal in its background. It is historical context,
+      not a new stamp on the phone.
+  12:
+    signal_log:
+      code: QUEUE-12
+      label: PARROT CUE-CARD COPY
+      status: PAPER TRAIL
+      speaker: dilo
+      reaction: The witness has answered further questions with cracker. We still have the record.
+      reader_move: Log the cue-card copy after saving the positions.
+    hook: A theatre parrot repeated a four-word phrase nobody remembered teaching it. Winter was the handler named
+      in the rehearsal record. The positions show who shared Winter’s area; the parrot’s snack requests are not
+      extra clues.
+    objective: MATCH Winter to the one other person in the room. Give their coordinate.
+    dialogue:
+    - speaker: dilo
+      text: Please speak clearly for the notebook.
+    - speaker: nini
+      text: Try listening before your next question.
+    - speaker: dilo
+      text: The witness said cracker.
+    - speaker: nini
+      text: A clear request. We are making progress.
+    - speaker: dilo
+      text: My neatest interview so far.
+    chat_is_evidence: false
+    guides:
+    - nini
+    - dilo
+    record_positions: 'WHEN YOU SOLVE IT:
+
+      WRITE EACH WITNESS NUMBER IN THEIR FINAL SQUARE.'
+    verdict_fields:
+    - WITNESS NUMBER / NAME
+    - COORDINATE
+    meta_reveal: The Academy copy of the parrot cue card has a small black 0 on its reverse.
+  13:
+    signal_log:
+      code: QUEUE-13
+      label: CAMERA MAINTENANCE CARD
+      status: OUR DETECTIVE’S RECORD
+      speaker: luli
+      reaction: 'Your notes give us something better than a theory: a trail we can check.'
+      reader_move: Keep the map and maintenance record together.
+    hook: An animal-centre camera recorded a blurry image at 4:17 and was later found behind supplies. Remy kept
+      its maintenance record. The saved positions identify Remy’s one room companion. The fox is not on the witness
+      list.
+    objective: FIND the contact sharing Remy’s room and their square.
+    dialogue:
+    - speaker: alio
+      text: My fox theory has one weakness.
+    - speaker: luli
+      text: Pockets?
+    - speaker: alio
+      text: Several weaknesses. I am making a list.
+    - speaker: luli
+      text: Good. Leave room for what the map actually shows.
+    chat_is_evidence: false
+    guides:
+    - luli
+    - alio
+    record_positions: 'WHEN YOU SOLVE IT:
+
+      WRITE EACH WITNESS NUMBER IN THEIR FINAL SQUARE.'
+    verdict_fields:
+    - WITNESS NUMBER / NAME
+    - COORDINATE
+    meta_reveal: The camera’s Academy maintenance record carries the same plain 0.
+  14:
+    signal_log:
+      code: CHECK-14
+      label: WITNESS TIMING RECORD
+      status: MEMORY TESTED
+      speaker: nini
+      reaction: We corrected the journey without turning a muddled memory into a crime.
+      reader_move: Keep proved travel time separate from theories about Room Zero.
+    hook: Four actors remember a backstage mix-up. The route map and clock let you check their accounts. One stated
+      journey takes longer than the witness allows. A mistaken memory does not make somebody dishonest.
+    objective: IDENTIFY the statement whose journey cannot fit its times.
+    dialogue:
+    - speaker: dilo
+      text: One statement has broken the clock.
+    - speaker: nini
+      text: Or one person has mixed up two moments.
+    - speaker: luli
+      text: Test the journey. We are checking a memory, not awarding villain badges.
+    chat_is_evidence: false
+    guides:
+    - nini
+    - luli
+    - dilo
+    verdict_fields:
+    - WITNESS
+    - TRAVEL-TIME REASON
+    meta_reveal: The tested timing record is useful evidence. Nobody has proved that a numbered Room 0 exists.
+  15:
+    signal_log:
+      code: QUEUE-15
+      label: REPLACEMENT LUGGAGE RECORD
+      status: FAMILIAR FORM
+      speaker: mimi
+      reaction: A readable tag helped the bag. Its old form gives us something to compare.
+      reader_move: Keep the form and all seven witness positions.
+    hook: An Academy camp recorded a backpack mix-up before departure. Milo’s bag was involved. Use the position
+      record to identify the person sharing Milo’s room, so the team knows which contact to ask next.
+    objective: NAME the witness in Milo’s room and mark their location.
+    dialogue:
+    - speaker: mimi
+      text: 'Next trip: readable name tags.'
+    - speaker: alio
+      text: What about satellite tracking?
+    - speaker: mimi
+      text: My tags work indoors.
+    - speaker: alio
+      text: Unexpectedly advanced technology.
+    chat_is_evidence: false
+    guides:
+    - mimi
+    - alio
+    record_positions: 'WHEN YOU SOLVE IT:
+
+      WRITE EACH WITNESS NUMBER IN THEIR FINAL SQUARE.'
+    verdict_fields:
+    - WITNESS NUMBER / NAME
+    - COORDINATE
+    meta_reveal: Milo’s replacement luggage record uses an Academy form with 0 in a corner.
+  16:
+    signal_log:
+      code: ARCHIVE-16
+      label: PHOTO REVERSE
+      status: RULE 0 FIRST
+      speaker: bibi
+      reaction: My handwriting. My ridiculous hat. One of those is a useful clue.
+      reader_move: Copy RULE 0 FIRST to the Case Wall. Leave its meaning open.
+    hook: Bibi lays down an old photograph of five children at the Academy. She points herself out beneath an enormous
+      hat. These are her childhood squadmates, not the present-day field detectives. Use the printed evidence to
+      establish where and when the photograph was taken.
+    objective: WORK OUT the photograph’s building and year.
+    dialogue:
+    - speaker: alio
+      text: That hat could shelter the whole team.
+    - speaker: bibi
+      text: It also had an excellent detective underneath it.
+    - speaker: mimi
+      text: We can admire both after our detective checks the date.
+    - speaker: bibi
+      text: The photograph, please. Not my age.
+    chat_is_evidence: false
+    guides:
+    - bibi
+    - mimi
+    - alio
+    verdict_fields:
+    - BUILDING
+    - YEAR
+    meta_reveal: 'The dated photograph’s reverse carries Bibi’s handwritten instruction: RULE 0 FIRST.'
+  17:
+    signal_log:
+      code: QUEUE-17
+      label: TICKET RECORD SLEEVE
+      status: ANOTHER PAPER MATCH
+      speaker: alio
+      reaction: I kept the ticket with its sleeve. Even my helmet could not lose that distinction.
+      reader_move: Keep the ticket record for the timing file next.
+    hook: A railway open-day file records a special ticket changing hands. Reed was the ticket contact. Identify
+      the only person sharing Reed’s recorded area. The clocks need a separate check in the next file.
+    objective: TRACE the ticket record to Reed’s one room contact. Give their coordinate.
+    dialogue:
+    - speaker: alio
+      text: I brought my railway-investigation helmet.
+    - speaker: luli
+      text: It looks like your ordinary helmet.
+    - speaker: alio
+      text: A versatile piece of equipment.
+    chat_is_evidence: false
+    guides:
+    - alio
+    - luli
+    record_positions: 'WHEN YOU SOLVE IT:
+
+      WRITE EACH WITNESS NUMBER IN THEIR FINAL SQUARE.'
+    verdict_fields:
+    - WITNESS NUMBER / NAME
+    - COORDINATE
+    meta_reveal: The Academy intake sleeve holding the ticket record has a plain 0. The original ticket has not
+      been newly punched.
+  18:
+    signal_log:
+      code: CHECK-18
+      label: 0:07
+      status: FALSE LEAD
+      speaker: dilo
+      reaction: One clock corrected. One exciting zero theory cancelled.
+      reader_move: 'Mark FALSE LEAD: TIME FORMAT. Keep the correct order.'
+    hook: The ticket records use three clocks. The café clock is seven minutes slow, Dilo’s watch is two minutes
+      fast, and the station camera shows real time. Convert all four records before ordering them.
+    objective: ORDER the four events by their corrected real times.
+    dialogue:
+    - speaker: mimi
+      text: Can your watch accept being wrong?
+    - speaker: dilo
+      text: It is handling the news with dignity.
+    - speaker: mimi
+      text: And its owner?
+    - speaker: dilo
+      text: Making the adjustment. Quietly.
+    chat_is_evidence: false
+    guides:
+    - mimi
+    - dilo
+    verdict_fields:
+    - EVENT ORDER
+    meta_reveal: The seven-minute correction may be written 0:07. It is a time format, not an Academy stamp.
+  19:
+    signal_log:
+      code: QUEUE-19
+      label: SCANNER RECORD
+      status: A FIELD LEFT BLANK
+      speaker: nini
+      reaction: The mark sits in a record field. Perhaps the place around it matters too.
+      reader_move: Log the blank-field detail without deciding its meaning.
+    hook: A media-library record says a rare book was checked out, although it stayed on the shelf. Sasha was at
+      the scanner enquiry. Find Sasha’s one room companion. Proximity alone does not prove who caused the error.
+    objective: NAME the only person sharing Sasha’s area. Record their square.
+    dialogue:
+    - speaker: dilo
+      text: I was going to say digital ghost.
+    - speaker: luli
+      text: What will you do instead?
+    - speaker: dilo
+      text: Check the scanner record.
+    - speaker: luli
+      text: I like this plot development.
+    chat_is_evidence: false
+    guides:
+    - dilo
+    - luli
+    record_positions: 'WHEN YOU SOLVE IT:
+
+      WRITE EACH WITNESS NUMBER IN THEIR FINAL SQUARE.'
+    verdict_fields:
+    - WITNESS NUMBER / NAME
+    - COORDINATE
+    meta_reveal: The scanner’s Academy enquiry copy has 0 in a field that normally remains blank.
+  20:
+    signal_log:
+      code: QUEUE-20
+      label: PANEL DRYING CARD
+      status: EVIDENCE KEPT
+      speaker: mimi
+      reaction: We know where the witnesses were. Our detective’s map is staying in the file.
+      reader_move: Preserve all final positions. Do not erase a solved map.
+    hook: A design studio recorded painted panels in the wrong order. Demi handled the panel records. Nobody is
+      being accused. Identify Demi’s only room companion so the team can continue the enquiry.
+    objective: RECORD the name and square of Demi’s studio-room companion.
+    dialogue:
+    - speaker: nini
+      text: This panel looks like a very worried pear.
+    - speaker: mimi
+      text: Give it a place on the art wall, not the witness list.
+    - speaker: nini
+      text: Understood. Pear excluded from questioning.
+    chat_is_evidence: false
+    guides:
+    - mimi
+    - nini
+    record_positions: 'WHEN YOU SOLVE IT:
+
+      WRITE EACH WITNESS NUMBER IN THEIR FINAL SQUARE.'
+    verdict_fields:
+    - WITNESS NUMBER / NAME
+    - COORDINATE
+    meta_reveal: A plain 0 appears on the Academy drying-card copy attached to the panel enquiry.
+  21:
+    signal_log:
+      code: MESSAGE-21
+      label: THE REBUILT NOTE
+      status: A NEW KIND OF CLUE
+      speaker: nini
+      reaction: It asks us to notice something that is not there. We can test that question.
+      reader_move: Copy the exact instruction after rebuilding all four pieces.
+    hook: The intake tray releases a brittle note. Dilo pulls the folded edge too quickly; four pieces settle on
+      the mat. Their tear edges and handwriting are preserved. Rebuild the note from the visible joins and the sentence.
+    objective: REBUILD the four-piece note and write its instruction.
+    dialogue:
+    - speaker: dilo
+      text: Paper needs an undo button.
+    - speaker: nini
+      text: It had one. It was called not pulling so hard.
+    - speaker: dilo
+      text: I am ready to learn the repair feature.
+    chat_is_evidence: false
+    guides:
+    - dilo
+    - nini
+    verdict_fields:
+    - PIECE ORDER
+    - COMPLETE MESSAGE
+    meta_reveal: The complete note reads THE ANSWER IS IN WHAT YOU LEAVE EMPTY. The instruction points toward absence.
+  22:
+    signal_log:
+      code: QUEUE-22
+      label: INSTRUMENT INVENTORY
+      status: KEEP THE WHOLE MAP
+      speaker: luli
+      reaction: Do not trim the record down to the answer. The other placements are evidence too.
+      reader_move: Keep the full placement, including every witness number.
+    hook: Three identical instrument cases were mixed up at the music school. Zara kept the inventory enquiry. Identify
+      the one person sharing Zara’s recorded room before following the instrument trail.
+    objective: LINK Zara to the one witness in the same room. Record that witness’s square.
+    dialogue:
+    - speaker: alio
+      text: The case is closed. The instrument case, I mean. Our case is open.
+    - speaker: luli
+      text: A remarkably accurate report.
+    - speaker: alio
+      text: I will quit while I am ahead.
+    chat_is_evidence: false
+    guides:
+    - luli
+    - alio
+    record_positions: 'WHEN YOU SOLVE IT:
+
+      WRITE EACH WITNESS NUMBER IN THEIR FINAL SQUARE.'
+    verdict_fields:
+    - WITNESS NUMBER / NAME
+    - COORDINATE
+    meta_reveal: The instrument-case inventory copy bears 0 beneath its barcode.
+  23:
+    signal_log:
+      code: QUEUE-23
+      label: WRISTBAND RETURN RECORD
+      status: ANOTHER COMPLETED FILE
+      speaker: dilo
+      reaction: The scoreboard can wait. Our detective has a better record to finish.
+      reader_move: Keep the return record and the full map.
+    hook: 'A park file records two confused wristbands: one for climbing, one for arcade access. Jude kept the return
+      record. Find the person sharing Jude’s area. Being nearby is a lead, not proof of blame.'
+    objective: FIND the person sharing Jude’s area and record their square.
+    dialogue:
+    - speaker: dilo
+      text: The arcade scoreboard has challenged me personally.
+    - speaker: mimi
+      text: It has displayed a number.
+    - speaker: dilo
+      text: Very provocatively.
+    - speaker: mimi
+      text: Help our detective first. The number can wait.
+    chat_is_evidence: false
+    guides:
+    - mimi
+    - dilo
+    record_positions: 'WHEN YOU SOLVE IT:
+
+      WRITE EACH WITNESS NUMBER IN THEIR FINAL SQUARE.'
+    verdict_fields:
+    - WITNESS NUMBER / NAME
+    - COORDINATE
+    meta_reveal: The Academy wristband-return record carries 0 beside the copied serial number. The bands are unchanged.
+  24:
+    signal_log:
+      code: CHECK-24
+      label: MUD, NOT THE ARROW
+      status: OBSERVATION WINS
+      speaker: alio
+      reaction: My theory waited. The mud answered. I could get used to this.
+      reader_move: Keep the direction evidence. Leave the decorative arrow out of the theory.
+    hook: One uninterrupted walk crossed the controlled mud track. No fresh mud was added between prints. The tread
+      arrows point one way; the amount of transferred mud may tell you something different. Use the stated transfer
+      rule.
+    objective: TRACK the true direction of travel from the fading mud.
+    dialogue:
+    - speaker: alio
+      text: I have paused my dramatic theory.
+    - speaker: luli
+      text: Voluntarily?
+    - speaker: alio
+      text: The muddy evidence requested a word.
+    - speaker: luli
+      text: Give it the floor.
+    chat_is_evidence: false
+    guides:
+    - alio
+    - luli
+    verdict_fields:
+    - FROM
+    - TO
+    meta_reveal: The mud sequence determines direction. The tread arrow is decoration; this case adds no new zero
+      signal.
+  25:
+    signal_log:
+      code: QUEUE-25
+      label: PARCEL ROUTING SLIP
+      status: FOURTEEN MAPS COMPLETE
+      speaker: mimi
+      reaction: All fourteen records are here. Our detective kept more than the answers.
+      reader_move: Keep the complete map. Case 26 will tell you what to compare.
+    hook: At the Academy guest house, helpful people passed a parcel along until its destination became unclear.
+      Nori was the last named contact on the enquiry. Identify the one person sharing Nori’s recorded area.
+    objective: REBUILD the parcel snapshot. Name Nori’s room companion and their square.
+    dialogue:
+    - speaker: nini
+      text: So many helpful people. One increasingly confused parcel.
+    - speaker: mimi
+      text: Let us be helpful in the correct order.
+    - speaker: nini
+      text: I think the parcel would appreciate that.
+    chat_is_evidence: false
+    guides:
+    - nini
+    - mimi
+    record_positions: 'WHEN YOU SOLVE IT:
+
+      WRITE EACH WITNESS NUMBER IN THEIR FINAL SQUARE.'
+    verdict_fields:
+    - WITNESS NUMBER / NAME
+    - COORDINATE
+    meta_reveal: The Academy parcel-routing form carries 0. Fourteen earlier spatial files now have recorded placements.
+  26:
+    signal_log:
+      code: MESSAGE-26
+      label: EMPTY-ROOM INITIALS
+      status: MESSAGE EARNED
+      speaker: luli
+      reaction: Nini asked the question. You checked fourteen maps. The message belongs to that work.
+      reader_move: Write the earned instruction and follow it to Case 27.
+    hook: Nini puts a completed map beside the reconstructed note. Could the important part be a room with nobody
+      in it? Your recorded positions let you test that idea across fourteen cases. Read only spaces marked ROOM.
+    objective: FIND each unique empty ROOM and read its initial in case order.
+    dialogue:
+    - speaker: nini
+      text: Could an empty room be doing something useful?
+    - speaker: dilo
+      text: It has certainly kept its desk tidy.
+    - speaker: luli
+      text: Our detective kept the maps. We can test Nini’s question.
+    - speaker: nini
+      text: No guessing what the letters will say.
+    chat_is_evidence: false
+    guides:
+    - luli
+    - dilo
+    - nini
+    verdict_fields:
+    - EMPTY ROOM
+    - INITIAL
+    meta_reveal: The fourteen empty ROOM initials read CHECK THE OLD MAP. No other spaces contribute letters.
+  27:
+    signal_log:
+      code: ARCHIVE-27
+      label: THE SEALED SPACE
+      status: PLANS ALIGNED
+      speaker: alio
+      reaction: The landmarks agree. I have brought one finger, as authorized.
+      reader_move: Mark the matching rectangle on both plans.
+    hook: The earned message sends Bibi to the old plans drawer. Her Academy plan and the current plan share three
+      permanent landmarks. Align them at the stated scale and find what the renovation left behind the Archive wall.
+    objective: ALIGN the plans and locate the sealed room.
+    dialogue:
+    - speaker: bibi
+      text: Clean hands. Flat map. No heroic folding.
+    - speaker: alio
+      text: What about a small heroic point?
+    - speaker: bibi
+      text: One finger. A landmark. I can allow it.
+    chat_is_evidence: false
+    guides:
+    - bibi
+    - alio
+    verdict_fields:
+    - SEALED SPACE
+    meta_reveal: 'The plans locate the sealed training room. Beside it: RULE FIRST, ROOM SECOND.'
+  28:
+    signal_log:
+      code: RULE-28
+      label: RULE ZERO
+      status: METHOD RESTORED
+      speaker: bibi
+      reaction: That was how we began an investigation. You have just practised it.
+      reader_move: Keep the missing word with the final evidence.
+    hook: The old plan says RULE FIRST, ROOM SECOND. Sort what the team has earned into fact, theory and unsupported
+      assumption. Bibi remembers the full rule when the evidence brings the old training method back.
+    objective: SORT claims into FACT, THEORY and UNSUPPORTED ASSUMPTION.
+    dialogue:
+    - speaker: alio
+      text: I have put my tunnel theory on a separate card.
+    - speaker: luli
+      text: Now check how much evidence supports it.
+    - speaker: mimi
+      text: We can be fond of a theory without promoting it.
+    - speaker: bibi
+      text: That advice would have saved my old squad several afternoons.
+    chat_is_evidence: false
+    guides:
+    - bibi
+    - mimi
+    - luli
+    - alio
+    verdict_fields:
+    - FACT
+    - THEORY
+    - UNSUPPORTED ASSUMPTION
+    meta_reveal: 'Rule Zero is restored: ZERO ASSUMPTIONS. NOTICE FIRST. THEORIZE SECOND.'
+  29:
+    signal_log:
+      code: ACCESS-29
+      label: FINAL ACCESS RECORD
+      status: D3 VERIFIED
+      speaker: dilo
+      reaction: Verdict checked. Victory noise is now available at a respectful volume.
+      reader_move: Bring the Case 05 code, Case 28 word and Field Detective ID.
+    hook: The old plan includes a service-level position record guarding the last access coordinate. Seth is its
+      named contact. Solve the largest map, identify Seth’s only room companion and record that person’s coordinate.
+    objective: SOLVE the final map. Give Seth’s room companion and the access coordinate.
+    dialogue:
+    - speaker: dilo
+      text: Largest map. Small, careful steps.
+    - speaker: alio
+      text: I will wear one helmet and supply moral support.
+    - speaker: luli
+      text: The placements belong to our detective.
+    - speaker: dilo
+      text: I am saving the victory noise until we have a verdict.
+    chat_is_evidence: false
+    guides:
+    - luli
+    - dilo
+    - alio
+    record_positions: 'WHEN YOU SOLVE IT:
+
+      WRITE EACH WITNESS NUMBER IN THEIR FINAL SQUARE.'
+    verdict_fields:
+    - WITNESS NUMBER / NAME
+    - COORDINATE
+    meta_reveal: Vega’s coordinate D3 is the earned access answer. Mimi carries the same portable field rack from
+      intake to the final access point.
+  30:
+    signal_log:
+      code: MEMBER-30
+      label: HOOK 06
+      status: DETECTIVE SIX CERTIFIED
+      speaker: nini
+      reaction: There was space beside us. You have done the work to take it.
+      reader_move: Use the same call sign on the certificate. Book 1 closes before the next file arrives.
+    hook: 'The training-room access panel is ready. Mimi brings the same portable certification rack from intake:
+      five current field badges on hooks 01–05, and hook 06 empty. Bibi stands beside it as archive mentor. Your
+      earlier files hold everything needed for the final check.'
+    objective: COMPLETE the four final checks using answers already in your book.
+    dialogue:
+    - speaker: mimi
+      text: The rack has travelled with us. Five badges, one place still to earn.
+    - speaker: nini
+      text: Your call sign has been in the file all along.
+    - speaker: dilo
+      text: And my fingers are nowhere near the archive drawer.
+    - speaker: bibi
+      text: A promising start.
+    chat_is_evidence: false
+    guides:
+    - bibi
+    - mimi
+    - luli
+    - dilo
+    - alio
+    - nini
+    verdict_fields:
+    - RULE
+    - ROOM
+    - CODE
+    - DETECTIVE
+    meta_reveal: The routing log explains the paper trail. Badge 06 is certified beside the five current field detectives;
+      Bibi remains archive mentor.
+    finale:
+      stages:
+      - id: RULE
+        prompt: Complete Rule Zero.
+        answer: ASSUMPTIONS
+        source_case: 28
+      - id: ROOM
+        prompt: Enter the access coordinate earned on the service-level map.
+        answer: D3
+        source_case: 29
+      - id: CODE
+        prompt: Enter Dilo's four-symbol locker sequence.
+        answer:
+        - BALL
+        - STAR
+        - BOLT
+        - HEART
+        source_case: 5
+      - id: DETECTIVE
+        prompt: Write the name printed on your Detective ID.
+        answer: READER-WRITTEN NAME
+        source_case: opening
+      reveal: Room Zero was the old training room, named for beginning with zero assumptions. Bibi and her childhood
+        squad built an unfinished initiation trail there. A roster check released the stored recruitment envelope
+        because field slot 06 was unassigned. After your Case 01 verdict, Mimi logged the solved intake event and
+        woke the case queue. Its dated routing log lists real calls and archived records. Fourteen saved spatial
+        files had the verified empty ROOMs required by its message. It selected those records and marked Academy-controlled
+        paperwork. It never manufactured incidents, moved witnesses or changed testimony. The Case 05 row records
+        the active locker sequence copied into this session.
+      reader_payoff: 'Mimi sets down the same portable rack seen at intake. Hooks 01–05 hold the current field badges
+        of Mimi, Luli, Dilo, Alio and Nini. Bibi stands beside it as archive mentor. Your call sign matches your
+        one Field Detective ID. The panel certifies badge 06. The empty field place is yours: Detective Six.'
+      series_hook: 'After certification, Bibi closes the routing log. Dilo lifts the harmless archive release flap
+        she has just told him to leave alone. A dormant slot clicks and a new file slides out: CASE 001 // STILL
+        OPEN. Its old team photograph has a triangular symbol and one person cut out. On the back: RETURN BEFORE
+        THE FIRST MEETING. Bibi recognizes the cover, not the answer. Mimi turns to the reader: Detective, are you
+        still with us? NEXT FILE INCOMING.'
+    hints:
+    - Each field points to evidence already earned. Check the case references beside the fields.
+    - Case 28 supplies the word; Case 29 the coordinate; Case 05 the symbol sequence.
+    - For DETECTIVE, use the call sign on your one Field Detective ID. You are completing certification for field
+      slot 06.
+    solution_steps:
+    - Complete Rule Zero with ASSUMPTIONS.
+    - Use D3 from Case 29.
+    - Use BALL, STAR, BOLT, HEART from Case 05.
+    - Use the call sign already written on your single Field Detective ID.
+    - The same portable field rack has five current badges and empty hook 06. Bibi is mentor, outside the field
+      slots.
+    - The matching record certifies the reader as Detective Six.
+canon:
+  field_detectives:
+  - mimi
+  - luli
+  - dilo
+  - alio
+  - nini
+  archive_mentor: bibi
+  field_hook_count: 6
+  occupied_field_hooks: 5
+  reader_slot: 6
+  rack_identity: PORTABLE FIELD CERTIFICATION RACK
+  id_page_count: 1
+  envelope_identity: BLACK ENVELOPE / INTAKE-01
+  badge_identity: UNASSIGNED FIELD BADGE 06
+  queue_trigger: Mimi logs solved Case 01 after the reader verdict; signing the recruit card alone does not activate
+    the queue.
+publication:
+  copyright: © 2026 Rise.Shine.Evolve. All rights reserved.
+  isbn: 'ISBN Paperback: ______________________'
+  rights: No part of this publication may be reproduced, stored in a retrieval system, or transmitted in any form
+    or by any means without prior written permission from the publisher, except for brief quotations used in reviews
+    or as otherwise permitted by applicable copyright law.
+  ai_disclosure: The development of this book was supported by AI-assisted tools.
+  website: https://rise-shine-evolve-learning-hub.com
+  facebook: Rise.Shine.Evolve.Learning Hub
+case_index:
+  heading: DETECTIVE ACADEMY // CASE INDEX
+  subtitle: 30 ACTIVE FILES
+  columns:
+  - CASE
+  - TITLE
+  - PAGE
+  use_generated_page_references: true
+  reveal_answers: false
+finale_sections:
+- heading: WHAT ROOM ZERO WAS
+  body: The old Academy training room. Bibi and her childhood squad built a trail here; renovation sealed the room
+    before they finished it.
+  visual: retained plan and old training inventory
+- heading: WHY IT WAS CALLED ZERO
+  body: Zero assumptions. Notice first. Theorize second. Zero named the starting rule, not a room number or a missing
+    person.
+  visual: restoredRuleZero panel
+- heading: WHAT REACTIVATED
+  body: The roster check found field slot 06 unassigned and released the stored envelope. After your verdict, Mimi
+    logged Case 01. That second event restarted the case queue.
+  visual: two dated rows:ROSTER CHECK andCASE01 CLOSED
+- heading: WHAT THE INTAKE SYSTEM DID
+  body: It routed real new calls and archived records, printed the old mark on Academy paperwork, and surfaced the
+    unfinished trail. The session saved Dilo’s active locker sequence in Case 05.
+  visual: routing rows and physical0stamp/template
+- heading: WHAT IT NEVER DID
+  body: It did not manufacture incidents, move witnesses or change testimony. The cases happened. Their records
+    kept the evidence.
+  visual: record-preservation checklist
+- heading: WHY THESE CASES MATTERED
+  body: Fourteen selected spatial records had the verified empty ROOMs needed for the stored message. You solved
+    them and read the initials. The log proves how the files were chosen.
+  visual: 14selection rows;Case29has no extra meta letter
+- heading: WHY THE LETTER REACHED YOU
+  body: The letter addressed the person holding this book. It offered a vacant place, not a prize for an unknown
+    stranger. You accepted, kept the records and earned certification.
+  visual: sameFieldID andportable rack;badge06filled
+finale_chat:
+- speaker: dilo
+  text: The secret system is real. May I look pleased?
+- speaker: luli
+  text: Yes. Keep the imaginary delivery van out of the report.
+- speaker: alio
+  text: Retired with honours.
+- speaker: bibi
+  text: Please let the archive enjoy one quiet minute.
+certificate:
+  heading: DETECTIVE ACADEMY // FIELD CERTIFICATION
+  awarded_to_label: AWARDED TO
+  call_sign_label: OFFICIAL CALL SIGN
+  achievement: 'FOR SOLVING THE MYSTERY OF ROOM ZERO
+
+    BY FOLLOWING THE EVIDENCE ALL THE WAY TO THE TRUTH.'
+  rank: CERTIFIED FIELD DETECTIVE // DETECTIVE SIX
+  case_status: ROOM ZERO // CLOSED
+  signed_by: Happy Makers Detective Academy
+  archive_confirmation: BIBI // ARCHIVE MENTOR
+  note: Use the call sign from your Field Detective ID. This certificate records achievement; it is not another
+    recruit card.
+book2_scene:
+  heading: CASE 001 // STILL OPEN
+  beats:
+  - The team puts down its pencils. Bibi closes the Book 1 routing log.
+  - 'Bibi points at an archive release flap: That can wait.'
+  - Dilo lifts it. A dormant slot clicks; a new file slides onto the tray.
+  - 'The cover bears a triangular symbol. Inside: an old team photograph, one person cut out.'
+  - 'On the photograph’s back: RETURN BEFORE THE FIRST MEETING.'
+  chat:
+  - speaker: bibi
+    text: I recognize that file. I do not know why it has come back.
+  - speaker: dilo
+    text: That was less than one quiet minute.
+  - speaker: luli
+    text: An impressively accurate measurement.
+  - speaker: mimi
+    text: Detective, are you still with us?
+  visual_requirements:
+  - incoming file after certification
+  - triangular symbol distinct from0
+  - oldphoto with one person cutout
+  - legible RETURN BEFORE THE FIRST MEETING
+  final_line: NEXT FILE INCOMING.
+story_spine:
+  version: 4
+  status: CANONICAL V4 DETECTIVE SIX SPINE
+  purpose: These interludes make Book 1 feel like one escalating Room Zero investigation rather than thirty disconnected
+    puzzles. They do not change any locked mission answer or the Room Zero twist.
+  beats:
+  - after_case: 5
+    code: SIGNAL_05
+    eyebrow: ACT I // SOMETHING IS OFF
+    headline: FIVE FILES. FIVE REAL SIGNALS.
+    question: Why do five already-opened records carry the same plain mark?
+    evidence:
+    - 'Case 01: the badge from the black envelope.'
+    - 'Case 02: the trophy’s Academy evidence tag.'
+    - 'Case 03: Academy tag copy 0471.'
+    - 'Case 04: the cupcake-box intake label.'
+    - 'Case 05: the old envelope inside the field locker.'
+    squad:
+    - speaker: mimi
+      text: Five items. Five actual records. Nobody count a future adventure.
+    - speaker: dilo
+      text: My theory has been asked to wait in reception.
+    - speaker: luli
+      text: It can fill in a form.
+    reader_move: Add the five record names to the Case Wall on your Field Detective ID.
+    progress: FIVE SIGNALS RECORDED // CAUSE UNKNOWN
+  - after_case: 9
+    code: BIBI_MEMORY
+    eyebrow: ACT II // THE PATTERN
+    headline: BIBI KNOWS WHERE THE MARK BELONGED.
+    question: Bibi recognizes the old intake form. What did its zero mean?
+    evidence:
+    - The comparison separates plain 0 marks from two lookalikes.
+    - Bibi used old Academy forms.
+    - The badge came from internal stock, not an external delivery.
+    - The wider paper trail is not yet explained.
+    squad:
+    - speaker: bibi
+      text: I have an archive to check, not an answer to pretend.
+    - speaker: nini
+      text: We will keep the question safe.
+    reader_move: Record BIBI RECOGNIZES THE FORM. Leave its meaning open.
+    progress: OLD ACADEMY CONNECTION // INVESTIGATION CONTINUES
+  - after_case: 16
+    code: OLD_PHOTO
+    eyebrow: ACT III // THE BOOK REMEMBERS
+    headline: THE OLD PHOTO CHANGES THE CASE.
+    question: What was Rule 0, and why did Bibi write RULE 0 FIRST on the back of an Academy photograph?
+    evidence:
+    - The photograph belongs to the Old Academy Annex.
+    - The evidence places it in 2002.
+    - Young Bibi is standing with an earlier detective squad.
+    - The back says RULE 0 FIRST.
+    - The recurring zero may be an instruction, not a room number.
+    squad:
+    - speaker: bibi
+      text: You checked the year instead of believing my first guess.
+    - speaker: mimi
+      text: Our detective is becoming a useful problem for confident people.
+    - speaker: dilo
+      text: I feel unexpectedly included.
+    reader_move: Add RULE 0 FIRST to the case wall. Leave space underneath it. The missing rule matters later.
+    progress: ACT III // OLD ACADEMY / RULE MISSING
+  - after_case: 21
+    code: EMPTY
+    eyebrow: ACT III // THE BOOK REMEMBERS
+    headline: THE NOTE POINTS AT NOTHING.
+    question: Where could the empty-space instruction be tested?
+    evidence:
+    - You rebuilt THE ANSWER IS IN WHAT YOU LEAVE EMPTY.
+    - You have recorded final witness positions since the first maps.
+    - Zero can mean none.
+    - A useful idea still needs a complete test.
+    squad:
+    - speaker: nini
+      text: We kept the whole map, not just the answer.
+    - speaker: luli
+      text: Good record-keeping. Now it might be good evidence.
+    reader_move: Keep the exact sentence beside the maps. The next files complete the set.
+    progress: NEW HYPOTHESIS // TEST NOT YET COMPLETE
+  - after_case: 25
+    code: FOURTEEN_MAPS
+    eyebrow: ACT IV // ROOM ZERO
+    headline: FOURTEEN MAPS ARE NOW EVIDENCE.
+    question: What will fourteen completed maps show when you inspect unoccupied ROOMs?
+    evidence:
+    - Fourteen marked spatial cases are complete.
+    - Each has a verified final placement.
+    - The note says the answer is in what you leave empty.
+    - The recurring 0 has never been explained by a suspect, object or timestamp.
+    - Case 26 asks you to compare all fourteen completed maps for the first time.
+    squad:
+    - speaker: mimi
+      text: No frantic searching. Our detective kept the positions.
+    - speaker: alio
+      text: I even kept the interesting doodles somewhere else.
+    reader_move: Open Case 26. Its list names the completed maps to inspect.
+    progress: FOURTEEN MAPS READY // READER TESTS THE PATTERN
+  - after_case: 29
+    code: FINAL_LOCK
+    eyebrow: ACT V // THE DOOR OPENS
+    headline: EVERYTHING YOU NEED IS ALREADY IN THE BOOK.
+    question: Can you complete the final check using evidence already in your book?
+    evidence:
+    - Case 26 earned CHECK THE OLD MAP.
+    - Case 27 located the sealed training room.
+    - Case 28 restored Rule Zero; Case 29 earned D3.
+    - Case 05 saved the active field-locker sequence.
+    - Your Field Detective ID holds your call sign. Mimi has brought the same five-badge rack from intake.
+    squad:
+    - speaker: mimi
+      text: Five badges came with us. The sixth is earned here.
+    - speaker: nini
+      text: Your record is ready. Take the time you need.
+    - speaker: dilo
+      text: My victory noise is still on standby.
+    reader_move: Bring your existing call sign to the check. Do not create another ID.
+    progress: FINAL EVIDENCE COMPLETE // CERTIFICATION AWAITS

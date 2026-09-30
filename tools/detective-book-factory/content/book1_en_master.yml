@@ -1,0 +1,55 @@
+version: 1
+status: canonical_composed_master
+book_id: hmda-room-zero-book1
+language: EN
+
+composition:
+  base: "content/book1_en_phase1.yml"
+  mission_parts:
+    - {path: "content/book1_en_phase1.yml", first: 1, last: 5}
+    - {path: "content/book1_en_phase2.yml", first: 6, last: 16}
+    - {path: "content/book1_en_phase3.yml", first: 17, last: 30}
+  output: "dist/book1_en_master.yml"
+
+locks:
+  editorial: "EDITORIAL_LOCK_v4.md"
+  spatial_selection: "content/spatial_source_manifest_final.yml"
+  spatial_skin: "content/spatial_room_skin.yml"
+  shigai_bridge: "SHIGAI_BRIDGE_CONTRACT.md"
+  map_factory: "MAP_FACTORY_FINAL_SPEC.md"
+
+expected:
+  mission_numbers: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
+  spatial_cases:
+    2: "HMDA_02"
+    4: "HMDA_04"
+    6: "HMDA_06"
+    7: "HMDA_07"
+    10: "HMDA_10"
+    12: "HMDA_12"
+    13: "HMDA_13"
+    15: "HMDA_15"
+    17: "HMDA_17"
+    19: "HMDA_19"
+    20: "HMDA_20"
+    22: "HMDA_22"
+    23: "HMDA_23"
+    25: "HMDA_25"
+    29: "HMDA_29"
+  meta_message: "CHECKTHEOLDMAP"
+
+publication:
+  hint_levels: 3
+  interior:
+    trim: "8.5x11"
+    color: "grayscale"
+    full_black_pages: false
+  final_sections:
+    - "Hint Vault"
+    - "Solutions"
+    - "Detective Certificate"
+    - "CASE 001 // STILL OPEN"
+
+generation_rule: >-
+  Do not hand-edit dist/book1_en_canonical.yml. Change one of the three durable
+  phase sources and re-run scripts/build_book1_master.py.

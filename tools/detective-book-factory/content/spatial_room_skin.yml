@@ -1,0 +1,139 @@
+version: 1
+rule: >-
+  Room skins rename source partitions without changing their cells. `room` spaces
+  participate in the Room Zero empty-room meta puzzle; `zone` spaces are paths,
+  platforms, queues or other non-room areas and never count toward the meta answer.
+
+cases:
+  HMDA_02:
+    rooms:
+      0: {final_name: "Equipment Room", kind: room}
+      1: {final_name: "Photo Booth", kind: room}
+      2: {final_name: "Trophy Hall", kind: room}
+      3: {final_name: "Display Room", kind: room}
+      4: {final_name: "Coach's Office", kind: room, meta_carrier: true}
+
+  HMDA_04:
+    rooms:
+      0: {final_name: "Pickup Tent", kind: room}
+      1: {final_name: "Kitchen", kind: room}
+      2: {final_name: "Hospitality Room", kind: room, meta_carrier: true}
+      3: {final_name: "Packing Room", kind: room}
+      4: {final_name: "Supply Room", kind: room}
+
+  HMDA_06:
+    rooms:
+      0: {final_name: "Foyer", kind: room}
+      1: {final_name: "Gallery", kind: room}
+      2: {final_name: "Egypt Room", kind: room, meta_carrier: true}
+      3: {final_name: "Dinosaur Gallery", kind: room}
+      4: {final_name: "Archive Passage", kind: zone}
+
+  HMDA_07:
+    rooms:
+      0: {final_name: "Dressing Room", kind: room}
+      1: {final_name: "Prop Room", kind: room}
+      2: {final_name: "Costume Room", kind: room, meta_carrier: true}
+      3: {final_name: "Rehearsal Room", kind: room}
+      4: {final_name: "Stage Office", kind: room}
+
+  HMDA_10:
+    rooms:
+      0: {final_name: "Demo Stage", kind: room}
+      1: {final_name: "Robotics Lab", kind: room}
+      2: {final_name: "Tool Room", kind: room}
+      3: {final_name: "Control Booth", kind: room}
+      4: {final_name: "Assembly Hall", kind: room}
+      5: {final_name: "Kinetics Lab", kind: room, meta_carrier: true}
+
+  HMDA_12:
+    rooms:
+      0: {final_name: "Rehearsal Room", kind: room}
+      1: {final_name: "Green Room", kind: room}
+      2: {final_name: "Bird Room", kind: room}
+      3: {final_name: "Stage Wing", kind: zone}
+      4: {final_name: "Costume Room", kind: room}
+      5: {final_name: "Training Room", kind: room, meta_carrier: true}
+
+  HMDA_13:
+    rooms:
+      0: {final_name: "Habitat Paddock", kind: room}
+      1: {final_name: "Medical Room", kind: room}
+      2: {final_name: "Hide Room", kind: room, meta_carrier: true}
+      3: {final_name: "Research Lab", kind: room}
+      4: {final_name: "Ranger Station", kind: room}
+      5: {final_name: "Visitor Walkway", kind: zone}
+
+  HMDA_15:
+    rooms:
+      0: {final_name: "Lakeside Dock", kind: zone}
+      1: {final_name: "Equipment Room", kind: room, meta_carrier: true}
+      2: {final_name: "Games Cabin", kind: room}
+      3: {final_name: "First Aid Hut", kind: room}
+      4: {final_name: "Welcome Lodge", kind: room}
+      5: {final_name: "Ranger Cabin", kind: room}
+
+  HMDA_17:
+    rooms:
+      0: {final_name: "Ticket Office", kind: room}
+      1: {final_name: "Observation Car", kind: room, meta_carrier: true}
+      2: {final_name: "Waiting Lounge", kind: room}
+      3: {final_name: "Main Corridor", kind: zone}
+      4: {final_name: "Baggage Platform", kind: zone}
+      5: {final_name: "Mail Platform", kind: zone}
+
+  HMDA_19:
+    rooms:
+      0: {final_name: "Study Hall", kind: room}
+      1: {final_name: "Archive Room", kind: room}
+      2: {final_name: "Library Office", kind: room, meta_carrier: true}
+      3: {final_name: "Reference Room", kind: room}
+      4: {final_name: "Returns Hall", kind: zone}
+      5: {final_name: "Service Corridor", kind: zone}
+
+  HMDA_20:
+    rooms:
+      0: {final_name: "Studio A", kind: room}
+      1: {final_name: "Supply Room", kind: room}
+      2: {final_name: "Drying Room", kind: room, meta_carrier: true}
+      3: {final_name: "Main Studio", kind: room}
+      4: {final_name: "Workshop Hall", kind: zone}
+      5: {final_name: "Safety Station", kind: room}
+
+  HMDA_22:
+    rooms:
+      0: {final_name: "Instrument Locker Room", kind: room}
+      1: {final_name: "Practice Hall", kind: room}
+      2: {final_name: "Music Archive", kind: room, meta_carrier: true}
+      3: {final_name: "Rehearsal Room", kind: room}
+      4: {final_name: "Office Passage", kind: zone}
+      5: {final_name: "Green Room", kind: room}
+
+  HMDA_23:
+    rooms:
+      0: {final_name: "Midway", kind: zone}
+      1: {final_name: "Prize Tent", kind: room}
+      2: {final_name: "Access Office", kind: room, meta_carrier: true}
+      3: {final_name: "Snack Stand", kind: zone}
+      4: {final_name: "Funhouse Queue", kind: zone}
+      5: {final_name: "Balloon Corner", kind: zone}
+
+  HMDA_25:
+    rooms:
+      0: {final_name: "Kitchen", kind: room}
+      1: {final_name: "Laundry", kind: room}
+      2: {final_name: "Roof Terrace", kind: zone}
+      3: {final_name: "Parcel Room", kind: room, meta_carrier: true}
+      4: {final_name: "Guest Suite", kind: room}
+      5: {final_name: "Lobby", kind: room}
+
+  HMDA_29:
+    rooms:
+      0: {final_name: "Training Room", kind: room}
+      1: {final_name: "Control Room", kind: room}
+      2: {final_name: "Service Corridor", kind: zone}
+      3: {final_name: "Equipment Hall", kind: zone}
+      4: {final_name: "Archive Chamber", kind: room}
+      5: {final_name: "Map Room", kind: room}
+      6: {final_name: "Science Lab", kind: room}
+      7: {final_name: "Operations Office", kind: room}

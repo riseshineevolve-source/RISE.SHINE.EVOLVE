@@ -1,0 +1,464 @@
+phase: 2
+status: "DURABLE PRODUCTION COPY / CASES 06-16"
+source_of_truth_note: >-
+  This tranche restores the missing middle of the locked 30-mission story in a durable,
+  renderer-oriented form. Spatial logic is bound to the FINAL source IDs and must be
+  resolved through spatial_source_manifest_final.yml + the Shigai runtime bridge.
+  Source geometry and answers must never be inferred from old QA files.
+
+missions:
+  - number: 6
+    rank: "ROOKIE"
+    type: "spatial"
+    spatial_source_id: "HMDA_06"
+    title: "THE MUSEUM LABEL THAT LIED"
+    status: "CASE FILE 06"
+    guides: ["luli", "nini"]
+    hook: >-
+      A tiny Roman spoon has somehow become a CEREMONIAL DRAGON TOOTH. The object never
+      moved. The labels did, sometime between two school-group tours.
+    objective: "Rebuild the museum positions and identify who was with Eunice when the labels were switched."
+    dialogue:
+      - {speaker: "nini", text: "I vote we keep Dragon Tooth."}
+      - {speaker: "luli", text: "Archaeology has requested fewer dragons."}
+      - {speaker: "nini", text: "Archaeology sounds strict."}
+    spatial_copy:
+      clue_cards:
+        - "STAFFORD was in row 3 and column E."
+        - "HUBERT was in the Dinosaur Gallery, beside a display case."
+        - "AVA was in the Foyer and in row 2."
+        - "VERA was in the Gallery, beside a statue."
+        - "WALLACE was on a bench, beside the skeleton display."
+        - "EUNICE checked the labels. Exactly one other person was with her."
+      answer: "AVA"
+      answer_coordinate: "D2"
+      final_space_skin: "content/spatial_room_skin.yml"
+    meta_letter: "E"
+    meta_reveal: "Another plain 0 appears on the reverse of the switched display label."
+    hints:
+      - "Start with STAFFORD. Row 3 plus column E gives an exact square."
+      - "Then place AVA and VERA. Their room clues sharply reduce the free rows and columns."
+      - "Once HUBERT is forced into the Dinosaur Gallery, check who is the only person sharing EUNICE's final space."
+    nudge: "Start with STAFFORD. Row 3 plus column E gives an exact square."
+    solution_steps:
+      - "STAFFORD is fixed at E3."
+      - "AVA must be D2 in the Foyer."
+      - "VERA resolves to F5 in the Gallery."
+      - "WALLACE is C4 and HUBERT is A6 in the Dinosaur Gallery."
+      - "EUNICE is B1 in the Foyer."
+      - "AVA is the only other person with EUNICE, so AVA is the answer."
+
+  - number: 7
+    rank: "ROOKIE"
+    type: "spatial"
+    spatial_source_id: "HMDA_07"
+    title: "THE COSTUME THAT WALKED AWAY"
+    status: "CASE FILE 07"
+    guides: ["alio", "mimi"]
+    hook: >-
+      The theatre's giant moon costume has vanished ten minutes before rehearsal. Alio
+      volunteers to test whether it can walk by itself and disappears into the costume rack.
+    objective: "Rebuild backstage and identify who was with Grayson when the moon costume disappeared."
+    dialogue:
+      - {speaker: "mimi", text: "Any useful findings?"}
+      - {speaker: "alio", text: "The moon has poor visibility."}
+      - {speaker: "mimi", text: "I will mark that as extremely secondary."}
+    spatial_copy:
+      clue_cards:
+        - "BRUCE was the only person in the Rehearsal Room."
+        - "ISLA was either in the Dressing Room or the Rehearsal Room."
+        - "WINIFRED was 2 grid steps from the stage range marker. Count row difference plus column difference."
+        - "ZELDA was against an outer wall and beside a costume cart."
+        - "ROSCOE was in row 5 and column E."
+        - "GRAYSON's space contained exactly one other person."
+      answer: "ZELDA"
+      answer_coordinate: "C6"
+      final_space_skin: "content/spatial_room_skin.yml"
+    meta_letter: "C"
+    meta_reveal: "A stitched 0 sits inside the moon costume's inventory tag."
+    hints:
+      - "ROSCOE has the cleanest exact clue. Place E5 first."
+      - "Next compare the remaining options for WINIFRED and BRUCE before deciding ISLA's either/or clue."
+      - "When the rows and columns collapse, ZELDA is C6. Check who shares GRAYSON's final space."
+    nudge: "ROSCOE has the cleanest exact clue. Place E5 first."
+    solution_steps:
+      - "ROSCOE is fixed at E5."
+      - "WINIFRED resolves to B1."
+      - "BRUCE resolves to A3 in the Rehearsal Room."
+      - "ISLA is forced to D2 in the Dressing Room."
+      - "ZELDA is C6 beside the costume cart; GRAYSON is F4."
+      - "ZELDA is the only other person in GRAYSON's final space."
+
+  - number: 8
+    rank: "ROOKIE"
+    type: "route"
+    title: "ALIO'S ABSOLUTELY SAFE SHORTCUT"
+    status: "QUICK MISSION"
+    guides: ["alio", "mimi"]
+    hook: >-
+      Alio has drawn three routes to the prop room. Two are impressively fast. One has the
+      additional advantage of not crossing wet paint, a locked staff door or a wall. It is
+      16:20, the team must arrive now, and waiting for a closure to end is not an option.
+    objective: "Choose the only route that legally reaches the prop room."
+    dialogue:
+      - {speaker: "alio", text: "Route B is fastest."}
+      - {speaker: "mimi", text: "Route B is a wall."}
+      - {speaker: "alio", text: "A very efficient wall."}
+    route:
+      start: "LOBBY"
+      goal: "PROP ROOM"
+      options:
+        - id: "A"
+          path: ["LOBBY", "PAINT CORRIDOR", "SIDE HALL", "PROP ROOM"]
+          fails: "The Paint Corridor is closed until 16:30."
+        - id: "B"
+          path: ["LOBBY", "STAFF STAIRS", "PROP ROOM"]
+          fails: "The staff door is locked and the drawn shortcut cuts through a wall."
+        - id: "C"
+          path: ["LOBBY", "COSTUME STORAGE", "SIDE HALL", "PROP ROOM"]
+          fails: null
+      answer: "C"
+    meta_reveal: "The blocked maintenance corridor on the mini-map is labelled 0."
+    hints:
+      - "Do not compare distance first. Cross out any route that breaks a hard rule."
+      - "Route A touches the closed paint corridor. Route B needs a locked door."
+      - "Only Route C reaches the Prop Room without crossing a blocked edge."
+    nudge: "Cross out illegal routes before comparing speed."
+    solution_steps:
+      - "Route A fails because the Paint Corridor is closed."
+      - "Route B fails because the staff door is locked and the line crosses a wall."
+      - "Route C uses Costume Storage and the Side Hall, both open."
+      - "Route C is the only valid shortcut."
+
+  - number: 9
+    rank: "ROOKIE"
+    type: "room-zero-checkpoint"
+    title: "THE SYMBOL THAT SHOULDN'T BE HERE"
+    status: "ROOM ZERO CHECKPOINT"
+    guides: ["bibi", "luli", "dilo"]
+    hook: >-
+      The same plain 0 has now appeared on objects from completely different cases. Grandma
+      Bibi studies it for a long moment, then becomes suspiciously interested in the ceiling.
+    objective: "Separate the recurring Academy mark from decorative lookalikes and decide whether the pattern is real."
+    dialogue:
+      - {speaker: "bibi", text: "My memory is excellent."}
+      - {speaker: "dilo", text: "What did the mark mean?"}
+      - {speaker: "bibi", text: "I said excellent, not obedient."}
+      - {speaker: "luli", text: "So: pattern confirmed, explanation missing."}
+    checkpoint:
+      evidence:
+        - {item: "opening Academy badge", mark: "plain engraved 0", recurring: true}
+        - {item: "trophy evidence record", mark: "plain stamped 0", recurring: true}
+        - {item: "cupcake quality sticker", mark: "plain printed 0", recurring: true}
+        - {item: "museum label reverse", mark: "plain printed 0", recurring: true}
+        - {item: "poster decoration", mark: "striped circle", recurring: false}
+        - {item: "stage-light dial", mark: "ring with pointer", recurring: false}
+      answer: "THE PLAIN 0 IS A RECURRING ACADEMY SIGNAL."
+    meta_reveal: "Bibi confirms the mark resembles an old Academy symbol, but refuses to guess what it means."
+    hints:
+      - "Compare shape and context, not just anything circular."
+      - "The true marks are plain, deliberate and attached to case evidence."
+      - "Three independent case files plus the opening badge use the same plain 0. Treat four matching records as a pattern, not an explanation."
+    nudge: "Compare the marks by shape and where they appear."
+    solution_steps:
+      - "Remove the poster circle and stage dial; their shapes and functions differ."
+      - "The remaining marks use the same plain 0 form."
+      - "They occur on unrelated evidence across multiple cases."
+      - "The pattern is real, but its meaning remains unknown."
+
+  - number: 10
+    rank: "FIELD AGENT"
+    type: "spatial"
+    spatial_source_id: "HMDA_10"
+    title: "THE ROBOT WITH TWO OWNERS"
+    status: "CASE FILE 10"
+    guides: ["dilo", "luli"]
+    hook: >-
+      Two science-fair teams insist the silver rover belongs to them. Dilo is personally
+      offended by its cable management. Luli would prefer he solve the access problem first.
+    objective: "Reconstruct the science-fair floor and identify who had access to Dora's prototype area."
+    dialogue:
+      - {speaker: "dilo", text: "Whoever owns it needs technical supervision."}
+      - {speaker: "luli", text: "From someone else."}
+    spatial_copy:
+      clue_cards:
+        - "ELIZA was on a demo seat and beside another demo seat."
+        - "NICHOLAS was in column F and on a demo seat."
+        - "WILLIE was in column B and beside a charging pod."
+        - "FRANCES was 7 grid steps from the coolant tank. Count row difference plus column difference."
+        - "BLYTHE was against an outer wall and beside a parts crate."
+        - "VERITY's room contained a control console, but she was not beside any control console in that room."
+        - "DORA's area contained exactly one other person."
+      answer: "ELIZA"
+      answer_coordinate: "D5"
+      final_space_skin: "content/spatial_room_skin.yml"
+    meta_letter: "K"
+    meta_reveal: "A diagnostic card clipped to the rover carries the same unhelpful 0."
+    hints:
+      - "WILLIE has the tightest starting clue: column B plus the charging pod."
+      - "Use BLYTHE's outer-wall/crate clue, then test the remaining demo-seat choices."
+      - "When DORA settles at E3, check who is the only other person in the Assembly Hall."
+    nudge: "Start with WILLIE's column plus charging-pod clue."
+    solution_steps:
+      - "WILLIE is fixed at B7 in the Robotics Lab."
+      - "ELIZA resolves to D5; BLYTHE to C1."
+      - "NICHOLAS is F6, VERITY G4 and FRANCES A2."
+      - "DORA is E3 in the Assembly Hall."
+      - "ELIZA is the only other person in the Assembly Hall, so ELIZA is the answer."
+
+  - number: 11
+    rank: "FIELD AGENT"
+    type: "classification"
+    title: "MIMI'S EVIDENCE BAG PROBLEM"
+    status: "QUICK MISSION"
+    guides: ["mimi", "nini"]
+    hook: >-
+      Mimi empties her evidence bag. It contains three science-fair case items, two pens,
+      one snack and the phone she has been looking for since breakfast.
+    objective: "Compare timestamped records A-D and identify the one created outside the 15:20-16:05 case window."
+    dialogue:
+      - {speaker: "nini", text: "You found your phone!"}
+      - {speaker: "mimi", text: "I prefer to say the evidence surrendered."}
+    classification:
+      case_window: "15:20-16:05 / SCIENCE FAIR HALL"
+      items:
+        - {id: "A", item: "prototype access card", label: "SF-10 / 15:31", relevant: true}
+        - {id: "B", item: "loose cable tie", label: "SF-10 / HALL B / 15:44", relevant: true}
+        - {id: "C", item: "silver wheel cap", label: "SF-10 / 15:52", relevant: true}
+        - {id: "D", item: "Mimi's phone", label: "personal / photo 08:07", relevant: false}
+        - {id: "E", item: "black pen", label: "team notes", relevant: false}
+        - {id: "F", item: "blue pen", label: "team notes", relevant: false}
+        - {id: "G", item: "oat bar", label: "MIMI - DO NOT CATALOGUE", relevant: false}
+      question: "Among timestamped records A-D, which record was created outside the 15:20-16:05 case window?"
+      answer: "D"
+      reason: "The phone photo is timestamped 08:07, hours before the science-fair case window."
+    meta_reveal: "The unrelated 08:07 phone photo shows an old circular Academy seal in the background."
+    hints:
+      - "Use the hard time window before judging what an object looks like."
+      - "The science-fair case begins at 15:20. One item's only timestamp is 08:07."
+      - "Record D is the 08:07 phone photo. It falls outside the case window, but the image still contains something interesting."
+    nudge: "Use timestamps before appearances."
+    solution_steps:
+      - "The science-fair evidence window begins at 15:20."
+      - "Items A-C are labelled inside that window."
+      - "Pens and snack are ordinary bag contents but not contradictory evidence."
+      - "The phone photo record is from 08:07, so it was created outside the science-fair event window."
+      - "Record D is the only timestamped record outside 15:20-16:05."
+
+  - number: 12
+    rank: "FIELD AGENT"
+    type: "spatial"
+    spatial_source_id: "HMDA_12"
+    title: "THE PARROT WHO KNEW THE PASSWORD"
+    status: "CASE FILE 12"
+    guides: ["nini", "dilo"]
+    hook: >-
+      A theatre parrot has learned a suspicious four-word phrase that nobody admits teaching
+      it. Nini begins the gentlest interview in Academy history. Dilo brings crackers and a notebook.
+    objective: "Reconstruct the rehearsal area and identify who was with Winthrop when the parrot learned the phrase."
+    dialogue:
+      - {speaker: "dilo", text: "State your name for the record."}
+      - {speaker: "nini", text: "You are interviewing a parrot."}
+      - {speaker: "dilo", text: "The witness has requested a cracker."}
+    spatial_copy:
+      clue_cards:
+        - "KENDRA was in the Bird Room, and nobody else entered it."
+        - "NORRIS was in the Stage Wing and in row 2."
+        - "IRMA was the third person from the south."
+        - "EARLENE was either in the Green Room or the Bird Room."
+        - "CLEO was in column B and against an outer wall."
+        - "Exactly one of SIOBHAN and KENDRA was in the Rehearsal Room."
+        - "WINTHROP's area contained exactly one other person."
+      answer: "NORRIS"
+      answer_coordinate: "G2"
+      final_space_skin: "content/spatial_room_skin.yml"
+    meta_letter: "T"
+    meta_reveal: "The parrot's cue card has a small black 0 on the back."
+    hints:
+      - "CLEO's column plus outer-wall clue is the cleanest place to start."
+      - "Use KENDRA's solo Bird Room clue to settle the either/or and exactly-one statements."
+      - "WINTHROP ends in the Stage Wing. Check the only other person there."
+    nudge: "Start with CLEO's column-plus-outer-wall clue."
+    solution_steps:
+      - "CLEO is B7."
+      - "NORRIS resolves to G2 in the Stage Wing; IRMA to A5."
+      - "KENDRA is E6 in the Bird Room and EARLENE is F4 in the Green Room."
+      - "SIOBHAN resolves to C3 in the Rehearsal Room."
+      - "WINTHROP is D1 in the Stage Wing."
+      - "NORRIS is the only other person with WINTHROP, so NORRIS is the answer."
+
+  - number: 13
+    rank: "FIELD AGENT"
+    type: "spatial"
+    spatial_source_id: "HMDA_13"
+    title: "THE CAMERA THAT BLINKED AT 4:17"
+    status: "CASE FILE 13"
+    guides: ["luli", "alio"]
+    hook: >-
+      A wildlife camera takes one blurry image at 4:17, then vanishes behind a stack of supplies.
+      Alio blames the fox. Luli points out that the fox does not have pockets.
+    objective: "Rebuild the animal-centre positions and identify who was with Rafferty when the camera moved."
+    dialogue:
+      - {speaker: "alio", text: "No pockets that we know of."}
+      - {speaker: "luli", text: "Please stop helping the fox."}
+    spatial_copy:
+      clue_cards:
+        - "JEWEL was diagonally next to SHIRLEY; their corners touched."
+        - "SHIRLEY stayed in the Ranger Station."
+        - "ELLIOT shared a room with JEWEL."
+        - "WANDA was north-west of BRONWEN: north and west by any number of squares."
+        - "BRONWEN was south-west of MERCER: south and west by any number of squares."
+        - "MERCER was in the Ranger Station and in row 5."
+        - "RAFFERTY's room contained exactly one other person."
+      answer: "BRONWEN"
+      answer_coordinate: "B7"
+      final_space_skin: "content/spatial_room_skin.yml"
+    meta_letter: "H"
+    meta_reveal: "The camera's maintenance card uses the same plain 0 mark."
+    hints:
+      - "MERCER's Ranger Station plus row-5 clue is the best anchor."
+      - "Once MERCER and SHIRLEY are placed, use JEWEL's diagonal link and ELLIOT's same-room link."
+      - "Finish the north-west/south-west chain. RAFFERTY's room then has only one companion."
+    nudge: "Anchor MERCER first, then use the diagonal pair."
+    solution_steps:
+      - "MERCER resolves to C5 and SHIRLEY to E4 in the Ranger Station."
+      - "JEWEL is F3 and ELLIOT G2."
+      - "BRONWEN resolves to B7 after applying the directional chain."
+      - "WANDA is A1 and RAFFERTY is D6."
+      - "BRONWEN is the only other person in RAFFERTY's Research Lab, so BRONWEN is the answer."
+
+  - number: 14
+    rank: "FIELD AGENT"
+    type: "consistency"
+    title: "ONE WITNESS IS ACCIDENTALLY IMPOSSIBLE"
+    status: "QUICK MISSION"
+    guides: ["nini", "luli", "dilo"]
+    hook: >-
+      Four young actors describe a backstage mix-up. Nobody is trying to trick you, but one
+      memory cannot fit the little map and the clock at the same time.
+    objective: "Find the statement that cannot be true without calling anyone a liar."
+    dialogue:
+      - {speaker: "dilo", text: "Aha. A liar."}
+      - {speaker: "nini", text: "Or a person with a memory."}
+      - {speaker: "luli", text: "Wild concept."}
+    consistency:
+      map:
+        edges:
+          - ["DRESSING", "HALL"]
+          - ["HALL", "STAGE"]
+          - ["HALL", "PROP"]
+        walking_minutes_per_edge: 2
+      timeline:
+        - {time: "16:10", event: "rehearsal bell"}
+        - {time: "16:14", event: "prop-room photo"}
+      statements:
+        - {speaker: "MAYA", text: "At 16:10 I was in Dressing. I stayed there.", possible: true}
+        - {speaker: "LEO", text: "At 16:12 I crossed the Hall toward Stage.", possible: true}
+        - {speaker: "SOFIA", text: "I was in Prop for the 16:14 photo.", possible: true}
+        - {speaker: "NOAH", text: "The 16:10 bell rang while I was on Stage, and I was already in Dressing at 16:12.", possible: false}
+      answer: "NOAH"
+      reason: "Stage -> Hall -> Dressing takes 4 minutes, so Noah cannot make that trip in 2 minutes."
+    meta_reveal: "Noah remembers the destination as 'Room 0'. The current building has no room with that number."
+    hints:
+      - "Treat the statements as timing claims, not honesty tests."
+      - "Each map edge takes 2 minutes. Count the edges between the two places in each claim."
+      - "Stage to Dressing needs two edges, or 4 minutes. Noah gives himself only 2."
+    nudge: "Count travel time on the map before judging the witness."
+    solution_steps:
+      - "Dressing and Stage are not directly connected; Hall sits between them."
+      - "Each edge takes 2 minutes."
+      - "Stage -> Hall -> Dressing therefore takes 4 minutes."
+      - "NOAH claims the same move happened between 16:10 and 16:12."
+      - "His memory is the impossible one. It can be mistaken without being dishonest."
+
+  - number: 15
+    rank: "FIELD AGENT"
+    type: "spatial"
+    spatial_source_id: "HMDA_15"
+    title: "THE BACKPACK THAT CHANGED OWNERS"
+    status: "CASE FILE 15"
+    guides: ["mimi", "alio"]
+    hook: >-
+      Six black backpacks, one departure bus and zero readable name tags. One camper has
+      picked up the wrong bag. Mimi calls it a system failure. Alio calls it camouflage training.
+    objective: "Rebuild the camp positions and identify who ended up with Mona's backpack."
+    dialogue:
+      - {speaker: "mimi", text: "Tomorrow we use name tags."}
+      - {speaker: "alio", text: "Tomorrow we use tracking satellites."}
+      - {speaker: "mimi", text: "Name tags remain ahead in procurement."}
+    spatial_copy:
+      clue_cards:
+        - "HIRAM was north-east of CAROLYN: north and east by any number of squares."
+        - "PRIMROSE was north-east of DAMIAN."
+        - "DAMIAN was in the First Aid Hut and in row 5."
+        - "CAROLYN was beside a camp cot."
+        - "JONQUIL was the only person in the Welcome Lodge."
+        - "ISABELLA shared a room with a cot but was not beside it."
+        - "MONA's room contained exactly one other person."
+      answer: "HIRAM"
+      answer_coordinate: "D2"
+      final_space_skin: "content/spatial_room_skin.yml"
+    meta_letter: "E"
+    meta_reveal: "Mona's replacement luggage tag has the now-familiar 0 in the corner."
+    hints:
+      - "DAMIAN's First Aid Hut plus row-5 clue is the best anchor."
+      - "Then use the two north-east relationships and the cot clues."
+      - "MONA ends in the Games Cabin. Which single person shares it?"
+    nudge: "Anchor DAMIAN, then work the two north-east relationships."
+    solution_steps:
+      - "DAMIAN resolves to E5 in the First Aid Hut."
+      - "PRIMROSE is F4 and CAROLYN C3."
+      - "JONQUIL is G7 in the Welcome Lodge."
+      - "HIRAM resolves to D2; ISABELLA to B6."
+      - "MONA is A1 in the Games Cabin."
+      - "HIRAM is the only other person in Mona's Games Cabin, so HIRAM is the answer."
+
+  - number: 16
+    rank: "FIELD AGENT"
+    type: "timeline-visual"
+    title: "GRANDMA BIBI'S VERY OLD, VERY EMBARRASSING PHOTOGRAPH"
+    status: "ROOM ZERO CHECKPOINT"
+    guides: ["bibi", "mimi", "alio"]
+    hook: >-
+      Bibi finally produces an old photograph of five children wearing Detective Academy badges.
+      One is unmistakably her. The hat is enormous. The family behaves with admirable restraint
+      for almost four seconds.
+    objective: "Use only the evidence printed on the page to identify the building and the photo year."
+    dialogue:
+      - {speaker: "alio", text: "That hat has its own postcode."}
+      - {speaker: "bibi", text: "And yet I survived fashion."}
+      - {speaker: "mimi", text: "Focus on the background before she destroys the evidence."}
+    timeline_visual:
+      candidate_buildings: ["OLD ACADEMY ANNEX", "CITY LIBRARY", "NORTH STATION"]
+      candidate_years: [1998, 2002, 2008]
+      evidence:
+        - "A plaque behind the group shows the old Academy crest and the words TRAINING ANNEX."
+        - "The archive rule says striped badges were issued and worn at official events only from 1999 through 2003."
+        - "A maintenance sticker on the door says SECURITY UPGRADE COMPLETED 2001; the photo record says it was taken after that sticker was installed."
+        - "The photo lab envelope is printed with EXPIRES 2004 and the processing log confirms it was used before expiry."
+        - "The 2008 candidate is therefore too late, and 1998 is too early for the installed security sticker."
+      answer:
+        building: "OLD ACADEMY ANNEX"
+        year: 2002
+    meta_reveal: "On the back, in Bibi's handwriting: RULE 0 FIRST."
+    hints:
+      - "Everything you need is printed on the evidence page. Do not use real-world technology history."
+      - "The crest identifies the building. Then intersect the badge range with the security-upgrade date."
+      - "1998 is before the 2001 sticker; 2008 is after the badge and photo-envelope ranges. Only 2002 fits."
+    nudge: "Identify the building first, then intersect the printed date ranges."
+    solution_steps:
+      - "The visible crest and TRAINING ANNEX plaque identify the Old Academy Annex."
+      - "The striped badge can only be from 1999-2003."
+      - "The security sticker requires 2001 or later."
+      - "The processing log says the envelope was used before its 2004 expiry."
+      - "Of the three offered years, only 2002 satisfies every clue."
+      - "The back of the photograph adds the unexplained message: RULE 0 FIRST."
+
+phase_validation:
+  mission_numbers: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+  spatial_source_ids: ["HMDA_06", "HMDA_07", "HMDA_10", "HMDA_12", "HMDA_13", "HMDA_15"]
+  meta_letters: {6: "E", 7: "C", 10: "K", 12: "T", 13: "H", 15: "E"}
+  production_rule: >-
+    Spatial clues above are publication-copy candidates tied to the final source geometry.
+    They must be validated against the normalized Shigai runtime before promotion into the
+    canonical 01-30 master.

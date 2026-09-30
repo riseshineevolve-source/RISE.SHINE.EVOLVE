@@ -1,0 +1,48 @@
+{
+  "schema": "hmda-v3-owner-visual-contract-v1",
+  "status": "OWNER_LOCKED_RECOVERY_SOURCE_VERIFIED",
+  "version_family": "V3",
+  "english_frozen": false,
+  "source_packet": {
+    "filename": "final-book-owner-review(1).zip",
+    "sha256": "55439b308d6d7a2db7b40485665bcc46aceeb9dffde528afffb276790378680c",
+    "member_prefix": "04_OWNER_VISUALS/"
+  },
+  "case03": {
+    "difference_count": 10,
+    "spec_status": "OWNER_APPROVED_EXACT_10_DIFFERENCE_CONTRACT",
+    "number_card": ["017", "071"]
+  },
+  "book2_visual_owner_locked": true,
+  "assets": {
+    "case03_photo_A.png": {
+      "sha256": "1763fb5881da7ff144fa1d32bbf6b2fc711233d156bf5b50e7f38fe85e60a1cd",
+      "width": 1086,
+      "height": 1448
+    },
+    "case03_photo_B.png": {
+      "sha256": "7ad6f8d9773dc09819d36d5ac708db43144ff48f00251a2aa919dd9f17cd247a",
+      "width": 1086,
+      "height": 1448
+    },
+    "case03_solution.png": {
+      "sha256": "82d2348231013f34ceb712d68c5b101d72853d750c26ac1f63d967b9b1c67fad",
+      "width": 1448,
+      "height": 2048
+    },
+    "book2_archive_photo.png": {
+      "sha256": "44d46ec319b483e10bc6cc5b5b1742e29cf2a219deb9500d412433f1781283db",
+      "width": 1086,
+      "height": 1448
+    }
+  },
+  "policy": {
+    "exact_bytes_required": true,
+    "transform_before_hash_check": false,
+    "regenerate_or_recreate": false,
+    "screenshot_or_reencode": false,
+    "hydrate_from_prose": false,
+    "merge_main_authorized": false,
+    "kdp_publication_authorized": false
+  }
+}

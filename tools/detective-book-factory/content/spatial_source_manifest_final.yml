@@ -1,0 +1,197 @@
+version: 3
+status: spatial_source_selection_locked
+
+source:
+  checkpoint_file: "HMDA_checkpoint_19_HMDA20_UPGRADE.shigai.json"
+  checkpoint_sha256: "cdc6de5b60117fe19e89fc4a13e2b9c1d92657f5e7fdb8ec69a18ae85ba8723e"
+  source_pdf: "HMDA_SHIGAI_SOURCE_15_MODULES_FINAL.pdf"
+  source_pdf_sha256: "6662c292642f3d66148e41eef180bb7d2b15a0975ca822981f4f33aa7153aada"
+  selection_rule: >-
+    Only the 15 modules listed below are production sources. Other boards in the
+    native checkpoint are backups/challengers. The native checkpoint is the
+    authority for grid topology, rooms, furniture/occupiable flags, placements,
+    raw clues and stored solutions.
+  immutability_rule: >-
+    RSE may rename and re-skin rooms, people and props, but may not change grid
+    topology, source clue meaning, blocked/occupiable semantics or verified source
+    placements without rerunning validation.
+
+meta_engine:
+  message: "CHECK THE OLD MAP"
+  cases: [HMDA_02, HMDA_04, HMDA_06, HMDA_07, HMDA_10, HMDA_12, HMDA_13, HMDA_15, HMDA_17, HMDA_19, HMDA_20, HMDA_22, HMDA_23, HMDA_25]
+  rule: >-
+    Mission 26 counts only spaces styled as ROOM, never spaces styled as ZONE.
+    The final RSE skin must leave exactly one ROOM empty after the verified source
+    placement in each marked case; that room's first letter is the meta letter.
+
+cases:
+  - id: HMDA_02
+    final_title: "The Trophy That Never Reached the Shelf"
+    tier: rookie
+    raw_title: "The Curious Security Tag and the Secret Gem"
+    grid: 6x6
+    grade: "easy 2.0"
+    source_answer: {name: Drew, coordinate: D2}
+    checkpoint: {scene_index: 0, clues_index: 1}
+    pdf: {puzzle_page: 1, statements_page: 2, solution_page: 41}
+    meta: {letter: C, room: "Coach's Office"}
+
+  - id: HMDA_04
+    final_title: "The Cupcake Box with Six Alibis"
+    tier: rookie
+    raw_title: "The Hidden Display Card and the Unclaimed Relic"
+    grid: 6x6
+    grade: "easy 2.2"
+    source_answer: {name: Raquel, coordinate: F4}
+    checkpoint: {scene_index: 5, clues_index: 4}
+    pdf: {puzzle_page: 6, statements_page: 5, solution_page: 43}
+    meta: {letter: H, room: "Hospitality Room"}
+
+  - id: HMDA_06
+    final_title: "The Museum Label That Lied"
+    tier: rookie
+    raw_title: "A Mysterious Hunt at the Museum"
+    grid: 6x6
+    grade: "easy 2.1"
+    source_answer: {name: Ava, coordinate: D2}
+    checkpoint: {scene_index: 7, clues_index: 6}
+    pdf: {puzzle_page: 8, statements_page: 7, solution_page: 44}
+    meta: {letter: E, room: "Egypt Room", excluded_empty_zone: "Archive Passage"}
+
+  - id: HMDA_07
+    final_title: "The Costume That Walked Away"
+    tier: rookie
+    raw_title: "The Secret Alarm Record and the Mysterious Gem"
+    grid: 6x6
+    grade: "medium 5.2"
+    source_answer: {name: Zelda, coordinate: C6}
+    checkpoint: {scene_index: 9, clues_index: 8}
+    pdf: {puzzle_page: 10, statements_page: 9, solution_page: 45}
+    meta: {letter: C, room: "Costume Room"}
+
+  - id: HMDA_10
+    final_title: "The Robot with Two Owners"
+    tier: field_agent
+    raw_title: "The Unexpected Fingerprint and the Secret Treasure"
+    grid: 7x7
+    grade: "medium 5.2"
+    source_answer: {name: Eliza, coordinate: D5}
+    checkpoint: {scene_index: 11, clues_index: 10}
+    pdf: {puzzle_page: 12, statements_page: 11, solution_page: 46}
+    meta: {letter: K, room: "Kinetics Lab"}
+
+  - id: HMDA_12
+    final_title: "The Parrot Who Knew the Password"
+    tier: field_agent
+    raw_title: "The Last Security Tag and the Secret Relic"
+    grid: 7x7
+    grade: "medium 5.3"
+    source_answer: {name: Norris, coordinate: G2}
+    checkpoint: {scene_index: 13, clues_index: 12}
+    pdf: {puzzle_page: 14, statements_page: 13, solution_page: 47}
+    meta: {letter: T, room: "Training Room"}
+
+  - id: HMDA_13
+    final_title: "The Camera That Blinked at 4:17"
+    tier: field_agent
+    raw_title: "What Happened to the Empty Display?"
+    grid: 7x7
+    grade: "expert 8.4"
+    source_answer: {name: Bronwen, coordinate: B7}
+    checkpoint: {scene_index: 31, clues_index: 30}
+    pdf: {puzzle_page: 32, statements_page: 31, solution_page: 56}
+    meta: {letter: H, room: "Hide Room", excluded_empty_zone: "Visitor Walkway"}
+
+  - id: HMDA_15
+    final_title: "The Backpack That Changed Owners"
+    tier: field_agent
+    raw_title: "The Remarkable Puzzle: The Heirloom"
+    grid: 7x7
+    grade: "hard 6.7"
+    source_answer: {name: Hiram, coordinate: D2}
+    checkpoint: {scene_index: 17, clues_index: 16}
+    pdf: {puzzle_page: 18, statements_page: 17, solution_page: 49}
+    meta: {letter: E, room: "Equipment Room"}
+
+  - id: HMDA_17
+    final_title: "The Train Ticket That Wasn't Lost"
+    tier: master_detective
+    raw_title: "Rhoda and the Faint Fingerprint"
+    grid: 7x7
+    grade: "hard 7.1"
+    source_answer: {name: Ambrose, coordinate: E3}
+    checkpoint: {scene_index: 19, clues_index: 18}
+    pdf: {puzzle_page: 20, statements_page: 19, solution_page: 50}
+    meta: {letter: O, room: "Observation Car", excluded_empty_zones: ["Baggage Platform", "Mail Platform"]}
+
+  - id: HMDA_19
+    final_title: "The Library Book That Checked Itself Out"
+    tier: master_detective
+    raw_title: "The Relic and the Little Ledger Note"
+    grid: 7x7
+    grade: "expert 8.2"
+    source_answer: {name: Madge, coordinate: A7}
+    checkpoint: {scene_index: 33, clues_index: 32}
+    pdf: {puzzle_page: 34, statements_page: 33, solution_page: 57}
+    meta: {letter: L, room: "Library Office", excluded_empty_zone: "Service Corridor"}
+
+  - id: HMDA_20
+    final_title: "The Paint-Splattered Alibi"
+    tier: master_detective
+    raw_title: "The Adventure: The Missing Relic"
+    grid: 7x7
+    grade: "expert 8.3"
+    source_answer: {name: Pamela, coordinate: F5}
+    checkpoint: {scene_index: 39, clues_index: 38}
+    pdf: {puzzle_page: 40, statements_page: 39, solution_page: 60}
+    meta: {letter: D, room: "Drying Room"}
+
+  - id: HMDA_22
+    final_title: "The Music Room Mix-Up"
+    tier: master_detective
+    raw_title: "The Remarkable Adventure: The Heirloom"
+    grid: 7x7
+    grade: "expert 8.3"
+    source_answer: {name: Clarence, coordinate: C4}
+    checkpoint: {scene_index: 35, clues_index: 34}
+    pdf: {puzzle_page: 36, statements_page: 35, solution_page: 58}
+    meta: {letter: M, room: "Music Archive", excluded_empty_zone: "Office Passage"}
+
+  - id: HMDA_23
+    final_title: "The Wristband Switch at Adventure Park"
+    tier: master_detective
+    raw_title: "The Hidden Clue and the Hidden Prize"
+    grid: 7x7
+    grade: "expert 8.4"
+    source_answer: {name: Rebecca, coordinate: F6}
+    checkpoint: {scene_index: 25, clues_index: 24}
+    pdf: {puzzle_page: 26, statements_page: 25, solution_page: 53}
+    meta: {letter: A, room: "Access Office", excluded_empty_zone: "Funhouse Queue"}
+
+  - id: HMDA_25
+    final_title: "The Package with No Name"
+    tier: master_detective
+    raw_title: "The Unusual Hunt: The Prize"
+    grid: 7x7
+    grade: "expert 8.1"
+    source_answer: {name: Celia, coordinate: D5}
+    checkpoint: {scene_index: 27, clues_index: 26}
+    pdf: {puzzle_page: 28, statements_page: 27, solution_page: 54}
+    meta: {letter: P, room: "Parcel Room", excluded_empty_zone: "Roof Terrace"}
+
+  - id: HMDA_29
+    final_title: "The Map Beneath the Map"
+    tier: room_zero_boss
+    raw_title: "The Search for the Unclaimed Gem"
+    grid: 9x9
+    grade: "expert 8.2"
+    source_answer: {name: Vera, coordinate: D3}
+    checkpoint: {scene_index: 29, clues_index: 28}
+    pdf: {puzzle_page: 30, statements_page: 29, solution_page: 55}
+    meta: null
+
+room_skin_contract:
+  note: >-
+    Exact source room-index to final ROOM/ZONE names is generated from the locked
+    checkpoint during Map Factory ingestion. Do not hand-edit cell topology in
+    this selection file. See SPATIAL_SOURCE_LOCK.md and MAP_FACTORY_FINAL_SPEC.md.

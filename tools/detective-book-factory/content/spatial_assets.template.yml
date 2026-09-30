@@ -1,0 +1,16 @@
+version: 1
+status: template
+note: >-
+  Copy this file OUTSIDE the public repository for a release build, replace the
+  example paths with generated private Map Factory assets, then pass it to
+  scripts/build_book1_master.py --spatial-assets /private/path/spatial_assets.yml.
+
+cases:
+  HMDA_02:
+    puzzle_asset: "/private/hmda/maps/HMDA_02_puzzle_original_shigai_relabelled.png"
+    solution_asset: "/private/hmda/maps/HMDA_02_solution_original_shigai_relabelled.png"
+    rows: 6
+    columns: 6
+    source_pdf_sha256: "6662c292642f3d66148e41eef180bb7d2b15a0975ca822981f4f33aa7153aada"
+    renderer: "hybrid-original-shigai"
+    visual_standard_version: 1

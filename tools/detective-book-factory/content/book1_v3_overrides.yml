@@ -1,0 +1,122 @@
+version: 3
+status: CANONICAL_V3_OWNER_REVIEW
+purpose: >-
+  Story, reader-arc and production overlays for the definitive English V3
+  owner-review candidate. Logic-bearing phase sources remain authoritative;
+  these fields deepen continuity without changing accepted answers.
+
+book:
+  edition: ""
+  opening_code: "THE ACADEMY HAS FIVE DETECTIVES. THE SIGNAL IS LOOKING FOR SIX."
+  rule_zero_teaser: "RULE ZERO // SEALED UNTIL THE EVIDENCE EARNS IT"
+  pdf_subject: "A 30-case offline mystery adventure for curious kids ages 8-12"
+  pdf_keywords: "detective puzzles, logic puzzles, screen-free, kids activity book, Room Zero"
+
+opening:
+  acceptance_letter:
+    headline: "TO THE PERSON HOLDING THIS BOOK"
+    body: >-
+      The Happy Makers were closing the Academy for the night when the old intake printer woke up.
+      It printed one line: ONE DETECTIVE IS STILL MISSING. Then a black envelope slid from a slot
+      that had been sealed for years. Inside was an Academy badge with a blank name line and a tiny 0.
+      The team checked every roster. Five names. Six badge hooks. If you found this file, the message
+      was sent to you.
+    note: >-
+      Write your detective name on the official ID. We will bring the questions, the evidence and
+      several unnecessary helmet theories. You make the final call.
+  squad_intro: >-
+    The Happy Makers are a real team with different jobs. Mimi keeps the case moving. Luli tests
+    every claim. Dilo handles codes and machines. Alio checks routes and carries too many helmets.
+    Nini notices people and quiet details. Grandma Bibi guards the old archive. They disagree,
+    recover and make room for your verdict.
+  how_to_play:
+    - "READ THE SITUATION, THEN THE OBJECTIVE. Every case tells you exactly what must be proved."
+    - "MARK THE EVIDENCE. Tick a clue only after you use it; cross out options that cannot work."
+    - "USE THE HINT VAULT BY LEVEL. Read Level 1 across the book before choosing a stronger nudge."
+    - "WRITE THE VERDICT. A correct answer needs a reason; guessing does not close a case."
+    - "LOG THE SIGNAL. Some files are live calls and some are reopened Academy records. The book itself may become evidence."
+
+production:
+  hint_mode: level_major
+  compact_cases: [8, 9, 11, 14, 18, 24, 28]
+  artifact_cases: [16, 21, 27]
+  require_spatial_facing: true
+  witness_marker_mode: numeric
+  case_pacing: "2/3/4-page rhythm with evidence artifacts and meaningful parity pauses"
+
+acts:
+  - {number: 1, title: "SOMETHING IS OFF", cases: [1, 2, 3, 4, 5, 6]}
+  - {number: 2, title: "THE PATTERN", cases: [7, 8, 9, 10, 11, 12]}
+  - {number: 3, title: "THE BOOK REMEMBERS", cases: [13, 14, 15, 16, 17, 18, 19, 20, 21]}
+  - {number: 4, title: "ROOM ZERO", cases: [22, 23, 24, 25, 26, 27, 28, 29]}
+  - {number: 5, title: "THE DOOR OPENS", cases: [30]}
+
+reader_arc:
+  1: "RECRUIT"
+  6: "FIELD DETECTIVE"
+  13: "CASE PARTNER"
+  22: "OUR DETECTIVE"
+  27: "INDISPENSABLE"
+  30: "ACADEMY MEMBER"
+
+cases:
+  1:
+    signal_log: {code: "INTAKE-01", label: "BADGE REVERSE", status: "FIRST VERIFIED 0", speaker: "mimi", reaction: "The printer issued the next file only after you signed the Academy ID.", reader_move: "Add INTAKE-01 to your Case Wall."}
+  2:
+    signal_log: {code: "INTAKE-02", label: "TROPHY TAG", status: "MATCH CONFIRMED", speaker: "luli", reaction: "Same mark, different file. Record the match; do not invent the reason.", reader_move: "Record witness numbers beside final map positions. You may need them later."}
+  3:
+    signal_log: {code: "INTAKE-03", label: "TAG 0471", status: "ROUTING STAMP", speaker: "nini", reaction: "The changed tag is the one the old intake system copied into its log.", reader_move: "Write the three meaningful changes, then mark the stamp."}
+  4:
+    signal_log: {code: "INTAKE-04", label: "QUALITY LABEL", status: "ROUTED FILE", speaker: "dilo", reaction: "The 0 is printed in the same place as the archive-routing field. That is useful weirdness.", reader_move: "Record witness numbers beside final map positions."}
+  5:
+    signal_log: {code: "INTAKE-05", label: "SEALED ENVELOPE", status: "FIVE REAL SIGNALS", speaker: "alio", reaction: "Five actual files. My tunnel chart has been postponed by evidence.", reader_move: "Circle all five verified records on the Case Wall."}
+  6:
+    signal_log: {code: "QUEUE-06", label: "MUSEUM LABEL", status: "OLD FILE REOPENED", speaker: "bibi", reaction: "This label came from a closed Academy file. The machine chose it; it did not cause it.", reader_move: "Write every witness number in its final square. Keep the completed map."}
+  7:
+    signal_log: {code: "QUEUE-07", label: "COSTUME RECORD", status: "PATTERN HOLDS", speaker: "mimi", reaction: "New call, old routing mark. The cases are joining one investigation.", reader_move: "Write every witness number in its final square. Keep the completed map."}
+  8:
+    signal_log: {code: "CHECK-08", label: "CORRIDOR ZERO", status: "FALSE LEAD REJECTED", speaker: "luli", reaction: "A corridor label is not the same as the intake stamp. Similar shape, different job.", reader_move: "Mark FALSE LEAD without erasing the useful route evidence."}
+  9:
+    signal_log: {code: "ARCHIVE-09", label: "BIBI MEMORY", status: "ACADEMY LINK", speaker: "bibi", reaction: "I know the mark belonged to intake. I still do not remember what its zero meant.", reader_move: "Write FACT: OLD ACADEMY INTAKE MARK."}
+  10:
+    signal_log: {code: "QUEUE-10", label: "ROBOT DIAGNOSTIC", status: "FILE SELECTED", speaker: "dilo", reaction: "The queue copied a real diagnostic card. It did not edit the robot or the witnesses.", reader_move: "Write every witness number in its final square. Keep the completed map."}
+  11:
+    signal_log: {code: "ARCHIVE-11", label: "08:07 PHOTO", status: "SEAL FOUND", speaker: "mimi", reaction: "My lost phone found an older Academy seal. I am calling that efficient evidence storage.", reader_move: "Log the photo time and keep the seal as a callback."}
+  12:
+    signal_log: {code: "QUEUE-12", label: "PARROT CUE CARD", status: "ROUTING TRACE", speaker: "nini", reaction: "The parrot copied words. The machine copied a file. Neither one invented the event.", reader_move: "Write every witness number in its final square. Keep the completed map."}
+  13:
+    signal_log: {code: "QUEUE-13", label: "CAMERA CARD", status: "CASE PARTNER", speaker: "luli", reaction: "You found the access point before the team did. From here on, this is our case.", reader_move: "Write every witness number in its final square. Keep the completed map."}
+  14:
+    signal_log: {code: "CHECK-14", label: "ROOM 0 MEMORY", status: "WORDING UNRELIABLE", speaker: "nini", reaction: "A witness remembered Room 0. Memory is evidence to test, not a shortcut to trust.", reader_move: "Write MEMORY, not FACT, beside ROOM 0."}
+  15:
+    signal_log: {code: "QUEUE-15", label: "LUGGAGE TAG", status: "OLD FORM", speaker: "mimi", reaction: "The replacement tag used the same retired intake template.", reader_move: "Write every witness number in its final square. Keep the completed map."}
+  16:
+    signal_log: {code: "ARCHIVE-16", label: "RULE 0 FIRST", status: "PHOTO DATED", speaker: "bibi", reaction: "That is my handwriting. The rule came before the room, and I still owe you the missing word.", reader_move: "Add RULE 0 FIRST beneath the dated photo."}
+  17:
+    signal_log: {code: "QUEUE-17", label: "PUNCHED TICKET", status: "BOOK REMEMBERS", speaker: "dilo", reaction: "The queue keeps returning to solved maps. I would like to know what it expects us to notice.", reader_move: "Write every witness number in its final square. Keep the completed map."}
+  18:
+    signal_log: {code: "CHECK-18", label: "0:07", status: "NUMERIC DECOY", speaker: "luli", reaction: "Seven minutes written as 0:07 is a time, not our mark. Context wins.", reader_move: "Mark DECOY: TIME FORMAT."}
+  19:
+    signal_log: {code: "QUEUE-19", label: "SCANNER BLANK", status: "EMPTY FIELD", speaker: "nini", reaction: "The mark sits where the record normally leaves nothing. Empty may be the useful part.", reader_move: "Write every witness number in its final square. Keep the completed map."}
+  20:
+    signal_log: {code: "QUEUE-20", label: "DRYING CARD", status: "REPEATED TRACE", speaker: "mimi", reaction: "Different building. Different people. The queue still wants the completed map preserved.", reader_move: "Write every witness number in its final square. Keep the completed map."}
+  21:
+    signal_log: {code: "MESSAGE-21", label: "TORN NOTE", status: "INSTRUCTION RECOVERED", speaker: "dilo", reaction: "THE ANSWER IS IN WHAT YOU LEAVE EMPTY. The machine finally sent a sentence.", reader_move: "Copy the exact sentence to the Case Wall."}
+  22:
+    signal_log: {code: "QUEUE-22", label: "INVENTORY CARD", status: "RETROACTIVE EVIDENCE", speaker: "luli", reaction: "Keep the completed map. A later case will ask you to inspect what your placements leave behind.", reader_move: "Write every witness number in its final square. Do not guess why yet."}
+  23:
+    signal_log: {code: "QUEUE-23", label: "WRISTBAND SERIAL", status: "RETROACTIVE EVIDENCE", speaker: "alio", reaction: "A completed map can be evidence twice. I have officially stopped doodling on it.", reader_move: "Write every witness number in its final square. Do not guess why yet."}
+  24:
+    signal_log: {code: "CHECK-24", label: "SOLE CUT", status: "MOTIF ONLY", speaker: "nini", reaction: "The circular cut matches the shape, but it is not an intake record. Keep the route; reject the claim.", reader_move: "Mark MOTIF, NOT SIGNAL."}
+  25:
+    signal_log: {code: "QUEUE-25", label: "PARCEL ROUTING", status: "FOURTEEN MAPS READY", speaker: "mimi", reaction: "Fourteen completed maps are ready. Time to inspect what the placements leave behind.", reader_move: "Write every witness number in its final square, then turn to Case 26."}
+  26:
+    signal_log: {code: "MESSAGE-26", label: "EMPTY-ROOM INITIALS", status: "CHECK THE OLD MAP", speaker: "luli", reaction: "The queue selected files whose verified empty rooms carry a stored initiation message.", reader_move: "Write CHECK THE OLD MAP exactly as earned."}
+  27:
+    signal_log: {code: "ARCHIVE-27", label: "SEALED TRAINING ROOM", status: "LOCATION VERIFIED", speaker: "bibi", reaction: "The old plan and current wall agree. Room Zero was a training room, not a person watching us.", reader_move: "Mark the sealed rectangle on both plans."}
+  28:
+    signal_log: {code: "RULE-28", label: "ZERO ASSUMPTIONS", status: "RULE RESTORED", speaker: "alio", reaction: "My tunnel theory has been moved to the unsupported shelf. I object accurately.", reader_move: "Complete Rule Zero only now."}
+  29:
+    signal_log: {code: "ACCESS-29", label: "D3", status: "FINAL LOCK READY", speaker: "dilo", reaction: "D3 is an earned coordinate. The four-symbol code is already in your earlier file.", reader_move: "Bring the Case 05 code and D3 to the final lock."}
+  30:
+    signal_log: {code: "MEMBER-30", label: "SIXTH BADGE HOOK", status: "ACADEMY MEMBER", speaker: "nini", reaction: "The system was looking for a detective who notices before assuming. It found you.", reader_move: "Sign the certificate with the detective name you chose at the start."}

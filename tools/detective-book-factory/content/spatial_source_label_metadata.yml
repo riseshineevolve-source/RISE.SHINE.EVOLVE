@@ -1,0 +1,154 @@
+version: 1
+source_pdf_sha256: 6662c292642f3d66148e41eef180bb7d2b15a0975ca822981f4f33aa7153aada
+cases:
+  HMDA_04:
+    puzzle_page: 6
+    rooms:
+      0:
+        state: absent_verified
+      3:
+        state: absent_verified
+    solution_page: 43
+  HMDA_07:
+    puzzle_page: 10
+    solution_page: 45
+    rooms:
+      0:
+        state: explicit_reference
+        evidence_mode: auto_two_page_reference
+        reference_page: solution
+        coordinate_frame: complete_square_outer_border
+        normalized_footprint:
+        - 0.546624
+        - 0.302112
+        - 0.108865
+        - 0.024334
+        confidence:
+          puzzle_primary: false
+          solution_topology_overlap: 1.0
+          paired_source_footprint: true
+          puzzle_reference_normalized:
+          - 0.546624
+          - 0.302251
+          - 0.108865
+          - 0.024345
+      4:
+        state: explicit_reference
+        evidence_mode: auto_two_page_reference
+        reference_page: solution
+        coordinate_frame: complete_square_outer_border
+        normalized_footprint:
+        - 0.687644
+        - 0.797521
+        - 0.132751
+        - 0.024334
+        confidence:
+          puzzle_primary: false
+          solution_topology_overlap: 1.0
+          paired_source_footprint: true
+          puzzle_reference_normalized:
+          - 0.687644
+          - 0.797428
+          - 0.132751
+          - 0.024345
+  HMDA_10:
+    puzzle_page: 12
+    solution_page: 46
+    rooms:
+      4:
+        state: explicit_reference
+        evidence_mode: visually_verified_two_page_reference
+        reference_page: both
+        coordinate_frame: complete_square_outer_border
+        normalized_footprint:
+        - 0.430861
+        - 0.536172
+        - 0.138278
+        - 0.028388
+        confidence:
+          paired_source_footprint: true
+          topology_overlap: 1.0
+          note: Mess Hall pill touches the chair contour on both locked source pages.
+      2:
+        state: explicit_reference
+        evidence_mode: auto_two_page_reference
+        reference_page: solution
+        coordinate_frame: complete_square_outer_border
+        normalized_footprint:
+        - 0.02793
+        - 0.254579
+        - 0.108516
+        - 0.024725
+        confidence:
+          puzzle_primary: false
+          solution_topology_overlap: 1.0
+          paired_source_footprint: true
+          puzzle_reference_normalized:
+          - 0.02793
+          - 0.254579
+          - 0.108516
+          - 0.024725
+  HMDA_15:
+    puzzle_page: 18
+    solution_page: 49
+    rooms:
+      1:
+        state: explicit_reference
+        evidence_mode: visually_verified_two_page_reference
+        reference_page: solution
+        coordinate_frame: complete_square_outer_border
+        normalized_footprint:
+        - 0.008242
+        - 0.396062
+        - 0.1337
+        - 0.024725
+        confidence:
+          paired_source_footprint: true
+          topology_overlap: 1.0
+          puzzle_reference_normalized:
+          - 0.008242
+          - 0.39652
+          - 0.1337
+          - 0.024725
+          note: The Gear Shed pill is visible below the kayak on both pages; its contour
+            touches the kayak on the puzzle page.
+  HMDA_29:
+    puzzle_page: 30
+    solution_page: 55
+    rooms:
+      2:
+        state: explicit_reference
+        evidence_mode: visually_verified_two_page_reference
+        reference_page: solution
+        coordinate_frame: complete_square_outer_border
+        normalized_footprint:
+        - 0.435438
+        - 0.962789
+        - 0.129123
+        - 0.026378
+        confidence:
+          paired_source_footprint: true
+          topology_overlap: 1.0
+          puzzle_reference_normalized:
+          - 0.637606
+          - 0.962789
+          - 0.129123
+          - 0.026378
+          note: The Corridor pill moves within source room 2 from G9 on the puzzle
+            to E9 on the solution; the solution pill touches a cabinet contour.
+  HMDA_06:
+    puzzle_page: 8
+    solution_page: 44
+    rooms:
+      2:
+        state: explicit_reference
+        evidence_mode: auto_two_page_reference
+        normalized_footprint:
+        - 0.326596
+        - 0.962351
+        - 0.181902
+        - 0.024334
+        confidence:
+          normalized_max_delta: 0.0
+          puzzle_broad: true
+          solution_broad: true

@@ -1,0 +1,29 @@
+version: 1
+status: template
+mode: presentation_only
+
+note: >-
+  Populate a private/release copy only after the exact runtime inventory and
+  modern-prop catalog are known. Do not invent presentation keys here. The
+  asset pack is visual-only and may never override source puzzle semantics.
+
+requirements:
+  format: png
+  background: transparent
+  path_policy: relative_posix_only
+  integrity: sha256_required
+  render_policy: isolated_cell_overlay_only
+
+# Schema:
+#
+# assets:
+#   <presentation_key from modern_prop_catalog>:
+#     path: modern_props/<asset>.png
+#     sha256: <64 lowercase hex chars>
+#
+# The overlay planner verifies the path and hash, rejects missing assets,
+# and confines rendered pixels to the catalog's approved per-cell safe box.
+# Production composition over source maps remains disabled until a separate
+# before/after footprint validator proves that no pixels outside approved
+# object boxes changed.
+assets: {}

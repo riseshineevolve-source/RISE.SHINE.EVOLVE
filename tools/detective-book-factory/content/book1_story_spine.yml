@@ -1,0 +1,117 @@
+version: 3
+status: "CANONICAL V3 FIVE-ACT SPINE"
+purpose: >-
+  These interludes make Book 1 feel like one escalating Room Zero investigation rather than
+  thirty disconnected puzzles. They do not change any locked mission answer or the Room Zero twist.
+
+beats:
+  - after_case: 5
+    code: "SIGNAL_05"
+    eyebrow: "ACT I // SOMETHING IS OFF"
+    headline: "FIVE FILES. FIVE REAL SIGNALS."
+    question: "Why did the reactivated Academy intake system route five different files to the same new detective?"
+    evidence:
+      - "The blank Academy badge carried a tiny engraved 0."
+      - "The trophy evidence tag carried the same plain 0."
+      - "Evidence tag 0471 carried the same routing stamp."
+      - "The cupcake quality label repeated it."
+      - "The field-locker envelope was sealed with the fifth matching mark."
+    squad:
+      - {speaker: "luli", text: "A pattern is not an explanation. We keep the pattern. We earn the explanation."}
+      - {speaker: "dilo", text: "My explanation currently involves a secret network."}
+      - {speaker: "alio", text: "Tunnel network?"}
+      - {speaker: "luli", text: "No networks until the evidence requests one."}
+    reader_move: "On your Detective ID, add one tiny 0 beside CASE WALL. Do not decide what it means yet."
+    progress: "ACT I COMPLETE // FIVE VERIFIED SIGNALS"
+
+  - after_case: 9
+    code: "BIBI_MEMORY"
+    eyebrow: "ACT II // THE PATTERN"
+    headline: "BIBI KNOWS WHERE THE MARK BELONGED."
+    question: "If the mark belonged to old Academy intake, why has that system selected these files now?"
+    evidence:
+      - "The same plain 0 appears on Academy-routed records, not on every incident object."
+      - "Lookalike circles and dials do not match the mark."
+      - "Bibi recognizes the old intake mark."
+      - "The system routes evidence; it does not cause incidents or alter witness accounts."
+      - "Bibi cannot yet recall what zero meant, so the team leaves that gap open."
+    squad:
+      - {speaker: "bibi", text: "I remember the mark. I do not remember the answer. Those are two different things."}
+      - {speaker: "nini", text: "Good. We can be curious without pretending we know."}
+      - {speaker: "dilo", text: "I can pretend extremely convincingly."}
+      - {speaker: "luli", text: "Documented."}
+    reader_move: "Circle the word FACT on your case wall. Under it write: BIBI HAS SEEN THE 0 BEFORE."
+    progress: "ACT II ACTIVE // INTAKE SYSTEM REACTIVATED"
+
+  - after_case: 16
+    code: "OLD_PHOTO"
+    eyebrow: "ACT III // THE BOOK REMEMBERS"
+    headline: "THE OLD PHOTO CHANGES THE CASE."
+    question: "What was Rule 0, and why did Bibi write RULE 0 FIRST on the back of an Academy photograph?"
+    evidence:
+      - "The photograph belongs to the Old Academy Annex."
+      - "The evidence places it in 2002."
+      - "Young Bibi is standing with an earlier detective squad."
+      - "The back says RULE 0 FIRST."
+      - "The recurring zero may be an instruction, not a room number."
+    squad:
+      - {speaker: "mimi", text: "New plan: stop asking what Room Zero is and ask what zero meant to the Academy."}
+      - {speaker: "bibi", text: "That is an annoyingly good question."}
+      - {speaker: "alio", text: "I also have an annoyingly good tunnel question."}
+      - {speaker: "mimi", text: "You have a tunnel hobby."}
+    reader_move: "Add RULE 0 FIRST to the case wall. Leave space underneath it. The missing rule matters later."
+    progress: "ACT III // OLD ACADEMY / RULE MISSING"
+
+  - after_case: 21
+    code: "EMPTY"
+    eyebrow: "ACT III // THE BOOK REMEMBERS"
+    headline: "THE NOTE POINTS AT NOTHING."
+    question: "What if the important evidence is not an object, a person or a mark, but the thing every solved map leaves empty?"
+    evidence:
+      - "The reconstructed note reads: THE ANSWER IS IN WHAT YOU LEAVE EMPTY."
+      - "The zero signal has followed the investigation from the first badge."
+      - "Zero can mean none."
+      - "Earlier spatial cases may contain evidence the team did not know to record."
+    squad:
+      - {speaker: "nini", text: "Empty can still be something."}
+      - {speaker: "dilo", text: "Philosophically alarming."}
+      - {speaker: "luli", text: "Operationally useful."}
+    reader_move: "Do not flip back yet. Finish the next files first. You are building enough evidence to test the idea properly."
+    progress: "ACT III COMPLETE // EMPTY SPACE MATTERS"
+
+  - after_case: 25
+    code: "FOURTEEN_MAPS"
+    eyebrow: "ACT IV // ROOM ZERO"
+    headline: "FOURTEEN MAPS ARE NOW EVIDENCE."
+    question: "Across the marked spatial cases, is there always exactly one named ROOM with zero people inside?"
+    evidence:
+      - "Fourteen marked spatial cases are complete."
+      - "Each has a verified final placement."
+      - "The note says the answer is in what you leave empty."
+      - "The recurring 0 has never been explained by a suspect, object or timestamp."
+      - "Case 26 is the first time the Academy asks you to reopen solved files."
+    squad:
+      - {speaker: "luli", text: "Nobody solves anything new until we inspect what we already solved."}
+      - {speaker: "alio", text: "My favourite kind of new case: an old case wearing a moustache."}
+      - {speaker: "mimi", text: "Get the pencils. And the old maps."}
+    reader_move: "Put a finger on Case 02. Case 26 will tell you exactly what to look for."
+    progress: "ACT IV // PATTERN TEST READY"
+
+  - after_case: 29
+    code: "FINAL_LOCK"
+    eyebrow: "ACT V // THE DOOR OPENS"
+    headline: "EVERYTHING YOU NEED IS ALREADY IN THE BOOK."
+    question: "Who was the missing detective from the very first page?"
+    evidence:
+      - "The old-map message led to the sealed training room."
+      - "Rule Zero is restored: ZERO ASSUMPTIONS. NOTICE FIRST. THEORIZE SECOND."
+      - "The service-level map gives access coordinate D3."
+      - "The reactivated intake session copied Dilo's active field-locker sequence in Case 05."
+      - "The archived room inventory lists six badge hooks and five original squad badges."
+    squad:
+      - {speaker: "bibi", text: "No more hints from me."}
+      - {speaker: "luli", text: "Good. The evidence is enough."}
+      - {speaker: "nini", text: "And if your stomach is doing the nervous trampoline thing, that still counts as ready."}
+      - {speaker: "dilo", text: "I am ready to open anything labelled DO NOT OPEN."}
+    reader_move: "Before Case 30, write your detective name once more. The final answer belongs to you."
+    progress: "ACT V // READER MAKES THE CALL"

@@ -1,0 +1,273 @@
+book:
+  title: "HAPPY MAKERS DETECTIVE ACADEMY"
+  subtitle: "THE MYSTERY OF ROOM ZERO"
+  strapline: "30 OFFLINE MYSTERY MISSIONS FOR CURIOUS KIDS AGES 8-12"
+  opening_code: "ONE DETECTIVE IS STILL MISSING."
+  rule_zero: "ZERO ASSUMPTIONS. NOTICE FIRST. THEORIZE SECOND."
+  edition: "Canonical Book 1 Source"
+  language: "EN"
+
+characters:
+  bibi:
+    name: "GRANDMA BIBI"
+    tag: "ARCHIVE NOTE"
+    asset: "assets/production/bibi.png"
+  luli:
+    name: "LULI"
+    tag: "CLUE CHECK"
+    asset: "assets/production/luli.png"
+  dilo:
+    name: "DILO"
+    tag: "CODE DROP"
+    asset: "assets/production/dilo.png"
+  alio:
+    name: "ALIO"
+    tag: "FIELD ALERT"
+    asset: "assets/production/alio.png"
+  nini:
+    name: "NINI"
+    tag: "NUDGE"
+    asset: "assets/production/nini.png"
+  mimi:
+    name: "MIMI"
+    tag: "CASE NOTE"
+    asset: "assets/production/mimi.png"
+  squad:
+    name: "THE HAPPY MAKERS"
+    tag: "YOUR SQUAD"
+    asset: "assets/production/squad.jpg"
+
+opening:
+  acceptance_letter:
+    headline: "DETECTIVE RECRUITMENT NOTICE"
+    body: >-
+      A black envelope arrived with no stamp, no sender and one silver mark: 0.
+      Inside was an old Detective Academy badge. The name line was blank. The status line was not.
+      It read: ONE DETECTIVE IS STILL MISSING.
+    note: >-
+      Write your detective name on the badge. From this page on, you are not reading about the case. You are in it.
+  squad_intro: >-
+    The Happy Makers are your squad, not your teachers. They will notice, argue, joke, test ideas, get stuck, recover, and occasionally suggest a secret tunnel when absolutely nobody asked for one. You make the final call.
+  how_to_play:
+    - "READ THE MISSION. Every case tells you exactly what must be discovered."
+    - "MARK THE EVIDENCE. Tick useful clues, cross out impossible positions, circle what matters."
+    - "USE A NUDGE ONLY IF YOU NEED IT. Being stuck is part of detective work."
+    - "WRITE YOUR VERDICT. Do not guess. Make the evidence earn your answer."
+    - "WATCH FOR STRANGE DETAILS. Not everything in this book is only about the case on that page."
+
+phase: 1
+status: "DURABLE PRODUCTION COPY / CASES 01-05"
+
+missions:
+  - number: 1
+    rank: "TRAINING"
+    type: "guided"
+    title: "THE BADGE THAT ARRIVED BEFORE THE MAIL"
+    status: "MISSION ACTIVE"
+    guides: ["mimi", "luli"]
+    hook: >-
+      The post has not arrived. The front door has not opened. Yet a Detective Academy badge is sitting on Mimi's kitchen table.
+    objective: "Work out who was at the delivery desk when the badge appeared."
+    dialogue:
+      - speaker: "mimi"
+        text: "Nobody touches the evidence."
+      - speaker: "luli"
+        text: "You just moved the mug."
+      - speaker: "mimi"
+        text: "I was establishing authority."
+    tutorial:
+      size: 4
+      cols: ["A", "B", "C", "D"]
+      rows: [1, 2, 3, 4]
+      people: ["ARI", "BEA", "COLE", "DANI"]
+      positions:
+        ARI: "B1"
+        BEA: "C4"
+        COLE: "A3"
+        DANI: "D2"
+      rooms:
+        - {name: "ARCHIVE", cells: ["A1","A2","B1","B2"]}
+        - {name: "LIBRARY", cells: ["A3","A4","B3","B4"]}
+        - {name: "WORKSHOP", cells: ["C1","C2","C3","C4"]}
+        - {name: "DELIVERY", cells: ["D1","D2","D3","D4"]}
+      clues:
+        - "ARI was in row 1, column B."
+        - "COLE was in row 3, column A."
+        - "BEA was in column C, but not in row 2."
+        - "Each person used a different row and a different column."
+        - "The badge appeared at the Delivery desk."
+      guided_steps:
+        - "Place ARI at B1. Exact clues are free points. Take them."
+        - "COLE must be at A3. That uses row 3 and column A."
+        - "Only rows 2 and 4 remain for BEA and DANI. BEA cannot be in row 2, so BEA is C4."
+        - "That leaves D2 for DANI. D2 is in Delivery."
+      answer: "DANI"
+      verdict: "DANI was at the Delivery desk when the badge appeared."
+    meta_reveal: "Turn the badge over. A tiny engraved 0 sits below the name line."
+    hints:
+      - "Start with ARI and COLE. Their clues give exact squares."
+      - "After those rows and columns are used, BEA cannot take row 2."
+      - "BEA must be C4, leaving D2 for DANI in Delivery."
+
+    nudge: "Start with the clues that give an exact square."
+    solution_steps:
+      - "ARI goes to B1."
+      - "COLE goes to A3."
+      - "BEA must use C4 because C2 is ruled out."
+      - "DANI takes the only remaining row and column: D2."
+      - "D2 is inside Delivery, so DANI is the person we need."
+
+  - number: 2
+    rank: "ROOKIE"
+    type: "spatial"
+    spatial_source_id: "HMDA_02"
+    title: "THE TROPHY THAT NEVER REACHED THE SHELF"
+    status: "CASE FILE 02"
+    guides: ["luli", "alio"]
+    hook: >-
+      A junior sports trophy was photographed before the team photo. Minutes later its shelf was
+      empty. Nobody left the Academy wing, so the useful question is who was with Bobby when it moved.
+    objective: "Rebuild the Academy positions and identify who was with Bobby when the trophy changed hands."
+    dialogue:
+      - {speaker: "alio", text: "Vent theory is still alive."}
+      - {speaker: "luli", text: "The trophy is forty centimetres tall."}
+      - {speaker: "alio", text: "Large vent theory."}
+    spatial_copy:
+      clue_cards:
+        - "HOPE was in row 3 and column B."
+        - "DREW was in the Library and in column D."
+        - "RORY was in a corner and beside a teacher's desk."
+        - "EDGAR was in the Art Room and in column F."
+        - "VESTA was standing on a desk."
+        - "BOBBY was the trophy keeper. Exactly one other person shared his room."
+      answer: "DREW"
+      answer_coordinate: "D2"
+      final_space_skin: "content/spatial_room_skin.yml"
+    meta_letter: "C"
+    meta_reveal: "A tiny 0 is stamped on the underside of the trophy's temporary evidence tag."
+    hints:
+      - "Start with HOPE. Row 3 plus column B fixes B3 immediately."
+      - "Then place DREW and RORY. Their room/column and corner/desk clues consume key rows and columns."
+      - "BOBBY is forced to E1. Check who is the only other person sharing his final room."
+    nudge: "Start with HOPE's exact row-and-column clue."
+    solution_steps:
+      - "HOPE is fixed at B3."
+      - "DREW is D2 in the Library."
+      - "RORY resolves to A6 and EDGAR to F4."
+      - "BOBBY is forced to E1; VESTA takes C5."
+      - "DREW is the only other person sharing BOBBY's final room, so DREW is the answer."
+
+  - number: 3
+    rank: "ROOKIE"
+    type: "visual"
+    title: "LULI'S LOOK-TWICE FILE"
+    status: "QUICK MISSION"
+    guides: ["luli", "nini"]
+    hook: >-
+      Two evidence photos were taken less than a minute apart. Most differences are harmless. Three change what the team can conclude.
+    objective: "Circle the three differences that matter to the case. Ignore decorative noise."
+    dialogue:
+      - speaker: "nini"
+        text: "I found glitter."
+      - speaker: "luli"
+        text: "Glitter is currently not a crime."
+    visual:
+      relevance_rule: "Choose changes to parcel identity, evidence-tag identity or travel direction. The poster, cup and pencil are not part of the evidence record."
+      meaningful:
+        - "The ribbon knot changes from LEFT to RIGHT."
+        - "Evidence tag 0417 becomes 0471."
+        - "The muddy shoeprint points toward the door in Photo B."
+      decoys:
+        - "One poster has one extra star."
+        - "A cup handle turns slightly."
+        - "A pencil rolls a few centimetres."
+      answer: "RIBBON KNOT + TAG NUMBER + SHOEPRINT DIRECTION"
+    meta_reveal: "The back of evidence tag 0471 carries the same engraved 0 as your Academy badge."
+    hints:
+      - "Do not count every visual difference. Ask which changes can affect who, when or where."
+      - "The tag number and footprint direction can change the evidence trail."
+      - "The meaningful three are the ribbon knot, evidence tag number and shoeprint direction."
+
+    nudge: "Ask which difference could change WHO, WHEN or WHERE."
+    solution_steps:
+      - "The ribbon knot identifies which package was handled."
+      - "The tag number changes the identity of the evidence item."
+      - "The footprint direction changes the likely route."
+      - "Stars, cup handles and a rolling pencil do not alter the case."
+
+  - number: 4
+    rank: "ROOKIE"
+    type: "spatial"
+    spatial_source_id: "HMDA_04"
+    title: "THE CUPCAKE BOX WITH SIX ALIBIS"
+    status: "CASE FILE 04"
+    guides: ["mimi", "dilo"]
+    hook: >-
+      Six identical boxes leave the fair kitchen. One carries the emergency test batch with salt
+      sprinkles. The labels are mixed up before collection, and Lisa needs the chain reconstructed.
+    objective: "Rebuild the fair positions and identify who was with Lisa when the wrong cupcake box was collected."
+    dialogue:
+      - {speaker: "dilo", text: "Classic pastry espionage."}
+      - {speaker: "mimi", text: "Classic label problem."}
+    spatial_copy:
+      clue_cards:
+        - "FINLAY was in row 2 and column A."
+        - "IVOR was the only person in the Food Court."
+        - "RAQUEL was in the Prize Tent and in row 4."
+        - "AMELIE was beside a ring-toss stand."
+        - "CLARISSA was in the Ring Toss and in row 5."
+        - "LISA had the collection list. Exactly one other person shared her room."
+      answer: "RAQUEL"
+      answer_coordinate: "F4"
+      final_space_skin: "content/spatial_room_skin.yml"
+    meta_letter: "H"
+    meta_reveal: "The wrong box has a round quality-control sticker with a tiny 0 printed inside it."
+    hints:
+      - "Start with FINLAY. Row 2 plus column A fixes A2."
+      - "RAQUEL's Prize Tent plus row-4 clue and CLARISSA's Ring Toss plus row-5 clue are strong anchors."
+      - "LISA is forced to E1 in the Prize Tent. Which single person shares that final room?"
+    nudge: "Use FINLAY's exact square, then the two room-plus-row clues."
+    solution_steps:
+      - "FINLAY is fixed at A2."
+      - "RAQUEL is F4 in the Prize Tent."
+      - "AMELIE resolves to D3 beside the ring-toss stand."
+      - "CLARISSA is C5; IVOR is B6."
+      - "LISA is E1 in the Prize Tent."
+      - "RAQUEL is the only other person sharing LISA's final room, so RAQUEL is the answer."
+
+  - number: 5
+    rank: "ROOKIE"
+    type: "code"
+    title: "DILO'S CODE THAT DEFINITELY WASN'T 1234"
+    status: "CODE DROP"
+    guides: ["dilo", "luli"]
+    hook: >-
+      Dilo has locked the evidence locker with a four-symbol code and described it as "legendary security". Luli has already ruled out legendary.
+    objective: "Put the four symbols in the only order that satisfies every clue."
+    dialogue:
+      - speaker: "dilo"
+        text: "Security level: legendary."
+      - speaker: "luli"
+        text: "Your first clue is written on the keypad."
+      - speaker: "dilo"
+        text: "Security level: medium legendary."
+    code:
+      symbols: ["BALL", "STAR", "BOLT", "HEART"]
+      clues:
+        - "BOLT comes immediately after STAR."
+        - "BALL appears before HEART."
+        - "STAR is not first."
+        - "HEART comes after BOLT."
+      answer: ["BALL", "STAR", "BOLT", "HEART"]
+    meta_reveal: "When the locker opens, an old envelope inside is sealed with a plain black 0."
+    hints:
+      - "Treat STAR and BOLT as one two-symbol block because BOLT comes immediately after STAR."
+      - "STAR cannot be first, so the STAR-BOLT block cannot occupy positions 1-2."
+      - "BALL must be before HEART, forcing BALL, STAR, BOLT, HEART."
+
+    nudge: "Treat STAR+BOLT as one two-symbol block."
+    solution_steps:
+      - "STAR and BOLT must stay together in that order."
+      - "STAR cannot be first, so the pair must occupy positions 2 and 3."
+      - "BALL must be before HEART."
+      - "That forces BALL, STAR, BOLT, HEART."
