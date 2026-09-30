@@ -221,9 +221,7 @@ function renderSection(section) {
     '<h2>' + escapeHtml(section.title) + '</h2>' +
     '<p class="activity-tagline">' + escapeHtml(section.tagline) + '</p>' +
     '<div class="activity-body">' + body + '</div>' +
-    '<div class="character-note"><strong>' + escapeHtml(section.note_label) + ':</strong> ' + escapeHtml(section.note) +
-      '<span class="source-page">Final paperback source · page ' + section.page + '</span>' +
-    '</div>' +
+    '<div class="character-note"><strong>' + escapeHtml(section.note_label) + ':</strong> ' + escapeHtml(section.note) + '</div>' +
   '</article>';
 }
 
