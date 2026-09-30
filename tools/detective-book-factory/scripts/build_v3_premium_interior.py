@@ -120,6 +120,22 @@ def draw_dark_grid(canvas_obj, x: float, y: float, w: float, h: float,
     canvas_obj.restoreState()
 
 
+def draw_comms_frame(canvas_obj, x: float, y: float, w: float, h: float,
+                     radius: float = 8, grid_strip: float = 34) -> None:
+    """Readable COMMS panel: white copy field + decorative grid strip only."""
+    canvas_obj.setFillColor(WHITE)
+    canvas_obj.setStrokeColor(INK)
+    canvas_obj.setLineWidth(1.0)
+    canvas_obj.roundRect(x, y, w, h, radius, fill=1, stroke=1)
+    strip = min(grid_strip, max(24, w * 0.09))
+    draw_dark_grid(canvas_obj, x+w-strip, y, strip, h, step=12, radius=radius, alpha=0.20)
+    canvas_obj.setFillColor(INK)
+    canvas_obj.rect(x, y+h-28, w-strip, 28, fill=1, stroke=0)
+    canvas_obj.setFillColor(WHITE)
+    canvas_obj.setFont(rb.BOLD, 9.2)
+    canvas_obj.drawString(x+14, y+h-19, "HAPPY MAKERS // COMMS")
+
+
 def draw_scanner_question_mark(canvas_obj, cx: float, cy: float) -> None:
     """Vector scanner-question-mark brand mark; no generic circle badge."""
     canvas_obj.saveState()
@@ -211,7 +227,6 @@ class Book:
         c.drawRightString(W-M-10, H-34, f"{title[:37]}  /  {self.page:03d}")
         c.setFillColor(INK); c.setFont(rb.FONT, 9)
         c.drawRightString(W-M, 27, f"{self.page:03d}")
-        self.grid(M, H-58, 58, 5)
 
     def grid(self, x: float, y: float, w: float, h: float) -> None:
         c = self.canvas
@@ -398,7 +413,7 @@ def draw_case_brief(book: Book, case: dict) -> dict[str, str]:
                 "chat_transcript", fontName=rb.FONT,
                 fontSize=11.2 if featured else 10.0,
                 leading=15.4 if featured else 13.2,
-                textColor=WHITE)
+                textColor=INK)
             for line in beats:
                 speaker, speech = line.split(":", 1) if ":" in line else ("CHAT", line)
                 if speaker.startswith("**") and speech.startswith("**"):
@@ -406,7 +421,7 @@ def draw_case_brief(book: Book, case: dict) -> dict[str, str]:
                 who = plain(speaker).upper()
                 markup = f"<b>{html.escape(who)}</b>  {inline(speech.strip())}"
                 p = Paragraph(markup, style)
-                _, ph = p.wrap(TEXT_W-32, H)
+                _, ph = p.wrap(TEXT_W-32-42, H)
                 rendered.append((p, ph))
             panel_h = 37 + sum(ph + beat_gap for _, ph in rendered) + 8
             if featured:
@@ -417,11 +432,8 @@ def draw_case_brief(book: Book, case: dict) -> dict[str, str]:
                 book.begin("comms transcript", number, label=f"case {number:02d} / comms")
             book.ensure(panel_h, 9)
             x, top = M, book.y
-            draw_dark_grid(book.canvas, x, top-panel_h, TEXT_W, panel_h, step=17, radius=8,
-                           alpha=0.13 if featured else 0.25)
-            book.canvas.setFillColor(WHITE); book.canvas.setFont(rb.BOLD, 9.4)
-            book.canvas.drawString(x+16, top-20, "HAPPY MAKERS // COMMS")
-            yy = top-38
+            draw_comms_frame(book.canvas, x, top-panel_h, TEXT_W, panel_h, radius=8, grid_strip=34)
+            yy = top-39
             for p, ph in rendered:
                 p.drawOn(book.canvas, x+16, yy-ph)
                 yy -= ph + beat_gap
@@ -989,9 +1001,10 @@ def draw_other_evidence(book: Book, number: int, mission: dict, sections: dict) 
 def draw_front_comms(book: Book, beats: list[str], x: float, top: float,
                      width: float, font_size: float, leading: float,
                      beat_gap: float) -> float:
-    """Render canonical front-matter dialogue in the established COMMS family."""
+    """Front-matter dialogue stays readable; evidence grid is decoration only."""
+    copy_w = width - 28 - 38
     style = ParagraphStyle("front_comms", fontName=rb.FONT, fontSize=font_size,
-                           leading=leading, textColor=WHITE)
+                           leading=leading, textColor=INK)
     rendered = []
     for beat in beats:
         speaker, speech = beat.split(":", 1)
@@ -999,20 +1012,202 @@ def draw_front_comms(book: Book, beats: list[str], x: float, top: float,
             speech = speech[2:].lstrip()
         markup = f"<b>{html.escape(plain(speaker).upper())}:</b>&nbsp;{inline(speech.strip())}"
         paragraph = Paragraph(markup, style)
-        _, height = paragraph.wrap(width-28, H)
+        _, height = paragraph.wrap(copy_w, H)
         rendered.append((paragraph, height))
-    panel_h = 31 + sum(height + beat_gap for _, height in rendered)
+    panel_h = 36 + sum(height + beat_gap for _, height in rendered)
     if top-panel_h < BOTTOM:
         raise ValueError("front-matter COMMS panel does not fit")
-    draw_dark_grid(book.canvas, x, top-panel_h, width, panel_h,
-                   step=17, radius=7, alpha=0.13)
-    book.canvas.setFillColor(WHITE); book.canvas.setFont(rb.BOLD, 9.0)
-    book.canvas.drawString(x+14, top-18, "HAPPY MAKERS // COMMS")
-    y = top-29
+    draw_comms_frame(book.canvas, x, top-panel_h, width, panel_h, radius=7, grid_strip=32)
+    y = top-37
     for paragraph, height in rendered:
         paragraph.drawOn(book.canvas, x+14, y-height)
         y -= height + beat_gap
     return top-panel_h
+
+
+def draw_opening_title(book: Book) -> None:
+    """Modern detective title page inspired by the owner-approved dossier/evidence-board direction."""
+    c = book.canvas
+    # dossier frame
+    c.setStrokeColor(INK); c.setLineWidth(1.6)
+    c.rect(30, 36, W-60, H-70, fill=0, stroke=1)
+    for x, y, sx, sy in ((42,H-50,1,-1),(W-42,H-50,-1,-1),(42,50,1,1),(W-42,50,-1,1)):
+        c.setLineWidth(2.3)
+        c.line(x, y, x+sx*26, y)
+        c.line(x, y, x, y+sy*26)
+
+    # scanner/question-mark accents
+    draw_scanner_question_mark(c, 92, 695)
+    c.setFont(rb.BOLD, 8.2); c.setFillColor(INK)
+    c.drawRightString(W-46, 731, "OPENING 01 / 001")
+
+    # title hierarchy
+    c.setFont(rb.BOLD, 30)
+    c.drawCentredString(W/2, 646, "HAPPY MAKERS")
+    c.setFont(rb.BOLD, 49)
+    c.drawCentredString(W/2, 596, "DETECTIVE")
+    c.drawCentredString(W/2, 548, "ACADEMY")
+    c.setFont(rb.BOLD, 15)
+    c.drawCentredString(W/2, 511, "THE MYSTERY OF ROOM ZERO")
+    c.setFillColor(INK); c.roundRect(W/2-74, 475, 148, 26, 4, fill=1, stroke=0)
+    c.setFillColor(WHITE); c.setFont(rb.BOLD, 12)
+    c.drawCentredString(W/2, 483, "BOOK 1")
+
+    # evidence board
+    board_x, board_y, board_w, board_h = 48, 220, W-96, 224
+    c.setFillColor(WHITE); c.setStrokeColor(INK); c.setLineWidth(1.2)
+    c.roundRect(board_x, board_y, board_w, board_h, 8, fill=1, stroke=1)
+    c.setFillColor(INK); c.rect(board_x, board_y+board_h-30, board_w, 30, fill=1, stroke=0)
+    c.setFillColor(WHITE); c.setFont(rb.BOLD, 10)
+    c.drawString(board_x+16, board_y+board_h-20, "EVIDENCE GRID // ROOM ZERO FILE")
+    # faint grid only behind evidence thumbnails, never behind body text
+    c.saveState()
+    c.setStrokeColor(colors.HexColor("#D7D7D7")); c.setLineWidth(.6)
+    for xx in range(int(board_x+12), int(board_x+board_w-8), 18):
+        c.line(xx, board_y+10, xx, board_y+board_h-32)
+    for yy in range(int(board_y+12), int(board_y+board_h-32), 18):
+        c.line(board_x+8, yy, board_x+board_w-8, yy)
+    c.restoreState()
+
+    cards = [
+        (board_x+27, board_y+116, 108, 70, "KEY"),
+        (board_x+182, board_y+82, 116, 96, "ROOM 0"),
+        (board_x+348, board_y+125, 112, 66, "CAMERA"),
+        (board_x+67, board_y+25, 113, 72, "PRINT"),
+        (board_x+326, board_y+24, 134, 78, "MAP"),
+    ]
+    centers = []
+    for x, y, cw, ch, label in cards:
+        c.setFillColor(WHITE); c.setStrokeColor(INK); c.setLineWidth(1.1)
+        c.rect(x, y, cw, ch, fill=1, stroke=1)
+        c.setFillColor(INK); c.setFont(rb.BOLD, 10)
+        c.drawCentredString(x+cw/2, y+ch/2-3, label)
+        centers.append((x+cw/2, y+ch/2))
+    c.setStrokeColor(INK); c.setLineWidth(1.0)
+    for a, b in ((0,1),(1,2),(1,4),(3,1)):
+        c.line(centers[a][0], centers[a][1], centers[b][0], centers[b][1])
+
+    # modern tools strip
+    c.setStrokeColor(INK); c.setFillColor(WHITE); c.setLineWidth(1.1)
+    c.roundRect(49, 86, 155, 92, 7, fill=1, stroke=1)
+    c.setFont(rb.BOLD, 10); c.setFillColor(INK)
+    c.drawString(63, 153, "SCAN // ANALYZE")
+    c.drawString(63, 136, "CONNECT // SOLVE")
+    for i in range(4):
+        c.rect(64+i*21, 106, 14, 12, fill=0, stroke=1)
+    # binoculars
+    for cx in (286, 333):
+        c.circle(cx, 126, 31, fill=0, stroke=1)
+        c.circle(cx, 126, 17, fill=0, stroke=1)
+    c.line(303, 143, 316, 143); c.line(303, 109, 316, 109)
+    # notebook + pen
+    c.roundRect(387, 92, 132, 76, 5, fill=0, stroke=1)
+    c.setFont(rb.BOLD, 9); c.drawCentredString(453, 126, "ROOM ZERO")
+    c.line(530, 92, 554, 158)
+    book.y = 70
+
+
+def draw_publication_page(book: Book, markdown: str) -> None:
+    c = book.canvas
+    draw_scanner_question_mark(c, W/2, 625)
+    c.setFillColor(INK); c.setFont(rb.BOLD, 10)
+    c.drawCentredString(W/2, 524, "PUBLICATION RECORD // FILE 00")
+
+    box_x, box_y, box_w, box_h = 74, 176, W-148, 326
+    c.setFillColor(WHITE); c.setStrokeColor(INK); c.setLineWidth(1.2)
+    c.roundRect(box_x, box_y, box_w, box_h, 9, fill=1, stroke=1)
+    # small decorative grid strip outside the text column
+    draw_dark_grid(c, box_x+box_w-34, box_y, 34, box_h, step=12, radius=8, alpha=0.18)
+
+    blocks = [value for kind, value in paragraphs(markdown) if kind != "heading"]
+    y = box_y + box_h - 34
+    for idx, value in enumerate(blocks):
+        bold = idx in (0, 1) or value.startswith("Come visit us") or value.startswith("Follow us")
+        size = 9.4 if idx >= 2 else 10.2
+        style = ParagraphStyle("pub", fontName=rb.BOLD if bold else rb.FONT,
+                               fontSize=size, leading=size*1.34, alignment=1, textColor=INK)
+        p = Paragraph(inline(value), style)
+        _, ph = p.wrap(box_w-74, H)
+        if y-ph < box_y+20:
+            raise ValueError("publication record does not fit owner page")
+        p.drawOn(c, box_x+20, y-ph)
+        y -= ph + (10 if idx < 2 else 9)
+    c.setFillColor(INK); c.setFont(rb.BOLD, 8)
+    c.drawCentredString(W/2, 142, "RISE.SHINE.EVOLVE. // DETECTIVE ACADEMY")
+    book.y = 130
+
+
+def draw_black_envelope_page(book: Book, markdown: str) -> None:
+    """Cold open is a standalone reader beat: no squad art, no squad heading."""
+    if "YOUR SQUAD" in markdown:
+        raise ValueError("cold-open source contaminated by squad content")
+    c = book.canvas
+    blocks = [(kind, value) for kind, value in paragraphs(markdown) if kind != "heading"]
+    copy = [value for _, value in blocks]
+    if not copy or "WILL YOU CLAIM IT?" not in plain(copy[-1]).upper():
+        raise ValueError("black-envelope page lost final invitation")
+
+    # top narrative
+    y = 644
+    for value in copy[:-3]:
+        style = ParagraphStyle("cold", fontName=rb.BOLD if value.startswith("No ") else rb.FONT,
+                               fontSize=12.0, leading=16.2, alignment=1, textColor=INK)
+        p = Paragraph(inline(value), style)
+        _, ph = p.wrap(TEXT_W-90, H)
+        p.drawOn(c, M+45, y-ph)
+        y -= ph + 5
+
+    # graphic black envelope
+    ex, ey, ew, eh = 151, 246, W-302, 142
+    c.setFillColor(INK); c.setStrokeColor(INK); c.setLineWidth(1.2)
+    c.roundRect(ex, ey, ew, eh, 8, fill=1, stroke=1)
+    c.setStrokeColor(WHITE); c.setLineWidth(1.0)
+    c.line(ex+8, ey+eh-8, ex+ew/2, ey+58)
+    c.line(ex+ew-8, ey+eh-8, ex+ew/2, ey+58)
+    c.setFillColor(WHITE); c.circle(ex+ew/2, ey+58, 20, fill=1, stroke=0)
+    c.setFillColor(INK); c.setFont(rb.BOLD, 25)
+    c.drawCentredString(ex+ew/2, ey+49, "0")
+
+    # final invitation
+    final_values = copy[-3:]
+    fy = 208
+    for i, value in enumerate(final_values):
+        text = plain(value)
+        if "WILL YOU CLAIM IT?" in text.upper():
+            c.setFillColor(INK); c.roundRect(106, 105, W-212, 48, 7, fill=1, stroke=0)
+            c.setFillColor(WHITE); c.setFont(rb.BOLD, 18)
+            c.drawCentredString(W/2, 122, "WILL YOU CLAIM IT?")
+        else:
+            style = ParagraphStyle("invite", fontName=rb.BOLD, fontSize=15.5,
+                                   leading=18, alignment=1, textColor=INK)
+            p = Paragraph(inline(value), style)
+            _, ph = p.wrap(TEXT_W-70, H)
+            p.drawOn(c, M+35, fy-ph)
+            fy -= ph + 4
+    book.y = 86
+
+
+def draw_squad_page(book: Book, markdown: str) -> None:
+    body, chat = markdown.split("### HAPPY MAKERS CHAT", 1)
+    beats = [value for kind, value in paragraphs(chat) if kind == "bullet"]
+    if len(beats) != 6:
+        raise ValueError("squad-page canonical COMMS dialogue drift")
+
+    book.heading("YOUR SQUAD", 20)
+    book.image(PRINT_DERIVATIVES/"squad_scanner_print.png", 245, 180, gap=6)
+
+    body_blocks = paragraphs(body)
+    # skip the page marker YOUR SQUAD; render the reader-facing welcome and profile copy compactly
+    body_blocks = [(k,v) for k,v in body_blocks if plain(v).upper() != "YOUR SQUAD"]
+    for kind, value in body_blocks:
+        if kind == "heading":
+            book.text(value, size=10.2, bold=True, gap=3)
+        elif kind == "bullet":
+            book.text("• " + value, size=8.25, gap=2)
+        else:
+            book.text(value, size=8.25, gap=2)
+    book.y = draw_front_comms(book, beats, M, book.y-2, TEXT_W,
+                              font_size=8.35, leading=10.2, beat_gap=2) - 2
 
 
 def draw_front(book: Book, front: list[dict]) -> None:
@@ -1022,30 +1217,13 @@ def draw_front(book: Book, front: list[dict]) -> None:
         if book.page != number:
             raise ValueError(f"front matter physical page drift at {number}")
         if number == 1:
-            book.heading("HAPPY MAKERS DETECTIVE ACADEMY", 28)
-            book.text("THE MYSTERY OF ROOM ZERO", 21, True)
-            book.text("BOOK 1", 15, True)
-            draw_dark_grid(book.canvas, M+5, 400, TEXT_W-10, 155, step=15, radius=4)
-            book.canvas.setFillColor(WHITE); book.canvas.setFont(rb.BOLD, 10)
-            book.canvas.drawString(M+19, 528, "EVIDENCE GRID // ROOM ZERO FILE")
-            book.y = 360
-            book.render_md(item["markdown"].splitlines()[1:], 13) if False else None
+            draw_opening_title(book)
         elif number == 2:
-            draw_scanner_question_mark(book.canvas, W/2, 505)
-            book.y = 245
-            book.render_md("\n".join(item["markdown"].splitlines()[1:]), 11)
+            draw_publication_page(book, item["markdown"])
         elif number == 3:
-            book.heading("YOUR SQUAD", 21)
-            book.image(PRINT_DERIVATIVES/"squad_scanner_print.png", TEXT_W, 350)
-            book.render_md("\n".join(item["markdown"].splitlines()[1:]), 12, compact=True)
+            draw_black_envelope_page(book, item["markdown"])
         elif number == 4:
-            body, chat = item["markdown"].split("### HAPPY MAKERS CHAT", 1)
-            beats = [value for kind, value in paragraphs(chat) if kind == "bullet"]
-            if len(beats) != 6:
-                raise ValueError("welcome-page canonical COMMS dialogue drift")
-            book.render_md(body, 17, compact=True)
-            book.y = draw_front_comms(book, beats, M, book.y-2, TEXT_W,
-                                      font_size=9.5, leading=13.2, beat_gap=4) - 5
+            draw_squad_page(book, item["markdown"])
         elif number == 9:
             book.heading("YOUR CASE WALL + HINT VAULT", 19)
             body = "\n".join(project_front_markdown(number, item["markdown"]).splitlines()[1:])
@@ -1068,7 +1246,7 @@ def draw_front(book: Book, front: list[dict]) -> None:
                         if len(beats) != 5:
                             raise ValueError("page 9 canonical COMMS dialogue drift")
                         y = draw_front_comms(book, beats, x, y-2, width,
-                                             font_size=8.6, leading=10.8, beat_gap=2) - 4
+                                             font_size=8.4, leading=10.5, beat_gap=2) - 4
                         continue
                     if kind == "body" and value == (
                         "**MATCHING MARKS** **MESSAGES / RULES** "
@@ -1093,39 +1271,39 @@ def draw_front(book: Book, front: list[dict]) -> None:
             top = min(left_y, right_y)-10
             if top-308 < BOTTOM+4:
                 raise ValueError(f"physical page 9 writable Case Wall does not fit (top={top:.1f})")
-            c = book.canvas
+            cc = book.canvas
             right_x = M+col_w+19
 
             def zone(x: float, zone_top: float, height: float, title: str,
                      line_offsets: tuple[int, ...]) -> None:
-                c.setFillColor(WHITE); c.setStrokeColor(LINE); c.setLineWidth(.85)
-                c.roundRect(x, zone_top-height, col_w, height, 5, fill=1, stroke=1)
-                c.setFillColor(INK); c.setFont(rb.BOLD, 9.1)
-                c.drawString(x+10, zone_top-18, title)
+                cc.setFillColor(WHITE); cc.setStrokeColor(LINE); cc.setLineWidth(.85)
+                cc.roundRect(x, zone_top-height, col_w, height, 5, fill=1, stroke=1)
+                cc.setFillColor(INK); cc.setFont(rb.BOLD, 9.1)
+                cc.drawString(x+10, zone_top-18, title)
                 for offset in line_offsets:
-                    c.setStrokeColor(LINE); c.setLineWidth(.85)
-                    c.line(x+12, zone_top-offset, x+col_w-12, zone_top-offset)
+                    cc.setStrokeColor(LINE); cc.setLineWidth(.85)
+                    cc.line(x+12, zone_top-offset, x+col_w-12, zone_top-offset)
 
             zone(M, top, 150, "MATCHING MARKS", (52, 77, 102, 127))
-            c.setFillColor(INK); c.setFont(rb.BOLD, 8)
-            c.drawString(M+col_w-78, top-20, "MARK")
-            c.setFillColor(WHITE); c.setStrokeColor(INK); c.setLineWidth(.85)
-            c.rect(M+col_w-43, top-60, 29, 29, fill=1, stroke=1)
+            cc.setFillColor(INK); cc.setFont(rb.BOLD, 8)
+            cc.drawString(M+col_w-78, top-20, "MARK")
+            cc.setFillColor(WHITE); cc.setStrokeColor(INK); cc.setLineWidth(.85)
+            cc.rect(M+col_w-43, top-60, 29, 29, fill=1, stroke=1)
 
             zone(right_x, top, 178, "MESSAGES / RULES", (52, 77, 102, 127, 152))
 
             codes_top = top-160
             zone(M, codes_top, 120, "CODES / COORDINATES", ())
-            c.setFillColor(INK); c.setFont(rb.BOLD, 8.4)
-            c.drawString(M+10, codes_top-39, "CASE 05 CODE")
+            cc.setFillColor(INK); cc.setFont(rb.BOLD, 8.4)
+            cc.drawString(M+10, codes_top-39, "CASE 05 CODE")
             for slot in range(6):
                 x = M+10+slot*37
-                c.setFillColor(WHITE); c.setStrokeColor(INK); c.setLineWidth(.85)
-                c.rect(x, codes_top-76, 29, 29, fill=1, stroke=1)
-            c.setFillColor(INK); c.setFont(rb.BOLD, 8.4)
-            c.drawString(M+10, codes_top-101, "COORDINATE")
-            c.setStrokeColor(LINE); c.setLineWidth(.85)
-            c.line(M+91, codes_top-103, M+col_w-12, codes_top-103)
+                cc.setFillColor(WHITE); cc.setStrokeColor(INK); cc.setLineWidth(.85)
+                cc.rect(x, codes_top-76, 29, 29, fill=1, stroke=1)
+            cc.setFillColor(INK); cc.setFont(rb.BOLD, 8.4)
+            cc.drawString(M+10, codes_top-101, "COORDINATE")
+            cc.setStrokeColor(LINE); cc.setLineWidth(.85)
+            cc.line(M+91, codes_top-103, M+col_w-12, codes_top-103)
 
             open_top = top-188
             zone(right_x, open_top, 120, "OPEN QUESTIONS", (42, 62, 82, 102))
@@ -1163,7 +1341,7 @@ def draw_front(book: Book, front: list[dict]) -> None:
 def draw_story_comms(book: Book, beats: list[tuple[str, str]], label: str) -> None:
     """Keep meta-thread dialogue in readable, ordered full-width transcripts."""
     style = ParagraphStyle("story_comms", fontName=rb.FONT, fontSize=10.4,
-                           leading=14.4, textColor=WHITE)
+                           leading=14.4, textColor=INK)
     rendered = []
     for kind, line in beats:
         if kind == "narration":
@@ -1174,7 +1352,7 @@ def draw_story_comms(book: Book, beats: list[tuple[str, str]], label: str) -> No
                 speech = speech[2:].lstrip()
             markup = f"<b>{html.escape(plain(speaker).upper())}</b>  {inline(speech.strip())}"
         paragraph = Paragraph(markup, style)
-        _, height = paragraph.wrap(TEXT_W-36, H)
+        _, height = paragraph.wrap(TEXT_W-36-42, H)
         rendered.append((paragraph, height))
 
     def paint(chunk: list[tuple[Paragraph, float]]) -> None:
@@ -1182,10 +1360,7 @@ def draw_story_comms(book: Book, beats: list[tuple[str, str]], label: str) -> No
         if book.y - panel_h - 12 < BOTTOM:
             book.begin("story bridge", label=label)
         x, top = M, book.y
-        draw_dark_grid(book.canvas, x, top-panel_h, TEXT_W, panel_h,
-                       step=17, radius=8, alpha=0.13)
-        book.canvas.setFillColor(WHITE); book.canvas.setFont(rb.BOLD, 9.4)
-        book.canvas.drawString(x+18, top-21, "HAPPY MAKERS // COMMS")
+        draw_comms_frame(book.canvas, x, top-panel_h, TEXT_W, panel_h, radius=8, grid_strip=34)
         yy = top-40
         for paragraph, height in chunk:
             paragraph.drawOn(book.canvas, x+18, yy-height)
