@@ -644,13 +644,6 @@ button.day-tile:focus-visible {
   color: var(--burgundy);
 }
 
-.source-page {
-  display: block;
-  margin-top: 9px;
-  color: #9b8d98;
-  font-size: .66rem;
-}
-
 .day-nav {
   display: grid;
   grid-template-columns: 1fr 1fr;
