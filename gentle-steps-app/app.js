@@ -10,6 +10,23 @@ const PACK_URLS = [
   './content/week-04.json'
 ];
 
+const FAMILY_ASSET = '../assets/images/Happy%20Makers%20floating%20box.png';
+const CHARACTER_ASSETS = {
+  Mimi: '../assets/images/Mimi.png',
+  Luli: '../assets/images/Luli.png',
+  Dilo: '../assets/images/Dilo.png',
+  Alio: '../assets/images/Alio.png',
+  Nini: '../assets/images/Nini.png'
+};
+
+const FAMILY_PROFILES = [
+  { name: 'Mimi', title: 'The Heart and Heroine', image: CHARACTER_ASSETS.Mimi },
+  { name: 'Luli', title: 'The Elegant Detective of Holiday Magic', image: CHARACTER_ASSETS.Luli, motto: 'Life is a mystery best solved with style.' },
+  { name: 'Dilo', title: 'The Striker With Holiday Swagger', image: CHARACTER_ASSETS.Dilo, motto: 'Glow bold, score big.' },
+  { name: 'Alio', title: 'The Chief Holiday Chaos Engineer', image: CHARACTER_ASSETS.Alio, motto: 'Maximum fun, mostly safe...' },
+  { name: 'Nini', title: 'The Pocket-Sized Joy Distributor', image: CHARACTER_ASSETS.Nini, motto: 'If it sparkles, she approves.' }
+];
+
 const params = new URLSearchParams(window.location.search);
 const previewMode = params.get('preview') === '1';
 
@@ -57,7 +74,10 @@ function topbar() {
       '<div class="brand-mark" aria-hidden="true">✦</div>' +
       '<div class="brand-text"><strong>24 Gentle Steps to Christmas</strong><span>The Happy-Makers</span></div>' +
     '</div>' +
-    '<button class="ghost-button" type="button" data-about>How it works</button>' +
+    '<div class="topbar-actions">' +
+      '<button class="ghost-button ghost-button-family" type="button" data-family>Family</button>' +
+      '<button class="ghost-button" type="button" data-about>How it works</button>' +
+    '</div>' +
   '</header>';
 }
 
@@ -74,6 +94,28 @@ function aboutDialog() {
         '<div>♡ Family Connection</div>' +
       '</div>' +
       '<button class="about-close" type="button" data-close-about>Close</button>' +
+    '</div>' +
+  '</dialog>';
+}
+
+function familyDialog() {
+  const cards = FAMILY_PROFILES.map((profile) =>
+    '<article class="family-profile">' +
+      '<img src="' + profile.image + '" alt="" loading="lazy" />' +
+      '<div><h3>' + escapeHtml(profile.name) + '</h3><p>' + escapeHtml(profile.title) + '</p>' +
+      (profile.motto ? '<small>“' + escapeHtml(profile.motto) + '”</small>' : '') +
+      '</div>' +
+    '</article>'
+  ).join('');
+
+  return '<dialog id="family-dialog" class="family-dialog">' +
+    '<div class="family-sheet">' +
+      '<p class="family-eyebrow">Meet the Happy-Makers Family</p>' +
+      '<div class="family-group-frame"><img src="' + FAMILY_ASSET + '" alt="The Happy-Makers family" /></div>' +
+      '<h2>Your cheerful companions for the journey</h2>' +
+      '<p class="family-intro">Full of sparkle, laughter, love and just the right pinch of playful holiday magic. Delightfully imperfect, beautifully lively and wonderfully real.</p>' +
+      '<div class="family-profile-grid">' + cards + '</div>' +
+      '<button class="about-close" type="button" data-close-family>Back to the journey</button>' +
     '</div>' +
   '</dialog>';
 }
@@ -168,10 +210,13 @@ function renderHome() {
         '<h1>24 Gentle Steps to Christmas</h1>' +
         '<p class="hero-subtitle">A Mindful Family Journey of Togetherness, Reflection &amp; the Magic of Christmas</p>' +
         '<div class="hero-meta"><span>10 minutes a day</span><span>24 days</span><span>3 mini-rituals</span></div>' +
-        '<button class="primary-cta" type="button" data-start>Open Day ' + nextDay + '</button>' +
+        '<div class="hero-actions">' +
+          '<button class="primary-cta" type="button" data-start>Open Day ' + nextDay + '</button>' +
+          '<button class="secondary-hero-cta" type="button" data-family>Meet the Happy-Makers</button>' +
+        '</div>' +
       '</div>' +
       '<div class="hero-visual"><div class="hero-visual-frame">' +
-        '<img src="../assets/images/24%20Gentle%20Steps%20to%20Christmas%20cover.jpg" alt="24 Gentle Steps to Christmas cover" />' +
+        '<img src="' + FAMILY_ASSET + '" alt="The Happy-Makers family in their purple and gold Christmas world" />' +
       '</div></div>' +
     '</section>' +
     renderProgress() +
@@ -183,7 +228,8 @@ function renderHome() {
     '<div class="section-heading"><h2>Your Advent journey</h2><p>One day, three shared moments, endless memories.</p></div>' +
     packs.map(renderWeek).join('') +
     '<p class="home-footnote">No prep. No mess. No glitter required.</p>' +
-    aboutDialog();
+    aboutDialog() +
+    familyDialog();
 
   wireCommon();
   app.querySelector('[data-start]').addEventListener('click', () => renderDay(nextDay));
@@ -211,17 +257,27 @@ function bodyClass(text) {
   return '';
 }
 
+function noteOwner(noteLabel) {
+  return Object.keys(CHARACTER_ASSETS).find((name) => noteLabel.startsWith(name)) || null;
+}
+
 function renderSection(section) {
   const body = section.body.map((paragraph) =>
     '<p class="' + bodyClass(paragraph) + '">' + escapeHtml(paragraph) + '</p>'
   ).join('');
+  const owner = noteOwner(section.note_label);
+  const avatar = owner
+    ? '<img class="character-avatar" src="' + CHARACTER_ASSETS[owner] + '" alt="" loading="lazy" />'
+    : '<span class="character-avatar character-avatar-group" aria-hidden="true">✦</span>';
 
   return '<article class="activity-card" data-type="' + sectionType(section.category) + '">' +
     '<p class="activity-label">' + escapeHtml(section.category) + '</p>' +
     '<h2>' + escapeHtml(section.title) + '</h2>' +
     '<p class="activity-tagline">' + escapeHtml(section.tagline) + '</p>' +
     '<div class="activity-body">' + body + '</div>' +
-    '<div class="character-note"><strong>' + escapeHtml(section.note_label) + ':</strong> ' + escapeHtml(section.note) + '</div>' +
+    '<div class="character-note">' + avatar +
+      '<div class="character-note-copy"><strong>' + escapeHtml(section.note_label) + ':</strong><span>' + escapeHtml(section.note) + '</span></div>' +
+    '</div>' +
   '</article>';
 }
 
@@ -229,7 +285,8 @@ function renderLocked(dayNumber) {
   app.innerHTML = topbar() +
     '<section class="locked-card"><div class="lock-icon">✦</div><h1>Day ' + dayNumber + ' opens December ' + dayNumber + '</h1><p>Your next Gentle Step will be here when its day arrives.</p></section>' +
     '<button class="back-button" type="button" data-home>← All days</button>' +
-    aboutDialog();
+    aboutDialog() +
+    familyDialog();
   wireCommon();
   app.querySelector('[data-home]').addEventListener('click', renderHome);
 }
@@ -264,7 +321,8 @@ function renderDay(dayNumber) {
         (complete ? 'Completed ✓ · tap to undo' : 'Mark Day ' + dayNumber + ' complete') +
       '</button></div>' +
     '</div>' +
-    aboutDialog();
+    aboutDialog() +
+    familyDialog();
 
   wireCommon();
   app.querySelector('[data-home]').addEventListener('click', () => {
@@ -296,10 +354,19 @@ function renderDay(dayNumber) {
 
 function wireCommon() {
   const about = app.querySelector('[data-about]');
-  const dialog = app.querySelector('#about-dialog');
-  const close = app.querySelector('[data-close-about]');
-  if (about && dialog) about.addEventListener('click', () => dialog.showModal());
-  if (close && dialog) close.addEventListener('click', () => dialog.close());
+  const aboutDialogEl = app.querySelector('#about-dialog');
+  const closeAbout = app.querySelector('[data-close-about]');
+  const familyButtons = app.querySelectorAll('[data-family]');
+  const familyDialogEl = app.querySelector('#family-dialog');
+  const closeFamily = app.querySelector('[data-close-family]');
+
+  if (about && aboutDialogEl) about.addEventListener('click', () => aboutDialogEl.showModal());
+  if (closeAbout && aboutDialogEl) closeAbout.addEventListener('click', () => aboutDialogEl.close());
+
+  if (familyDialogEl) {
+    familyButtons.forEach((button) => button.addEventListener('click', () => familyDialogEl.showModal()));
+  }
+  if (closeFamily && familyDialogEl) closeFamily.addEventListener('click', () => familyDialogEl.close());
 }
 
 async function init() {
