@@ -1,0 +1,323 @@
+{
+  "schema_version": "0.1.0",
+  "product_id": "gentle_steps_christmas",
+  "content_pack_id": "gentle_steps_christmas_days_01_03",
+  "content_version": "0.1.0-owner-review",
+  "canonical_locale": "en",
+  "supported_locales": ["en", "pl-PL"],
+  "source": {
+    "title": "24 Gentle Steps to Christmas",
+    "edition": "published English paperback",
+    "source_pages": "21-29",
+    "status": "verified against rendered source pages on 2026-09-30"
+  },
+  "polish_copy_status": "native re-authoring candidate for owner review; earlier literal/calibration copy is reference only",
+  "days": [
+    {
+      "id": "day_01",
+      "day": 1,
+      "locales": {
+        "en": {
+          "title": "Day 1",
+          "intro": "A quiet start: one minute together, one playful kindness game, one honest word.",
+          "sections": [
+            {
+              "id": "day_01_mindful",
+              "type": "mindful",
+              "label": "Mindful Moment",
+              "title": "Shared Silence",
+              "tagline": "One minute of simply being - no goal, no sound, just calm.",
+              "body": [
+                "Sit together in a circle, holding hands lightly or touching shoulders.",
+                "Close your eyes and just breathe together for a minute.",
+                "Feel the quiet air you all share."
+              ],
+              "note_label": "Luli's quiet Note",
+              "note": "Even Alio manages stillness here... impressive."
+            },
+            {
+              "id": "day_01_fun",
+              "type": "fun",
+              "label": "Fun Spark",
+              "title": "The Compliment Toss",
+              "tagline": "Trust grows when we throw kindness, not criticism.",
+              "body": [
+                "Stand in a circle.",
+                "The person whose name starts closest to the end of the alphabet pretends to hold an invisible ball.",
+                "They throw it gently to someone while saying one specific compliment to this person.",
+                "The receiver catches it saying: Thank you! Then throws to someone else.",
+                "Continue until everyone has received at least one compliment or longer if you wish."
+              ],
+              "note_label": "Nini's Bright Note",
+              "note": "Throw compliments softly, we're spreading joy, not bruises."
+            },
+            {
+              "id": "day_01_connection",
+              "type": "connection",
+              "label": "Family Connection",
+              "title": "One True Word",
+              "tagline": "Truth, even in one word, is the beginning of trust.",
+              "body": [
+                "Each person says one word that honestly describes how they feel right now."
+              ],
+              "note_label": "Luli's Truth Note",
+              "note": "One honest word - and no, fine doesn't count."
+            }
+          ]
+        },
+        "pl-PL": {
+          "title": "Dzień 1",
+          "intro": "Na początek bez wielkich planów: minuta razem, trochę dobrych słów i jedno szczere słowo na koniec.",
+          "sections": [
+            {
+              "id": "day_01_mindful",
+              "type": "mindful",
+              "label": "Spokojna chwila",
+              "title": "Minuta razem",
+              "tagline": "Przez minutę niczego nie trzeba robić, poprawiać ani odhaczać.",
+              "body": [
+                "Usiądźcie blisko siebie w kręgu. Możecie lekko złapać się za ręce albo po prostu dotknąć ramionami.",
+                "Zamknijcie oczy i przez minutę spokojnie oddychajcie.",
+                "Posłuchajcie, jak brzmi Wasz dom, kiedy wszyscy na chwilę przestają gadać."
+              ],
+              "note_label": "Cicha uwaga Luli",
+              "note": "Alio wytrzymał całą minutę bez wiercenia. Proszę zanotować ten historyczny moment."
+            },
+            {
+              "id": "day_01_fun",
+              "type": "fun",
+              "label": "Iskra zabawy",
+              "title": "Niewidzialna piłka dobrych słów",
+              "tagline": "Piłka jest zmyślona. Dobre słowo ma być całkiem prawdziwe.",
+              "body": [
+                "Stańcie w kręgu.",
+                "Zaczyna osoba, której imię zaczyna się literą najbliżej końca alfabetu. Trzyma niewidzialną piłkę.",
+                "Rzuca ją do wybranej osoby i mówi jej jeden konkretny komplement.",
+                "Osoba, która łapie piłkę, mówi: Dzięki! - i rzuca ją dalej.",
+                "Gracie tak długo, aż każdy usłyszy przynajmniej jedno dobre słowo. Druga runda jest mile widziana."
+              ],
+              "note_label": "Błyszcząca uwaga Nini",
+              "note": "Piłka niewidzialna, komplement prawdziwy. I zero siniaków."
+            },
+            {
+              "id": "day_01_connection",
+              "type": "connection",
+              "label": "Chwila bliskości",
+              "title": "Jedno słowo na teraz",
+              "tagline": "Nie trzeba robić rodzinnej narady. Wystarczy jedno prawdziwe słowo.",
+              "body": [
+                "Każdy mówi jedno słowo, które naprawdę opisuje, jak się teraz czuje."
+              ],
+              "note_label": "Uwaga Luli",
+              "note": "Spoko może zostać. Ale tylko jeśli naprawdę o to chodzi."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "day_02",
+      "day": 2,
+      "locales": {
+        "en": {
+          "title": "Day 2",
+          "intro": "Slow the rhythm, make some noise, then say one thing you love about being this family.",
+          "sections": [
+            {
+              "id": "day_02_mindful",
+              "type": "mindful",
+              "label": "Mindful Moment",
+              "title": "Gentle Breath Flow",
+              "tagline": "One breath, many bodies - the same calm flowing through all.",
+              "body": [
+                "Everyone breathes in for 4 counts, out for 6, for one minute.",
+                "Feel the room breathing as one."
+              ],
+              "note_label": "Mimi's Soft-Flow Note",
+              "note": "Slow breaths: the one thing I never speed up."
+            },
+            {
+              "id": "day_02_fun",
+              "type": "fun",
+              "label": "Fun Spark",
+              "title": "Family Sound Symphony",
+              "tagline": "Harmony happens when every voice matters.",
+              "body": [
+                "The person whose birthday comes next starts by making one short sound, like bop! or ding!.",
+                "Go clockwise. The next person repeats the first sound and adds a different sound.",
+                "Keep going around until everyone has layered in.",
+                "You can go for more rounds to create a longer symphony.",
+                "Once you are ready, perform your sound symphony together a few times in unison."
+              ],
+              "note_label": "Dilo's Music Note",
+              "note": "Add your sound proudly, even if it's slightly questionable."
+            },
+            {
+              "id": "day_02_connection",
+              "type": "connection",
+              "label": "Family Connection",
+              "title": "What I Love About Being Us",
+              "tagline": "When we remember what we love about us, we reconnect to what truly matters.",
+              "body": [
+                "Each person completes the sentence: One thing I love about being in this family is..."
+              ],
+              "note_label": "Luli's Us-Note",
+              "note": "Say it with heart, dramatic speeches optional but appreciated."
+            }
+          ]
+        },
+        "pl-PL": {
+          "title": "Dzień 2",
+          "intro": "Najpierw łapiemy wolniejsze tempo. Potem robimy hałas. Na koniec przypominamy sobie, za co właściwie lubimy naszą ekipę.",
+          "sections": [
+            {
+              "id": "day_02_mindful",
+              "type": "mindful",
+              "label": "Spokojna chwila",
+              "title": "Oddech 4-6",
+              "tagline": "Dziś niczego nie przyspieszamy. Nawet jeśli zwykle przyspieszamy wszystko.",
+              "body": [
+                "Wszyscy robią wdech, licząc spokojnie do czterech.",
+                "Potem wydech, licząc do sześciu.",
+                "Powtarzajcie przez minutę. Bez wyścigów i bez sprawdzania, kto oddycha najbardziej profesjonalnie."
+              ],
+              "note_label": "Spokojna uwaga Mimi",
+              "note": "Oddychanie to dziś jedyna rzecz, której nie próbuję zrobić szybciej."
+            },
+            {
+              "id": "day_02_fun",
+              "type": "fun",
+              "label": "Iskra zabawy",
+              "title": "Domowa orkiestra",
+              "tagline": "Każdy dokłada jeden dźwięk. Z tego naprawdę może powstać coś... interesującego.",
+              "body": [
+                "Zaczyna osoba, która jako następna ma urodziny. Wymyśla jeden krótki dźwięk: bop, ding, pyk albo cokolwiek własnego.",
+                "Idąc zgodnie z ruchem wskazówek zegara, kolejna osoba powtarza pierwszy dźwięk i dodaje swój.",
+                "Tak dokładacie kolejne warstwy, aż wszyscy będą w orkiestrze.",
+                "Jeśli macie ochotę, zróbcie następną rundę i rozbudujcie utwór.",
+                "Na koniec spróbujcie wykonać całość razem kilka razy."
+              ],
+              "note_label": "Muzyczna uwaga Dilo",
+              "note": "Jeśli brzmi trochę dziwnie, to znaczy, że orkiestra działa."
+            },
+            {
+              "id": "day_02_connection",
+              "type": "connection",
+              "label": "Chwila bliskości",
+              "title": "Za co lubię naszą ekipę",
+              "tagline": "Jedno zdanie wystarczy. Bez rodzinnej gali i bez przemówień do mikrofonu.",
+              "body": [
+                "Każdy kończy zdanie: Lubię naszą rodzinę za to, że..."
+              ],
+              "note_label": "Uwaga Luli",
+              "note": "Krótko i prawdziwie. Mowa oscarowa jest całkowicie opcjonalna."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "day_03",
+      "day": 3,
+      "locales": {
+        "en": {
+          "title": "Day 3",
+          "intro": "A little stillness, a ridiculous freeze-frame game and one good moment worth noticing.",
+          "sections": [
+            {
+              "id": "day_03_mindful",
+              "type": "mindful",
+              "label": "Mindful Moment",
+              "title": "Still Hands",
+              "tagline": "Each touch is a reminder: peace can travel from one heart to another.",
+              "body": [
+                "Place one hand on your own heart and the other on the shoulder of the person next to you.",
+                "Breathe slowly for one minute and feel the calm spreading."
+              ],
+              "note_label": "Nini's Heart-Glow Note",
+              "note": "I'm holding very still... but my fingers are secretly planning a tickle attack."
+            },
+            {
+              "id": "day_03_fun",
+              "type": "fun",
+              "label": "Fun Spark",
+              "title": "Freeze Family",
+              "tagline": "Shared imagination sparks shared joy.",
+              "body": [
+                "The youngest person starts by shouting a word, for example hug, snow, kiss or Christmas Tree.",
+                "Everyone instantly freezes in a matching pose for 3 seconds.",
+                "The caller chooses the person who shouts the next word.",
+                "Play for a few rounds.",
+                "For 2 people: one freezes in a pose and the second one guesses what it is."
+              ],
+              "note_label": "Alio's Freeze Tip",
+              "note": "The slower you freeze, the weirder you look. Trust me."
+            },
+            {
+              "id": "day_03_connection",
+              "type": "connection",
+              "label": "Family Connection",
+              "title": "My Favorite Moment Today",
+              "tagline": "Even ordinary moments can be extraordinary when noticed.",
+              "body": [
+                "Everyone shares one moment they enjoyed today.",
+                "Something that felt good."
+              ],
+              "note_label": "Mimi's Daily Note",
+              "note": "Yes, snacks can be a valid favorite moment."
+            }
+          ]
+        },
+        "pl-PL": {
+          "title": "Dzień 3",
+          "intro": "Minuta spokojnych dłoni, kilka absurdalnych stop-klatek i mały moment dnia, który warto zatrzymać.",
+          "sections": [
+            {
+              "id": "day_03_mindful",
+              "type": "mindful",
+              "label": "Spokojna chwila",
+              "title": "Dwie dłonie, jedna minuta",
+              "tagline": "Prosty układ. Jedna dłoń dla siebie, druga dla kogoś obok.",
+              "body": [
+                "Połóż jedną dłoń na swoim sercu.",
+                "Drugą możesz oprzeć lekko na ramieniu osoby obok - jeśli oboje macie na to ochotę.",
+                "Przez minutę oddychajcie spokojnie i po prostu zostańcie tak razem."
+              ],
+              "note_label": "Ciepła uwaga Nini",
+              "note": "Siedzę spokojnie. Palce mają zakaz rozpoczynania wojny na łaskotki."
+            },
+            {
+              "id": "day_03_fun",
+              "type": "fun",
+              "label": "Iskra zabawy",
+              "title": "Rodzinne stop-klatki",
+              "tagline": "Im dziwniejsza poza, tym lepiej. To nie sesja do paszportu.",
+              "body": [
+                "Najmłodsza osoba woła jedno hasło, na przykład: przytulas, śnieg, buziak albo choinka.",
+                "Wszyscy natychmiast zastygają na trzy sekundy w pozie, która pasuje do hasła.",
+                "Osoba prowadząca wybiera kogoś, kto podaje następne słowo.",
+                "Zróbcie kilka rund.",
+                "Jeśli są tylko dwie osoby, jedna robi pozę, a druga zgaduje, co przedstawia."
+              ],
+              "note_label": "Lodowata wskazówka Alio",
+              "note": "Im wolniej zamarzasz, tym dziwniej wyglądasz. Sprawdzone."
+            },
+            {
+              "id": "day_03_connection",
+              "type": "connection",
+              "label": "Chwila bliskości",
+              "title": "Najlepsza mała chwila dnia",
+              "tagline": "Nie szukamy wielkiego wydarzenia. Wystarczy coś, co było po prostu fajne.",
+              "body": [
+                "Każdy opowiada o jednej chwili z dzisiejszego dnia, którą dobrze wspomina.",
+                "Może to być rozmowa, śmieszna sytuacja, chwila spokoju albo coś pysznego."
+              ],
+              "note_label": "Codzienna uwaga Mimi",
+              "note": "Tak, przekąska liczy się jako pełnoprawny moment dnia."
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

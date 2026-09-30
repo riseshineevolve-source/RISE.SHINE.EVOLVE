@@ -1,0 +1,22 @@
+name: Gentle Steps Vertical Slice
+
+on:
+  push:
+    paths:
+      - "gentle-steps-app/**"
+      - ".github/workflows/gentle-steps-slice.yml"
+  pull_request:
+    paths:
+      - "gentle-steps-app/**"
+      - ".github/workflows/gentle-steps-slice.yml"
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Validate Gentle Steps Days 1-3 slice
+        run: node gentle-steps-app/tests/validate-slice.mjs
