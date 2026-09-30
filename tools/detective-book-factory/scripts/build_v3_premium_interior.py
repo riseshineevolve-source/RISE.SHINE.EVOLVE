@@ -1188,26 +1188,55 @@ def draw_black_envelope_page(book: Book, markdown: str) -> None:
 
 
 def draw_squad_page(book: Book, markdown: str) -> None:
+    """Owner-locked Page 4: squad image + compact team intro + general opening COMMS."""
     body, chat = markdown.split("### HAPPY MAKERS CHAT", 1)
     beats = [value for kind, value in paragraphs(chat) if kind == "bullet"]
     if len(beats) != 6:
         raise ValueError("squad-page canonical COMMS dialogue drift")
 
     book.heading("YOUR SQUAD", 20)
-    book.image(PRINT_DERIVATIVES/"squad_scanner_print.png", 245, 180, gap=6)
+    c = book.canvas
 
-    body_blocks = paragraphs(body)
-    # skip the page marker YOUR SQUAD; render the reader-facing welcome and profile copy compactly
-    body_blocks = [(k,v) for k,v in body_blocks if plain(v).upper() != "YOUR SQUAD"]
-    for kind, value in body_blocks:
+    # Approved squad image on the left, team/welcome copy on the right.
+    image_path = PRINT_DERIVATIVES / "squad_scanner_print.png"
+    with Image.open(image_path) as im:
+        iw, ih = im.size
+        rgba = im.convert("RGBA")
+        paper = Image.new("RGBA", rgba.size, (255,255,255,255))
+        paper.alpha_composite(rgba)
+        grayscale = paper.convert("RGB").convert("L")
+    image_w = 202
+    image_h = image_w * ih / iw
+    image_top = book.y
+    image_bottom = image_top - image_h
+    c.drawImage(ImageReader(grayscale), M, image_bottom, image_w, image_h,
+                preserveAspectRatio=True)
+
+    right_x = M + 225
+    right_w = W - M - right_x
+    right_y = image_top
+    blocks = [(kind, value) for kind, value in paragraphs(body)
+              if plain(value).upper() != "YOUR SQUAD"]
+    for kind, value in blocks:
         if kind == "heading":
-            book.text(value, size=10.2, bold=True, gap=3)
-        elif kind == "bullet":
-            book.text("• " + value, size=8.25, gap=2)
+            size, gap = 10.3, 5
+            font = rb.BOLD
         else:
-            book.text(value, size=8.25, gap=2)
-    book.y = draw_front_comms(book, beats, M, book.y-2, TEXT_W,
-                              font_size=8.35, leading=10.2, beat_gap=2) - 2
+            size, gap = 7.55, 3
+            font = rb.FONT
+        paragraph = Paragraph(inline(value), ParagraphStyle(
+            "squad_copy", fontName=font, fontSize=size,
+            leading=size*1.22, textColor=INK))
+        _, height = paragraph.wrap(right_w, H)
+        if right_y-height < BOTTOM+190:
+            raise ValueError("Page 4 squad copy does not fit above COMMS")
+        paragraph.drawOn(c, right_x, right_y-height)
+        right_y -= height + gap
+
+    book.y = min(image_bottom, right_y) - 12
+    book.y = draw_front_comms(book, beats, M, book.y, TEXT_W,
+                              font_size=8.55, leading=10.5, beat_gap=2) - 2
+
 
 
 def draw_front(book: Book, front: list[dict]) -> None:
