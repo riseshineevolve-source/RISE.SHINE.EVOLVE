@@ -14,8 +14,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "content" / "DETECTIVE_ACADEMY_BOOK1_TEXT_GOLD_MASTER_V3.md"
 
-EXPECTED_BLOB_SHA1 = "a85a5941852930f6b88711af26b16ea1651d2fbc"
-EXPECTED_SOURCE_COMMIT = "d52933a70f78e768e23c54d997cf55489236879d"
+EXPECTED_BLOB_SHA1 = "8685f8e561d0bfb3837445b72b4d6f799a9a48f2"
+EXPECTED_SOURCE_COMMIT = "e136e94402c8f870f3d9221b7047c1406cbec813"
 EXPECTED_CASE26_MAPS = [2, 4, 6, 7, 10, 12, 13, 15, 17, 19, 20, 22, 23, 25]
 
 
@@ -69,6 +69,19 @@ def verify() -> dict[str, object]:
         "English freeze state drifted from the authorized V3 source",
     )
 
+    front = section_between(text, "# FRONT MATTER // LOCKED READER PAGES 1-10", "# ACT 1 // SOMETHING IS OFF")
+    require(
+        front.index("## PAGE 3 // THE BLACK ENVELOPE") < front.index("## YOUR SQUAD"),
+        "front-matter order drift: the black-envelope cold open must precede YOUR SQUAD",
+    )
+    black_envelope = section_between(front, "## PAGE 3 // THE BLACK ENVELOPE", "## YOUR SQUAD")
+    require("YOUR SQUAD" not in black_envelope, "Page 3 cold open must not contain squad heading")
+    require("WILL YOU CLAIM IT?" in black_envelope, "Page 3 cold open lost WILL YOU CLAIM IT?")
+    require(
+        "IF ACCEPTED: REPORT TO THE CASE TABLE." not in black_envelope,
+        "Page 3 cold open must end before Academy/team explanation",
+    )
+
     main = section_between(text, "# ACT 1 // SOMETHING IS OFF", "# HINT VAULT // LEVEL 1")
     exact_case_sequence(main, r"^## CASE (\d{2}) //", "main reader cases")
 
@@ -99,7 +112,7 @@ def verify() -> dict[str, object]:
         "Book 2 triangle callback": "difference number eight - the same three-part shape is hiding in plain sight.",
         "Case 06 Uma incident bridge": "I'm glad you're here. Something very odd happened.",
         "Case 07 spoon/label closure": "Nothing was stolen; the **dragon-tooth label card** was the thing that moved.",
-        "cozy website line": "WE HAVE SAVED A COZY SPOT JUST FOR YOU.",
+        "owner website CTA": "Come visit us online - we saved a cozy spot just for you:",\n        "owner Facebook CTA": "Rise.Shine.Evolve.Learning Hub.",\n        "owner squad opener": "New recruit at the Case Table.",
         "Case 03 progress tracker": "Color one question mark for each difference you find.",
         "upright Hint Vault wording": "Need help? Turn to the Hint Vault at the back, behind the **STOP // HINT VAULT** divider.",
         "Case 13 parrot closure": "Nini's follow-up closes the parrot file: the phrase came from an ordinary rehearsal cue repeated near the Stage Wing.",
