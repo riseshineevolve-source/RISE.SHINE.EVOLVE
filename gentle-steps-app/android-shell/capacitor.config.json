@@ -1,0 +1,9 @@
+{
+  "appId": "com.riseshineevolve.gentlesteps",
+  "appName": "24 Gentle Steps to Christmas",
+  "webDir": "dist",
+  "backgroundColor": "#FFF7E8",
+  "android": {
+    "backgroundColor": "#FFF7E8"
+  }
+}
