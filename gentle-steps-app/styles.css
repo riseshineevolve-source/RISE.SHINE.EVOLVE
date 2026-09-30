@@ -1348,3 +1348,32 @@ body::before {
     height: 50px;
   }
 }
+
+
+/* V2.1 — crop canonical cover to its elegant family scene */
+.hero-visual img {
+  object-position: center 70%;
+}
+
+.family-group-frame {
+  max-width: 410px;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+}
+
+.family-group-frame img {
+  height: 100%;
+  aspect-ratio: auto;
+  object-fit: cover;
+  object-position: center 68%;
+}
+
+@media (max-width: 460px) {
+  .hero-visual img {
+    object-position: center 70%;
+  }
+  .family-group-frame {
+    max-width: 330px;
+    aspect-ratio: 4 / 3;
+  }
+}
