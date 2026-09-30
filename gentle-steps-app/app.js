@@ -386,6 +386,13 @@ async function init() {
     if (Number.isInteger(requestedDay) && requestedDay >= 1 && requestedDay <= 24) renderDay(requestedDay);
     else renderHome();
 
+    if (params.get('family') === '1') {
+      requestAnimationFrame(() => {
+        const familyDialogEl = app.querySelector('#family-dialog');
+        if (familyDialogEl && !familyDialogEl.open) familyDialogEl.showModal();
+      });
+    }
+
     if ('serviceWorker' in navigator && location.protocol !== 'file:') {
       navigator.serviceWorker.register('./service-worker.js').catch(() => {});
     }
