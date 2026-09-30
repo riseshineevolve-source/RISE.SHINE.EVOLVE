@@ -1,6 +1,6 @@
 # 24 Gentle Steps to Christmas — English Advent app
 
-Status: full 24-day English product build / owner visual review / not deployed.
+Status: full 24-day English product build / owner visual review / not deployed. Final mobile proof workflow includes deterministic render wait.
 
 ## Owner direction — 2026-09-30
 
