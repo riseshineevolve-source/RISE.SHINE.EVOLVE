@@ -120,4 +120,6 @@ Every major visual pass must render:
 - Meet the Happy-Makers at 390x1000
 - Day 01 at 390x1200
 - Day 12 at 390x1200
+- Day 22 at 390x1600 (current longest source-derived day)
+- Day 23 at 390x1600 (current second-longest source-derived day)
 - Day 24 at 390x1200
