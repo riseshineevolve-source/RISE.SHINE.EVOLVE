@@ -1,12 +1,12 @@
 {
   "name": "24 Gentle Steps to Christmas",
   "short_name": "Gentle Steps",
-  "description": "A simple family Advent ritual with three small activities each day.",
+  "description": "A 24-day family Advent journey with three small shared rituals each day.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#f8f1ec",
-  "theme_color": "#6f1633",
+  "background_color": "#fff9ee",
+  "theme_color": "#4b2865",
   "lang": "en",
   "categories": ["lifestyle", "family", "education"]
 }
