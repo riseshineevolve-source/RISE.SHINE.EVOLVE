@@ -62,6 +62,10 @@ jobs:
             scripts/test_v41_finale_certificate.py \
             scripts/test_v41_owner_audit_corrections.py \
             scripts/audit_owner_review_v2.py \
+            scripts/verify_v3_final_text_source.py \
+            scripts/build_v3_final_text_contract.py \
+            scripts/build_v3_premium_interior.py \
+            scripts/audit_v3_premium_interior.py \
             scripts/test_spatial_grid_crop.py \
             scripts/validate_spatial_object_art.py \
             scripts/validate_modern_prop_contract.py \
@@ -97,6 +101,19 @@ jobs:
       - name: Sync canonical Happy Makers assets
         working-directory: tools/detective-book-factory
         run: python scripts/sync_brand_assets.py --require-approved-squad
+
+      - name: Verify and build owner-locked V3 premium interior
+        working-directory: tools/detective-book-factory
+        run: |
+          python scripts/verify_v3_final_text_source.py
+          python scripts/build_v3_final_text_contract.py \
+            --output dist/book1_v3_final_text_contract.json
+          python scripts/build_v3_premium_interior.py \
+            --output dist/HMDA_Book1_EN_V3_PREMIUM_SOURCE_LOCK.pdf
+          python scripts/audit_v3_premium_interior.py \
+            --pdf dist/HMDA_Book1_EN_V3_PREMIUM_SOURCE_LOCK.pdf \
+            --report dist/HMDA_Book1_EN_V3_PREMIUM_SOURCE_LOCK_regression.json
+          pdfinfo dist/HMDA_Book1_EN_V3_PREMIUM_SOURCE_LOCK.pdf
 
       - name: Build editorial preview
         working-directory: tools/detective-book-factory
@@ -141,6 +158,11 @@ jobs:
           name: detective-academy-editorial-preview
           path: |
             tools/detective-book-factory/dist/HMDA_Book1_Full_Editorial_Preview.pdf
+            tools/detective-book-factory/dist/HMDA_Book1_EN_V3_PREMIUM_SOURCE_LOCK.pdf
+            tools/detective-book-factory/dist/HMDA_Book1_EN_V3_PREMIUM_SOURCE_LOCK_page_index.json
+            tools/detective-book-factory/dist/HMDA_Book1_EN_V3_PREMIUM_SOURCE_LOCK_QA.json
+            tools/detective-book-factory/dist/HMDA_Book1_EN_V3_PREMIUM_SOURCE_LOCK_regression.json
+            tools/detective-book-factory/dist/book1_v3_final_text_contract.json
             tools/detective-book-factory/dist/book1_en_master.yml
             tools/detective-book-factory/dist/preflight.txt
             tools/detective-book-factory/dist/typography_print_qa.json
