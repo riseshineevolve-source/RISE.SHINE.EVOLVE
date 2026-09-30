@@ -34,22 +34,25 @@ jobs:
           test -n "$CHROME"
           mkdir -p gentle-steps-review
 
-          "$CHROME" --headless --no-sandbox --disable-gpu --hide-scrollbars             --window-size=390,844             --screenshot=gentle-steps-review/home-en-purple-gold-390x844.png             "http://127.0.0.1:4173/gentle-steps-app/?preview=1"
+          "$CHROME" --headless --no-sandbox --disable-gpu --hide-scrollbars --virtual-time-budget=4500             --window-size=390,844             --screenshot=gentle-steps-review/home-en-visual-v2-390x844.png             "http://127.0.0.1:4173/gentle-steps-app/?preview=1"
 
-          "$CHROME" --headless --no-sandbox --disable-gpu --hide-scrollbars             --window-size=390,1200             --screenshot=gentle-steps-review/day01-en-390x1200.png             "http://127.0.0.1:4173/gentle-steps-app/?preview=1&day=1"
+          "$CHROME" --headless --no-sandbox --disable-gpu --hide-scrollbars --virtual-time-budget=4500             --window-size=390,1000             --screenshot=gentle-steps-review/family-en-visual-v2-390x1000.png             "http://127.0.0.1:4173/gentle-steps-app/?preview=1&family=1"
 
-          "$CHROME" --headless --no-sandbox --disable-gpu --hide-scrollbars             --window-size=390,1200             --screenshot=gentle-steps-review/day12-en-390x1200.png             "http://127.0.0.1:4173/gentle-steps-app/?preview=1&day=12"
+          "$CHROME" --headless --no-sandbox --disable-gpu --hide-scrollbars --virtual-time-budget=4500             --window-size=390,1200             --screenshot=gentle-steps-review/day01-en-visual-v2-390x1200.png             "http://127.0.0.1:4173/gentle-steps-app/?preview=1&day=1"
 
-          "$CHROME" --headless --no-sandbox --disable-gpu --hide-scrollbars             --window-size=390,1200             --screenshot=gentle-steps-review/day24-en-390x1200.png             "http://127.0.0.1:4173/gentle-steps-app/?preview=1&day=24"
+          "$CHROME" --headless --no-sandbox --disable-gpu --hide-scrollbars --virtual-time-budget=4500             --window-size=390,1200             --screenshot=gentle-steps-review/day12-en-visual-v2-390x1200.png             "http://127.0.0.1:4173/gentle-steps-app/?preview=1&day=12"
 
-          test -s gentle-steps-review/home-en-purple-gold-390x844.png
-          test -s gentle-steps-review/day01-en-390x1200.png
-          test -s gentle-steps-review/day12-en-390x1200.png
-          test -s gentle-steps-review/day24-en-390x1200.png
+          "$CHROME" --headless --no-sandbox --disable-gpu --hide-scrollbars --virtual-time-budget=4500             --window-size=390,1200             --screenshot=gentle-steps-review/day24-en-visual-v2-390x1200.png             "http://127.0.0.1:4173/gentle-steps-app/?preview=1&day=24"
+
+          test -s gentle-steps-review/home-en-visual-v2-390x844.png
+          test -s gentle-steps-review/family-en-visual-v2-390x1000.png
+          test -s gentle-steps-review/day01-en-visual-v2-390x1200.png
+          test -s gentle-steps-review/day12-en-visual-v2-390x1200.png
+          test -s gentle-steps-review/day24-en-visual-v2-390x1200.png
 
       - name: Upload mobile review evidence
         uses: actions/upload-artifact@v4
         with:
-          name: gentle-steps-en-full24-mobile-review
+          name: gentle-steps-en-full24-visual-v2
           path: gentle-steps-review/*.png
           if-no-files-found: error
