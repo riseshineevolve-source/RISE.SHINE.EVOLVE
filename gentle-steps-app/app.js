@@ -30,7 +30,7 @@ const FAMILY_PROFILES = [
 const params = new URLSearchParams(window.location.search);
 const previewMode = params.get('preview') === '1';
 const REMINDER_STORAGE_KEY = 'gentleStepsReminder.v1';
-const REMINDER_NOTIFICATION_ID = 2412;
+const REMINDER_NOTIFICATION_BASE_ID = 2400;
 
 let packs = [];
 let days = [];
@@ -107,25 +107,52 @@ async function scheduleDailyReminder(time) {
   }
 
   const [hour, minute] = time.split(':').map(Number);
-  await plugin.cancel({ notifications: [{ id: REMINDER_NOTIFICATION_ID }] });
-  await plugin.schedule({
-    notifications: [{
-      id: REMINDER_NOTIFICATION_ID,
-      title: 'Your Gentle Step is waiting ✦',
+  const ids = Array.from({ length: 24 }, (_, index) => ({ id: REMINDER_NOTIFICATION_BASE_ID + index + 1 }));
+  await plugin.cancel({ notifications: ids });
+
+  const now = new Date();
+  let seasonYear = now.getFullYear();
+  if (now.getMonth() === 11 && now.getDate() > 24) seasonYear += 1;
+
+  const notifications = [];
+  for (let day = 1; day <= 24; day += 1) {
+    const at = new Date(seasonYear, 11, day, hour, minute, 0, 0);
+    if (at <= now) continue;
+    notifications.push({
+      id: REMINDER_NOTIFICATION_BASE_ID + day,
+      title: 'Day ' + day + ' • Your Gentle Step is waiting ✦',
       body: 'About 10 minutes for today’s Mindful Moment, Fun Spark and Family Connection.',
-      schedule: { on: { hour, minute }, allowWhileIdle: true },
-      autoCancel: true
-    }]
-  });
+      schedule: { at, allowWhileIdle: true },
+      autoCancel: true,
+      extra: { day }
+    });
+  }
+
+  if (notifications.length === 0) {
+    seasonYear += 1;
+    for (let day = 1; day <= 24; day += 1) {
+      notifications.push({
+        id: REMINDER_NOTIFICATION_BASE_ID + day,
+        title: 'Day ' + day + ' • Your Gentle Step is waiting ✦',
+        body: 'About 10 minutes for today’s Mindful Moment, Fun Spark and Family Connection.',
+        schedule: { at: new Date(seasonYear, 11, day, hour, minute, 0, 0), allowWhileIdle: true },
+        autoCancel: true,
+        extra: { day }
+      });
+    }
+  }
+
+  await plugin.schedule({ notifications });
   localStorage.setItem(REMINDER_STORAGE_KEY, time);
-  showToast('Daily reminder saved for ' + time + '.');
+  showToast('Advent reminders saved for ' + time + '.');
   return true;
 }
 
 async function cancelDailyReminder() {
   const plugin = nativeReminderPlugin();
   if (!plugin) return;
-  await plugin.cancel({ notifications: [{ id: REMINDER_NOTIFICATION_ID }] });
+  const ids = Array.from({ length: 24 }, (_, index) => ({ id: REMINDER_NOTIFICATION_BASE_ID + index + 1 }));
+  await plugin.cancel({ notifications: ids });
   localStorage.removeItem(REMINDER_STORAGE_KEY);
   showToast('Daily reminder turned off.');
 }
