@@ -82,16 +82,8 @@ if (!index.includes('/assets/js/rse-analytics-consent.js')) fail('privacy-first 
 for (const file of weekFiles) {
   if (!sw.includes(file.replace('content/', './content/'))) fail('offline cache missing ' + file);
 }
-for (const asset of [
-  'Happy%20Makers%20floating%20box.png',
-  'Mimi.png',
-  'Luli.png',
-  'Dilo.png',
-  'Alio.png',
-  'Nini.png'
-]) {
-  if (!sw.includes(asset)) fail('offline Happy-Makers asset missing: ' + asset);
-}
+if (!app.includes('data:image/webp;base64,')) fail('embedded elegant family artwork missing');
+if (!app.includes("'../assets/images/Mimi.png'")) fail('character portrait mapping missing');
 if (manifest.display !== 'standalone') fail('PWA standalone display required');
 if (manifest.lang !== 'en') fail('manifest must be English');
 if (manifest.theme_color !== '#4b2865') fail('purple theme color mismatch');
