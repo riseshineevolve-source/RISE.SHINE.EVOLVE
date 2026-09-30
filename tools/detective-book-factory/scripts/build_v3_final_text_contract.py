@@ -53,7 +53,7 @@ def _front_pages(front: str) -> list[dict]:
         r"## PAGE 1 // TITLE + THE UNEXPLAINED SLOT",
         r"## PAGE 2 // PUBLICATION RECORD",
         r"## PAGE 3 // THE BLACK ENVELOPE",
-        r"## WELCOME TO THE DETECTIVE ACADEMY",
+        r"## YOUR SQUAD",
         r"## CLAIM YOUR RECRUIT CREDENTIAL",
         r"## WHAT YOU ARE ABOUT TO WALK INTO",
         r"## HOW EVERY CASE WORKS",
