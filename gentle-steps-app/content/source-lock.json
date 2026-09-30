@@ -1,0 +1,28 @@
+{
+  "product_id": "gentle_steps_christmas",
+  "locked_locale": "en",
+  "owner_lock_date": "2026-09-30",
+  "paperback": {
+    "filename": "24 Gentle Paperback ok(1).pdf",
+    "sha256": "1f79edd316f353963ef33bb980843b37f367a0bacb9198bd63e0d221cb8c9ba7",
+    "page_count": 104,
+    "daily_activity_pages": "21-95",
+    "status": "FINAL_EN_TEXT_OWNER_LOCKED"
+  },
+  "cover_reference": {
+    "filename": "24 Gentle Steps to Christmas COVER HARDCOVER(1).pdf",
+    "sha256": "3e02c50253fb136f6c21029a31cd31436e8077db5d3bf35eec16ecc5939e315b",
+    "status": "VISUAL_REFERENCE"
+  },
+  "app_content": {
+    "week_files": [
+      "content/week-01.json",
+      "content/week-02.json",
+      "content/week-03.json",
+      "content/week-04.json"
+    ],
+    "canonical_locale": "en",
+    "polish_included": false,
+    "mapping_rule": "Retain source wording; normalize designed-page line breaks only."
+  }
+}
