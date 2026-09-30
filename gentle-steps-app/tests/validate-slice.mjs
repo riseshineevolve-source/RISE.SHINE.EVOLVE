@@ -45,11 +45,12 @@ for (const day of pack.days) {
   if (enIds !== plIds) fail('locale semantic IDs diverge on day ' + day.day);
 }
 
-for (const required of ['./styles.css', './app.js', './content/days-01-03.json', './service-worker.js']) {
-  if (!index.includes(required.replace('./service-worker.js', './app.js')) && required !== './service-worker.js') {
-    fail('index missing shell reference ' + required);
-  }
+for (const required of ['./styles.css', './app.js', './manifest.webmanifest']) {
+  if (!index.includes(required)) fail('index missing shell reference ' + required);
 }
+if (!app.includes("./content/days-01-03.json")) fail('app does not load the real Days 1-3 content pack');
+if (!app.includes("serviceWorker.register('./service-worker.js')")) fail('service worker registration missing');
+if (!app.includes('for (let day = 1; day <= 24; day += 1)')) fail('24-day Advent calendar shell missing');
 
 if (!app.includes('localStorage')) fail('local progress persistence missing');
 if (app.includes('supabase') || app.includes('firebase') || app.includes('openai')) fail('slice must not add backend/AI complexity');
