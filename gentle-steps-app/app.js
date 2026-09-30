@@ -29,6 +29,8 @@ const FAMILY_PROFILES = [
 
 const params = new URLSearchParams(window.location.search);
 const previewMode = params.get('preview') === '1';
+const REMINDER_STORAGE_KEY = 'gentleStepsReminder.v1';
+const REMINDER_NOTIFICATION_ID = 2412;
 
 let packs = [];
 let days = [];
@@ -68,6 +70,66 @@ function showToast(message) {
   showToast.timer = window.setTimeout(() => toast.classList.remove('show'), 2200);
 }
 
+function nativeReminderPlugin() {
+  return window.Capacitor?.Plugins?.LocalNotifications || null;
+}
+
+function reminderDialog() {
+  if (!nativeReminderPlugin()) return '';
+  const saved = localStorage.getItem(REMINDER_STORAGE_KEY) || '18:30';
+  return '<dialog id="reminder-dialog" class="reminder-dialog">' +
+    '<div class="reminder-sheet">' +
+      '<p class="family-eyebrow">Gentle reminder</p>' +
+      '<h2>Choose your daily Advent time</h2>' +
+      '<p>A small local reminder on this device only. No account, cloud sync or push server.</p>' +
+      '<label class="reminder-time-label" for="reminder-time">Daily reminder</label>' +
+      '<input id="reminder-time" class="reminder-time" type="time" value="' + escapeHtml(saved) + '" />' +
+      '<div class="reminder-actions">' +
+        '<button class="about-close" type="button" data-save-reminder>Save reminder</button>' +
+        '<button class="reminder-cancel" type="button" data-cancel-reminder>Turn reminder off</button>' +
+        '<button class="reminder-dismiss" type="button" data-close-reminder>Cancel</button>' +
+      '</div>' +
+    '</div>' +
+  '</dialog>';
+}
+
+async function scheduleDailyReminder(time) {
+  const plugin = nativeReminderPlugin();
+  if (!plugin) return false;
+
+  let permission = await plugin.checkPermissions();
+  if (permission.display !== 'granted') {
+    permission = await plugin.requestPermissions();
+  }
+  if (permission.display !== 'granted') {
+    showToast('Notifications are off in device settings.');
+    return false;
+  }
+
+  const [hour, minute] = time.split(':').map(Number);
+  await plugin.cancel({ notifications: [{ id: REMINDER_NOTIFICATION_ID }] });
+  await plugin.schedule({
+    notifications: [{
+      id: REMINDER_NOTIFICATION_ID,
+      title: 'Your Gentle Step is waiting ✦',
+      body: 'About 10 minutes for today’s Mindful Moment, Fun Spark and Family Connection.',
+      schedule: { on: { hour, minute }, allowWhileIdle: true },
+      autoCancel: true
+    }]
+  });
+  localStorage.setItem(REMINDER_STORAGE_KEY, time);
+  showToast('Daily reminder saved for ' + time + '.');
+  return true;
+}
+
+async function cancelDailyReminder() {
+  const plugin = nativeReminderPlugin();
+  if (!plugin) return;
+  await plugin.cancel({ notifications: [{ id: REMINDER_NOTIFICATION_ID }] });
+  localStorage.removeItem(REMINDER_STORAGE_KEY);
+  showToast('Daily reminder turned off.');
+}
+
 function topbar() {
   return '<header class="topbar">' +
     '<div class="brand-lockup">' +
@@ -76,6 +138,7 @@ function topbar() {
     '</div>' +
     '<div class="topbar-actions">' +
       '<button class="ghost-button ghost-button-family" type="button" data-family>Family</button>' +
+      (nativeReminderPlugin() ? '<button class="ghost-button" type="button" data-reminder>Reminder</button>' : '') +
       '<button class="ghost-button" type="button" data-about>How it works</button>' +
     '</div>' +
   '</header>';
@@ -229,7 +292,8 @@ function renderHome() {
     packs.map(renderWeek).join('') +
     '<p class="home-footnote">No prep. No mess. No glitter required.</p>' +
     aboutDialog() +
-    familyDialog();
+    familyDialog() +
+    reminderDialog();
 
   wireCommon();
   app.querySelector('[data-start]').addEventListener('click', () => renderDay(nextDay));
@@ -286,7 +350,8 @@ function renderLocked(dayNumber) {
     '<section class="locked-card"><div class="lock-icon">✦</div><h1>Day ' + dayNumber + ' opens December ' + dayNumber + '</h1><p>Your next Gentle Step will be here when its day arrives.</p></section>' +
     '<button class="back-button" type="button" data-home>← All days</button>' +
     aboutDialog() +
-    familyDialog();
+    familyDialog() +
+    reminderDialog();
   wireCommon();
   app.querySelector('[data-home]').addEventListener('click', renderHome);
 }
@@ -322,7 +387,8 @@ function renderDay(dayNumber) {
       '</button></div>' +
     '</div>' +
     aboutDialog() +
-    familyDialog();
+    familyDialog() +
+    reminderDialog();
 
   wireCommon();
   app.querySelector('[data-home]').addEventListener('click', () => {
@@ -359,6 +425,11 @@ function wireCommon() {
   const familyButtons = app.querySelectorAll('[data-family]');
   const familyDialogEl = app.querySelector('#family-dialog');
   const closeFamily = app.querySelector('[data-close-family]');
+  const reminderButton = app.querySelector('[data-reminder]');
+  const reminderDialogEl = app.querySelector('#reminder-dialog');
+  const closeReminder = app.querySelector('[data-close-reminder]');
+  const saveReminder = app.querySelector('[data-save-reminder]');
+  const cancelReminder = app.querySelector('[data-cancel-reminder]');
 
   if (about && aboutDialogEl) about.addEventListener('click', () => aboutDialogEl.showModal());
   if (closeAbout && aboutDialogEl) closeAbout.addEventListener('click', () => aboutDialogEl.close());
@@ -367,6 +438,21 @@ function wireCommon() {
     familyButtons.forEach((button) => button.addEventListener('click', () => familyDialogEl.showModal()));
   }
   if (closeFamily && familyDialogEl) closeFamily.addEventListener('click', () => familyDialogEl.close());
+
+  if (reminderButton && reminderDialogEl) reminderButton.addEventListener('click', () => reminderDialogEl.showModal());
+  if (closeReminder && reminderDialogEl) closeReminder.addEventListener('click', () => reminderDialogEl.close());
+  if (saveReminder && reminderDialogEl) saveReminder.addEventListener('click', async () => {
+    const time = reminderDialogEl.querySelector('#reminder-time')?.value;
+    if (!/^([01]\d|2[0-3]):[0-5]\d$/.test(time || '')) {
+      showToast('Choose a valid reminder time.');
+      return;
+    }
+    if (await scheduleDailyReminder(time)) reminderDialogEl.close();
+  });
+  if (cancelReminder && reminderDialogEl) cancelReminder.addEventListener('click', async () => {
+    await cancelDailyReminder();
+    reminderDialogEl.close();
+  });
 }
 
 async function init() {
