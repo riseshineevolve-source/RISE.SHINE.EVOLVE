@@ -67,6 +67,10 @@ if (app.includes('pl-PL') || app.includes('data-locale')) fail('language switch 
 if (!app.includes('week-01.json') || !app.includes('week-04.json')) fail('app does not load all week packs');
 if (!app.includes('localStorage')) fail('local progress persistence missing');
 if (!app.includes("params.get('preview') === '1'")) fail('owner/test preview override missing');
+if (!app.includes("params.get('family') === '1'")) fail('family review route missing');
+if (!app.includes('FAMILY_ASSET')) fail('family hero asset contract missing');
+if (!app.includes('CHARACTER_ASSETS')) fail('character avatar contract missing');
+if (!app.includes('familyDialog()')) fail('Meet the Happy-Makers experience missing');
 if (!app.includes('isUnlocked')) fail('Advent day-lock behavior missing');
 if (app.includes('supabase') || app.includes('firebase') || app.includes('openai')) fail('no backend/AI dependency allowed');
 
@@ -78,13 +82,26 @@ if (!index.includes('/assets/js/rse-analytics-consent.js')) fail('privacy-first 
 for (const file of weekFiles) {
   if (!sw.includes(file.replace('content/', './content/'))) fail('offline cache missing ' + file);
 }
+for (const asset of [
+  'Happy%20Makers%20floating%20box.png',
+  'Mimi.png',
+  'Luli.png',
+  'Dilo.png',
+  'Alio.png',
+  'Nini.png'
+]) {
+  if (!sw.includes(asset)) fail('offline Happy-Makers asset missing: ' + asset);
+}
 if (manifest.display !== 'standalone') fail('PWA standalone display required');
 if (manifest.lang !== 'en') fail('manifest must be English');
 if (manifest.theme_color !== '#4b2865') fail('purple theme color mismatch');
 
-for (const token of ['--purple-800', '--gold-500', '--cream', '--burgundy']) {
+for (const token of ['--purple-950', '--purple-800', '--purple-600', '--purple-500', '--gold-500', '--cream', '--burgundy']) {
   if (!css.includes(token)) fail('palette token missing: ' + token);
 }
+if (!css.includes('.character-avatar')) fail('character-note avatar styling missing');
+if (!css.includes('.family-profile-grid')) fail('family-profile styling missing');
+if (!css.includes('.hero-visual')) fail('family hero styling missing');
 if (css.includes('--evergreen')) fail('old green palette leaked into English build');
 
 if (sourceLock.paperback.sha256 !== sourceSha) fail('source-lock paperback hash mismatch');
@@ -98,5 +115,5 @@ if (day24.sections[2].title !== 'Circle of Gratitude & Wishes') fail('Day 24 sou
 
 if (!process.exitCode) {
   console.log('PASS: Gentle Steps full English 24-day app contract');
-  console.log('PASS: 24 days / 72 source pages / EN-only / purple-gold-cream-burgundy / offline / no backend');
+  console.log('PASS: 24 days / 72 source pages / EN-only / multi-purple-gold-cream / Happy-Makers visual identity / offline / no backend');
 }
