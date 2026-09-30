@@ -260,7 +260,14 @@ async function init() {
     const response = await fetch('./content/days-01-03.json', { cache: 'no-store' });
     if (!response.ok) throw new Error('content request failed');
     pack = await response.json();
-    renderHome();
+
+    const preview = new URLSearchParams(window.location.search);
+    if (preview.get('lang') === 'pl') state.locale = 'pl-PL';
+    if (preview.get('lang') === 'en') state.locale = 'en';
+
+    const requestedDay = Number(preview.get('day'));
+    if (AVAILABLE_DAYS.includes(requestedDay)) renderDay(requestedDay);
+    else renderHome();
 
     if ('serviceWorker' in navigator && location.protocol !== 'file:') {
       navigator.serviceWorker.register('./service-worker.js').catch(function () {});
