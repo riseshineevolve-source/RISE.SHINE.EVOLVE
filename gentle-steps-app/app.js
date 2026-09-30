@@ -1,89 +1,38 @@
 const app = document.getElementById('app');
 const toast = document.getElementById('toast');
 
-const STORAGE_KEY = 'gentleStepsState.v1';
-const AVAILABLE_DAYS = [1, 2, 3];
+const STORAGE_KEY = 'gentleStepsEnglish.v2';
+const SOURCE_SHA = '1f79edd316f353963ef33bb980843b37f367a0bacb9198bd63e0d221cb8c9ba7';
+const PACK_URLS = [
+  './content/week-01.json',
+  './content/week-02.json',
+  './content/week-03.json',
+  './content/week-04.json'
+];
 
-const ui = {
-  en: {
-    brand: '24 Gentle Steps',
-    brandSub: 'to Christmas',
-    eyebrow: 'A family Advent ritual',
-    heroTitle: 'A softer way through December.',
-    heroSubtitle: 'About 10 minutes. Three small rituals. No prep, no pressure, no perfect-family performance.',
-    progressTitle: 'Your December rhythm',
-    progressText: 'Completed days stay saved on this device.',
-    calendarTitle: 'Your 24 days',
-    calendarHint: 'Days 1-3 are live in this production slice.',
-    ready: 'Ready',
-    done: 'Done',
-    locked: 'Soon',
-    mindful: 'Mindful Moment',
-    fun: 'Fun Spark',
-    connection: 'Family Connection',
-    homeNote: 'Offline-first: this slice stores language and progress only on this device. No account, social feed, AI or backend.',
-    back: 'All days',
-    dayOf: 'of 24',
-    complete: 'Mark this day complete',
-    completed: 'Completed - tap to undo',
-    previous: 'Previous day',
-    next: 'Next day',
-    toastDone: 'Day saved. That is enough for today.',
-    toastUndo: 'Completion removed.',
-    error: 'The Advent content could not be loaded.'
-  },
-  'pl-PL': {
-    brand: '24 małe kroki',
-    brandSub: 'do Świąt',
-    eyebrow: 'Rodzinny kalendarz adwentowy',
-    heroTitle: 'Grudzień trochę mniej na pełnym gazie.',
-    heroSubtitle: 'Około 10 minut. Trzy małe rzeczy. Bez przygotowań, presji i udawania rodziny z reklamy.',
-    progressTitle: 'Wasz grudniowy rytm',
-    progressText: 'Ukończone dni zostają zapisane na tym urządzeniu.',
-    calendarTitle: '24 dni dla Was',
-    calendarHint: 'Dni 1-3 są gotowe w tym produkcyjnym wycinku.',
-    ready: 'Gotowe',
-    done: 'Zrobione',
-    locked: 'Wkrótce',
-    mindful: 'Spokojna chwila',
-    fun: 'Iskra zabawy',
-    connection: 'Chwila bliskości',
-    homeNote: 'Offline-first: ten wycinek zapisuje język i postęp tylko na tym urządzeniu. Bez konta, feedu, AI i backendu.',
-    back: 'Wszystkie dni',
-    dayOf: 'z 24',
-    complete: 'Oznacz ten dzień jako zrobiony',
-    completed: 'Zrobione - dotknij, aby cofnąć',
-    previous: 'Poprzedni dzień',
-    next: 'Następny dzień',
-    toastDone: 'Zapisane. Na dziś naprawdę wystarczy.',
-    toastUndo: 'Cofnięto oznaczenie dnia.',
-    error: 'Nie udało się wczytać treści kalendarza.'
-  }
-};
+const params = new URLSearchParams(window.location.search);
+const previewMode = params.get('preview') === '1';
 
-let pack = null;
+let packs = [];
+let days = [];
 let currentDay = null;
 let state = loadState();
 
 function loadState() {
-  const browserLocale = (navigator.language || '').toLowerCase().startsWith('pl') ? 'pl-PL' : 'en';
   try {
     const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
     return {
-      locale: saved.locale === 'pl-PL' ? 'pl-PL' : saved.locale === 'en' ? 'en' : browserLocale,
-      completed: Array.isArray(saved.completed) ? saved.completed.filter(Number.isInteger) : []
+      completed: Array.isArray(saved.completed)
+        ? saved.completed.filter((value) => Number.isInteger(value) && value >= 1 && value <= 24)
+        : []
     };
   } catch {
-    return { locale: browserLocale, completed: [] };
+    return { completed: [] };
   }
 }
 
 function saveState() {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-}
-
-function t(key) {
-  return ui[state.locale][key];
 }
 
 function escapeHtml(value) {
@@ -99,181 +48,284 @@ function showToast(message) {
   toast.textContent = message;
   toast.classList.add('show');
   window.clearTimeout(showToast.timer);
-  showToast.timer = window.setTimeout(function () {
-    toast.classList.remove('show');
-  }, 2200);
-}
-
-function localeButtons() {
-  return '<div class="lang-switch" aria-label="Language">' +
-    '<button type="button" data-locale="en" aria-pressed="' + (state.locale === 'en') + '">EN</button>' +
-    '<button type="button" data-locale="pl-PL" aria-pressed="' + (state.locale === 'pl-PL') + '">PL</button>' +
-  '</div>';
+  showToast.timer = window.setTimeout(() => toast.classList.remove('show'), 2200);
 }
 
 function topbar() {
   return '<header class="topbar">' +
     '<div class="brand-lockup">' +
       '<div class="brand-mark" aria-hidden="true">✦</div>' +
-      '<div class="brand-text"><strong>' + escapeHtml(t('brand')) + '</strong><span>' + escapeHtml(t('brandSub')) + '</span></div>' +
+      '<div class="brand-text"><strong>24 Gentle Steps to Christmas</strong><span>The Happy-Makers</span></div>' +
     '</div>' +
-    localeButtons() +
+    '<button class="ghost-button" type="button" data-about>How it works</button>' +
   '</header>';
 }
 
-function completedCount() {
-  return state.completed.filter(function (day) { return day >= 1 && day <= 24; }).length;
+function aboutDialog() {
+  return '<dialog id="about-dialog">' +
+    '<div class="about-sheet">' +
+      '<h2>One day. Three shared moments.</h2>' +
+      '<p class="about-lead">A Mindful Family Journey of Togetherness, Reflection &amp; the Magic of Christmas.</p>' +
+      '<p>Created for real families, <strong>24 Gentle Steps to Christmas</strong> transforms just 10 minutes a day into calm, laughter and meaningful connection.</p>' +
+      '<p><strong>No prep. No mess. No glitter required.</strong></p>' +
+      '<div class="mini-rituals">' +
+        '<div>◌ Mindful Moment</div>' +
+        '<div>✦ Fun Spark</div>' +
+        '<div>♡ Family Connection</div>' +
+      '</div>' +
+      '<button class="about-close" type="button" data-close-about>Close</button>' +
+    '</div>' +
+  '</dialog>';
 }
 
-function progressCard() {
+function completedCount() {
+  return state.completed.length;
+}
+
+function getTodayDay() {
+  const now = new Date();
+  if (now.getMonth() === 11 && now.getDate() >= 1 && now.getDate() <= 24) return now.getDate();
+  return null;
+}
+
+function isUnlocked(day) {
+  if (previewMode) return true;
+  const now = new Date();
+  if (now.getMonth() === 11 && now.getDate() >= 1 && now.getDate() <= 24) {
+    return day <= now.getDate();
+  }
+  return true;
+}
+
+function nextJourneyDay() {
+  const today = getTodayDay();
+  if (today && isUnlocked(today)) return today;
+  return days.find((day) => isUnlocked(day.day) && !state.completed.includes(day.day))?.day || 1;
+}
+
+function weekForDay(dayNumber) {
+  return packs.find((pack) => pack.days.some((day) => day.day === dayNumber));
+}
+
+function renderProgress() {
   const count = completedCount();
   const angle = Math.round((count / 24) * 360);
   return '<section class="progress-card" style="--progress-angle:' + angle + 'deg">' +
     '<div class="progress-orb" aria-hidden="true">' + count + '</div>' +
-    '<div class="progress-copy"><strong>' + escapeHtml(t('progressTitle')) + '</strong><span>' + escapeHtml(t('progressText')) + '</span></div>' +
+    '<div class="progress-copy"><strong>Your 24-day journey</strong><span>Progress is saved on this device.</span></div>' +
     '<div class="progress-count">' + count + ' / 24</div>' +
+  '</section>';
+}
+
+function dayStatus(day) {
+  if (state.completed.includes(day)) return 'Done';
+  if (!isUnlocked(day)) return 'Dec ' + day;
+  if (day === getTodayDay()) return 'Today';
+  return 'Open';
+}
+
+function renderWeek(pack) {
+  const tiles = pack.days.map((day) => {
+    const completed = state.completed.includes(day.day);
+    const unlocked = isUnlocked(day.day);
+    const today = day.day === getTodayDay();
+    const className = [
+      'day-tile',
+      unlocked ? 'available' : 'locked',
+      completed ? 'completed' : '',
+      today ? 'today' : ''
+    ].filter(Boolean).join(' ');
+
+    if (!unlocked) {
+      return '<div class="' + className + '" aria-disabled="true">' +
+        '<span class="day-number">' + day.day + '</span>' +
+        '<span class="day-status">' + dayStatus(day.day) + '</span>' +
+      '</div>';
+    }
+
+    return '<button class="' + className + '" type="button" data-day="' + day.day + '" aria-label="Day ' + day.day + ' - ' + dayStatus(day.day) + '">' +
+      (completed ? '<span class="day-check" aria-hidden="true">✓</span>' : '') +
+      '<span class="day-number">' + day.day + '</span>' +
+      '<span class="day-status">' + dayStatus(day.day) + '</span>' +
+    '</button>';
+  }).join('');
+
+  return '<section class="week-block">' +
+    '<div class="week-banner"><span class="week-number">Week ' + pack.week + '</span><span class="week-quote">' + escapeHtml(pack.week_quote) + '</span></div>' +
+    '<div class="calendar-grid">' + tiles + '</div>' +
   '</section>';
 }
 
 function renderHome() {
   currentDay = null;
-  document.documentElement.lang = state.locale === 'pl-PL' ? 'pl' : 'en';
+  document.documentElement.lang = 'en';
 
-  let calendar = '';
-  for (let day = 1; day <= 24; day += 1) {
-    const available = AVAILABLE_DAYS.includes(day);
-    const completed = state.completed.includes(day);
-    const status = completed ? t('done') : available ? t('ready') : t('locked');
-    if (available) {
-      calendar += '<button class="day-tile available ' + (completed ? 'completed' : '') + '" type="button" data-day="' + day + '" aria-label="' + escapeHtml((state.locale === 'pl-PL' ? 'Dzień ' : 'Day ') + day + ' - ' + status) + '">' +
-        (completed ? '<span class="day-check" aria-hidden="true">✓</span>' : '') +
-        '<span class="day-number">' + day + '</span><span class="day-status">' + escapeHtml(status) + '</span></button>';
-    } else {
-      calendar += '<div class="day-tile locked" aria-disabled="true"><span class="day-number">' + day + '</span><span class="day-status">' + escapeHtml(status) + '</span></div>';
-    }
-  }
-
+  const nextDay = nextJourneyDay();
   app.innerHTML = topbar() +
     '<section class="hero">' +
       '<div class="hero-copy">' +
-        '<p class="eyebrow">' + escapeHtml(t('eyebrow')) + '</p>' +
-        '<h1>' + escapeHtml(t('heroTitle')) + '</h1>' +
-        '<p class="hero-subtitle">' + escapeHtml(t('heroSubtitle')) + '</p>' +
+        '<p class="eyebrow">The Happy-Makers Present</p>' +
+        '<h1>24 Gentle Steps to Christmas</h1>' +
+        '<p class="hero-subtitle">A Mindful Family Journey of Togetherness, Reflection &amp; the Magic of Christmas</p>' +
+        '<div class="hero-meta"><span>10 minutes a day</span><span>24 days</span><span>3 mini-rituals</span></div>' +
+        '<button class="primary-cta" type="button" data-start>Open Day ' + nextDay + '</button>' +
       '</div>' +
-      '<div class="cover-card"><img src="../assets/images/24%20Gentle%20Steps%20to%20Christmas%20cover.jpg" alt="" /></div>' +
+      '<div class="hero-visual"><div class="hero-visual-frame">' +
+        '<img src="../assets/images/24%20Gentle%20Steps%20to%20Christmas%20cover.jpg" alt="24 Gentle Steps to Christmas cover" />' +
+      '</div></div>' +
     '</section>' +
-    progressCard() +
-    '<div class="section-heading"><h2>' + escapeHtml(t('calendarTitle')) + '</h2><p>' + escapeHtml(t('calendarHint')) + '</p></div>' +
-    '<section class="calendar-grid" aria-label="' + escapeHtml(t('calendarTitle')) + '">' + calendar + '</section>' +
+    renderProgress() +
     '<section class="ritual-strip" aria-label="Daily ritual">' +
-      '<div class="ritual-pill">◌<br>' + escapeHtml(t('mindful')) + '</div>' +
-      '<div class="ritual-pill">✦<br>' + escapeHtml(t('fun')) + '</div>' +
-      '<div class="ritual-pill">♡<br>' + escapeHtml(t('connection')) + '</div>' +
+      '<div class="ritual-pill mindful"><span>◌</span><strong>Mindful Moment</strong></div>' +
+      '<div class="ritual-pill fun"><span>✦</span><strong>Fun Spark</strong></div>' +
+      '<div class="ritual-pill connection"><span>♡</span><strong>Family Connection</strong></div>' +
     '</section>' +
-    '<p class="home-note">' + escapeHtml(t('homeNote')) + '</p>';
+    '<div class="section-heading"><h2>Your Advent journey</h2><p>One day, three shared moments, endless memories.</p></div>' +
+    packs.map(renderWeek).join('') +
+    '<p class="home-footnote">No prep. No mess. No glitter required.</p>' +
+    aboutDialog();
 
-  wireGlobalActions();
-  app.querySelectorAll('[data-day]').forEach(function (button) {
-    button.addEventListener('click', function () {
-      renderDay(Number(button.dataset.day));
-    });
+  wireCommon();
+  app.querySelector('[data-start]').addEventListener('click', () => renderDay(nextDay));
+  app.querySelectorAll('[data-day]').forEach((button) => {
+    button.addEventListener('click', () => renderDay(Number(button.dataset.day)));
   });
 }
 
-function sectionLabel(type) {
-  if (type === 'mindful') return t('mindful');
-  if (type === 'fun') return t('fun');
-  return t('connection');
+function sectionType(category) {
+  if (category === 'Mindful Moment') return 'mindful';
+  if (category === 'Fun Spark') return 'fun';
+  return 'connection';
+}
+
+function bodyClass(text) {
+  const trimmed = text.trim();
+  if (
+    /^Round\b/i.test(trimmed) ||
+    /^Final\b/i.test(trimmed) ||
+    /^Challenge\b/i.test(trimmed) ||
+    /^Gratitude for This Advent$/i.test(trimmed) ||
+    /^Wishes for Our Family$/i.test(trimmed) ||
+    /^Movement \+Sound \+ Face Examples:$/i.test(trimmed)
+  ) return 'body-label';
+  return '';
 }
 
 function renderSection(section) {
-  const body = section.body.map(function (paragraph) {
-    return '<p>' + escapeHtml(paragraph) + '</p>';
-  }).join('');
+  const body = section.body.map((paragraph) =>
+    '<p class="' + bodyClass(paragraph) + '">' + escapeHtml(paragraph) + '</p>'
+  ).join('');
 
-  return '<article class="activity-card" data-type="' + escapeHtml(section.type) + '">' +
-    '<p class="activity-label">' + escapeHtml(sectionLabel(section.type)) + '</p>' +
+  return '<article class="activity-card" data-type="' + sectionType(section.category) + '">' +
+    '<p class="activity-label">' + escapeHtml(section.category) + '</p>' +
     '<h2>' + escapeHtml(section.title) + '</h2>' +
     '<p class="activity-tagline">' + escapeHtml(section.tagline) + '</p>' +
     '<div class="activity-body">' + body + '</div>' +
-    '<div class="character-note"><strong>' + escapeHtml(section.note_label) + ':</strong> ' + escapeHtml(section.note) + '</div>' +
+    '<div class="character-note"><strong>' + escapeHtml(section.note_label) + ':</strong> ' + escapeHtml(section.note) +
+      '<span class="source-page">Final paperback source · page ' + section.page + '</span>' +
+    '</div>' +
   '</article>';
 }
 
-function renderDay(dayNumber) {
-  const day = pack.days.find(function (item) { return item.day === dayNumber; });
-  if (!day) return;
+function renderLocked(dayNumber) {
+  app.innerHTML = topbar() +
+    '<section class="locked-card"><div class="lock-icon">✦</div><h1>Day ' + dayNumber + ' opens December ' + dayNumber + '</h1><p>Your next Gentle Step will be here when its day arrives.</p></section>' +
+    '<button class="back-button" type="button" data-home>← All days</button>' +
+    aboutDialog();
+  wireCommon();
+  app.querySelector('[data-home]').addEventListener('click', renderHome);
+}
 
+function renderDay(dayNumber) {
+  if (!isUnlocked(dayNumber)) {
+    currentDay = dayNumber;
+    renderLocked(dayNumber);
+    return;
+  }
+
+  const day = days.find((item) => item.day === dayNumber);
+  if (!day) return;
   currentDay = dayNumber;
-  document.documentElement.lang = state.locale === 'pl-PL' ? 'pl' : 'en';
-  const copy = day.locales[state.locale];
+  const pack = weekForDay(dayNumber);
   const complete = state.completed.includes(dayNumber);
 
   app.innerHTML = topbar() +
     '<div class="detail-shell">' +
-      '<button type="button" class="back-button" data-home>← ' + escapeHtml(t('back')) + '</button>' +
+      '<button type="button" class="back-button" data-home>← All 24 days</button>' +
       '<section class="detail-hero">' +
-        '<p class="detail-kicker">' + escapeHtml(copy.title) + ' · ' + dayNumber + ' ' + escapeHtml(t('dayOf')) + '</p>' +
-        '<h1>' + dayNumber + '</h1>' +
-        '<p class="detail-intro">' + escapeHtml(copy.intro) + '</p>' +
+        '<p class="detail-kicker">Week ' + pack.week + ' · Day ' + dayNumber + ' of 24</p>' +
+        '<h1>Day ' + dayNumber + '</h1>' +
+        '<p class="detail-week">' + escapeHtml(pack.week_quote) + '</p>' +
       '</section>' +
-      copy.sections.map(renderSection).join('') +
+      day.sections.map(renderSection).join('') +
       '<nav class="day-nav" aria-label="Day navigation">' +
-        '<button type="button" class="secondary-button" data-prev ' + (dayNumber <= 1 ? 'disabled' : '') + '>← ' + escapeHtml(t('previous')) + '</button>' +
-        '<button type="button" class="secondary-button" data-next ' + (dayNumber >= 3 ? 'disabled' : '') + '>' + escapeHtml(t('next')) + ' →</button>' +
+        '<button type="button" class="secondary-button" data-prev ' + (dayNumber <= 1 ? 'disabled' : '') + '>← Previous</button>' +
+        '<button type="button" class="secondary-button" data-next ' + (dayNumber >= 24 ? 'disabled' : '') + '>Next →</button>' +
       '</nav>' +
-      '<div class="detail-actions"><button type="button" class="primary-button ' + (complete ? 'completed' : '') + '" data-complete>' + escapeHtml(complete ? t('completed') : t('complete')) + '</button></div>' +
-    '</div>';
+      '<div class="detail-actions"><button type="button" class="complete-button ' + (complete ? 'completed' : '') + '" data-complete>' +
+        (complete ? 'Completed ✓ · tap to undo' : 'Mark Day ' + dayNumber + ' complete') +
+      '</button></div>' +
+    '</div>' +
+    aboutDialog();
 
-  wireGlobalActions();
-  app.querySelector('[data-home]').addEventListener('click', renderHome);
+  wireCommon();
+  app.querySelector('[data-home]').addEventListener('click', () => {
+    renderHome();
+    window.scrollTo(0, 0);
+  });
 
   const prev = app.querySelector('[data-prev]');
   const next = app.querySelector('[data-next]');
-  if (!prev.disabled) prev.addEventListener('click', function () { renderDay(dayNumber - 1); window.scrollTo(0, 0); });
-  if (!next.disabled) next.addEventListener('click', function () { renderDay(dayNumber + 1); window.scrollTo(0, 0); });
+  if (!prev.disabled) prev.addEventListener('click', () => {
+    renderDay(dayNumber - 1);
+    window.scrollTo(0, 0);
+  });
+  if (!next.disabled) next.addEventListener('click', () => {
+    renderDay(dayNumber + 1);
+    window.scrollTo(0, 0);
+  });
 
-  app.querySelector('[data-complete]').addEventListener('click', function () {
-    const exists = state.completed.includes(dayNumber);
-    state.completed = exists
-      ? state.completed.filter(function (value) { return value !== dayNumber; })
-      : state.completed.concat(dayNumber).sort(function (a, b) { return a - b; });
+  app.querySelector('[data-complete]').addEventListener('click', () => {
+    const already = state.completed.includes(dayNumber);
+    state.completed = already
+      ? state.completed.filter((value) => value !== dayNumber)
+      : state.completed.concat(dayNumber).sort((a, b) => a - b);
     saveState();
-    showToast(exists ? t('toastUndo') : t('toastDone'));
+    showToast(already ? 'Completion removed.' : 'Day ' + dayNumber + ' saved. That is enough for today.');
     renderDay(dayNumber);
   });
 }
 
-function wireGlobalActions() {
-  app.querySelectorAll('[data-locale]').forEach(function (button) {
-    button.addEventListener('click', function () {
-      state.locale = button.dataset.locale;
-      saveState();
-      if (currentDay) renderDay(currentDay);
-      else renderHome();
-    });
-  });
+function wireCommon() {
+  const about = app.querySelector('[data-about]');
+  const dialog = app.querySelector('#about-dialog');
+  const close = app.querySelector('[data-close-about]');
+  if (about && dialog) about.addEventListener('click', () => dialog.showModal());
+  if (close && dialog) close.addEventListener('click', () => dialog.close());
 }
 
 async function init() {
   try {
-    const response = await fetch('./content/days-01-03.json', { cache: 'no-store' });
-    if (!response.ok) throw new Error('content request failed');
-    pack = await response.json();
+    const responses = await Promise.all(PACK_URLS.map((url) => fetch(url, { cache: 'no-store' })));
+    if (responses.some((response) => !response.ok)) throw new Error('content request failed');
+    packs = await Promise.all(responses.map((response) => response.json()));
 
-    const preview = new URLSearchParams(window.location.search);
-    if (preview.get('lang') === 'pl') state.locale = 'pl-PL';
-    if (preview.get('lang') === 'en') state.locale = 'en';
+    if (packs.some((pack) => pack.source_sha256 !== SOURCE_SHA || pack.canonical_locale !== 'en')) {
+      throw new Error('source lock mismatch');
+    }
 
-    const requestedDay = Number(preview.get('day'));
-    if (AVAILABLE_DAYS.includes(requestedDay)) renderDay(requestedDay);
+    packs.sort((a, b) => a.week - b.week);
+    days = packs.flatMap((pack) => pack.days).sort((a, b) => a.day - b.day);
+
+    const requestedDay = Number(params.get('day'));
+    if (Number.isInteger(requestedDay) && requestedDay >= 1 && requestedDay <= 24) renderDay(requestedDay);
     else renderHome();
 
     if ('serviceWorker' in navigator && location.protocol !== 'file:') {
-      navigator.serviceWorker.register('./service-worker.js').catch(function () {});
+      navigator.serviceWorker.register('./service-worker.js').catch(() => {});
     }
   } catch (error) {
-    app.innerHTML = '<section class="error-card"><h1>' + escapeHtml(t('error')) + '</h1><p>' + escapeHtml(String(error.message || error)) + '</p></section>';
+    app.innerHTML = '<section class="error-card"><h1>Gentle Steps could not load.</h1><p>' + escapeHtml(String(error.message || error)) + '</p></section>';
   }
 }
 
