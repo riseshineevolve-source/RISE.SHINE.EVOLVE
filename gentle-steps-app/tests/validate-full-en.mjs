@@ -71,6 +71,9 @@ if (!app.includes("params.get('family') === '1'")) fail('family review route mis
 if (!app.includes('FAMILY_ASSET')) fail('family hero asset contract missing');
 if (!app.includes('CHARACTER_ASSETS')) fail('character avatar contract missing');
 if (!app.includes('familyDialog()')) fail('Meet the Happy-Makers experience missing');
+if (!app.includes('nativeReminderPlugin()')) fail('native reminder bridge missing');
+if (!app.includes('REMINDER_NOTIFICATION_BASE_ID')) fail('Advent reminder ID contract missing');
+if (!app.includes('for (let day = 1; day <= 24; day += 1)')) fail('24-day reminder scheduling loop missing');
 if (!app.includes('isUnlocked')) fail('Advent day-lock behavior missing');
 if (app.includes('supabase') || app.includes('firebase') || app.includes('openai')) fail('no backend/AI dependency allowed');
 
