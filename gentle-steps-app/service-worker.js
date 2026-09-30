@@ -10,12 +10,6 @@ const APP_SHELL = [
   './content/week-03.json',
   './content/week-04.json',
   '../assets/images/24%20Gentle%20Steps%20to%20Christmas%20cover.jpg',
-  '../assets/images/Happy%20Makers%20floating%20box.png',
-  '../assets/images/Mimi.png',
-  '../assets/images/Luli.png',
-  '../assets/images/Dilo.png',
-  '../assets/images/Alio.png',
-  '../assets/images/Nini.png',
   '../assets/js/rse-analytics-consent.js'
 ];
 
