@@ -1,47 +1,50 @@
-const CACHE_NAME = 'gentle-steps-shell-v1';
+const CACHE_NAME = 'gentle-steps-en-full24-v2';
 const APP_SHELL = [
   './',
   './index.html',
   './styles.css',
   './app.js',
   './manifest.webmanifest',
-  './content/days-01-03.json',
+  './content/week-01.json',
+  './content/week-02.json',
+  './content/week-03.json',
+  './content/week-04.json',
   '../assets/images/24%20Gentle%20Steps%20to%20Christmas%20cover.jpg',
   '../assets/js/rse-analytics-consent.js'
 ];
 
-self.addEventListener('install', function (event) {
+self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME)
-      .then(function (cache) { return cache.addAll(APP_SHELL); })
-      .then(function () { return self.skipWaiting(); })
+      .then((cache) => cache.addAll(APP_SHELL))
+      .then(() => self.skipWaiting())
   );
 });
 
-self.addEventListener('activate', function (event) {
+self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys()
-      .then(function (keys) {
-        return Promise.all(keys.filter(function (key) { return key !== CACHE_NAME; }).map(function (key) { return caches.delete(key); }));
-      })
-      .then(function () { return self.clients.claim(); })
+      .then((keys) => Promise.all(keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key))))
+      .then(() => self.clients.claim())
   );
 });
 
-self.addEventListener('fetch', function (event) {
+self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
 
   event.respondWith(
-    caches.match(event.request).then(function (cached) {
+    caches.match(event.request).then((cached) => {
       if (cached) return cached;
-      return fetch(event.request).then(function (response) {
-        const copy = response.clone();
-        caches.open(CACHE_NAME).then(function (cache) { cache.put(event.request, copy); });
-        return response;
-      }).catch(function () {
-        if (event.request.mode === 'navigate') return caches.match('./index.html');
-        throw new Error('offline resource unavailable');
-      });
+      return fetch(event.request)
+        .then((response) => {
+          const copy = response.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy));
+          return response;
+        })
+        .catch(() => {
+          if (event.request.mode === 'navigate') return caches.match('./index.html');
+          throw new Error('offline resource unavailable');
+        });
     })
   );
 });
