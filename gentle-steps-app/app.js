@@ -358,7 +358,7 @@ function renderSection(section) {
   ).join('');
   const owner = noteOwner(section.note_label);
   const avatar = owner
-    ? '<img class="character-avatar" src="' + CHARACTER_ASSETS[owner] + '" alt="" loading="lazy" decoding="async" />'
+    ? '<span class="character-avatar character-avatar-initial" aria-hidden="true">' + escapeHtml(owner.slice(0, 1)) + '</span>'
     : '<span class="character-avatar character-avatar-group" aria-hidden="true">✦</span>';
 
   return '<article class="activity-card" data-type="' + sectionType(section.category) + '">' +
