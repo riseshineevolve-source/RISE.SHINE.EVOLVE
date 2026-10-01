@@ -51,7 +51,7 @@ jobs:
         shell: bash
         run: |
           chmod +x gradlew
-          ./gradlew assembleDebug bundleRelease --stacktrace
+          ./gradlew lintDebug assembleDebug bundleRelease --stacktrace
 
       - name: Record package metadata
         working-directory: gentle-steps-app/android-shell
@@ -62,6 +62,11 @@ jobs:
           sha256sum android/app/build/outputs/apk/debug/app-debug.apk > android-build-sha256.txt
           sha256sum android/app/build/outputs/bundle/release/app-release.aab >> android-build-sha256.txt
           cat android-build-sha256.txt
+          test -f android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png
+          test -f android/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml
+          test -f android/app/src/main/res/drawable/splash.xml
+          test -f android-branding.json
+          cat android-branding.json
 
       - name: Upload Android build proof
         uses: actions/upload-artifact@v4
@@ -72,4 +77,7 @@ jobs:
             gentle-steps-app/android-shell/android/app/build/outputs/bundle/release/app-release.aab
             gentle-steps-app/android-shell/android-build-sha256.txt
             gentle-steps-app/android-shell/dist/native-build.json
+            gentle-steps-app/android-shell/android-branding.json
+            gentle-steps-app/android-shell/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png
+            gentle-steps-app/android-shell/android/app/src/main/res/drawable/splash.xml
           if-no-files-found: error
