@@ -1440,3 +1440,95 @@ body::before {
   background: transparent;
   color: var(--muted);
 }
+
+
+/* V2.2 — mobile accessibility + clean family crop + overflow hardening */
+body {
+  overflow-x: hidden;
+}
+
+.app-shell {
+  overflow-x: clip;
+}
+
+.topbar-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 6px;
+}
+
+.ghost-button,
+.primary-cta,
+.secondary-hero-cta,
+.back-button,
+.secondary-button,
+.complete-button,
+.about-close,
+.reminder-cancel,
+.reminder-dismiss {
+  min-height: 44px;
+}
+
+.hero-visual-frame,
+.family-group-frame {
+  overflow: hidden;
+}
+
+.hero-visual img {
+  transform: scale(1.08);
+  object-position: center 46% !important;
+}
+
+.family-group-frame img {
+  transform: scale(1.08);
+  object-position: center 47% !important;
+}
+
+.activity-card h2,
+.activity-body,
+.character-note-copy,
+.family-intro,
+.family-profile,
+.detail-week {
+  overflow-wrap: anywhere;
+}
+
+button:focus-visible,
+input:focus-visible {
+  outline: 3px solid rgba(210, 166, 64, .42);
+  outline-offset: 2px;
+}
+
+@media (max-width: 460px) {
+  .topbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .brand-lockup {
+    min-height: 44px;
+  }
+
+  .topbar-actions {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .ghost-button {
+    width: 100%;
+    padding-inline: 7px;
+    font-size: .73rem;
+    white-space: normal;
+    line-height: 1.15;
+  }
+
+  .hero-copy {
+    min-height: 0;
+  }
+
+  .hero-visual-frame {
+    aspect-ratio: 16 / 10;
+  }
+}
