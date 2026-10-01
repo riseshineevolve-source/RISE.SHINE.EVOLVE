@@ -42,13 +42,22 @@ jobs:
 
           "$CHROME" --headless --no-sandbox --disable-gpu --hide-scrollbars --virtual-time-budget=4500             --window-size=390,1200             --screenshot=gentle-steps-review/day12-en-visual-v2-390x1200.png             "http://127.0.0.1:4173/gentle-steps-app/?preview=1&day=12"
 
+          "$CHROME" --headless --no-sandbox --disable-gpu --hide-scrollbars --virtual-time-budget=4500             --window-size=390,1600             --screenshot=gentle-steps-review/day22-en-visual-v2-390x1600.png             "http://127.0.0.1:4173/gentle-steps-app/?preview=1&day=22"
+
+          "$CHROME" --headless --no-sandbox --disable-gpu --hide-scrollbars --virtual-time-budget=4500             --window-size=390,1600             --screenshot=gentle-steps-review/day23-en-visual-v2-390x1600.png             "http://127.0.0.1:4173/gentle-steps-app/?preview=1&day=23"
+
           "$CHROME" --headless --no-sandbox --disable-gpu --hide-scrollbars --virtual-time-budget=4500             --window-size=390,1200             --screenshot=gentle-steps-review/day24-en-visual-v2-390x1200.png             "http://127.0.0.1:4173/gentle-steps-app/?preview=1&day=24"
+
+          "$CHROME" --headless --no-sandbox --disable-gpu --hide-scrollbars --virtual-time-budget=4500             --window-size=820,900             --screenshot=gentle-steps-review/brand-assets-preview-820x900.png             "http://127.0.0.1:4173/gentle-steps-app/brand/preview.html"
 
           test -s gentle-steps-review/home-en-visual-v2-390x844.png
           test -s gentle-steps-review/family-en-visual-v2-390x1000.png
           test -s gentle-steps-review/day01-en-visual-v2-390x1200.png
           test -s gentle-steps-review/day12-en-visual-v2-390x1200.png
+          test -s gentle-steps-review/day22-en-visual-v2-390x1600.png
+          test -s gentle-steps-review/day23-en-visual-v2-390x1600.png
           test -s gentle-steps-review/day24-en-visual-v2-390x1200.png
+          test -s gentle-steps-review/brand-assets-preview-820x900.png
 
       - name: Upload mobile review evidence
         uses: actions/upload-artifact@v4
