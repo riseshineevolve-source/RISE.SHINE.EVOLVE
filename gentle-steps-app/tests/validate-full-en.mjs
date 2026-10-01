@@ -71,6 +71,11 @@ if (!app.includes("params.get('family') === '1'")) fail('family review route mis
 if (!app.includes('FAMILY_ASSET')) fail('family hero asset contract missing');
 if (!app.includes('CHARACTER_ASSETS')) fail('character avatar contract missing');
 if (!app.includes('familyDialog()')) fail('Meet the Happy-Makers experience missing');
+if (!app.includes('aria-labelledby="about-title"')) fail('about dialog accessibility label missing');
+if (!app.includes('aria-labelledby="family-title"')) fail('family dialog accessibility label missing');
+if (!app.includes('aria-labelledby="reminder-title"')) fail('reminder dialog accessibility label missing');
+if (!app.includes('aria-current="date"')) fail('current-day semantic state missing');
+if (!app.includes('of 24 days completed')) fail('progress accessibility label missing');
 if (!app.includes('nativeReminderPlugin()')) fail('native reminder bridge missing');
 if (!app.includes('REMINDER_NOTIFICATION_BASE_ID')) fail('Advent reminder ID contract missing');
 if (!app.includes('for (let day = 1; day <= 24; day += 1)')) fail('24-day reminder scheduling loop missing');
@@ -97,6 +102,9 @@ for (const token of ['--purple-950', '--purple-800', '--purple-600', '--purple-5
 if (!css.includes('.character-avatar')) fail('character-note avatar styling missing');
 if (!css.includes('.family-profile-grid')) fail('family-profile styling missing');
 if (!css.includes('.hero-visual')) fail('family hero styling missing');
+if (!css.includes('min-height: 44px;')) fail('44px touch-target hardening missing');
+if (!css.includes('overflow-x: hidden;')) fail('horizontal overflow hardening missing');
+if (!css.includes('object-position: center 46% !important;')) fail('clean family hero crop missing');
 if (css.includes('--evergreen')) fail('old green palette leaked into English build');
 
 if (sourceLock.paperback.sha256 !== sourceSha) fail('source-lock paperback hash mismatch');
@@ -110,5 +118,5 @@ if (day24.sections[2].title !== 'Circle of Gratitude & Wishes') fail('Day 24 sou
 
 if (!process.exitCode) {
   console.log('PASS: Gentle Steps full English 24-day app contract');
-  console.log('PASS: 24 days / 72 source pages / EN-only / multi-purple-gold-cream / Happy-Makers visual identity / offline / no backend');
+  console.log('PASS: 24 days / 72 source pages / EN-only / multi-purple-gold-cream / Happy-Makers visual identity / accessibility hardening / offline / no backend');
 }
