@@ -5,9 +5,10 @@
   "description": "Android shell for 24 Gentle Steps to Christmas",
   "scripts": {
     "web:prepare": "node prepare-web.mjs",
-    "android:generate": "npm run web:prepare && rm -rf android && npx cap add android && npx cap sync android",
+    "android:generate": "npm run web:prepare && rm -rf android && npx cap add android && npx cap sync android && npm run android:brand",
     "android:debug": "npm run android:generate && cd android && ./gradlew assembleDebug",
-    "android:bundle": "npm run android:generate && cd android && ./gradlew bundleRelease"
+    "android:bundle": "npm run android:generate && cd android && ./gradlew bundleRelease",
+    "android:brand": "node prepare-android-branding.mjs"
   },
   "dependencies": {
     "@capacitor/android": "8.5.2",
