@@ -77,10 +77,10 @@ function nativeReminderPlugin() {
 function reminderDialog() {
   if (!nativeReminderPlugin()) return '';
   const saved = localStorage.getItem(REMINDER_STORAGE_KEY) || '18:30';
-  return '<dialog id="reminder-dialog" class="reminder-dialog">' +
+  return '<dialog id="reminder-dialog" class="reminder-dialog" aria-labelledby="reminder-title">' +
     '<div class="reminder-sheet">' +
       '<p class="family-eyebrow">Gentle reminder</p>' +
-      '<h2>Choose your daily Advent time</h2>' +
+      '<h2 id="reminder-title">Choose your daily Advent time</h2>' +
       '<p>A small local reminder on this device only. No account, cloud sync or push server.</p>' +
       '<label class="reminder-time-label" for="reminder-time">Daily reminder</label>' +
       '<input id="reminder-time" class="reminder-time" type="time" value="' + escapeHtml(saved) + '" />' +
@@ -172,9 +172,9 @@ function topbar() {
 }
 
 function aboutDialog() {
-  return '<dialog id="about-dialog">' +
+  return '<dialog id="about-dialog" aria-labelledby="about-title">' +
     '<div class="about-sheet">' +
-      '<h2>One day. Three shared moments.</h2>' +
+      '<h2 id="about-title">One day. Three shared moments.</h2>' +
       '<p class="about-lead">A Mindful Family Journey of Togetherness, Reflection &amp; the Magic of Christmas.</p>' +
       '<p>Created for real families, <strong>24 Gentle Steps to Christmas</strong> transforms just 10 minutes a day into calm, laughter and meaningful connection.</p>' +
       '<p><strong>No prep. No mess. No glitter required.</strong></p>' +
@@ -191,18 +191,18 @@ function aboutDialog() {
 function familyDialog() {
   const cards = FAMILY_PROFILES.map((profile) =>
     '<article class="family-profile">' +
-      '<img src="' + profile.image + '" alt="" loading="lazy" />' +
+      '<img src="' + profile.image + '" alt="" loading="lazy" decoding="async" />' +
       '<div><h3>' + escapeHtml(profile.name) + '</h3><p>' + escapeHtml(profile.title) + '</p>' +
       (profile.motto ? '<small>“' + escapeHtml(profile.motto) + '”</small>' : '') +
       '</div>' +
     '</article>'
   ).join('');
 
-  return '<dialog id="family-dialog" class="family-dialog">' +
+  return '<dialog id="family-dialog" class="family-dialog" aria-labelledby="family-title">' +
     '<div class="family-sheet">' +
       '<p class="family-eyebrow">Meet the Happy-Makers Family</p>' +
-      '<div class="family-group-frame"><img src="' + FAMILY_ASSET + '" alt="The Happy-Makers family" /></div>' +
-      '<h2>Your cheerful companions for the journey</h2>' +
+      '<div class="family-group-frame"><img src="' + FAMILY_ASSET + '" alt="The Happy-Makers family" loading="lazy" decoding="async" /></div>' +
+      '<h2 id="family-title">Your cheerful companions for the journey</h2>' +
       '<p class="family-intro">Full of sparkle, laughter, love and just the right pinch of playful holiday magic. Delightfully imperfect, beautifully lively and wonderfully real.</p>' +
       '<div class="family-profile-grid">' + cards + '</div>' +
       '<button class="about-close" type="button" data-close-family>Back to the journey</button>' +
@@ -242,7 +242,7 @@ function weekForDay(dayNumber) {
 function renderProgress() {
   const count = completedCount();
   const angle = Math.round((count / 24) * 360);
-  return '<section class="progress-card" style="--progress-angle:' + angle + 'deg">' +
+  return '<section class="progress-card" aria-label="' + count + ' of 24 days completed" style="--progress-angle:' + angle + 'deg">' +
     '<div class="progress-orb" aria-hidden="true">' + count + '</div>' +
     '<div class="progress-copy"><strong>Your 24-day journey</strong><span>Progress is saved on this device.</span></div>' +
     '<div class="progress-count">' + count + ' / 24</div>' +
@@ -269,13 +269,13 @@ function renderWeek(pack) {
     ].filter(Boolean).join(' ');
 
     if (!unlocked) {
-      return '<div class="' + className + '" aria-disabled="true">' +
+      return '<div class="' + className + '" aria-disabled="true" aria-label="Day ' + day.day + ' - opens December ' + day.day + '">' +
         '<span class="day-number">' + day.day + '</span>' +
         '<span class="day-status">' + dayStatus(day.day) + '</span>' +
       '</div>';
     }
 
-    return '<button class="' + className + '" type="button" data-day="' + day.day + '" aria-label="Day ' + day.day + ' - ' + dayStatus(day.day) + '">' +
+    return '<button class="' + className + '" type="button" data-day="' + day.day + '" aria-label="Day ' + day.day + ' - ' + dayStatus(day.day) + '"' + (today ? ' aria-current="date"' : '') + '>' +
       (completed ? '<span class="day-check" aria-hidden="true">✓</span>' : '') +
       '<span class="day-number">' + day.day + '</span>' +
       '<span class="day-status">' + dayStatus(day.day) + '</span>' +
@@ -306,7 +306,7 @@ function renderHome() {
         '</div>' +
       '</div>' +
       '<div class="hero-visual"><div class="hero-visual-frame">' +
-        '<img src="' + FAMILY_ASSET + '" alt="The Happy-Makers family in their purple and gold Christmas world" />' +
+        '<img src="' + FAMILY_ASSET + '" alt="The Happy-Makers family in their purple and gold Christmas world" fetchpriority="high" decoding="async" />' +
       '</div></div>' +
     '</section>' +
     renderProgress() +
@@ -358,7 +358,7 @@ function renderSection(section) {
   ).join('');
   const owner = noteOwner(section.note_label);
   const avatar = owner
-    ? '<img class="character-avatar" src="' + CHARACTER_ASSETS[owner] + '" alt="" loading="lazy" />'
+    ? '<img class="character-avatar" src="' + CHARACTER_ASSETS[owner] + '" alt="" loading="lazy" decoding="async" />'
     : '<span class="character-avatar character-avatar-group" aria-hidden="true">✦</span>';
 
   return '<article class="activity-card" data-type="' + sectionType(section.category) + '">' +
