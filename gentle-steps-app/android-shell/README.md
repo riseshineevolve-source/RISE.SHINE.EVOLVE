@@ -16,6 +16,7 @@ This ID is **provisional until the owner approves the final Google Play package 
 - local progress remains on-device;
 - no account/backend requirement;
 - character assets are optimized to WebP during the native build;
+- provisional internal-test icon/splash use the locked purple + gold + cream visual system and contain no text;
 - optional daily reminder uses Capacitor Local Notifications;
 - reminder is scheduled locally on-device only after the user explicitly chooses a time;
 - Android 13+ notification permission is requested only when the user saves a reminder;
@@ -29,6 +30,7 @@ Node 22+ is required by Capacitor 8.
 npm install
 npm run android:generate
 cd android
+./gradlew lintDebug
 ./gradlew assembleDebug
 ./gradlew bundleRelease
 ```
