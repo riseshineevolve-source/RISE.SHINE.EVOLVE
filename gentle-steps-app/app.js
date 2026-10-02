@@ -248,13 +248,15 @@ function getTodayDay() {
   return null;
 }
 
-function isUnlocked(day) {
+function isUnlocked(day, now = new Date()) {
   if (previewMode) return true;
-  const now = new Date();
-  if (now.getMonth() === 11 && now.getDate() >= 1 && now.getDate() <= 24) {
-    return day <= now.getDate();
-  }
-  return true;
+  const month = now.getMonth();
+  const date = now.getDate();
+
+  if (month < 11) return false;
+  if (month === 11 && date <= 24) return day <= date;
+  if (month === 11 && date > 24) return true;
+  return false;
 }
 
 function nextJourneyDay() {
@@ -321,6 +323,7 @@ function renderHome() {
   document.documentElement.lang = 'en';
 
   const nextDay = nextJourneyDay();
+  const nextDayLabel = isUnlocked(nextDay) ? 'Open Day ' + nextDay : 'Begins December 1';
   app.innerHTML = topbar() +
     '<section class="hero">' +
       '<div class="hero-copy">' +
@@ -329,7 +332,7 @@ function renderHome() {
         '<p class="hero-subtitle">A Mindful Family Journey of Togetherness, Reflection &amp; the Magic of Christmas</p>' +
         '<div class="hero-meta"><span>10 minutes a day</span><span>24 days</span><span>3 mini-rituals</span></div>' +
         '<div class="hero-actions">' +
-          '<button class="primary-cta" type="button" data-start>Open Day ' + nextDay + '</button>' +
+          '<button class="primary-cta" type="button" data-start>' + nextDayLabel + '</button>' +
           '<button class="secondary-hero-cta" type="button" data-family>Meet the Happy-Makers</button>' +
         '</div>' +
       '</div>' +
