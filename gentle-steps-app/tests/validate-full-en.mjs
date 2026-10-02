@@ -69,7 +69,7 @@ if (!app.includes('localStorage')) fail('local progress persistence missing');
 if (!app.includes("params.get('preview') === '1'")) fail('owner/test preview override missing');
 if (!app.includes("params.get('family') === '1'")) fail('family review route missing');
 if (!app.includes('FAMILY_ASSET')) fail('family hero asset contract missing');
-if (!app.includes('CHARACTER_NAMES')) fail('character avatar contract missing');
+if (!app.includes('CHARACTER_ASSETS')) fail('character avatar contract missing');
 if (!app.includes('familyDialog()')) fail('Meet the Happy-Makers experience missing');
 if (!app.includes('aria-labelledby="about-title"')) fail('about dialog accessibility label missing');
 if (!app.includes('aria-labelledby="family-title"')) fail('family dialog accessibility label missing');
@@ -90,10 +90,12 @@ if (!index.includes('/assets/js/rse-analytics-consent.js')) fail('privacy-first 
 for (const file of weekFiles) {
   if (!sw.includes(file.replace('content/', './content/'))) fail('offline cache missing ' + file);
 }
-if (!app.includes("./brand/concepts/splash-v2-city-family.webp")) fail('approved Gentle Steps city-family visual missing');
-if (!sw.includes("./brand/concepts/splash-v2-city-family.webp")) fail('approved family visual not cached offline');
+if (!app.includes("./brand/generated/family-clean.webp")) fail('generated Happy-Makers family visual missing');
+for (const file of ['family-clean.webp','Mimi.webp','Luli.webp','Dilo.webp','Alio.webp','Nini.webp']) {
+  if (!sw.includes('./brand/generated/' + file)) fail('generated family asset not cached offline: ' + file);
+}
 if (app.includes("../assets/images/Mimi.png") || app.includes("../assets/images/Luli.png")) fail('heavy legacy character PNGs leaked into app runtime');
-if (!app.includes("characterPortrait(")) fail('lightweight character portrait crop contract missing');
+if (!app.includes("./brand/generated/Mimi.webp")) fail('optimized character portrait mapping missing');
 if (manifest.display !== 'standalone') fail('PWA standalone display required');
 if (manifest.lang !== 'en') fail('manifest must be English');
 if (manifest.theme_color !== '#4b2865') fail('purple theme color mismatch');
@@ -106,8 +108,8 @@ if (!css.includes('.family-profile-grid')) fail('family-profile styling missing'
 if (!css.includes('.hero-visual')) fail('family hero styling missing');
 if (!css.includes('min-height: 44px;')) fail('44px touch-target hardening missing');
 if (!css.includes('overflow-x: hidden;')) fail('horizontal overflow hardening missing');
-if (!css.includes('object-position: center 71% !important;')) fail('approved city-family hero crop missing');
-if (!css.includes('.portrait-nini')) fail('character portrait crop map missing');
+if (!css.includes('V2.4 — generated Happy-Makers runtime assets')) fail('generated family asset layout missing');
+if (!css.includes('family-profile img.family-profile-avatar')) fail('optimized family profile styling missing');
 if (!css.includes('padding-bottom: calc(104px + env(safe-area-inset-bottom));')) fail('sticky completion safe-area clearance missing');
 if (css.includes('--evergreen')) fail('old green palette leaked into English build');
 
