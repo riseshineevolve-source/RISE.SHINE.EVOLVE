@@ -1632,3 +1632,53 @@ input:focus-visible {
     height: 50px;
   }
 }
+
+
+/* V2.4 — generated Happy-Makers runtime assets */
+.hero-visual img,
+.family-group-frame img {
+  transform: none !important;
+  object-position: center !important;
+}
+
+.hero-visual-frame {
+  aspect-ratio: 4 / 3;
+  max-width: 320px;
+}
+
+.family-group-frame {
+  aspect-ratio: 4 / 3;
+  max-width: 430px;
+}
+
+.family-profile img.family-profile-avatar {
+  display: block;
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  object-position: center top;
+  border: 1.5px solid var(--gold-500);
+  border-radius: 50%;
+  background: #efe2f5;
+  box-shadow: 0 5px 13px rgba(52,18,67,.12);
+}
+
+.character-avatar {
+  display: block;
+  object-fit: cover;
+  object-position: center top;
+}
+
+@media (max-width: 460px) {
+  .hero-visual-frame {
+    width: min(100%, 330px);
+    max-width: 330px;
+    aspect-ratio: 4 / 3;
+  }
+
+  .hero-visual img,
+  .family-group-frame img {
+    transform: none !important;
+    object-position: center !important;
+  }
+}
