@@ -82,6 +82,8 @@ if (!app.includes("localNotificationActionPerformed")) fail('notification tap na
 if (!app.includes('pendingReminderDay')) fail('cold-start reminder navigation queue missing');
 if (!app.includes('for (let day = 1; day <= 24; day += 1)')) fail('24-day reminder scheduling loop missing');
 if (!app.includes('isUnlocked')) fail('Advent day-lock behavior missing');
+if (!app.includes('if (month < 11) return false;')) fail('pre-Advent lock contract missing');
+if (!app.includes("'Begins December 1'")) fail('pre-Advent home CTA missing');
 if (app.includes('supabase') || app.includes('firebase') || app.includes('openai')) fail('no backend/AI dependency allowed');
 
 for (const required of ['./styles.css', './app.js', './manifest.webmanifest']) {
