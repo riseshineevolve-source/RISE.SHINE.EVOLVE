@@ -10,21 +10,22 @@ const PACK_URLS = [
   './content/week-04.json'
 ];
 
-const FAMILY_ASSET = './brand/concepts/splash-v2-city-family.webp';
-const CHARACTER_NAMES = ['Mimi', 'Luli', 'Dilo', 'Alio', 'Nini'];
+const FAMILY_ASSET = './brand/generated/family-clean.webp';
+const CHARACTER_ASSETS = {
+  Mimi: './brand/generated/Mimi.webp',
+  Luli: './brand/generated/Luli.webp',
+  Dilo: './brand/generated/Dilo.webp',
+  Alio: './brand/generated/Alio.webp',
+  Nini: './brand/generated/Nini.webp'
+};
 
 const FAMILY_PROFILES = [
-  { name: 'Mimi', title: 'The Heart and Heroine' },
-  { name: 'Luli', title: 'The Elegant Detective of Holiday Magic', motto: 'Life is a mystery best solved with style.' },
-  { name: 'Dilo', title: 'The Striker With Holiday Swagger', motto: 'Glow bold, score big.' },
-  { name: 'Alio', title: 'The Chief Holiday Chaos Engineer', motto: 'Maximum fun, mostly safe...' },
-  { name: 'Nini', title: 'The Pocket-Sized Joy Distributor', motto: 'If it sparkles, she approves.' }
+  { name: 'Mimi', title: 'The Heart and Heroine', image: CHARACTER_ASSETS.Mimi },
+  { name: 'Luli', title: 'The Elegant Detective of Holiday Magic', image: CHARACTER_ASSETS.Luli, motto: 'Life is a mystery best solved with style.' },
+  { name: 'Dilo', title: 'The Striker With Holiday Swagger', image: CHARACTER_ASSETS.Dilo, motto: 'Glow bold, score big.' },
+  { name: 'Alio', title: 'The Chief Holiday Chaos Engineer', image: CHARACTER_ASSETS.Alio, motto: 'Maximum fun, mostly safe...' },
+  { name: 'Nini', title: 'The Pocket-Sized Joy Distributor', image: CHARACTER_ASSETS.Nini, motto: 'If it sparkles, she approves.' }
 ];
-
-function characterPortrait(name, extraClass = '') {
-  const safeName = CHARACTER_NAMES.includes(name) ? name.toLowerCase() : 'group';
-  return '<span class="character-portrait portrait-' + safeName + ' ' + extraClass + '" role="img" aria-label="' + escapeHtml(name) + '"></span>';
-}
 
 const params = new URLSearchParams(window.location.search);
 const previewMode = params.get('preview') === '1';
@@ -190,7 +191,7 @@ function aboutDialog() {
 function familyDialog() {
   const cards = FAMILY_PROFILES.map((profile) =>
     '<article class="family-profile">' +
-      characterPortrait(profile.name, 'family-profile-avatar') +
+      '<img class="family-profile-avatar" src="' + profile.image + '" alt="" loading="lazy" decoding="async" />' +
       '<div><h3>' + escapeHtml(profile.name) + '</h3><p>' + escapeHtml(profile.title) + '</p>' +
       (profile.motto ? '<small>“' + escapeHtml(profile.motto) + '”</small>' : '') +
       '</div>' +
@@ -348,7 +349,7 @@ function bodyClass(text) {
 }
 
 function noteOwner(noteLabel) {
-  return CHARACTER_NAMES.find((name) => noteLabel.startsWith(name)) || null;
+  return Object.keys(CHARACTER_ASSETS).find((name) => noteLabel.startsWith(name)) || null;
 }
 
 function renderSection(section) {
@@ -357,7 +358,7 @@ function renderSection(section) {
   ).join('');
   const owner = noteOwner(section.note_label);
   const avatar = owner
-    ? characterPortrait(owner, 'character-avatar')
+    ? '<img class="character-avatar" src="' + CHARACTER_ASSETS[owner] + '" alt="" loading="lazy" decoding="async" />'
     : '<span class="character-avatar character-avatar-group" aria-hidden="true">✦</span>';
 
   return '<article class="activity-card" data-type="' + sectionType(section.category) + '">' +
