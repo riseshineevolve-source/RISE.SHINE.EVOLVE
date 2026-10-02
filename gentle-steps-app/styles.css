@@ -1854,3 +1854,26 @@ input:focus-visible {
     height: auto !important;
   }
 }
+
+
+/* V2.7 — force family cluster geometry above legacy image rules */
+.hero-visual .family-cluster-person,
+.family-group-frame .family-cluster-person {
+  width: 31% !important;
+  height: auto !important;
+  aspect-ratio: 1 / 1 !important;
+  object-fit: cover !important;
+  object-position: center top !important;
+}
+
+.hero-visual .family-cluster-person.cluster-mimi {
+  width: 38% !important;
+}
+
+.family-group-frame .family-dialog-cluster .family-cluster-person {
+  width: 29% !important;
+}
+
+.family-group-frame .family-dialog-cluster .family-cluster-person.cluster-mimi {
+  width: 36% !important;
+}
