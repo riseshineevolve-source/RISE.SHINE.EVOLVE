@@ -8,5 +8,17 @@
   "background_color": "#fff9ee",
   "theme_color": "#4b2865",
   "lang": "en",
-  "categories": ["lifestyle", "family", "education"]
+  "categories": [
+    "lifestyle",
+    "family",
+    "education"
+  ],
+  "icons": [
+    {
+      "src": "./brand/app-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
 }
