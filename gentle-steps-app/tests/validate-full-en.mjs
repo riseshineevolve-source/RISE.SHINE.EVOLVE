@@ -113,7 +113,8 @@ if (!css.includes('overflow-x: hidden;')) fail('horizontal overflow hardening mi
 if (!css.includes('V2.4 — generated Happy-Makers runtime assets')) fail('generated family asset layout missing');
 if (!css.includes('family-profile img.family-profile-avatar')) fail('optimized family profile styling missing');
 if (!css.includes('V2.5 — text-free Happy-Makers family cluster')) fail('text-free family cluster styling missing');
-if (!css.includes('padding-bottom: calc(104px + env(safe-area-inset-bottom));')) fail('sticky completion safe-area clearance missing');
+if (!css.includes('V2.6 — final family cluster geometry')) fail('final family cluster geometry missing');
+if (!css.includes('position: static;')) fail('non-obscuring completion action missing');
 if (css.includes('--evergreen')) fail('old green palette leaked into English build');
 
 if (sourceLock.paperback.sha256 !== sourceSha) fail('source-lock paperback hash mismatch');
