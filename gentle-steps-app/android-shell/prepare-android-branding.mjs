@@ -11,6 +11,7 @@ const brandRoot = path.join(shellRoot, '..', 'brand');
 const icon = await fs.readFile(path.join(brandRoot, 'app-icon.svg'));
 const foreground = await fs.readFile(path.join(brandRoot, 'app-icon-foreground.svg'));
 const splash = await fs.readFile(path.join(brandRoot, 'splash-mark.svg'));
+const splashCity = await fs.readFile(path.join(brandRoot, 'concepts', 'splash-v2-city-family.webp'));
 
 const densities = {
   mdpi: { legacy: 48, foreground: 108 },
@@ -68,11 +69,15 @@ for (const dirent of await fs.readdir(resRoot, { withFileTypes: true })) {
 const splashNoDpi = path.join(resRoot, 'drawable-nodpi');
 await fs.mkdir(splashNoDpi, { recursive: true });
 await sharp(splash).resize(384, 384).png().toFile(path.join(splashNoDpi, 'gentle_splash_mark.png'));
+await sharp(splashCity)
+  .resize(1080, 1920, { fit: 'cover', position: 'centre' })
+  .png()
+  .toFile(path.join(splashNoDpi, 'gentle_splash_city.png'));
 await fs.writeFile(path.join(drawable, 'splash.xml'), `<?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
   <item android:drawable="@color/gentle_splash_bg"/>
   <item>
-    <bitmap android:src="@drawable/gentle_splash_mark" android:gravity="center"/>
+    <bitmap android:src="@drawable/gentle_splash_city" android:gravity="fill"/>
   </item>
 </layer-list>
 `);
@@ -84,6 +89,8 @@ const metadata = {
   app_icon_source_sha256: sha(icon),
   adaptive_foreground_source_sha256: sha(foreground),
   splash_mark_source_sha256: sha(splash),
+  splash_city_source_sha256: sha(splashCity),
+  splash_direction: 'OWNER_APPROVED_V2_CITY_FAMILY',
   final_owner_approval_required_before_play_creation: true
 };
 await fs.writeFile(path.join(shellRoot, 'android-branding.json'), JSON.stringify(metadata, null, 2) + '\n');
