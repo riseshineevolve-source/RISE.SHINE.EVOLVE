@@ -1,0 +1,49 @@
+name: Gentle Steps Generate Web Brand Assets
+
+on:
+  push:
+    paths:
+      - ".github/workflows/gentle-steps-generate-assets.yml"
+      - "gentle-steps-app/android-shell/generate-web-brand-assets.mjs"
+      - "assets/images/24 Gentle Steps to Christmas cover.jpg"
+      - "assets/images/Mimi.png"
+      - "assets/images/Luli.png"
+      - "assets/images/Dilo.png"
+      - "assets/images/Alio.png"
+      - "assets/images/Nini.png"
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install existing Android-shell tooling
+        working-directory: gentle-steps-app/android-shell
+        run: npm install --no-audit --no-fund
+
+      - name: Generate optimized web brand assets
+        working-directory: gentle-steps-app/android-shell
+        run: node generate-web-brand-assets.mjs
+
+      - name: Commit generated assets
+        shell: bash
+        run: |
+          git config user.name "rse-gentle-steps-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add gentle-steps-app/brand/generated/
+          if git diff --cached --quiet; then
+            echo "No generated asset changes."
+            exit 0
+          fi
+          git commit -m "Generate optimized Gentle Steps family assets"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
