@@ -1820,3 +1820,37 @@ input:focus-visible {
     border-width: 2px;
   }
 }
+
+
+/* V2.6 — final family cluster geometry + non-obscuring completion action */
+.family-cluster-person {
+  height: auto !important;
+  border-radius: 50% !important;
+  transform: none !important;
+}
+
+.hero-visual .family-cluster-person {
+  height: auto !important;
+  object-fit: cover;
+  object-position: center top !important;
+}
+
+.detail-actions {
+  position: static;
+  bottom: auto;
+  margin-top: 2px;
+}
+
+.detail-shell {
+  padding-bottom: max(34px, env(safe-area-inset-bottom));
+}
+
+@media (max-width: 460px) {
+  .detail-shell {
+    padding-bottom: max(38px, env(safe-area-inset-bottom));
+  }
+
+  .family-cluster-person {
+    height: auto !important;
+  }
+}
