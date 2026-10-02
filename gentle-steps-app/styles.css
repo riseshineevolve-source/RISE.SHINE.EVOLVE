@@ -1877,3 +1877,21 @@ input:focus-visible {
 .family-group-frame .family-dialog-cluster .family-cluster-person.cluster-mimi {
   width: 36% !important;
 }
+
+
+/* V2.8 — family dialog full-cluster frame */
+.family-dialog .family-group-frame {
+  aspect-ratio: auto;
+  height: 310px;
+}
+
+.family-dialog .family-dialog-cluster {
+  min-height: 0;
+  height: 100%;
+}
+
+@media (max-width: 460px) {
+  .family-dialog .family-group-frame {
+    height: 280px;
+  }
+}
