@@ -11,7 +11,6 @@ const brandRoot = path.join(shellRoot, '..', 'brand');
 const icon = await fs.readFile(path.join(brandRoot, 'app-icon.svg'));
 const foreground = await fs.readFile(path.join(brandRoot, 'app-icon-foreground.svg'));
 const splash = await fs.readFile(path.join(brandRoot, 'splash-mark.svg'));
-const splashCity = await fs.readFile(path.join(brandRoot, 'concepts', 'splash-v2-city-family.webp'));
 
 const densities = {
   mdpi: { legacy: 48, foreground: 108 },
@@ -69,8 +68,60 @@ for (const dirent of await fs.readdir(resRoot, { withFileTypes: true })) {
 const splashNoDpi = path.join(resRoot, 'drawable-nodpi');
 await fs.mkdir(splashNoDpi, { recursive: true });
 await sharp(splash).resize(384, 384).png().toFile(path.join(splashNoDpi, 'gentle_splash_mark.png'));
-await sharp(splashCity)
-  .resize(1080, 1920, { fit: 'cover', position: 'centre' })
+const cityMark = await sharp(splash)
+  .resize(760, 760, { fit: 'contain' })
+  .png()
+  .toBuffer();
+
+await sharp({
+  create: {
+    width: 1080,
+    height: 1920,
+    channels: 4,
+    background: { r: 36, g: 17, b: 47, alpha: 1 }
+  }
+})
+  .composite([
+    {
+      input: Buffer.from(`<svg width="1080" height="1920" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="glow" cx="50%" cy="38%" r="60%">
+            <stop offset="0" stop-color="#8E4BC1" stop-opacity=".76"/>
+            <stop offset=".48" stop-color="#4C1D72" stop-opacity=".46"/>
+            <stop offset="1" stop-color="#24112F" stop-opacity="0"/>
+          </radialGradient>
+          <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#FFF4C8"/>
+            <stop offset=".55" stop-color="#D2A640"/>
+            <stop offset="1" stop-color="#8F6114"/>
+          </linearGradient>
+        </defs>
+        <rect width="1080" height="1920" fill="url(#glow)"/>
+        <g fill="#E9D08B" opacity=".7">
+          <circle cx="170" cy="250" r="5"/><circle cx="900" cy="320" r="7"/>
+          <circle cx="250" cy="520" r="4"/><circle cx="830" cy="620" r="5"/>
+          <circle cx="120" cy="920" r="6"/><circle cx="930" cy="1080" r="5"/>
+          <circle cx="260" cy="1320" r="4"/><circle cx="810" cy="1420" r="6"/>
+        </g>
+        <path d="M0 1625 L110 1560 L210 1600 L325 1480 L430 1545 L535 1430 L640 1515 L760 1460 L870 1550 L980 1490 L1080 1540 L1080 1920 L0 1920 Z" fill="#1B0A24"/>
+        <g fill="#D2A640" opacity=".82">
+          <rect x="148" y="1632" width="18" height="22" rx="2"/>
+          <rect x="364" y="1574" width="18" height="22" rx="2"/>
+          <rect x="558" y="1530" width="18" height="22" rx="2"/>
+          <rect x="774" y="1570" width="18" height="22" rx="2"/>
+          <rect x="934" y="1585" width="18" height="22" rx="2"/>
+        </g>
+        <path d="M80 1710 C260 1620 355 1685 520 1605 C675 1530 820 1610 1000 1515" fill="none" stroke="url(#gold)" stroke-width="9" stroke-linecap="round" opacity=".8"/>
+      </svg>`),
+      top: 0,
+      left: 0
+    },
+    {
+      input: cityMark,
+      top: 420,
+      left: 160
+    }
+  ])
   .png()
   .toFile(path.join(splashNoDpi, 'gentle_splash_city.png'));
 await fs.writeFile(path.join(drawable, 'splash.xml'), `<?xml version="1.0" encoding="utf-8"?>
@@ -89,8 +140,8 @@ const metadata = {
   app_icon_source_sha256: sha(icon),
   adaptive_foreground_source_sha256: sha(foreground),
   splash_mark_source_sha256: sha(splash),
-  splash_city_source_sha256: sha(splashCity),
-  splash_direction: 'OWNER_APPROVED_V2_CITY_FAMILY',
+  splash_city_source_sha256: 'DETERMINISTIC_FROM_SPLASH_MARK',
+  splash_direction: 'OWNER_APPROVED_V2_CITY_SIMPLIFIED_RUNTIME',
   final_owner_approval_required_before_play_creation: true
 };
 await fs.writeFile(path.join(shellRoot, 'android-branding.json'), JSON.stringify(metadata, null, 2) + '\n');
