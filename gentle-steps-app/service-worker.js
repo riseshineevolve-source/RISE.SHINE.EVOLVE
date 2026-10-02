@@ -1,4 +1,4 @@
-const CACHE_NAME = 'gentle-steps-en-full24-v2';
+const CACHE_NAME = 'gentle-steps-en-full24-v3';
 const APP_SHELL = [
   './',
   './index.html',
@@ -9,7 +9,7 @@ const APP_SHELL = [
   './content/week-02.json',
   './content/week-03.json',
   './content/week-04.json',
-  '../assets/images/24%20Gentle%20Steps%20to%20Christmas%20cover.jpg',
+  './brand/concepts/splash-v2-city-family.webp',
   '../assets/js/rse-analytics-consent.js'
 ];
 
