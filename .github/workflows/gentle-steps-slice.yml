@@ -59,6 +59,13 @@ jobs:
           test -s gentle-steps-review/day24-en-visual-v2-390x1200.png
           test -s gentle-steps-review/brand-assets-preview-820x1150.png
 
+      - name: Audit Gentle Steps Lighthouse
+        uses: treosh/lighthouse-ci-action@v12
+        with:
+          configPath: ./gentle-steps-app/lighthouse.config.json
+          uploadArtifacts: true
+          temporaryPublicStorage: true
+
       - name: Upload mobile review evidence
         uses: actions/upload-artifact@v4
         with:
