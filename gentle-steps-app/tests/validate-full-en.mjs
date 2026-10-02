@@ -78,6 +78,8 @@ if (!app.includes('aria-current="date"')) fail('current-day semantic state missi
 if (!app.includes('of 24 days completed')) fail('progress accessibility label missing');
 if (!app.includes('nativeReminderPlugin()')) fail('native reminder bridge missing');
 if (!app.includes('REMINDER_NOTIFICATION_BASE_ID')) fail('Advent reminder ID contract missing');
+if (!app.includes("localNotificationActionPerformed")) fail('notification tap navigation missing');
+if (!app.includes('pendingReminderDay')) fail('cold-start reminder navigation queue missing');
 if (!app.includes('for (let day = 1; day <= 24; day += 1)')) fail('24-day reminder scheduling loop missing');
 if (!app.includes('isUnlocked')) fail('Advent day-lock behavior missing');
 if (app.includes('supabase') || app.includes('firebase') || app.includes('openai')) fail('no backend/AI dependency allowed');
