@@ -10,6 +10,7 @@ const APP_SHELL = [
   './content/week-03.json',
   './content/week-04.json',
   './brand/generated/family-clean.webp',
+  './brand/app-icon.svg',
   './brand/generated/Mimi.webp',
   './brand/generated/Luli.webp',
   './brand/generated/Dilo.webp',
