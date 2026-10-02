@@ -1,0 +1,50 @@
+{
+  "status": "GENERATED_FROM_OWNER_LOCKED_REPO_ART",
+  "generated_by": "gentle-steps generate web brand assets",
+  "family_source": "assets/images/24 Gentle Steps to Christmas cover.jpg",
+  "portrait_sources": [
+    "Mimi.png",
+    "Luli.png",
+    "Dilo.png",
+    "Alio.png",
+    "Nini.png"
+  ],
+  "files": {
+    "family-clean.webp": {
+      "sha256": "a900cce3692552b0b8bcb32d8c82fc3455ca40526b3fa694f169942d9f112351",
+      "bytes": 53826,
+      "width": 960,
+      "height": 720
+    },
+    "Mimi.webp": {
+      "sha256": "803802173af931c6cfb1650d4becf3751608248b729bb6452b99242dec1b7b06",
+      "bytes": 6442,
+      "width": 192,
+      "height": 192
+    },
+    "Luli.webp": {
+      "sha256": "0a47cb63cd6e796d636d97e33c2a9cd1be23ab4ee0d2065e82ce4d4f11ca1a77",
+      "bytes": 5416,
+      "width": 192,
+      "height": 192
+    },
+    "Dilo.webp": {
+      "sha256": "8bdd1d32acacb290e230fd41dc607f9a7a12fa794378c16768f65bbf73a7f66f",
+      "bytes": 6194,
+      "width": 192,
+      "height": 192
+    },
+    "Alio.webp": {
+      "sha256": "d7c9f2760fe6b5a8840406629c3dac8f599380b0c63430c2cd0801c01151665b",
+      "bytes": 5374,
+      "width": 192,
+      "height": 192
+    },
+    "Nini.webp": {
+      "sha256": "51026591723beeff6ab4567b33515f7f3ada155c8b68dc3bb163514812db7d61",
+      "bytes": 8204,
+      "width": 192,
+      "height": 192
+    }
+  }
+}
