@@ -1,4 +1,4 @@
-const CACHE_NAME = 'gentle-steps-en-full24-v3';
+const CACHE_NAME = 'gentle-steps-en-full24-v4';
 const APP_SHELL = [
   './',
   './index.html',
@@ -9,7 +9,12 @@ const APP_SHELL = [
   './content/week-02.json',
   './content/week-03.json',
   './content/week-04.json',
-  './brand/concepts/splash-v2-city-family.webp',
+  './brand/generated/family-clean.webp',
+  './brand/generated/Mimi.webp',
+  './brand/generated/Luli.webp',
+  './brand/generated/Dilo.webp',
+  './brand/generated/Alio.webp',
+  './brand/generated/Nini.webp',
   '../assets/js/rse-analytics-consent.js'
 ];
 
