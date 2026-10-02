@@ -9,7 +9,7 @@ const dist = path.join(shellRoot, 'dist');
 
 await fs.rm(dist, { recursive: true, force: true });
 await fs.mkdir(path.join(dist, 'content'), { recursive: true });
-await fs.mkdir(path.join(dist, 'brand', 'concepts'), { recursive: true });
+await fs.mkdir(path.join(dist, 'brand', 'generated'), { recursive: true });
 
 async function read(relative) {
   return fs.readFile(path.join(appRoot, relative), 'utf8');
@@ -38,10 +38,12 @@ for (const name of ['source-lock.json','week-01.json','week-02.json','week-03.js
   await fs.copyFile(path.join(appRoot, 'content', name), path.join(dist, 'content', name));
 }
 
-await fs.copyFile(
-  path.join(appRoot, 'brand', 'concepts', 'splash-v2-city-family.webp'),
-  path.join(dist, 'brand', 'concepts', 'splash-v2-city-family.webp')
-);
+for (const name of ['family-clean.webp','Mimi.webp','Luli.webp','Dilo.webp','Alio.webp','Nini.webp','manifest.json']) {
+  await fs.copyFile(
+    path.join(appRoot, 'brand', 'generated', name),
+    path.join(dist, 'brand', 'generated', name)
+  );
+}
 
 await write('native-build.json', JSON.stringify({
   product_id: 'gentle_steps_christmas',
@@ -50,7 +52,8 @@ await write('native-build.json', JSON.stringify({
   android_package_id_status: 'PROVISIONAL_PRE_PLAY',
   android_package_id: 'com.riseshineevolve.gentlesteps',
   reminders: 'native_local_only',
-  family_visual: 'brand/concepts/splash-v2-city-family.webp'
+  family_visual: 'brand/generated/family-clean.webp',
+  character_visuals: 'brand/generated/*.webp'
 }, null, 2));
 
 console.log('Prepared native web bundle at', dist);
