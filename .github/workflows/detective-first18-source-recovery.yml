@@ -1,0 +1,54 @@
+name: Detective First18 source recovery
+on:
+  push:
+    branches: [execution/detective-first18-20261002]
+    paths: [.github/workflows/detective-first18-source-recovery.yml]
+permissions:
+  contents: read
+jobs:
+  recover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify and package existing sources without modifying them
+        shell: bash
+        run: |
+          python - <<'PY'
+          import hashlib, json, pathlib, subprocess, zipfile
+          root = pathlib.Path('.')
+          locks = {
+            'assets/images/Mimi.png': 'bb354282aa0c5d5580b5d6a18e2c80e42eac32bb',
+            'assets/images/Luli.png': 'c3bea1b1297e7fe6eb358ad80973a733d5b4f341',
+            'assets/images/Dilo.png': 'e2804d0a61cd78ec9acc2f72a5119647cd6991bf',
+            'assets/images/Alio.png': '8b53c935f3c1a80765e62b88b245230a07bae5fa',
+            'assets/images/Nini.png': 'c88893b9e1ad86cefbf5e57ea302a95056bd8937',
+            'assets/images/Grandma Bibi.png': 'ef9782d74f3055e58cc938cad78f54de3967a6a3',
+            'assets/images/Happy Makers detectives.png': 'd9ec83c7cbd5c29c428c6fd3ebcdaaa3272ab976',
+          }
+          report = {'scope': 'READ-ONLY recovery for Pages 1-18; Case 02+ unchanged', 'head': subprocess.check_output(['git','rev-parse','HEAD'], text=True).strip(), 'assets': []}
+          for name, expected in locks.items():
+              raw = (root/name).read_bytes()
+              actual = hashlib.sha1(('blob '+str(len(raw))+'\0').encode()+raw).hexdigest()
+              if actual != expected:
+                  raise SystemExit('SOURCE HASH MISMATCH: '+name)
+              report['assets'].append({'path': name, 'git_blob_sha1': actual, 'sha256': hashlib.sha256(raw).hexdigest(), 'bytes': len(raw)})
+          selected = set(locks)
+          factory = root/'tools/detective-book-factory'
+          permitted = {'.py','.md','.json','.yml','.yaml','.txt','.png','.jpg','.jpeg','.svg'}
+          for path in factory.rglob('*'):
+              if path.is_file() and path.suffix.lower() in permitted and not any(part in {'dist','node_modules','__pycache__','.git'} for part in path.parts):
+                  selected.add(path.as_posix())
+          pathlib.Path('first18-recovery').mkdir()
+          with zipfile.ZipFile('first18-recovery/exact-existing-first18-sources.zip','w',zipfile.ZIP_DEFLATED) as archive:
+              for name in sorted(selected): archive.write(name,name)
+              archive.writestr('SOURCE_RECOVERY_PROVENANCE.json',json.dumps(report,indent=2)+'\n')
+          pathlib.Path('first18-recovery/SOURCE_RECOVERY_PROVENANCE.json').write_text(json.dumps(report,indent=2)+'\n')
+          print('Verified all 7 locked owner/RSE assets. Packaged',len(selected),'existing files. No source modifications.')
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: detective-first18-exact-source-recovery
+          path: first18-recovery/
+          if-no-files-found: error
+          retention-days: 30
