@@ -7,5 +7,9 @@
   "cast": "five Happy-Makers only; no Grandma Bibi",
   "source_generated_asset": "a_cozy_polished_festive_animated_3d_rendered_po.png",
   "repo_asset": "gentle-steps-app/brand/concepts/splash-v2-city-family.webp",
-  "notes": "Reference concept for splash/marketing direction. Preserve current Happy-Makers identity rules when adapting into app assets."
+  "notes": "Reference concept for splash/marketing direction. Preserve current Happy-Makers identity rules when adapting into app assets.",
+  "runtime_use": false,
+  "runtime_reason": "Owner-approved visual reference only. The stored reference raster is not used in runtime; Android splash is generated deterministically from validated purple/gold SVG assets.",
+  "runtime_implementation": "gentle-steps-app/android-shell/prepare-android-branding.mjs",
+  "family_runtime_assets": "gentle-steps-app/brand/generated/"
 }
