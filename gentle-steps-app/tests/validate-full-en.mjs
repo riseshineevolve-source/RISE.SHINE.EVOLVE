@@ -102,6 +102,8 @@ if (app.includes("../assets/images/Mimi.png") || app.includes("../assets/images/
 if (!app.includes("./brand/generated/Mimi.webp")) fail('optimized character portrait mapping missing');
 if (manifest.display !== 'standalone') fail('PWA standalone display required');
 if (manifest.lang !== 'en') fail('manifest must be English');
+if (!Array.isArray(manifest.icons) || !manifest.icons.some((icon) => icon.src === './brand/app-icon.svg')) fail('manifest PWA icon missing');
+if (!sw.includes('./brand/app-icon.svg')) fail('PWA icon not cached offline');
 if (manifest.theme_color !== '#4b2865') fail('purple theme color mismatch');
 
 for (const token of ['--purple-950', '--purple-800', '--purple-600', '--purple-500', '--gold-500', '--cream', '--burgundy']) {
