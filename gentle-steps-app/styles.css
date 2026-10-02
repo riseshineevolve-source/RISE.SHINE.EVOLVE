@@ -1682,3 +1682,141 @@ input:focus-visible {
     object-position: center !important;
   }
 }
+
+
+/* V2.5 — text-free Happy-Makers family cluster */
+.hero-visual-frame {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 38%, rgba(255,244,200,.30), transparent 36%),
+    radial-gradient(circle at 22% 18%, rgba(142,75,193,.34), transparent 35%),
+    linear-gradient(150deg, #351545 0%, #6f35a5 58%, #24112f 100%);
+}
+
+.family-cluster {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 230px;
+  overflow: hidden;
+  border-radius: inherit;
+  background:
+    radial-gradient(circle at 50% 42%, rgba(255,247,232,.14), transparent 44%),
+    radial-gradient(circle at 12% 82%, rgba(210,166,64,.15), transparent 35%);
+}
+
+.family-cluster::before,
+.family-cluster::after {
+  content: "✦";
+  position: absolute;
+  z-index: 0;
+  color: #f5d880;
+  text-shadow: 0 0 16px rgba(245,216,128,.55);
+}
+
+.family-cluster::before {
+  left: 8%;
+  top: 9%;
+  font-size: 17px;
+}
+
+.family-cluster::after {
+  right: 10%;
+  top: 15%;
+  font-size: 11px;
+}
+
+.family-cluster-glow {
+  position: absolute;
+  left: 50%;
+  top: 49%;
+  z-index: 0;
+  transform: translate(-50%, -50%);
+  color: rgba(245,216,128,.36);
+  font-size: 132px;
+  line-height: 1;
+  filter: blur(.2px);
+}
+
+.family-cluster-person {
+  position: absolute;
+  z-index: 2;
+  display: block;
+  width: 31%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  object-position: center top;
+  border: 3px solid rgba(250,240,208,.94);
+  border-radius: 50%;
+  background: #efe2f5;
+  box-shadow:
+    0 9px 22px rgba(24,7,33,.28),
+    0 0 0 2px rgba(210,166,64,.62);
+}
+
+.family-cluster-person.cluster-mimi {
+  width: 38%;
+  left: 31%;
+  top: 6%;
+  z-index: 5;
+}
+
+.family-cluster-person.cluster-dilo {
+  left: 7%;
+  top: 28%;
+  z-index: 4;
+}
+
+.family-cluster-person.cluster-luli {
+  right: 7%;
+  top: 28%;
+  z-index: 4;
+}
+
+.family-cluster-person.cluster-alio {
+  left: 18%;
+  bottom: 5%;
+  z-index: 6;
+}
+
+.family-cluster-person.cluster-nini {
+  right: 18%;
+  bottom: 5%;
+  z-index: 7;
+}
+
+.family-group-frame {
+  padding: 6px;
+  background: linear-gradient(135deg, #f5d880, #ad7420 45%, #fae8b1);
+}
+
+.family-dialog-cluster {
+  min-height: 300px;
+}
+
+.family-dialog-cluster .family-cluster-person {
+  width: 29%;
+}
+
+.family-dialog-cluster .family-cluster-person.cluster-mimi {
+  width: 36%;
+}
+
+.hero-family-cluster {
+  min-height: 245px;
+}
+
+@media (max-width: 460px) {
+  .hero-family-cluster {
+    min-height: 230px;
+  }
+
+  .family-dialog-cluster {
+    min-height: 275px;
+  }
+
+  .family-cluster-person {
+    border-width: 2px;
+  }
+}
