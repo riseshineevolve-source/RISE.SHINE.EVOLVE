@@ -44,6 +44,8 @@ const REMINDER_NOTIFICATION_BASE_ID = 2400;
 let packs = [];
 let days = [];
 let currentDay = null;
+let pendingReminderDay = null;
+let reminderNavigationWired = false;
 let state = loadState();
 
 function loadState() {
@@ -81,6 +83,23 @@ function showToast(message) {
 
 function nativeReminderPlugin() {
   return window.Capacitor?.Plugins?.LocalNotifications || null;
+}
+
+function wireNativeReminderNavigation() {
+  const plugin = nativeReminderPlugin();
+  if (!plugin || reminderNavigationWired) return;
+  reminderNavigationWired = true;
+
+  plugin.addListener('localNotificationActionPerformed', (action) => {
+    const day = Number(action?.notification?.extra?.day);
+    if (!Number.isInteger(day) || day < 1 || day > 24) return;
+    if (days.length) {
+      renderDay(day);
+      window.scrollTo(0, 0);
+    } else {
+      pendingReminderDay = day;
+    }
+  });
 }
 
 function reminderDialog() {
@@ -493,6 +512,7 @@ function wireCommon() {
 
 async function init() {
   try {
+    wireNativeReminderNavigation();
     const responses = await Promise.all(PACK_URLS.map((url) => fetch(url, { cache: 'no-store' })));
     if (responses.some((response) => !response.ok)) throw new Error('content request failed');
     packs = await Promise.all(responses.map((response) => response.json()));
@@ -505,8 +525,15 @@ async function init() {
     days = packs.flatMap((pack) => pack.days).sort((a, b) => a.day - b.day);
 
     const requestedDay = Number(params.get('day'));
-    if (Number.isInteger(requestedDay) && requestedDay >= 1 && requestedDay <= 24) renderDay(requestedDay);
-    else renderHome();
+    if (Number.isInteger(pendingReminderDay) && pendingReminderDay >= 1 && pendingReminderDay <= 24) {
+      const day = pendingReminderDay;
+      pendingReminderDay = null;
+      renderDay(day);
+    } else if (Number.isInteger(requestedDay) && requestedDay >= 1 && requestedDay <= 24) {
+      renderDay(requestedDay);
+    } else {
+      renderHome();
+    }
 
     if (params.get('family') === '1') {
       requestAnimationFrame(() => {
