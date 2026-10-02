@@ -1532,3 +1532,103 @@ input:focus-visible {
     aspect-ratio: 16 / 10;
   }
 }
+
+
+/* V2.3 — approved city-family integration + safe sticky clearance */
+.detail-shell {
+  padding-bottom: calc(104px + env(safe-area-inset-bottom));
+}
+
+.hero-visual-frame {
+  aspect-ratio: 16 / 10;
+  max-width: 320px;
+}
+
+.hero-visual img {
+  transform: scale(1.34);
+  object-position: center 71% !important;
+}
+
+.family-group-frame {
+  max-width: 430px;
+  aspect-ratio: 4 / 3;
+}
+
+.family-group-frame img {
+  transform: scale(1.24);
+  object-position: center 73% !important;
+}
+
+.character-portrait {
+  --portrait-x: 50%;
+  --portrait-y: 50%;
+  width: 56px;
+  height: 56px;
+  display: block;
+  flex: 0 0 auto;
+  border: 2px solid #e1bd66;
+  border-radius: 50%;
+  background-image: url("./brand/concepts/splash-v2-city-family.webp");
+  background-repeat: no-repeat;
+  background-size: 310% auto;
+  background-position: var(--portrait-x) var(--portrait-y);
+  background-color: #efe2f5;
+  box-shadow: 0 6px 16px rgba(52,18,67,.14);
+}
+
+.portrait-mimi { --portrait-x: 52%; --portrait-y: 46%; }
+.portrait-luli { --portrait-x: 28%; --portrait-y: 51%; }
+.portrait-dilo { --portrait-x: 77%; --portrait-y: 70%; }
+.portrait-alio { --portrait-x: 27%; --portrait-y: 70%; }
+.portrait-nini { --portrait-x: 52%; --portrait-y: 73%; }
+
+.character-avatar {
+  width: 56px;
+  height: 56px;
+}
+
+.family-profile {
+  grid-template-columns: 54px 1fr;
+}
+
+.family-profile-avatar {
+  width: 50px;
+  height: 50px;
+  border-width: 1.5px;
+}
+
+.family-profile img {
+  display: none;
+}
+
+@media (max-width: 460px) {
+  .hero-visual-frame {
+    width: min(100%, 330px);
+    max-width: 330px;
+    aspect-ratio: 16 / 10;
+  }
+
+  .hero-visual img {
+    transform: scale(1.38);
+    object-position: center 72% !important;
+  }
+
+  .family-group-frame {
+    max-width: 340px;
+    aspect-ratio: 4 / 3;
+  }
+
+  .family-group-frame img {
+    transform: scale(1.28);
+    object-position: center 74% !important;
+  }
+
+  .detail-shell {
+    padding-bottom: calc(116px + env(safe-area-inset-bottom));
+  }
+
+  .character-portrait.character-avatar {
+    width: 50px;
+    height: 50px;
+  }
+}
