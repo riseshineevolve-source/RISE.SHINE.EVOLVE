@@ -1,5 +1,16 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-  <circle cx="256" cy="256" r="160" fill="#FFF7E8" stroke="#D2A640" stroke-width="12"/>
-  <path d="M256 86 300 212 426 256 300 300 256 426 212 300 86 256 212 212Z" fill="#D2A640"/>
-  <path d="M256 204 308 256 256 308 204 256Z" fill="#4C1D72"/>
+  <defs>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FFF2BE"/>
+      <stop offset=".55" stop-color="#D2A640"/>
+      <stop offset="1" stop-color="#8F6114"/>
+    </linearGradient>
+  </defs>
+  <path d="M256 60 292 166 398 202 292 238 256 344 220 238 114 202 220 166Z" fill="url(#gold)"/>
+  <path d="M256 156 302 202 256 248 210 202Z" fill="#6F35A5" stroke="#FFF0BB" stroke-width="7"/>
+  <path d="M92 374h328" stroke="#E9D08B" stroke-width="8" stroke-linecap="round"/>
+  <path d="M118 374v-76h52v76m30 0v-112h62v112m30 0v-90h54v90m28 0v-62h34v62" fill="none" stroke="#FFF7E8" stroke-width="12" stroke-linejoin="round"/>
+  <g fill="#D2A640">
+    <circle cx="143" cy="326" r="6"/><circle cx="230" cy="294" r="6"/><circle cx="319" cy="316" r="6"/><circle cx="391" cy="338" r="6"/>
+  </g>
 </svg>
