@@ -119,6 +119,8 @@ if (!css.includes('family-profile img.family-profile-avatar')) fail('optimized f
 if (!css.includes('V2.5 — text-free Happy-Makers family cluster')) fail('text-free family cluster styling missing');
 if (!css.includes('V2.6 — final family cluster geometry')) fail('final family cluster geometry missing');
 if (!css.includes('V2.7 — force family cluster geometry')) fail('family cluster specificity fix missing');
+if (!css.includes('V2.8 — family dialog full-cluster frame')) fail('family dialog full-cluster frame missing');
+if (!css.includes('height: 310px;')) fail('family dialog cluster height contract missing');
 if (!css.includes('width: 31% !important;')) fail('family cluster explicit width override missing');
 if (!css.includes('position: static;')) fail('non-obscuring completion action missing');
 if (css.includes('--evergreen')) fail('old green palette leaked into English build');
