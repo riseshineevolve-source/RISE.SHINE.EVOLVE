@@ -42,6 +42,10 @@ jobs:
         working-directory: gentle-steps-app/android-shell
         run: npm install --no-audit --no-fund
 
+      - name: Audit native shell dependencies
+        working-directory: gentle-steps-app/android-shell
+        run: npm audit --audit-level=high
+
       - name: Generate Android project
         working-directory: gentle-steps-app/android-shell
         run: npm run android:generate
