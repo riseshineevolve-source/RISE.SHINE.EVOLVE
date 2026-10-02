@@ -10,7 +10,6 @@ const PACK_URLS = [
   './content/week-04.json'
 ];
 
-const FAMILY_ASSET = './brand/generated/family-clean.webp';
 const CHARACTER_ASSETS = {
   Mimi: './brand/generated/Mimi.webp',
   Luli: './brand/generated/Luli.webp',
@@ -26,6 +25,16 @@ const FAMILY_PROFILES = [
   { name: 'Alio', title: 'The Chief Holiday Chaos Engineer', image: CHARACTER_ASSETS.Alio, motto: 'Maximum fun, mostly safe...' },
   { name: 'Nini', title: 'The Pocket-Sized Joy Distributor', image: CHARACTER_ASSETS.Nini, motto: 'If it sparkles, she approves.' }
 ];
+
+function familyCluster(extraClass = '') {
+  const order = ['Alio', 'Dilo', 'Mimi', 'Luli', 'Nini'];
+  return '<div class="family-cluster ' + extraClass + '" role="img" aria-label="The Happy-Makers family">' +
+    '<span class="family-cluster-glow" aria-hidden="true">✦</span>' +
+    order.map((name) =>
+      '<img class="family-cluster-person cluster-' + name.toLowerCase() + '" src="' + CHARACTER_ASSETS[name] + '" alt="" decoding="async" />'
+    ).join('') +
+  '</div>';
+}
 
 const params = new URLSearchParams(window.location.search);
 const previewMode = params.get('preview') === '1';
@@ -201,7 +210,7 @@ function familyDialog() {
   return '<dialog id="family-dialog" class="family-dialog" aria-labelledby="family-title">' +
     '<div class="family-sheet">' +
       '<p class="family-eyebrow">Meet the Happy-Makers Family</p>' +
-      '<div class="family-group-frame"><img src="' + FAMILY_ASSET + '" alt="The Happy-Makers family" loading="lazy" decoding="async" /></div>' +
+      '<div class="family-group-frame">' + familyCluster('family-dialog-cluster') + '</div>' +
       '<h2 id="family-title">Your cheerful companions for the journey</h2>' +
       '<p class="family-intro">Full of sparkle, laughter, love and just the right pinch of playful holiday magic. Delightfully imperfect, beautifully lively and wonderfully real.</p>' +
       '<div class="family-profile-grid">' + cards + '</div>' +
@@ -306,7 +315,7 @@ function renderHome() {
         '</div>' +
       '</div>' +
       '<div class="hero-visual"><div class="hero-visual-frame">' +
-        '<img src="' + FAMILY_ASSET + '" alt="The Happy-Makers family in their purple and gold Christmas world" fetchpriority="high" decoding="async" />' +
+        familyCluster('hero-family-cluster') +
       '</div></div>' +
     '</section>' +
     renderProgress() +
