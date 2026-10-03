@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0",
+  "product": "24 Gentle Steps to Christmas",
+  "status": "OWNER_APPROVED_APP_CHRISTMAS_FAMILY_V1",
+  "approved_date": "2026-10-03",
+  "generation": {
+    "gen_id": "2b2548ee-8880-40ae-a66a-7605520e869f",
+    "conversation_file_id": "file_00000000689881f4a1ed4b9ba414ce08",
+    "filename": "świąteczny_portret_rodziny_w_fioletach_i_złocie.png"
+  },
+  "cast": [
+    "Mimi",
+    "Luli",
+    "Dilo",
+    "Alio",
+    "Nini"
+  ],
+  "excluded": [
+    "Grandma Bibi"
+  ],
+  "locks": {
+    "universe": "Gentle Steps Christmas only; no Detective Academy / Room 0 props or references",
+    "mood": "warm, elegant, sparkling, contemporary family Christmas",
+    "palette": [
+      "deep purple",
+      "plum",
+      "gold",
+      "cream",
+      "warm white"
+    ],
+    "green": "not a dominant brand color",
+    "boys": "must remain clearly distinct: Alio follows the younger purple-hoodie reference; Dilo follows the older purple-gold athletic jacket/heart reference",
+    "hats": "boys wear modest, masculine purple Santa hats with light trim; not oversized",
+    "girls": "keep approved faces/overall look from this V1",
+    "use": "primary Christmas family reference for Home/Family/splash and source for festive character cameos"
+  }
+}
