@@ -1,0 +1,20 @@
+project: rse-book-factory-v2
+status: architecture_locked_implementation_start
+branch: feature/rse-book-factory-v2
+base_head: e6a531bc6f26b7cafc4fa73b1af5ee549d1c4283
+legacy_factory:
+  path: tools/detective-book-factory
+  policy: migrate_and_wrap_do_not_rebuild_truth
+renderer:
+  target: react_css_svg_vivliostyle
+  visual_regression: playwright
+  validation: python_existing_plus_new
+first_gate:
+  book: detective-academy
+  case: 2
+  surfaces:
+    - case_intro
+    - witness_board
+    - live_map_verdict
+next_task: build source normalizer and v2 skeleton
+owner_approval_required_before_batch: true
